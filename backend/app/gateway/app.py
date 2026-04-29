@@ -214,7 +214,6 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
         """
         return {"status": "healthy", "service": "deer-flow-gateway"}
 
-
     # ==== Auth wiring (disabled by default — controlled by feature flags) ====
     # GSIC-003: AuthMiddleware — activate with AUTH_MIDDLEWARE_ENABLED=true
     # GSIC-004: Auth routes   — activate with AUTH_ROUTES_ENABLED=true
@@ -237,7 +236,6 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
             logger.info("Auth routes enabled (AUTH_ROUTES_ENABLED=true)")
     except Exception as e:
         logger.warning(f"Auth wiring failed (non-fatal): {e}")
-
 
     return app
 
