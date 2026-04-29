@@ -7,11 +7,8 @@ are correctly read and control the conditional wiring.
 from __future__ import annotations
 
 import ast
-import os
 import sys
 from pathlib import Path
-
-import pytest
 
 BACKEND = Path(__file__).parent.parent
 sys.path.insert(0, str(BACKEND))
@@ -31,10 +28,8 @@ class TestFlagDefaults:
         """Flag value is compared against 'true' string."""
         src = open(BACKEND / "app/gateway/app.py", encoding="utf-8").read()
         # .lower() == 'true' pattern ensures only explicit 'true' enables
-        assert '("AUTH_MIDDLEWARE_ENABLED", "false").lower() == "true"' in src or \
-               'get("AUTH_MIDDLEWARE_ENABLED", "false").lower()' in src
-        assert '("AUTH_ROUTES_ENABLED", "false").lower() == "true"' in src or \
-               'get("AUTH_ROUTES_ENABLED", "false").lower()' in src
+        assert '("AUTH_MIDDLEWARE_ENABLED", "false").lower() == "true"' in src or 'get("AUTH_MIDDLEWARE_ENABLED", "false").lower()' in src
+        assert '("AUTH_ROUTES_ENABLED", "false").lower() == "true"' in src or 'get("AUTH_ROUTES_ENABLED", "false").lower()' in src
 
 
 class TestFlagIsolation:
@@ -72,6 +67,6 @@ class TestFlagIsolation:
         # Auth wiring section should be in a try block
         auth_start = src.find("# ==== Auth wiring")
         assert auth_start != -1
-        auth_section = src[auth_start:auth_start + 2000]
+        auth_section = src[auth_start : auth_start + 2000]
         assert "try:" in auth_section, "Auth wiring must be inside try/except"
         assert "except Exception" in auth_section or "except" in auth_section, "Must catch exceptions"

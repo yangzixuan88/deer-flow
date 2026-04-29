@@ -14,8 +14,6 @@ import os
 import sys
 from pathlib import Path
 
-import pytest
-
 BACKEND = Path(__file__).parent.parent
 sys.path.insert(0, str(BACKEND))
 
@@ -105,8 +103,7 @@ class TestEnabledBehavior:
         # When AUTH_MIDDLEWARE_ENABLED=true and code does .lower() == 'true'
         # The condition is True, so If body (add_middleware) executes
         assert auth_if is not None
-        body_calls = [node.func.attr for node in ast.walk(auth_if)
-                      if isinstance(node, ast.Call) and hasattr(node.func, "attr")]
+        body_calls = [node.func.attr for node in ast.walk(auth_if) if isinstance(node, ast.Call) and hasattr(node.func, "attr")]
         assert "add_middleware" in body_calls
 
     def test_routes_enabled_when_flag_true(self, monkeypatch):
@@ -124,6 +121,5 @@ class TestEnabledBehavior:
                     break
 
         assert auth_if is not None
-        body_calls = [node.func.attr for node in ast.walk(auth_if)
-                      if isinstance(node, ast.Call) and hasattr(node.func, "attr")]
+        body_calls = [node.func.attr for node in ast.walk(auth_if) if isinstance(node, ast.Call) and hasattr(node.func, "attr")]
         assert "include_router" in body_calls

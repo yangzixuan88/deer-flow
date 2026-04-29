@@ -10,10 +10,15 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator
 from contextlib import AsyncExitStack, asynccontextmanager
+from typing import TYPE_CHECKING
 
 from fastapi import FastAPI, HTTPException, Request
 
 from deerflow.runtime import RunManager, StreamBridge
+
+if TYPE_CHECKING:
+    from app.gateway.auth.local_provider import LocalAuthProvider
+    from app.gateway.auth.repositories.sqlite import SQLiteUserRepository
 
 
 @asynccontextmanager
@@ -74,11 +79,11 @@ def get_store(request: Request):
 # Auth getters — auth chain for R241-22H3
 # ---------------------------------------------------------------------------
 
-_cached_local_provider: "LocalAuthProvider | None" = None
-_cached_repo: "SQLiteUserRepository | None" = None
+_cached_local_provider: LocalAuthProvider | None = None
+_cached_repo: SQLiteUserRepository | None = None
 
 
-def get_local_provider() -> "LocalAuthProvider":
+def get_local_provider() -> LocalAuthProvider:
     """Get or create the cached LocalAuthProvider singleton.
 
     Must be called after engine initialization — the shared session
@@ -92,10 +97,7 @@ def get_local_provider() -> "LocalAuthProvider":
 
         sf = get_session_factory()
         if sf is None:
-            raise RuntimeError(
-                "get_local_provider() called before engine initialization; "
-                "cannot access users table"
-            )
+            raise RuntimeError("get_local_provider() called before engine initialization; cannot access users table")
         _cached_repo = SQLiteUserRepository(sf)
     if _cached_local_provider is None:
         from app.gateway.auth.local_provider import LocalAuthProvider
@@ -116,18 +118,14 @@ async def get_current_user_from_request(request: Request):
     if not access_token:
         raise HTTPException(
             status_code=401,
-            detail=AuthErrorResponse(
-                code=AuthErrorCode.NOT_AUTHENTICATED, message="Not authenticated"
-            ).model_dump(),
+            detail=AuthErrorResponse(code=AuthErrorCode.NOT_AUTHENTICATED, message="Not authenticated").model_dump(),
         )
 
     payload = decode_token(access_token)
     if isinstance(payload, TokenError):
         raise HTTPException(
             status_code=401,
-            detail=AuthErrorResponse(
-                code=token_error_to_code(payload), message=f"Token error: {payload.value}"
-            ).model_dump(),
+            detail=AuthErrorResponse(code=token_error_to_code(payload), message=f"Token error: {payload.value}").model_dump(),
         )
 
     provider = get_local_provider()
@@ -135,17 +133,13 @@ async def get_current_user_from_request(request: Request):
     if user is None:
         raise HTTPException(
             status_code=401,
-            detail=AuthErrorResponse(
-                code=AuthErrorCode.USER_NOT_FOUND, message="User not found"
-            ).model_dump(),
+            detail=AuthErrorResponse(code=AuthErrorCode.USER_NOT_FOUND, message="User not found").model_dump(),
         )
 
     if user.token_version != payload.ver:
         raise HTTPException(
             status_code=401,
-            detail=AuthErrorResponse(
-                code=AuthErrorCode.TOKEN_INVALID, message="Token revoked (password changed)"
-            ).model_dump(),
+            detail=AuthErrorResponse(code=AuthErrorCode.TOKEN_INVALID, message="Token revoked (password changed)").model_dump(),
         )
 
     return user

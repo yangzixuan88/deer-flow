@@ -7,10 +7,8 @@ NO app startup, NO DB, NO init_engine, NO HTTP server.
 from __future__ import annotations
 
 import ast
-import os
 import sys
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 
@@ -19,6 +17,7 @@ sys.path.insert(0, str(BACKEND))
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────
+
 
 def _parse_app() -> ast.Module:
     with open(BACKEND / "app/gateway/app.py", encoding="utf-8") as fh:
@@ -48,6 +47,7 @@ def _get_calls_in_if(if_node: ast.If, attr: str) -> list[str]:
 
 # ── Test: AST parse ─────────────────────────────────────────────────────────
 
+
 class TestAppPyAst:
     @pytest.fixture
     def tree(self):
@@ -62,6 +62,7 @@ class TestAppPyAst:
 
 
 # ── Test: Feature flag structure ─────────────────────────────────────────────
+
 
 class TestFeatureFlags:
     @pytest.fixture
@@ -83,6 +84,7 @@ class TestFeatureFlags:
 
 
 # ── Test: Conditional wiring structure ────────────────────────────────────────
+
 
 class TestConditionalWiring:
     @pytest.fixture
@@ -117,6 +119,7 @@ class TestConditionalWiring:
 
 
 # ── Test: No unconditional auth wiring ────────────────────────────────────────
+
 
 class TestNoUnconditionalAuth:
     @pytest.fixture
@@ -167,10 +170,7 @@ class TestNoUnconditionalAuth:
                 break
 
         mw_calls = self._get_all_mw_calls(create_app)
-        auth_mw_unconditional = [
-            (src, inside) for src, inside in mw_calls
-            if "AuthMiddleware" in src and not inside
-        ]
+        auth_mw_unconditional = [(src, inside) for src, inside in mw_calls if "AuthMiddleware" in src and not inside]
         assert len(auth_mw_unconditional) == 0, f"Unconditional AuthMiddleware call found: {auth_mw_unconditional}"
 
     def test_no_unconditional_auth_router(self, tree):
@@ -182,14 +182,12 @@ class TestNoUnconditionalAuth:
                 break
 
         ir_calls = self._get_all_ir_calls(create_app)
-        auth_ir_unconditional = [
-            (src, inside) for src, inside in ir_calls
-            if "auth_router" in src and not inside
-        ]
+        auth_ir_unconditional = [(src, inside) for src, inside in ir_calls if "auth_router" in src and not inside]
         assert len(auth_ir_unconditional) == 0, f"Unconditional auth_router call found: {auth_ir_unconditional}"
 
 
 # ── Test: No production DB / init_engine wiring ───────────────────────────────
+
 
 class TestNoProductionDbWiring:
     def test_no_init_engine_from_config_added(self):
@@ -197,16 +195,16 @@ class TestNoProductionDbWiring:
         # init_engine_from_config already existed in the pre-existing auth-on-2.0-rc changes
         # This test only checks our patch didn't add NEW calls
         # We check by looking at the auth wiring section only
-        lines = src.split('\n')
+        lines = src.split("\n")
         auth_section = []
         in_auth = False
         for line in lines:
-            if 'Auth wiring' in line:
+            if "Auth wiring" in line:
                 in_auth = True
-            if in_auth and ('def create_app' in line or 'def _env_flag' in line):
+            if in_auth and ("def create_app" in line or "def _env_flag" in line):
                 break
             if in_auth:
                 auth_section.append(line)
 
-        auth_src = '\n'.join(auth_section)
+        auth_src = "\n".join(auth_section)
         assert "init_engine_from_config" not in auth_src, "init_engine_from_config must not be in auth wiring section"
