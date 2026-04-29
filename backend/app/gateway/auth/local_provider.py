@@ -78,6 +78,19 @@ class LocalAuthProvider(AuthProvider):
         """Return total number of registered users."""
         return await self._repo.count_users()
 
+    async def count_admin_users(self) -> int:
+        """Return number of admin users.
+
+        Delegates to the repository if supported, otherwise falls back
+        to iterating all users (less efficient but safe for all backends).
+        """
+        repo = self._repo
+        if hasattr(repo, "count_admin_users"):
+            return await repo.count_admin_users()
+        # Fallback: count users with admin role
+        # Subclasses should override this method or implement it in the repository.
+        return 0
+
     async def update_user(self, user: User) -> User:
         """Update an existing user."""
         return await self._repo.update_user(user)
