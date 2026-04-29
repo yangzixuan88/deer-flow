@@ -214,6 +214,29 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
         """
         return {"status": "healthy", "service": "deer-flow-gateway"}
 
+    # ==== Auth wiring (disabled by default — controlled by feature flags) ====
+    # GSIC-003: AuthMiddleware — activate with AUTH_MIDDLEWARE_ENABLED=true
+    # GSIC-004: Auth routes   — activate with AUTH_ROUTES_ENABLED=true
+    try:
+        import os as _os
+
+        _auth_middleware_enabled = _os.environ.get("AUTH_MIDDLEWARE_ENABLED", "false").lower() == "true"
+        _auth_routes_enabled = _os.environ.get("AUTH_ROUTES_ENABLED", "false").lower() == "true"
+
+        if _auth_middleware_enabled:
+            from app.gateway.auth_middleware import AuthMiddleware
+
+            app.add_middleware(AuthMiddleware)
+            logger.info("AuthMiddleware enabled (AUTH_MIDDLEWARE_ENABLED=true)")
+
+        if _auth_routes_enabled:
+            from app.gateway.routers.auth import router as auth_router
+
+            app.include_router(auth_router)
+            logger.info("Auth routes enabled (AUTH_ROUTES_ENABLED=true)")
+    except Exception as e:
+        logger.warning(f"Auth wiring failed (non-fatal): {e}")
+
     return app
 
 
