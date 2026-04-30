@@ -5,6 +5,15 @@ from app.gateway.auth.password import hash_password_async, verify_password_async
 from app.gateway.auth.providers import AuthProvider
 from app.gateway.auth.repositories.base import UserRepository
 
+import logging
+
+from app.gateway.auth.models import User
+from app.gateway.auth.password import hash_password_async, needs_rehash, verify_password_async
+from app.gateway.auth.providers import AuthProvider
+from app.gateway.auth.repositories.base import UserRepository
+
+logger = logging.getLogger(__name__)
+
 
 class LocalAuthProvider(AuthProvider):
     """Email/password authentication provider using local database."""
@@ -42,6 +51,15 @@ class LocalAuthProvider(AuthProvider):
 
         if not await verify_password_async(password, user.password_hash):
             return None
+
+        if needs_rehash(user.password_hash):
+            try:
+                user.password_hash = await hash_password_async(password)
+                await self._repo.update_user(user)
+            except Exception:
+                # Rehash is an opportunistic upgrade; a transient DB error must not
+                # prevent an otherwise-valid login from succeeding.
+                logger.warning("Failed to rehash password for user %s; login will still succeed", user.email, exc_info=True)
 
         return user
 
@@ -90,6 +108,8 @@ class LocalAuthProvider(AuthProvider):
         # Fallback: count users with admin role
         # Subclasses should override this method or implement it in the repository.
         return 0
+        """Return number of admin users."""
+        return await self._repo.count_admin_users()
 
     async def update_user(self, user: User) -> User:
         """Update an existing user."""
