@@ -1,0 +1,161 @@
+{
+  "phase": "R129",
+  "title": "MODEL_AND_MCP_HEALTH_PROBE_PLAN",
+  "status": "in_progress",
+  "preceded_by": "R128",
+  "proceeding_to": "R130",
+  "pressure_assessment": {
+    "previous_phase": "R128",
+    "previous_pressure": "XXL++",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Deep investigation of BP-01 and BP-02 gatekeepers; read-only mapping with safe probe design."
+  },
+  "bp01_model_gatekeeper": {
+    "chain_path": [
+      "services.py:start_run (line 191)",
+      "resolve_agent_factory(body.assistant_id) (services.py:244)",
+      "make_lead_agent (agent.py)",
+      "_resolve_model_name (agent.py:38)",
+      "resolved_app_config.get_model_config(model_name) (agent.py:341)",
+      "create_chat_model(name=model_name, ...) (factory.py:50)",
+      "resolve_class(model_config.use, BaseChatModel) (factory.py:65)",
+      "model_class(**kwargs, **model_settings) (factory.py:150)",
+      "create_agent(model=..., tools=..., ...) (agent.py:379 or 393)",
+      "agent.astream(graph_input, config, stream_mode) (worker.py:236 — ACTUAL API CALL)"
+    ],
+    "key_discovery": "model instance pre-construction pattern — create_chat_model() instantiates the provider class but makes NO API call during construction. Actual LLM call only happens at worker.py:236 inside agent.astream(). This means BP-01 Level 0 and Level 1 probes are fully safe.",
+    "config_sources": {
+      "config_yaml": "AppConfig.models[] — list of ModelConfig entries with name, use, model, supports_thinking fields",
+      "model_config_use": "Provider class path string (e.g., langchain_openai:ChatOpenAI, deerflow.models.claude_provider:ClaudeChatModel)",
+      "model_config_model": "Model name string (e.g., gpt-4o, claude-sonnet-4-20250514)",
+      "model_config_supports_thinking": "Boolean — gates thinking mode at agent.py:345"
+    },
+    "provider_class_paths": [
+      {"provider": "OpenAI-compatible", "class_path": "langchain_openai:ChatOpenAI"},
+      {"provider": "Claude", "class_path": "deerflow.models.claude_provider:ClaudeChatModel"},
+      {"provider": "DeepSeek", "class_path": "deerflow.models.patched_deepseek:DeepSeekChatModel"},
+      {"provider": "MiniMax", "class_path": "deerflow.models.patched_minimax:MinimaxChatModel"},
+      {"provider": "vLLM", "class_path": "deerflow.models.vllm_provider:VLLMChatModel"},
+      {"provider": "MindIE", "class_path": "deerflow.models.mindie_provider:MindIEChatModel"},
+      {"provider": "Codex", "class_path": "deerflow.models.openai_codex_provider:CodexChatModel"}
+    ],
+    "unknown_edges": [
+      {
+        "unknown": "resolve_class() implementation",
+        "location": "deerflow/reflection.py — not found in codebase",
+        "question": "How does it map class path string to actual class?"
+      },
+      {
+        "unknown": "Actual model credentials",
+        "location": "ModelConfig + env vars",
+        "question": "Are credentials (API keys, base URLs) actually configured?"
+      },
+      {
+        "unknown": "config.yaml location",
+        "location": "backend/config.yaml or repo root config.yaml",
+        "question": "Which is actually loaded by get_app_config()?"
+      }
+    ]
+  },
+  "bp01_probe_levels": {
+    "level_0": {
+      "name": "Static Config Presence",
+      "description": "Read config.yaml via AppConfig.from_yaml(); verify model entries, use class paths, supports_thinking flags",
+      "safe": true,
+      "gateway_required": false,
+      "api_call": false
+    },
+    "level_1": {
+      "name": "Provider Adapter Construction",
+      "description": "Call create_chat_model(name=model_name) to construct instance; verify no constructor exceptions; inspect model fields",
+      "safe": true,
+      "gateway_required": false,
+      "api_call": false
+    },
+    "level_2": {
+      "name": "Cheap Ping",
+      "description": "Call model.invoke('hi') with single minimal message; measure latency/error",
+      "safe": "conditional",
+      "gateway_required": true,
+      "api_call": true
+    },
+    "level_3": {
+      "name": "Full Smoke Test",
+      "description": "Send full prompt through agent.astream() end-to-end",
+      "safe": false,
+      "gateway_required": true,
+      "api_call": true
+    },
+    "r129_default": "Level 0 + Level 1 combined — can detect 80% of BP-01 failure modes without gateway or API calls"
+  },
+  "bp02_mcp_tool_health": {
+    "extensions_config_location": "AppConfig.extensions (ExtensionsConfig) — from app_config.py:67",
+    "mcp_registration_path": "deerflow.tools.get_available_tools() called in agent.py:319 and agent.py:381",
+    "mcp_middleware": "deerflow.agents.middlewares.deferred_tool_filter_middleware.py references MCP tools",
+    "status": "code_present_unprobed (from R128)",
+    "critical_blocker": "BP-02 blocked by BP-01 — model availability must be confirmed first"
+  },
+  "bp02_probe_levels": {
+    "level_0": {
+      "name": "Static Extension Config",
+      "description": "Read ExtensionsConfig from config; list MCP server definitions",
+      "safe": true,
+      "gateway_required": false
+    },
+    "level_1": {
+      "name": "MCP SDK Import Check",
+      "description": "Attempt to import MCP SDK; verify client class availability",
+      "safe": true,
+      "gateway_required": false
+    },
+    "r129_default": "Level 0 only — no gateway activation allowed"
+  },
+  "bp03_observability_dependency": {
+    "chain": "BP-01 (model availability) → BP-02 (MCP health) → BP-03 (event observability)",
+    "event_store_location": "worker.py:128-135 — RunJournal created if event_store is not None",
+    "event_store_setup": "ctx.event_store from langgraph_runtime() in deps.py",
+    "verification_requirement": "requires actual agent.astream() execution — deferred to R130"
+  },
+  "risk_boundary": {
+    "actual_patch_allowed": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "real_model_api_call": "prohibited",
+    "mcp_runtime_activation": "prohibited",
+    "code_modification": "prohibited",
+    "can_do": ["read config files", "read Python source", "import and instantiate model class without API call", "write migration_reports", "git commit and push reports"]
+  },
+  "r130_execution_plan": {
+    "goals": [
+      "Execute BP-01 Level 0+1 probe — read config, construct model instances, catch constructor errors",
+      "Execute BP-02 Level 0 probe — read ExtensionsConfig, extract MCP server definitions",
+      "Resolve resolve_class() mystery — find reflection module",
+      "Confirm config.yaml actual loading path"
+    ],
+    "constraints": {
+      "actual_patch_allowed": false,
+      "gateway_activation_allowed": false,
+      "no_real_model_api_calls": true,
+      "no_mcp_runtime_activation": true
+    },
+    "specific_actions": [
+      {"rank": 1, "action": "Read config.yaml via AppConfig", "target": "backend/config.yaml or repo root", "expected_output": "List of ModelConfig entries"},
+      {"rank": 2, "action": "For each model, call create_chat_model()", "target": "factory.py:50", "expected_output": "Constructor success/failure"},
+      {"rank": 3, "action": "Inspect ExtensionsConfig", "target": "From AppConfig", "expected_output": "MCP server definitions"},
+      {"rank": 4, "action": "Map resolve_class()", "target": "Find deerflow/reflection.py or equivalent", "expected_output": "Provider class resolution mechanism"},
+      {"rank": 5, "action": "Identify credential env var requirements", "target": "From each provider file", "expected_output": "What env vars needed"}
+    ],
+    "output": "R130 report with BP-01/BP-02 findings and gateway activation recommendation"
+  },
+  "key_insight": "BP-01 has two distinct stages: (1) Construction stage (safe to probe) — create_chat_model() instantiates provider without API calls, and (2) Invocation stage (requires running gateway) — agent.astream() at worker.py:236 fires the actual LLM API. Level 0+1 probes can determine 80% of BP-01 failure modes without connecting to the model API.",
+  "actual_patch_allowed": false,
+  "gateway_activation_allowed": false,
+  "production_db_write_allowed": false,
+  "real_model_api_call_prohibited": true,
+  "mcp_runtime_activation_prohibited": true,
+  "code_modification_prohibited": true,
+  "report_files": [
+    "migration_reports/recovery/R129_MODEL_AND_MCP_HEALTH_PROBE_PLAN.md"
+  ],
+  "next_prompt_needed": "R130"
+}
