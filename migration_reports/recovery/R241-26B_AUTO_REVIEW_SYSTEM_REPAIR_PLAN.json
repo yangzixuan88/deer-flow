@@ -1,0 +1,265 @@
+{
+  "phase": "R241-26B",
+  "title": "AUTO_REVIEW_SYSTEM_REPAIR_PLAN",
+  "status": "completed",
+  "preceded_by": "R241-26A",
+  "proceeding_to": "R241-27A",
+  "pressure_assessment": {
+    "previous_phase": "R241-26A",
+    "previous_pressure": "XXL",
+    "current_recommended_pressure": "XXL",
+    "reason": "Read-only plan generation; no code modification."
+  },
+  "mainline_breakpoint": {
+    "last_complete_phase": "R241-18J",
+    "last_complete_summary": "Gateway sidecar integration review — 13/13 safety checks passed",
+    "last_complete_decision": "approve_gateway_candidates",
+    "next_deferred_phase": "R241-18X",
+    "deferred_reason": "Memory MCP readiness review",
+    "blocked_by": "SURFACE-010",
+    "blocker_detail": "memory_cleanup_write_policy — memory cleanup without quarantine"
+  },
+  "sururface_010_reassessment": {
+    "surface_id": "memory_cleanup_write_policy",
+    "domain": "memory",
+    "risk_level": "critical",
+    "readiness_level": "blocked",
+    "can_read_runtime": false,
+    "can_write_runtime": true,
+    "blocker": "memory cleanup without quarantine",
+    "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+    "requires_backup": true,
+    "requires_rollback": true,
+    "requires_user_confirmation": true,
+    "module_path": "",
+    "has_tests": false,
+    "block_still_valid": true,
+    "r241_18x_impact": "R241-18X Memory MCP readiness review remains BLOCKED"
+  },
+  "blocker_matrix": {
+    "total_surfaces": 26,
+    "read_only_ready": 16,
+    "append_only_ready": 1,
+    "blocked": 9,
+    "blocked_surfaces": [
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "domain": "memory",
+        "blocker": "memory cleanup without quarantine",
+        "blocks_r241_18x": true
+      },
+      {
+        "surface_id": "asset_promotion_elimination",
+        "domain": "asset",
+        "blocker": "asset promotion without verification"
+      },
+      {
+        "surface_id": "prompt_replacement_gepa_dspy_activation",
+        "domain": "prompt",
+        "blocker": "prompt replacement without backup"
+      },
+      {
+        "surface_id": "tool_runtime_enforcement",
+        "domain": "tool_runtime",
+        "blocker": "tool enforcement without dry-run"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "domain": "gateway",
+        "blocker": "gateway routing mutation"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "domain": "mode",
+        "blocker": "mode router replacement"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "domain": "rtcm",
+        "blocker": "rtcm state mutation"
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "domain": "nightly",
+        "blocker": "feishu push without webhook policy"
+      },
+      {
+        "surface_id": "real_scheduler_watchdog_integration",
+        "domain": "nightly",
+        "blocker": "scheduler policy missing"
+      }
+    ]
+  },
+  "read_only_ready_modules": {
+    "m11": {
+      "module": "m11",
+      "role": "Governance decision engine + truth projection",
+      "surfaces": [
+        "truth_state_contract",
+        "governance_readonly_projection",
+        "queue_sandbox_truth_projection"
+      ],
+      "all_approved": true,
+      "warnings": ["queue_path_mismatch_unresolved"]
+    },
+    "m12": {
+      "module": "m12",
+      "role": "Unified configuration",
+      "surfaces": ["unified_config"],
+      "all_approved": true
+    },
+    "memory": {
+      "module": "memory",
+      "surfaces": ["memory_layer_contract", "memory_readonly_projection"],
+      "all_approved": true,
+      "read_only_approved": true,
+      "write_policy_blocked": true
+    },
+    "asset": {
+      "module": "asset",
+      "surfaces": ["asset_lifecycle_contract", "asset_readonly_projection"],
+      "all_approved": true,
+      "promotion_blocked": true
+    },
+    "mode": {
+      "module": "mode",
+      "surfaces": ["mode_orchestration_contract"],
+      "all_approved": true,
+      "note": "append_only_ready, not read_only_ready"
+    },
+    "gateway": {
+      "module": "gateway",
+      "surfaces": ["gateway_mode_instrumentation"],
+      "all_approved": true
+    },
+    "tool_runtime": {
+      "module": "tool_runtime",
+      "surfaces": ["tool_runtime_contract", "tool_runtime_gateway_mode_projection"],
+      "all_approved": true
+    },
+    "prompt": {
+      "module": "prompt",
+      "surfaces": ["prompt_governance_contract", "prompt_readonly_projection"],
+      "all_approved": true
+    },
+    "rtcm": {
+      "module": "rtcm",
+      "surfaces": ["rtcm_integration_contract", "rtcm_runtime_projection"],
+      "all_approved": true
+    },
+    "nightly": {
+      "module": "nightly",
+      "surfaces": ["nightly_foundation_health_review", "nightly_feishu_summary_projection"],
+      "all_approved": true
+    }
+  },
+  "auto_review_modules_status": {
+    "m03": {
+      "file": "self_hardening.py",
+      "role": "Self-healing audit layer",
+      "in_matrix": false,
+      "can_repair": true
+    },
+    "m05": {
+      "file": "heartbeat_pulse.py",
+      "role": "Nightly pulse/heartbeat system",
+      "in_matrix": false,
+      "can_repair": true
+    },
+    "m11": {
+      "file": "governance_bridge.py + truth_state_contract.py",
+      "role": "Governance decision engine + truth projection",
+      "in_matrix": true,
+      "all_surfaces_approved": true
+    },
+    "m12": {
+      "file": "unified_config.py",
+      "role": "Unified configuration",
+      "in_matrix": true,
+      "all_surfaces_approved": true
+    }
+  },
+  "first_batch_repair_candidates": [
+    {
+      "rank": 1,
+      "candidate": "readonly module integrity check — all 16 read_only_ready surfaces",
+      "phase": "R241-27A candidate",
+      "constraint": "read_only_no_mutation",
+      "gateway_activation_required": false,
+      "production_db_write_allowed": false
+    },
+    {
+      "rank": 2,
+      "candidate": "blocker matrix refresh — reassess SURFACE-010 block validity",
+      "phase": "R241-27A candidate",
+      "constraint": "read_only_audit",
+      "gateway_activation_required": false,
+      "production_db_write_allowed": false
+    },
+    {
+      "rank": 3,
+      "candidate": "m11 governance_state.json staleness check",
+      "phase": "R241-27A candidate",
+      "constraint": "read_only_audit",
+      "gateway_activation_required": false,
+      "production_db_write_allowed": false
+    },
+    {
+      "rank": 4,
+      "candidate": "m05 heartbeat_pulse.py integration verification",
+      "phase": "R241-27A candidate",
+      "constraint": "read_only_audit",
+      "gateway_activation_required": false,
+      "production_db_write_allowed": false
+    },
+    {
+      "rank": 5,
+      "candidate": "m03 self_hardening.py integration verification",
+      "phase": "R241-27A candidate",
+      "constraint": "read_only_audit",
+      "gateway_activation_required": false,
+      "production_db_write_allowed": false
+    },
+    {
+      "rank": 6,
+      "candidate": "m11 truth_state_contract → governance_bridge consistency check",
+      "phase": "R241-27A candidate",
+      "constraint": "read_only_audit",
+      "gateway_activation_required": false,
+      "production_db_write_allowed": false
+    }
+  ],
+  "surfaces_not_ready_for_any_work": [
+    "memory_cleanup_write_policy",
+    "asset_promotion_elimination",
+    "prompt_replacement_gepa_dspy_activation",
+    "tool_runtime_enforcement",
+    "gateway_run_path_integration",
+    "mode_router_replacement",
+    "rtcm_state_mutation",
+    "real_feishu_push",
+    "real_scheduler_watchdog_integration"
+  ],
+  "recommended_next_phase": "R241-27A_READONLY_MODULE_INTEGRITY_CHECK",
+  "next_phase_candidates": [
+    "R241-27A: readonly module integrity check (all 16 surfaces)",
+    "R241-27B: blocker matrix refresh",
+    "R241-27C: m11 governance_state staleness check",
+    "R241-27D: m05 heartbeat_pulse integration verification",
+    "R241-27E: m03 self_hardening integration verification"
+  ],
+  "code_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_activation_allowed": false,
+  "production_db_write_allowed": false,
+  "push_main_executed": false,
+  "merge_executed": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+  "report_files": [
+    "migration_reports/recovery/R241-26B_AUTO_REVIEW_SYSTEM_REPAIR_PLAN.md",
+    "migration_reports/recovery/R241-26B_AUTO_REVIEW_SYSTEM_REPAIR_PLAN.json"
+  ],
+  "next_prompt_needed": "R241-27A"
+}
