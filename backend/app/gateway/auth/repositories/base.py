@@ -73,8 +73,6 @@ class UserRepository(ABC):
 
         Returns:
             Updated User
-        """
-        ...
 
         Raises:
             UserNotFoundError: If no row exists for ``user.id``. This is
@@ -92,6 +90,7 @@ class UserRepository(ABC):
     @abstractmethod
     async def count_admin_users(self) -> int:
         """Return number of users with system_role == 'admin'."""
+        ...
         raise NotImplementedError
 
     @abstractmethod

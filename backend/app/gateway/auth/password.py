@@ -1,18 +1,3 @@
-"""Password hashing utilities using bcrypt directly."""
-
-import asyncio
-
-import bcrypt
-
-
-def hash_password(password: str) -> str:
-    """Hash a password using bcrypt."""
-    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against its hash."""
-    return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode("utf-8"))
 """Password hashing utilities with versioned hash format.
 
 Hash format: ``$dfv<N>$<bcrypt_hash>`` where ``<N>`` is the version.
@@ -88,7 +73,6 @@ async def hash_password_async(password: str) -> str:
 
 
 async def verify_password_async(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against a hash (non-blocking).
     """Verify a password against its hash (non-blocking).
 
     Wraps the blocking bcrypt operation in a thread pool to avoid

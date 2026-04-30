@@ -9,8 +9,6 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
-from pydantic import BaseModel, Field
-
 logger = logging.getLogger(__name__)
 
 
