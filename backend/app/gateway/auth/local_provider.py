@@ -1,10 +1,5 @@
 """Local email/password authentication provider."""
 
-from app.gateway.auth.models import User
-from app.gateway.auth.password import hash_password_async, verify_password_async
-from app.gateway.auth.providers import AuthProvider
-from app.gateway.auth.repositories.base import UserRepository
-
 import logging
 
 from app.gateway.auth.models import User
@@ -108,8 +103,6 @@ class LocalAuthProvider(AuthProvider):
         # Fallback: count users with admin role
         # Subclasses should override this method or implement it in the repository.
         return 0
-        """Return number of admin users."""
-        return await self._repo.count_admin_users()
 
     async def update_user(self, user: User) -> User:
         """Update an existing user."""
