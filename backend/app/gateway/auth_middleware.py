@@ -87,6 +87,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
                         "code": AuthErrorCode.NOT_AUTHENTICATED,
                         "message": "Authentication required",
                     }
+                },
+            )
         internal_user = None
         if is_valid_internal_auth_token(request.headers.get(INTERNAL_AUTH_HEADER_NAME)):
             internal_user = get_internal_user()

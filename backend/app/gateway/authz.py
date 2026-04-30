@@ -147,7 +147,6 @@ async def _authenticate(request: Request) -> AuthContext:
 
 def require_auth[**P, T](func: Callable[P, T]) -> Callable[P, T]:
     """Decorator that authenticates the request and sets AuthContext.
-    """Decorator that authenticates the request and enforces authentication.
 
     Independently raises HTTP 401 for unauthenticated requests, regardless of
     whether ``AuthMiddleware`` is present in the ASGI stack. Sets the resolved

@@ -390,8 +390,6 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
         _auth_routes_enabled = _os.environ.get("AUTH_ROUTES_ENABLED", "false").lower() == "true"
 
         if _auth_middleware_enabled:
-            from app.gateway.auth_middleware import AuthMiddleware
-
             app.add_middleware(AuthMiddleware)
             logger.info("AuthMiddleware enabled (AUTH_MIDDLEWARE_ENABLED=true)")
 
