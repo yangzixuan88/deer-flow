@@ -12,11 +12,15 @@ Fine-grained permission checks remain in authz.py decorators.
 from collections.abc import Callable
 
 from fastapi import Request, Response
+from fastapi import HTTPException, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp
 
 from app.gateway.auth.errors import AuthErrorCode
+from app.gateway.auth.errors import AuthErrorCode, AuthErrorResponse
+from app.gateway.authz import _ALL_PERMISSIONS, AuthContext
+from app.gateway.internal_auth import INTERNAL_AUTH_HEADER_NAME, get_internal_user, is_valid_internal_auth_token
 from deerflow.runtime.user_context import reset_current_user, set_current_user
 
 # Paths that never require authentication.
@@ -35,6 +39,7 @@ _PUBLIC_EXACT_PATHS: frozenset[str] = frozenset(
         "/api/v1/auth/register",
         "/api/v1/auth/logout",
         "/api/v1/auth/setup-status",
+        "/api/v1/auth/initialize",
     }
 )
 
@@ -84,6 +89,21 @@ class AuthMiddleware(BaseHTTPMiddleware):
                     }
                 },
             )
+        internal_user = None
+        if is_valid_internal_auth_token(request.headers.get(INTERNAL_AUTH_HEADER_NAME)):
+            internal_user = get_internal_user()
+
+        # Non-public path: require session cookie
+        if internal_user is None and not request.cookies.get("access_token"):
+            return JSONResponse(
+                status_code=401,
+                content={
+                    "detail": AuthErrorResponse(
+                        code=AuthErrorCode.NOT_AUTHENTICATED,
+                        message="Authentication required",
+                    ).model_dump()
+                },
+            )
 
         # Strict JWT validation: reject junk/expired tokens with 401
         # right here instead of silently passing through. This closes
@@ -110,6 +130,22 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
 
         request.state.user = user
+        from app.gateway.deps import get_current_user_from_request
+
+        if internal_user is not None:
+            user = internal_user
+        else:
+            try:
+                user = await get_current_user_from_request(request)
+            except HTTPException as exc:
+                return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
+        # Stamp both request.state.user (for the contextvar pattern)
+        # and request.state.auth (so @require_permission's "auth is
+        # None" branch short-circuits instead of running the entire
+        # JWT-decode + DB-lookup pipeline a second time per request).
+        request.state.user = user
+        request.state.auth = AuthContext(user=user, permissions=_ALL_PERMISSIONS)
         token = set_current_user(user)
         try:
             return await call_next(request)

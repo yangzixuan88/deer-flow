@@ -1,0 +1,215 @@
+{
+  "phase": "R131A",
+  "title": "RUNTIME_PROBE_AUTHORIZATION_PACKAGE",
+  "status": "completed",
+  "preceded_by": "R130",
+  "proceeding_to": "R131B | R131C | R131D (awaiting user authorization)",
+  "pressure_assessment": {
+    "previous_phase": "R130",
+    "previous_pressure": "XXL++",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Runtime probe requires explicit authorization; this round packages risk boundaries only. No execution performed."
+  },
+  "runtime_probe_units": {
+    "unit_a": {
+      "unit_id": "R131A-UNIT-A",
+      "name": "Model Cheap Ping",
+      "action": "create_chat_model('minimax-m2.7') then model.invoke('hi')",
+      "real_api_call": true,
+      "gateway_required": false,
+      "db_write": false,
+      "jsonl_write": false,
+      "expected_output": "{success, latency_ms, error, model_name}",
+      "risk": "low",
+      "cost": "1 request"
+    },
+    "unit_b": {
+      "unit_id": "R131A-UNIT-B",
+      "name": "MCP Credential Presence Check",
+      "action": "os.getenv('EXA_API_KEY'), os.getenv('LARK_APP_ID'), os.getenv('LARK_APP_SECRET')",
+      "real_mcp_call": false,
+      "gateway_required": false,
+      "db_write": false,
+      "jsonl_write": false,
+      "expected_output": "{exa_key_present, lark_app_id_present, lark_app_secret_present}",
+      "risk": "none",
+      "cost": "zero"
+    },
+    "unit_c": {
+      "unit_id": "R131A-UNIT-C",
+      "name": "MCP Server Launch Health",
+      "action": "subprocess.Popen for stdio servers, HTTP GET for SSE health",
+      "real_network_subprocess": true,
+      "gateway_required": false,
+      "db_write": false,
+      "jsonl_write": false,
+      "expected_output": "{server, status, latency_ms}",
+      "risk": "medium",
+      "cost": "up to 3 server probes"
+    },
+    "unit_d": {
+      "unit_id": "R131A-UNIT-D",
+      "name": "Agent astream Smoke",
+      "action": "make_lead_agent() + agent.astream minimal prompt",
+      "real_llm_call": true,
+      "tool_call": false,
+      "gateway_required": false,
+      "db_write": false,
+      "expected_output": "{stream_events, first_token_ms, complete, error}",
+      "risk": "medium",
+      "cost": "1 agent run"
+    },
+    "unit_e": {
+      "unit_id": "R131A-UNIT-E",
+      "name": "Tool-Call Observability",
+      "action": "agent astream with tool call + event_store verification",
+      "real_llm_call": true,
+      "tool_call": true,
+      "event_store": true,
+      "defer_reason": "depends on BP-01 Level 2 and BP-02 runtime passing first"
+    }
+  },
+  "recommended_execution_order": [
+    {"order": 1, "unit": "UNIT-B", "reason": "Zero cost, zero risk — confirms credential presence before Unit C"},
+    {"order": 2, "unit": "UNIT-A", "reason": "Low risk, single message — verifies BP-01 Level 2 is passable"},
+    {"order": 3, "unit": "UNIT-C", "reason": "Medium risk — requires user authorization for subprocess/HTTP"},
+    {"order": 4, "unit": "UNIT-D", "reason": "Medium risk — requires Unit A to pass first"},
+    {"order": 5, "unit": "UNIT-E", "reason": "Deferred — depends on Unit D"}
+  ],
+  "authorization_matrix": {
+    "unit_a": {
+      "allowed_actions": ["create_chat_model()", "model.invoke(HumanMessage('hi'))"],
+      "forbidden_actions": ["model.stream()", "model.astream()", "tool calls", "multi-turn"],
+      "max_request_count": 1,
+      "max_timeout_seconds": 30,
+      "secret_handling": "no printing — only presence confirmed pre-check",
+      "cleanup": "model instance released after response",
+      "stop_condition": "Error response counted as result, not failure"
+    },
+    "unit_b": {
+      "allowed_actions": ["os.getenv('EXA_API_KEY')", "os.getenv('LARK_APP_ID')", "os.getenv('LARK_APP_SECRET')"],
+      "forbidden_actions": ["subprocess", "network", "file write"],
+      "max_request_count": 0,
+      "max_timeout_seconds": null,
+      "secret_handling": "no printing — only presence (bool) reported",
+      "cleanup": "none",
+      "stop_condition": "Always passes — absence is valid finding"
+    },
+    "unit_c": {
+      "allowed_actions": ["subprocess.Popen for stdio", "HTTP GET for SSE"],
+      "forbidden_actions": ["real tool calls", "long-running process retention"],
+      "max_server_count": 3,
+      "max_timeout_per_server_seconds": 15,
+      "secret_handling": "no printing — key in URL is risk flag only",
+      "cleanup": "all subprocesses killed after probe (Popen.terminate())",
+      "stop_condition": "First server that starts successfully counted"
+    },
+    "unit_d": {
+      "allowed_actions": ["make_lead_agent()", "agent.astream() with minimal prompt"],
+      "forbidden_actions": ["multi-step conversation", "tool calls in prompt"],
+      "max_request_count": 1,
+      "max_timeout_seconds": 60,
+      "event_store": "must be disabled for smoke test",
+      "secret_handling": "none",
+      "cleanup": "agent instance released",
+      "stop_condition": "Stream starts counted as partial pass"
+    }
+  },
+  "consolidated_guardrails": {
+    "minimax_api_call_count_limit": 1,
+    "no_secret_printing": true,
+    "no_db_writes": true,
+    "no_jsonl_writes": true,
+    "no_gateway_activation": true,
+    "no_persistent_mcp_process": true,
+    "no_code_modification": true,
+    "no_push_merge": true
+  },
+  "r131b_package": {
+    "ready": true,
+    "unit": "UNIT-A",
+    "authorization_required": true,
+    "allowed_actions": ["create_chat_model('minimax-m2.7')", "model.invoke('hi')"],
+    "output_schema": {
+      "phase": "R131B",
+      "status": "passed|failed|error",
+      "latency_ms": 1234.5,
+      "error": null,
+      "model_response_length": 50,
+      "api_call_count": 1
+    },
+    "prohibited": ["streaming", "tool calls", "multi-turn", "db write", "jsonl write"]
+  },
+  "r131c_package": {
+    "ready": true,
+    "unit": "UNIT-B + UNIT-C",
+    "authorization_required": true,
+    "layer_1_credential_presence": {
+      "action": "os.getenv checks for EXA_API_KEY, LARK_APP_ID, LARK_APP_SECRET",
+      "risk": "none",
+      "can_run_with_unit_b_only": true
+    },
+    "layer_2_mcp_server_health": {
+      "action": "stdio subprocess probe + SSE HTTP health",
+      "requires_separate_authorization": true,
+      "risk": "medium"
+    }
+  },
+  "r131d_package": {
+    "ready": true,
+    "unit": "UNIT-D",
+    "depends_on": ["R131B_pass", "R131C-L1_pass"],
+    "prerequisite": "R131B must pass or show non-auth error",
+    "action": "make_lead_agent() + agent.astream minimal prompt"
+  },
+  "user_authorization_options": [
+    {
+      "option": "A",
+      "description": "Authorize R131B only — one MiniMax cheap ping",
+      "risk": "low",
+      "cost": "~100-500 tokens"
+    },
+    {
+      "option": "B",
+      "description": "Authorize R131B + R131C-L1 — model ping + MCP env presence",
+      "risk": "low",
+      "cost": "zero + ~100 tokens"
+    },
+    {
+      "option": "C",
+      "description": "Authorize R131B + R131C — model ping + MCP runtime health",
+      "risk": "medium",
+      "cost": "~100 tokens + 3 server probes"
+    },
+    {
+      "option": "D",
+      "description": "Defer runtime calls — continue TS local chain probes",
+      "risk": "none",
+      "cost": "zero"
+    },
+    {
+      "option": "E",
+      "description": "Stop and review",
+      "risk": "none",
+      "cost": "zero"
+    }
+  ],
+  "default_recommendation": "A then B, staged execution",
+  "constraints": {
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "gateway_activation_allowed": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "code_modified": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R131A_RUNTIME_PROBE_AUTHORIZATION_PACKAGE.md",
+    "migration_reports/recovery/R131A_RUNTIME_PROBE_AUTHORIZATION_PACKAGE.json"
+  ],
+  "next_prompt_needed": "user_authorization_for_R131B_or_R131C"
+}

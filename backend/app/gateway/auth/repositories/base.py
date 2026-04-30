@@ -5,6 +5,16 @@ from abc import ABC, abstractmethod
 from app.gateway.auth.models import User
 
 
+class UserNotFoundError(LookupError):
+    """Raised when a user repository operation targets a non-existent row.
+
+    Subclass of :class:`LookupError` so callers that already catch
+    ``LookupError`` for "missing entity" can keep working unchanged,
+    while specific call sites can pin to this class to distinguish
+    "concurrent delete during update" from other lookups.
+    """
+
+
 class UserRepository(ABC):
     """Abstract interface for user data storage.
 
@@ -26,6 +36,7 @@ class UserRepository(ABC):
             ValueError: If email already exists
         """
         ...
+        raise NotImplementedError
 
     @abstractmethod
     async def get_user_by_id(self, user_id: str) -> User | None:
@@ -38,6 +49,7 @@ class UserRepository(ABC):
             User if found, None otherwise
         """
         ...
+        raise NotImplementedError
 
     @abstractmethod
     async def get_user_by_email(self, email: str) -> User | None:
@@ -50,6 +62,7 @@ class UserRepository(ABC):
             User if found, None otherwise
         """
         ...
+        raise NotImplementedError
 
     @abstractmethod
     async def update_user(self, user: User) -> User:
@@ -60,13 +73,25 @@ class UserRepository(ABC):
 
         Returns:
             Updated User
+
+        Raises:
+            UserNotFoundError: If no row exists for ``user.id``. This is
+                a hard failure (not a no-op) so callers cannot mistake a
+                concurrent-delete race for a successful update.
         """
-        ...
+        raise NotImplementedError
 
     @abstractmethod
     async def count_users(self) -> int:
         """Return total number of registered users."""
         ...
+        raise NotImplementedError
+
+    @abstractmethod
+    async def count_admin_users(self) -> int:
+        """Return number of users with system_role == 'admin'."""
+        ...
+        raise NotImplementedError
 
     @abstractmethod
     async def get_user_by_oauth(self, provider: str, oauth_id: str) -> User | None:
@@ -80,3 +105,4 @@ class UserRepository(ABC):
             User if found, None otherwise
         """
         ...
+        raise NotImplementedError

@@ -74,6 +74,7 @@ async def authenticate(request):
         raise Auth.exceptions.HTTPException(
             status_code=401,
             detail=f"Token error: {payload.value}",
+            detail="Invalid token",
         )
 
     user = await get_local_provider().get_user(payload.sub)
@@ -104,3 +105,14 @@ async def add_owner_filter(ctx: Auth.types.AuthContext, value: dict):
 
     # Return filter dict — LangGraph applies it to search/read/delete
     return {"owner_id": ctx.user.identity}
+    """Inject user_id metadata on writes; filter by user_id on reads.
+
+    Gateway stores thread ownership as ``metadata.user_id``.
+    This handler ensures LangGraph Server enforces the same isolation.
+    """
+    # On create/update: stamp user_id into metadata
+    metadata = value.setdefault("metadata", {})
+    metadata["user_id"] = ctx.user.identity
+
+    # Return filter dict — LangGraph applies it to search/read/delete
+    return {"user_id": ctx.user.identity}

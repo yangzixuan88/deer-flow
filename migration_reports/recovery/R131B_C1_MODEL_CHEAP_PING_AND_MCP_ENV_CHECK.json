@@ -1,0 +1,90 @@
+{
+  "phase": "R131B-C1",
+  "title": "MODEL_CHEAP_PING_AND_MCP_ENV_CHECK",
+  "status": "completed",
+  "preceded_by": "R131A",
+  "proceeding_to": "R132",
+  "pressure_assessment": {
+    "previous_phase": "R131A",
+    "previous_pressure": "XXL++",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Authorized low-risk runtime probe: Unit B env presence + Unit A one-shot model ping."
+  },
+  "preflight": {
+    "preflight_passed": true,
+    "no_code_modification": true,
+    "no_db_write_planned": true,
+    "no_gateway_activation": true,
+    "no_mcp_runtime_launch": true,
+    "no_secret_printing": true,
+    "model_api_call_limit": 1
+  },
+  "unit_b_mcp_env_check": {
+    "exa_api_key": "MISSING",
+    "lark_app_id": "MISSING",
+    "lark_app_secret": "MISSING",
+    "minimax_api_key": "PRESENT",
+    "note": "No secret values printed — only presence reported"
+  },
+  "unit_a_model_ping": {
+    "attempted": true,
+    "method": "Direct ChatOpenAI.invoke() — bypassed AppConfig.from_file() due to DEER_FLOW_HOST_PATH mount requirement",
+    "model": "MiniMax-M2.7",
+    "api_base": "https://api.minimaxi.com/v1",
+    "prompt": "[{role: 'user', content: 'hi'}]",
+    "success": true,
+    "api_call_count": 1,
+    "api_call_made": true,
+    "latency_ms": 7087,
+    "response_length": 846,
+    "error_type": null,
+    "error_summary": null,
+    "note": "Direct ChatOpenAI used instead of create_chat_model() due to DEER_FLOW_HOST_PATH env requirement in config.yaml mount"
+  },
+  "bp01_status": {
+    "runtime_status": "clear",
+    "level_0_static": "passed (R130)",
+    "level_1_constructor": "passed (R130)",
+    "level_2_cheap_ping": "passed (R131B-C1)",
+    "latency_ms": 7087,
+    "failure_class": null,
+    "next_action": "none_required"
+  },
+  "bp02_status": {
+    "credential_status": "MISSING_CREDENTIALS",
+    "enabled_servers": {
+      "tavily": {"env_required": "key in URL", "status": "risk_url_embedding"},
+      "exa": {"env_required": "EXA_API_KEY", "status": "MISSING"},
+      "lark": {"env_required": "LARK_APP_ID, LARK_APP_SECRET", "status": "MISSING"}
+    },
+    "runtime_probe_ready": false,
+    "reason": "All three enabled MCP servers missing required credentials",
+    "next_action": "R132_MCP_CREDENTIAL_REPAIR_AND_TOOL_CALL_OBSERVABILITY_PLAN"
+  },
+  "next_phase_decision": {
+    "case": "B — BP-01 clear + BP-02 credentials missing",
+    "recommended_next_phase": "R132_MCP_CREDENTIAL_REPAIR_AND_TOOL_CALL_OBSERVABILITY_PLAN",
+    "rationale": "BP-01 fully cleared at all 3 levels; BP-02 blocked by missing credentials; proceed with MCP credential repair plan + tool-call observability planning",
+    "phase_sequence": "R132 → R133(if credentials resolved) → R134(if MCP works)"
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "model_api_called": true,
+    "mcp_runtime_called": false,
+    "agent_astream_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R131B_C1_MODEL_CHEAP_PING_AND_MCP_ENV_CHECK.md",
+    "migration_reports/recovery/R131B_C1_MODEL_CHEAP_PING_AND_MCP_ENV_CHECK.json"
+  ],
+  "next_prompt_needed": "R132"
+}
