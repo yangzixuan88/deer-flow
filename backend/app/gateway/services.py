@@ -192,8 +192,9 @@ async def start_run(
     body: Any,
     thread_id: str,
     request: Request,
+    run_in_background: bool = True,
 ) -> RunRecord:
-    """Create a RunRecord and launch the background agent task.
+    """Create a RunRecord and launch the agent task.
 
     Parameters
     ----------
@@ -204,6 +205,13 @@ async def start_run(
         Target thread.
     request : Request
         FastAPI request — used to retrieve singletons from ``app.state``.
+    run_in_background : bool, default True
+        When True, runs ``run_agent`` as a background task (via
+        ``asyncio.create_task``) and returns immediately. When False,
+        awaits ``run_agent`` inline — the record is not returned until
+        the agent completes. Use ``run_in_background=False`` in test
+        harnesses to avoid TestClient context teardown cancelling the
+        background task and causing ``status=interrupted``.
     """
     bridge = get_stream_bridge(request)
     run_mgr = get_run_manager(request)
@@ -269,8 +277,25 @@ async def start_run(
 
     stream_modes = normalize_stream_modes(body.stream_mode)
 
-    task = asyncio.create_task(
-        run_agent(
+    if run_in_background:
+        task = asyncio.create_task(
+            run_agent(
+                bridge,
+                run_mgr,
+                record,
+                ctx=run_ctx,
+                agent_factory=agent_factory,
+                graph_input=graph_input,
+                config=config,
+                stream_modes=stream_modes,
+                stream_subgraphs=body.stream_subgraphs,
+                interrupt_before=body.interrupt_before,
+                interrupt_after=body.interrupt_after,
+            )
+        )
+        record.task = task
+    else:
+        await run_agent(
             bridge,
             run_mgr,
             record,
@@ -283,8 +308,6 @@ async def start_run(
             interrupt_before=body.interrupt_before,
             interrupt_after=body.interrupt_after,
         )
-    )
-    record.task = task
 
     # Title sync is handled by worker.py's finally block which reads the
     # title from the checkpoint and calls thread_store.update_display_name
