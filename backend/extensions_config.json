@@ -1,0 +1,95 @@
+{
+  "mcpServers": {
+    "tavily": {
+      "enabled": false,
+      "type": "sse",
+      "command": null,
+      "args": [],
+      "env": {},
+      "url": "https://mcp.tavily.com/mcp",
+      "headers": {},
+      "oauth": null,
+      "description": "Tavily 官方远程搜索服务 (disabled: DeerFlow has a built-in Tavily search tool; MCP endpoint returns 405; key removed from URL R147A)"
+    },
+    "exa": {
+      "enabled": false,
+      "type": "stdio",
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "exa-mcp"
+      ],
+      "env": {
+        "EXA_API_KEY": "$EXA_API_KEY"
+      },
+      "url": null,
+      "headers": {},
+      "oauth": null,
+      "description": "Exa AI 高级内容检索 (disabled R147A: EXA_API_KEY missing from environment; re-enable after credentials provided)"
+    },
+    "lark": {
+      "enabled": true,
+      "type": "stdio",
+      "command": "pnpm.cmd",
+      "args": [
+        "dlx",
+        "@larksuiteoapi/lark-mcp",
+        "mcp",
+        "-a",
+        "$LARK_APP_ID",
+        "-s",
+        "$LARK_APP_SECRET"
+      ],
+      "env": {},
+      "url": null,
+      "headers": {},
+      "oauth": null,
+      "description": "Lark/Feishu MCP integration (enabled for isolated runtime health probe R147A)"
+    },
+    "pinecone": {
+      "enabled": false,
+      "type": "stdio",
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "@pinecone-database/mcp-server"
+      ],
+      "env": {
+        "PINECONE_API_KEY": ""
+      },
+      "url": null,
+      "headers": {},
+      "oauth": null,
+      "description": ""
+    },
+    "cloud_run": {
+      "enabled": false,
+      "type": "stdio",
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "@googlecloud/cloud-run-mcp"
+      ],
+      "env": {},
+      "url": null,
+      "headers": {},
+      "oauth": null,
+      "description": ""
+    },
+    "chrome_devtools": {
+      "enabled": false,
+      "type": "stdio",
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "@vincit/chrome-devtools-mcp"
+      ],
+      "env": {},
+      "url": null,
+      "headers": {},
+      "oauth": null,
+      "description": ""
+    }
+  },
+  "skills": {}
+}
