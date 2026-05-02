@@ -1,15 +1,17 @@
 {
   "mcpServers": {
     "tavily": {
-      "enabled": false,
+      "enabled": true,
       "type": "sse",
       "command": null,
       "args": [],
-      "env": {},
+      "env": {
+        "TAVILY_API_KEY": "$TAVILY_API_KEY"
+      },
       "url": "https://mcp.tavily.com/mcp",
       "headers": {},
       "oauth": null,
-      "description": "Tavily 官方远程搜索服务 (disabled: DeerFlow has a built-in Tavily search tool; MCP endpoint returns 405; key removed from URL R147A)"
+      "description": "Tavily search (enabled R147I; isolated probe; key via env)"
     },
     "exa": {
       "enabled": false,
@@ -28,7 +30,7 @@
       "description": "Exa AI 高级内容检索 (disabled R147A: EXA_API_KEY missing from environment; re-enable after credentials provided)"
     },
     "lark": {
-      "enabled": true,
+      "enabled": false,
       "type": "stdio",
       "command": "pnpm.cmd",
       "args": [
@@ -38,13 +40,18 @@
         "-a",
         "$LARK_APP_ID",
         "-s",
-        "$LARK_APP_SECRET"
+        "$LARK_APP_SECRET",
+        "--token-mode",
+        "tenant_access_token"
       ],
-      "env": {},
+      "env": {
+        "LARK_TOKEN_MODE": "tenant_access_token",
+        "NO_PROXY": "open.feishu.cn"
+      },
       "url": null,
       "headers": {},
       "oauth": null,
-      "description": "Lark/Feishu MCP integration (enabled for isolated runtime health probe R147A)"
+      "description": "Lark/Feishu MCP (paused R147I: SDK token attach bug; re-enable after SDK patch)"
     },
     "pinecone": {
       "enabled": false,
