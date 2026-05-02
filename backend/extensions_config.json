@@ -2,16 +2,19 @@
   "mcpServers": {
     "tavily": {
       "enabled": true,
-      "type": "sse",
-      "command": null,
-      "args": [],
+      "type": "stdio",
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
       "env": {
         "TAVILY_API_KEY": "$TAVILY_API_KEY"
       },
-      "url": "https://mcp.tavily.com/mcp",
+      "url": null,
       "headers": {},
       "oauth": null,
-      "description": "Tavily search (enabled R147I; isolated probe; key via env)"
+      "description": "Tavily search (stdio transport fix R147K; key via env)"
     },
     "exa": {
       "enabled": false,
