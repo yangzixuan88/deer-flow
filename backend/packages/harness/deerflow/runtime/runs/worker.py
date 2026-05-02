@@ -314,6 +314,21 @@ async def run_agent(
         )
 
     finally:
+        # Capture final result snapshot from checkpointer (before journal block)
+        result_snapshot: dict[str, Any] | None = None
+        if checkpointer is not None:
+            try:
+                ckpt_config = {"configurable": {"thread_id": thread_id, "checkpoint_ns": ""}}
+                ckpt_tuple = await checkpointer.aget_tuple(ckpt_config)
+                if ckpt_tuple is not None:
+                    ckpt = getattr(ckpt_tuple, "checkpoint", {}) or {}
+                    channel_values = ckpt.get("channel_values", {})
+                    if channel_values:
+                        from deerflow.runtime.serialization import serialize_channel_values
+                        result_snapshot = serialize_channel_values(channel_values)
+            except Exception:
+                logger.debug("Failed to capture result snapshot for run %s (non-fatal)", run_id)
+
         # Flush any buffered journal events and persist completion data
         if journal is not None:
             try:
@@ -322,8 +337,10 @@ async def run_agent(
                 logger.warning("Failed to flush journal for run %s", run_id, exc_info=True)
 
             try:
-                # Persist token usage + convenience fields to RunStore
+                # Persist token usage + convenience fields + result to RunStore
                 completion = journal.get_completion_data()
+                if result_snapshot is not None:
+                    completion["result"] = result_snapshot
                 await run_manager.update_run_completion(run_id, status=record.status.value, **completion)
             except Exception:
                 logger.warning("Failed to persist run completion for %s (non-fatal)", run_id, exc_info=True)

@@ -66,6 +66,7 @@ class RunResponse(BaseModel):
     multitask_strategy: str = "reject"
     created_at: str = ""
     updated_at: str = ""
+    result: dict[str, Any] | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -84,6 +85,7 @@ def _record_to_response(record: RunRecord) -> RunResponse:
         multitask_strategy=record.multitask_strategy,
         created_at=record.created_at,
         updated_at=record.updated_at,
+        result=record.result,
     )
 
 

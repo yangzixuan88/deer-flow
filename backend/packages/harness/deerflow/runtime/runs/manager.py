@@ -39,6 +39,7 @@ class RunRecord:
     abort_event: asyncio.Event = field(default_factory=asyncio.Event, repr=False)
     abort_action: str = "interrupt"
     error: str | None = None
+    result: dict | None = None
 
 
 class RunManager:
@@ -74,6 +75,16 @@ class RunManager:
 
     async def update_run_completion(self, run_id: str, **kwargs) -> None:
         """Persist token usage and completion data to the backing store."""
+        async with self._lock:
+            record = self._runs.get(run_id)
+            if record is None:
+                return
+            for key, value in kwargs.items():
+                if key == "status":
+                    # Status is set separately via set_status; don't overwrite the RunStatus enum
+                    continue
+                if value is not None:
+                    setattr(record, key, value)
         if self._store is not None:
             try:
                 await self._store.update_run_completion(run_id, **kwargs)
