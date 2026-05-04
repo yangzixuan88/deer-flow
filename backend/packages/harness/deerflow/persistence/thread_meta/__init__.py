@@ -18,7 +18,6 @@ __all__ = [
     "ThreadMetaRepository",
     "ThreadMetaRow",
     "ThreadMetaStore",
-]
     "make_thread_store",
 ]
 
