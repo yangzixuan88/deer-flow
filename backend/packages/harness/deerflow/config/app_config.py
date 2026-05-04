@@ -246,7 +246,15 @@ class AppConfig(BaseModel):
             The config with environment variables resolved.
         """
         if isinstance(config, str):
-            if config.startswith("$"):
+            if config.startswith("${") and config.endswith("}"):
+                # Handle ${VAR} format — strip both $ and trailing }
+                env_name = config[2:-1]
+                env_value = os.getenv(env_name)
+                if env_value is None:
+                    raise ValueError(f"Environment variable {env_name} not found for config value {config}")
+                return env_value
+            elif config.startswith("$"):
+                # Handle $VAR format (unbraced)
                 env_value = os.getenv(config[1:])
                 if env_value is None:
                     raise ValueError(f"Environment variable {config[1:]} not found for config value {config}")
