@@ -14,10 +14,9 @@ Mode Router — R240-5 Minimal Wrapper
 from __future__ import annotations
 
 import logging
-import re
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -523,7 +522,7 @@ def ensure_mode_decision(
         denied_tools=[],
         state_scope=ModeStateScope(),
         result_sink=result_sink,
-        created_at=datetime.now(timezone.utc).isoformat(),
+        created_at=datetime.now(UTC).isoformat(),
         source_system=source_system,
     )
     return decision

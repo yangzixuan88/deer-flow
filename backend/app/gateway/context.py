@@ -17,11 +17,10 @@ from __future__ import annotations
 import json
 import logging
 import os
-import time
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -140,8 +139,8 @@ class ContextEnvelope:
         self.memory_scope = memory_scope
         self.runtime_artifact_root = runtime_artifact_root
         self.parent_context_id = parent_context_id
-        self.created_at = created_at or datetime.now(timezone.utc).isoformat()
-        self.updated_at = updated_at or datetime.now(timezone.utc).isoformat()
+        self.created_at = created_at or datetime.now(UTC).isoformat()
+        self.updated_at = updated_at or datetime.now(UTC).isoformat()
         self.source_system = source_system or "gateway"
         self.owner_system = owner_system or "gateway"
         self.task_origin = task_origin
@@ -249,7 +248,7 @@ class ContextLink:
         self.source_system = source_system or "gateway"
         self.confidence = confidence
         self.metadata = metadata or {}
-        self.created_at = created_at or datetime.now(timezone.utc).isoformat()
+        self.created_at = created_at or datetime.now(UTC).isoformat()
 
     def to_dict(self) -> dict:
         return {

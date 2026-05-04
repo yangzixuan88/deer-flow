@@ -1,13 +1,14 @@
-import sqlite3
 import json
 import logging
-from typing import Dict, Any, List, Optional
-from uuid import uuid4
+import sqlite3
 import time
+from typing import Any
+from uuid import uuid4
 
 logger = logging.getLogger(__name__)
 
 from app.m04.registry_db import DB_PATH
+
 
 class RegistryManager:
     """
@@ -44,7 +45,7 @@ class RegistryManager:
             logger.error(f"[M04] Error saving workflow: {e}")
             return None
 
-    def get_workflow(self, flow_id: str) -> Optional[Dict[str, Any]]:
+    def get_workflow(self, flow_id: str) -> dict[str, Any] | None:
         try:
             with self._get_connection() as conn:
                 row = conn.execute("SELECT * FROM workflows WHERE flow_id=?", (flow_id,)).fetchone()

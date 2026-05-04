@@ -1,13 +1,13 @@
-"""LangGraph Server auth handler — shares JWT logic with Gateway.
+﻿"""LangGraph Server auth handler 鈥?shares JWT logic with Gateway.
 
 Loaded by LangGraph Server via langgraph.json ``auth.path``.
 Reuses the same ``decode_token`` / ``get_auth_config`` as Gateway,
 so both modes validate tokens with the same secret and rules.
 
 Two layers:
-  1. @auth.authenticate — validates JWT cookie, extracts user_id,
+  1. @auth.authenticate 鈥?validates JWT cookie, extracts user_id,
      and enforces CSRF on state-changing methods (POST/PUT/DELETE/PATCH)
-  2. @auth.on — returns metadata filter so each user only sees own threads
+  2. @auth.on 鈥?returns metadata filter so each user only sees own threads
 """
 
 import secrets
@@ -55,7 +55,7 @@ async def authenticate(request):
     """Validate the session cookie, decode JWT, and check token_version.
 
     Same validation chain as Gateway's get_current_user_from_request:
-      cookie → decode JWT → DB lookup → token_version match
+      cookie 鈫?decode JWT 鈫?DB lookup 鈫?token_version match
     Also enforces CSRF on state-changing methods.
     """
     # CSRF check before authentication so forged cross-site requests
@@ -73,7 +73,6 @@ async def authenticate(request):
     if isinstance(payload, TokenError):
         raise Auth.exceptions.HTTPException(
             status_code=401,
-            detail=f"Token error: {payload.value}",
             detail="Invalid token",
         )
 
@@ -103,7 +102,7 @@ async def add_owner_filter(ctx: Auth.types.AuthContext, value: dict):
     metadata = value.setdefault("metadata", {})
     metadata["owner_id"] = ctx.user.identity
 
-    # Return filter dict — LangGraph applies it to search/read/delete
+    # Return filter dict 鈥?LangGraph applies it to search/read/delete
     return {"owner_id": ctx.user.identity}
     """Inject user_id metadata on writes; filter by user_id on reads.
 
@@ -114,5 +113,6 @@ async def add_owner_filter(ctx: Auth.types.AuthContext, value: dict):
     metadata = value.setdefault("metadata", {})
     metadata["user_id"] = ctx.user.identity
 
-    # Return filter dict — LangGraph applies it to search/read/delete
+    # Return filter dict 鈥?LangGraph applies it to search/read/delete
     return {"user_id": ctx.user.identity}
+

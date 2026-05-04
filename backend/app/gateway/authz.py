@@ -30,7 +30,6 @@ Inspired by LangGraph Auth system: https://github.com/langchain-ai/langgraph/blo
 from __future__ import annotations
 
 import functools
-from collections.abc import Callable
 import inspect
 from collections.abc import Callable
 from types import SimpleNamespace

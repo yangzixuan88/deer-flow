@@ -5,7 +5,6 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-
 DEERFLOW_ROOT = Path(os.environ.get("DEERFLOW_ROOT", Path(__file__).resolve().parents[2])).resolve()
 DEERFLOW_RUNTIME_ROOT = Path(os.environ.get("DEERFLOW_RUNTIME_ROOT", DEERFLOW_ROOT / ".deerflow")).resolve()
 

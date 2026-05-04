@@ -12,12 +12,10 @@ Fine-grained permission checks remain in authz.py decorators.
 from collections.abc import Callable
 
 from fastapi import Request, Response
-from fastapi import HTTPException, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp
 
-from app.gateway.auth.errors import AuthErrorCode
 from app.gateway.auth.errors import AuthErrorCode, AuthErrorResponse
 from app.gateway.authz import _ALL_PERMISSIONS, AuthContext
 from app.gateway.internal_auth import INTERNAL_AUTH_HEADER_NAME, get_internal_user, is_valid_internal_auth_token
