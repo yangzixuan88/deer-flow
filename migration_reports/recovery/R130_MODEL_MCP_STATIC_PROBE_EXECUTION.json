@@ -1,0 +1,227 @@
+{
+  "phase": "R130",
+  "title": "MODEL_MCP_STATIC_PROBE_EXECUTION",
+  "status": "completed",
+  "preceded_by": "R129",
+  "proceeding_to": "R131",
+  "pressure_assessment": {
+    "previous_phase": "R129",
+    "previous_pressure": "XXL++",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Safe Level 0+1 probe execution; no gateway, no real API calls, no MCP runtime."
+  },
+  "config_loading_path": {
+    "config_loading_path_resolved": true,
+    "actual_config_path": "e:/OpenClaw-Base/deerflow/config.yaml",
+    "config_file_exists": true,
+    "config_version": 6,
+    "config_version_note": "OUTDATED — latest is 8",
+    "config_parse_success": true,
+    "config_parse_error": null,
+    "env_override_supported": true,
+    "resolved_by": "AppConfig.resolve_config_path() → _default_config_candidates()"
+  },
+  "bp01_level0_model_config": {
+    "model_config_count": 1,
+    "model_entries": [
+      {
+        "name": "minimax-m2.7",
+        "use": "deerflow.models.patched_minimax:PatchedChatMiniMax",
+        "model": "MiniMax-M2.7",
+        "supports_thinking": true,
+        "base_url": "https://api.minimaxi.com/v1",
+        "api_key_reference": "$MINIMAX_API_KEY",
+        "api_key_env_present": true,
+        "api_key_length": 125,
+        "config_valid": true
+      }
+    ],
+    "level0_passed": true,
+    "level0_result": "PASSED — Config well-formed and MINIMAX_API_KEY present"
+  },
+  "bp01_resolve_class_mechanism": {
+    "resolve_class_found": true,
+    "resolve_class_location": "backend/packages/harness/deerflow/reflection/resolvers.py:73",
+    "module": "deerflow.reflection.resolvers",
+    "mechanism": "importlib.import_module() + getattr() — parses 'module:ClassName', imports module, gets class",
+    "failure_modes": [
+      "ModuleNotFoundError — provider package not installed",
+      "AttributeError — class name doesn't exist in module",
+      "ValueError — not a class or not subclass of base_class"
+    ],
+    "patched_chat_minimax_resolution": {
+      "module_exists": true,
+      "class_accessible": true,
+      "base_class_is_chatopenai": true
+    }
+  },
+  "bp01_level1_provider_construction": {
+    "provider": "PatchedChatMiniMax",
+    "provider_import": "OK",
+    "constructor_call": "OK",
+    "no_api_call_during_construction": true,
+    "api_call_made": false,
+    "instance_properties": {
+      "model_name": "MiniMax-M2.7",
+      "openai_api_base": "https://api.minimaxi.com/v1",
+      "max_retries": 2,
+      "temperature": 1.0,
+      "request_timeout": 600.0
+    },
+    "unsafe_constructor_detected": false,
+    "level1_passed": true,
+    "level1_result": "PASSED — Provider construction safe, no network activity"
+  },
+  "provider_credential_requirements": {
+    "minimax-m2.7": {
+      "provider": "MiniMax",
+      "class": "PatchedChatMiniMax",
+      "env_vars": ["MINIMAX_API_KEY"],
+      "base_url_required": true,
+      "api_key_required": true,
+      "constructor_requires_secret": false
+    }
+  },
+  "bp02_level0_mcp_config": {
+    "mcp_config_present": true,
+    "mcp_config_file": "backend/extensions_config.json",
+    "mcp_server_count": 6,
+    "mcp_enabled_count": 3,
+    "mcp_servers": [
+      {
+        "name": "tavily",
+        "enabled": true,
+        "type": "sse",
+        "command": null,
+        "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=tvly-dev-...",
+        "env_keys": [],
+        "risk": "API key embedded in URL — NOT recommended"
+      },
+      {
+        "name": "exa",
+        "enabled": true,
+        "type": "stdio",
+        "command": "npx.cmd",
+        "args": ["-y", "exa-mcp"],
+        "url": null,
+        "env_keys": ["EXA_API_KEY"],
+        "risk": "EXA_API_KEY presence unverified"
+      },
+      {
+        "name": "lark",
+        "enabled": true,
+        "type": "stdio",
+        "command": "pnpm.cmd",
+        "args": ["dlx", "@larksuiteoapi/lark-mcp", "mcp", "-a", "$LARK_APP_ID", "-s", "$LARK_APP_SECRET"],
+        "url": null,
+        "env_keys": [],
+        "risk": "LARK_APP_ID/LARK_APP_SECRET via args — env var presence unverified"
+      },
+      {
+        "name": "pinecone",
+        "enabled": false,
+        "type": "stdio",
+        "command": "npx.cmd",
+        "args": ["-y", "@pinecone-database/mcp-server"],
+        "url": null,
+        "env_keys": ["PINECONE_API_KEY"],
+        "risk": "disabled — empty API key"
+      },
+      {
+        "name": "cloud_run",
+        "enabled": false,
+        "type": "stdio",
+        "command": "npx.cmd",
+        "args": ["-y", "@googlecloud/cloud-run-mcp"],
+        "url": null,
+        "env_keys": [],
+        "risk": "disabled"
+      },
+      {
+        "name": "chrome_devtools",
+        "enabled": false,
+        "type": "stdio",
+        "command": "npx.cmd",
+        "args": ["-y", "@vincit/chrome-devtools-mcp"],
+        "url": null,
+        "env_keys": [],
+        "risk": "disabled"
+      }
+    ],
+    "level0_passed": true,
+    "level0_result": "PASSED with warnings — MCP config present and parseable, EXA_API_KEY unverified"
+  },
+  "mcp_registration_path": {
+    "mcp_registration_path_mapped": true,
+    "entrypoints": [
+      {
+        "file": "tools/tools.py:36",
+        "function": "get_available_tools()",
+        "role": "Main tool registry — includes MCP tools via include_mcp=True"
+      },
+      {
+        "file": "deerflow/agents/middlewares/deferred_tool_filter_middleware.py",
+        "function": "DeferredToolFilterMiddleware",
+        "role": "Hides deferred tool schemas from model binding"
+      },
+      {
+        "file": "agent.py:319",
+        "function": "get_available_tools(model_name=model_name, ...)",
+        "role": "Called in make_lead_agent() to get tool list"
+      },
+      {
+        "file": "agent.py:381",
+        "function": "get_available_tools(...)",
+        "role": "Called for bootstrap agent"
+      }
+    ],
+    "key_finding": "get_available_tools() uses ExtensionsConfig.from_file() instead of config.extensions to always read latest config from disk",
+    "failure_modes": [
+      "MCP server not started — stdio command fails, tool calls return error",
+      "Invalid API key — MCP server returns auth error",
+      "Network unreachable — SSE transport fails to connect",
+      "Tool name mismatch — config name ≠ tool's internal name"
+    ],
+    "mcp_runtime_call_made": false
+  },
+  "bp01_status": "clear",
+  "bp02_status": "config_present_requires_gateway_for_runtime_verification",
+  "primary_blocker_after_r130": "none_at_static_level",
+  "recommended_next_phase": "R131_MODEL_AND_MCP_RUNTIME_READINESS_PROBE",
+  "r131_goals": [
+    {
+      "priority": 1,
+      "goal": "BP-01 Level 2 cheap ping — model.invoke('hi')",
+      "gateway_required": true,
+      "api_call": true
+    },
+    {
+      "priority": 2,
+      "goal": "BP-02 runtime probe — MCP server health check",
+      "gateway_required": true,
+      "api_call": true
+    },
+    {
+      "priority": 3,
+      "goal": "Agent astream smoke — full chain test",
+      "gateway_required": true,
+      "api_call": true
+    }
+  ],
+  "constraints": {
+    "actual_patch_allowed": false,
+    "gateway_activation_allowed": "deferred_to_r131",
+    "production_db_write_allowed": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R130_MODEL_MCP_STATIC_PROBE_EXECUTION.md",
+    "migration_reports/recovery/R130_MODEL_MCP_STATIC_PROBE_EXECUTION.json"
+  ],
+  "next_prompt_needed": "R131"
+}

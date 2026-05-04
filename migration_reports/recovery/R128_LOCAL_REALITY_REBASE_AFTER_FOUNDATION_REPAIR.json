@@ -1,0 +1,476 @@
+{
+  "phase": "R128",
+  "title": "LOCAL_REALITY_REBASE_AFTER_FOUNDATION_REPAIR",
+  "status": "completed",
+  "preceded_by": "R127",
+  "proceeding_to": "R129",
+  "pressure_assessment": {
+    "previous_mainline_anchor": "R127",
+    "current_phase": "R128",
+    "recommended_pressure": "XXL++",
+    "reason": "Local reality rebase after foundation repair; read-only but broad-scope mapping."
+  },
+  "workspace_baseline": {
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "e6859750",
+    "remote_origin": "https://github.com/yangzixuan88/deer-flow.git",
+    "workspace_dirty": true,
+    "dirty_classification": "expected_reports",
+    "untracked_categories": [
+      "migration_reports/recovery/*.md/*.json",
+      "migration_reports/foundation_audit/*.md/*.json",
+      "backend/app/* untracked modules (asset, audit, foundation, gateway, memory, m*)",
+      "config files (DECISIONS.md, UPGRADE_CENTER.md, *.json)",
+      "snapshot dirs (.tmp_upstream_openclaw_snapshot/, .openclaw/, .serena/)"
+    ],
+    "mainline_audit_safe": true,
+    "note": "Dirty files are all report artifacts and new modules, not tracked production modifications"
+  },
+  "old_mainline_revalidation": {
+    "r119_health_gate_still_present": true,
+    "r119_detail": "executorReadinessGate at m11/adapters/executor_adapter.ts:241 — not_ready returns action:skip for CLAUDE_CODE, triggering fallback chain",
+    "executor_selection_status": "valid",
+    "r123_systemtype_chain_still_present": true,
+    "r123_detail": "inferSystemType at m01/dag_planner.ts:240 — keyword-based routing to VISUAL_WEB/DESKTOP_APP/CLAUDE_CODE/SEARCH/WORKFLOW/TASK",
+    "systemtype_status": "valid",
+    "r126_deerflow_entry_still_restored": true,
+    "r126_detail": "orchestrator.ts:208-218 healthCheck() probes /health then createThread() fallback; :231-233 explicit timeout fallback to local",
+    "deerflow_entry_status": "valid",
+    "r120_m04_python_boundary_still_valid": true,
+    "r120_detail": "M04 TypeScript coordinator does not call Python; Python only enters via DeerFlow HTTP path when deerflowEnabled=true",
+    "m04_python_boundary_status": "valid",
+    "r127_python_tool_chain_still_structural": true,
+    "r127_detail": "services.py:start_run → asyncio.create_task(run_agent(...)) → worker.py:run_agent → agent.astream() at line 236",
+    "python_tool_chain_status": "valid_but_unchecked_runtime"
+  },
+  "old_mainline_summary": {
+    "r117": "EXECUTOR_SELECTION_HEALTH_GATE_VERIFIED",
+    "r118": "HEALTH_GATE_FALLBACK_CHAIN_CLAUDE_CODE_REVERVED",
+    "r119": "EXECUTOR_SELECTION_HEALTH_GATE_WORKING_BUT_ENV_LIMITED",
+    "r120": "M04_PYTHON_BOUNDARY_CLEAN",
+    "r121": "DAG_SYSTEMTYPE_INFERENCE_CHAIN_REPAIRED",
+    "r122": "VISUAL_WEB_DESKTOP_APP_CLAUDE_CODE_ROUTING_FIXED",
+    "r123": "DAG_SYSTEMTYPE_CHAIN_VERIFIED",
+    "r124": "DEERFLOW_ENTRY_CHAIN_VERIFIED",
+    "r125": "DEERFLOW_HEALTH_FALLBACK_CONFIRMED",
+    "r126": "DEERFLOW_ENTRY_CHAIN_FULLY_RESTORED",
+    "r127": "PYTHON_TOOL_CALL_CHAIN_STRUCTURAL_VERIFIED_RUNTIME_GATES_UNCLEAR"
+  },
+  "foundation_delta_impact_mapping": {
+    "auth_gateway": {
+      "impact": "neutral_to_mainline",
+      "detail": "AUTH_MIDDLEWARE_ENABLED/AUTH_ROUTES_ENABLED both false; app.py auth wiring uses try/except non-fatal; TS orchestrator never routes to auth paths"
+    },
+    "persistence": {
+      "impact": "neutral_to_mainline",
+      "detail": "tmp SQLite only; production DB blocked; TypeScript side uses in-memory; no impact on TS main chain"
+    },
+    "credential_bootstrap": {
+      "impact": "neutral_to_mainline",
+      "detail": "bootstrap chain verified for auth-disabled mode; irrelevant to TS orchestration path"
+    },
+    "deps_langgraph_runtime": {
+      "impact": "improves_mainline",
+      "detail": "deps.py:langgraph_runtime initializes checkpointer/store/event_store; all deps are in place for Python gateway to function when activated"
+    },
+    "m11_visual_automation": {
+      "impact": "neutral_to_mainline",
+      "detail": "TypeScript m11/adapters/executor_adapter.ts unchanged by R241; executeWithAutoSelect still present and healthy"
+    },
+    "mcp_tools": {
+      "impact": "still_blocked",
+      "detail": "mcp.py router present; mcp/client.py, mcp/tools.py present; MCP server health unprobed in runtime"
+    },
+    "pr_ci_side_effects": {
+      "impact": "unrelated_side_track",
+      "detail": "255 lint baseline errors and auth_middleware.py:85 SyntaxError are baseline; not main chain blockers"
+    }
+  },
+  "current_main_chain_graph": {
+    "entry": "user_input → M01.Orchestrator.execute()",
+    "path_a_local": {
+      "route": "ORCHESTRATION + deerflowEnabled=false",
+      "steps": [
+        "M01.handleLocalExecution()",
+        "M01.executeDAG()",
+        "M04.Coordinator.execute(system_type)",
+        "M11 executorAdapter (SEARCH/TASK/WORKFLOW/CLAUDE_CODE/VISUAL_WEB/DESKTOP_APP)",
+        "executeWithAutoSelect (VISUAL_WEB) with fallback chain",
+        "executorReadinessGate health check",
+        "not_ready → skip → Claude Code fallback"
+      ]
+    },
+    "path_b_deerflow": {
+      "route": "ORCHESTRATION + deerflowEnabled=true (default)",
+      "steps": [
+        "M01.handleDeerFlowExecution()",
+        "DeerFlowClient.healthCheck() → /health on port 8001",
+        "DeerFlowClient.createThread() business probe if /health false",
+        "DeerFlowClient.executeUntilComplete() → POST /api/threads/{id}/runs",
+        "Python: gateway/routers/runs.py → start_run()",
+        "Python: services.py → run_agent() async task",
+        "Python: worker.py → agent.astream() at line 236",
+        "LangGraph agent executes with tools"
+      ]
+    },
+    "confirmed_edges": [
+      "M01.orchestrator.ts:99 switch(classification.route)",
+      "M01.orchestrator.ts:189 deerflowEnabled config check",
+      "M01.orchestrator.ts:208-218 DeerFlow health probe + business probe",
+      "M01.orchestrator.ts:231-233 timeout → fallback to local",
+      "M01.orchestrator.ts:306 → coordinator.execute()",
+      "M04.coordinator.ts:146 switch(system_type)",
+      "M04.coordinator.ts:421 handleVisualWebRequest → executeWithAutoSelect",
+      "M04.coordinator.ts:277 handleClaudeCodeRequest → executorAdapter",
+      "m11/adapters/executor_adapter.ts:241 executorReadinessGate",
+      "m11/adapters/executor_adapter.ts:165 checkExecutorHealth",
+      "services.py:191 start_run → run_agent",
+      "worker.py:79 run_agent → agent.astream()"
+    ],
+    "unknown_edges": [
+      "resolve_agent_factory() in start_run — which agent graph is used?",
+      "MCP tool registration in LangGraph agent — does it work?",
+      "Tool-call event observability — are events actually captured?",
+      "Model availability probe — does the LLM actually respond?"
+    ],
+    "broken_edges": []
+  },
+  "branch_chain_inventory": [
+    {
+      "id": "BRANCH-01",
+      "name": "搜索支链",
+      "entrypoint": "M04.handleSearchRequest() → SearchAdapter.executeThreeRoundSearch()",
+      "linked_from_main_chain": "M04Coordinator via system_type=SEARCH",
+      "current_status": "structural_present",
+      "known_breakpoints": "SearchAdapter implementation not verified in runtime",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-02",
+      "name": "任务DAG支链",
+      "entrypoint": "M04.handleTaskRequest() → createTask() → executeDAG()",
+      "linked_from_main_chain": "M04Coordinator via system_type=TASK",
+      "current_status": "structural_present",
+      "known_breakpoints": "DAG execution via executorAdapter; health gate may skip not_ready executors",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-03",
+      "name": "工作流支链",
+      "entrypoint": "M04.handleWorkflowRequest() → N8NClient/DifyClient",
+      "linked_from_main_chain": "M04Coordinator via system_type=WORKFLOW",
+      "current_status": "structural_present",
+      "known_breakpoints": "N8N/Dify server availability unprobed",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-04",
+      "name": "视觉网页支链",
+      "entrypoint": "M04.handleVisualWebRequest() → executeWithAutoSelect()",
+      "linked_from_main_chain": "M04Coordinator via system_type=VISUAL_WEB",
+      "current_status": "structural_present",
+      "known_breakpoints": "OpenCLI daemon / Midscene / UI-TARS health unprobed; fallback chain not verified",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-05",
+      "name": "桌面应用支链",
+      "entrypoint": "M04.handleDesktopAppRequest() → desktopToolSelector.select() → executorAdapter",
+      "linked_from_main_chain": "M04Coordinator via system_type=DESKTOP_APP",
+      "current_status": "structural_present",
+      "known_breakpoints": "desktopToolSelector routing logic not verified",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-06",
+      "name": "Claude Code本地执行支链",
+      "entrypoint": "M04.handleClaudeCodeRequest() → executorAdapter.submit(CLAUDE_CODE)",
+      "linked_from_main_chain": "M04Coordinator via system_type=CLAUDE_CODE",
+      "current_status": "structural_present",
+      "known_breakpoints": "Claude Code CLI availability in PATH not verified",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-07",
+      "name": "DeerFlow/Python Agent支链",
+      "entrypoint": "DeerFlowClient → Python gateway → start_run → run_agent → agent.astream",
+      "linked_from_main_chain": "M01.handleDeerFlowExecution() path B",
+      "current_status": "structural_present",
+      "known_breakpoints": "Model availability, MCP tool health, tool-call event observability all unverified",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-08",
+      "name": "MCP工具支链",
+      "entrypoint": "gateway/routers/mcp.py → mcp/client.py → mcp/tools.py",
+      "linked_from_main_chain": "Via LangGraph agent.tools in Python runtime",
+      "current_status": "code_present",
+      "known_breakpoints": "MCP server health and tool registration completely unprobed",
+      "blocked_by": "SURFACE-010 equivalent for MCP (no dedicated runtime probe exists)",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-09",
+      "name": "记忆系统支链",
+      "entrypoint": "DeerFlowClient.getMemory() → GET /api/memory",
+      "linked_from_main_chain": "M01.orchestrator.ts via memory read interface (R114-A)",
+      "current_status": "structural_present",
+      "known_breakpoints": "Memory layer contract verified in R241-2A; actual memory runtime health unprobed",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-10",
+      "name": "资产系统支链",
+      "entrypoint": "asset_manager.ts → asset_lifecycle_contract",
+      "linked_from_main_chain": "Via DAG nodes or direct asset operations",
+      "current_status": "structural_present",
+      "known_breakpoints": "Asset lifecycle contract read-only ready per R241-9A",
+      "needs_later_repair": false
+    },
+    {
+      "id": "BRANCH-11",
+      "name": "夜间复盘支链",
+      "entrypoint": "nightly_distiller.ts → foundation_health_review",
+      "linked_from_main_chain": "Scheduled or event-triggered",
+      "current_status": "structural_present",
+      "known_breakpoints": "nightly_foundation_health_review read-only ready per R241-9A",
+      "needs_later_repair": false
+    },
+    {
+      "id": "BRANCH-12",
+      "name": "升级中枢/experiment_queue支链",
+      "entrypoint": "Unknown - referenced in codebase",
+      "linked_from_main_chain": "Possibly via RTCM or autonomous governance layers",
+      "current_status": "not_fully_mapped",
+      "known_breakpoints": "Not thoroughly investigated in R128 audit",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-13",
+      "name": "RTCM圆桌会议支链",
+      "entrypoint": "M01.handleRTCMTrigger() → mainAgentHandoff.activateRTCM()",
+      "linked_from_main_chain": "M01.orchestrator.ts:78-96 RTCM intercept/trigger",
+      "current_status": "structural_present",
+      "known_breakpoints": "Feishu API credentials required; real Feishu push blocked per R241-9A",
+      "needs_later_repair": true
+    },
+    {
+      "id": "BRANCH-14",
+      "name": "Feishu Summary/Report支链",
+      "entrypoint": "feishuApiAdapter → sendCardMessage",
+      "linked_from_main_chain": "Via RTCM or nightly systems",
+      "current_status": "structural_present",
+      "known_breakpoints": "real_feishu_push blocked per R241-9A; dry-run only",
+      "needs_later_repair": false
+    },
+    {
+      "id": "BRANCH-15",
+      "name": "Auth/Gateway支线",
+      "entrypoint": "app.py → AuthMiddleware + auth router",
+      "linked_from_main_chain": "Via gateway deps.py",
+      "current_status": "disabled_wired",
+      "known_breakpoints": "AUTH_MIDDLEWARE_ENABLED=false; AUTH_ROUTES_ENABLED=false",
+      "priority": "low_for_main_chain",
+      "needs_later_repair": "post-main-chain"
+    }
+  ],
+  "breakpoint_matrix": [
+    {
+      "breakpoint_id": "BP-01",
+      "chain": "path_b_deerflow",
+      "location": "Python LangGraph agent runtime",
+      "description": "Model availability — does the LLM actually respond?",
+      "old_status_from_R117_R127": "UNCLEAR (R127 noted: '模型可用性未验证')",
+      "current_status_after_R241": "still_unverified",
+      "severity": "critical",
+      "confidence": "medium",
+      "blocked_by": "gateway_activation_required=true; production_db_write_allowed=false",
+      "can_fix_without_gateway": false,
+      "can_fix_without_production_db": true,
+      "requires_runtime_probe": true,
+      "recommended_order": 1
+    },
+    {
+      "breakpoint_id": "BP-02",
+      "chain": "path_b_deerflow",
+      "location": "MCP tool registration + health",
+      "description": "MCP server health + tool callable verification",
+      "old_status_from_R117_R127": "UNCLEAR",
+      "current_status_after_R241": "still_unverified",
+      "severity": "critical",
+      "confidence": "medium",
+      "blocked_by": "SURFACE-010 equivalent; mcp/client.py and mcp/tools.py present but unprobed",
+      "can_fix_without_gateway": false,
+      "can_fix_without_production_db": true,
+      "requires_runtime_probe": true,
+      "recommended_order": 2
+    },
+    {
+      "breakpoint_id": "BP-03",
+      "chain": "path_b_deerflow",
+      "location": "worker.py:236 agent.astream event stream",
+      "description": "Tool-call event observability — are events captured by event_store?",
+      "old_status_from_R127": "UNCLEAR",
+      "current_status_after_R241": "still_unverified",
+      "severity": "high",
+      "confidence": "low",
+      "blocked_by": "gateway_activation_required=true",
+      "can_fix_without_gateway": false,
+      "can_fix_without_production_db": true,
+      "requires_runtime_probe": true,
+      "recommended_order": 3
+    },
+    {
+      "breakpoint_id": "BP-04",
+      "chain": "path_a_local",
+      "location": "m11/adapters/executor_adapter.ts:checkExecutorHealth",
+      "description": "Visual automation health — OpenCLI/Midscene/UI-TARS availability",
+      "old_status_from_R119": "ENV_LIMITED (CLI not in PATH)",
+      "current_status_after_R241": "unchanged_structurally",
+      "severity": "high",
+      "confidence": "high",
+      "blocked_by": "ENV_LIMITED — CLI availability",
+      "can_fix_without_gateway": true,
+      "can_fix_without_production_db": true,
+      "requires_runtime_probe": true,
+      "recommended_order": 4
+    },
+    {
+      "breakpoint_id": "BP-05",
+      "chain": "path_a_local",
+      "location": "m11/adapters/executor_adapter.ts:241 executorReadinessGate",
+      "description": "Claude Code fallback chain — not_ready skips, Claude Code executes",
+      "old_status_from_R119": "WORKING (Claude Code fallback verified)",
+      "current_status_after_R241": "structural_valid",
+      "severity": "medium",
+      "confidence": "high",
+      "blocked_by": "Claude Code CLI in PATH",
+      "can_fix_without_gateway": true,
+      "can_fix_without_production_db": true,
+      "requires_runtime_probe": true,
+      "recommended_order": 5
+    },
+    {
+      "breakpoint_id": "BP-06",
+      "chain": "path_a+path_b",
+      "location": "M01.orchestrator.ts:308 coordinator.execute()",
+      "description": "M01/M04/M11 interface compatibility after R241 Python gateway changes",
+      "old_status_from_R117_R127": "NOT_TESTED_AFTER_R241",
+      "current_status_after_R241": "structurally_intact",
+      "severity": "medium",
+      "confidence": "medium",
+      "blocked_by": "gateway_activation_required=true",
+      "can_fix_without_gateway": true,
+      "can_fix_without_production_db": true,
+      "requires_runtime_probe": true,
+      "recommended_order": 6
+    },
+    {
+      "breakpoint_id": "BP-07",
+      "chain": "all",
+      "location": "deps.py:langgraph_runtime",
+      "description": "Checkpointer + store + event_store initialization",
+      "old_status_from_R127": "UNCLEAR",
+      "current_status_after_R241": "initialized_when_gateway_starts",
+      "severity": "high",
+      "confidence": "high",
+      "blocked_by": "gateway_activation_required=true",
+      "can_fix_without_gateway": false,
+      "can_fix_without_production_db": false,
+      "requires_runtime_probe": true,
+      "recommended_order": 7
+    }
+  ],
+  "primary_mainline_breakpoint": "BP-01_MODEL_AVAILABILITY",
+  "primary_breakpoint_description": "Python LangGraph agent model availability probe — does the LLM actually respond to tool calls?",
+  "secondary_breakpoints": ["BP-02_MCP_TOOL_HEALTH", "BP-03_TOOL_CALL_OBSERVABILITY", "BP-04_VISUAL_AUTOMATION_HEALTH"],
+  "repair_strategy": {
+    "phase_1_main_chain": [
+      {
+        "rank": 1,
+        "action": "Python model availability probe",
+        "target": "BP-01",
+        "method": "Safe import of LangGraph agent factory + minimal model health check",
+        "can_do_without_gateway": false,
+        "constraint": "No DB write; read-only probe; no production init_engine"
+      },
+      {
+        "rank": 2,
+        "action": "MCP tool registration + health check",
+        "target": "BP-02",
+        "method": "Import mcp/client.py + mcp/tools.py; probe MCP server health",
+        "can_do_without_gateway": false,
+        "constraint": "No DB write; safe MCP server ping only"
+      },
+      {
+        "rank": 3,
+        "action": "Tool-call event observability verification",
+        "target": "BP-03",
+        "method": "Verify event_store captures tool call events from agent.astream",
+        "can_do_without_gateway": false,
+        "constraint": "Requires bridge and run_manager access"
+      }
+    ],
+    "phase_2_direct_branches": [
+      {
+        "rank": 1,
+        "action": "Visual automation health (OpenCLI/Midscene/UI-TARS)",
+        "target": "BP-04",
+        "method": "Run checkExecutorHealth() in isolation; verify fallback chain",
+        "can_do_without_gateway": true,
+        "constraint": "TypeScript side only; no Python needed"
+      },
+      {
+        "rank": 2,
+        "action": "Claude Code fallback chain verification",
+        "target": "BP-05",
+        "method": "Verify executorReadinessGate returns skip + Claude Code fallback",
+        "can_do_without_gateway": true,
+        "constraint": "TypeScript side only"
+      },
+      {
+        "rank": 3,
+        "action": "M01/M04/M11 interface compatibility recheck",
+        "target": "BP-06",
+        "method": "Verify TypeScript orchestrator still correctly calls M04 + M11 after R241 changes",
+        "can_do_without_gateway": true,
+        "constraint": "TypeScript only; structural AST check + smoke test"
+      }
+    ],
+    "phase_3_deep_branches": [
+      "BRANCH-01 (搜索) — SearchAdapter runtime verification",
+      "BRANCH-03 (工作流) — N8N/Dify availability check",
+      "BRANCH-07 (DeerFlow/Python) — Full end-to-end path B smoke test",
+      "BRANCH-09 (记忆) — Memory runtime health probe",
+      "BRANCH-13 (RTCM) — Feishu API credential + handoff verification"
+    ],
+    "phase_4_function_acceptance": [
+      "Search function acceptance",
+      "Task DAG execution acceptance",
+      "Visual web automation acceptance",
+      "Claude Code local execution acceptance",
+      "DeerFlow remote execution acceptance",
+      "Memory read/write acceptance",
+      "Feishu summary acceptance"
+    ],
+    "phase_5_closeout": [
+      "All branch chains verified or formally deferred",
+      "Blocker matrix refreshed against actual runtime state",
+      "PR/CI baseline formally acknowledged as separate track"
+    ]
+  },
+  "code_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_activation_allowed": false,
+  "production_db_write_allowed": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+  "report_files": [
+    "migration_reports/recovery/R128_LOCAL_REALITY_REBASE_AFTER_FOUNDATION_REPAIR.md",
+    "migration_reports/recovery/R128_LOCAL_REALITY_REBASE_AFTER_FOUNDATION_REPAIR.json"
+  ],
+  "next_prompt_needed": "R129"
+}
