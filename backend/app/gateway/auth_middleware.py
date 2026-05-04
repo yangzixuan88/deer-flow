@@ -10,6 +10,7 @@ Fine-grained permission checks remain in authz.py decorators.
 """
 
 from collections.abc import Callable
+from typing import Any
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware

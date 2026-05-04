@@ -17,7 +17,7 @@ import logging
 import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 # Selected Mode Enum — matches R240-2 ModeDecision.schema.json
 # ---------------------------------------------------------------------------
 
-class SelectedMode(str, Enum):
+class SelectedMode(StrEnum):
     SEARCH = "search"
     TASK = "task"
     WORKFLOW = "workflow"
@@ -39,7 +39,7 @@ class SelectedMode(str, Enum):
     MIXED_MODE = "mixed_mode"
 
 
-class DelegatedTo(str, Enum):
+class DelegatedTo(StrEnum):
     M01_ORCHESTRATOR = "m01_orchestrator"
     M04_COORDINATOR = "m04_coordinator"
     DEERFLOW_HARNESS = "deerflow_harness"
@@ -338,7 +338,6 @@ def infer_candidate_modes(raw_input: str) -> list[CandidateMode]:
     elif any(k in text.lower() for k in {"讨论", "评审", "会议", "圆桌", "council", "debate"}):
         candidates.append((SelectedMode.ROUNDTABLE, 0.70, "inferred roundtable — needs confirmation"))
         # Override: if only inferred, mark needs_clarification later
-        needs_confirm = True
 
     # Autonomous agent
     if _keyword_match(text, _AUTONOMOUS_KEYWORDS):

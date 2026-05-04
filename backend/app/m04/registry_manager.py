@@ -5,9 +5,9 @@ import time
 from typing import Any
 from uuid import uuid4
 
-logger = logging.getLogger(__name__)
-
 from app.m04.registry_db import DB_PATH
+
+logger = logging.getLogger(__name__)
 
 
 class RegistryManager:
