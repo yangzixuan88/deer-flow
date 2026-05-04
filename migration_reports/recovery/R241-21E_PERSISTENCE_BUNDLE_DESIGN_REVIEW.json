@@ -1,0 +1,239 @@
+{
+  "report_id": "R241-21E_PERSISTENCE_BUNDLE_DESIGN_REVIEW",
+  "phase": "phase_21e_persistence_bundle_design_review",
+  "status": "passed_with_warnings",
+  "decision": "persistence_bundle_design_review_completed_all_candidates_require_surface010_unblock",
+  "source": "R241-21D_AUTH_BUNDLE_PORT_BACK_DESIGN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "local_vs_upstream": {
+    "local_persistence_exists": false,
+    "local_runtime_events_store_exists": false,
+    "upstream_persistence_exists": true,
+    "upstream_persistence_path": "backend/packages/harness/deerflow/persistence/",
+    "upstream_runtime_events_store_path": "backend/packages/harness/deerflow/runtime/events/store/"
+  },
+
+  "candidate_analysis": {
+    "CAND-008": {
+      "path": "persistence/__init__.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "Persistence layer entry point",
+      "runtime_impact": "triggers init_engine() at startup",
+      "startup_write": true,
+      "surface_010": true,
+      "priority": "P0",
+      "dependencies": ["persistence/engine.py"]
+    },
+    "CAND-009": {
+      "path": "persistence/engine.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "Async SQLAlchemy engine lifecycle",
+      "runtime_impact": "PRIMARY SURFACE-010 TRIGGER",
+      "startup_write": true,
+      "startup_operations": ["CREATE DATABASE (postgres)", "WAL mode (sqlite)", "schema create_all"],
+      "surface_010": true,
+      "priority": "P0",
+      "dependencies": []
+    },
+    "CAND-010": {
+      "path": "persistence/feedback/sql.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "Feedback repository",
+      "runtime_impact": "Read + Write to DB",
+      "startup_write": false,
+      "surface_010": "indirect",
+      "priority": "P2",
+      "dependencies": ["persistence/engine.py"]
+    },
+    "CAND-011": {
+      "path": "persistence/run/sql.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "Run repository",
+      "runtime_impact": "Read + Write to DB",
+      "startup_write": false,
+      "surface_010": "indirect",
+      "priority": "P2",
+      "dependencies": ["persistence/engine.py"]
+    },
+    "CAND-012": {
+      "path": "runtime/events/store/db.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "DB-backed event store",
+      "runtime_impact": "Write DB row per event",
+      "startup_write": false,
+      "event_write": true,
+      "surface_010": "indirect + user_context",
+      "priority": "P2",
+      "dependencies": ["persistence/engine.py", "user_context.py"]
+    },
+    "CAND-013": {
+      "path": "runtime/events/store/jsonl.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "JSONL file-backed event store",
+      "runtime_impact": "Write JSONL file per event",
+      "startup_write": false,
+      "event_write": true,
+      "filesystem_write": ".deer-flow/threads/{thread_id}/runs/{run_id}.jsonl",
+      "surface_010": "indirect",
+      "priority": "P3",
+      "dependencies": ["persistence/engine.py"]
+    },
+    "CAND-024": {
+      "path": "persistence/user/model.py",
+      "upstream_exists": true,
+      "local_exists": false,
+      "purpose": "UserRow ORM model",
+      "runtime_impact": "Read + Write to DB (model definition only)",
+      "startup_write": false,
+      "surface_010": "indirect",
+      "priority": "P2",
+      "dependencies": ["persistence/engine.py"]
+    }
+  },
+
+  "write_type_classification": {
+    "startup_writes": [
+      {"candidate": "CAND-009", "write_type": "DB connection init", "risk": "HIGH"},
+      {"candidate": "CAND-009", "write_type": "CREATE DATABASE (postgres)", "risk": "HIGH"},
+      {"candidate": "CAND-009", "write_type": "schema create_all", "risk": "HIGH"}
+    ],
+    "runtime_writes": [
+      {"candidate": "CAND-012", "write_type": "DB row per event", "risk": "MEDIUM"},
+      {"candidate": "CAND-013", "write_type": "JSONL append per event", "risk": "MEDIUM"},
+      {"candidate": "CAND-010", "write_type": "DB write (feedback)", "risk": "MEDIUM"},
+      {"candidate": "CAND-011", "write_type": "DB write (run)", "risk": "MEDIUM"},
+      {"candidate": "CAND-024", "write_type": "DB write (user)", "risk": "MEDIUM"}
+    ]
+  },
+
+  "persistence_bundle_dependency_graph": {
+    "root": "persistence/__init__.py (CAND-008)",
+    "primary_trigger": "persistence/engine.py (CAND-009)",
+    "provides": "get_session_factory()",
+    "stores": [
+      {"id": "CAND-012", "name": "DbRunEventStore", "backend": "DB", "event_write": true},
+      {"id": "CAND-013", "name": "JsonlRunEventStore", "backend": "JSONL", "event_write": true},
+      {"id": "memory", "name": "MemoryRunEventStore", "backend": "memory", "event_write": true, "surface_010_direct": true}
+    ],
+    "repositories": [
+      {"id": "CAND-010", "name": "FeedbackRepository"},
+      {"id": "CAND-011", "name": "RunRepository"}
+    ],
+    "models": [
+      {"id": "CAND-024", "name": "UserRow"}
+    ]
+  },
+
+  "surface_010_analysis": {
+    "implicated": true,
+    "reason": "All 7 candidates depend on engine.py which is the primary SURFACE-010 trigger",
+    "primary_trigger": "CAND-009 engine.py",
+    "direct_surface_010": ["memory.py (MemoryRunEventStore)"],
+    "indirect_surface_010": ["CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+    "unblock_prerequisite": "SURFACE-010 memory runtime must be unblocked first"
+  },
+
+  "read_only_adapter_analysis": {
+    "viable": false,
+    "reason": "Local persistence layer does not exist — nothing to adapt read-only",
+    "base_interface_exists": true,
+    "base_interface_value": "No value without concrete implementation",
+    "conclusion": "Port entire persistence layer or none of it"
+  },
+
+  "minimum_viable_implementation_order": [
+    {"step": 1, "candidate": "CAND-009", "name": "engine.py", "reason": "MUST BE FIRST — all others depend on session_factory"},
+    {"step": 2, "candidate": "CAND-024 + base.py", "name": "UserRow ORM + Base", "reason": "Required for schema create_all"},
+    {"step": 3, "candidate": "CAND-010 + CAND-011", "name": "feedback/sql.py + run/sql.py", "reason": "Repositories using session_factory"},
+    {"step": 4, "candidate": "CAND-012 OR CAND-013", "name": "event store (DB or JSONL)", "reason": "Choose one: db.py or jsonl.py"},
+    {"step": 5, "candidate": "CAND-008", "name": "persistence/__init__.py", "reason": "Aggregate exports"}
+  ],
+
+  "rollback_backup_retention": {
+    "rollback_conditions": [
+      {"condition": "init_engine fails", "action": "Set database.backend=memory, no-op"},
+      {"condition": "DB connection exhaustion", "action": "Reduce pool size, restart gateway"},
+      {"condition": "Schema migration failure", "action": "Run alembic downgrade"},
+      {"condition": "JSONL file corruption", "action": "Delete .deer-flow/, re-initialize"}
+    ],
+    "backup_requirements": [
+      {"component": "SQLite DB", "method": "File copy", "frequency": "Before migration"},
+      {"component": "Postgres DB", "method": "pg_dump", "frequency": "Before migration"},
+      {"component": "JSONL files", "method": ".deer-flow/ directory backup", "frequency": "Before migration"}
+    ],
+    "retention_policy": [
+      {"data": "Run events (DB)", "retention": "30 days rolling", "impl": "run_events.created_at < NOW() - 30d"},
+      {"data": "Run events (JSONL)", "retention": "7 days rolling", "impl": "File age-based deletion"},
+      {"data": "Feedback", "retention": "90 days", "impl": "feedback.created_at < NOW() - 90d"}
+    ]
+  },
+
+  "classification_results": {
+    "safe_design_subset": [],
+    "blocked_runtime_subset": ["CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+    "all_candidates_blocked": true,
+    "no_action_needed": []
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "persistence_dir_created": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "memory_runtime_activated": false,
+    "persistence_engine_activated": false,
+    "gateway_modified": false,
+    "route_registered": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "persistence_bundle_design_review_completed_all_candidates_require_surface010_unblock",
+    "persistence_bundle_design_completed": true,
+    "bundle_candidates": ["CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+    "local_persistence_exists": false,
+    "surface_010_implicated": true,
+    "read_only_adapter_viable": false,
+    "all_candidates_blocked": true,
+    "minimum_viable_order": ["CAND-009", "CAND-024", "CAND-010+CAND-011", "CAND-012|CAND-013", "CAND-008"],
+    "implementation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-21E",
+    "next_prompt_needed": "user_selection"
+  }
+}

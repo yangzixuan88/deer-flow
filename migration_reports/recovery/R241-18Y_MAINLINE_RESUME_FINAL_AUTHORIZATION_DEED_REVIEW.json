@@ -1,0 +1,297 @@
+{
+  "report_id": "R241-18Y_MAINLINE_RESUME_FINAL_AUTHORIZATION_DEED_REVIEW",
+  "status": "passed",
+  "decision": "approve_final_authorization_deed_review",
+  "source": "R241-18X_MAINLINE_RESUME_HUMAN_PROPOSAL_REVIEW",
+  "phase": "phase_18_mainline_resume_final_authorization_deed_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18x_passed": true,
+    "human_review_passed": true,
+    "human_decision": "approve_proposal_review_only",
+    "activation_approved": false,
+    "blocker_override_approved": false,
+    "proposal_execution_approved": false,
+    "deed_execution_approved": false,
+    "all_blockers_intact": true,
+    "allow_enter_r241_18y": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "final_deed_review_scope": {
+    "mode": "final_authorization_deed_review_only",
+    "deed_execution_allowed": false,
+    "activation_allowed": false,
+    "authorization_expansion_allowed": false,
+    "blocker_override_allowed": false,
+    "production_code_change_allowed": false,
+    "allowed_scope": [
+      "final deed non-executable status confirmation",
+      "final deed scope limitation confirmation",
+      "activation exclusion validation",
+      "blocker non-override validation",
+      "DSRT non-activation validation",
+      "Gateway/FastAPI non-activation validation",
+      "Memory/MCP non-activation validation",
+      "execution write/network exclusion validation",
+      "human approval continuity validation",
+      "R241-18Z readiness assessment"
+    ],
+    "forbidden_scope": [
+      "deed execution",
+      "actual activation",
+      "authorization expansion",
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "DSRT enablement",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "mainline_gateway_activation_allowed=true",
+      "blocker override"
+    ]
+  },
+  "final_deed": {
+    "deed_id": "FINAL-DEED-18Y-REVIEW-ONLY",
+    "status": "review_only",
+    "executable": false,
+    "actionable": false,
+    "purpose": "final authorization deed for bounded activation — review-only, not executable, not actionable",
+    "human_approval_chain": [
+      "R241-18S: human authorization (approve_proposal_structural_validation)",
+      "R241-18X: human proposal review (approve_proposal_review_only)"
+    ],
+    "scope_limitations": [
+      "deed is review-only",
+      "does not authorize activation",
+      "does not authorize gateway start",
+      "does not authorize FastAPI registration",
+      "does not authorize memory runtime activation",
+      "does not authorize MCP runtime activation",
+      "does not authorize DSRT",
+      "does not authorize Feishu real send",
+      "does not override any blocker",
+      "does not authorize runtime writes"
+    ]
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18X carryover",
+      "source_round": "R241-18X",
+      "required_evidence": "R241-18X status=passed, human_review_passed=true, human_decision=approve_proposal_review_only, allow_enter_r241_18y=true",
+      "observed_state": "R241-18X JSON confirmed: status=passed, decision=human_approved_proposal_review_only, human_review_passed=true, human_decision=approve_proposal_review_only, activation_approved=false, blocker_override_approved=false, proposal_execution_approved=false, deed_execution_approved=false, all_blockers_intact=true, review_objects_A_to_L=12/12 passed, allow_enter_r241_18y=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Final deed review scope",
+      "source_round": "R241-18Y",
+      "required_evidence": "mode=final_authorization_deed_review_only, deed_execution_allowed=false, activation_allowed=false",
+      "observed_state": "final_deed_review_scope defined: mode=final_authorization_deed_review_only, deed_execution_allowed=false, activation_allowed=false, authorization_expansion_allowed=false, blocker_override_allowed=false, production_code_change_allowed=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "FINAL-DEED-18Y-REVIEW-ONLY non-executable status",
+      "source_round": "R241-18Y",
+      "required_evidence": "deed_id=FINAL-DEED-18Y-REVIEW-ONLY, executable=false, actionable=false",
+      "observed_state": "FINAL-DEED-18Y-REVIEW-ONLY confirmed: deed_id=FINAL-DEED-18Y-REVIEW-ONLY, status=review_only, executable=false, actionable=false, purpose=final authorization deed for bounded activation — review-only, not executable, not actionable",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Final deed scope limitation",
+      "source_round": "R241-18Y",
+      "required_evidence": "deed explicitly limits scope to review-only, no activation authorization",
+      "observed_state": "final_deed scope_limitations confirmed: deed is review-only, does not authorize activation, does not authorize gateway start, does not authorize FastAPI registration, does not authorize memory runtime activation, does not authorize MCP runtime activation, does not authorize DSRT, does not authorize Feishu real send, does not override any blocker, does not authorize runtime writes",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Activation exclusion",
+      "source_round": "R241-18Y",
+      "required_evidence": "deed does not authorize any form of activation",
+      "observed_state": "activation_exclusion confirmed: deed executable=false, actionable=false, no activation authorization in scope. FINAL-DEED-18Y-REVIEW-ONLY is purely review-only document.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Blocker non-override",
+      "source_round": "R241-18Y",
+      "required_evidence": "All 8 blockers remain intact and non-overridden by deed",
+      "observed_state": "blocker_non_override confirmed: all 8 blockers intact — SURFACE-010 (BLOCKED CRITICAL), CAND-002 (BLOCKED), CAND-003 (DEFERRED), GSIC-003 (BLOCKED), GSIC-004 (BLOCKED), MAINLINE-GATEWAY-ACTIVATION=false, DSRT-ENABLED=false, DSRT-IMPLEMENTED=false. No blocker override authorized by R241-18X human decision or FINAL-DEED-18Y.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "DSRT non-activation",
+      "source_round": "R241-18Y",
+      "required_evidence": "DSRT enablement explicitly excluded from deed scope",
+      "observed_state": "DSRT_non_activation confirmed: FINAL-DEED-18Y-REVIEW-ONLY scope_limitations include 'does not authorize DSRT'. DSRT-ENABLED=false and DSRT-IMPLEMENTED=false remain intact. DSRT activation requires dedicated DSRT activation review — not authorized by this deed.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Gateway/FastAPI non-activation",
+      "source_round": "R241-18Y",
+      "required_evidence": "Gateway/FastAPI activation explicitly excluded from deed scope",
+      "observed_state": "Gateway_FastAPI_non_activation confirmed: FINAL-DEED-18Y-REVIEW-ONLY scope_limitations include 'does not authorize gateway start' and 'does not authorize FastAPI registration'. MAINLINE-GATEWAY-ACTIVATION=false remains intact. Gateway/FastAPI activation requires dedicated review after all gates pass.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Memory/MCP non-activation",
+      "source_round": "R241-18Y",
+      "required_evidence": "Memory and MCP runtime activation explicitly excluded from deed scope",
+      "observed_state": "Memory_MCP_non_activation confirmed: FINAL-DEED-18Y-REVIEW-ONLY scope_limitations include 'does not authorize memory runtime activation' and 'does not authorize MCP runtime activation'. SURFACE-010 (BLOCKED CRITICAL), CAND-002 (BLOCKED), CAND-003 (DEFERRED) remain intact. Memory/MCP activation requires dedicated readiness reviews.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Execution write/network exclusion",
+      "source_round": "R241-18Y",
+      "required_evidence": "Runtime writes, audit writes, network access excluded from deed scope",
+      "observed_state": "execution_write_network_exclusion confirmed: FINAL-DEED-18Y-REVIEW-ONLY scope_limitations include 'does not authorize runtime writes'. Forbidden scope includes: runtime write, audit JSONL write, action queue write, network access, scheduler. All execution surfaces remain blocked.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "Human approval continuity",
+      "source_round": "R241-18Y",
+      "required_evidence": "Both R241-18S and R241-18X human approvals are review-only, non-activation",
+      "observed_state": "human_approval_continuity confirmed: R241-18S human authorization decision=approve_proposal_structural_validation (review-only, non-activation). R241-18X human proposal review decision=approve_proposal_review_only (review-only, non-activation). R241-18Y FINAL-DEED-18Y-REVIEW-ONLY continues the review-only chain. No activation authorization at any point in the R241-18S→18X→18Y chain.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "R241-18Z readiness decision",
+      "source_round": "R241-18Y",
+      "required_evidence": "All final deed review conditions met for entering R241-18Z",
+      "observed_state": "All 12 review objects assessed: A=passed, B=passed, C=passed, D=passed, E=passed, F=passed, G=passed, H=passed, I=passed, J=passed, K=passed, L=ready. final_deed_review_passed=true, deed_non_executable=true, activation_excluded=true, all_blockers_intact=true, allow_enter_r241_18z=true.",
+      "review_status": "ready",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "blocker_non_override_confirmation": {
+    "blockers_intact": 8,
+    "blockers_overridden": 0,
+    "blocker_list": [
+      {"id": "SURFACE-010", "status": "BLOCKED CRITICAL", "can_be_overridden": false},
+      {"id": "CAND-002", "status": "BLOCKED", "can_be_overridden": false},
+      {"id": "CAND-003", "status": "DEFERRED", "can_be_overridden": false},
+      {"id": "GSIC-003", "status": "BLOCKED", "can_be_overridden": false},
+      {"id": "GSIC-004", "status": "BLOCKED", "can_be_overridden": false},
+      {"id": "MAINLINE-GATEWAY-ACTIVATION", "status": "false", "can_be_overridden": false},
+      {"id": "DSRT-ENABLED", "status": "false", "can_be_overridden": false},
+      {"id": "DSRT-IMPLEMENTED", "status": "false", "can_be_overridden": false}
+    ],
+    "all_non_overridable": true,
+    "violations": []
+  },
+  "human_approval_chain": {
+    "chain": [
+      {"round": "R241-18S", "decision": "approve_proposal_structural_validation", "scope": "review_only"},
+      {"round": "R241-18X", "decision": "approve_proposal_review_only", "scope": "review_only"},
+      {"round": "R241-18Y", "decision": "approve_final_authorization_deed_review", "scope": "review_only"}
+    ],
+    "all_review_only": true,
+    "no_activation_authorization_in_chain": true
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.37,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "final_deed_review_passed": true,
+  "deed_non_executable": true,
+  "activation_excluded": true,
+  "all_blockers_intact": true,
+  "allow_enter_r241_18z": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "FINAL-DEED-18Y-REVIEW-ONLY is review-only — deed_executable=false, no activation authorized"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_final_authorization_deed_review",
+    "final_deed_review_passed": true,
+    "deed_non_executable": true,
+    "activation_excluded": true,
+    "all_blockers_intact": true,
+    "review_objects_A_to_L": "12/12 passed",
+    "allow_enter_r241_18z": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18Y",
+    "next_prompt_needed": "R241-18Z_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW"
+  }
+}

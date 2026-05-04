@@ -1,0 +1,150 @@
+{
+  "report_id": "R241-19I8_CAND017_PORT_BACK_VERIFICATION_AND_COMMIT_AUTHORIZATION",
+  "phase": "phase_19i8_cand017_port_back_verification_and_commit_authorization",
+  "status": "passed",
+  "decision": "authorize_cand017_commit",
+  "source": "R241-19I7_CAND017_PORT_BACK_PLAN_AND_EXECUTION_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "HEAD": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "64f4dc163910895b1fd5df1d569fac6ffce8309e",
+    "dirty_tracked_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_list": [
+      "E:/OpenClaw-Base/deerflow             ae9cc034 [main]",
+      "E:/OpenClaw-Base/.tmp_r241_19i3_patch 9aac8c65 (detached HEAD)",
+      "E:/OpenClaw-Base/r241_19i3_full       9aac8c65 [r241_19i3_full]",
+      "E:/OpenClaw-Base/r241_19i3_worktree   ae9cc034 [r241_19i3_patch]"
+    ]
+  },
+  "preconditions_from_r241_19i7": {
+    "r241_19i7_status": "passed",
+    "r241_19i7_decision": "approve_cand017_port_back_plan_and_execution",
+    "cand017_port_back_completed": true,
+    "changed_paths": ["backend/packages/harness/deerflow/agents/lead_agent/agent.py"],
+    "middleware_summarize_tag_present": true,
+    "tag_count": 2,
+    "tag_locations": ["line 72", "line 79"],
+    "file_line_count_after": 410,
+    "file_matches_target": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "blockers_preserved": true,
+    "allow_enter_r241_19i8": true,
+    "all_preconditions_met": true
+  },
+  "verification_results": {
+    "root_guard_python": "pass",
+    "root_guard_powershell": "pass",
+    "agent_py_line_count": 410,
+    "target_agent_py_line_count": 410,
+    "line_count_match": true,
+    "middleware_summarize_tag_present": true,
+    "tag_count": 2,
+    "tag_line_numbers": [72, 79],
+    "file_matches_target": true,
+    "diff_stat": "1 file changed, 95 insertions(+), 35 deletions(-)",
+    "changed_paths": ["backend/packages/harness/deerflow/agents/lead_agent/agent.py"],
+    "expected_changed_paths": ["backend/packages/harness/deerflow/agents/lead_agent/agent.py"],
+    "unexpected_changed_paths": []
+  },
+  "test_results": {
+    "core_144": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0
+    },
+    "upgrade_intake_32": {
+      "command": "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v",
+      "passed": 32,
+      "failed": 0
+    },
+    "total_passed": 80,
+    "total_failed": 0,
+    "note": "Additional disabled/dsrt/feishu/audit/trend tests available in isolated worktree"
+  },
+  "user_commit_authorization": {
+    "decision": "authorize_cand017_commit",
+    "user_cand017_commit_authorization_obtained": true,
+    "authorized_path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "authorization_scope": "git_add_and_git_commit_only",
+    "authorization_includes_push": false,
+    "authorization_includes_merge": false,
+    "authorization_includes_dependency_install": false,
+    "authorization_includes_runtime_replacement": false,
+    "authorization_includes_blocker_override": false,
+    "authorization_includes_worktree_cleanup": false,
+    "includes_cand003": false,
+    "includes_cand020": false,
+    "includes_cand021": false,
+    "includes_cand025": false,
+    "suggested_commit_message": "R241-19I7: port back CAND-017 lead agent summarization config"
+  },
+  "commit_precondition_matrix": {
+    "r241_19i8_authorization_obtained": true,
+    "only_one_path_modified": true,
+    "file_matches_target": true,
+    "middleware_tag_present": true,
+    "no_forbidden_paths_touched": true,
+    "tests_passed": true,
+    "blockers_preserved": true,
+    "root_guard_passed": true,
+    "all_preconditions_for_commit_met": true
+  },
+  "isolated_worktree_boundary": {
+    "worktree_list": [
+      "E:/OpenClaw-Base/deerflow             ae9cc034 [main]",
+      "E:/OpenClaw-Base/.tmp_r241_19i3_patch 9aac8c65 (detached HEAD)",
+      "E:/OpenClaw-Base/r241_19i3_full       9aac8c65 [r241_19i3_full]",
+      "E:/OpenClaw-Base/r241_19i3_worktree   ae9cc034 [r241_19i3_patch]"
+    ],
+    "cleanup_allowed_now": false,
+    "cleanup_requires_future_user_authorization": true,
+    "main_worktree_cleanup_allowed": false
+  },
+  "r241_19i9_readiness": {
+    "allow_enter_r241_19i9": true,
+    "recommended_next_round": "R241-19I9_CAND017_COMMIT_EXECUTION_REVIEW",
+    "reason": "R241-19I8 commit authorization obtained. All preconditions met. agent.py verified matching target. middleware:summarize tag present. 80 tests passed. R241-19I9 ready for commit execution.",
+    "blocking_reason": null,
+    "warnings": [
+      "agent.py is dirty tracked — commit not yet created",
+      "Isolated worktrees still preserved pending future cleanup authorization",
+      "CAND-003/CAND-025 remain quarantined",
+      "CAND-020/CAND-021 removed from upstream patch lane"
+    ]
+  },
+  "carryover_blockers": [
+    "SURFACE-010 (BLOCKED CRITICAL)",
+    "CAND-002 (BLOCKED)",
+    "CAND-003 (DEFERRED)",
+    "GSIC-003 (BLOCKED)",
+    "GSIC-004 (BLOCKED)",
+    "MAINLINE-GATEWAY-ACTIVATION=false",
+    "DSRT-ENABLED=false",
+    "DSRT-IMPLEMENTED=false"
+  ],
+  "final_decision": {
+    "status": "passed",
+    "decision": "authorize_cand017_commit",
+    "user_cand017_commit_authorization_obtained": true,
+    "cand017_port_back_verified": true,
+    "file_matches_target": true,
+    "middleware_summarize_tag_present": true,
+    "tests_passed": 80,
+    "tests_failed": 0,
+    "blockers_preserved": true,
+    "allow_enter_r241_19i9": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-19I8",
+    "next_prompt_needed": "R241-19I9_CAND017_COMMIT_EXECUTION_REVIEW"
+  }
+}

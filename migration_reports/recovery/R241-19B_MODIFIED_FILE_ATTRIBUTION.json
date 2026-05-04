@@ -1,0 +1,40 @@
+{
+  "report_id": "R241-19B_MODIFIED_FILE_ATTRIBUTION",
+  "phase": "phase_19b_foundation_repair_execution_batch1",
+  "generated_at": "2026-04-28T06:50:00+00:00",
+  "attribution_summary": {
+    "code_modifications_made_by_r241_19b": false,
+    "new_files_created_by_r241_19b": true,
+    "report_files_generated": 10,
+    "report_files_classification": "evidence_generation_scripts_and_diagnostic_helpers",
+    "all_report_generation_in_allowed_code_touch_class": true
+  },
+  "new_report_files": [
+    "migration_reports/recovery/R241-19B_DIRTY_WORKTREE_BASELINE_MANIFEST.json",
+    "migration_reports/recovery/R241-19B_DIRTY_WORKTREE_BASELINE_MANIFEST.md",
+    "migration_reports/recovery/R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1.json",
+    "migration_reports/recovery/R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1.md",
+    "migration_reports/recovery/R241-19B_EVIDENCE_INDEX.json",
+    "migration_reports/recovery/R241-19B_EVIDENCE_INDEX.md",
+    "migration_reports/recovery/R241-19B_ROOTGUARD_CONTINUITY_EVIDENCE.json",
+    "migration_reports/recovery/R241-19B_ROOTGUARD_CONTINUITY_EVIDENCE.md",
+    "migration_reports/recovery/R241-19B_MODIFIED_FILE_ATTRIBUTION.json",
+    "migration_reports/recovery/R241-19B_MODIFIED_FILE_ATTRIBUTION.md"
+  ],
+  "dirty_tracked_files_attribution": {
+    "dirty_file_count": 59,
+    "all_pre_existing": true,
+    "origin": "R241-17B and prior sessions",
+    "stash_origin": "R241-17B worktree stash",
+    "attribution_to_r241_19b": false,
+    "requires_separate_attribution_analysis": false
+  },
+  "attribution_verdict": {
+    "r241_19b_production_code_touched": false,
+    "r241_19b_test_code_touched": false,
+    "r241_19b_runtime_modules_modified": false,
+    "r241_19b_reports_generated": true,
+    "dirty_files_attributable_to_r241_19b": false,
+    "all_changes_within_allowed_scope": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "report_id": "R241-19B_DIRTY_WORKTREE_BASELINE_MANIFEST",
+  "phase": "phase_21_dirty_worktree_baseline",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files"
+  },
+  "worktree_classification": "evidence_only_untracked",
+  "production_code_modified": false,
+  "test_code_modified": false,
+  "unsafe_dirty_state": false,
+  "baseline_captured_at": "2026-04-28T06:45:00+00:00",
+  "before_19b_execution": true,
+  "dirty_files_origin": "R241-17B and prior sessions — non-blocking, pre-existing evidence",
+  "stash_origin": "R241-17B worktree stash: 59 tracked + 152 untracked files",
+  "manifest_purpose": "Establish baseline for R241-19B attribution — all 59 dirty tracked files and 1 stash are pre-existing historical evidence, not attributable to R241-19B"
+}

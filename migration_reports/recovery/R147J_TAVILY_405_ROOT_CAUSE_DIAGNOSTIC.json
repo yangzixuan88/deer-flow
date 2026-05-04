@@ -1,0 +1,188 @@
+{
+  "phase": "R147J",
+  "title": "TAVILY_405_ROOT_CAUSE_DIAGNOSTIC",
+  "status": "passed",
+  "preceded_by": "R147I",
+  "proceeding_to": "R147K_TAVILY_STDIO_FIX",
+  "pressure_assessment": {
+    "previous_phase": "R147I",
+    "current_phase": "R147J",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147I",
+    "current_phase": "R147J",
+    "recommended_pressure": "XXL",
+    "reason": "405 confirmed; identify correct transport mode for Tavily MCP"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked",
+    "r147a_commit_present": true,
+    "extensions_config_dirty": true,
+    "safe_to_continue": true,
+    "authorized_modified_files": ["backend/extensions_config.json"],
+    "note": "R147I commit 30345631 present"
+  },
+  "lane_2_current_tavily_config_state": {
+    "type": "sse",
+    "url": "https://mcp.tavily.com/mcp",
+    "command": null,
+    "args": [],
+    "env": {"TAVILY_API_KEY": "$TAVILY_API_KEY"},
+    "enabled": true,
+    "problem": "type=sse with direct URL causes 405 from langchain_mcp_adapters POST vs GET mismatch"
+  },
+  "lane_3_tavily_mcp_architecture_investigation": {
+    "tavily_mcp_package": "tavily-mcp@0.2.19",
+    "npm_registry": "https://registry.npmmirror.com",
+    "bin_entry": "tavily-mcp",
+    "transport_options_found": [
+      {
+        "mode": "local_stdio",
+        "description": "Local npx installation, spawns subprocess via stdin/stdout",
+        "command": "npx.cmd",
+        "args": ["-y", "tavily-mcp@latest"],
+        "env": {"TAVILY_API_KEY": "$TAVILY_API_KEY"},
+        "type": "stdio",
+        "url": null,
+        "status": "correct for langchain_mcp_adapters stdio transport"
+      },
+      {
+        "mode": "remote_sse_via_mcp_remote",
+        "description": "Use mcp-remote proxy to connect to Tavily SSE endpoint",
+        "command": "npx.cmd",
+        "args": ["-y", "mcp-remote", "https://mcp.tavily.com/mcp/?tavilyApiKey=..."],
+        "env": {},
+        "type": "stdio",
+        "url": null,
+        "status": "alternative but embeds key in URL (not preferred)"
+      },
+      {
+        "mode": "direct_sse",
+        "description": "Direct SSE connection via langchain_mcp_adapters SSE client",
+        "command": null,
+        "args": [],
+        "env": {"TAVILY_API_KEY": "$TAVILY_API_KEY"},
+        "type": "sse",
+        "url": "https://mcp.tavily.com/mcp",
+        "status": "BROKEN - 405 Method Not Allowed on POST from langchain SSE client"
+      }
+    ],
+    "correct_transport": "stdio",
+    "correct_command": "npx.cmd",
+    "correct_args": ["-y", "tavily-mcp@latest"],
+    "correct_env": {"TAVILY_API_KEY": "$TAVILY_API_KEY"}
+  },
+  "lane_4_405_root_cause_confirmed": {
+    "error_code": 405,
+    "error_method": "POST",
+    "expected_method": "GET",
+    "culprit": "langchain_mcp_adapters SSE client (mcp/client/sse.py) uses POST for SSE handshake",
+    "tavily_endpoint_behavior": "https://mcp.tavily.com/mcp requires GET for SSE stream initialization, rejects POST with 405",
+    "mcp_sse_spec_compliance": "MCP spec allows POST for initial handshake but Tavily endpoint only accepts GET",
+    "mcp_remote_solution": "mcp-remote uses its own HTTP client that likely sends GET, bypassing langchain SSE client",
+    "root_cause_classification": "Transport protocol mismatch between langchain SSE client and Tavily SSE endpoint",
+    "fix_required": "Switch from type=sse (direct URL) to type=stdio with npx tavily-mcp local installation"
+  },
+  "lane_5_stdio_transport_validation": {
+    "tavily_mcp_npm_package": "tavily-mcp@0.2.19",
+    "version_published": "2026-04-24",
+    "maintainer": "dustinpulver@tavily.com",
+    "sdk_dependency": "@modelcontextprotocol/sdk: 1.26.0",
+    "transports_supported": ["stdio"],
+    "env_var_auth": true,
+    "stdio_config_valid": true,
+    "note": "tavily-mcp is a local stdio MCP server, NOT a remote SSE endpoint proxy"
+  },
+  "lane_6_mcp_remote_alternative_examined": {
+    "package": "mcp-remote",
+    "command": "npx.cmd -y mcp-remote <url>",
+    "embeds_key_in_url": true,
+    "url_format": "https://mcp.tavily.com/mcp/?tavilyApiKey=...",
+    "security_concern": "API key embedded in URL query parameter (exposed in process list, logs)",
+    "preferred": false,
+    "reason": "key in URL is a security risk; env var auth is preferred"
+  },
+  "lane_7_fix_recommendation": {
+    "change_type": "transport switch",
+    "from": {
+      "type": "sse",
+      "url": "https://mcp.tavily.com/mcp",
+      "command": null,
+      "args": []
+    },
+    "to": {
+      "type": "stdio",
+      "command": "npx.cmd",
+      "args": ["-y", "tavily-mcp@latest"],
+      "env": {"TAVILY_API_KEY": "$TAVILY_API_KEY"},
+      "url": null
+    },
+    "env_var_auth_preserved": true,
+    "key_not_in_url": true,
+    "risk": "low",
+    "smoke_test_plan": "After patch: reset cache, load tools, invoke tavily-search with test query"
+  },
+  "lane_8_next_phase_decision": {
+    "if_result": "passed - 405 root cause confirmed",
+    "recommended_next_phase": "R147K_TAVILY_STDIO_FIX",
+    "rationale": "Root cause identified: type=sse with direct URL causes POST/Get mismatch. Fix: switch to type=stdio with npx tavily-mcp local installation. R147K should apply the config patch and run Tavily smoke test."
+  },
+  "lane_9_unknown_registry_updates": [
+    {
+      "id": "U-tavily-local-stdio-correct-transport",
+      "description": "tavily-mcp@0.2.19 is a local stdio MCP server; correct transport is type=stdio with npx command, NOT type=sse with direct URL",
+      "priority": "high",
+      "fix_applied": "R147J: identified stdio as correct transport"
+    },
+    {
+      "id": "U-tavily-sse-post-get-mismatch-confirmed",
+      "description": "langchain_mcp_adapters SSE client sends POST but Tavily SSE endpoint requires GET; 405 is transport mismatch, not credential issue",
+      "priority": "high",
+      "fix_applied": "R147J: 405 root cause confirmed; stdio transport avoids this"
+    },
+    {
+      "id": "U-tavily-mcp-remote-url-key-security",
+      "description": "mcp-remote alternative embeds TAVILY_API_KEY in URL query parameter; security risk; env var auth via stdio is preferred",
+      "priority": "medium",
+      "fix_applied": "R147J: mcp-remote rejected due to URL-embedded key; stdio preferred"
+    }
+  ],
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R147K_TAVILY_STDIO_FIX",
+  "r147k_authorization_package": {
+    "phase": "R147K",
+    "title": "TAVILY_STDIO_FIX",
+    "pressure": "XXL",
+    "goal": "Apply stdio transport fix to extensions_config.json and smoke test Tavily MCP",
+    "patch_required": true,
+    "file": "backend/extensions_config.json",
+    "changes": {
+      "tavily": {
+        "type": "stdio",
+        "command": "npx.cmd",
+        "args": ["-y", "tavily-mcp@latest"],
+        "url": null,
+        "description": "Tavily search (enabled R147I; stdio transport fix R147K; key via env)"
+      }
+    },
+    "allowed_files": ["backend/extensions_config.json"],
+    "forbidden_files": [".env", "backend/packages/*", "package.json", "lockfiles"],
+    "smoke_test": "reset cache → load tools → invoke tavily-search with {\"query\": \"test\"} → expect list of results"
+  }
+}

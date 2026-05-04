@@ -1,0 +1,124 @@
+{
+  "phase": "R147G",
+  "title": "LARK_PROXY_FIX",
+  "status": "failed",
+  "preceded_by": "R147F",
+  "proceeding_to": "R147H_KEYTAR_FIX",
+  "pressure_assessment": {
+    "previous_phase": "R147F",
+    "current_phase": "R147G",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147F",
+    "current_phase": "R147G",
+    "recommended_pressure": "XXL"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked",
+    "r147a_commit_present": true,
+    "r147e_patch_present": true,
+    "only_lark_enabled": true,
+    "safe_to_continue": true,
+    "authorized_modified_files": [
+      "backend/extensions_config.json"
+    ]
+  },
+  "lane_2_patch_application": {
+    "patch_target": "backend/extensions_config.json",
+    "patch_applied": true,
+    "patch_detail": "Added env.NO_PROXY=open.feishu.cn to lark entry alongside existing LARK_TOKEN_MODE=tenant_access_token",
+    "env_present": {
+      "LARK_TOKEN_MODE": "tenant_access_token",
+      "NO_PROXY": "open.feishu.cn"
+    }
+  },
+  "lane_3_cache_reset": {
+    "reset_mcp_tools_cache_called": true,
+    "tools_loaded": 17
+  },
+  "lane_4_smoke_test": {
+    "tool_selected": "lark_im_v1_chat_list",
+    "invocation_params": {},
+    "smoke_result": "FAILED",
+    "error_code": 99991661,
+    "error_message": "Missing access token for authorization. Please make a request with token attached.",
+    "elapsed_seconds": 4.99,
+    "log_id": "20260502185309D5C2A96351BC74363145",
+    "result_type": "dict with isError=true",
+    "previous_r147f_elapsed": "4.07s",
+    "elapsed_delta_seconds": 0.92,
+    "note": "4.99s vs 4.07s suggests NO_PROXY may have slightly changed timing but did not fix token attachment"
+  },
+  "lane_5_post_smoke_analysis": {
+    "proxy_fix_insufficient": true,
+    "root_cause_re_evaluated": true,
+    "primary_hypothesis_from_r147f": "Proxy/No-Proxy Conflict — SDK routes tenant token fetch through HTTP_PROXY without NO_PROXY exclusion",
+    "r147g_evidence_against_proxy_hypothesis": [
+      "NO_PROXY=open.feishu.cn added to lark env in extensions_config.json",
+      "Lark MCP stdio subprocess receives NO_PROXY in its env via the spawn mechanism",
+      "99991661 still occurs in 4.99s — similar elapsed to R147F's 4.07s",
+      "If proxy was the issue, bypassing it for open.feishu.cn should have resolved it immediately",
+      "The NO_PROXY env var IS being passed (via extensions_config.json env field)",
+      "SDK version is 0.5.1_zod@4.4.2 — newer than the 4.3.6 analyzed in R147F",
+      "Proxy may still be in use for SDK's internal HTTP calls despite NO_PROXY"
+    ],
+    "alternative_hypothesis": "SDK Client.request() does NOT auto-attach tenant token for stdio MCP tools",
+    "sdk_behavior_analysis": {
+      "getShouldUseUAT_returns_false": "confirmed in R147E/R147F",
+      "handler_calls_func_without_token": "confirmed in R147F handler.js analysis",
+      "client_auto_token_fetch": "NOT confirmed — no evidence SDK's Client.request() auto-attaches tenant token for stdio MCP tool calls",
+      "possible_missing_step": "SDK may require explicit withTenantToken() call that is not happening in mcp-tool.js"
+    },
+    "r147h_recommended_path": "R147H_KEYTAR_FIX — fix keytar native dependency so OAuth user token flow works, bypassing broken tenant token path",
+    "keytar_fix_rationale": [
+      "keytar.node missing causes OAuth token persistence to fail",
+      "OAuth user token flow does NOT require tenant_access_token fetch",
+      "User token is explicitly provided to SDK via withUserAccessToken() call",
+      "keytar fix is medium risk, bounded to native module rebuild",
+      "Alternative: investigate SDK source for withTenantToken() pattern — but keytar fix is more self-contained"
+    ],
+    "confidence_in_new_hypothesis": "medium"
+  },
+  "lane_6_r147h_authorization_package": {
+    "recommended_phase": "R147H_KEYTAR_FIX",
+    "patch_required": false,
+    "dependency_install_required": true,
+    "user_action_required": "maybe (npm rebuild keytar or pnpm rebuild keytar in lark-mcp context)",
+    "files_allowed": [],
+    "files_forbidden": [
+      "backend/extensions_config.json",
+      ".env",
+      "backend/packages/*"
+    ],
+    "selected_tool": "lark_im_v1_chat_list",
+    "allowed_tool_calls": 1,
+    "validation_plan": [
+      "1. Rebuild keytar native module: pnpm rebuild keytar or npm rebuild keytar in the lark-mcp context",
+      "2. Verify keytar.node exists at build/Release/keytar.node",
+      "3. Reset MCP tools cache",
+      "4. Load lark_im_v1_chat_list",
+      "5. Invoke with empty params",
+      "6. If 99991661: keytar fix did not resolve — investigate SDK withTenantToken pattern",
+      "7. If success (list of chats): keytar fix resolved the issue by enabling OAuth store",
+      "8. If different error: classify and determine next step"
+    ]
+  },
+  "classification": "failed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": true,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R147H_KEYTAR_FIX",
+  "next_prompt_needed": true
+}

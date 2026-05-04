@@ -1,0 +1,354 @@
+{
+  "report_id": "R241-18N_MAINLINE_RESUME_DRYRUN_PLAN",
+  "status": "passed",
+  "decision": "approve_mainline_resume_dryrun_plan",
+  "source": "R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW",
+  "phase": "phase_7_mainline_resume_dryrun_plan",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 54,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked"
+  },
+  "preconditions": {
+    "r241_18m_passed": true,
+    "mainline_resume_pregate_closed": true,
+    "dsrt_hardening_passed": true,
+    "dual_rootguard_passed": true,
+    "activation_regression_clean": true,
+    "safety_invariants_clean": true,
+    "memory_mcp_still_blocked": true,
+    "forbidden_scope_intact": true,
+    "tests_passed_144": true,
+    "all_preconditions_met": true
+  },
+  "planning_objects": [
+    {
+      "object_id": "A",
+      "object_name": "mainline_resume_dryrun_scope",
+      "scope_definition": {
+        "allowed_scope": [
+          "mainline resume dry-run plan generation",
+          "route-free integration plan",
+          "disabled-stub-only continuity plan",
+          "memory readiness prerequisite design",
+          "MCP readiness prerequisite design",
+          "evidence packaging / handoff planning",
+          "report-only planning and documentation"
+        ],
+        "forbidden_scope": [
+          "gateway activation",
+          "FastAPI route registration",
+          "memory runtime activation",
+          "MCP runtime activation",
+          "network access",
+          "Feishu real send",
+          "scheduler",
+          "auto-fix",
+          "tool enforcement",
+          "runtime write",
+          "audit JSONL write",
+          "action queue write"
+        ],
+        "assumptions": [
+          "mainline_gateway_activation_allowed remains false throughout dry-run",
+          "DSRT hardening remains in force (DSRT-001~006 immutable)",
+          "Memory blocked status persists (SURFACE-010 BLOCKED)",
+          "MCP deferred status persists (CAND-003 DEFERRED)",
+          "No FastAPI route registration occurs"
+        ],
+        "prerequisites": [
+          "Dual RootGuard must pass at session start",
+          "worktree_classification must be evidence_only_untracked",
+          "all 10 preconditions from R241-18M must be confirmed"
+        ]
+      },
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "route_free_integration_plan",
+      "mode": "report_only",
+      "deliverables": [
+        "Integration readiness assessment document",
+        "Route-free integration architecture description",
+        "Gateway sidecar path mapping (no route registration)",
+        "Data flow diagram without FastAPI routing",
+        "Integration test plan (no activation)"
+      ],
+      "constraints": [
+        "No FastAPI app.include_router calls",
+        "No gateway main path activation",
+        "No sidecar runtime startup",
+        "All integration documented as read-only plan"
+      ],
+      "validation_commands": [
+        "grep -r 'app.include_router' backend/app/gateway/ --include='*.py' | grep -v '_disabled' | grep -v 'test_'",
+        "grep -r 'uvicorn.run\\|fastapi.run' backend/app/ --include='*.py' | grep -v 'test_'"
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "disabled_stub_continuity_plan",
+      "dsrt_invariants": [
+        "DSRT-001 foundation_diagnose: enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/diagnose",
+        "DSRT-002 audit_query: enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/audit-query",
+        "DSRT-003 trend_report: enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/trend-report",
+        "DSRT-004 feishu_dryrun: enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/feishu-dryrun",
+        "DSRT-005 feishu_presend: enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/feishu-presend",
+        "DSRT-006 truth_state: enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/truth-state"
+      ],
+      "validation_commands": [
+        "python -m pytest backend/app/foundation -k 'dsrt or DSRT' -v",
+        "python -m pytest backend/app/foundation -k 'disabled_stub' -v"
+      ],
+      "forbidden_changes": [
+        "Must not change enabled=true for any DSRT entry",
+        "Must not register /_disabled/ paths in FastAPI",
+        "Must not remove disabled_by_default=true",
+        "Must not set implemented_now=true",
+        "Must not add network listener startup",
+        "Must not add runtime write permissions"
+      ],
+      "contract_reference": "R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "source_reference": "read_only_runtime_sidecar_stub_contract.py lines 278-554",
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "memory_readiness_prerequisite_design",
+      "current_status": "blocked",
+      "blocked_by": ["SURFACE-010 memory BLOCKED CRITICAL"],
+      "unblock_requirements": [
+        "memory_blocked must become false (SURFACE-010 unblocked)",
+        "Memory runtime entry point must be reviewed and approved",
+        "Memory storage interface must pass safety validation",
+        "Memory MCP binding must be reviewed (CAND-002 currently BLOCKED)"
+      ],
+      "allowed_scope": [
+        "Memory readiness review planning",
+        "Memory architecture documentation",
+        "Memory storage safety analysis",
+        "Memory prerequisite design document"
+      ],
+      "forbidden_scope": [
+        "Memory runtime activation",
+        "Memory storage actual write",
+        "Memory vector store initialization",
+        "Memory MCP runtime binding"
+      ],
+      "surfaces_and_candidates": [
+        {"id": "SURFACE-010", "name": "memory BLOCKED CRITICAL", "status": "BLOCKED"},
+        {"id": "CAND-002", "name": "memory_read_binding", "status": "BLOCKED"}
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "mcp_readiness_prerequisite_design",
+      "current_status": "deferred_not_ready",
+      "prerequisite_dependency": ["memory_readiness prerequisite design (Object D)"],
+      "unblock_requirements": [
+        "CAND-003 mcp_read_binding must be approved (currently DEFERRED)",
+        "Memory readiness must pass first (Object D prerequisite)",
+        "MCP client configuration must be reviewed",
+        "MCP OAuth flow must be validated",
+        "MCP tools registration must be reviewed"
+      ],
+      "allowed_scope": [
+        "MCP readiness review planning",
+        "MCP architecture documentation",
+        "MCP client configuration analysis",
+        "MCP prerequisite dependency graph"
+      ],
+      "forbidden_scope": [
+        "MCP runtime activation",
+        "MCP client initialization",
+        "MCP OAuth actual flow execution",
+        "MCP tools actual registration"
+      ],
+      "candidates": [
+        {"id": "CAND-003", "name": "mcp_read_binding", "status": "DEFERRED"}
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "gateway_prohibition_carryover",
+      "carryover_status": "intact",
+      "gsic_blocked_items": [
+        {"id": "GSIC-003", "name": "blocking_gateway_main_path", "status": "BLOCKED"},
+        {"id": "GSIC-004", "name": "blocking_fastapi_route_registration", "status": "BLOCKED"}
+      ],
+      "mainline_gateway_activation_allowed": false,
+      "confirmed_by": [
+        "R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json",
+        "R241-18M closure review"
+      ],
+      "forbidden_activities": [
+        "gateway main path activation",
+        "FastAPI route registration for /_disabled/ paths",
+        "sidecar router registration in FastAPI app"
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "feishu_network_scheduler_prohibition_carryover",
+      "carryover_status": "intact",
+      "forbidden_activities": [
+        "Feishu real send (send_allowed enforced to false)",
+        "Webhook calls (webhook_allowed enforced to false)",
+        "Network listener startup",
+        "Scheduler startup",
+        "Auto-fix execution"
+      ],
+      "confirmed_by": [
+        "R241-18L activation_regression_scan: dangerous_hits=0",
+        "R241-18L safety_invariants: all true"
+      ],
+      "validation_commands": [
+        "grep -r 'send_allowed=True\\|webhook_allowed=True\\|network_listener_started=True' backend/app/ --include='*.py' | grep -v test_ | grep -v '_disabled'"
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "evidence_packaging_handoff_plan",
+      "package_scope": {
+        "include_reports": [
+          "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json",
+          "migration_reports/recovery/R241-18J_CROSS_VALIDATION.md",
+          "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json",
+          "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.md",
+          "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.json",
+          "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.md",
+          "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.json",
+          "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.md",
+          "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.json",
+          "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.md",
+          "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+          "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json"
+        ],
+        "include_git_snapshot": [
+          "git rev-parse HEAD",
+          "git status --short (file list)",
+          "git stash list"
+        ],
+        "exclude_secrets": [
+          "*.env",
+          "*token*",
+          "*secret*",
+          "*credential*",
+          ".env*",
+          "*.key"
+        ]
+      },
+      "handoff_criteria": [
+        "All 12 report files must be present and readable",
+        "No secret or credential files included",
+        "Git snapshot must reflect current HEAD",
+        "Worktree classification must be evidence_only_untracked"
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "abort_rollback_stop_criteria",
+      "stop_conditions": [
+        {"id": "ABORT-001", "condition": "RootGuard Python fails", "action": "stop immediately, output ROOT_GUARD_FAILED"},
+        {"id": "ABORT-002", "condition": "RootGuard PowerShell fails", "action": "stop immediately, output ROOT_GUARD_FAILED"},
+        {"id": "ABORT-003", "condition": "Any DSRT enabled=true detected", "action": "stop, do not proceed to any activation"},
+        {"id": "ABORT-004", "condition": "FastAPI route registration for /_disabled/ paths", "action": "stop, revert route registration"},
+        {"id": "ABORT-005", "condition": "Gateway main path touched or activated", "action": "stop, do not proceed"},
+        {"id": "ABORT-006", "condition": "Memory runtime activated without SURFACE-010 unblock", "action": "stop immediately"},
+        {"id": "ABORT-007", "condition": "MCP runtime activated without CAND-003 approval", "action": "stop immediately"},
+        {"id": "ABORT-008", "condition": "Feishu real send detected", "action": "stop, revert send"},
+        {"id": "ABORT-009", "condition": "Network listener startup detected", "action": "stop immediately"},
+        {"id": "ABORT-010", "condition": "Runtime write detected", "action": "stop immediately"},
+        {"id": "ABORT-011", "condition": "Audit JSONL write detected", "action": "stop immediately"},
+        {"id": "ABORT-012", "condition": "Scheduler or auto-fix detected", "action": "stop immediately"},
+        {"id": "ABORT-013", "condition": "Any dangerous_hits in activation regression scan", "action": "stop, run RootGuard, generate incident report"}
+      ],
+      "rollback_procedure": [
+        "Run dual RootGuard to confirm clean state",
+        "Git stash or discard any uncommitted changes to production code",
+        "Generate incident report documenting the violation",
+        "Do not proceed until incident is reviewed"
+      ],
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "next_round_execution_gate",
+      "current_phase": "R241-18N",
+      "next_phase": "R241-18O",
+      "required_gates_before_activation": [
+        "Memory readiness review must pass (SURFACE-010 must unblock)",
+        "MCP readiness review must pass (CAND-003 must approve)",
+        "Gateway sidecar integration review must pass (GSIC-003/004 must unblock)",
+        "DSRT hardening must remain in force",
+        "mainline_gateway_activation_allowed must become true",
+        "Dual RootGuard must remain passing at session start"
+      ],
+      "required_gates_before_r241_18o": [
+        "R241-18N dry-run plan approved",
+        "Evidence packaging complete",
+        "All safety invariants confirmed clean"
+      ],
+      "execution_mode_for_18o": "mainline_resume_dryrun_package_review",
+      "decision": "passed"
+    }
+  ],
+  "dryrun_scope_summary": {
+    "allowed_scope": ["mainline resume dry-run plan", "route-free integration plan", "disabled-stub-only continuity plan", "memory readiness prerequisite design", "MCP readiness prerequisite design", "evidence packaging / handoff planning", "report-only planning"],
+    "forbidden_scope": ["gateway activation", "FastAPI route registration", "memory runtime activation", "MCP runtime activation", "network access", "Feishu real send", "scheduler", "auto-fix", "tool enforcement", "runtime write", "audit JSONL write", "action queue write"],
+    "assumptions": ["mainline_gateway_activation_allowed=false throughout", "DSRT-001~006 immutable", "memory blocked (SURFACE-010 BLOCKED)", "MCP deferred (CAND-003 DEFERRED)", "no FastAPI route registration"]
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.09,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "mainline_resume_boundary_from_18M": {
+    "allowed_scope": ["mainline resume dry-run plan", "route-free integration plan", "disabled-stub-only continuity plan", "memory readiness prerequisite design", "MCP readiness prerequisite design", "evidence packaging / handoff", "report-only planning"],
+    "forbidden_scope": ["gateway activation", "FastAPI route registration", "memory runtime activation", "MCP runtime activation", "network access", "Feishu real send", "scheduler", "auto-fix", "tool enforcement", "runtime write", "audit JSONL write", "action queue write"],
+    "required_gates": ["Memory readiness review must pass (SURFACE-010 unblock)", "MCP readiness review must pass (CAND-003 approve)", "Gateway sidecar review must pass (GSIC-003/004 unblock)", "DSRT hardening in force", "mainline_gateway_activation_allowed=true", "Dual RootGuard passing"]
+  },
+  "mainline_resume_dryrun_plan_ready": true,
+  "warnings": [
+    "stash@{0} from R241-17B present — not cleared per instructions, non-blocking",
+    "54 dirty tracked files from prior session work — no new modifications introduced"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_mainline_resume_dryrun_plan",
+    "mainline_resume_dryrun_plan_ready": true,
+    "planning_objects_A_to_J": "10/10 passed",
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "no_new_conflicts": true,
+    "recommended_resume_point": "R241-18N",
+    "next_prompt_needed": "R241-18O_MAINLINE_RESUME_DRYRUN_PACKAGE_REVIEW"
+  }
+}

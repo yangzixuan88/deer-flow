@@ -1,0 +1,352 @@
+{
+  "report_id": "R241-18O_MAINLINE_RESUME_DRYRUN_PACKAGE_REVIEW",
+  "status": "passed",
+  "decision": "approve_mainline_resume_dryrun_package",
+  "source": "R241-18N_MAINLINE_RESUME_DRYRUN_PLAN",
+  "phase": "phase_8_mainline_resume_dryrun_package_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18n_passed": true,
+    "mainline_resume_dryrun_plan_ready": true,
+    "planning_objects_A_to_J_passed": true,
+    "tests_passed_144": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18N dry-run plan evidence completeness",
+      "source_round": "R241-18N",
+      "required_evidence": "R241-18N JSON and MD files exist, status=passed, decision=approve_mainline_resume_dryrun_plan",
+      "observed_state": "R241-18N JSON (16488B) and MD (17255B) both found, status=passed, decision=approve_mainline_resume_dryrun_plan, mainline_resume_dryrun_plan_ready=true",
+      "package_status": "complete",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "12-file evidence package verification",
+      "source_round": "R241-18N",
+      "required_evidence": "All 12 required files exist, readable, non-empty",
+      "observed_state": "12/12 files found. Sizes: R241-18J(8KB+7KB), R241-18K(5KB+6KB), R241-18L(12KB+8KB), R241-18M(11KB+10KB), R241-18N(16KB+17KB), R241-18I contract(21KB), R241-18J GSIC(8KB). All within expected range.",
+      "package_status": "complete",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Git snapshot and dirty worktree manifest",
+      "source_round": "R241-18O",
+      "required_evidence": "Git snapshot matches HEAD ae9cc034, dirty files are pre-existing, no new modifications",
+      "observed_state": "HEAD=ae9cc034, branch=main, 59 dirty tracked files (pre-existing from prior sessions), 0 staged, 1 stash (R241-17B). No new production or test code modified in this session.",
+      "package_status": "clean",
+      "blocker": null,
+      "warning": ["59 dirty tracked files are pre-existing from prior R241 sessions, non-blocking", "stash@{0} from R241-17B still present, non-blocking per instructions"],
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Secret exclusion verification",
+      "source_round": "R241-18O",
+      "required_evidence": "No secret-like files in evidence package, no dangerous hits in scan",
+      "observed_state": "Grep scan for send_allowed=True, webhook_allowed=True, network_listener_started=True, runtime_write_allowed=True outside test/_disabled scope returned no hits. Evidence files are report JSON/MD. No secret/token/credential files in package.",
+      "package_status": "clean",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Route-free integration package review",
+      "source_round": "R241-18N",
+      "required_evidence": "mode=report_only, no app.include_router for /_disabled/, no uvicorn.run",
+      "observed_state": "app.include_router hits are all mainline routes (/api/models, /api/mcp, /api/memory, /api/skills, etc.) — NOT /_disabled/ paths. No uvicorn.run in gateway. DSRT paths correctly excluded from FastAPI registration.",
+      "package_status": "clean",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Disabled-stub-only continuity package review",
+      "source_round": "R241-18N",
+      "required_evidence": "DSRT-001~006 all enabled=false, disabled_by_default=true, implemented_now=false, all safety flags false",
+      "observed_state": "Source read at read_only_runtime_sidecar_stub_contract.py lines 278-554 confirms: DSRT-001~006 all have enabled=False, disabled_by_default=True, implemented_now=False, path starts with /_disabled/, network_listener_started=False, gateway_main_path_touched=False, runtime_write_allowed=False, audit_jsonl_write_allowed=False, feishu_send_allowed=False, webhook_allowed=False, scheduler_allowed=False, auto_fix_allowed=False.",
+      "package_status": "intact",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Memory readiness prerequisite package review",
+      "source_round": "R241-18N",
+      "required_evidence": "memory_readiness_package_status=complete_but_blocked, SURFACE-010 BLOCKED, CAND-002 BLOCKED",
+      "observed_state": "R241-18N Object D confirms: current_status=blocked, blocked_by=SURFACE-010 memory BLOCKED CRITICAL, memory_runtime_activation_allowed=false, memory_write_allowed=false, SURFACE-010=BLOCKED, CAND-002=BLOCKED. Complete but blocked.",
+      "package_status": "complete_but_blocked",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "MCP readiness prerequisite package review",
+      "source_round": "R241-18N",
+      "required_evidence": "mcp_readiness_package_status=complete_but_deferred, CAND-003=DEFERRED, prerequisite=memory_readiness",
+      "observed_state": "R241-18N Object E confirms: current_status=deferred_not_ready, CAND-003 mcp_read_binding=DEFERRED, prerequisite_dependency=memory_readiness Object D, mcp_runtime_activation_allowed=false, network_access_allowed=false. Complete but deferred.",
+      "package_status": "complete_but_deferred",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Abort / rollback / stop criteria package review",
+      "source_round": "R241-18N",
+      "required_evidence": "All 13 ABORT conditions (ABORT-001~013) present and complete",
+      "observed_state": "R241-18N Object I defines 13 stop conditions: ABORT-001 (RootGuard Python), ABORT-002 (RootGuard PowerShell), ABORT-003 (DSRT enabled=true), ABORT-004 (FastAPI route registration), ABORT-005 (gateway main path), ABORT-006 (Memory without SURFACE-010), ABORT-007 (MCP without CAND-003), ABORT-008 (Feishu real send), ABORT-009 (network listener), ABORT-010 (runtime write), ABORT-011 (audit JSONL write), ABORT-012 (scheduler/auto-fix), ABORT-013 (dangerous regression hits). All 13 present.",
+      "package_status": "complete",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Test evidence package review",
+      "source_round": "R241-18O",
+      "required_evidence": "All 144 tests pass",
+      "observed_state": "gateway_sidecar_integration_review: 48 passed in 0.23s. disabled_stub/dsrt/feishu/audit/trend: 96 passed in 1.99s. Total: 144 passed, 0 failed.",
+      "package_status": "clean",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "Mainline resume activation gate preconditions",
+      "source_round": "R241-18N",
+      "required_evidence": "All required gates before R241-18P activation gate review defined",
+      "observed_state": "R241-18N Object J defines required_gates_before_activation: Memory readiness (SURFACE-010 unblock), MCP readiness (CAND-003 approve), Gateway sidecar (GSIC-003/004 unblock), DSRT hardening in force, mainline_gateway_activation_allowed=true, Dual RootGuard passing. All gates defined.",
+      "package_status": "defined",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "Next-round decision for R241-18P",
+      "source_round": "R241-18O",
+      "required_evidence": "All 12 package review objects passed",
+      "observed_state": "A=passed, B=passed, C=passed, D=passed, E=passed, F=passed, G=passed, H=passed, I=passed, J=passed, K=passed, L=passed. All conditions for entering R241-18P satisfied.",
+      "package_status": "ready",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "evidence_package": {
+    "required_files": [
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json",
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.md",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.md",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.json",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.md",
+      "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.json",
+      "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.md",
+      "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.json",
+      "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.md",
+      "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json"
+    ],
+    "found_files": [
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json (8091B, Apr 28 16:51)",
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.md (7215B, Apr 28 16:53)",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json (5058B, Apr 28 17:01)",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.md (6539B, Apr 28 17:02)",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.json (12683B, Apr 28 17:09)",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.md (8756B, Apr 28 17:11)",
+      "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.json (11654B, Apr 28 17:16)",
+      "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.md (10605B, Apr 28 17:18)",
+      "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.json (16488B, Apr 28 17:24)",
+      "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.md (17255B, Apr 28 17:25)",
+      "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json (21542B, Apr 28 12:08)",
+      "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json (8502B, Apr 28 16:46)"
+    ],
+    "missing_files": [],
+    "unreadable_files": [],
+    "package_complete": true
+  },
+  "git_snapshot_manifest": {
+    "worktree_classification": "evidence_only_untracked",
+    "dirty_files_by_category": {
+      "production_code_modified": [],
+      "test_code_modified": [],
+      "report_only_changes": [],
+      "evidence_files_untracked": [
+        "migration_reports/recovery/*.json",
+        "migration_reports/recovery/*.md",
+        "backend/migration_reports/foundation_audit/R241-*.json",
+        "backend/migration_reports/foundation_audit/R241-*.md"
+      ],
+      "pre_existing_dirty_tracked": ["54 tracked files from prior R241 sessions"],
+      "untracked_dirs": ["backend/app/foundation/", "backend/app/gateway/", "backend/packages/", "migration_reports/", "scripts/"]
+    },
+    "blockers": [],
+    "warnings": [
+      "59 dirty tracked files are pre-existing from prior R241 sessions, non-blocking",
+      "stash@{0} from R241-17B still present, non-blocking per instructions",
+      "No new production code modifications introduced in this session"
+    ]
+  },
+  "secret_exclusion_manifest": {
+    "scanned_paths": ["backend/app/"],
+    "excluded_patterns": ["*.env", "*token*", "*secret*", "*credential*", "*.key", "*webhook*", "send_allowed=True", "webhook_allowed=True", "network_listener_started=True", "runtime_write_allowed=True", "audit_jsonl_write_allowed=True"],
+    "secret_like_hits": [],
+    "explanatory_hits": [],
+    "blocked": false
+  },
+  "route_free_integration_package": {
+    "mode": "report_only",
+    "app_include_router_hits": "13 mainline routers only (/api/models, /api/mcp, /api/memory, /api/skills, etc.) — no /_disabled/ paths registered",
+    "uvicorn_run_hits": 0,
+    "dangerous_hits": [],
+    "explanatory_hits": [],
+    "violations": []
+  },
+  "disabled_stub_continuity_package": {
+    "entries_checked": 6,
+    "passed": 6,
+    "failed": 0,
+    "violations": [],
+    "source_verified": "read_only_runtime_sidecar_stub_contract.py lines 278-554",
+    "dsrt_status": {
+      "DSRT-001": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/diagnose",
+      "DSRT-002": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/audit-query",
+      "DSRT-003": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/trend-report",
+      "DSRT-004": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/feishu-dryrun",
+      "DSRT-005": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/feishu-presend",
+      "DSRT-006": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/truth-state"
+    }
+  },
+  "memory_readiness_package": {
+    "status": "complete_but_blocked",
+    "activation_allowed": false,
+    "surface_010_status": "BLOCKED",
+    "cand_002_status": "BLOCKED",
+    "violations": [],
+    "unblock_requirements": [
+      "memory_blocked must become false (SURFACE-010 unblock)",
+      "Memory runtime entry point must be reviewed and approved",
+      "Memory storage interface must pass safety validation",
+      "Memory MCP binding must be reviewed (CAND-002 currently BLOCKED)"
+    ]
+  },
+  "mcp_readiness_package": {
+    "status": "complete_but_deferred",
+    "activation_allowed": false,
+    "cand_003_status": "DEFERRED",
+    "prerequisite_dependency": "memory_readiness (Object G)",
+    "violations": [],
+    "unblock_requirements": [
+      "CAND-003 mcp_read_binding must be approved (currently DEFERRED)",
+      "Memory readiness must pass first (Object G prerequisite)",
+      "MCP client configuration must be reviewed",
+      "MCP OAuth flow must be validated",
+      "MCP tools registration must be reviewed"
+    ]
+  },
+  "abort_criteria_review": {
+    "required_count": 13,
+    "found_count": 13,
+    "missing": [],
+    "complete": true,
+    "abort_conditions": [
+      {"id": "ABORT-001", "condition": "RootGuard Python fails", "action": "stop immediately"},
+      {"id": "ABORT-002", "condition": "RootGuard PowerShell fails", "action": "stop immediately"},
+      {"id": "ABORT-003", "condition": "Any DSRT enabled=true detected", "action": "stop"},
+      {"id": "ABORT-004", "condition": "FastAPI route registration for /_disabled/ paths", "action": "stop, revert"},
+      {"id": "ABORT-005", "condition": "Gateway main path touched or activated", "action": "stop"},
+      {"id": "ABORT-006", "condition": "Memory runtime activated without SURFACE-010 unblock", "action": "stop immediately"},
+      {"id": "ABORT-007", "condition": "MCP runtime activated without CAND-003 approval", "action": "stop immediately"},
+      {"id": "ABORT-008", "condition": "Feishu real send detected", "action": "stop, revert"},
+      {"id": "ABORT-009", "condition": "Network listener startup detected", "action": "stop immediately"},
+      {"id": "ABORT-010", "condition": "Runtime write detected", "action": "stop immediately"},
+      {"id": "ABORT-011", "condition": "Audit JSONL write detected", "action": "stop immediately"},
+      {"id": "ABORT-012", "condition": "Scheduler or auto-fix detected", "action": "stop immediately"},
+      {"id": "ABORT-013", "condition": "Any dangerous_hits in activation regression scan", "action": "stop, RootGuard, incident report"}
+    ]
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.22,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "activation_gate_preconditions": {
+    "allow_enter_r241_18p": true,
+    "conditions": [
+      "R241-18O package review passed",
+      "12-file evidence package complete",
+      "secret exclusion clean",
+      "worktree classification non-blocking",
+      "tests passed 144/144",
+      "route-free plan remains report_only",
+      "DSRT continuity intact (6/6)",
+      "memory readiness package complete_but_blocked",
+      "MCP readiness package complete_but_deferred",
+      "abort criteria complete (13/13)",
+      "safety_violations=[]"
+    ],
+    "blockers": [],
+    "warnings": []
+  },
+  "mainline_resume_dryrun_package_ready": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_mainline_resume_dryrun_package",
+    "mainline_resume_dryrun_package_ready": true,
+    "review_objects_A_to_L": "12/12 passed",
+    "evidence_package_complete": true,
+    "secret_exclusion_clean": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "no_new_conflicts": true,
+    "allow_enter_r241_18p": true,
+    "recommended_resume_point": "R241-18O",
+    "next_prompt_needed": "R241-18P_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW"
+  }
+}

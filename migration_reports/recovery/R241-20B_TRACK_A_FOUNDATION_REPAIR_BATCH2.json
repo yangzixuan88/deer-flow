@@ -1,0 +1,128 @@
+{
+  "report_id": "R241-20B_TRACK_A_FOUNDATION_REPAIR_BATCH2",
+  "phase": "phase_20b_track_a_foundation_repair_batch2",
+  "status": "passed",
+  "decision": "approve_foundation_repair_batch2",
+  "source": "R241-20A_TRACK_B_CLOSEOUT_AND_NEXT_TRACK_SELECTION",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "HEAD": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "dirty_tracked_count": 58,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "isolated_worktrees": [
+      "E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+      "E:/OpenClaw-Base/r241_19i3_full",
+      "E:/OpenClaw-Base/r241_19i3_worktree"
+    ]
+  },
+  "preconditions_from_r241_20a": {
+    "r241_20a_status": "passed",
+    "decision": "approve_track_b_closeout_and_recommend_track_a_batch2",
+    "track_b_closeout_passed": true,
+    "track_b_complete": true,
+    "cand017_committed": true,
+    "commit_hash": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "next_recommended_track": "R241-20B_TRACK_A_FOUNDATION_REPAIR_BATCH2",
+    "allow_enter_r241_20b": true,
+    "all_preconditions_met": true
+  },
+  "pre_existing_failure": {
+    "name": "test_report_generation_writes_only_to_tmp_path",
+    "file": "backend/app/foundation/test_runtime_activation_readiness.py",
+    "root_cause": "test_contract_conflicts_with_pre_existing_evidence",
+    "root_cause_description": "Test asserted that no R241-18A report file should exist in backend/migration_reports/foundation_audit/ — but that file was legitimately generated during the R241-18A phase and represents valid historical evidence, not a new write from the current test call. The test conflated 'new write by this call' with 'pre-existing evidence file present in directory'.",
+    "fix_category": "test_contract_mismatch",
+    "fix_description": "Changed assertion from 'file must not exist in real_reports' to 'test marker file must not exist in real_reports' — detecting only new writes from the current function call, not pre-existing historical evidence.",
+    "pre_existing_failure_fixed": true,
+    "pre_existing_failure_resolved_already": false
+  },
+  "test_results": {
+    "test_runtime_activation_readiness_37": {
+      "command": "pytest backend/app/foundation/test_runtime_activation_readiness.py -v",
+      "passed": 37,
+      "failed": 0
+    },
+    "test_gateway_sidecar_48": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0
+    },
+    "test_upstream_upgrade_intake_32": {
+      "command": "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v",
+      "passed": 32,
+      "failed": 0
+    },
+    "total_passed": 117,
+    "total_failed": 0
+  },
+  "files_touched": [
+    "backend/app/foundation/test_runtime_activation_readiness.py"
+  ],
+  "safety_boundary": {
+    "gateway_app_py_touched": false,
+    "gateway_routers_auth_touched": false,
+    "persistence_touched": false,
+    "runtime_events_store_touched": false,
+    "pyproject_toml_touched": false,
+    "memory_mcp_touched": false,
+    "dsrt_touched": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "no_new_runtime_surface_activated": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "remaining_risk_debt_ledger": {
+    "pre_existing_test_failure": {
+      "name": "test_report_generation_writes_only_to_tmp_path",
+      "status": "FIXED",
+      "fixed_in": "R241-20B"
+    },
+    "isolated_worktrees": {
+      "status": "preserved",
+      "cleanup_requires_authorization": true
+    },
+    "adapter_candidates": {
+      "status": "not_started",
+      "count": 10
+    },
+    "dependency_candidate": {
+      "status": "quarantined"
+    },
+    "forbidden_runtime_candidates": {
+      "status": "quarantined",
+      "count": 8
+    }
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "approve_foundation_repair_batch2",
+    "pre_existing_failure_fixed": true,
+    "tests_passed": 117,
+    "tests_failed": 0,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-20B",
+    "next_prompt_needed": "R241-20B_TRACK_A_FOUNDATION_REPAIR_BATCH2"
+  }
+}

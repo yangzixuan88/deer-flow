@@ -1,0 +1,201 @@
+{
+  "report_id": "R241-19I3_SAFE_DIRECT_UPDATE_ISOLATED_PATCH_APPLY_PLAN",
+  "phase": "phase_19i3_safe_direct_update_isolated_patch_apply_plan",
+  "status": "passed_with_critical_evidence_gaps",
+  "decision": "approve_isolated_patch_apply_plan_with_evidence_gaps",
+  "source": "R241-19I2_SAFE_DIRECT_UPDATE_PATCH_AUTHORIZATION_REVIEW",
+  "root_guard": {
+    "main_worktree": {
+      "python": "pass",
+      "powershell": "pass",
+      "output": "ROOT_OK"
+    },
+    "isolated_worktree_r241_19i3_worktree": {
+      "python": "not_executable",
+      "reason": "scripts/root_guard.py not present in HEAD snapshot worktree",
+      "powershell": "not_executable",
+      "reason": "scripts/root_guard.ps1 not present in HEAD snapshot worktree"
+    }
+  },
+  "git_state": {
+    "main_worktree": {
+      "branch": "main",
+      "HEAD": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+      "dirty_tracked_count": 330,
+      "untracked_count": 1361,
+      "stash_count": 1,
+      "worktree_classification": "evidence_only_untracked",
+      "note": "Baseline differs from R241-19I2 report (59+1). Actual: 330+1361. Main worktree preserved per protocol."
+    },
+    "isolated_worktrees_created": [
+      {
+        "name": "r241_19i3_worktree",
+        "path": "E:/OpenClaw-Base/r241_19i3_worktree",
+        "base": "ae9cc034 (HEAD)",
+        "branch": "r241_19i3_patch",
+        "clean": true,
+        "cand017_applied": true
+      },
+      {
+        "name": "r241_19i3_full",
+        "path": "E:/OpenClaw-Base/r241_19i3_full",
+        "base": "9aac8c65 (stash commit)",
+        "branch": "r241_19i3_full",
+        "clean": false,
+        "note": "Has 39 en docs and 5 zh docs from local evidence"
+      },
+      {
+        "name": ".tmp_r241_19i3_patch",
+        "path": "E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+        "base": "9aac8c65 (stash commit)",
+        "state": "detached orphan",
+        "note": "Not usable, cannot remove via worktree remove"
+      }
+    ]
+  },
+  "preconditions_from_r241_19i2": {
+    "r241_19i2_passed": true,
+    "user_authorization_obtained": true,
+    "authorized_candidates": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "allow_enter_r241_19i3": true,
+    "all_preconditions_met": true
+  },
+  "patch_apply_execution": {
+    "isolated_worktree_strategy_used": true,
+    "main_worktree_baseline_preserved": true,
+    "candidate_application_results": [
+      {
+        "candidate_id": "CAND-003",
+        "path": "backend/app/gateway/auth/credential_file.py",
+        "status": "evidence_not_found",
+        "reason": "File does not exist in HEAD (ae9cc034), upstream (origin/main from 174c371a), or base (174c371a). Authorization assumed to require NEW file insertion but source patch not available in any accessible commit.",
+        "upstream_diff": "no diff found",
+        "local_presence": "not in dirty tracked, not in stash"
+      },
+      {
+        "candidate_id": "CAND-017",
+        "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+        "status": "applied_successfully",
+        "method": "git cherry-pick from upstream diff (174c371a..origin/main)",
+        "isolated_worktree": "r241_19i3_worktree",
+        "diff_lines": "45 insertions, 9 deletions",
+        "verification": {
+          "file_exists_in_worktree": true,
+          "diff_applied": true,
+          "middleware_summarize_tag": "not found in applied diff",
+          "note": "Tag with_metadata(tags=['middleware:summarize']) reported in R241-19I as part of CAND-017. Applied diff shows DeerFlowSummarizationMiddleware import but tag addition not visible in partial diff output."
+        }
+      },
+      {
+        "candidate_id": "CAND-020",
+        "path": "frontend/src/content/en/**/*.mdx",
+        "status": "presence_confirmed_but_no_diff",
+        "reason": "39 en docs files present in stash worktree (r241_19i3_full) but no diff between base (174c371a) and stash (9aac8c65). Files may be identical to base. Upstream diff shows no frontend/src/content/en changes.",
+        "upstream_diff": "no diff found",
+        "local_stash_diff": "no diff",
+        "note": "Upstream (bytedance/deer-flow) does not contain these docs. They are local evidence modifications stored in stash."
+      },
+      {
+        "candidate_id": "CAND-021",
+        "path": "frontend/src/content/zh/**/*.mdx",
+        "status": "presence_confirmed_but_no_diff",
+        "reason": "5 zh docs files present in stash worktree (r241_19i3_full) but no diff between base (174c371a) and stash (9aac8c65). Upstream diff shows no frontend/src/content/zh changes.",
+        "upstream_diff": "no diff found",
+        "local_stash_diff": "no diff",
+        "note": "Upstream does not contain zh docs. They are local evidence."
+      },
+      {
+        "candidate_id": "CAND-025",
+        "path": "backend/tests/test_auth.py",
+        "status": "evidence_not_found",
+        "reason": "File does not exist in HEAD, upstream, or base commits. Not in stash tree. Local untracked files include openclaw_project/test_auth.mjs (different path/extension).",
+        "upstream_diff": "no diff found",
+        "local_presence": "not in dirty tracked, not in stash, not in untracked except openclaw_project/test_auth.mjs (unrelated)"
+      }
+    ],
+    "candidates_applied": ["CAND-017"],
+    "candidates_not_applicable": ["CAND-003", "CAND-020", "CAND-021", "CAND-025"],
+    "reason_for_gaps": "Upstream source (bytedance/deer-flow origin/main from 174c371a to b61ce352) does not contain credential_file.py, test_auth.py, or docs content. These appear to be local evidence modifications, not upstream patches. R241-19I2 authorization assumed these were upstream diffs available for apply."
+  },
+  "test_results": {
+    "executed_in": "main_worktree (isolated worktree lacks test files)",
+    "core_144": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0,
+      "note": "Tests are local untracked files, not in HEAD or upstream"
+    },
+    "disabled_dsrt_feishu_audit_trend": {
+      "command": "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "passed": 96,
+      "failed": 0
+    },
+    "upgrade_intake_32": {
+      "command": "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v",
+      "passed": 32,
+      "failed": 0
+    },
+    "cand025_collect_only": {
+      "status": "not_executable",
+      "reason": "backend/tests/test_auth.py does not exist in any accessible commit"
+    },
+    "total_passed": 176,
+    "total_failed": 0
+  },
+  "forbidden_path_compliance": {
+    "gateway_app_py_touched": false,
+    "gateway_routers_auth_touched": false,
+    "persistence_touched": false,
+    "runtime_events_store_touched": false,
+    "pyproject_toml_touched": false,
+    "memory_mcp_touched": false,
+    "dsrt_touched": false,
+    "no_violations": true
+  },
+  "main_worktree_protection": {
+    "clean_attempted": false,
+    "reset_attempted": false,
+    "stash_attempted": false,
+    "branch_switch_attempted": false,
+    "all_preserved": true
+  },
+  "runtime_dependency_blocker_status": {
+    "actual_upgrade_executed": false,
+    "dependency_install_executed": false,
+    "runtime_replacement_executed": false,
+    "blocker_override_attempted": false,
+    "no_violations": true,
+    "blockers_preserved": true,
+    "blockers_remaining": 8
+  },
+  "r241_19i4_readiness": {
+    "allow_enter_r241_19i4": false,
+    "reason": "Critical evidence gaps: CAND-003 and CAND-025 source patches not found in any accessible commit. CAND-020/CAND-021 have no upstream diff. R241-19I2 authorization assumed these were upstream patches but they appear to be local evidence. Need clarification: were these candidates supposed to be sourced from local dirty worktree modifications rather than upstream?",
+    "blocking_reason": "source_patch_not_found_in_upstream",
+    "recommended_action": "Review R241-19I/R241-19I2 candidate classification. If CAND-003/020/021/025 are local evidence (not upstream), they cannot be applied via upstream diff strategy. May require Lane reassignment or quarantine.",
+    "warnings": [
+      "CAND-003 credential_file.py: source patch not in upstream or base commits",
+      "CAND-025 test_auth.py: source patch not in upstream or base commits",
+      "CAND-020/CAND-021: no upstream diff found, docs exist in stash but show no diff from base",
+      "Baseline discrepancy: R241-19I2 reported 59 dirty files + 1 stash, actual is 330 dirty + 1361 untracked",
+      "Tests are local untracked files, not in HEAD or upstream"
+    ]
+  },
+  "final_decision": {
+    "status": "passed_with_critical_evidence_gaps",
+    "decision": "approve_isolated_patch_apply_plan_with_evidence_gaps",
+    "isolated_patch_apply_completed": false,
+    "authorized_candidates_applied": ["CAND-017"],
+    "main_worktree_untouched": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "allow_enter_r241_19i4": false,
+    "safety_violations": [],
+    "critical_gaps": ["CAND-003 source patch not found", "CAND-025 source patch not found", "CAND-020/CAND-021 no upstream diff"],
+    "recommended_resume_point": "R241-19I3",
+    "next_prompt_needed": "R241-19I4_CONFIRM_CANDIDATE_SOURCE_CLASSIFICATION or R241-19I3_REVISE_CANDIDATE_EVIDENCE_ORIGIN"
+  }
+}

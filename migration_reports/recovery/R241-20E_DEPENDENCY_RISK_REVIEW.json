@@ -1,0 +1,124 @@
+{
+  "report_id": "R241-20E_DEPENDENCY_RISK_REVIEW",
+  "phase": "phase_20e_dependency_risk_review",
+  "status": "passed",
+  "decision": "approve_dependency_risk_review_quarantine_maintained",
+  "source": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "dirty_tracked_count": 329,
+    "staged_file_count": 0,
+    "stash_count": 1
+  },
+  "preconditions_from_r241_20d": {
+    "r241_20d_status": "passed_design_review_completed",
+    "decision": "approve_adapter_design_batch_review",
+    "allow_enter_r241_20e": true,
+    "all_preconditions_met": true
+  },
+  "dependency_risk_review_scope": {
+    "current_round": "R241-20E",
+    "mode": "dependency_risk_review_only",
+    "install_allowed": false,
+    "upgrade_allowed": false,
+    "resolution_execution_forbidden": true,
+    "target_candidate": "CAND-016"
+  },
+  "cand016_analysis": {
+    "candidate_id": "CAND-016",
+    "source": "origin/release/2.0-rc",
+    "path": "backend/packages/harness/pyproject.toml",
+    "line": 41,
+    "declaration": "ollama = [\"langchain-ollama>=0.3.0\"]",
+    "type": "optional-dependency group",
+    "package": "langchain-ollama>=0.3.0",
+    "parent_package": "deerflow-harness",
+    "install_command": "uv pip install 'deerflow-harness[ollama]'"
+  },
+  "dependency_purpose": {
+    "function": "Enables Ollama LLM integration via LangChain",
+    "use_case": "Local LLM inference with Ollama server",
+    "optional": true,
+    "required_for_core": false
+  },
+  "risk_assessment": {
+    "risk_level": "medium",
+    "security_considerations": [
+      "langchain-ollama is LangChain community integration — maintained separately from core LangChain",
+      "optional dependency — not required for core system functionality",
+      "enables local LLM calls — network egress risk if Ollama server misconfigured"
+    ],
+    "version_pin_analysis": {
+      "current_pin": ">=0.3.0",
+      "lower_bound_only": true,
+      "upper_bound_unpinned": true,
+      "latest_stability": "unknown"
+    },
+    "local_pyproject_status": {
+      "in_backend_pyproject_toml": false,
+      "in_harness_pyproject_toml": true,
+      "installed": false,
+      "install_allowed": false
+    }
+  },
+  "quarantine_status": {
+    "status": "maintained",
+    "reason": "dependency install not authorized in current migration phase",
+    "install_blocked_by": "carryover blocker protocol",
+    "unblock_required": "explicit authorization via dedicated review phase"
+  },
+  "blocker_impact": {
+    "carryover_blockers_preserved": true,
+    "no_blocker_overridden": true,
+    "SURFACE-010_related": false,
+    "GSIC-003_related": false,
+    "GSIC-004_related": false
+  },
+  "review_conclusion": {
+    "langchain_ollama_safe_for_future_install": true,
+    "requires_version_pin_review": true,
+    "install_requires_separate_authorization": true,
+    "can_proceed_to_next_phase": true
+  },
+  "safety_boundary": {
+    "no_dependency_installed": true,
+    "no_pyproject_modified": true,
+    "no_resolution_executed": true,
+    "no_runtime_touch": true,
+    "blockers_preserved": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "approve_dependency_risk_review_quarantine_maintained",
+    "cand016_risk_level": "medium",
+    "quarantine_maintained": true,
+    "install_requires_separate_authorization": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "allow_enter_next_phase": true,
+    "recommended_resume_point": "R241-20E",
+    "next_prompt_needed": "R241-20F_FORBIDDEN_RUNTIME_UNBLOCK_PLANNING"
+  }
+}

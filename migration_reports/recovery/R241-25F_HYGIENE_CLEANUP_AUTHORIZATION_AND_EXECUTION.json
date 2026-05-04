@@ -1,0 +1,136 @@
+{
+  "phase": "R241-25F",
+  "status": "COMPLETE",
+  "generated": "2026-04-29",
+  "description": "Hygiene Cleanup Authorization and Execution",
+  "preceded_by": "R241-25E",
+  "proceeded_by": "R241-25G",
+  "laneware": {
+    "lane_1_filelist_gate": "PASS",
+    "lane_2_deletion": "PASS",
+    "lane_3_verification": "PASS",
+    "lane_4_pr2645": "PASS",
+    "lane_5_outcome": "PASS",
+    "lane_6_recommendation": "PASS"
+  },
+  "pre_cleanup_filelist": {
+    "scratch_candidates": [
+      "backend/packages/harness/deerflow/scratch/verify_jit.py",
+      "backend/packages/harness/deerflow/scratch/verify_p3.py"
+    ],
+    "debug_candidates": [
+      "backend/_debug2.py",
+      "backend/_debug3.py",
+      "backend/_debug4.py",
+      "backend/_debug5.py",
+      "backend/_debug_parser.py"
+    ],
+    "total_candidates": 7,
+    "all_within_authorized_scope": true,
+    "backend_scratch_not_in_scope": "backend/scratch/ contains operational scripts, not in authorization scope"
+  },
+  "deletion_execution": {
+    "scratch_deleted": [
+      "backend/packages/harness/deerflow/scratch/verify_jit.py",
+      "backend/packages/harness/deerflow/scratch/verify_p3.py"
+    ],
+    "debug_deleted": [
+      "backend/_debug2.py",
+      "backend/_debug3.py",
+      "backend/_debug4.py",
+      "backend/_debug5.py",
+      "backend/_debug_parser.py"
+    ],
+    "total_deleted": 7,
+    "method": "rm (not git clean)"
+  },
+  "post_cleanup_verification": {
+    "scratch_dir_empty": true,
+    "debug_files_removed": true,
+    "backend_scratch_untouched": true,
+    "tracked_files_modified": false,
+    "untracked_file_count_reduced": true
+  },
+  "src_006": {
+    "candidate": "SRC-006",
+    "scope": "packages/harness/deerflow/scratch/",
+    "files_deleted": 2,
+    "cleanup_completed": true
+  },
+  "src_007": {
+    "candidate": "SRC-007",
+    "scope": "backend/_debug*.py",
+    "files_deleted": 5,
+    "cleanup_completed": true
+  },
+  "unexpected_deletions": [],
+  "tracked_production_files_modified": false,
+  "pr2645_recheck": {
+    "candidate": "SRC-009",
+    "rechecked": true,
+    "state": "open",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "ci_missing": true
+  },
+  "candidate_outcomes": {
+    "SRC-006": "completed",
+    "SRC-007": "completed"
+  },
+  "lane_6_recommendation": {
+    "recommended_next": "R241-25I_AUTH_ACTIVATION_REVIEW",
+    "reason": "SRC-006/007 cleanup complete. credential_file.py (SRC-004) is a genuine blocking gap — missing bootstrap mechanism on private/main. R241-25I should evaluate whether to import credential_file.py (low-risk file) or implement alternative bootstrap. This directly addresses the credential_bootstrap BLOCKING gap from R241-24L.",
+    "requires_authorization": true,
+    "authorization_scope": "auth activation review (no activation, no DB writes, no code modification during review)"
+  },
+  "phase_sequence_updated": {
+    "R241-25D": "DONE",
+    "R241-25E": "DONE",
+    "R241-25F": "DONE",
+    "R241-25G": "REPORT_PRUNING (authorization needed)",
+    "R241-25H": "PR2645 passive (no auth)",
+    "R241-25I": "AUTH_ACTIVATION_REVIEW ← NEXT (authorization needed)"
+  },
+  "blockers_preserved": [
+    "Production SQLite binding — BLOCKED",
+    "Production Postgres binding — BLOCKED",
+    "CAND-003 MCP binding — BLOCKED",
+    "DSRT — DISABLED",
+    "Actual gateway activation — BLOCKED",
+    "MAINLINE_GATEWAY_ACTIVATION=false",
+    "AUTH_MIDDLEWARE_ENABLED=false",
+    "AUTH_ROUTES_ENABLED=false"
+  ],
+  "hard_prohibitions": [
+    "no_code_modification",
+    "no_deletion_of_untracked_files",
+    "no_git_clean_or_git_add",
+    "no_reset_or_stash",
+    "no_AUTH_flags_enablement",
+    "no_production_init_engine",
+    "no_DB_writes",
+    "no_JSONL_writes",
+    "no_gateway_activation",
+    "no_dependency_installation",
+    "no_pyproject_modification",
+    "no_push_to_main",
+    "no_merge_PR_2645",
+    "no_blocker_override"
+  ],
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R241-25F_HYGIENE_CLEANUP_AUTHORIZATION_AND_EXECUTION.md",
+    "migration_reports/recovery/R241-25F_HYGIENE_CLEANUP_AUTHORIZATION_AND_EXECUTION.json"
+  ],
+  "next_prompt": "Enter R241-25I_AUTH_ACTIVATION_REVIEW. R241-25F complete. 7 files deleted (SRC-006/007 done). credential_file.py (SRC-004) is the key remaining issue — missing on private/main, BLOCKING for auth activation, but low-risk file (no DB). R241-25I: review whether to import credential_file.py into private/main auth flow, assess alternative bootstrap paths. Requires explicit user authorization for auth review scope. All blockers preserved."
+}

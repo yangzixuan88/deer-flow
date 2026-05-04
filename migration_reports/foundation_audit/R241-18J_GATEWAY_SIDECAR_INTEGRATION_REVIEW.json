@@ -1,0 +1,220 @@
+{
+  "review_id": "R241-18J",
+  "status": "review_complete",
+  "decision": "approve_gateway_candidates",
+  "integration_mode": "disabled_contract_only",
+  "candidates": [
+    {
+      "candidate_id": "GSIC-001",
+      "mode": "disabled_contract_only",
+      "target_file": "app/gateway/",
+      "target_symbol": "*",
+      "integration_point": "Gateway code surface review - no sidecar integration",
+      "risk_level": "low",
+      "blocked": false,
+      "block_reason": "",
+      "notes": "Gateway code surface reviewed (0 files, 0 integration points). No sidecar, HTTP endpoint, FastAPI route, or network listener implemented."
+    },
+    {
+      "candidate_id": "GSIC-002",
+      "mode": "sidecar_router_design_only",
+      "target_file": "app/gateway/routers/",
+      "target_symbol": "APIRouter",
+      "integration_point": "Router design reviewed - no sidecar router implementation",
+      "risk_level": "medium",
+      "blocked": false,
+      "block_reason": "",
+      "notes": "Router design reviewed. Found 0 router definitions. No sidecar router pattern implemented."
+    },
+    {
+      "candidate_id": "GSIC-003",
+      "mode": "blocking_gateway_main_path",
+      "target_file": "app/gateway/app.py",
+      "target_symbol": "create_app, lifespan, global_exception_handler",
+      "integration_point": "Main gateway path blocked for sidecar integration",
+      "risk_level": "high",
+      "blocked": true,
+      "block_reason": "BLOCK: Main gateway path (create_app, lifespan, exception handlers) must not be modified to add sidecar integration. This is a read-only review.",
+      "notes": "Main gateway path review complete. Found 0 main path integration points. Blocking any sidecar integration into main gateway lifecycle."
+    },
+    {
+      "candidate_id": "GSIC-004",
+      "mode": "blocking_fastapi_route_registration",
+      "target_file": "app/gateway/routers/",
+      "target_symbol": "include_router, @router.*",
+      "integration_point": "FastAPI route registration blocked for sidecar",
+      "risk_level": "critical",
+      "blocked": true,
+      "block_reason": "BLOCK: FastAPI route registration (include_router calls) must not be modified to add sidecar routes. This is a read-only review.",
+      "notes": "Route registration reviewed. Found 0 endpoint definitions. Blocking any sidecar route registration modifications."
+    }
+  ],
+  "safety_checks": [
+    {
+      "check_id": "GSRC-001",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Prohibition check: no HTTP server or network listener implemented",
+      "observed_value": "No HTTP server or network listener detected in candidates",
+      "expected_value": "No HTTP server, endpoint, or network listener in review output",
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-002",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Prohibition check: no FastAPI route added by review",
+      "observed_value": "No new FastAPI routes added",
+      "expected_value": "No FastAPI route additions in review output",
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-003",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Prohibition check: no sidecar service started by review",
+      "observed_value": "No sidecar service started",
+      "expected_value": "No sidecar service startup in review output",
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-004",
+      "passed": true,
+      "risk_level": "info",
+      "description": "Gateway code surface files inspected",
+      "observed_value": "Gateway code surface inspection completed for all relevant files",
+      "expected_value": "All gateway router and app files inspected",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-005",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "All 4 integration modes represented in candidates",
+      "observed_value": "Modes found: ['blocking_fastapi_route_registration', 'blocking_gateway_main_path', 'disabled_contract_only', 'sidecar_router_design_only']",
+      "expected_value": "All modes: ['blocking_fastapi_route_registration', 'blocking_gateway_main_path', 'disabled_contract_only', 'sidecar_router_design_only']",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-006",
+      "passed": true,
+      "risk_level": "high",
+      "description": "All candidates have required fields",
+      "observed_value": "All candidates complete",
+      "expected_value": "No missing fields in any candidate",
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-007",
+      "passed": true,
+      "risk_level": "high",
+      "description": "All safety checks have required fields",
+      "observed_value": "All checks complete",
+      "expected_value": "No missing fields in any safety check",
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-008",
+      "passed": true,
+      "risk_level": "info",
+      "description": "Gateway candidates have review decisions",
+      "observed_value": "Candidates have blocking decisions where appropriate",
+      "expected_value": "Candidates include blocking decisions for BLOCKING modes",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-009",
+      "passed": true,
+      "risk_level": "info",
+      "description": "Gateway runtime (app.py) reviewed but not modified",
+      "observed_value": "Gateway runtime files reviewed in read-only mode",
+      "expected_value": "No modifications to gateway runtime",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-010",
+      "passed": true,
+      "risk_level": "info",
+      "description": "Integration points documented from code inspection",
+      "observed_value": "Integration points extracted from gateway code surface",
+      "expected_value": "Integration points documented for all gateway entry points",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-011",
+      "passed": true,
+      "risk_level": "low",
+      "description": "Router design reviewed (SIDECAR_ROUTER_DESIGN_ONLY candidate)",
+      "observed_value": "Router definitions and endpoint patterns documented",
+      "expected_value": "Router design reviewed with no actual sidecar router implemented",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-012",
+      "passed": true,
+      "risk_level": "info",
+      "description": "Dependency reports (R241-18C, R241-18H) referenced in review",
+      "observed_value": "Dependency loading attempted for R241-18C and R241-18H reports",
+      "expected_value": "Dependency reports loaded or gracefully missing",
+      "required_for_contract": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "GSRC-013",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "Review produces deterministic blocking decisions",
+      "observed_value": "2 blocking candidates generated",
+      "expected_value": "At least 2 candidates with blocking decisions (GSIC-003, GSIC-004)",
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "prohibition_check": {
+    "prohibition_verified": true,
+    "prohibited_items": [],
+    "total_checks": 13,
+    "passed_checks": 13
+  },
+  "validation_result": {
+    "valid": true,
+    "issues": []
+  }
+}

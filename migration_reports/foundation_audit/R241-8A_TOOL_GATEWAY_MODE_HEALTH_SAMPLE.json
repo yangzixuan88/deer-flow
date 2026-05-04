@@ -1,0 +1,1019 @@
+{
+  "payload": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Use an autonomous agent to implement and test this task."
+      }
+    ],
+    "active_modes": [
+      "task",
+      "autonomous_agent"
+    ]
+  },
+  "context_envelope": {
+    "context_id": "ctx-r241-5b-sample",
+    "request_id": "req-r241-5b-sample",
+    "thread_id": "thread-r241-5b-sample",
+    "source_system": "gateway"
+  },
+  "planned_tool_calls": [
+    {
+      "tool_id": "fs.read",
+      "tool_type": "file_system",
+      "operation_type": "read_file",
+      "metadata": {
+        "target_path": "README.md"
+      }
+    },
+    {
+      "tool_id": "claude.code",
+      "tool_type": "claude_code",
+      "operation_type": "claude_code_call",
+      "metadata": {
+        "target_path": "backend/app/foo.py",
+        "root_guard_passed": true
+      }
+    },
+    {
+      "tool_id": "fs.config",
+      "tool_type": "file_system",
+      "operation_type": "modify_config",
+      "metadata": {
+        "target_path": "package.json",
+        "backup_refs": [
+          "backup/package.json.bak"
+        ],
+        "rollback_refs": [
+          "rollback/package-json.patch"
+        ],
+        "root_guard_passed": true
+      }
+    },
+    {
+      "tool_id": "fs.delete",
+      "tool_type": "file_system",
+      "operation_type": "delete_file",
+      "metadata": {
+        "target_path": "important.md"
+      }
+    },
+    {
+      "tool_id": "prompt.replace",
+      "tool_type": "file_system",
+      "operation_type": "prompt_replace",
+      "metadata": {
+        "target_path": "prompts/SOUL.md"
+      }
+    }
+  ],
+  "mode_metadata": {
+    "context_id": "ctx-r241-5b-sample",
+    "request_id": "req-r241-5b-sample",
+    "thread_id": "thread-r241-5b-sample",
+    "mode_session": {
+      "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+      "primary_mode": "autonomous_agent",
+      "active_modes": [
+        "autonomous_agent",
+        "task"
+      ],
+      "status": "started",
+      "owner_system": "gateway_mode_instrumentation",
+      "created_at": "2026-04-24T23:02:10.676699+00:00",
+      "updated_at": "2026-04-24T23:02:10.676699+00:00",
+      "warnings": [],
+      "context_id": "ctx-r241-5b-sample",
+      "request_id": "req-r241-5b-sample",
+      "thread_id": "thread-r241-5b-sample"
+    },
+    "primary_mode": "autonomous_agent",
+    "active_modes": [
+      "autonomous_agent",
+      "task"
+    ],
+    "instrumentation_only": true,
+    "warnings": [],
+    "mode_call_graph": null,
+    "selected_mode_hint": null
+  },
+  "contextual_tool_events": [
+    {
+      "tool_execution_id": "toolexec_075d64951b3d4b148803df0eef73cba9",
+      "caller_system": "gateway_tool_runtime_projection",
+      "tool_id": "fs.read",
+      "tool_type": "file_system",
+      "operation_type": "read_file",
+      "risk_level": "level_0_free_readonly",
+      "root_guard_required": false,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "context_id": "ctx-r241-5b-sample",
+      "request_id": "req-r241-5b-sample",
+      "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+      "mode_invocation_id": null,
+      "caller_mode": "autonomous_agent",
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "read_file",
+        "risk_level": "level_0_free_readonly",
+        "auto_allowed": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": false,
+        "requires_nightly_review": false,
+        "required_followups": [],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "README.md",
+      "thread_id": "thread-r241-5b-sample"
+    },
+    {
+      "tool_execution_id": "toolexec_f8bc051a6d0b42dc9403187c7c3da229",
+      "caller_system": "gateway_tool_runtime_projection",
+      "tool_id": "claude.code",
+      "tool_type": "claude_code",
+      "operation_type": "claude_code_call",
+      "risk_level": "level_1_standard_auto",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "context_id": "ctx-r241-5b-sample",
+      "request_id": "req-r241-5b-sample",
+      "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+      "mode_invocation_id": null,
+      "caller_mode": "autonomous_agent",
+      "cwd": null,
+      "root_guard_passed": true,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "claude_code_call",
+        "risk_level": "level_1_standard_auto",
+        "auto_allowed": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": false,
+        "required_followups": [],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "backend/app/foo.py",
+      "thread_id": "thread-r241-5b-sample"
+    },
+    {
+      "tool_execution_id": "toolexec_fd52d38766cc4f08b6f741bccbfc36d3",
+      "caller_system": "gateway_tool_runtime_projection",
+      "tool_id": "fs.config",
+      "tool_type": "file_system",
+      "operation_type": "modify_config",
+      "risk_level": "level_2_protected_auto",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [
+        "backup/package.json.bak"
+      ],
+      "rollback_refs": [
+        "rollback/package-json.patch"
+      ],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "context_id": "ctx-r241-5b-sample",
+      "request_id": "req-r241-5b-sample",
+      "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+      "mode_invocation_id": null,
+      "caller_mode": "autonomous_agent",
+      "cwd": null,
+      "root_guard_passed": true,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "modify_config",
+        "risk_level": "level_2_protected_auto",
+        "auto_allowed": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "backup_required",
+          "rollback_ref_required",
+          "audit_required"
+        ],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "package.json",
+      "thread_id": "thread-r241-5b-sample"
+    },
+    {
+      "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+      "caller_system": "gateway_tool_runtime_projection",
+      "tool_id": "fs.delete",
+      "tool_type": "file_system",
+      "operation_type": "delete_file",
+      "risk_level": "level_3_confirm_or_archive",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "delete_should_archive",
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "context_id": "ctx-r241-5b-sample",
+      "request_id": "req-r241-5b-sample",
+      "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+      "mode_invocation_id": null,
+      "caller_mode": "autonomous_agent",
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "auto_allowed": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": true,
+        "should_archive_instead_of_delete": true,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "confirmation_or_archive_required",
+          "backup_required",
+          "rollback_ref_required"
+        ],
+        "warnings": [
+          "delete_should_archive"
+        ]
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "important.md",
+      "thread_id": "thread-r241-5b-sample"
+    },
+    {
+      "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+      "caller_system": "gateway_tool_runtime_projection",
+      "tool_id": "prompt.replace",
+      "tool_type": "file_system",
+      "operation_type": "prompt_replace",
+      "risk_level": "level_3_confirm_or_archive",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "context_id": "ctx-r241-5b-sample",
+      "request_id": "req-r241-5b-sample",
+      "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+      "mode_invocation_id": null,
+      "caller_mode": "autonomous_agent",
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "auto_allowed": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": true,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "confirmation_or_archive_required",
+          "backup_required",
+          "rollback_ref_required",
+          "prompt_rollback_required"
+        ],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "prompts/SOUL.md",
+      "thread_id": "thread-r241-5b-sample"
+    }
+  ],
+  "policy_validations": [
+    {
+      "policy_ok": true,
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "required_followups": []
+    },
+    {
+      "policy_ok": true,
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "required_followups": []
+    },
+    {
+      "policy_ok": true,
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id"
+      ],
+      "required_followups": []
+    },
+    {
+      "policy_ok": false,
+      "warnings": [
+        "delete_should_archive",
+        "missing_mode_invocation",
+        "missing_mode_invocation_id",
+        "root_guard_required_but_missing",
+        "level_3_requires_confirmation"
+      ],
+      "required_followups": [
+        "run_root_guard_before_execution",
+        "obtain_confirmation_or_archive_strategy",
+        "archive_instead_of_delete"
+      ]
+    },
+    {
+      "policy_ok": false,
+      "warnings": [
+        "missing_mode_invocation",
+        "missing_mode_invocation_id",
+        "root_guard_required_but_missing",
+        "level_3_requires_confirmation",
+        "prompt_replace_missing_rollback"
+      ],
+      "required_followups": [
+        "run_root_guard_before_execution",
+        "obtain_confirmation_or_archive_strategy",
+        "provide_prompt_rollback_ref"
+      ]
+    }
+  ],
+  "risk_signals": {
+    "risk_count": 11,
+    "risk_by_type": {
+      "high_risk_tool_without_mode_context": 3,
+      "autonomous_agent_high_risk_tool": 3,
+      "level_3_requires_confirmation": 2,
+      "root_guard_required_but_missing": 2,
+      "prompt_replace_without_rollback": 1
+    },
+    "risk_records": [
+      {
+        "risk_type": "high_risk_tool_without_mode_context",
+        "tool_execution_id": "toolexec_fd52d38766cc4f08b6f741bccbfc36d3",
+        "tool_id": "fs.config",
+        "operation_type": "modify_config",
+        "risk_level": "level_2_protected_auto",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "autonomous_agent_high_risk_tool",
+        "tool_execution_id": "toolexec_fd52d38766cc4f08b6f741bccbfc36d3",
+        "tool_id": "fs.config",
+        "operation_type": "modify_config",
+        "risk_level": "level_2_protected_auto",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "high_risk_tool_without_mode_context",
+        "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+        "tool_id": "fs.delete",
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "level_3_requires_confirmation",
+        "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+        "tool_id": "fs.delete",
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "root_guard_required_but_missing",
+        "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+        "tool_id": "fs.delete",
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "autonomous_agent_high_risk_tool",
+        "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+        "tool_id": "fs.delete",
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "high_risk_tool_without_mode_context",
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "tool_id": "prompt.replace",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "level_3_requires_confirmation",
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "tool_id": "prompt.replace",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "root_guard_required_but_missing",
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "tool_id": "prompt.replace",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "autonomous_agent_high_risk_tool",
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "tool_id": "prompt.replace",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      },
+      {
+        "risk_type": "prompt_replace_without_rollback",
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "tool_id": "prompt.replace",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "caller_mode": "autonomous_agent",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "context_id": "ctx-r241-5b-sample"
+      }
+    ],
+    "warnings": [
+      "missing_mode_invocation",
+      "missing_mode_invocation_id",
+      "delete_should_archive",
+      "root_guard_required_but_missing",
+      "level_3_requires_confirmation",
+      "prompt_replace_missing_rollback",
+      "orphan_tool_events_detected"
+    ]
+  },
+  "summary": {
+    "total_events": 5,
+    "by_mode_session_id": {
+      "modesess_a8a5c1847c4546f18efd342aa0534719": 5
+    },
+    "by_mode_invocation_id": {
+      "missing": 5
+    },
+    "by_caller_mode": {
+      "autonomous_agent": 5
+    },
+    "by_risk_level": {
+      "level_0_free_readonly": 1,
+      "level_1_standard_auto": 1,
+      "level_2_protected_auto": 1,
+      "level_3_confirm_or_archive": 2
+    },
+    "high_risk_events": [
+      {
+        "tool_execution_id": "toolexec_fd52d38766cc4f08b6f741bccbfc36d3",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "fs.config",
+        "tool_type": "file_system",
+        "operation_type": "modify_config",
+        "risk_level": "level_2_protected_auto",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [
+          "backup/package.json.bak"
+        ],
+        "rollback_refs": [
+          "rollback/package-json.patch"
+        ],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": true,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "modify_config",
+          "risk_level": "level_2_protected_auto",
+          "auto_allowed": true,
+          "requires_backup": true,
+          "requires_rollback": true,
+          "requires_confirmation": false,
+          "should_archive_instead_of_delete": false,
+          "requires_root_guard": true,
+          "requires_nightly_review": true,
+          "required_followups": [
+            "backup_required",
+            "rollback_ref_required",
+            "audit_required"
+          ],
+          "warnings": []
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "package.json",
+        "thread_id": "thread-r241-5b-sample"
+      },
+      {
+        "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "fs.delete",
+        "tool_type": "file_system",
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [],
+        "rollback_refs": [],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "delete_should_archive",
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": null,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "delete_file",
+          "risk_level": "level_3_confirm_or_archive",
+          "auto_allowed": false,
+          "requires_backup": true,
+          "requires_rollback": true,
+          "requires_confirmation": true,
+          "should_archive_instead_of_delete": true,
+          "requires_root_guard": true,
+          "requires_nightly_review": true,
+          "required_followups": [
+            "confirmation_or_archive_required",
+            "backup_required",
+            "rollback_ref_required"
+          ],
+          "warnings": [
+            "delete_should_archive"
+          ]
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "important.md",
+        "thread_id": "thread-r241-5b-sample"
+      },
+      {
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "prompt.replace",
+        "tool_type": "file_system",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [],
+        "rollback_refs": [],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": null,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "prompt_replace",
+          "risk_level": "level_3_confirm_or_archive",
+          "auto_allowed": false,
+          "requires_backup": true,
+          "requires_rollback": true,
+          "requires_confirmation": true,
+          "should_archive_instead_of_delete": false,
+          "requires_root_guard": true,
+          "requires_nightly_review": true,
+          "required_followups": [
+            "confirmation_or_archive_required",
+            "backup_required",
+            "rollback_ref_required",
+            "prompt_rollback_required"
+          ],
+          "warnings": []
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "prompts/SOUL.md",
+        "thread_id": "thread-r241-5b-sample"
+      }
+    ],
+    "orphan_tool_events": [
+      {
+        "tool_execution_id": "toolexec_075d64951b3d4b148803df0eef73cba9",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "fs.read",
+        "tool_type": "file_system",
+        "operation_type": "read_file",
+        "risk_level": "level_0_free_readonly",
+        "root_guard_required": false,
+        "status": "planned",
+        "backup_refs": [],
+        "rollback_refs": [],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": null,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "read_file",
+          "risk_level": "level_0_free_readonly",
+          "auto_allowed": true,
+          "requires_backup": false,
+          "requires_rollback": false,
+          "requires_confirmation": false,
+          "should_archive_instead_of_delete": false,
+          "requires_root_guard": false,
+          "requires_nightly_review": false,
+          "required_followups": [],
+          "warnings": []
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "README.md",
+        "thread_id": "thread-r241-5b-sample"
+      },
+      {
+        "tool_execution_id": "toolexec_f8bc051a6d0b42dc9403187c7c3da229",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "claude.code",
+        "tool_type": "claude_code",
+        "operation_type": "claude_code_call",
+        "risk_level": "level_1_standard_auto",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [],
+        "rollback_refs": [],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": true,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "claude_code_call",
+          "risk_level": "level_1_standard_auto",
+          "auto_allowed": true,
+          "requires_backup": false,
+          "requires_rollback": false,
+          "requires_confirmation": false,
+          "should_archive_instead_of_delete": false,
+          "requires_root_guard": true,
+          "requires_nightly_review": false,
+          "required_followups": [],
+          "warnings": []
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "backend/app/foo.py",
+        "thread_id": "thread-r241-5b-sample"
+      },
+      {
+        "tool_execution_id": "toolexec_fd52d38766cc4f08b6f741bccbfc36d3",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "fs.config",
+        "tool_type": "file_system",
+        "operation_type": "modify_config",
+        "risk_level": "level_2_protected_auto",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [
+          "backup/package.json.bak"
+        ],
+        "rollback_refs": [
+          "rollback/package-json.patch"
+        ],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": true,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "modify_config",
+          "risk_level": "level_2_protected_auto",
+          "auto_allowed": true,
+          "requires_backup": true,
+          "requires_rollback": true,
+          "requires_confirmation": false,
+          "should_archive_instead_of_delete": false,
+          "requires_root_guard": true,
+          "requires_nightly_review": true,
+          "required_followups": [
+            "backup_required",
+            "rollback_ref_required",
+            "audit_required"
+          ],
+          "warnings": []
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "package.json",
+        "thread_id": "thread-r241-5b-sample"
+      },
+      {
+        "tool_execution_id": "toolexec_d118b2e1e44744cc90415c3fba676b52",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "fs.delete",
+        "tool_type": "file_system",
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [],
+        "rollback_refs": [],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "delete_should_archive",
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": null,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "delete_file",
+          "risk_level": "level_3_confirm_or_archive",
+          "auto_allowed": false,
+          "requires_backup": true,
+          "requires_rollback": true,
+          "requires_confirmation": true,
+          "should_archive_instead_of_delete": true,
+          "requires_root_guard": true,
+          "requires_nightly_review": true,
+          "required_followups": [
+            "confirmation_or_archive_required",
+            "backup_required",
+            "rollback_ref_required"
+          ],
+          "warnings": [
+            "delete_should_archive"
+          ]
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "important.md",
+        "thread_id": "thread-r241-5b-sample"
+      },
+      {
+        "tool_execution_id": "toolexec_0cbbe9dc8ad7410580f04f3a679e42e9",
+        "caller_system": "gateway_tool_runtime_projection",
+        "tool_id": "prompt.replace",
+        "tool_type": "file_system",
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "root_guard_required": true,
+        "status": "planned",
+        "backup_refs": [],
+        "rollback_refs": [],
+        "modified_files": [],
+        "artifact_refs": [],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "warnings": [
+          "missing_mode_invocation",
+          "missing_mode_invocation_id"
+        ],
+        "context_id": "ctx-r241-5b-sample",
+        "request_id": "req-r241-5b-sample",
+        "mode_session_id": "modesess_a8a5c1847c4546f18efd342aa0534719",
+        "mode_invocation_id": null,
+        "caller_mode": "autonomous_agent",
+        "cwd": null,
+        "root_guard_passed": null,
+        "success": null,
+        "started_at": null,
+        "finished_at": null,
+        "policy_decision": {
+          "operation_type": "prompt_replace",
+          "risk_level": "level_3_confirm_or_archive",
+          "auto_allowed": false,
+          "requires_backup": true,
+          "requires_rollback": true,
+          "requires_confirmation": true,
+          "should_archive_instead_of_delete": false,
+          "requires_root_guard": true,
+          "requires_nightly_review": true,
+          "required_followups": [
+            "confirmation_or_archive_required",
+            "backup_required",
+            "rollback_ref_required",
+            "prompt_rollback_required"
+          ],
+          "warnings": []
+        },
+        "confirmation_provided": false,
+        "archive_strategy": false,
+        "target_path": "prompts/SOUL.md",
+        "thread_id": "thread-r241-5b-sample"
+      }
+    ],
+    "warnings": [
+      "orphan_tool_events_detected"
+    ]
+  },
+  "warnings": [
+    "missing_mode_invocation",
+    "missing_mode_invocation_id",
+    "delete_should_archive",
+    "root_guard_required_but_missing",
+    "level_3_requires_confirmation",
+    "prompt_replace_missing_rollback",
+    "orphan_tool_events_detected"
+  ],
+  "generated_at": "2026-04-24T23:02:10.677947+00:00"
+}

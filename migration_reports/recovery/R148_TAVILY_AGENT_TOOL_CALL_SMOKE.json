@@ -1,0 +1,110 @@
+{
+  "phase": "R148",
+  "title": "TAVILY_AGENT_TOOL_CALL_SMOKE",
+  "status": "passed",
+  "preceded_by": "R147L",
+  "proceeding_to": "R149_TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY",
+  "pressure_assessment": {
+    "previous_phase": "R147L",
+    "current_phase": "R148",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147L",
+    "current_phase": "R148",
+    "recommended_pressure": "XXL",
+    "reason": "Tavily standalone MCP working; validate model-driven tool-call through agent"
+  },
+  "lane_1_config_guard": {
+    "workspace_dirty": false,
+    "r147k_commit_present": true,
+    "only_tavily_enabled": true,
+    "lark_disabled": true,
+    "exa_disabled": true,
+    "minimax_api_key_present": true,
+    "preflight_passed": true
+  },
+  "lane_2_tavily_tool_preload": {
+    "mcp_cache_reset": true,
+    "tools_loaded": 5,
+    "tavily_tool_found": true,
+    "tavily_tool_name": "tavily_tavily_search",
+    "lark_runtime_called": false,
+    "exa_runtime_called": false
+  },
+  "lane_3_app_config": {
+    "app_config_set": true,
+    "model_name": "minimax-m2.7",
+    "model_class": "PatchedChatMiniMax"
+  },
+  "lane_4_agent_construction": {
+    "agent_constructed": true,
+    "agent_factory": "create_deerflow_agent",
+    "make_lead_agent_used": false,
+    "get_available_tools_called": false,
+    "tools_bound_count": 1,
+    "bound_tool_names": ["tavily_tavily_search"]
+  },
+  "lane_5_agent_run": {
+    "thread_id": "r148-78728f1c",
+    "run_id_set": true,
+    "runtime_context_injected": true,
+    "prompt_executed": "Use the Tavily search tool exactly once to search for OpenAI, then answer with a one-sentence summary.",
+    "model_call_limit": 2,
+    "tavily_tool_call_limit": 1,
+    "elapsed_seconds": 27.22,
+    "model_call_count": 2,
+    "tavily_tool_call_count": 1
+  },
+  "lane_6_result_inspection": {
+    "tool_call_detected": true,
+    "tool_result_detected": true,
+    "final_answer_detected": true,
+    "detected_tool_name": "tavily_tavily_search",
+    "detected_query": null,
+    "tavily_result_content_sample": "OpenAI - Reddit (r/OpenAI), sas.com/en_us/insights/analytics/what-is-artificial-intelligence.html, ibm.com/think/topics/artificial-intelligence",
+    "final_ai_answer_sample": "OpenAI is an AI research and deployment company with approximately 4,500 employees, known for products like ChatGPT and developing large language models.",
+    "tavily_result_consumed_by_model": true
+  },
+  "lane_7_safety_verification": {
+    "safety_guard_passed": true,
+    "lark_runtime_called": false,
+    "exa_runtime_called": false,
+    "external_write_performed": false,
+    "readonly_tool_only": true,
+    "db_written": false,
+    "jsonl_written": false,
+    "model_call_limit_respected": true,
+    "tool_call_limit_respected": true
+  },
+  "lane_8_result_classification": {
+    "r148_result": "pass",
+    "tavily_agent_tool_call_status": "clear",
+    "failure_class": null,
+    "model_calls": 2,
+    "tavily_calls": 1,
+    "pass_criteria_met": true
+  },
+  "lane_9_next_phase_decision": {
+    "gate_pass": true,
+    "recommended_next_phase": "R149_TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY",
+    "rationale": "All R148 pass criteria met: tavily_tavily_search called exactly once, model_call_count=2, tool result consumed, final AI answer generated, no safety violations. R149 should verify result persistence and plan mainline re-entry."
+  },
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": true,
+  "model_api_call_count": 2,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R149_TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY"
+}

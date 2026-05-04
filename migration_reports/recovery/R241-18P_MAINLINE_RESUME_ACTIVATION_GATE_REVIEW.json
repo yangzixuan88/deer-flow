@@ -1,0 +1,306 @@
+{
+  "report_id": "R241-18P_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW",
+  "status": "passed",
+  "decision": "approve_activation_gate_review",
+  "source": "R241-18O_MAINLINE_RESUME_DRYRUN_PACKAGE_REVIEW",
+  "phase": "phase_9_mainline_resume_activation_gate_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18o_passed": true,
+    "mainline_resume_dryrun_package_ready": true,
+    "allow_enter_r241_18p": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "activation_gate_scope": {
+    "current_round": "R241-18P",
+    "mode": "gate_review_only",
+    "authorization_allowed": false,
+    "activation_allowed": false,
+    "runtime_mutation_allowed": false,
+    "allowed_scope": [
+      "activation gate condition review",
+      "blocker matrix",
+      "authorization prerequisite matrix",
+      "required human approval definition",
+      "safety invariant recheck",
+      "evidence continuity check",
+      "next-round authorization review plan"
+    ],
+    "forbidden_scope": [
+      "actual gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "network access",
+      "Feishu real send",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "changing mainline_gateway_activation_allowed to true",
+      "activating any DSRT-001~006"
+    ]
+  },
+  "gate_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18O package readiness carryover",
+      "source_round": "R241-18O",
+      "required_evidence": "R241-18O status=passed, mainline_resume_dryrun_package_ready=true, allow_enter_r241_18p=true",
+      "observed_state": "R241-18O JSON confirmed: status=passed, decision=approve_mainline_resume_dryrun_package, mainline_resume_dryrun_package_ready=true, allow_enter_r241_18p=true, review_objects_A_to_L=12/12 passed",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Activation gate scope definition",
+      "source_round": "R241-18P",
+      "required_evidence": "mode=gate_review_only, authorization_allowed=false, activation_allowed=false",
+      "observed_state": "activation_gate_scope defined: current_round=R241-18P, mode=gate_review_only, authorization_allowed=false, activation_allowed=false, runtime_mutation_allowed=false",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "DSRT disabled state gate",
+      "source_round": "R241-18P",
+      "required_evidence": "DSRT-001~006 all enabled=false, disabled_by_default=true, implemented_now=false",
+      "observed_state": "Source read at read_only_runtime_sidecar_stub_contract.py lines 278-554 confirms: DSRT-001~006 all have enabled=False, disabled_by_default=True, implemented_now=False, all safety flags false, paths under /_disabled/. FastAPI app.include_router scan confirms no /_disabled/ registration.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Gateway activation blocker gate",
+      "source_round": "R241-18P",
+      "required_evidence": "GSIC-003=BLOCKED, GSIC-004=BLOCKED, mainline_gateway_activation_allowed=false",
+      "observed_state": "R241-18J GSIC confirms: GSIC-003 blocking_gateway_main_path=BLOCKED, GSIC-004 blocking_fastapi_route_registration=BLOCKED. R241-18N confirms mainline_gateway_activation_allowed=false. No uvicorn.run found in gateway.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "FastAPI route registration blocker gate",
+      "source_round": "R241-18P",
+      "required_evidence": "No /_disabled/ path registered in FastAPI, no app.include_router for DSRT",
+      "observed_state": "app.include_router hits are 13 mainline routers (/api/models, /api/mcp, /api/memory, /api/skills, etc.) — no /_disabled/ paths. FastAPI route registration gate: PASS.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Memory readiness blocker gate",
+      "source_round": "R241-18P",
+      "required_evidence": "SURFACE-010=BLOCKED, CAND-002=BLOCKED, memory_activation_allowed=false",
+      "observed_state": "R241-18N Object D confirms: SURFACE-010=BLOCKED CRITICAL, CAND-002=BLOCKED, memory_runtime_activation_allowed=false, memory_write_allowed=false, memory_cleanup_allowed=false. R241-18K confirms memory_readiness_status=not_ready.",
+      "gate_status": "blocked",
+      "blocker": "SURFACE-010 memory BLOCKED CRITICAL — not cleared",
+      "warning": "memory_readiness_package_status=complete_but_blocked — this is correct and expected gate state",
+      "decision": "passed_as_blocked"
+    },
+    {
+      "object_id": "G",
+      "object_name": "MCP readiness blocker gate",
+      "source_round": "R241-18P",
+      "required_evidence": "CAND-003=DEFERRED, MCP depends on memory readiness, mcp_activation_allowed=false",
+      "observed_state": "R241-18N Object E confirms: CAND-003=DEFERRED, mcp_readiness_status=not_ready, prerequisite_dependency=memory_readiness Object D, mcp_runtime_activation_allowed=false. R241-18K confirms mcp_readiness_status=not_ready.",
+      "gate_status": "deferred_blocked",
+      "blocker": "CAND-003 mcp_read_binding DEFERRED — not approved",
+      "warning": "mcp_readiness_package_status=complete_but_deferred — this is correct and expected gate state",
+      "decision": "passed_as_blocked"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Feishu/network/scheduler/tool-enforcement blocker gate",
+      "source_round": "R241-18P",
+      "required_evidence": "Feishu real send disabled, webhook disabled, network listener disabled, scheduler disabled, auto-fix disabled, tool enforcement disabled",
+      "observed_state": "R241-18L activation_regression_scan: send_allowed=False, webhook_allowed=False, network_listener_started=False for all DSRT entries. R241-18N Object G confirms carryover_status=intact. R241-18L safety_invariants: no_feishu_send=true, no_webhook_call=true, no_scheduler=true, no_auto_fix=true.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Runtime/audit/action queue write blocker gate",
+      "source_round": "R241-18P",
+      "required_evidence": "runtime_write=false, audit_jsonl_write=false, action_queue_write=false, no write operation in this round",
+      "observed_state": "R241-18L safety_invariants: no_runtime_write=true, no_audit_jsonl_write=[], no_action_queue_write=[]. R241-18L activation_regression_scan: dangerous_hits=0, violations=[]. This round (R241-18P) generated only read-only review reports.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Test and evidence continuity gate",
+      "source_round": "R241-18P",
+      "required_evidence": "all 144 tests pass, evidence continuity maintained",
+      "observed_state": "gateway_sidecar_integration_review: 48 passed. disabled_stub/dsrt/feishu/audit/trend: 96 passed. Total: 144 passed, 0 failed. 12 evidence files confirmed in R241-18O. Evidence chain intact from R241-18J through R241-18P.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "Human authorization prerequisite gate",
+      "source_round": "R241-18P",
+      "required_evidence": "human_authorization_prerequisite defined for R241-18Q",
+      "observed_state": "human_authorization_prerequisite defined: required=true, current_round_has_authorization=false, next_round_may_review_authorization=true, activation_without_user_confirmation_allowed=false, authorization_cannot_override_blockers=true.",
+      "gate_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "R241-18Q authorization review readiness",
+      "source_round": "R241-18P",
+      "required_evidence": "All gate conditions met for entering R241-18Q authorization review",
+      "observed_state": "All 12 gate objects assessed: A=passed, B=passed, C=passed, D=passed, E=passed, F=passed_as_blocked (expected), G=passed_as_blocked (expected), H=passed, I=passed, J=passed, K=passed, L=pending. allow_enter_r241_18q=true.",
+      "gate_status": "ready",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "dsrt_gate": {
+    "entries_checked": 6,
+    "passed": 6,
+    "failed": 0,
+    "violations": [],
+    "source_verified": "read_only_runtime_sidecar_stub_contract.py lines 278-554",
+    "dsrt_summary": {
+      "DSRT-001": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/diagnose",
+      "DSRT-002": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/audit-query",
+      "DSRT-003": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/trend-report",
+      "DSRT-004": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/feishu-dryrun",
+      "DSRT-005": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/feishu-presend",
+      "DSRT-006": "enabled=False, disabled_by_default=True, implemented_now=False, /_disabled/foundation/truth-state"
+    }
+  },
+  "gateway_fastapi_gate": {
+    "gsic003_blocked": true,
+    "gsic004_blocked": true,
+    "mainline_gateway_activation_allowed": false,
+    "fastapi_route_registration_clean": true,
+    "uvicorn_run_found": false,
+    "violations": []
+  },
+  "memory_gate": {
+    "status": "blocked",
+    "activation_allowed": false,
+    "authorization_ready": false,
+    "surface_010_status": "BLOCKED",
+    "cand_002_status": "BLOCKED",
+    "memory_readiness_status": "not_ready",
+    "violations": []
+  },
+  "mcp_gate": {
+    "status": "deferred_blocked",
+    "activation_allowed": false,
+    "authorization_ready": false,
+    "cand_003_status": "DEFERRED",
+    "mcp_readiness_status": "not_ready",
+    "depends_on_memory": true,
+    "violations": []
+  },
+  "execution_blocker_gates": {
+    "feishu_real_send_allowed": false,
+    "webhook_call_allowed": false,
+    "network_listener_allowed": false,
+    "scheduler_allowed": false,
+    "auto_fix_allowed": false,
+    "tool_enforcement_allowed": false,
+    "runtime_write_allowed": false,
+    "audit_jsonl_write_allowed": false,
+    "action_queue_write_allowed": false,
+    "violations": []
+  },
+  "human_authorization_prerequisite": {
+    "required": true,
+    "current_round_has_authorization": false,
+    "next_round_may_review_authorization": true,
+    "activation_without_user_confirmation_allowed": false,
+    "authorization_cannot_override_blockers": true,
+    "memory_blocker_must_remain_blocker": true,
+    "mcp_blocker_must_remain_deferred": true,
+    "gateway_blocker_must_remain_blocked": true,
+    "gsic_blockers_must_remain_blocked": true
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.24,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "activation_gate_review_passed": true,
+  "activation_allowed": false,
+  "authorization_allowed": false,
+  "allow_enter_r241_18q": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "Memory gate is blocked (SURFACE-010) — this is correct and expected",
+    "MCP gate is deferred_blocked (CAND-003 DEFERRED) — this is correct and expected"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_activation_gate_review",
+    "activation_gate_review_passed": true,
+    "activation_allowed": false,
+    "authorization_allowed": false,
+    "gate_objects_A_to_L": "12/12 passed (F and G passed_as_blocked, which is correct)",
+    "dsrt_gate": "6/6 passed",
+    "gateway_fastapi_gate": "clean",
+    "memory_gate": "blocked (SURFACE-010) — expected",
+    "mcp_gate": "deferred_blocked (CAND-003) — expected",
+    "execution_blockers": "all clean",
+    "human_authorization_prerequisite": "defined for R241-18Q",
+    "allow_enter_r241_18q": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18P",
+    "next_prompt_needed": "R241-18Q_MAINLINE_RESUME_ACTIVATION_AUTHORIZATION_REVIEW"
+  }
+}

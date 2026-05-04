@@ -1,0 +1,71 @@
+{
+  "session": "R241-17A",
+  "phase": "remote_publish_and_worktree_cleanup_finalization",
+  "generated_at": "2026-04-26T14:52:00Z",
+  "local_head": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+  "local_branch": "main",
+  "ahead_behind": {
+    "origin_main": "ahead 1",
+    "private_main": "behind 81"
+  },
+  "remote_publish": {
+    "status": "partial_success",
+    "yangzixuan88_deer_flow": {
+      "reachable": true,
+      "workflow_visible": true,
+      "commit": "38867f4c (merge commit)",
+      "remote": "private"
+    },
+    "bytedance_deer_flow": {
+      "reachable": true,
+      "workflow_visible": false,
+      "commit": "c4d273a68a6b72bf2dec75c0b230f3fba68bc212",
+      "remote": "origin",
+      "push_permission": "READ",
+      "push_result": "blocked_403"
+    }
+  },
+  "staged_area": {
+    "empty": true,
+    "staged_files_count": 0
+  },
+  "worktree_dirty_files": {
+    "total": 211,
+    "tracked_modified": 59,
+    "untracked": 152,
+    "workflow_dirty": 0,
+    "runtime_dirty": 0,
+    "delivery_artifact_dirty": 0,
+    "foundation_code_dirty": 0,
+    "frontend_dirty": 0,
+    "unrelated_dirty": 0
+  },
+  "backup_files": [
+    "migration_reports/foundation_audit/R241-17A_WORKTREE_BACKUP.patch",
+    "migration_reports/foundation_audit/R241-17A_WORKTREE_STATUS_BEFORE_CLEANUP.txt"
+  ],
+  "actions_taken": {
+    "git_push_origin": "blocked_403",
+    "git_push_private": "not_attempted_local_behind",
+    "git_stash": "not_executed",
+    "git_reset": "not_executed",
+    "git_clean": "not_executed"
+  },
+  "next_steps": [
+    {
+      "priority": 1,
+      "action": "remote_authorization",
+      "options": [
+        "grant_bytedance_write_permission",
+        "use_yangzixuan88_fork_as_primary",
+        "apply_patch_manually"
+      ]
+    },
+    {
+      "priority": 2,
+      "action": "worktree_cleanup_approval",
+      "pending_user_confirmation": true,
+      "method": "git_stash_push_-u"
+    }
+  ]
+}

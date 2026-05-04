@@ -1,0 +1,602 @@
+{
+  "report_id": "R241-22F_GATEWAY_DEPS_APP_IMPLEMENTATION_PLAN_REVIEW",
+  "phase": "phase_22f_gateway_deps_app_implementation_plan_review",
+  "status": "passed_with_warnings",
+  "decision": "gateway_deps_app_plan_completed_two_file_contracts_defined",
+  "source": "R241-22E_GSIC003_GSIC004_UNBLOCK_SEQUENCE_DESIGN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "deps_py_file_inventory": {
+    "file": "backend/app/gateway/deps.py",
+    "lines": "~200",
+    "upstream_verified": true,
+    "candidates": ["N/A (gateway infrastructure, not a migration candidate)"],
+    "gsic_relevant": true,
+    "not_a_candidate_note": "deps.py is gateway infrastructure, not a migration candidate — it is activated by app.py lifespan, not ported independently"
+  },
+
+  "app_py_file_inventory": {
+    "file": "backend/app/gateway/app.py",
+    "lines_estimate": "~300",
+    "upstream_verified": true,
+    "candidate": "CAND-018",
+    "gsic003_parts": [
+      "app.add_middleware(AuthMiddleware)",
+      "app.add_middleware(CSRFMiddleware)",
+      "lifespan=lifespan"
+    ],
+    "gsic004_parts": [
+      "app.include_router(auth.router)"
+    ],
+    "note": "CAND-018 is the gateway main path file; both GSIC-003 and GSIC-004 modifications live here"
+  },
+
+  "langgraph_runtime_implementation_contract": {
+    "file": "backend/app/gateway/deps.py",
+    "function": "langgraph_runtime(app: FastAPI) -> AsyncGenerator[None, None]",
+    "type": "asynccontextmanager — used with `async with langgraph_runtime(app): yield`",
+
+    "enter_sequence": [
+      {
+        "step": 1,
+        "action": "Get config from app.state",
+        "code": "config = getattr(app.state, 'config', None)",
+        "error_if_missing": "RuntimeError('langgraph_runtime() requires app.state.config to be initialized')"
+      },
+      {
+        "step": 2,
+        "action": "Create stream_bridge",
+        "code": "app.state.stream_bridge = await stack.enter_async_context(make_stream_bridge(config))",
+        "dependency": "make_stream_bridge(config) — from deerflow.runtime"
+      },
+      {
+        "step": 3,
+        "action": "Initialize persistence engine (SURFACE-010 DT-002)",
+        "code": "await init_engine_from_config(config.database)",
+        "dependency": "CAND-009 (engine.py)",
+        "note": "Must run BEFORE checkpointer so postgres auto-create DB happens first"
+      },
+      {
+        "step": 4,
+        "action": "Create checkpointer",
+        "code": "app.state.checkpointer = await stack.enter_async_context(make_checkpointer(config))",
+        "dependency": "make_checkpointer(config)"
+      },
+      {
+        "step": 5,
+        "action": "Create LangGraph store",
+        "code": "app.state.store = await stack.enter_async_context(make_store(config))",
+        "dependency": "make_store(config)"
+      },
+      {
+        "step": 6,
+        "action": "Initialize SQL repositories OR memory fallbacks",
+        "code": "sf = get_session_factory(); if sf is not None: RunRepository(sf), FeedbackRepository(sf); else: MemoryRunStore(), feedback_repo=None",
+        "dependency": "CAND-009 (get_session_factory), CAND-011 (RunRepository), CAND-010 (FeedbackRepository)",
+        "memory_fallback": "MemoryRunStore() — upstream already exists at runtime/runs/store/memory.py"
+      },
+      {
+        "step": 7,
+        "action": "Create thread metadata store",
+        "code": "app.state.thread_store = make_thread_store(sf, app.state.store)",
+        "dependency": "make_thread_store() — from deerflow.persistence.thread_meta"
+      },
+      {
+        "step": 8,
+        "action": "Create run event store (config-driven backend selection)",
+        "code": "app.state.run_event_store = make_run_event_store(run_events_config)",
+        "dependency": "CAND-012 (DbRunEventStore) or CAND-013 (JsonlRunEventStore)",
+        "config_selection": "if config.run_events.backend='sql': DbRunEventStore; if 'jsonl': JsonlRunEventStore"
+      },
+      {
+        "step": 9,
+        "action": "Create RunManager",
+        "code": "app.state.run_manager = RunManager(store=app.state.run_store)",
+        "dependency": "RunManager from deerflow.runtime"
+      }
+    ],
+
+    "exit_sequence": [
+      {
+        "step": 1,
+        "action": "close_engine() in finally block",
+        "code": "await close_engine()",
+        "dependency": "CAND-009 (engine.py) — disposes all connections"
+      }
+    ],
+
+    "async_exit_stack_pattern": "Uses AsyncExitStack to manage multiple async context managers with unified entry/exit",
+
+    "null_check_pattern": "config = getattr(app.state, 'config', None); if config is None: raise RuntimeError(...)",
+    "config_initialized_by": "app.py before lifespan runs — likely from AppConfig.get_app_config()"
+  },
+
+  "app_state_initialization_contract": {
+    "app_state_attributes": [
+      {
+        "attr": "config",
+        "type": "AppConfig",
+        "initialized_by": "app.py (before lifespan)",
+        "used_by": "langgraph_runtime(), routers"
+      },
+      {
+        "attr": "stream_bridge",
+        "type": "StreamBridge",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "routers (via get_stream_bridge)"
+      },
+      {
+        "attr": "checkpointer",
+        "type": "Checkpointer",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "RunContext (via get_checkpointer)"
+      },
+      {
+        "attr": "store",
+        "type": "BaseStore",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "RunContext, _ensure_admin_user orphan migration"
+      },
+      {
+        "attr": "run_store",
+        "type": "RunStore (RunRepository or MemoryRunStore)",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "RunManager, routers (via get_run_store)"
+      },
+      {
+        "attr": "feedback_repo",
+        "type": "FeedbackRepository or None",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "routers (via get_feedback_repo)"
+      },
+      {
+        "attr": "thread_store",
+        "type": "ThreadMetaStore",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "RunContext (via get_thread_store)"
+      },
+      {
+        "attr": "run_event_store",
+        "type": "RunEventStore (DbRunEventStore or JsonlRunEventStore)",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "RunContext (via get_run_event_store)"
+      },
+      {
+        "attr": "run_manager",
+        "type": "RunManager",
+        "initialized_by": "langgraph_runtime()",
+        "used_by": "routers (via get_run_manager)"
+      }
+    ],
+
+    "all_attributes_503_if_missing": "Every getter (_require) raises HTTPException(503) if attr is None",
+    "get_store_returns_none": "get_store() returns None if not configured (not a 503)"
+  },
+
+  "get_local_provider_contract": {
+    "file": "backend/app/gateway/deps.py",
+    "function": "get_local_provider() -> LocalAuthProvider",
+    "type": "Cached singleton — created once, reused",
+
+    "prerequisites": [
+      "init_engine_from_config() must have been called (session_factory must exist)",
+      "SQLiteUserRepository(session_factory) must succeed",
+      "LocalAuthProvider(repository) must succeed"
+    ],
+
+    "error_if_prerequisites_not_met": "RuntimeError('get_local_provider() called before init_engine_from_config(); cannot access users table')",
+
+    "singleton_cache": [
+      "_cached_repo: SQLiteUserRepository | None = None",
+      "_cached_local_provider: LocalAuthProvider | None = None"
+    ],
+
+    "user_isolation_note": "LocalAuthProvider.get_user(user_id) returns User | None — user filtering happens at repository level",
+
+    "used_by": [
+      "routers/auth.py: /me, /change-password (get_current_user_from_request indirectly)",
+      "_ensure_admin_user() startup hook",
+      "app.py _ensure_admin_user()"
+    ]
+  },
+
+  "get_current_user_from_request_contract": {
+    "file": "backend/app/gateway/deps.py",
+    "function": "get_current_user_from_request(request: Request) -> User",
+    "returns": "User (full user object, not just user_id)",
+    "raises": "HTTPException 401 if not authenticated or token invalid",
+
+    "token_validation_chain": [
+      "1. request.cookies.get('access_token')",
+      "2. decode_token(access_token) → payload or TokenError",
+      "3. TokenError → HTTPException 401 with error code",
+      "4. get_local_provider().get_user(payload.sub)",
+      "5. user is None → HTTPException 401 USER_NOT_FOUND",
+      "6. user.token_version != payload.ver → HTTPException 401 TOKEN_INVALID (password changed)"
+    ],
+
+    "used_by": "routers/auth.py: /me, /change-password",
+    "depends_on": "get_local_provider() → session_factory → CAND-009"
+  },
+
+  "ensure_admin_user_startup_contract": {
+    "file": "backend/app/gateway/app.py",
+    "function": "_ensure_admin_user(app: FastAPI) -> None",
+    "call_location": "lifespan startup hook (before yield)",
+
+    "skip_conditions": [
+      "get_local_provider() raises RuntimeError → skip (auth not ready)",
+      "get_session_factory() returns None → skip (memory backend or not initialized)",
+      "admin_count == 0 → skip admin check, just log first boot message"
+    ],
+
+    "first_boot_flow": [
+      "1. admin_count = await provider.count_admin_users()",
+      "2. if admin_count == 0: log first boot message, return",
+      "3. Operator must visit /setup to create first admin"
+    ],
+
+    "subsequent_boot_flow": [
+      "1. admin_count > 0 → query UserRow with system_role='admin'",
+      "2. admin_id = str(row.id)",
+      "3. store = getattr(app.state, 'store', None)",
+      "4. if store: _migrate_orphaned_threads(store, admin_id)",
+      "5. Migrates LangGraph threads with no user_id to admin"
+    ],
+
+    "orphan_migration_note": "Covers 'no-auth → with-auth' upgrade path; non-fatal if migration fails",
+
+    "prerequisites_chain": [
+      "get_local_provider() → needs session_factory (CAND-009)",
+      "get_session_factory() → CAND-009",
+      "UserRow model → CAND-024",
+      "SQLiteUserRepository → auth/repositories/sqlite.py"
+    ]
+  },
+
+  "middleware_chain_plan": {
+    "chain_order": [
+      "1. CORSMiddleware (FastAPI built-in, added first — outermost)",
+      "2. CSRFMiddleware (custom, Sub-Bundle C)",
+      "3. AuthMiddleware (custom, Sub-Bundle C) — innermost, most specific"
+    ],
+
+    "cors_middleware": {
+      "type": "FastAPI built-in",
+      "added_by": "app.add_middleware(CORSMiddleware, ...)",
+      "config_source": "from fastapi.middleware.cors import CORSMiddleware",
+      "not_gsic": "CORSMiddleware is FastAPI built-in, not blocking"
+    },
+
+    "csrf_middleware": {
+      "type": "Starlette BaseHTTPMiddleware",
+      "source": "app.gateway.csrf_middleware.csrf_middleware.py",
+      "added_by": "app.add_middleware(CSRFMiddleware)",
+      "public_paths_bypass": "is_secure_request() checks x-forwarded-proto or request.url.scheme",
+      "not_gsic": "Part of Sub-Bundle C, not blocking"
+    },
+
+    "auth_middleware": {
+      "type": "Starlette BaseHTTPMiddleware",
+      "source": "app.gateway.auth_middleware (CAND-005, Sub-Bundle C)",
+      "added_by": "app.add_middleware(AuthMiddleware)",
+      "sets_contextvar": "set_current_user(user) / reset_current_user(token) in try/finally",
+      "public_paths": "_is_public() returns True for /health, /docs, /openapi.json, and 5 auth routes",
+      "fail_closed": "401 for non-public paths without valid cookie/JWT"
+    }
+  },
+
+  "lifespan_hook_plan": {
+    "lifespan_type": "async generator function",
+    "signature": "async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:",
+
+    "startup_sequence": [
+      {
+        "step": 1,
+        "action": "_ensure_admin_user(app)",
+        "function": "app.py _ensure_admin_user()",
+        "purpose": "First boot check + orphan thread migration",
+        "can_skip": "RuntimeError if auth not ready (caught and logged)"
+      },
+      {
+        "step": 2,
+        "action": "async with langgraph_runtime(app):",
+        "function": "deps.py langgraph_runtime()",
+        "purpose": "Initialize all persistence and LangGraph runtime",
+        "sub_steps": [
+          "init_engine_from_config() — CAND-009",
+          "make_checkpointer() — checkpointer",
+          "make_store() — LangGraph store",
+          "RunRepository(sf) or MemoryRunStore() — run_store",
+          "FeedbackRepository(sf) or None — feedback_repo",
+          "make_thread_store() — thread_store",
+          "make_run_event_store() — run_event_store",
+          "RunManager(store) — run_manager",
+          "yield (app runs here)",
+          "close_engine() — in finally block"
+        ]
+      }
+    ],
+
+    "shutdown_sequence": [
+      {
+        "step": 1,
+        "action": "langgraph_runtime() finally block",
+        "function": "close_engine()",
+        "purpose": "Dispose AsyncEngine, release all connections"
+      }
+    ],
+
+    "shutdown_timeout": "_SHUTDOWN_HOOK_TIMEOUT_SECONDS = 5.0 — bounds worker exit time"
+  },
+
+  "app_include_router_auth_plan": {
+    "note": "app.include_router(auth.router) is GSIC-004; this section plans the code but DOES NOT register routes in this phase",
+
+    "planned_code": "app.include_router(auth.router, prefix='/api/v1/auth')",
+    "source_file": "backend/app/gateway/routers/auth.py",
+    "prefix": "/api/v1/auth",
+
+    "auth_router_registration_will_happen_in": "R241-22G (coupled GSIC-003 + GSIC-004 unblock)",
+
+    "deps_import_needed": "from app.gateway.routers import auth",
+    "already_in_app_py": "Yes — already imported at top of app.py"
+  },
+
+  "gw_start_01_through_gw_start_06_mapping": {
+    "GW-START-01": {
+      "name": "Persistence engine initialized before middleware",
+      "verification": "init_engine_from_config() called in lifespan startup BEFORE any HTTP request handled",
+      "lifespan_step": 2,
+      "implementation_note": "langgraph_runtime() is entered before any request is processed; init_engine is step 3 of enter_sequence"
+    },
+    "GW-START-02": {
+      "name": "Memory backend fallback when session_factory is None",
+      "verification": "deps.py handles sf=None: MemoryRunStore(), feedback_repo=None, JsonlRunEventStore()",
+      "deps_py_location": "langgraph_runtime() steps 6 and 8",
+      "code_pattern": "sf = get_session_factory(); if sf is not None: ... else: MemoryRunStore(), feedback_repo=None"
+    },
+    "GW-START-03": {
+      "name": "Admin bootstrap graceful when auth not ready",
+      "verification": "_ensure_admin_user catches RuntimeError from get_local_provider() and logs warning",
+      "app_py_location": "_ensure_admin_user() first try/except",
+      "code_pattern": "try: provider = get_local_provider() except RuntimeError: logger.warning(...); return"
+    },
+    "GW-START-04": {
+      "name": "Middleware chain order correct",
+      "verification": "CORSMiddleware → CSRFMiddleware → AuthMiddleware",
+      "app_py_location": "app.add_middleware() calls in app.py",
+      "correct_order": "add_middleware called in order: CORSMiddleware (first), CSRFMiddleware (second), AuthMiddleware (third) — last added = innermost"
+    },
+    "GW-START-05": {
+      "name": "AuthMiddleware public path bypass works",
+      "verification": "_is_public() returns True for defined public paths",
+      "auth_middleware_location": "_is_public() function + dispatch() first line",
+      "public_paths": "/health, /docs, /redoc, /openapi.json, /api/v1/auth/login/local, /api/v1/auth/register, /api/v1/auth/logout, /api/v1/auth/setup-status, /api/v1/auth/initialize"
+    },
+    "GW-START-06": {
+      "name": "get_local_provider() raises if session_factory is None",
+      "verification": "RuntimeError raised when calling get_local_provider() before init_engine_from_config()",
+      "deps_py_location": "get_local_provider() first line",
+      "code_pattern": "sf = get_session_factory(); if sf is None: raise RuntimeError('get_local_provider() called before init_engine_from_config()...')"
+    }
+  },
+
+  "rr_01_through_rr_05_dependency_mapping": {
+    "RR-01": {
+      "name": "All 9 auth routes have unique method+path",
+      "routers_auth_location": "routers/auth.py @router decorators",
+      "verification": "No duplicate @router.post/get/etc with same path"
+    },
+    "RR-02": {
+      "name": "Protected routes use get_current_user_from_request",
+      "routers_auth_location": "/me, /change-password — both call get_current_user_from_request",
+      "deps_py_location": "get_current_user_from_request() in deps.py",
+      "dependency_chain": "get_current_user_from_request → get_local_provider → session_factory → CAND-009"
+    },
+    "RR-03": {
+      "name": "Public routes do NOT require authentication",
+      "routers_auth_location": "@router.post('/login/local') etc — no auth dependency",
+      "auth_middleware_location": "_is_public() — these paths bypass auth entirely"
+    },
+    "RR-04": {
+      "name": "Rate limiting on login/register",
+      "routers_auth_location": "login_local() calls _check_rate_limit(ip); register() calls _check_rate_limit(ip)",
+      "implementation_note": "_check_rate_limit() uses in-memory dict; per-process, not distributed"
+    },
+    "RR-05": {
+      "name": "No route registration outside app.py",
+      "verification": "routers/auth.py defines router but does NOT call app.include_router or app.add_api_route",
+      "routers_auth_location": "router = APIRouter(...) — definition only, registration happens in app.py"
+    }
+  },
+
+  "feature_flag_strategy": {
+    "MAINLINE_GATEWAY_ACTIVATION": {
+      "env_var": "MAINLINE_GATEWAY_ACTIVATION",
+      "current": "false",
+      "unlock_value": "true",
+      "check_location": "app.py lifespan — if false, skip lifespan hooks",
+      "implementation_pattern": "if os.getenv('MAINLINE_GATEWAY_ACTIVATION', 'false').lower() != 'true': return immediately from lifespan",
+      "effect_when_false": "app starts but lifespan hooks don't run — no persistence init, no auth"
+    },
+    "AUTH_ROUTES_ENABLED": {
+      "env_var": "AUTH_ROUTES_ENABLED",
+      "default": "true",
+      "check_location": "app.py — before app.include_router(auth.router)",
+      "implementation_pattern": "if os.getenv('AUTH_ROUTES_ENABLED', 'true').lower() == 'true': app.include_router(auth.router)",
+      "effect_when_false": "Auth routes return 404, auth middleware still active"
+    },
+    "AUTH_MIDDLEWARE_ENABLED": {
+      "env_var": "AUTH_MIDDLEWARE_ENABLED",
+      "default": "true",
+      "check_location": "app.py — before app.add_middleware(AuthMiddleware)",
+      "implementation_pattern": "if os.getenv('AUTH_MIDDLEWARE_ENABLED', 'true').lower() == 'true': app.add_middleware(AuthMiddleware)",
+      "effect_when_false": "Gateway fail-open — no auth enforcement",
+      "risk_level": "HIGH — not recommended to disable in production"
+    },
+    "DATABASE_BACKEND": {
+      "env_var": "DATABASE_BACKEND",
+      "values": ["memory", "sqlite", "postgres"],
+      "check_location": "config.database.backend or environment variable",
+      "effect_when_memory": "init_engine returns early; get_session_factory() returns None; MemoryRunStore, JsonlRunEventStore used",
+      "rollback_use_case": "Set to 'memory' if DB initialization fails at startup"
+    }
+  },
+
+  "rollback_plan": {
+    "if_lifespan_must_rollback": [
+      "Remove lifespan=lifespan from FastAPI() constructor",
+      "Set lifespan=None or remove lifespan parameter",
+      "Result: App starts without persistence initialization"
+    ],
+    "if_middleware_must_rollback": [
+      "Remove app.add_middleware(AuthMiddleware)",
+      "Remove app.add_middleware(CSRFMiddleware)",
+      "Result: No auth enforcement — fail-open"
+    ],
+    "if_router_must_rollback": [
+      "Comment out app.include_router(auth.router)",
+      "Result: Auth routes 404, middleware still enforces 401"
+    ],
+    "if_langgraph_runtime_must_rollback": [
+      "Remove async with langgraph_runtime(app): from lifespan",
+      "Keep _ensure_admin_user()",
+      "Result: No persistence initialization, no RunManager"
+    ],
+    "if_entire_gateway_must_rollback": [
+      "Revert app.py to pre-gateway state (remove all GSIC-003/004 modifications)",
+      "Result: No auth, no persistence, no routes registered"
+    ]
+  },
+
+  "explicit_stop_conditions": [
+    {
+      "condition": "SURFACE-010 not yet unblocked",
+      "action": "Do not activate gateway — langgraph_runtime requires session_factory from engine.py"
+    },
+    {
+      "condition": "Auth Sub-Bundle C not complete",
+      "action": "AuthMiddleware not available for app.add_middleware()"
+    },
+    {
+      "condition": "Persistence Stage 3+4 not complete",
+      "action": "RunRepository, FeedbackRepository, run_event_store not available"
+    },
+    {
+      "condition": "GSIC-003 not unblocked",
+      "action": "app.add_middleware() calls are GSIC-003 violations"
+    },
+    {
+      "condition": "GSIC-004 not unblocked",
+      "action": "app.include_router(auth.router) is GSIC-004 violation"
+    },
+    {
+      "condition": "Code modification detected during review",
+      "action": "Abort and report safety violation"
+    }
+  ],
+
+  "r241_22g_coupled_unblock_prerequisites": {
+    "phase": "R241-22G",
+    "action": "COUPLED GSIC-003 + GSIC-004 unblock",
+    "prerequisites": [
+      "R241-22F (this phase) — gateway deps + app plan completed",
+      "SURFACE-010 unblocked — all CV-ISO, MEM-LEAK, POOL, SDB gates passed",
+      "Auth Sub-Bundle C complete — user_context, authz, internal_auth, auth_middleware all implemented",
+      "Persistence Stage 3+4 complete — engine.py, UserRow, RunRepository, FeedbackRepository, DbRunEventStore, JsonlRunEventStore all implemented",
+      "MAINLINE_GATEWAY_ACTIVATION env var available as feature flag",
+      "AUTH_ROUTES_ENABLED and AUTH_MIDDLEWARE_ENABLED env vars available as feature flags"
+    ],
+    "activation_steps_in_r241_22g": [
+      "1. Set MAINLINE_GATEWAY_ACTIVATION=true in environment",
+      "2. app.py lifespan=lifespan takes effect",
+      "3. _ensure_admin_user() runs at startup",
+      "4. langgraph_runtime() initializes all persistence",
+      "5. app.add_middleware(AuthMiddleware) + CSRFMiddleware",
+      "6. app.include_router(auth.router) — routes go live"
+    ]
+  },
+
+  "classification_results": {
+    "gateway_deps_app_plan_completed": true,
+    "deps_plan_completed": true,
+    "app_plan_completed": true,
+    "langgraph_runtime_contract_completed": true,
+    "startup_gate_mapping_completed": true,
+    "route_gate_dependency_mapping_completed": true,
+    "feature_flag_strategy_completed": true,
+    "rollback_plan_completed": true,
+    "implementation_allowed": false,
+    "route_registration_allowed": false,
+    "gateway_activation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "gateway_app_modified": false,
+    "deps_py_modified": false,
+    "routers_auth_modified": false,
+    "middleware_added": false,
+    "route_registered": false,
+    "lifespan_enabled": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "gateway_deps_app_plan_completed_two_file_contracts_defined",
+    "gateway_deps_app_plan_completed": true,
+    "deps_plan_completed": true,
+    "app_plan_completed": true,
+    "langgraph_runtime_contract_completed": true,
+    "startup_gate_mapping_completed": true,
+    "route_gate_dependency_mapping_completed": true,
+    "feature_flag_strategy_completed": true,
+    "rollback_plan_completed": true,
+    "implementation_allowed": false,
+    "route_registration_allowed": false,
+    "gateway_activation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22G",
+    "next_prompt_needed": "user_selection"
+  }
+}

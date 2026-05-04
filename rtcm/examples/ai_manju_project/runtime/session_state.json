@@ -1,0 +1,52 @@
+{
+  "session_id": "sess_rtcm_20260419_001",
+  "project_id": "proj_ai_manju_20260419_001",
+  "project_name": "AI漫剧项目",
+  "mode": "rtcm_v2",
+  "status": "validating",
+  "current_issue_id": "issue_002",
+  "current_stage": "validation_execution",
+  "current_round": 3,
+  "active_members": [
+    "rtcm-trend-agent",
+    "rtcm-value-agent",
+    "rtcm-architecture-agent",
+    "rtcm-automation-agent",
+    "rtcm-quality-agent",
+    "rtcm-efficiency-agent",
+    "rtcm-challenger-agent",
+    "rtcm-validator-agent",
+    "rtcm-chair-agent",
+    "rtcm-supervisor-agent"
+  ],
+  "lease_state": {
+    "lease_id": "lease_001",
+    "granted_to": "rtcm-automation-agent",
+    "action_scope": "run_minimum_pipeline_validation",
+    "created_at": "2026-04-19T05:10:00Z",
+    "expires_at": "2026-04-19T05:50:00Z",
+    "approved_by": "rtcm-chair-agent"
+  },
+  "latest_chair_summary": {
+    "current_consensus": "先做 30-60 秒样片，用半自动链路验证质量与成本边界。",
+    "current_conflicts": "是否应追求全自动出片，还是保留脚本/镜头人工校正。",
+    "strongest_support": "最小闭环最利于快速验证。",
+    "strongest_dissent": "过早自动化可能牺牲角色一致性与节奏。",
+    "unresolved_uncertainties": [
+      "角色一致性能否达到可发布阈值",
+      "自动配音是否足够稳定"
+    ],
+    "recommended_state_transition": "继续验证 issue_002"
+  },
+  "latest_supervisor_check": {
+    "all_members_present": true,
+    "all_outputs_structured": true,
+    "critical_claims_have_evidence_refs": true,
+    "dissent_present": true,
+    "uncertainty_present": true,
+    "can_proceed": true
+  },
+  "user_presence_status": "online",
+  "pending_user_acceptance": false,
+  "reopen_flag": false
+}

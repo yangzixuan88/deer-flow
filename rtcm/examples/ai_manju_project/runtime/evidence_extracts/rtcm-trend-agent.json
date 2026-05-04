@@ -1,0 +1,5 @@
+{
+  "selected_evidence_items": ["ev_001","ev_002"],
+  "relevant_constraints": ["需要考虑平台传播偏好"],
+  "conflicting_evidence_if_any": []
+}

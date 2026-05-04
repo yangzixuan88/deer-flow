@@ -1,0 +1,74 @@
+{
+  "audit_id": "R240-MA",
+  "scoring": {
+    "frequency_weight": 0.25,
+    "success_rate_weight": 0.30,
+    "timeliness_weight": 0.20,
+    "coverage_weight": 0.15,
+    "uniqueness_weight": 0.10
+  },
+  "promotion_rules": [
+    {
+      "from": "record",
+      "to": "general",
+      "rule": "reusable signal observed and initial quality score reaches 30"
+    },
+    {
+      "from": "general",
+      "to": "available",
+      "rule": "quality score reaches 60 with usable verification evidence"
+    },
+    {
+      "from": "available",
+      "to": "premium",
+      "rule": "quality score reaches 75 and success evidence is stable"
+    },
+    {
+      "from": "premium",
+      "to": "core",
+      "rule": "quality score reaches 90, success rate remains high, stability period passes, and user confirmation is required"
+    }
+  ],
+  "elimination_rules": [
+    {
+      "tier": "record",
+      "rule": "expire after retention window, originally 180 days"
+    },
+    {
+      "tier": "general",
+      "rule": "direct elimination after three consecutive failures below success threshold"
+    },
+    {
+      "tier": "available",
+      "rule": "enter observation after repeated low success; replacement search before retirement"
+    },
+    {
+      "tier": "premium",
+      "rule": "enter longer observation and user-visible review after degraded performance"
+    },
+    {
+      "tier": "core",
+      "rule": "no automatic elimination; user decision required"
+    }
+  ],
+  "evolution_operations": [
+    {
+      "name": "CAPTURED",
+      "meaning": "new asset extracted from successful high-quality execution when similarity with existing assets is low"
+    },
+    {
+      "name": "DERIVED",
+      "meaning": "child asset created from a parent asset for a different scenario"
+    },
+    {
+      "name": "FIX",
+      "meaning": "degraded asset repaired in sandbox and versioned after validation"
+    }
+  ],
+  "current_implementation_notes": [
+    "backend/src/domain/asset_manager.ts implements tiering, quality scoring, usage updates, lifecycle evaluation, promotion checks, quick elimination, and ROI calculation.",
+    "backend/app/m07/asset_system.py implements a DPBS operational asset path with governance-mediated promotion/binding.",
+    "backend/packages/harness/deerflow/assets/* implements another asset path with prompt, experience, memory, and review concepts.",
+    "Runtime evidence confirms partial asset paths, not a single fully unified A1-A9 lifecycle."
+  ]
+}

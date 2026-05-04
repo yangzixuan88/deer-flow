@@ -1,0 +1,89 @@
+{
+  "report_id": "R241-20G4_PR_CREATION_COMPLETED",
+  "phase": "phase_20g4_pr_creation_completed",
+  "status": "passed",
+  "decision": "cand017_pr_created_successfully",
+  "source": "R241-20G3_ISOLATED_BRANCH_PUSH_EXECUTION",
+  "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "pr_details": {
+    "pr_created": true,
+    "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+    "source_branch": "r241/cand017-lead-agent-summarization",
+    "target_branch": "main",
+    "title": "R241-20G3: apply CAND-017 lead agent summarization config",
+    "commit_on_branch": "579a75f5",
+    "merge_executed": false,
+    "main_modified": false
+  },
+  "cand017_lifecycle_complete": {
+    "r241_19i7_port_back": "passed",
+    "r241_19i8_commit_authorization": "passed",
+    "r241_19i9_commit_execution": "passed (0bb97b51)",
+    "r241_20a_track_b_closeout": "passed",
+    "r241_20g3_isolated_push": "passed (579a75f5)",
+    "r241_20g4_pr_created": "passed (PR #2645)"
+  },
+  "execution_results": {
+    "pr_created": true,
+    "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+    "source_branch": "r241/cand017-lead-agent-summarization",
+    "target_branch": "main",
+    "merge_executed": false,
+    "main_modified": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true
+  },
+  "hard_prohibitions_check": {
+    "no_merge_executed": true,
+    "no_squash_merge": true,
+    "no_rebase": true,
+    "no_force_push": true,
+    "no_push_main": true,
+    "no_pr_branch_modification": true,
+    "no_dependency_install": true,
+    "no_runtime_activation": true,
+    "no_blocker_override": true,
+    "no_worktree_cleanup": true
+  },
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "main_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "cand017_pr_created_successfully",
+    "pr_created": true,
+    "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+    "merge_executed": false,
+    "main_modified": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-20G4",
+    "cand017_lifecycle_complete": true
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "generated_at": "2026-04-24T12:57:41.983445+00:00",
+  "content_policy": "asset lifecycle projection only; no registry writes and no asset promotion",
+  "asset_projection_summary": {
+    "candidate_count": 7,
+    "by_asset_category": {
+      "A9_domain_knowledge_map": 2,
+      "A5_cognitive_method": 5
+    },
+    "by_lifecycle_tier": {
+      "candidate": 7
+    }
+  },
+  "memory_asset_candidates_projection": {
+    "candidate_count": 7,
+    "by_asset_category": {
+      "A9_domain_knowledge_map": 2,
+      "A5_cognitive_method": 5
+    },
+    "by_lifecycle_tier": {
+      "candidate": 7
+    },
+    "candidates": [
+      {
+        "asset_ref_id": "assetref_5a4cb621ceba5beba153682427ea2a71",
+        "asset_category": "A9_domain_knowledge_map",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "knowledge_map",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "search",
+          "task",
+          "roundtable"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.982150+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+        "source_record_ref": {
+          "memory_ref_id": "memref_2364f0c9ef045c1db84b9469d5845dbc",
+          "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_2364f0c9ef045c1db84b9469d5845dbc",
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_e9c97d8ce91c508db3903fa012d37438",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "rtcm_final_report",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.982437+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+        "source_record_ref": {
+          "memory_ref_id": "memref_2b33696ed86e5955ad2e69b89bfbade3",
+          "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_2b33696ed86e5955ad2e69b89bfbade3",
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_a8f467f18d0356f0a84a77ece712d679",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "rtcm_final_report",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.982615+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+        "source_record_ref": {
+          "memory_ref_id": "memref_dbfad579af3456239c2e9563286430a1",
+          "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_dbfad579af3456239c2e9563286430a1",
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_f3d14f5ba6b55104918ac21d7e190d98",
+        "asset_category": "A9_domain_knowledge_map",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "knowledge_map",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "search",
+          "task",
+          "roundtable"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.982784+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+        "source_record_ref": {
+          "memory_ref_id": "memref_14146b24a4df5abfa9d50631e2d1d09f",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_14146b24a4df5abfa9d50631e2d1d09f",
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_f34fb1dc5244571da6b6190c7fbaae52",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "rtcm_final_report",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.982947+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+        "source_record_ref": {
+          "memory_ref_id": "memref_7003b972e6ac5b55bc743da9c6ed1f39",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_7003b972e6ac5b55bc743da9c6ed1f39",
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_855744c8bac4500dabcaa6175c0e911e",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "rtcm_final_report",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.983113+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+        "source_record_ref": {
+          "memory_ref_id": "memref_617ec65368ca5d09b79ebca6d9d44610",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_617ec65368ca5d09b79ebca6d9d44610",
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_a37e8e2988505bfdae5ea38bfa1cc8a6",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "rtcm",
+        "source_type": "rtcm_final_report",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T12:57:41.983301+00:00",
+        "asset_id": null,
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+        "source_record_ref": {
+          "memory_ref_id": "memref_21413b8c688a5fb0bcd8c9099696330c",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+          "source_system": "rtcm"
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": "memref_21413b8c688a5fb0bcd8c9099696330c",
+        "candidate_id": null
+      }
+    ],
+    "warnings": [
+      "max_files_reached:500",
+      "checkpoint_not_long_term_memory",
+      "council_log_not_long_term_memory",
+      "unknown_memory_artifact",
+      "memory_scope_agent_or_user_not_fully_proven",
+      "unverified_qdrant_point_not_asset",
+      "raw_governance_outcome_not_long_term_memory",
+      "missing_score_components"
+    ],
+    "note": "projection only; no asset promotion performed",
+    "candidate_total_count": 7
+  },
+  "lifecycle_risks": {
+    "risk_count": 14,
+    "risk_by_type": {
+      "missing_score_components": 7,
+      "unverified_asset_candidate": 7
+    },
+    "risk_records": [
+      {
+        "asset_ref_id": "assetref_5a4cb621ceba5beba153682427ea2a71",
+        "asset_category": "A9_domain_knowledge_map",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_e9c97d8ce91c508db3903fa012d37438",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a8f467f18d0356f0a84a77ece712d679",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_f3d14f5ba6b55104918ac21d7e190d98",
+        "asset_category": "A9_domain_knowledge_map",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_f34fb1dc5244571da6b6190c7fbaae52",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_855744c8bac4500dabcaa6175c0e911e",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a37e8e2988505bfdae5ea38bfa1cc8a6",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      }
+    ],
+    "warnings": []
+  },
+  "warnings": [
+    "max_files_reached:500",
+    "checkpoint_not_long_term_memory",
+    "council_log_not_long_term_memory",
+    "unknown_memory_artifact",
+    "memory_scope_agent_or_user_not_fully_proven",
+    "unverified_qdrant_point_not_asset",
+    "raw_governance_outcome_not_long_term_memory",
+    "missing_score_components"
+  ]
+}

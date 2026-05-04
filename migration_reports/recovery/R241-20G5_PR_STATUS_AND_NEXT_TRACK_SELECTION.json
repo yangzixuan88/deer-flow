@@ -1,0 +1,113 @@
+{
+  "report_id": "R241-20G5_PR_STATUS_AND_NEXT_TRACK_SELECTION",
+  "phase": "phase_20g5_pr_status_and_next_track_selection",
+  "status": "recorded",
+  "decision": "awaiting_user_selection",
+  "source": "R241-20G4_PR_CREATION_COMPLETED",
+  "pr_details": {
+    "pr_number": 2645,
+    "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+    "source_branch": "r241/cand017-lead-agent-summarization",
+    "target_branch": "main",
+    "title": "R241-20G3: apply CAND-017 lead agent summarization config",
+    "modified_files_count": 1,
+    "modified_file": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "isolated_commit": "579a75f5",
+    "original_local_commit": "0bb97b51",
+    "pr_created_by": "user_manual",
+    "merge_executed": false,
+    "main_modified": false
+  },
+  "cand017_lifecycle": {
+    "r241_19i7_port_back": "passed",
+    "r241_19i8_commit_authorization": "passed",
+    "r241_19i9_commit_execution": "passed (0bb97b51)",
+    "r241_20a_track_b_closeout": "passed",
+    "r241_20g3_isolated_push": "passed (579a75f5)",
+    "r241_20g4_pr_created": "passed (PR #2645)",
+    "lifecycle_complete": true
+  },
+  "safety_boundary": {
+    "merge_executed": false,
+    "main_modified": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "worktree_status": {
+    "main_worktree": {
+      "path": "E:/OpenClaw-Base/deerflow",
+      "commit": "0bb97b51",
+      "branch": "main",
+      "status": "dirty"
+    },
+    "isolated_worktree": {
+      "path": "E:/OpenClaw-Base/.tmp_r241_20g_push",
+      "commit": "579a75f5",
+      "branch": "r241/cand017-lead-agent-summarization",
+      "status": "clean"
+    },
+    "cleanup_authorized": false
+  },
+  "authorization_boundaries": {
+    "merge_pr": false,
+    "modify_pr_branch": false,
+    "push_to_main": false,
+    "cleanup_worktree": false,
+    "continue_migration_tasks": "conditional"
+  },
+  "next_track_options": {
+    "A": {
+      "name": "wait_for_ci_and_review",
+      "description": "等待 CI 检查和代码审查",
+      "risk": "low",
+      "recommended": true
+    },
+    "B": {
+      "name": "authorize_tmp_worktree_cleanup",
+      "description": "授权清理临时 worktree",
+      "risk": "low",
+      "requires_explicit_authorization": true
+    },
+    "C": {
+      "name": "continue_other_migration_tasks",
+      "description": "继续其他迁移任务（不合并 PR）",
+      "risk": "medium",
+      "candidates": [
+        "R241-20D adapter design (10 candidates)",
+        "CAND-002 memory_read_binding (BLOCKED)",
+        "CAND-003 mcp_read_binding (DEFERRED)",
+        "CAND-020, CAND-021, CAND-025"
+      ]
+    },
+    "D": {
+      "name": "pause",
+      "description": "暂停迁移工作",
+      "risk": "none"
+    }
+  },
+  "recommended_next_track": "A",
+  "final_decision": {
+    "status": "recorded",
+    "pr_number": 2645,
+    "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+    "lifecycle_complete": true,
+    "merge_authorized": false,
+    "next_track": "awaiting_user_selection"
+  }
+}

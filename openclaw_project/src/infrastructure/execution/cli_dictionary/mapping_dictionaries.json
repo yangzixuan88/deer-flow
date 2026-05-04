@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "repo": "https://github.com/HKUDS/CLI-Anything",
+    "description": "CLI-Hub — Agent-native stateful CLI interfaces for software, codebases, and Web Services",
+    "updated": "2026-03-31",
+    "policy": "GitHub-First: Reuse existing high-quality CLI-Anything harnesses instead of raw GUI interaction."
+  },
+  "dictionaries": [
+    {
+      "name": "LibreOffice",
+      "category": "office",
+      "cli": "cli-anything-libreoffice",
+      "mappings": [
+        "Create ODF documents",
+        "Export to PDF/DOCX/XLSX/PPTX",
+        "Headless document manipulation",
+        "Text and table extraction"
+      ],
+      "install_cmd": "pip install git+https://github.com/HKUDS/CLI-Anything.git#subdirectory=libreoffice/agent-harness"
+    },
+    {
+      "name": "GIMP",
+      "category": "image",
+      "cli": "cli-anything-gimp",
+      "mappings": [
+        "Raster image processing",
+        "Filter apply and batch mode",
+        "Layer management",
+        "File format conversion"
+      ],
+      "install_cmd": "pip install git+https://github.com/HKUDS/CLI-Anything.git#subdirectory=gimp/agent-harness"
+    },
+    {
+      "name": "WeChat",
+      "category": "communication",
+      "cli": "nanobot wechat",
+      "mappings": [
+        "Message sending and receiving",
+        "Media handling (images/files)",
+        "Unified channel login",
+        "Group and contact management"
+      ],
+      "install_cmd": "pip install nanobot[wechat]"
+    },
+    {
+      "name": "Draw.io",
+      "category": "diagrams",
+      "cli": "cli-anything-drawio",
+      "mappings": [
+        "Diagram creation and export",
+        "XML diagram format manipulation",
+        "CLI-based rendering"
+      ],
+      "install_cmd": "pip install git+https://github.com/HKUDS/CLI-Anything.git#subdirectory=drawio/agent-harness"
+    },
+    {
+      "name": "Zoom",
+      "category": "communication",
+      "cli": "cli-anything-zoom",
+      "mappings": [
+        "Meeting management via REST API",
+        "OAuth2 authentication handling",
+        "Scheduling and user operations"
+      ],
+      "install_cmd": "pip install git+https://github.com/HKUDS/CLI-Anything.git#subdirectory=zoom/agent-harness"
+    },
+    {
+      "name": "OBS Studio",
+      "category": "streaming",
+      "cli": "cli-anything-obs-studio",
+      "mappings": [
+        "Scene management",
+        "Streaming/Recording control",
+        "CLI-based source configuration"
+      ],
+      "install_cmd": "pip install git+https://github.com/HKUDS/CLI-Anything.git#subdirectory=obs-studio/agent-harness"
+    },
+    {
+      "name": "Zotero",
+      "category": "office",
+      "cli": "cli-anything-zotero",
+      "mappings": [
+        "Reference management",
+        "Local SQLite and API access",
+        "Citation generation"
+      ],
+      "install_cmd": "pip install git+https://github.com/HKUDS/CLI-Anything.git#subdirectory=zotero/agent-harness"
+    }
+  ]
+}

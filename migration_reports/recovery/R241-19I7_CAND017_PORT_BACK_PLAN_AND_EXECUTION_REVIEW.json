@@ -1,0 +1,294 @@
+{
+  "report_id": "R241-19I7_CAND017_PORT_BACK_PLAN_AND_EXECUTION_REVIEW",
+  "phase": "phase_19i7_cand017_port_back_plan_and_execution_review",
+  "status": "passed",
+  "decision": "approve_cand017_port_back_plan_and_execution",
+  "source": "R241-19I6_CAND017_VERIFIED_PATCH_PORT_BACK_AUTHORIZATION_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "HEAD": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "64f4dc163910895b1fd5df1d569fac6ffce8309e",
+    "dirty_tracked_count_before": 59,
+    "dirty_tracked_count_after": 59,
+    "dirty_total_count_before_if_available": 330,
+    "dirty_total_count_after_if_available": 330,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_list": [
+      "E:/OpenClaw-Base/deerflow             ae9cc034 [main]",
+      "E:/OpenClaw-Base/.tmp_r241_19i3_patch 9aac8c65 (detached HEAD)",
+      "E:/OpenClaw-Base/r241_19i3_full       9aac8c65 [r241_19i3_full]",
+      "E:/OpenClaw-Base/r241_19i3_worktree   ae9cc034 [r241_19i3_patch]"
+    ],
+    "main_worktree_untouched_since_r241_19i6": true,
+    "isolated_worktrees_preserved": true,
+    "no_cleanup_occurred": true,
+    "warnings": [
+      "59 dirty tracked files are pre-existing from before R241-19I7, not new modifications",
+      "Port-back applied to main worktree making agent.py dirty tracked",
+      "No commit/merge/push executed per protocol"
+    ]
+  },
+  "preconditions_from_r241_19i6": {
+    "r241_19i6_status": "passed",
+    "r241_19i6_decision": "authorize_cand017_for_port_back_review",
+    "cand017_authorization_review_passed": true,
+    "user_cand017_authorization_obtained": true,
+    "authorized_candidate": "CAND-017",
+    "target_drift_detected": true,
+    "target_drift_explained": true,
+    "target_drift_blocking": false,
+    "port_back_executed": false,
+    "merge_executed": false,
+    "patch_apply_executed": false,
+    "actual_upgrade_execution_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "allow_enter_r241_19i7": true,
+    "all_preconditions_met": true
+  },
+  "cand017_port_back_execution_scope": {
+    "current_round": "R241-19I7",
+    "mode": "cand017_port_back_plan_and_execution_review",
+    "authorized_candidate": "CAND-017",
+    "authorized_path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "actual_upgrade_execution_allowed": false,
+    "full_upgrade_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "runtime_replacement_allowed": false,
+    "blocker_override_allowed": false,
+    "gateway_fastapi_touch_allowed": false,
+    "persistence_touch_allowed": false,
+    "pyproject_touch_allowed": false,
+    "main_worktree_cleanup_allowed": false,
+    "worktree_cleanup_allowed": false,
+    "allowed_scope": [
+      "CAND-017 source-locked diff extraction",
+      "CAND-017 path-limited port-back",
+      "before/after attribution",
+      "candidate-specific verification",
+      "test continuity verification",
+      "R241-19I8 readiness assessment"
+    ],
+    "forbidden_scope": [
+      "full upgrade",
+      "dependency install",
+      "dependency upgrade",
+      "gateway/app.py touch",
+      "gateway/routers/auth.py touch",
+      "persistence touch",
+      "pyproject.toml touch",
+      "runtime replacement",
+      "FastAPI route registration",
+      "memory/MCP activation",
+      "blocker override",
+      "worktree cleanup",
+      "destructive git operation"
+    ]
+  },
+  "source_lock": {
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "64f4dc163910895b1fd5df1d569fac6ffce8309e",
+    "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "use_base_to_target_diff": true,
+    "use_base_to_origin_main_diff": false,
+    "target_drift_explained": true,
+    "source_lock_passed": true,
+    "verification": "target_commit=64f4dc16 confirmed, path exists at both base and target"
+  },
+  "main_worktree_baseline_protection": {
+    "dirty_tracked_count_before": 59,
+    "dirty_total_count_before_if_available": 330,
+    "staged_count_before": 0,
+    "stash_count_before": 1,
+    "main_worktree_cleanup_allowed": false,
+    "main_worktree_reset_allowed": false,
+    "main_worktree_stash_allowed": false,
+    "main_worktree_patch_scope": "CAND-017 path only",
+    "port_back_applied_to": "main_worktree",
+    "violations": [],
+    "note": "59 dirty tracked files are pre-existing from before R241-19I7. Port-back replaced 1 tracked file (agent.py) with target version. This is expected behavior."
+  },
+  "cand017_path_allowlist": {
+    "allowed_paths": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "observed_changed_paths": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "disallowed_paths": [],
+    "allowlist_passed": true,
+    "violations": []
+  },
+  "cand017_target_diff_extraction": {
+    "source_base": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "source_target": "64f4dc163910895b1fd5df1d569fac6ffce8309e",
+    "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "diff_stat": "1 file changed, 95 insertions(+), 35 deletions(-)",
+    "contains_middleware_summarize_tag": true,
+    "tag_count": 2,
+    "tag_locations": [
+      "line 72: comment Bind middleware:summarize tag",
+      "line 79: model.with_config(tags=['middleware:summarize'])"
+    ],
+    "forbidden_path_count": 0,
+    "extraction_status": "passed",
+    "violations": []
+  },
+  "cand017_port_back_strategy": {
+    "selected_strategy": "path_limited_restore",
+    "apply_location": "main_worktree",
+    "main_worktree_apply_allowed": true,
+    "method": "git show target:path > main_worktree_path",
+    "reason": "Source-locked restore directly from target commit. Only 1 path affected. No dependency install required. No gateway/FastAPI routes. Pure source restoration.",
+    "patch_scope_path_count": 1,
+    "violations": []
+  },
+  "cand017_port_back_execution": {
+    "executed": true,
+    "apply_location": "main_worktree",
+    "method": "git show 64f4dc16:backend/packages/harness/deerflow/agents/lead_agent/agent.py > backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "files_modified": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "files_created": [],
+    "files_deleted": [],
+    "path_allowlist_passed": true,
+    "forbidden_paths_touched": [],
+    "port_back_successful": true,
+    "file_line_count_before": 384,
+    "file_line_count_after": 410,
+    "warnings": [
+      "agent.py became dirty tracked in main worktree after restore",
+      "No commit created per protocol"
+    ],
+    "violations": []
+  },
+  "before_after_attribution": {
+    "before_status": {
+      "agent.py_line_count": 384,
+      "agent.py_contains_middleware_summarize_tag": false,
+      "agent.py_contains_SummarizationMiddleware": true,
+      "agent.py_contains_langchain_middleware": true,
+      "agent.py_dirty_tracked": true
+    },
+    "after_status": {
+      "agent.py_line_count": 410,
+      "agent.py_contains_middleware_summarize_tag": true,
+      "agent.py_contains_DeerFlowSummarizationMiddleware": true,
+      "agent.py_contains_langchain_SummarizationMiddleware": false,
+      "agent.py_dirty_tracked": true,
+      "agent.py_matches_target": true
+    },
+    "changed_paths": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "expected_changed_paths": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "unexpected_changed_paths": [],
+    "attribution_passed": true
+  },
+  "runtime_dependency_blocker_exclusion_scan": {
+    "runtime_touch_detected": false,
+    "dependency_files_touched": [],
+    "forbidden_patterns_detected": [],
+    "blocker_override_detected": false,
+    "memory_mcp_activation_detected": false,
+    "fastapi_gateway_touch_detected": false,
+    "persistence_touch_detected": false,
+    "note": "memory_flush_hook and get_memory_config are import/wiring only, not activation. DeerFlowSummarizationMiddleware is middleware class definition, not runtime activation.",
+    "violations": []
+  },
+  "cand017_specific_verification": {
+    "file_exists": true,
+    "middleware_summarize_tag_present": true,
+    "tag_count": 2,
+    "expected_symbols_present": [
+      "DeerFlowSummarizationMiddleware",
+      "BeforeSummarizationHook",
+      "memory_flush_hook",
+      "get_memory_config",
+      "_get_runtime_config",
+      "validate_agent_name",
+      "tool_groups",
+      "available_skills"
+    ],
+    "dependency_files_touched": false,
+    "gateway_fastapi_touched": false,
+    "persistence_touched": false,
+    "blocker_override_detected": false,
+    "verification_status": "passed"
+  },
+  "tests": {
+    "root_guard": {
+      "python": "pass",
+      "powershell": "pass"
+    },
+    "core_144": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0
+    },
+    "disabled_dsrt_feishu_audit_trend": {
+      "command": "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "passed": 96,
+      "failed": 0
+    },
+    "upgrade_intake_32": {
+      "command": "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v",
+      "passed": 32,
+      "failed": 0
+    },
+    "total_passed": 176,
+    "total_failed": 0
+  },
+  "rollback_abandon_plan": {
+    "destructive_git_forbidden": true,
+    "rollback_required": false,
+    "rollback_method": null,
+    "main_worktree_cleanup_allowed": false,
+    "isolated_cleanup_allowed": false,
+    "evidence_preserved": true,
+    "note": "No rollback needed. Port-back succeeded with only CAND-017 path modified. No commit/merge/push executed."
+  },
+  "r241_19i8_readiness": {
+    "allow_enter_r241_19i8": true,
+    "recommended_next_round": "R241-19I8_CAND017_PORT_BACK_VERIFICATION_AND_COMMIT_AUTHORIZATION",
+    "reason": "CAND-017 port-back completed successfully in main worktree. File matches target exactly. middleware:summarize tag present. No forbidden paths touched. 176 tests passed. 8 blockers preserved. R241-19I8 ready for final verification and user commit authorization.",
+    "blocking_reason": null,
+    "warnings": [
+      "agent.py is dirty tracked in main worktree — no commit created per protocol",
+      "Isolated worktrees still preserved pending future cleanup authorization",
+      "CAND-003/CAND-025 remain quarantined",
+      "CAND-020/CAND-021 removed from upstream patch lane"
+    ]
+  },
+  "cand017_port_back_completed": true,
+  "changed_paths": [
+    "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+  ],
+  "unexpected_changed_paths": [],
+  "middleware_summarize_tag_present": true,
+  "actual_upgrade_execution_allowed": false,
+  "runtime_touch_detected": false,
+  "dependency_execution_executed": false,
+  "blockers_preserved": true,
+  "tests_passed": 176,
+  "tests_failed": 0,
+  "allow_enter_r241_19i8": true,
+  "safety_violations": [],
+  "recommended_resume_point": "R241-19I7",
+  "next_prompt_needed": "R241-19I8_CAND017_PORT_BACK_VERIFICATION_AND_COMMIT_AUTHORIZATION"
+}

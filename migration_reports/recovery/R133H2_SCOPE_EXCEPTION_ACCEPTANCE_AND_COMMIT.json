@@ -1,0 +1,66 @@
+{
+  "phase": "R133H2",
+  "title": "SCOPE_EXCEPTION_ACCEPTANCE_AND_COMMIT",
+  "status": "completed",
+  "preceded_by": "R133H",
+  "proceeding_to": "R133G_RETRY",
+  "pressure_assessment": {
+    "previous_phase": "R133H",
+    "previous_status": "passed_with_exceeded_scope",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Scope exception acceptance + commit only; no runtime model/MCP."
+  },
+  "diff_audit": {
+    "auth_middleware_py": "+}, +) — closes JSONResponse content dict and return call",
+    "authz_py": "-orphan docstring line — removes split docstring remnant",
+    "app_py": "-local import of AuthMiddleware — removes shadowing import",
+    "no_behavioral_changes": true,
+    "no_auth_flags_modified": true,
+    "no_db_writes": true
+  },
+  "validation": {
+    "py_compile_auth_middleware": "PASS",
+    "py_compile_authz": "PASS",
+    "gateway_app_import": "PASS",
+    "testclient": "PASS",
+    "health_200": "PASS"
+  },
+  "commit": {
+    "sha": "550b541f",
+    "message": "fix(gateway): repair cherry-pick damage in auth wiring",
+    "files": 3,
+    "insertions": 2,
+    "deletions": 3
+  },
+  "push": {
+    "executed": true,
+    "from": "02e08c13",
+    "to": "550b541f",
+    "branch": "r241/auth-disabled-wiring-v2"
+  },
+  "constraints": {
+    "code_modified": true,
+    "modified_files": [
+      "backend/app/gateway/auth_middleware.py",
+      "backend/app/gateway/authz.py",
+      "backend/app/gateway/app.py"
+    ],
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R133H2_SCOPE_EXCEPTION_ACCEPTANCE_AND_COMMIT.md",
+    "migration_reports/recovery/R133H2_SCOPE_EXCEPTION_ACCEPTANCE_AND_COMMIT.json"
+  ],
+  "next_prompt_needed": "R133G_RETRY_GATEWAY_PATH_NO_TOOL_SMOKE"
+}

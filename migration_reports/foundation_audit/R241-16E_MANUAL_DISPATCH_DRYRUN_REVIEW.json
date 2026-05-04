@@ -1,0 +1,598 @@
+{
+  "review": {
+    "review_id": "R241-16E_manual_dispatch_dryrun_review",
+    "generated_at": "2026-04-26T17:03:17.188910+00:00",
+    "status": "ready_for_implementation_review",
+    "dispatch_input_specs": {
+      "input_specs": [
+        {
+          "input_id": "confirm_manual_dispatch",
+          "name": "confirm_manual_dispatch",
+          "required": true,
+          "default": null,
+          "expected_value": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+          "description": "Must match confirmation phrase exactly to enable job execution.",
+          "blocks_execution_if_missing": true,
+          "blocks_execution_if_mismatch": true,
+          "secret_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "input_id": "stage_selection",
+          "name": "stage_selection",
+          "required": false,
+          "default": "all_pr",
+          "expected_value": null,
+          "description": "Which stages to run: all_pr, fast, safety, collect_only, all_nightly.",
+          "blocks_execution_if_missing": false,
+          "blocks_execution_if_mismatch": false,
+          "secret_allowed": false,
+          "allowed_values": [
+            "all_pr",
+            "fast",
+            "safety",
+            "collect_only",
+            "all_nightly"
+          ],
+          "forbidden_values": [
+            "full",
+            "real_send",
+            "auto_fix",
+            "webhook",
+            "secret"
+          ],
+          "warnings": [
+            "full is manual_only and not available in manual dispatch dry-run"
+          ],
+          "errors": []
+        },
+        {
+          "input_id": "execute_mode",
+          "name": "execute_mode",
+          "required": false,
+          "default": "plan_only",
+          "expected_value": null,
+          "description": "plan_only (default) runs no pytest. execute_selected runs predefined stage commands only.",
+          "blocks_execution_if_missing": false,
+          "blocks_execution_if_mismatch": false,
+          "secret_allowed": false,
+          "allowed_values": [
+            "plan_only",
+            "execute_selected"
+          ],
+          "warnings": [],
+          "errors": []
+        }
+      ],
+      "spec_count": 3,
+      "confirmation_input_exists": true,
+      "warnings": [],
+      "errors": []
+    },
+    "job_guard_specs": {
+      "job_guard_specs": [
+        {
+          "job_id": "job_smoke",
+          "job_type": "smoke",
+          "guard_mode": "guarded_by_confirmation_input",
+          "enabled_by_default": false,
+          "requires_confirmation_input": true,
+          "requires_stage_selection": false,
+          "allowed_stage_selections": [
+            "all_pr",
+            "smoke",
+            "collect_only"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "auto_fix_allowed": false,
+          "warnings": [
+            "smoke is pr_warning only — does not block merge"
+          ],
+          "errors": []
+        },
+        {
+          "job_id": "job_fast",
+          "job_type": "fast",
+          "guard_mode": "guarded_by_confirmation_input",
+          "enabled_by_default": false,
+          "requires_confirmation_input": true,
+          "requires_stage_selection": false,
+          "allowed_stage_selections": [
+            "all_pr",
+            "fast",
+            "all_nightly"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "auto_fix_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "job_id": "job_safety",
+          "job_type": "safety",
+          "guard_mode": "guarded_by_confirmation_input",
+          "enabled_by_default": false,
+          "requires_confirmation_input": true,
+          "requires_stage_selection": false,
+          "allowed_stage_selections": [
+            "all_pr",
+            "safety",
+            "all_nightly"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "auto_fix_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "job_id": "job_collect_only",
+          "job_type": "collect_only",
+          "guard_mode": "guarded_by_confirmation_input",
+          "enabled_by_default": false,
+          "requires_confirmation_input": true,
+          "requires_stage_selection": false,
+          "allowed_stage_selections": [
+            "all_pr",
+            "collect_only"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "auto_fix_allowed": false,
+          "warnings": [
+            "collect-only is pr_warning only"
+          ],
+          "errors": []
+        },
+        {
+          "job_id": "job_slow",
+          "job_type": "slow",
+          "guard_mode": "guarded_by_stage_selection",
+          "enabled_by_default": false,
+          "requires_confirmation_input": true,
+          "requires_stage_selection": true,
+          "allowed_stage_selections": [
+            "all_nightly"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "auto_fix_allowed": false,
+          "warnings": [
+            "slow is nightly_required — not available in all_pr selection"
+          ],
+          "errors": []
+        }
+      ],
+      "spec_count": 5,
+      "all_guarded_by_confirmation_or_selection": true,
+      "warnings": [],
+      "errors": []
+    },
+    "existing_workflow_compatibility": [],
+    "artifact_policy_check": {
+      "artifact_specs": [
+        {
+          "artifact_spec_id": "art_spec_foundation_reports",
+          "artifact_type": "foundation_audit_report",
+          "source_paths": [
+            null,
+            null
+          ],
+          "destination_name": "foundation_audit_reports",
+          "include_patterns": [
+            "*.json",
+            "*.md"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/*.jsonl",
+            "**/runtime/**",
+            "**/action_queue/**",
+            "**/.secret/**",
+            "**/webhook_url*",
+            "**/*token*",
+            "**/*secret*"
+          ],
+          "retention_days": 30,
+          "path_inconsistency_handling": "collect_both_report_warning",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "primary path: not found",
+            "secondary path: not found",
+            "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_ci_matrix",
+          "artifact_type": "ci_matrix_report",
+          "source_paths": [
+            null
+          ],
+          "destination_name": "ci_matrix_reports",
+          "include_patterns": [
+            "R241-15*",
+            "R241-16*"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 90,
+          "path_inconsistency_handling": "primary_only",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_pytest_logs",
+          "artifact_type": "pytest_log",
+          "source_paths": [],
+          "destination_name": "pytest_logs",
+          "include_patterns": [
+            "**/pytest.log",
+            "**/.pytest_cache/**",
+            "**/tmp/**/pytest*.log"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/**"
+          ],
+          "retention_days": 7,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "pytest logs are temp — only collect if explicitly enabled"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_junit_xml",
+          "artifact_type": "junit_xml",
+          "source_paths": [],
+          "destination_name": "junit_reports",
+          "include_patterns": [
+            "**/junit*.xml",
+            "**/test-results/**/*.xml"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 14,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "junit xml is optional — requires --junit-xml flag in pytest command"
+          ],
+          "errors": []
+        }
+      ],
+      "spec_count": 4,
+      "primary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_does_not_execute1\\migration_reports\\foundation_audit",
+      "secondary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_does_not_execute1\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": false,
+      "secondary_exists": false,
+      "path_inconsistency": false,
+      "path_inconsistency_action": "report_only_no_migration_no_deletion"
+    },
+    "path_compatibility_check": {
+      "path_compatibility_policy_id": "R241-16A_path_compatibility",
+      "generated_at": "2026-04-26T17:03:17.188887+00:00",
+      "primary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_does_not_execute1\\migration_reports\\foundation_audit",
+      "secondary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_does_not_execute1\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": false,
+      "secondary_exists": false,
+      "path_inconsistency": false,
+      "action_now": "report_only",
+      "future_options": [
+        "unify_report_root_under_migration_reports_only",
+        "add_compatibility_note_in_ci_config",
+        "migrate_old_backend_reports_in_phase_6",
+        "ci_collect_both_paths_temporarily"
+      ],
+      "migration_allowed_now": false,
+      "deletion_allowed_now": false,
+      "rewriting_allowed_now": false,
+      "warnings": [
+        "No migration, deletion, or rewriting in this phase",
+        "CI should collect from both paths when both exist",
+        "Future Phase 6 will address path cleanup"
+      ],
+      "errors": []
+    },
+    "threshold_policy_check": {
+      "threshold_policy_id": "R241-16A_threshold_policy",
+      "generated_at": "2026-04-26T17:03:17.188898+00:00",
+      "foundation_fast_warning_threshold_seconds": 30,
+      "foundation_fast_blocker_threshold_seconds": 60,
+      "audit_fast_warning_threshold_seconds": 15,
+      "audit_fast_blocker_threshold_seconds": 30,
+      "slow_suite_warning_threshold_seconds": 60,
+      "slow_suite_blocker_threshold_seconds": 120,
+      "safety_suite_warning_threshold_seconds": 10,
+      "safety_suite_blocker_threshold_seconds": 20,
+      "collect_only_warning_threshold_seconds": 10,
+      "collect_only_blocker_threshold_seconds": 20,
+      "failure_handling": {
+        "smoke_failure": "pr_warning_only",
+        "fast_failure": "pr_block",
+        "safety_failure": "pr_block",
+        "slow_failure": "create_stabilization_ticket_warning",
+        "full_failure": "manual_review_required"
+      },
+      "warning_handling": {
+        "fast_warning": "log_and_warn_pr_comment",
+        "slow_warning": "log_and_create_stabilization_ticket",
+        "safety_warning": "log_and_notify_channel"
+      },
+      "warn_does_not_block_pr_unless_configured": true,
+      "blocker_blocks_pr_for_pr_blocking_stages": true,
+      "slow_warning_creates_stabilization_ticket_not_auto_fix": true,
+      "warnings": [],
+      "errors": []
+    },
+    "security_checks": {
+      "checks": [
+        {
+          "check_id": "check_no_pr_trigger",
+          "check_type": "no_pull_request_trigger",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Manual dispatch workflow must not have pull_request trigger.",
+          "evidence_refs": [
+            "WorkflowTriggerPolicy.WORKFLOW_DISPATCH_ONLY"
+          ]
+        },
+        {
+          "check_id": "check_no_push_trigger",
+          "check_type": "no_push_trigger",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Manual dispatch workflow must not have push trigger.",
+          "evidence_refs": []
+        },
+        {
+          "check_id": "check_no_schedule_trigger",
+          "check_type": "no_schedule_trigger",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Manual dispatch workflow must not have schedule trigger.",
+          "evidence_refs": []
+        },
+        {
+          "check_id": "check_no_secrets",
+          "check_type": "no_secrets",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No secret refs allowed in manual dispatch job specs.",
+          "evidence_refs": [
+            "secret_refs_allowed=False in all job specs"
+          ]
+        },
+        {
+          "check_id": "check_no_network",
+          "check_type": "no_network",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No network calls allowed in manual dispatch jobs.",
+          "evidence_refs": [
+            "network_allowed=False in all job specs"
+          ]
+        },
+        {
+          "check_id": "check_no_webhook",
+          "check_type": "no_webhook",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No webhook calls allowed in manual dispatch jobs.",
+          "evidence_refs": [
+            "webhook not in allowed stage selections"
+          ]
+        },
+        {
+          "check_id": "check_no_runtime_write",
+          "check_type": "no_runtime_write",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No runtime writes allowed in manual dispatch jobs.",
+          "evidence_refs": [
+            "runtime_write_allowed=False in all job specs"
+          ]
+        },
+        {
+          "check_id": "check_no_audit_jsonl_write",
+          "check_type": "no_audit_jsonl_write",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Audit JSONL writes are forbidden in manual dispatch.",
+          "evidence_refs": [
+            "build_ci_blocked_actions()"
+          ]
+        },
+        {
+          "check_id": "check_no_action_queue_write",
+          "check_type": "no_action_queue_write",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Action queue writes are forbidden in manual dispatch.",
+          "evidence_refs": [
+            "action_queue_write blocked in ci_blocked_actions"
+          ]
+        },
+        {
+          "check_id": "check_no_auto_fix",
+          "check_type": "no_auto_fix",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Auto-fix is never executed in manual dispatch dry-run.",
+          "evidence_refs": [
+            "auto_fix_allowed=False in all job specs"
+          ]
+        },
+        {
+          "check_id": "check_no_feishu_send",
+          "check_type": "no_feishu_send",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Feishu/Lark send is forbidden in manual dispatch.",
+          "evidence_refs": [
+            "feishu_send not in allowed stage selections"
+          ]
+        },
+        {
+          "check_id": "check_artifact_policy_excludes_sensitive",
+          "check_type": "artifact_policy_excludes_sensitive_paths",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Artifact policy excludes audit_trail JSONL, runtime, action_queue, secrets.",
+          "evidence_refs": [
+            "build_ci_artifact_collection_specs() exclude_patterns"
+          ]
+        },
+        {
+          "check_id": "check_existing_workflows_unchanged",
+          "check_type": "existing_workflows_unchanged",
+          "passed": true,
+          "risk_level": "medium",
+          "description": "Existing workflows are only read; not modified.",
+          "evidence_refs": [
+            "ci_enablement_review.discover_existing_workflows()"
+          ]
+        },
+        {
+          "check_id": "check_workflow_remains_manual_dispatch",
+          "check_type": "workflow_manual_dispatch_only",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Workflow remains manual dispatch only — no auto triggers.",
+          "evidence_refs": [
+            "WorkflowTriggerPolicy.WORKFLOW_DISPATCH_ONLY"
+          ]
+        }
+      ],
+      "check_count": 14,
+      "all_passed": true,
+      "warnings": [],
+      "errors": []
+    },
+    "rollback_plan": {
+      "rollback_plan_id": "R241-16E_manual_dispatch_rollback",
+      "rollback_modes": [
+        "disable_workflow_file",
+        "remove_workflow_dispatch_inputs",
+        "revert_to_disabled_draft",
+        "manual_revert_only"
+      ],
+      "rollback_steps": [
+        "Set workflow file to if: ${{ false }} or remove workflow_dispatch trigger.",
+        "Remove confirmation input from workflow_dispatch inputs.",
+        "Use scripts/ci_foundation_check.py as local fallback.",
+        "Validate with local plan-only smoke."
+      ],
+      "owner_action_required": true,
+      "expected_recovery_time": "< 15 minutes",
+      "rollback_risks": [],
+      "validation_after_rollback": [
+        "No workflow_dispatch trigger remains enabled.",
+        "Local ci_foundation_check.py plan-only remains available.",
+        "No runtime rollback required."
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "implementation_options": [
+      {
+        "option_id": "option_a",
+        "name": "Keep Disabled Draft Only",
+        "description": "Continue with R241-16C state; no new manual dispatch workflow created.",
+        "scope": "none",
+        "risk_level": "low"
+      },
+      {
+        "option_id": "option_b",
+        "name": "Manual Dispatch Plan-only Workflow",
+        "description": "Create a manual-only workflow that defaults to plan_only mode. No execution without explicit execute_mode=execute_selected.",
+        "scope": "smoke_fast_safety_collect_only",
+        "risk_level": "low"
+      },
+      {
+        "option_id": "option_c",
+        "name": "Manual Dispatch Fast+Safety Execute",
+        "description": "Allow manual trigger of fast+safety execute_selected. Still no PR blocking.",
+        "scope": "fast_safety",
+        "risk_level": "medium"
+      },
+      {
+        "option_id": "option_d",
+        "name": "Manual Dispatch All PR Stages",
+        "description": "Allow manual trigger of smoke+fast+safety+collect_only. All remain pr_warning / non-blocking.",
+        "scope": "all_pr_stages",
+        "risk_level": "medium"
+      }
+    ],
+    "recommended_option": "option_c",
+    "recommendation_reason": "existing_workflow_conflict_low_fast_safety_ready",
+    "manual_confirmation_requirements": {
+      "confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+      "requirements": [
+        "workflow_dispatch trigger only",
+        "no pull_request / push / schedule triggers",
+        "no secrets",
+        "no network / webhook calls",
+        "no runtime writes",
+        "no audit JSONL writes",
+        "no action queue writes",
+        "no auto-fix",
+        "no Feishu send",
+        "plan_only as default execute_mode"
+      ]
+    },
+    "workflow_created": false,
+    "trigger_enabled": false,
+    "network_recommended": false,
+    "runtime_write_recommended": false,
+    "secret_read_recommended": false,
+    "auto_fix_recommended": false,
+    "warnings": [
+      "workflow_directory_missing"
+    ],
+    "errors": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-26T17:03:17.188923+00:00"
+  },
+  "generated_at": "2026-04-26T17:03:17.188926+00:00"
+}

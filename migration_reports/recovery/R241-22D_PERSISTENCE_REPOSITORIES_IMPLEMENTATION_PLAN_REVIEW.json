@@ -1,0 +1,728 @@
+{
+  "report_id": "R241-22D_PERSISTENCE_REPOSITORIES_IMPLEMENTATION_PLAN_REVIEW",
+  "phase": "phase_22d_persistence_repositories_implementation_plan_review",
+  "status": "passed_with_warnings",
+  "decision": "persistence_repositories_plan_completed_four_store_contracts_defined",
+  "source": "R241-22C_PERSISTENCE_STAGE3_IMPLEMENTATION_PLAN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "repository_file_inventory": {
+    "total_files": 4,
+    "total_loc_estimate": "~850",
+    "files": [
+      {
+        "file_id": "REP-01",
+        "candidate": "CAND-010",
+        "path": "backend/packages/harness/deerflow/persistence/feedback/sql.py",
+        "type": "SQLAlchemy FeedbackRepository",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "DB read/write for feedback records",
+        "surface_010": "indirect (depends on CAND-009 session_factory)",
+        "priority": "P1",
+        "loc_estimate": "~200"
+      },
+      {
+        "file_id": "REP-02",
+        "candidate": "CAND-011",
+        "path": "backend/packages/harness/deerflow/persistence/run/sql.py",
+        "type": "SQLAlchemy RunRepository (implements RunStore)",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "DB read/write for run metadata",
+        "surface_010": "indirect (depends on CAND-009 session_factory)",
+        "priority": "P1",
+        "loc_estimate": "~300"
+      },
+      {
+        "file_id": "REP-03",
+        "candidate": "CAND-012",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/db.py",
+        "type": "SQLAlchemy DbRunEventStore (implements RunEventStore)",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "DB read/write for run events",
+        "surface_010": "indirect (depends on CAND-009 session_factory)",
+        "priority": "P1",
+        "loc_estimate": "~250"
+      },
+      {
+        "file_id": "REP-04",
+        "candidate": "CAND-013",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py",
+        "type": "JSONL JsonlRunEventStore (implements RunEventStore)",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "File read/write for run events (filesystem only, no DB)",
+        "surface_010": false,
+        "priority": "P2",
+        "loc_estimate": "~160",
+        "note": "No session_factory dependency; suitable for memory backend"
+      }
+    ],
+    "no_route_registration": true,
+    "no_gateway_main_path_modification": true,
+    "memory_backend_compatible": "CAND-013 (JsonlRunEventStore) is DB-independent"
+  },
+
+  "cand010_feedback_repository_contract": {
+    "file": "backend/packages/harness/deerflow/persistence/feedback/sql.py",
+    "lines_estimate": "~200",
+    "upstream_verified": true,
+
+    "init_signature": "def __init__(self, session_factory: async_sessionmaker[AsyncSession]) -> None",
+    "session_factory_storage": "self._sf = session_factory",
+
+    "orm_model": "FeedbackRow",
+    "table_name": "feedback",
+
+    "methods": [
+      {
+        "name": "create",
+        "args": "run_id, thread_id, rating, user_id=AUTO, message_id=None, comment=None",
+        "returns": "dict",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.create')",
+        "isolation": "async with self._sf() as session: session.add + commit + refresh"
+      },
+      {
+        "name": "get",
+        "args": "feedback_id, user_id=AUTO",
+        "returns": "dict | None",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.get')",
+        "isolation": "async with self._sf() as session: session.get + optional user_id check"
+      },
+      {
+        "name": "list_by_run",
+        "args": "thread_id, run_id, limit=100, user_id=AUTO",
+        "returns": "list[dict]",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.list_by_run')",
+        "isolation": "SELECT with user_id WHERE clause"
+      },
+      {
+        "name": "list_by_thread",
+        "args": "thread_id, limit=100, user_id=AUTO",
+        "returns": "list[dict]",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.list_by_thread')"
+      },
+      {
+        "name": "delete",
+        "args": "feedback_id, user_id=AUTO",
+        "returns": "bool",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.delete')"
+      },
+      {
+        "name": "upsert",
+        "args": "run_id, thread_id, rating, user_id=AUTO, comment=None",
+        "returns": "dict",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.upsert')",
+        "isolation": "SELECT then INSERT or UPDATE + commit"
+      },
+      {
+        "name": "delete_by_run",
+        "args": "thread_id, run_id, user_id=AUTO",
+        "returns": "bool",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.delete_by_run')"
+      },
+      {
+        "name": "list_by_thread_grouped",
+        "args": "thread_id, user_id=AUTO",
+        "returns": "dict[str, dict]",
+        "user_id_resolution": "resolve_user_id(user_id, 'FeedbackRepository.list_by_thread_grouped')"
+      },
+      {
+        "name": "aggregate_by_run",
+        "args": "thread_id, run_id",
+        "returns": "dict with total/positive/negative counts",
+        "user_id_resolution": "None (aggregate, no user filter on count)",
+        "note": "Uses SQL func.count + func.sum with case expressions"
+      }
+    ],
+
+    "rating_validation": "rating must be +1 or -1; raises ValueError otherwise",
+
+    "memory_backend_handling": {
+      "session_factory_none_impact": "FeedbackRepository.__init__ stores None; all methods call self._sf() which raises AttributeError",
+      "required_fallback": "deps.py must provide MemoryFeedbackStore or None when session_factory is None",
+      "note": "FeedbackRepository has no MemoryRunStore equivalent in upstream; deps.py must decide fallback behavior"
+    },
+
+    "user_id_three_state": {
+      "AUTO": "resolve_user_id(user_id, method_name) → reads from contextvar or raises RuntimeError",
+      "explicit_str": "used verbatim in WHERE clause",
+      "explicit_None": "no user_id filter applied (single-user/admin path)"
+    }
+  },
+
+  "cand011_run_repository_contract": {
+    "file": "backend/packages/harness/deerflow/persistence/run/sql.py",
+    "lines_estimate": "~300",
+    "upstream_verified": true,
+
+    "init_signature": "def __init__(self, session_factory: async_sessionmaker[AsyncSession]) -> None",
+    "session_factory_storage": "self._sf = session_factory",
+    "inherits_from": "RunStore (abc.ABC)",
+
+    "orm_model": "RunRow",
+    "table_name": "runs",
+
+    "methods": [
+      {
+        "name": "put",
+        "args": "run_id, thread_id, assistant_id, user_id=AUTO, status, multitask_strategy, metadata, kwargs, error, created_at, follow_up_to_run_id",
+        "returns": "None",
+        "user_id_resolution": "resolve_user_id(user_id, 'RunRepository.put')",
+        "json_columns": "metadata_json, kwargs_json (using _safe_json serialization)"
+      },
+      {
+        "name": "get",
+        "args": "run_id, user_id=AUTO",
+        "returns": "dict | None",
+        "user_id_resolution": "resolve_user_id(user_id, 'RunRepository.get')"
+      },
+      {
+        "name": "list_by_thread",
+        "args": "thread_id, user_id=AUTO, limit=100",
+        "returns": "list[dict]",
+        "user_id_resolution": "resolve_user_id(user_id, 'RunRepository.list_by_thread')"
+      },
+      {
+        "name": "update_status",
+        "args": "run_id, status, error=None",
+        "returns": "None",
+        "note": "No user_id check (background worker calls)"
+      },
+      {
+        "name": "delete",
+        "args": "run_id, user_id=AUTO",
+        "returns": "None",
+        "user_id_resolution": "resolve_user_id(user_id, 'RunRepository.delete')"
+      },
+      {
+        "name": "list_pending",
+        "args": "before=None",
+        "returns": "list[dict]",
+        "note": "No user_id filter (scheduler background task)"
+      },
+      {
+        "name": "update_run_completion",
+        "args": "run_id, status, total_input_tokens, total_output_tokens, total_tokens, llm_call_count, lead_agent_tokens, subagent_tokens, middleware_tokens, message_count, last_ai_message, first_human_message, error",
+        "returns": "None",
+        "note": "Called by background worker on run completion; no user_id check"
+      },
+      {
+        "name": "aggregate_tokens_by_thread",
+        "args": "thread_id",
+        "returns": "dict with total_tokens, total_input_tokens, total_output_tokens, total_runs, by_model, by_caller",
+        "note": "GROUP BY model_name; uses func.coalesce for null-safe aggregation"
+      }
+    ],
+
+    "_safe_json_contract": {
+      "purpose": "Ensure obj is JSON-serializable before storing in JSON columns",
+      "fallback_chain": "None → None, primitives → verbatim, dict/list → recursive, has model_dump → try model_dump(), has dict → try dict(), else → str()",
+      "used_by": "put(), update_run_completion()"
+    },
+
+    "_row_to_dict_contract": {
+      "purpose": "Convert RunRow to dict matching RunStore interface",
+      "transforms": "metadata_json → metadata, kwargs_json → kwargs, datetime → ISO string"
+    },
+
+    "memory_backend_handling": {
+      "fallback_class": "MemoryRunStore (already exists at runtime/runs/store/memory.py)",
+      "deps_py_pattern": "if sf is None: app.state.run_store = MemoryRunStore()",
+      "note": "MemoryRunStore already implements RunStore interface — drop-in replacement"
+    }
+  },
+
+  "cand012_db_run_event_store_contract": {
+    "file": "backend/packages/harness/deerflow/runtime/events/store/db.py",
+    "lines_estimate": "~250",
+    "upstream_verified": true,
+
+    "init_signature": "def __init__(self, session_factory: async_sessionmaker[AsyncSession], *, max_trace_content: int = 10240) -> None",
+    "session_factory_storage": "self._sf = session_factory",
+    "max_trace_content_default": 10240,
+    "inherits_from": "RunEventStore (abc.ABC)",
+
+    "orm_model": "RunEventRow",
+    "table_name": "run_events",
+
+    "seq_assignment_contract": {
+      "mechanism": "SELECT MAX(seq) + 1 WHERE thread_id with FOR UPDATE lock",
+      "put_single": "async with session.begin(): get max_seq with_for_update(), insert with seq",
+      "put_batch": "async with session.begin(): get max_seq once, increment for each event",
+      "sqlite_note": "with_for_update() is no-op on SQLite; UNIQUE(thread_id, seq) constraint catches races",
+      "postgres_note": "FOR UPDATE lock serializes concurrent seq assignments within same thread"
+    },
+
+    "truncate_trace_contract": {
+      "trigger": "category == 'trace' AND len(encoded) > max_trace_content",
+      "action": "Truncate bytes at max_trace_content, decode with errors='ignore'",
+      "metadata_stamp": "Set content_truncated=True, original_byte_length=N"
+    },
+
+    "_user_id_from_context_contract": {
+      "purpose": "Soft read of user_id from contextvar for write paths",
+      "returns": "str(user.id) if user is not None else None",
+      "uuid_coercion": "User.id is UUID → str required because run_events.user_id is VARCHAR and aiosqlite cannot bind UUID to VARCHAR",
+      "background_worker_behavior": "Returns None (contextvar unset) → no user_id stamp on events from background workers",
+      "http_request_behavior": "Returns str(user.id) set by auth middleware"
+    },
+
+    "content_serialization_contract": {
+      "dict_content": "JSON-serialized with json.dumps, metadata stamped content_is_dict=True",
+      "string_content": "Stored verbatim",
+      "deserialization": "On read, if content_is_dict flag set, json.loads() to restore dict"
+    },
+
+    "methods": [
+      {"name": "put", "user_id_source": "contextvar via _user_id_from_context()"},
+      {"name": "put_batch", "user_id_source": "contextvar via _user_id_from_context()"},
+      {"name": "list_messages", "user_id_source": "resolve_user_id() param"},
+      {"name": "list_events", "user_id_source": "resolve_user_id() param"},
+      {"name": "list_messages_by_run", "user_id_source": "resolve_user_id() param"},
+      {"name": "count_messages", "user_id_source": "resolve_user_id() param"},
+      {"name": "delete_by_thread", "user_id_source": "resolve_user_id() param"},
+      {"name": "delete_by_run", "user_id_source": "resolve_user_id() param"}
+    ],
+
+    "memory_backend_handling": {
+      "note": "DbRunEventStore requires session_factory; no built-in memory fallback",
+      "alternative_for_memory": "Use JsonlRunEventStore (CAND-013) instead when backend=memory",
+      "config_pattern": "if backend='memory': event_store = JsonlRunEventStore() else: event_store = DbRunEventStore(session_factory)"
+    }
+  },
+
+  "cand013_jsonl_run_event_store_contract": {
+    "file": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py",
+    "lines_estimate": "~160",
+    "upstream_verified": true,
+
+    "init_signature": "def __init__(self, base_dir: str | Path | None = None) -> None",
+    "base_dir_default": "Path('.deer-flow')",
+    "inherits_from": "RunEventStore (abc.ABC)",
+
+    "file_path_pattern": ".deer-flow/threads/{thread_id}/runs/{run_id}.jsonl",
+
+    "seq_management": {
+      "mechanism": "In-process _seq_counters dict (thread_id → current max seq)",
+      "load_behavior": "_ensure_seq_loaded() scans all *.jsonl files in thread_dir on first access",
+      "increment": "_next_seq() increments counter and returns new seq",
+      "no_persistence": "Counters are in-memory only; lost on process restart",
+      "no_cross_process_isolation": "Multiple processes writing to same thread will have independent counters (potential seq collision)"
+    },
+
+    "id_validation_contract": {
+      "pattern": "^[A-Za-z0-9_\\-]+$",
+      "validated_ids": "thread_id, run_id",
+      "failure_mode": "ValueError if invalid characters detected"
+    },
+
+    "write_contract": {
+      "operation": "open(path, 'a') — append mode",
+      "format": "json.dumps(record, default=str, ensure_ascii=False) + '\\n'",
+      "record_keys": "thread_id, run_id, event_type, category, content, metadata, seq, created_at"
+    },
+
+    "read_contract": {
+      "_read_thread_events": "Reads ALL run files for thread, sorts by seq ascending",
+      "_read_run_events": "Reads single run file, sorts by seq ascending",
+      "malformed_lines": "Logged at debug level, skipped (no exception)"
+    },
+
+    "list_messages_tradeoff": {
+      "fast_path": "list_events(thread_id, run_id) — reads one file",
+      "slow_path": "list_messages(thread_id) — scans ALL run files for thread (seq ordering across runs)",
+      "reason": "Messages from multiple runs need unified seq ordering for display"
+    },
+
+    "memory_backend_compatibility": {
+      "db_independent": true,
+      "backend": "jsonl",
+      "storage_path": ".deer-flow/threads/{thread_id}/runs/{run_id}.jsonl",
+      "recommended_for": "backend=memory (no DB available)"
+    },
+
+    "methods": [
+      {"name": "put"},
+      {"name": "put_batch"},
+      {"name": "list_messages", "note": "Must scan all run files for thread"},
+      {"name": "list_events", "note": "Fast path — single file"},
+      {"name": "list_messages_by_run"},
+      {"name": "count_messages"},
+      {"name": "delete_by_thread"},
+      {"name": "delete_by_run"}
+    ]
+  },
+
+  "session_factory_dependency_contract": {
+    "contract_id": "REPO-SF-001",
+    "description": "CAND-010, CAND-011, CAND-012 all take async_sessionmaker in __init__",
+
+    "cand010_feedback": {
+      "init_arg": "session_factory: async_sessionmaker[AsyncSession]",
+      "storage": "self._sf",
+      "usage": "async with self._sf() as session: ...",
+      "none_handling": "No None check; would raise AttributeError if sf is None",
+      "fallback_needed": "deps.py must provide alternative when sf is None"
+    },
+
+    "cand011_run": {
+      "init_arg": "session_factory: async_sessionmaker[AsyncSession]",
+      "storage": "self._sf",
+      "usage": "async with self._sf() as session: ...",
+      "none_handling": "No None check",
+      "fallback_available": "MemoryRunStore already exists at runtime/runs/store/memory.py"
+    },
+
+    "cand012_db_event": {
+      "init_arg": "session_factory: async_sessionmaker[AsyncSession]",
+      "storage": "self._sf",
+      "usage": "async with self._sf() as session: ...",
+      "none_handling": "No None check",
+      "fallback_alternative": "JsonlRunEventStore (CAND-013) when backend=memory"
+    },
+
+    "cand013_jsonl_event": {
+      "init_arg": "base_dir: str | Path | None",
+      "storage": "self._base_dir",
+      "usage": "Direct file I/O",
+      "none_handling": "Uses Path('.deer-flow') as default",
+      "db_required": false
+    },
+
+    "deps_py_pattern": {
+      "sf": "get_session_factory()",
+      "if_sf_is_none": "run_store=MemoryRunStore(), feedback_repo=None or MemoryFeedbackStore()",
+      "event_store_selection": "if backend='memory': JsonlRunEventStore() else: DbRunEventStore(sf)"
+    }
+  },
+
+  "memory_backend_fallback_behavior": {
+    "contract_id": "MEMORY-FALLBACK-001",
+
+    "run_store": {
+      "factory": "get_session_factory()",
+      "when_none": "MemoryRunStore()",
+      "location": "runtime/runs/store/memory.py",
+      "interface": "implements RunStore abc — drop-in compatible"
+    },
+
+    "feedback_repo": {
+      "factory": "get_session_factory()",
+      "when_none": "No upstream MemoryFeedbackStore exists",
+      "required_decision": "deps.py must provide fallback (None, or in-memory implementation)",
+      "note": "FeedbackRepository has no memory equivalent in upstream; implementation decision needed"
+    },
+
+    "event_store": {
+      "backend": "backend config value",
+      "when_memory": "JsonlRunEventStore(base_dir)",
+      "when_sqlite_postgres": "DbRunEventStore(session_factory)",
+      "selection_logic": "if database.backend == 'memory': JsonlRunEventStore() else: DbRunEventStore(get_session_factory())"
+    },
+
+    "thread_store": {
+      "factory": "get_session_factory()",
+      "when_none": "Unknown — ThreadMetaStore memory implementation may not exist",
+      "note": "CAND-013 thread_meta persistence not in scope for R241-22D"
+    }
+  },
+
+  "jsonl_retention_contract": {
+    "contract_id": "JSONL-RETENTION-001",
+
+    "file_lifetime": "Until explicitly deleted",
+    "no_rotation": "No log rotation, no size limits, no automatic cleanup",
+    "deletion_triggers": [
+      "delete_by_thread(thread_id) — deletes all run files for thread",
+      "delete_by_run(thread_id, run_id) — deletes single run file"
+    ],
+
+    "retention_recommendation": {
+      "note": "Not specified in upstream; production deployment should consider:",
+      "options": [
+        "Periodic cleanup of old thread directories (TTL-based)",
+        "Archive to cold storage before deletion",
+        "Limit total .deer-flow directory size"
+      ]
+    },
+
+    "disk_space_risk": {
+      "symptom": "Unbounded event logging fills disk",
+      "mitigation": "Monitor disk usage; implement cleanup policy",
+      "trace_truncation": "DbRunEventStore truncates trace content at 10KB; JsonlRunEventStore does not"
+    }
+  },
+
+  "db_event_write_transaction_contract": {
+    "contract_id": "DB-TXN-001",
+
+    "put_single_transaction": {
+      "scope": "Single event insert with seq assignment",
+      "lock": "FOR UPDATE on SELECT MAX(seq) WHERE thread_id",
+      "sqlite_behavior": "FOR UPDATE is no-op; UNIQUE(thread_id, seq) constraint catches duplicate seq",
+      "atomicity": "Full transaction — rollback on any failure"
+    },
+
+    "put_batch_transaction": {
+      "scope": "All events in batch, same thread assumed",
+      "lock": "FOR UPDATE on SELECT MAX(seq) once for entire batch",
+      "optimization": "One lock acquisition for N events vs N lock acquisitions",
+      "atomicity": "Full transaction — all or none"
+    },
+
+    "read_transactions": {
+      "pattern": "async with self._sf() as session: result = await session.execute(stmt)",
+      "autocommit": "Each read opens and closes a session",
+      "consistency": "Session-local reads; eventual consistency with concurrent writes"
+    },
+
+    "write_paths_without_user_id": [
+      "put() — uses contextvar (None for background workers)",
+      "put_batch() — uses contextvar (None for background workers)"
+    ],
+
+    "read_paths_with_user_filter": [
+      "list_messages() — resolve_user_id() param",
+      "list_events() — resolve_user_id() param",
+      "list_messages_by_run() — resolve_user_id() param",
+      "count_messages() — resolve_user_id() param",
+      "delete_by_thread() — resolve_user_id() param",
+      "delete_by_run() — resolve_user_id() param"
+    ]
+  },
+
+  "repository_read_write_safety_model": {
+    "contract_id": "REPO-SAFETY-001",
+
+    "user_isolation": {
+      "write_stamp": "user_id from contextvar (background workers → None)",
+      "read_filter": "resolve_user_id() param — AUTO/contextvar/str/None",
+      "write_without_read_filter": ["update_status (worker)", "list_pending (scheduler)", "update_run_completion (worker)"]
+    },
+
+    "concurrent_write_safety": {
+      "db_store": "FOR UPDATE lock + UNIQUE constraint on (thread_id, seq)",
+      "jsonl_store": "No locking — in-process _seq_counters only; multi-process unsafe"
+    },
+
+    "orphan_event_prevention": {
+      "db_store": "user_id NULL for pre-auth events; contextvar stamps new events",
+      "jsonl_store": "No user_id concept in JSONL records"
+    },
+
+    "data_corruption_prevention": {
+      "db_store": "SQLAlchemy session.commit() atomic; FK constraints via foreign_keys=ON",
+      "jsonl_store": "Append-only JSONL; corruption only if write is interrupted mid-line (partial line)"
+    },
+
+    "rollback_on_failure": {
+      "db_store": "Transaction rollback on exception; session.__aexit__ handles",
+      "jsonl_store": "Append mode — partial writes possible if process crashes mid-write"
+    }
+  },
+
+  "test_file_plan": {
+    "test_files": [
+      {
+        "file_id": "TF-10",
+        "path": "tests/unit/persistence/test_feedback_repository.py",
+        "cases": ["create rating +1/-1 validation", "create/get/upsert/delete basic", "list_by_thread user isolation", "list_by_run user isolation", "aggregate_by_run", "upsert idempotency", "memory backend fallback"],
+        "framework": "pytest + pytest-asyncio",
+        "duration_estimate": "15 seconds"
+      },
+      {
+        "file_id": "TF-11",
+        "path": "tests/unit/persistence/test_run_repository.py",
+        "cases": ["put/get/list_by_thread basic", "update_status", "update_run_completion token fields", "delete user isolation", "aggregate_tokens_by_thread", "list_pending scheduler", "memory fallback (MemoryRunStore)"],
+        "framework": "pytest + pytest-asyncio",
+        "duration_estimate": "15 seconds"
+      },
+      {
+        "file_id": "TF-12",
+        "path": "tests/unit/events/store/test_db_event_store.py",
+        "cases": ["put seq assignment", "put_batch seq assignment", "FOR UPDATE lock (postgres only)", "list_messages pagination (before_seq/after_seq)", "list_events filter by event_types", "truncate_trace large content", "user_id contextvar stamp", "delete_by_thread user isolation"],
+        "framework": "pytest + pytest-asyncio",
+        "duration_estimate": "20 seconds"
+      },
+      {
+        "file_id": "TF-13",
+        "path": "tests/unit/events/store/test_jsonl_event_store.py",
+        "cases": ["put seq assignment", "put_batch", "list_messages thread scan", "list_events single file (fast path)", "list_messages_by_run", "delete_by_thread", "delete_by_run", "malformed JSONL lines skipped", "id validation"],
+        "framework": "pytest + pytest-asyncio",
+        "duration_estimate": "15 seconds"
+      },
+      {
+        "file_id": "TF-14",
+        "path": "tests/unit/events/store/test_event_store_compatibility.py",
+        "cases": ["DbRunEventStore and JsonlRunEventStore both implement RunEventStore", "interface compliance for all 8 methods", "memory backend: JsonlRunEventStore vs DbRunEventStore selection"],
+        "framework": "pytest",
+        "duration_estimate": "10 seconds"
+      }
+    ],
+    "total_test_files": 5,
+    "total_cases_estimate": "~40",
+    "estimated_duration": "~75 seconds"
+  },
+
+  "implementation_order_after_cand009": {
+    "description": "After CAND-009 (engine.py) is implemented, repositories follow this order",
+
+    "sequence": [
+      {
+        "step": 1,
+        "file": "backend/packages/harness/deerflow/persistence/feedback/sql.py (CAND-010)",
+        "reason": "FeedbackRepository — depends on FeedbackRow model (already in models/__init__.py)",
+        "can_parallelize_with": ["step 2"]
+      },
+      {
+        "step": 2,
+        "file": "backend/packages/harness/deerflow/persistence/run/sql.py (CAND-011)",
+        "reason": "RunRepository — depends on RunRow model; MemoryRunStore fallback available",
+        "can_parallelize_with": ["step 1"]
+      },
+      {
+        "step": 3,
+        "file": "backend/packages/harness/deerflow/runtime/events/store/db.py (CAND-012)",
+        "reason": "DbRunEventStore — depends on RunEventRow model + session_factory",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 4,
+        "file": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py (CAND-013)",
+        "reason": "JsonlRunEventStore — no DB dependency; DB-independent alternative for memory backend",
+        "can_parallelize_with": []
+      }
+    ],
+
+    "parallelization": "Step 1 and Step 2 can run in parallel (FeedbackRepository and RunRepository are independent)",
+    "critical_path": "Step 3 (DbRunEventStore) and Step 4 (JsonlRunEventStore) are independent of each other but both need ORM models"
+  },
+
+  "explicit_stop_conditions": {
+    "stop_conditions": [
+      {
+        "condition": "SURFACE-010 not yet unblocked",
+        "action": "Do not implement repositories — all depend on CAND-009 session_factory"
+      },
+      {
+        "condition": "CAND-009 (engine.py) not yet implemented",
+        "action": "Repositories require session_factory from init_engine"
+      },
+      {
+        "condition": "Authorization scope does not expand to allow persistence/ or runtime/events/store directories",
+        "action": "Design only, no file creation"
+      },
+      {
+        "condition": "FeedbackRepository memory fallback not resolved",
+        "action": "No MemoryFeedbackStore in upstream; deps.py decision needed before implementation"
+      },
+      {
+        "condition": "Code modification detected during review",
+        "action": "Abort and report safety violation"
+      }
+    ]
+  },
+
+  "rollback_cleanup_requirements": {
+    "description": "If partial implementation occurs, cleanup requirements",
+
+    "if_feedback_repo_created": "Remove feedback table operations; no persistent state to clean",
+    "if_run_repo_created": "Remove runs table operations; MemoryRunStore has no disk state",
+    "if_db_event_store_created": "Remove run_events table operations; no cleanup needed",
+    "if_jsonl_store_created": "Delete .deer-flow/threads/ directory if event files were written",
+    "if_session_factory_used": "close_engine() in deps.py shutdown hook releases all connections",
+    "no_schema_migration_needed": "create_all is idempotent (CREATE TABLE IF NOT EXISTS)"
+  },
+
+  "open_decisions": {
+    "feedback_memory_fallback": {
+      "issue": "FeedbackRepository has no upstream MemoryFeedbackStore equivalent",
+      "options": [
+        "Provide None (feedback operations no-op when backend=memory)",
+        "Implement in-memory FeedbackRepository with dict storage",
+        "Delegate to a stub that raises NotImplementedError"
+      ],
+      "recommendation": "Option 1 (None/no-op) — simplest, consistent with backend=memory philosophy"
+    }
+  },
+
+  "classification_results": {
+    "persistence_repositories_plan_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "files_planned": 4,
+    "repository_contracts_completed": true,
+    "event_store_contracts_completed": true,
+    "jsonl_retention_contract_completed": true,
+    "db_transaction_contract_completed": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "feedback_repository_created": false,
+    "run_repository_created": false,
+    "db_event_store_created": false,
+    "jsonl_event_store_created": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_app_modified": false,
+    "deps_py_modified": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "persistence_repositories_plan_completed_four_store_contracts_defined",
+    "persistence_repositories_plan_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "files_planned": 4,
+    "repository_contracts_completed": true,
+    "event_store_contracts_completed": true,
+    "jsonl_retention_contract_completed": true,
+    "db_transaction_contract_completed": true,
+    "open_decisions": ["FeedbackRepository memory fallback (no upstream MemoryFeedbackStore)"],
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22E",
+    "next_prompt_needed": "user_selection"
+  }
+}

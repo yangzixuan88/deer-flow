@@ -1,0 +1,29 @@
+{
+  "name": "openclaw",
+  "version": "1.0.0",
+  "description": "OpenClaw 超级工程项目 - AI Agent 数字资产系统",
+  "type": "module",
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand",
+    "test:coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
+    "test:m04": "NODE_OPTIONS='--experimental-vm-modules' jest src/domain/m04",
+    "test:m06": "NODE_OPTIONS='--experimental-vm-modules' jest src/domain/memory",
+    "test:m11": "NODE_OPTIONS='--experimental-vm-modules' jest src/domain/m11",
+    "test:integration": "NODE_OPTIONS='--experimental-vm-modules' jest src/domain/prompt_engine/integration.test.ts",
+    "docs": "typedoc"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.0",
+    "@vitest/ui": "^4.1.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typedoc": "^0.28.19",
+    "typescript": "^5.3.3",
+    "vitest": "^4.1.4"
+  },
+  "dependencies": {
+    "@dapr/dapr": "^3.2.3"
+  }
+}

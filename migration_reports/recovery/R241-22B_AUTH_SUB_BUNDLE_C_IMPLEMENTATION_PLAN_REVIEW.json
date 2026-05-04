@@ -1,0 +1,500 @@
+{
+  "report_id": "R241-22B_AUTH_SUB_BUNDLE_C_IMPLEMENTATION_PLAN_REVIEW",
+  "phase": "phase_22b_auth_sub_bundle_c_implementation_plan_review",
+  "status": "passed_with_warnings",
+  "decision": "auth_sub_bundle_c_plan_completed_no_route_registration_no_gateway_modification",
+  "source": "R241-22A_MEMORY_RUNTIME_UNBLOCK_DESIGN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "sub_bundle_c_file_inventory": {
+    "total_files": 4,
+    "total_loc_estimate": "~385",
+    "files": [
+      {
+        "file_id": "SB-C-01",
+        "candidate": "CAND-005",
+        "path": "backend/app/gateway/auth_middleware.py",
+        "type": "Starlette BaseHTTPMiddleware",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "Sets user_context ContextVar per-request",
+        "surface_010_direct": true,
+        "gsic_impact": false,
+        "route_registration": false,
+        "priority": "P0",
+        "loc_estimate": "~120"
+      },
+      {
+        "file_id": "SB-C-02",
+        "candidate": "N/A (user_context module)",
+        "path": "backend/app/gateway/deerflow/runtime/user_context.py",
+        "type": "Python contextvars module",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "ContextVar definition only (no activation at import)",
+        "surface_010_direct": true,
+        "gsic_impact": false,
+        "route_registration": false,
+        "priority": "P0",
+        "loc_estimate": 147
+      },
+      {
+        "file_id": "SB-C-03",
+        "candidate": "N/A (internal_auth module)",
+        "path": "backend/app/gateway/internal_auth.py",
+        "type": "Internal process-local auth",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "Read-only (DEFAULT_USER_ID import from user_context)",
+        "surface_010_direct": "indirect (depends on user_context)",
+        "gsic_impact": false,
+        "route_registration": false,
+        "priority": "P2",
+        "loc_estimate": 40
+      },
+      {
+        "file_id": "SB-C-04",
+        "candidate": "N/A (authz module)",
+        "path": "backend/app/gateway/authz.py",
+        "type": "Authorization decorators",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "Decorator definitions only (no route registration)",
+        "surface_010_direct": false,
+        "gsic_impact": false,
+        "route_registration": false,
+        "priority": "P2",
+        "loc_estimate": "~120
+      }
+    ],
+    "no_route_registration": true,
+    "no_gateway_main_path_modification": true,
+    "why_safe_despite_surface_010": "Sub-Bundle C provides runtime infrastructure (ContextVar) but does NOT register FastAPI routes or modify gateway/app.py"
+  },
+
+  "user_context_implementation_contract": {
+    "module": "backend/app/gateway/deerflow/runtime/user_context.py",
+    "lines": 147,
+    "upstream_content_verified": true,
+
+    "core_type_definitions": [
+      {
+        "name": "CurrentUser",
+        "type": "Protocol (structural)",
+        "requirement": ".id: str attribute",
+        "note": "Any object with .id: str satisfies this protocol"
+      },
+      {
+        "name": "_current_user",
+        "type": "ContextVar[CurrentUser | None]",
+        "default": "None",
+        "key": "'deerflow_current_user'"
+      }
+    ],
+
+    "api_surface": [
+      {
+        "fn": "set_current_user(user: CurrentUser) -> Token[CurrentUser | None]",
+        "contract": "Returns reset token; caller MUST call reset_current_user(token) in finally"
+      },
+      {
+        "fn": "reset_current_user(token: Token[CurrentUser | None]) -> None",
+        "contract": "Restores context to state captured by token"
+      },
+      {
+        "fn": "get_current_user() -> CurrentUser | None",
+        "contract": "Safe to call in any context; returns None if unset"
+      },
+      {
+        "fn": "require_current_user() -> CurrentUser",
+        "contract": "Raises RuntimeError if unset (NOT Optional)"
+      },
+      {
+        "fn": "get_effective_user_id() -> str",
+        "contract": "Returns user.id or 'default' if unset"
+      },
+      {
+        "fn": "resolve_user_id(value: str | None | _AutoSentinel, method_name: str) -> str | None",
+        "contract": "AUTO → contextvar; str → verbatim; None → bypass isolation"
+      }
+    ],
+
+    "three_state_semantics": {
+      "AUTO": "Read from contextvar; raise RuntimeError if unset",
+      "explicit_str": "Use provided str verbatim, overriding contextvar",
+      "explicit_None": "No WHERE clause — migration/CLI bypass"
+    },
+
+    "sentinel_pattern": {
+      "class": "_AutoSentinel",
+      "singleton": "AUTO",
+      "repr": "<AUTO>",
+      "used_by": "resolve_user_id() for repository user_id parameter"
+    },
+
+    "implementation_constraints": [
+      "ContextVar is asyncio task-local — naturally isolated per-request",
+      "asyncio.create_task() inherits parent context (intentional)",
+      "Use contextvars.copy_context() for background tasks that need isolation",
+      "Token-based reset ensures context is restored even on exception"
+    ]
+  },
+
+  "contextvar_token_reset_contract": {
+    "pattern_name": "Token-based ContextVar Reset Pattern",
+    "mandatory": true,
+    "pattern": [
+      "token = set_current_user(user)",
+      "try:",
+      "    # code that uses user context",
+      "finally:",
+      "    reset_current_user(token)"
+    ],
+    "why_mandatory": "Without reset, ContextVar retains reference to user object; token ensures cleanup even on exception",
+    "anti_pattern": [
+      "DO NOT: set_current_user(user) without reset",
+      "DO NOT: catch and swallow exception before reset",
+      "DO NOT: use asyncio.create_task without copy_context when isolation needed"
+    ],
+    "test_contract": {
+      "CV-ISO-01": "set → get → reset → get=None (sequential)",
+      "CV-ISO-02": "Task1 sees A, Task2 sees B (concurrent)",
+      "CV-ISO-03": "Child sees parent context (inheritance)",
+      "CV-ISO-04": "Child with copy_context sees None (isolation)",
+      "CV-ISO-05": "Token reset restores previous state"
+    }
+  },
+
+  "auth_middleware_try_finally_safety_contract": {
+    "file": "backend/app/gateway/auth_middleware.py",
+    "type": "Starlette BaseHTTPMiddleware",
+    "lines_estimate": "~120",
+    "upstream_verified": true,
+
+    "dispatch_contract": [
+      "1. Check if path is public (_is_public)",
+      "2. If public → call_next without auth",
+      "3. If internal auth header → set internal user",
+      "4. If cookie present → validate JWT, set current_user via token",
+      "5. try: call_next(request)",
+      "6. finally: reset_current_user(token)"
+    ],
+
+    "public_paths": {
+      "prefixes": ["/health", "/docs", "/redoc", "/openapi.json"],
+      "exact": [
+        "/api/v1/auth/login/local",
+        "/api/v1/auth/register",
+        "/api/v1/auth/logout",
+        "/api/v1/auth/setup-status",
+        "/api/v1/auth/initialize"
+      ]
+    },
+
+    "fail_closed_guarantee": "Non-public paths → 401 if no valid cookie/JWT",
+    "no_route_registration": "Middleware adds to app; does NOT register routes",
+    "no_gateway_modification": "auth_middleware.py imports and uses user_context; app.py adds it as middleware"
+
+  },
+
+  "internal_auth_read_only_boundary": {
+    "file": "backend/app/gateway/internal_auth.py",
+    "type": "Process-local authentication for internal callers",
+    "lines": 40,
+    "upstream_verified": true,
+
+    "read_only_evidence": [
+      "imports from deerflow.runtime.user_context: DEFAULT_USER_ID (read)",
+      "does NOT call set_current_user",
+      "does NOT call reset_current_user",
+      "does NOT import from auth_middleware",
+      "provides: create_internal_auth_headers(), is_valid_internal_auth_token(), get_internal_user()"
+    ],
+
+    "boundary": {
+      "is_read_only": true,
+      "surface_010_impact": "indirect — imports DEFAULT_USER_ID from user_context",
+      "no_contextvar_write": true,
+      "no_route_registration": true
+    },
+
+    "usage": "Trusted internal channel calls (e.g., IM channel service) use X-DeerFlow-Internal-Token header"
+  },
+
+  "authz_decorator_only_boundary": {
+    "file": "backend/app/gateway/authz.py",
+    "type": "Authorization decorators and AuthContext",
+    "lines_estimate": "~120",
+    "upstream_verified": true,
+
+    "decorator_definitions": [
+      "@require_auth — sets request.state.auth",
+      "@require_permission(resource, action, owner_check) — permission check"
+    ],
+
+    "no_route_registration_evidence": [
+      "authz.py defines decorators only",
+      "Decorators applied to routes in router files",
+      "authz.py itself does NOT call router API",
+      "Does NOT call app.add_api_route or similar"
+    ],
+
+    "permissions_defined": [
+      "threads:read, threads:write, threads:delete",
+      "runs:create, runs:read, runs:cancel"
+    ],
+
+    "boundary": {
+      "is_decorator_only": true,
+      "no_route_registration": true,
+      "no_gateway_modification": true,
+      "surface_010_impact": false
+    }
+  },
+
+  "surface010_evidence_mapping": {
+    "cv_iso_tests": {
+      "test_file": "tests/unit/runtime/test_user_context.py",
+      "cases": [
+        {
+          "case_id": "CV-ISO-01",
+          "name": "Sequential set/reset",
+          "tests": "set_current_user → get_current_user → reset_current_user → get_current_user is None"
+        },
+        {
+          "case_id": "CV-ISO-02",
+          "name": "Concurrent task isolation",
+          "tests": "100 concurrent tasks setting different users — each sees only own user"
+        },
+        {
+          "case_id": "CV-ISO-03",
+          "name": "Background task inheritance",
+          "tests": "Parent sets user A, child task sees user A (intentional)"
+        },
+        {
+          "case_id": "CV-ISO-04",
+          "name": "Background task isolation with copy_context",
+          "tests": "Parent sets user A, child with copy_context sees None"
+        },
+        {
+          "case_id": "CV-ISO-05",
+          "name": "Token reset restores previous",
+          "tests": "Set A → token → set B → reset(token A) → get returns A"
+        }
+      ]
+    },
+    "mem_leak_tests": {
+      "test_file": "tests/unit/runtime/test_user_context_memory_leak.py",
+      "cases": [
+        {
+          "case_id": "MEM-LEAK-01",
+          "name": "10k sequential set/reset cycles",
+          "metric": "Memory delta < 5MB"
+        },
+        {
+          "case_id": "MEM-LEAK-02",
+          "name": "10k users without reset (leak detection)",
+          "metric": "Memory growth rate should plateau (GC working)"
+        },
+        {
+          "case_id": "MEM-LEAK-03",
+          "name": "100 concurrent tasks 30s",
+          "metric": "Memory stable < baseline + 10MB"
+        },
+        {
+          "case_id": "MEM-LEAK-04",
+          "name": "require_current_user error path",
+          "metric": "Error raised, no memory growth"
+        }
+      ]
+    },
+    "rollback_expectations": {
+      "scenario": "user_context.py fails catastrophically",
+      "expected": "ContextVar stays None → require_current_user() raises RuntimeError → requests fail with 500",
+      "no_data_corruption": true,
+      "no_memory_leak_on_failure": true
+    }
+  },
+
+  "no_route_registration_guarantee": {
+    "guarantee_id": "GRT-NO-ROUTE-REG",
+    "statement": "Sub-Bundle C does NOT register any FastAPI routes",
+    "evidence": [
+      "auth_middleware.py — Starlette BaseHTTPMiddleware, adds to app, no route registration",
+      "user_context.py — ContextVar definition only, no HTTP concern",
+      "internal_auth.py — utility functions, no FastAPI involvement",
+      "authz.py — decorator definitions only, applied by routers"
+    ],
+    "gsic004_impact": "NONE — Sub-Bundle C does not trigger GSIC-004"
+  },
+
+  "no_gateway_main_path_modification_guarantee": {
+    "guarantee_id": "GRT-NO-GATEWAY-MOD",
+    "statement": "Sub-Bundle C does NOT modify gateway/app.py or deps.py",
+    "evidence": [
+      "auth_middleware.py — imports from user_context (runtime dep)",
+      "auth_middleware.py — provides middleware class, app.py imports and chains",
+      "authz.py — decorators applied to routes, not added to app",
+      "app.py modification (middleware chain) is separate GSIC-003 concern"
+    ],
+    "gsic003_impact": "Indirect — auth_middleware used by app.py, but Sub-Bundle C does not modify app.py itself"
+  },
+
+  "test_file_plan": {
+    "test_files": [
+      {
+        "file_id": "TF-01",
+        "path": "tests/unit/runtime/test_user_context.py",
+        "cases": ["CV-ISO-01 through CV-ISO-10"],
+        "framework": "pytest + pytest-asyncio",
+        "duration_estimate": "5 seconds"
+      },
+      {
+        "file_id": "TF-02",
+        "path": "tests/unit/runtime/test_user_context_memory_leak.py",
+        "cases": ["MEM-LEAK-01 through MEM-LEAK-04"],
+        "framework": "pytest + memory_profiler",
+        "duration_estimate": "2 minutes"
+      },
+      {
+        "file_id": "TF-03",
+        "path": "tests/unit/gateway/test_auth_middleware.py",
+        "cases": ["middleware dispatch", "public path bypass", "fail-closed", "token reset"],
+        "framework": "pytest + httpx",
+        "duration_estimate": "10 seconds"
+      },
+      {
+        "file_id": "TF-04",
+        "path": "tests/unit/gateway/test_authz.py",
+        "cases": ["decorator application", "permission checks", "owner_check logic"],
+        "framework": "pytest",
+        "duration_estimate": "5 seconds"
+      }
+    ],
+    "total_test_files": 4,
+    "total_cases": 24,
+    "estimated_duration": "~2.5 minutes"
+  },
+
+  "implementation_order_if_authorization_granted": {
+    "sequence": [
+      {
+        "step": 1,
+        "file": "backend/app/gateway/deerflow/runtime/user_context.py",
+        "reason": "Foundation — all other files depend on ContextVar definitions",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 2,
+        "file": "backend/app/gateway/authz.py",
+        "reason": "Pure decorator definitions, no user_context dependency at import",
+        "can_parallelize_with": ["user_context.py"]
+      },
+      {
+        "step": 3,
+        "file": "backend/app/gateway/internal_auth.py",
+        "reason": "Read-only, imports DEFAULT_USER_ID from user_context",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 4,
+        "file": "backend/app/gateway/auth_middleware.py",
+        "reason": "Uses all three above — set_current_user, get_internal_user, @require_auth",
+        "can_parallelize_with": []
+      }
+    ],
+    "total_steps": 4,
+    "parallelization_possible": "Step 1 can run with Step 2 (independent)"
+  },
+
+  "explicit_stop_conditions": {
+    "stop_conditions": [
+      {
+        "condition": "SURFACE-010 not yet unblocked",
+        "action": "Do not implement Sub-Bundle C — user_context triggers SURFACE-010"
+      },
+      {
+        "condition": "Authorization scope does not expand to allow auth/ directory",
+        "action": "Design only, no file creation"
+      },
+      {
+        "condition": "Evidence gates (CV-ISO, MEM-LEAK, POOL, SDB) not all passed",
+        "action": "Do not proceed to implementation"
+      },
+      {
+        "condition": "Any test fails during CV-ISO or MEM-LEAK validation",
+        "action": "Halt and investigate before proceeding"
+      },
+      {
+        "condition": "Code modification detected during review",
+        "action": "Abort and report safety violation"
+      }
+    ]
+  },
+
+  "classification_results": {
+    "auth_sub_bundle_c_plan_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "files_planned": ["user_context.py", "authz.py", "internal_auth.py", "auth_middleware.py"],
+    "test_plan_completed": true,
+    "cv_iso_mapping_completed": true,
+    "mem_leak_mapping_completed": true,
+    "no_route_registration_guaranteed": true,
+    "no_gateway_main_path_modification_guaranteed": true,
+    "safe_despite_surface_010": true,
+    "reason": "Sub-Bundle C provides runtime infrastructure without FastAPI route registration or gateway main path modification"
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "user_context_created": false,
+    "auth_middleware_created": false,
+    "authz_created": false,
+    "internal_auth_created": false,
+    "gateway_app_modified": false,
+    "route_registered": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "auth_sub_bundle_c_plan_completed_no_route_registration_no_gateway_modification",
+    "auth_sub_bundle_c_plan_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "files_planned": 4,
+    "no_route_registration_guaranteed": true,
+    "no_gateway_main_path_modification_guaranteed": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22C",
+    "next_prompt_needed": "user_selection"
+  }
+}

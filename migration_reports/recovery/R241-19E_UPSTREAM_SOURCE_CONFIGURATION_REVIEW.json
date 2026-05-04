@@ -1,0 +1,323 @@
+{
+  "report_id": "R241-19E_UPSTREAM_SOURCE_CONFIGURATION_REVIEW",
+  "phase": "phase_19e_upstream_source_configuration_review",
+  "status": "passed_with_warnings",
+  "decision": "approve_upstream_source_configuration_review_with_target_missing",
+  "source": "R241-19D_PATCH_CANDIDATE_CLASSIFICATION_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19b": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19d_passed_with_warnings": true,
+    "patch_classification_review_passed": true,
+    "zero_candidate_matrix_valid": true,
+    "true_upgrade_diff_available": false,
+    "forbidden_runtime_audit_clean": true,
+    "core_tests_passed": true,
+    "allow_enter_r241_19e": true,
+    "all_preconditions_met": true
+  },
+  "upstream_source_configuration_scope": {
+    "current_round": "R241-19E",
+    "mode": "upstream_source_configuration_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "blocker_override_allowed": false,
+    "git_network_operation_allowed": false,
+    "branch_switch_allowed": false,
+    "allowed_scope": [
+      "current remote inventory",
+      "local branch / tag inventory",
+      "official upstream identity review",
+      "local base identification",
+      "upstream target identification",
+      "true upgrade diff availability review",
+      "local customization preservation rules",
+      "upstream intake prerequisite checklist",
+      "risk / abort matrix",
+      "next-round readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual upgrade execution",
+      "patch apply",
+      "code overwrite",
+      "whole-directory replacement",
+      "dependency upgrade execution",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu / webhook migration",
+      "scheduler activation",
+      "production service start",
+      "secret/token/webhook migration",
+      "blocker override",
+      "dirty worktree cleanup",
+      "stash pop/apply",
+      "git fetch/pull/merge/rebase",
+      "branch switch",
+      "adding remote",
+      "modifying remote"
+    ]
+  },
+  "current_git_inventory": {
+    "remotes": [
+      {
+        "name": "origin",
+        "url": "https://github.com/bytedance/deer-flow.git",
+        "purpose": "upstream read (fetch)"
+      },
+      {
+        "name": "origin",
+        "url": "https://github.com/yangzixuan88/deer-flow.git",
+        "purpose": "upstream write (push)"
+      },
+      {
+        "name": "private",
+        "url": "https://github.com/yangzixuan88/deer-flow.git",
+        "purpose": "private read/write"
+      }
+    ],
+    "local_branch": "main",
+    "tags_available": ["r241-16s-test"],
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "origin_main": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "local_commits_ahead_of_origin_main": 4,
+    "action_taken": "read_only_inventory"
+  },
+  "official_upstream_identity_review": {
+    "current_origin_url": "https://github.com/bytedance/deer-flow.git",
+    "origin_claimed_project": "deer-flow (ByteDance OpenClaw base)",
+    "sufficient_as_official_openclaw_upstream": "likely_yes_unconfirmed",
+    "evidence_available": [
+      "origin remote matches ByteDance deer-flow repository",
+      "project structure aligns with OpenClaw framework",
+      "local workspace derived from bytedance/deer-flow",
+      "origin/main is merge-base for R241 local commits"
+    ],
+    "evidence_missing": [
+      "no explicit user confirmation of upstream identity",
+      "no verified baseline tag from official release",
+      "no official OpenClaw version tag on origin/main",
+      "no signed commit verification",
+      "cannot fetch to verify origin/main latest state"
+    ],
+    "user_confirmation_required": true,
+    "upstream_identity_warning": "bytedance/deer-flow is the presumed official upstream but has not been explicitly confirmed by user; no verified baseline tag/commit available"
+  },
+  "local_base_identification": {
+    "current_head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "origin_main": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "merge_base_with_origin_main": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "local_ahead_commits": [
+      {
+        "commit": "ae9cc034",
+        "desc": "R241-18F Batch 3 Query/Report Entry Normalization"
+      },
+      {
+        "commit": "bec43c46",
+        "desc": "R241-18E Batch 2 CLI Binding Reuse"
+      },
+      {
+        "commit": "5528473b",
+        "desc": "R241-18D Batch 1 — Internal Helper Contract Bindings"
+      },
+      {
+        "commit": "95199fbb",
+        "desc": "R241-18B read-only runtime entry design and R241-18C implementation plan"
+      }
+    ],
+    "local_base_candidate": "origin/main (174c371a)",
+    "local_base_confidence": "high_for_origin_main_low_for_official_target",
+    "local_base_note": "origin/main serves as stable local base for R241 read-only evidence work; not yet verified as official OpenClaw upgrade target",
+    "warnings": [
+      "origin/main is not confirmed as official OpenClaw target",
+      "4 local commits are R241 evidence only, not upgrade candidates"
+    ]
+  },
+  "upstream_target_identification": {
+    "target_status": "not_configured",
+    "upstream_target_commit_or_tag": null,
+    "upstream_target_source": null,
+    "true_upgrade_diff_available": false,
+    "candidate_tags": [],
+    "candidate_branches": [
+      "origin/main (174c371a — current merge-base, not verified as upgrade target)",
+      "origin/release/2.0-rc (potential upgrade target candidate)",
+      "origin/release/2.0-rc-1 (potential upgrade target candidate)",
+      "origin/main-1.x (legacy version, not current upgrade target)"
+    ],
+    "required_user_input": [
+      "explicit official upstream tag or commit for upgrade target",
+      "or path to official upstream snapshot directory or archive",
+      "or explicit confirmation that origin/main commit 174c371a is the intended baseline for next upgrade diff"
+    ]
+  },
+  "true_upgrade_diff_availability_review": {
+    "true_upgrade_diff_available": false,
+    "missing_requirements": [
+      "verified official upstream identity (user confirmation required)",
+      "explicit upstream target tag/commit (not configured)",
+      "no verified baseline tag from official OpenClaw release"
+    ],
+    "available_requirements": [
+      "origin remote (bytedance/deer-flow) identified",
+      "local base candidate (origin/main) identified",
+      "local customization preservation rules ready",
+      "no git network operation performed (compliant)"
+    ],
+    "review_only_next_step": "R241-19F_UPSTREAM_BASELINE_TARGET_SELECTION — user must provide explicit upstream target"
+  },
+  "local_customization_preservation_rules": {
+    "protected_paths": [
+      "backend/app/foundation/",
+      "backend/migration_reports/",
+      "scripts/root_guard.py",
+      "scripts/root_guard.ps1",
+      "backend/app/gateway/",
+      "backend/app/channels/"
+    ],
+    "protected_modules": [
+      "read_only_runtime_entry_batch2.py",
+      "read_only_runtime_entry_batch3.py",
+      "read_only_runtime_entry_batch4.py",
+      "read_only_runtime_entry_batch5_scope.py",
+      "read_only_runtime_entry_bindings.py",
+      "read_only_runtime_entry_design.py",
+      "read_only_runtime_entry_plan.py",
+      "read_only_runtime_sidecar_stub_contract.py",
+      "runtime_activation_readiness.py",
+      "gateway_sidecar_integration_review.py",
+      "upstream_upgrade_intake_matrix.py",
+      "read_only_diagnostics_cli.py",
+      "read_only_integration_plan.py",
+      "ci_workflow_trigger_parser.py",
+      "test_ci_workflow_trigger_parser.py"
+    ],
+    "overwrite_forbidden": true,
+    "require_adapter_for_conflicts": true,
+    "require_report_only_quarantine_for_uncertain_changes": true,
+    "require_full_unblock_review_for_runtime_replacement": true,
+    "rules_note": "These rules apply when real upstream diff is generated; all 8 blockers remain in force during any future upgrade intake"
+  },
+  "upstream_intake_prerequisite_checklist": {
+    "required_before_real_intake": [
+      "verified official upstream identity (bytedance/deer-flow confirmed by user)",
+      "explicit local base commit (user-approved baseline)",
+      "explicit upstream target tag_or_commit_or_snapshot",
+      "local customization preservation rules approved",
+      "dirty baseline attribution intact (59 dirty tracked files = pre-existing)",
+      "8 carryover blockers preserved",
+      "no runtime replacement execution during intake",
+      "core tests passing (144+)",
+      "user explicit approval for next review round"
+    ],
+    "currently_satisfied": [
+      "dirty baseline attribution intact",
+      "8 carryover blockers preserved",
+      "core tests passing (176)",
+      "local customization preservation rules defined",
+      "no runtime replacement execution (compliant)"
+    ],
+    "currently_missing": [
+      "user explicit confirmation of official upstream identity",
+      "explicit upstream target tag/commit",
+      "user approval for next review round"
+    ]
+  },
+  "risk_abort_matrix": {
+    "abort_conditions": [
+      "RootGuard fail",
+      "dirty baseline mismatch without attribution",
+      "wrong upstream source selected",
+      "ambiguous upstream identity without user confirmation",
+      "local base mismatch",
+      "target commit/tag not verified",
+      "patch execution attempted",
+      "fetch/pull/merge/rebase attempted",
+      "branch switch attempted",
+      "production runtime modified",
+      "gateway/FastAPI replacement attempted",
+      "memory/MCP replacement attempted",
+      "secret/token/webhook migration detected",
+      "blocker override attempted",
+      "actual activation attempted",
+      "core 144 regression",
+      "upgrade intake tests regression"
+    ],
+    "rollback_not_executed": true,
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true,
+    "violations": []
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {
+        "pattern": "app.include_router (13 hits)",
+        "location": "backend/app/gateway/app.py lines 260-296",
+        "classification": "explanatory_only_pre-existing_gateway_route_registrations",
+        "blocked_by": "GSIC-004 (blocking_fastapi_route_registration)"
+      }
+    ],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v"
+    ],
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "core_144_passed": true,
+    "upgrade_intake_tests_passed": 32,
+    "pre_existing_failure_carried": true,
+    "new_failures": []
+  },
+  "r241_19f_readiness": {
+    "allow_enter_r241_19f": true,
+    "recommended_next_round": "R241-19F_UPSTREAM_BASELINE_TARGET_SELECTION",
+    "reason": "Upstream identity likely bytedance/deer-flow but unconfirmed; no explicit target tag/commit provided; user input required before real upstream diff can be generated",
+    "blockers": [],
+    "warnings": [
+      "official_upstream_identity_unconfirmed — user must explicitly confirm bytedance/deer-flow as official upstream",
+      "upstream_target_not_configured — no tag/commit/snapshot provided by user",
+      "true_upgrade_diff_available=false",
+      "pre_existing_failure_test_runtime_activation_readiness_still_present"
+    ]
+  },
+  "upstream_source_configuration_review_passed": true,
+  "official_upstream_identity_status": "likely_official_but_unconfirmed",
+  "true_upgrade_diff_available": false,
+  "local_customization_rules_ready": true,
+  "allow_enter_r241_19f": true,
+  "warnings": [
+    "official_upstream_identity_unconfirmed_user_confirmation_required",
+    "upstream_target_not_configured_no_tag_commit_snapshot_provided",
+    "true_upgrade_diff_available_is_false",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "blockers_remaining": 8,
+  "recommended_resume_point": "R241-19E",
+  "next_prompt_needed": "R241-19F_UPSTREAM_BASELINE_TARGET_SELECTION"
+}

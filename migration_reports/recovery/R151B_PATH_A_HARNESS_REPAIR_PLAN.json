@@ -1,0 +1,262 @@
+{
+  "phase": "R151B",
+  "title": "PATH_A_HARNESS_REPAIR_PLAN",
+  "status": "passed",
+  "preceded_by": "R151",
+  "proceeding_to": "R151C_PATH_A_TEMP_HARNESS_SMOKE",
+  "lane_0_pressure": {
+    "previous_phase": "R151",
+    "current_phase": "R151B",
+    "recommended_pressure": "M",
+    "reason": "R151 completed with PARTIAL due to infrastructure block; R151B is harness diagnosis with no dependency install allowed; static analysis only"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked (report artifacts + new modules)",
+    "key_commits_present": true,
+    "f480fec1_r140_inline_fix": true,
+    "bc3c0670_r142c_result_persistence": true,
+    "da4b7565_r147k_tavily_stdio": true,
+    "unexpected_production_dirty_files": [],
+    "safe_to_continue": true,
+    "r151_reports_present": true
+  },
+  "lane_2_root_ts_project_layout": {
+    "root_jest_config": {
+      "path": "jest.config.cjs",
+      "exists": true,
+      "preset": "ts-jest/presets/default-esm",
+      "testEnvironment": "node",
+      "testMatch": ["**/*.test.ts", "**/*.spec.ts"],
+      "testPathIgnorePatterns": ["/node_modules/", "/frontend/", "/src/m11/"],
+      "transform": "ts-jest with useESM: true, tsconfig.module: ESNext",
+      "testTimeout": 60000
+    },
+    "root_vitest_config": {
+      "path": "vitest.config.ts",
+      "exists": true,
+      "globals": true,
+      "testEnvironment": "node",
+      "include": ["src/**/*.test.ts"],
+      "exclude": ["ice_engine.test.ts", "nightly_distiller.test.ts", "e2e/stress.test.ts"],
+      "testTimeout": 30000
+    },
+    "root_package_json": {
+      "path": "package.json",
+      "exists": true,
+      "type": "module",
+      "devDependencies": ["jest@^29.7.0", "ts-jest@^29.1.2", "vitest@^4.1.4", "typescript@^5.9.3"],
+      "test_scripts": {
+        "test": "cd backend && jest --runInBand",
+        "test:watch": "cd backend && jest --watch --runInBand",
+        "test:coverage": "cd backend && NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
+        "test:m04": "cd backend && NODE_OPTIONS='--experimental-vm-modules' jest src/domain/m04",
+        "test:m06": "cd backend && NODE_OPTIONS='--experimental-vm-modules' jest src/domain/memory",
+        "test:m11": "cd backend && NODE_OPTIONS='--experimental-vm-modules' jest src/domain/m11"
+      }
+    },
+    "root_node_modules": {
+      "exists": true,
+      "path": "node_modules/",
+      "jest_binary": "node_modules/.bin/jest",
+      "vitest_binary": "node_modules/.bin/vitest",
+      "ts_jest_present": true,
+      "typescript_present": true
+    },
+    "root_tsconfig": {
+      "path": "tsconfig.json",
+      "exists": true,
+      "target": "ES2022",
+      "module": "ESNext",
+      "rootDir": "./backend/src",
+      "outDir": "./backend/dist"
+    },
+    "critical_finding": "Root has BOTH jest.config.cjs AND node_modules/ with jest binary. Root package.json scripts incorrectly 'cd backend && jest' but the jest binary and config are at repo root, NOT in backend/. This means tests can be run from repo root without any dependency install."
+  },
+  "lane_3_backend_project_layout": {
+    "backend_package_json": {
+      "path": "backend/package.json",
+      "exists": false,
+      "note": "backend/ has no package.json"
+    },
+    "backend_jest_config": {
+      "path": "backend/jest.config.ts",
+      "exists": false,
+      "note": "backend/ has no jest.config.ts"
+    },
+    "backend_node_modules": {
+      "path": "backend/node_modules/",
+      "exists": false,
+      "note": "backend/ has no node_modules"
+    },
+    "backend_tsconfig": {
+      "path": "backend/tsconfig.json",
+      "exists": true
+    },
+    "backend_source_structure": {
+      "m01": "backend/src/domain/m01/ - orchestrator.ts, orchestrator.test.ts, mod.ts, types.ts, context_envelope.ts, dag_planner.ts, deerflow_client.ts, intent_classifier.ts",
+      "m04": "backend/src/domain/m04/ - coordinator.ts, coordinator.test.ts, coordinator_sandbox_integration.test.ts, lark_routing.test.ts, skill_router.test.ts, mod.ts, types.ts",
+      "m11": "backend/src/domain/m11/ - executor_adapter.ts, executor_adapter.test.ts, lark_cli_adapter.ts, lark_cli_adapter.test.ts, sandbox.test.ts, mod.ts",
+      "memory": "backend/src/domain/memory/ - no test files"
+    },
+    "note": "backend/ lacks all test infrastructure (package.json, jest.config.ts, node_modules) but contains the actual TypeScript source files and tests."
+  },
+  "lane_4_dependency_free_execution_paths": {
+    "path_a_tests_use_jest_globals": {
+      "m01_tests": "describe/it/beforeEach/expect from @jest/globals — confirmed in orchestrator.test.ts imports",
+      "m04_tests": "jest globals — confirmed in coordinator.test.ts",
+      "m11_tests": "jest globals — confirmed in executor_adapter.test.ts",
+      "conclusion": "All Path A test files use standard Jest globals, compatible with root jest.config.cjs ts-jest ESM transform"
+    },
+    "root_jest_available_without_install": {
+      "jest_binary": "E:/OpenClaw-Base/deerflow/node_modules/.bin/jest",
+      "jest_config": "E:/OpenClaw-Base/deerflow/jest.config.cjs",
+      "npx_without_install": "npx --no-install jest --version works (no auto-install triggered)",
+      "can_run": "node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs",
+      "no_network_required": true,
+      "no_new_install_needed": true
+    },
+    "alternative_runners": {
+      "vitest": {
+        "available": true,
+        "binary": "node_modules/.bin/vitest",
+        "config": "vitest.config.ts",
+        "conclusion": "vitest exists but would require different invocation; jest is simpler given test files already use jest globals"
+      },
+      "ts_node_or_tsx": {
+        "available": false,
+        "note": "No ts-node or tsx found in root node_modules; even if present, would require test runner harness setup"
+      },
+      "esbuild_register": {
+        "available": false,
+        "note": "No esbuild-register found in root; alternative execution via node --loader would require significant setup"
+      }
+    },
+    "critical_constraint_check": {
+      "npx_no_install_flag_used": "npx --no-install should be used to query binary versions; no auto-install should be triggered",
+      "no_dependency_install": true,
+      "no_new_node_modules": true
+    }
+  },
+  "lane_5_harness_strategy_comparison": {
+    "option_a_root_jest_direct": {
+      "strategy": "Run jest directly from repo root using root jest.config.cjs",
+      "command": "node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs",
+      "pros": [
+        "No dependency install needed (root node_modules already present)",
+        "No code modification required",
+        "Uses existing ts-jest ESM transform",
+        "Correct config (jest.config.cjs covers testMatch: ['**/*.test.ts'])",
+        "Test files already use jest globals compatible with ts-jest"
+      ],
+      "cons": [
+        "backend/src domain test files need to be discoverable from repo root (they are via testMatch: ['**/*.test.ts'])",
+        "M11 tests excluded by testPathIgnorePatterns: ['/src/m11/'] — not an issue since R151 only targets M01/M04"
+      ],
+      "feasibility": "HIGH",
+      "recommended": true
+    },
+    "option_b_fix_package_json_scripts": {
+      "strategy": "Fix root package.json test scripts to not 'cd backend'",
+      "command": "Would require editing package.json scripts to remove 'cd backend &&' prefix",
+      "pros": ["Would align scripts with actual jest location"],
+      "cons": [
+        "Requires code modification (editing package.json)",
+        "R151B spec prohibits dependency install but does not prohibit package.json edits",
+        "But R151B is a planning phase — not the execution phase",
+        "R151C (smoke) should not need package.json fix either if using direct binary invocation"
+      ],
+      "feasibility": "MEDIUM (not needed if using direct binary path)",
+      "recommended": false
+    },
+    "option_c_vitest_alternative": {
+      "strategy": "Use vitest instead of jest for running tests",
+      "command": "node_modules/.bin/vitest run backend/src/domain/m01/orchestrator.test.ts --config vitest.config.ts",
+      "pros": ["vitest is available in root node_modules"],
+      "cons": [
+        "Test files use jest globals (describe/it/expect), not vitest globals",
+        "vitest.config.ts include pattern differs from jest.config.cjs",
+        "Would require test file modification to be compatible",
+        "Not recommended for this use case"
+      ],
+      "feasibility": "LOW",
+      "recommended": false
+    },
+    "selected_harness_strategy": "Option A — Root jest direct execution"
+  },
+  "lane_6_r151c_authorization_package": {
+    "r151c_phase_name": "R151C_PATH_A_TEMP_HARNESS_SMOKE",
+    "r151c_purpose": "Run M01 orchestrator test from repo root using existing root jest infrastructure (no dependency install, no code modification)",
+    "pressure_recommended": "M",
+    "execution_risk": "M",
+    "entrypoint": "backend/src/domain/m01/orchestrator.test.ts",
+    "execution_command": "node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+    "alternative_execution_command": "npx --no-install jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+    "env_setup_required": {
+      "TAVILY_API_KEY": "optional (M01 tests may not call Tavily; defer to smoke guard)",
+      "NODE_OPTIONS": "--experimental-vm-modules may be needed for ESM ts-jest"
+    },
+    "forbidden_calls": [
+      "No POST /runs",
+      "No MiniMax API real calls",
+      "No MCP runtime activation",
+      "No gateway startup",
+      "No DB writes",
+      "No JSONL writes"
+    ],
+    "success_criteria": {
+      "jest_runs_successfully": "jest binary found and config loaded without error",
+      "ts_transform_works": "ts-jest transform handles ESM TypeScript without error",
+      "m01_test_executed": "orchestrator.test.ts runs (pass or fail is acceptable — infrastructure issue vs. test issue)",
+      "deerflowEnabled_false_path_tested": "Test exercises deerflowEnabled=false local orchestration path",
+      "no_external_calls": "No network calls to Python gateway, MiniMax API, or external MCP servers",
+      "python_gateway_not_called": "true (test harness does not invoke gateway)"
+    },
+    "mocked_components": [
+      "M04Coordinator",
+      "M11ExecutorAdapter",
+      "DeerFlowClient",
+      "executorReadinessGate"
+    ],
+    "fallback_if_blocked": "If jest execution is blocked due to ESM/module issues, R151C should report specific error and fall back to vitest or manual ts-node investigation",
+    "r151c_deliverable": "Smoke execution report: did jest run, did ts transform work, was M01 test code exercised, were any external calls made"
+  },
+  "lane_7_r152_preliminary_authorization": {
+    "r152_phase_name": "R152_PATH_A_TO_PATH_B_HANDOFF_MAP",
+    "r152_purpose": "Validate M01→DeerFlowClient→Python gateway handoff; requires gateway to be running; healthCheck and createThread probe",
+    "pressure_recommended": "M",
+    "depends_on": "R151C Path A smoke passes (at minimum, jest infrastructure works)",
+    "note": "R152 is deferred until R151C smoke confirms TS test infrastructure is functional"
+  },
+  "lane_8_unknown_registry_update": {
+    "unknowns_found": 1,
+    "unknown_1": {
+      "title": "backend/src/domain/m11/ testPathIgnorePatterns exclusion",
+      "detail": "Root jest.config.cjs has testPathIgnorePatterns: ['/src/m11/'] which excludes backend/src/domain/m11/ from jest test discovery. This is intentional ('Ignore old duplicate code Architecture 1.0') but means m11 tests (executor_adapter.test.ts, lark_cli_adapter.test.ts, sandbox.test.ts) cannot be run via root jest without removing this ignore pattern. R151C targets M01/M04 only, so this is not blocking. But if m11 tests are needed later, this ignore pattern must be addressed.",
+      "blocks_r151c": false,
+      "blocks_r152": false
+    }
+  },
+  "lane_9_report_generation": {
+    "reports_written": true,
+    "md_report": "R151B_PATH_A_HARNESS_REPAIR_PLAN.md",
+    "json_report": "R151B_PATH_A_HARNESS_REPAIR_PLAN.json"
+  },
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R151C_PATH_A_TEMP_HARNESS_SMOKE",
+  "next_prompt_needed": "R151C specification"
+}

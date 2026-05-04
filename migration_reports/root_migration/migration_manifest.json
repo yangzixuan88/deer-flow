@@ -1,0 +1,1543 @@
+{
+  "migrated_files": [
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\ACCEPTANCE_REPORT.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\ACCEPTANCE_REPORT.md",
+      "rel_path": "ACCEPTANCE_REPORT.md",
+      "category": "doc",
+      "size": 10822
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\BUILD_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\BUILD_PLAN.md",
+      "rel_path": "BUILD_PLAN.md",
+      "category": "doc",
+      "size": 12431
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\BUILD_PLAN_DETAILED.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\BUILD_PLAN_DETAILED.md",
+      "rel_path": "BUILD_PLAN_DETAILED.md",
+      "category": "doc",
+      "size": 17732
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Decision_Log.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Decision_Log.md",
+      "rel_path": "Decision_Log.md",
+      "category": "doc",
+      "size": 8511
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\DEPLOYMENT_CHECKLIST.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\DEPLOYMENT_CHECKLIST.md",
+      "rel_path": "DEPLOYMENT_CHECKLIST.md",
+      "category": "doc",
+      "size": 3244
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\DESIGN_AUDIT_REPORT.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\DESIGN_AUDIT_REPORT.md",
+      "rel_path": "DESIGN_AUDIT_REPORT.md",
+      "category": "doc",
+      "size": 10850
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Mission.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Mission.md",
+      "rel_path": "Mission.md",
+      "category": "doc",
+      "size": 7689
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\NEXT_ACTION_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\NEXT_ACTION_PLAN.md",
+      "rel_path": "NEXT_ACTION_PLAN.md",
+      "category": "doc",
+      "size": 7495
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\NEXT_ACTION_PLAN_V2.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\NEXT_ACTION_PLAN_V2.md",
+      "rel_path": "NEXT_ACTION_PLAN_V2.md",
+      "category": "doc",
+      "size": 18841
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\NEXT_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\NEXT_PLAN.md",
+      "rel_path": "NEXT_PLAN.md",
+      "category": "doc",
+      "size": 5724
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\OpenClaw超级工程项目_V1_Full_Archive.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\OpenClaw超级工程项目_V1_Full_Archive.md",
+      "rel_path": "OpenClaw超级工程项目_V1_Full_Archive.md",
+      "category": "doc",
+      "size": 382643
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Phase.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Phase.md",
+      "rel_path": "Phase.md",
+      "category": "doc",
+      "size": 8784
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\PHASE_10_5_DETAILED_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\PHASE_10_5_DETAILED_PLAN.md",
+      "rel_path": "PHASE_10_5_DETAILED_PLAN.md",
+      "category": "doc",
+      "size": 25690
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\PHASE_16_18_IMPLEMENTATION_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\PHASE_16_18_IMPLEMENTATION_PLAN.md",
+      "rel_path": "PHASE_16_18_IMPLEMENTATION_PLAN.md",
+      "category": "doc",
+      "size": 17266
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\portable_setup.ps1",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\portable_setup.ps1",
+      "rel_path": "portable_setup.ps1",
+      "category": "script",
+      "size": 3297
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\PROBLEMS_AND_FIXES.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\PROBLEMS_AND_FIXES.md",
+      "rel_path": "PROBLEMS_AND_FIXES.md",
+      "category": "doc",
+      "size": 10320
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\REMEDIATION_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\REMEDIATION_PLAN.md",
+      "rel_path": "REMEDIATION_PLAN.md",
+      "category": "doc",
+      "size": 4076
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round51_Gateway_API_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round51_Gateway_API_Verification_Report.md",
+      "rel_path": "Round51_Gateway_API_Verification_Report.md",
+      "category": "doc",
+      "size": 15434
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round52_Governance_Health_Observability_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round52_Governance_Health_Observability_Report.md",
+      "rel_path": "Round52_Governance_Health_Observability_Report.md",
+      "category": "doc",
+      "size": 9293
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round53_Container_Rebuild_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round53_Container_Rebuild_Verification_Report.md",
+      "rel_path": "Round53_Container_Rebuild_Verification_Report.md",
+      "category": "doc",
+      "size": 6540
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round55_n8n_Integration_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round55_n8n_Integration_Verification_Report.md",
+      "rel_path": "Round55_n8n_Integration_Verification_Report.md",
+      "category": "doc",
+      "size": 7182
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round56_M04_TypeScript_Coordination_Layer_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round56_M04_TypeScript_Coordination_Layer_Verification_Report.md",
+      "rel_path": "Round56_M04_TypeScript_Coordination_Layer_Verification_Report.md",
+      "category": "doc",
+      "size": 8787
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round57_Governance_Execution_Closure_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round57_Governance_Execution_Closure_Verification_Report.md",
+      "rel_path": "Round57_Governance_Execution_Closure_Verification_Report.md",
+      "category": "doc",
+      "size": 12426
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round58_Governance_Architecture_Unification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round58_Governance_Architecture_Unification_Report.md",
+      "rel_path": "Round58_Governance_Architecture_Unification_Report.md",
+      "category": "doc",
+      "size": 11645
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round59_Governance_E2E_Live_Closure_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round59_Governance_E2E_Live_Closure_Verification_Report.md",
+      "rel_path": "Round59_Governance_E2E_Live_Closure_Verification_Report.md",
+      "category": "doc",
+      "size": 9437
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round60_Global_System_State_Convergence_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round60_Global_System_State_Convergence_Report.md",
+      "rel_path": "Round60_Global_System_State_Convergence_Report.md",
+      "category": "doc",
+      "size": 10037
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round61_Feishu_Ingress_Activation_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round61_Feishu_Ingress_Activation_Verification_Report.md",
+      "rel_path": "Round61_Feishu_Ingress_Activation_Verification_Report.md",
+      "category": "doc",
+      "size": 8648
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round62_n8n_Module_Disposition_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round62_n8n_Module_Disposition_Verification_Report.md",
+      "rel_path": "Round62_n8n_Module_Disposition_Verification_Report.md",
+      "category": "doc",
+      "size": 10278
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round63_Dify_Vector_Service_Integration_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round63_Dify_Vector_Service_Integration_Verification_Report.md",
+      "rel_path": "Round63_Dify_Vector_Service_Integration_Verification_Report.md",
+      "category": "doc",
+      "size": 9572
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round64_Feishu_Event_Subscription_Platform_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round64_Feishu_Event_Subscription_Platform_Verification_Report.md",
+      "rel_path": "Round64_Feishu_Event_Subscription_Platform_Verification_Report.md",
+      "category": "doc",
+      "size": 9133
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round65_LangGraph_API_Server_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round65_LangGraph_API_Server_Verification_Report.md",
+      "rel_path": "Round65_LangGraph_API_Server_Verification_Report.md",
+      "category": "doc",
+      "size": 14200
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round66B_Feishu_E2E_Closure_Verification_Report.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Round66B_Feishu_E2E_Closure_Verification_Report.md",
+      "rel_path": "Round66B_Feishu_E2E_Closure_Verification_Report.md",
+      "category": "doc",
+      "size": 6259
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\test_auth.mjs",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\test_auth.mjs",
+      "rel_path": "test_auth.mjs",
+      "category": "script",
+      "size": 3543
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\TEST_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\TEST_PLAN.md",
+      "rel_path": "TEST_PLAN.md",
+      "category": "doc",
+      "size": 12149
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\typedoc.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\typedoc.json",
+      "rel_path": "typedoc.json",
+      "category": "config",
+      "size": 812
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Unresolved_Issues.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\Unresolved_Issues.md",
+      "rel_path": "Unresolved_Issues.md",
+      "category": "doc",
+      "size": 1722
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\VERIFICATION_REPORT.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\VERIFICATION_REPORT.md",
+      "rel_path": "VERIFICATION_REPORT.md",
+      "category": "doc",
+      "size": 6989
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\assets\\domain_knowledge\\react_ui_comparison.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\assets\\domain_knowledge\\react_ui_comparison.md",
+      "rel_path": "assets\\domain_knowledge\\react_ui_comparison.md",
+      "category": "doc",
+      "size": 2198
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\00_Module_Index.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\00_Module_Index.md",
+      "rel_path": "docs\\00_Module_Index.md",
+      "category": "doc",
+      "size": 4709
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\01_Orchestration_Engine.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\01_Orchestration_Engine.md",
+      "rel_path": "docs\\01_Orchestration_Engine.md",
+      "category": "doc",
+      "size": 26646
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\02_OMO_Agent_Matrix.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\02_OMO_Agent_Matrix.md",
+      "rel_path": "docs\\02_OMO_Agent_Matrix.md",
+      "category": "doc",
+      "size": 32491
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\03_Harness_Hooks_System.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\03_Harness_Hooks_System.md",
+      "rel_path": "docs\\03_Harness_Hooks_System.md",
+      "category": "doc",
+      "size": 30729
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\04_Three_Systems_Coordination.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\04_Three_Systems_Coordination.md",
+      "rel_path": "docs\\04_Three_Systems_Coordination.md",
+      "category": "doc",
+      "size": 24092
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\05_Autonomous_Agent_Layer.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\05_Autonomous_Agent_Layer.md",
+      "rel_path": "docs\\05_Autonomous_Agent_Layer.md",
+      "category": "doc",
+      "size": 22829
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\06_Memory_Architecture.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\06_Memory_Architecture.md",
+      "rel_path": "docs\\06_Memory_Architecture.md",
+      "category": "doc",
+      "size": 24790
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\07_Digital_Asset_System.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\07_Digital_Asset_System.md",
+      "rel_path": "docs\\07_Digital_Asset_System.md",
+      "category": "doc",
+      "size": 38992
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\08_Learning_System.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\08_Learning_System.md",
+      "rel_path": "docs\\08_Learning_System.md",
+      "category": "doc",
+      "size": 17037
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\09_Prompt_Engineering_System.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\09_Prompt_Engineering_System.md",
+      "rel_path": "docs\\09_Prompt_Engineering_System.md",
+      "category": "doc",
+      "size": 24438
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\10_Intent_Clarification_Engine.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\10_Intent_Clarification_Engine.md",
+      "rel_path": "docs\\10_Intent_Clarification_Engine.md",
+      "category": "doc",
+      "size": 26108
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\11_Execution_And_Daemons.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\11_Execution_And_Daemons.md",
+      "rel_path": "docs\\11_Execution_And_Daemons.md",
+      "category": "doc",
+      "size": 16902
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\12_Tech_Stack_And_Config.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\12_Tech_Stack_And_Config.md",
+      "rel_path": "docs\\12_Tech_Stack_And_Config.md",
+      "category": "doc",
+      "size": 14466
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\13_Phased_Implementation.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\13_Phased_Implementation.md",
+      "rel_path": "docs\\13_Phased_Implementation.md",
+      "category": "doc",
+      "size": 18505
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\CLAUDE_CODE_DEEP_INTEGRATION_REPORT.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\CLAUDE_CODE_DEEP_INTEGRATION_REPORT.md",
+      "rel_path": "docs\\CLAUDE_CODE_DEEP_INTEGRATION_REPORT.md",
+      "category": "doc",
+      "size": 34364
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\DISASTER_RECOVERY_PLAYBOOK.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\DISASTER_RECOVERY_PLAYBOOK.md",
+      "rel_path": "docs\\DISASTER_RECOVERY_PLAYBOOK.md",
+      "category": "doc",
+      "size": 7303
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\FEISHU_CLI深度接入计划.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\FEISHU_CLI深度接入计划.md",
+      "rel_path": "docs\\FEISHU_CLI深度接入计划.md",
+      "category": "doc",
+      "size": 28055
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\Hermes_Agent_Deep_Analysis.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\Hermes_Agent_Deep_Analysis.md",
+      "rel_path": "docs\\Hermes_Agent_Deep_Analysis.md",
+      "category": "doc",
+      "size": 1
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\hermes_opencli_deep_改造计划.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\hermes_opencli_deep_改造计划.md",
+      "rel_path": "docs\\hermes_opencli_deep_改造计划.md",
+      "category": "doc",
+      "size": 34232
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\M00_System_Overview.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\M00_System_Overview.md",
+      "rel_path": "docs\\M00_System_Overview.md",
+      "category": "doc",
+      "size": 13453
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\M01_DEERFLOW_INJECTION_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\M01_DEERFLOW_INJECTION_PLAN.md",
+      "rel_path": "docs\\M01_DEERFLOW_INJECTION_PLAN.md",
+      "category": "doc",
+      "size": 6821
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\M01_DeerFlow_Integration_Design.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\M01_DeerFlow_Integration_Design.md",
+      "rel_path": "docs\\M01_DeerFlow_Integration_Design.md",
+      "category": "doc",
+      "size": 4248
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\OPENCLI_INTEGRATION_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\OPENCLI_INTEGRATION_PLAN.md",
+      "rel_path": "docs\\OPENCLI_INTEGRATION_PLAN.md",
+      "category": "doc",
+      "size": 33237
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\TRI_UNIFIED_AUTOMATION_PLAN.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\TRI_UNIFIED_AUTOMATION_PLAN.md",
+      "rel_path": "docs\\TRI_UNIFIED_AUTOMATION_PLAN.md",
+      "category": "doc",
+      "size": 66133
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\hierarchy.js",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\api\\assets\\hierarchy.js",
+      "rel_path": "docs\\api\\assets\\hierarchy.js",
+      "category": "source",
+      "size": 305
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\icons.js",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\api\\assets\\icons.js",
+      "rel_path": "docs\\api\\assets\\icons.js",
+      "category": "source",
+      "size": 15087
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\main.js",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\api\\assets\\main.js",
+      "rel_path": "docs\\api\\assets\\main.js",
+      "category": "source",
+      "size": 51109
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\navigation.js",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\api\\assets\\navigation.js",
+      "rel_path": "docs\\api\\assets\\navigation.js",
+      "category": "source",
+      "size": 2550
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\search.js",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\docs\\api\\assets\\search.js",
+      "rel_path": "docs\\api\\assets\\search.js",
+      "category": "source",
+      "size": 35631
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\hello.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\hello.ts",
+      "rel_path": "src\\hello.ts",
+      "category": "source",
+      "size": 115
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\application\\search_service.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\application\\search_service.ts",
+      "rel_path": "src\\application\\search_service.ts",
+      "category": "source",
+      "size": 3484
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\application\\ui\\evolution_digest.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\application\\ui\\evolution_digest.json",
+      "rel_path": "src\\application\\ui\\evolution_digest.json",
+      "category": "config",
+      "size": 876
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\application\\ui\\feishu_cards.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\application\\ui\\feishu_cards.json",
+      "rel_path": "src\\application\\ui\\feishu_cards.json",
+      "category": "config",
+      "size": 959
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\asset_manager.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\asset_manager.test.ts",
+      "rel_path": "src\\domain\\asset_manager.test.ts",
+      "category": "source",
+      "size": 20738
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\asset_manager.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\asset_manager.ts",
+      "rel_path": "src\\domain\\asset_manager.ts",
+      "category": "source",
+      "size": 11852
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\asset_packer.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\asset_packer.ts",
+      "rel_path": "src\\domain\\asset_packer.ts",
+      "category": "source",
+      "size": 4207
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\auto_patcher.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\auto_patcher.ts",
+      "rel_path": "src\\domain\\auto_patcher.ts",
+      "category": "source",
+      "size": 2961
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\decision_engine.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\decision_engine.ts",
+      "rel_path": "src\\domain\\decision_engine.ts",
+      "category": "source",
+      "size": 4554
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\errors.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\errors.ts",
+      "rel_path": "src\\domain\\errors.ts",
+      "category": "source",
+      "size": 10901
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\errors_mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\errors_mod.ts",
+      "rel_path": "src\\domain\\errors_mod.ts",
+      "category": "source",
+      "size": 959
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\hooks.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\hooks.test.ts",
+      "rel_path": "src\\domain\\hooks.test.ts",
+      "category": "source",
+      "size": 16435
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\hooks.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\hooks.ts",
+      "rel_path": "src\\domain\\hooks.ts",
+      "category": "source",
+      "size": 16565
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\ice_engine.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\ice_engine.test.ts",
+      "rel_path": "src\\domain\\ice_engine.test.ts",
+      "category": "source",
+      "size": 24070
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\ice_engine.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\ice_engine.ts",
+      "rel_path": "src\\domain\\ice_engine.ts",
+      "category": "source",
+      "size": 16215
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\ice_engine_m06_integration.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\ice_engine_m06_integration.test.ts",
+      "rel_path": "src\\domain\\ice_engine_m06_integration.test.ts",
+      "category": "source",
+      "size": 12812
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\nightly_distiller.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\nightly_distiller.test.ts",
+      "rel_path": "src\\domain\\nightly_distiller.test.ts",
+      "category": "source",
+      "size": 26617
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\nightly_distiller.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\nightly_distiller.ts",
+      "rel_path": "src\\domain\\nightly_distiller.ts",
+      "category": "source",
+      "size": 27068
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\optimizer.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\optimizer.test.ts",
+      "rel_path": "src\\domain\\optimizer.test.ts",
+      "category": "source",
+      "size": 16760
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\optimizer.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\optimizer.ts",
+      "rel_path": "src\\domain\\optimizer.ts",
+      "category": "source",
+      "size": 8808
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\oracle_rules.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\oracle_rules.ts",
+      "rel_path": "src\\domain\\oracle_rules.ts",
+      "category": "source",
+      "size": 1177
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\roi_engine.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\roi_engine.ts",
+      "rel_path": "src\\domain\\roi_engine.ts",
+      "category": "source",
+      "size": 3547
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\search_protocol.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\search_protocol.ts",
+      "rel_path": "src\\domain\\search_protocol.ts",
+      "category": "source",
+      "size": 3117
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\shadow_tester.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\shadow_tester.ts",
+      "rel_path": "src\\domain\\shadow_tester.ts",
+      "category": "source",
+      "size": 3243
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\watchdog_distiller_integration.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\watchdog_distiller_integration.test.ts",
+      "rel_path": "src\\domain\\watchdog_distiller_integration.test.ts",
+      "category": "source",
+      "size": 15656
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\e2e\\performance.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\e2e\\performance.test.ts",
+      "rel_path": "src\\domain\\e2e\\performance.test.ts",
+      "category": "source",
+      "size": 6663
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\e2e\\scenarios.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\e2e\\scenarios.test.ts",
+      "rel_path": "src\\domain\\e2e\\scenarios.test.ts",
+      "category": "source",
+      "size": 12708
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\e2e\\stress.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\e2e\\stress.test.ts",
+      "rel_path": "src\\domain\\e2e\\stress.test.ts",
+      "category": "source",
+      "size": 11121
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\evolution\\openspace_state_machine.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\evolution\\openspace_state_machine.ts",
+      "rel_path": "src\\domain\\evolution\\openspace_state_machine.ts",
+      "category": "source",
+      "size": 3862
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\evolution\\reflective_adaptor.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\evolution\\reflective_adaptor.ts",
+      "rel_path": "src\\domain\\evolution\\reflective_adaptor.ts",
+      "category": "source",
+      "size": 3539
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\dag_planner.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\dag_planner.ts",
+      "rel_path": "src\\domain\\m01\\dag_planner.ts",
+      "category": "source",
+      "size": 9734
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\deerflow_client.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\deerflow_client.ts",
+      "rel_path": "src\\domain\\m01\\deerflow_client.ts",
+      "category": "source",
+      "size": 5892
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\intent_classifier.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\intent_classifier.ts",
+      "rel_path": "src\\domain\\m01\\intent_classifier.ts",
+      "category": "source",
+      "size": 7246
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\mod.ts",
+      "rel_path": "src\\domain\\m01\\mod.ts",
+      "category": "source",
+      "size": 513
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\orchestrator.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\orchestrator.test.ts",
+      "rel_path": "src\\domain\\m01\\orchestrator.test.ts",
+      "category": "source",
+      "size": 9786
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\orchestrator.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\orchestrator.ts",
+      "rel_path": "src\\domain\\m01\\orchestrator.ts",
+      "category": "source",
+      "size": 9878
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\types.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m01\\types.ts",
+      "rel_path": "src\\domain\\m01\\types.ts",
+      "category": "source",
+      "size": 4844
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\coordinator.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\coordinator.test.ts",
+      "rel_path": "src\\domain\\m04\\coordinator.test.ts",
+      "category": "source",
+      "size": 6207
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\coordinator.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\coordinator.ts",
+      "rel_path": "src\\domain\\m04\\coordinator.ts",
+      "category": "source",
+      "size": 21014
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\coordinator_sandbox_integration.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\coordinator_sandbox_integration.test.ts",
+      "rel_path": "src\\domain\\m04\\coordinator_sandbox_integration.test.ts",
+      "category": "source",
+      "size": 6382
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\dify_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\dify_adapter.ts",
+      "rel_path": "src\\domain\\m04\\dify_adapter.ts",
+      "category": "source",
+      "size": 16955
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\engine_enum.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\engine_enum.ts",
+      "rel_path": "src\\domain\\m04\\engine_enum.ts",
+      "category": "source",
+      "size": 3035
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\mod.ts",
+      "rel_path": "src\\domain\\m04\\mod.ts",
+      "category": "source",
+      "size": 1885
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\shared_context.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\shared_context.ts",
+      "rel_path": "src\\domain\\m04\\shared_context.ts",
+      "category": "source",
+      "size": 6353
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\skill_loader.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\skill_loader.ts",
+      "rel_path": "src\\domain\\m04\\skill_loader.ts",
+      "category": "source",
+      "size": 7784
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\skill_router.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\skill_router.test.ts",
+      "rel_path": "src\\domain\\m04\\skill_router.test.ts",
+      "category": "source",
+      "size": 2236
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\skill_router.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\skill_router.ts",
+      "rel_path": "src\\domain\\m04\\skill_router.ts",
+      "category": "source",
+      "size": 9339
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\transformer.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\transformer.ts",
+      "rel_path": "src\\domain\\m04\\transformer.ts",
+      "category": "source",
+      "size": 6719
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\types.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\types.ts",
+      "rel_path": "src\\domain\\m04\\types.ts",
+      "category": "source",
+      "size": 11585
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\unified_builder.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\unified_builder.ts",
+      "rel_path": "src\\domain\\m04\\unified_builder.ts",
+      "category": "source",
+      "size": 19962
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\unified_executor.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\unified_executor.ts",
+      "rel_path": "src\\domain\\m04\\unified_executor.ts",
+      "category": "source",
+      "size": 23305
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\unified_registry.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\unified_registry.ts",
+      "rel_path": "src\\domain\\m04\\unified_registry.ts",
+      "category": "source",
+      "size": 43796
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\adapters\\index.ts",
+      "rel_path": "src\\domain\\m04\\adapters\\index.ts",
+      "category": "source",
+      "size": 236
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\search_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\adapters\\search_adapter.ts",
+      "rel_path": "src\\domain\\m04\\adapters\\search_adapter.ts",
+      "category": "source",
+      "size": 15843
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\task_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\adapters\\task_adapter.ts",
+      "rel_path": "src\\domain\\m04\\adapters\\task_adapter.ts",
+      "category": "source",
+      "size": 8802
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\workflow_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m04\\adapters\\workflow_adapter.ts",
+      "rel_path": "src\\domain\\m04\\adapters\\workflow_adapter.ts",
+      "category": "source",
+      "size": 12576
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\daemon_manager.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\daemon_manager.ts",
+      "rel_path": "src\\domain\\m11\\daemon_manager.ts",
+      "category": "source",
+      "size": 12430
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\mod.ts",
+      "rel_path": "src\\domain\\m11\\mod.ts",
+      "category": "source",
+      "size": 674
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\opencli_daemon.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\opencli_daemon.ts",
+      "rel_path": "src\\domain\\m11\\opencli_daemon.ts",
+      "category": "source",
+      "size": 10209
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\sandbox.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\sandbox.test.ts",
+      "rel_path": "src\\domain\\m11\\sandbox.test.ts",
+      "category": "source",
+      "size": 3997
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\sandbox.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\sandbox.ts",
+      "rel_path": "src\\domain\\m11\\sandbox.ts",
+      "category": "source",
+      "size": 13737
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\types.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\types.ts",
+      "rel_path": "src\\domain\\m11\\types.ts",
+      "category": "source",
+      "size": 5150
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\adapters\\executor_adapter.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\adapters\\executor_adapter.test.ts",
+      "rel_path": "src\\domain\\m11\\adapters\\executor_adapter.test.ts",
+      "category": "source",
+      "size": 6067
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\adapters\\executor_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\adapters\\executor_adapter.ts",
+      "rel_path": "src\\domain\\m11\\adapters\\executor_adapter.ts",
+      "category": "source",
+      "size": 28305
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\adapters\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\m11\\adapters\\index.ts",
+      "rel_path": "src\\domain\\m11\\adapters\\index.ts",
+      "category": "source",
+      "size": 143
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\memory_asset_integration.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\memory_asset_integration.test.ts",
+      "rel_path": "src\\domain\\memory\\memory_asset_integration.test.ts",
+      "category": "source",
+      "size": 6621
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\mod.ts",
+      "rel_path": "src\\domain\\memory\\mod.ts",
+      "category": "source",
+      "size": 962
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\types.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\types.ts",
+      "rel_path": "src\\domain\\memory\\types.ts",
+      "category": "source",
+      "size": 9533
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer1\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer1\\index.ts",
+      "rel_path": "src\\domain\\memory\\layer1\\index.ts",
+      "category": "source",
+      "size": 103
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer1\\working_memory.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer1\\working_memory.test.ts",
+      "rel_path": "src\\domain\\memory\\layer1\\working_memory.test.ts",
+      "category": "source",
+      "size": 3020
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer1\\working_memory.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer1\\working_memory.ts",
+      "rel_path": "src\\domain\\memory\\layer1\\working_memory.ts",
+      "category": "source",
+      "size": 9616
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer2\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer2\\index.ts",
+      "rel_path": "src\\domain\\memory\\layer2\\index.ts",
+      "category": "source",
+      "size": 103
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer2\\session_memory.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer2\\session_memory.ts",
+      "rel_path": "src\\domain\\memory\\layer2\\session_memory.ts",
+      "category": "source",
+      "size": 5760
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer3\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer3\\index.ts",
+      "rel_path": "src\\domain\\memory\\layer3\\index.ts",
+      "category": "source",
+      "size": 112
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer3\\persistent_memory.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer3\\persistent_memory.ts",
+      "rel_path": "src\\domain\\memory\\layer3\\persistent_memory.ts",
+      "category": "source",
+      "size": 7922
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer4\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer4\\index.ts",
+      "rel_path": "src\\domain\\memory\\layer4\\index.ts",
+      "category": "source",
+      "size": 101
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer4\\knowledge_graph.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer4\\knowledge_graph.test.ts",
+      "rel_path": "src\\domain\\memory\\layer4\\knowledge_graph.test.ts",
+      "category": "source",
+      "size": 11019
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer4\\knowledge_graph.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer4\\knowledge_graph.ts",
+      "rel_path": "src\\domain\\memory\\layer4\\knowledge_graph.ts",
+      "category": "source",
+      "size": 13013
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer5\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer5\\index.ts",
+      "rel_path": "src\\domain\\memory\\layer5\\index.ts",
+      "category": "source",
+      "size": 100
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer5\\visual_anchor.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer5\\visual_anchor.test.ts",
+      "rel_path": "src\\domain\\memory\\layer5\\visual_anchor.test.ts",
+      "category": "source",
+      "size": 8836
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer5\\visual_anchor.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\layer5\\visual_anchor.ts",
+      "rel_path": "src\\domain\\memory\\layer5\\visual_anchor.ts",
+      "category": "source",
+      "size": 7126
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\pipeline\\index.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\pipeline\\index.ts",
+      "rel_path": "src\\domain\\memory\\pipeline\\index.ts",
+      "category": "source",
+      "size": 109
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\pipeline\\semantic_writer.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\pipeline\\semantic_writer.test.ts",
+      "rel_path": "src\\domain\\memory\\pipeline\\semantic_writer.test.ts",
+      "category": "source",
+      "size": 7765
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\pipeline\\semantic_writer.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\memory\\pipeline\\semantic_writer.ts",
+      "rel_path": "src\\domain\\memory\\pipeline\\semantic_writer.ts",
+      "category": "source",
+      "size": 9308
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\dspy_compiler.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\dspy_compiler.ts",
+      "rel_path": "src\\domain\\prompt_engine\\dspy_compiler.ts",
+      "category": "source",
+      "size": 34529
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\integration.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\integration.test.ts",
+      "rel_path": "src\\domain\\prompt_engine\\integration.test.ts",
+      "category": "source",
+      "size": 11454
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\integration.tests.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\integration.tests.ts",
+      "rel_path": "src\\domain\\prompt_engine\\integration.tests.ts",
+      "category": "source",
+      "size": 16010
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\integration.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\integration.ts",
+      "rel_path": "src\\domain\\prompt_engine\\integration.ts",
+      "category": "source",
+      "size": 14536
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer1_router.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\layer1_router.ts",
+      "rel_path": "src\\domain\\prompt_engine\\layer1_router.ts",
+      "category": "source",
+      "size": 16250
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer2_monitor.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\layer2_monitor.ts",
+      "rel_path": "src\\domain\\prompt_engine\\layer2_monitor.ts",
+      "category": "source",
+      "size": 10481
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer3_feedback.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\layer3_feedback.ts",
+      "rel_path": "src\\domain\\prompt_engine\\layer3_feedback.ts",
+      "category": "source",
+      "size": 9573
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer4_nightly.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\layer4_nightly.ts",
+      "rel_path": "src\\domain\\prompt_engine\\layer4_nightly.ts",
+      "category": "source",
+      "size": 16725
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer5_asset.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\layer5_asset.ts",
+      "rel_path": "src\\domain\\prompt_engine\\layer5_asset.ts",
+      "category": "source",
+      "size": 11169
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\mod.ts",
+      "category": "source",
+      "size": 2295
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\prompt_engine.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\prompt_engine.test.ts",
+      "rel_path": "src\\domain\\prompt_engine\\prompt_engine.test.ts",
+      "category": "source",
+      "size": 18347
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\soul.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\soul.md",
+      "rel_path": "src\\domain\\prompt_engine\\soul.md",
+      "category": "doc",
+      "size": 3153
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\types.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\types.ts",
+      "rel_path": "src\\domain\\prompt_engine\\types.ts",
+      "category": "source",
+      "size": 12996
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\assembly\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\assembly\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\assembly\\mod.ts",
+      "category": "source",
+      "size": 164
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\dspy\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\dspy\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\dspy\\mod.ts",
+      "category": "source",
+      "size": 204
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\gepa\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\gepa\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\gepa\\mod.ts",
+      "category": "source",
+      "size": 161
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\recipes\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\recipes\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\recipes\\mod.ts",
+      "category": "source",
+      "size": 19240
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\search\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\search\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\search\\mod.ts",
+      "category": "source",
+      "size": 2117
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\signatures\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\prompt_engine\\signatures\\mod.ts",
+      "rel_path": "src\\domain\\prompt_engine\\signatures\\mod.ts",
+      "category": "source",
+      "size": 4642
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\skill_factory\\skill_compiler.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\domain\\skill_factory\\skill_compiler.ts",
+      "rel_path": "src\\domain\\skill_factory\\skill_compiler.ts",
+      "category": "source",
+      "size": 3804
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\alertmanager.yml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\alertmanager.yml",
+      "rel_path": "src\\infrastructure\\alertmanager.yml",
+      "category": "config",
+      "size": 3095
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\asset_indexer.py",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\asset_indexer.py",
+      "rel_path": "src\\infrastructure\\asset_indexer.py",
+      "category": "source",
+      "size": 7145
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\boulder.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\boulder.json",
+      "rel_path": "src\\infrastructure\\boulder.json",
+      "category": "config",
+      "size": 561
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\docker-compose.yml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\docker-compose.yml",
+      "rel_path": "src\\infrastructure\\docker-compose.yml",
+      "category": "config",
+      "size": 6699
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\Dockerfile",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\Dockerfile",
+      "rel_path": "src\\infrastructure\\Dockerfile",
+      "category": "config",
+      "size": 1522
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dreaming_rules.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\dreaming_rules.json",
+      "rel_path": "src\\infrastructure\\dreaming_rules.json",
+      "category": "config",
+      "size": 2835
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\jina_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\jina_adapter.ts",
+      "rel_path": "src\\infrastructure\\jina_adapter.ts",
+      "category": "source",
+      "size": 1508
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\llm_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\llm_adapter.ts",
+      "rel_path": "src\\infrastructure\\llm_adapter.ts",
+      "category": "source",
+      "size": 16035
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\logger.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\logger.ts",
+      "rel_path": "src\\infrastructure\\logger.ts",
+      "category": "source",
+      "size": 10856
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\prometheus.yml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\prometheus.yml",
+      "rel_path": "src\\infrastructure\\prometheus.yml",
+      "category": "config",
+      "size": 714
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\prometheus_alerts.yml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\prometheus_alerts.yml",
+      "rel_path": "src\\infrastructure\\prometheus_alerts.yml",
+      "category": "config",
+      "size": 6675
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\redis.conf",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\redis.conf",
+      "rel_path": "src\\infrastructure\\redis.conf",
+      "category": "config",
+      "size": 620
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\registry.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\registry.json",
+      "rel_path": "src\\infrastructure\\registry.json",
+      "category": "config",
+      "size": 260
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\watchdog.py",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\watchdog.py",
+      "rel_path": "src\\infrastructure\\watchdog.py",
+      "category": "source",
+      "size": 8850
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\watchdog.test.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\watchdog.test.ts",
+      "rel_path": "src\\infrastructure\\watchdog.test.ts",
+      "category": "source",
+      "size": 10146
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\dapr_client.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\dapr\\dapr_client.ts",
+      "rel_path": "src\\infrastructure\\dapr\\dapr_client.ts",
+      "category": "source",
+      "size": 15269
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\mod.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\dapr\\mod.ts",
+      "rel_path": "src\\infrastructure\\dapr\\mod.ts",
+      "category": "source",
+      "size": 119
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\components\\pubsub.yaml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\dapr\\components\\pubsub.yaml",
+      "rel_path": "src\\infrastructure\\dapr\\components\\pubsub.yaml",
+      "category": "config",
+      "size": 215
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\components\\statestore.yaml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\dapr\\components\\statestore.yaml",
+      "rel_path": "src\\infrastructure\\dapr\\components\\statestore.yaml",
+      "category": "config",
+      "size": 218
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\env_adapter\\env_adapter.py",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\env_adapter\\env_adapter.py",
+      "rel_path": "src\\infrastructure\\env_adapter\\env_adapter.py",
+      "category": "source",
+      "size": 1209
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\env_adapter\\penetration_test.sh",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\env_adapter\\penetration_test.sh",
+      "rel_path": "src\\infrastructure\\env_adapter\\penetration_test.sh",
+      "category": "script",
+      "size": 921
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\evolution\\dspy_mipro_adapter.py",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\evolution\\dspy_mipro_adapter.py",
+      "rel_path": "src\\infrastructure\\evolution\\dspy_mipro_adapter.py",
+      "category": "source",
+      "size": 2821
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\evolution\\tes_sandbox\\config.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\evolution\\tes_sandbox\\config.json",
+      "rel_path": "src\\infrastructure\\evolution\\tes_sandbox\\config.json",
+      "category": "config",
+      "size": 249
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\base_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\base_adapter.ts",
+      "rel_path": "src\\infrastructure\\execution\\base_adapter.ts",
+      "category": "source",
+      "size": 3811
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\claude_code_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\claude_code_adapter.ts",
+      "rel_path": "src\\infrastructure\\execution\\claude_code_adapter.ts",
+      "category": "source",
+      "size": 5943
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\midscene_adapter.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\midscene_adapter.ts",
+      "rel_path": "src\\infrastructure\\execution\\midscene_adapter.ts",
+      "category": "source",
+      "size": 1329
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\opencli_command_registry.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\opencli_command_registry.ts",
+      "rel_path": "src\\infrastructure\\execution\\opencli_command_registry.ts",
+      "category": "source",
+      "size": 7637
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\opencli_http_client.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\opencli_http_client.ts",
+      "rel_path": "src\\infrastructure\\execution\\opencli_http_client.ts",
+      "category": "source",
+      "size": 8574
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\cli_dictionary\\mapping_dictionaries.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\cli_dictionary\\mapping_dictionaries.json",
+      "rel_path": "src\\infrastructure\\execution\\cli_dictionary\\mapping_dictionaries.json",
+      "category": "config",
+      "size": 3008
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\cli_dictionary\\README.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\execution\\cli_dictionary\\README.md",
+      "rel_path": "src\\infrastructure\\execution\\cli_dictionary\\README.md",
+      "category": "doc",
+      "size": 1817
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\grafana\\provisioning\\dashboards\\dashboards.yml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\grafana\\provisioning\\dashboards\\dashboards.yml",
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\dashboards\\dashboards.yml",
+      "category": "config",
+      "size": 198
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\grafana\\provisioning\\dashboards\\openclaw\\openclaw-overview.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\grafana\\provisioning\\dashboards\\openclaw\\openclaw-overview.json",
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\dashboards\\openclaw\\openclaw-overview.json",
+      "category": "config",
+      "size": 18886
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\grafana\\provisioning\\datasources\\datasources.yml",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\grafana\\provisioning\\datasources\\datasources.yml",
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\datasources\\datasources.yml",
+      "category": "config",
+      "size": 160
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\backup_manager.py",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\server\\backup_manager.py",
+      "rel_path": "src\\infrastructure\\server\\backup_manager.py",
+      "category": "source",
+      "size": 13118
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\health_server.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\server\\health_server.ts",
+      "rel_path": "src\\infrastructure\\server\\health_server.ts",
+      "category": "source",
+      "size": 12333
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\mcp_api_server.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\server\\mcp_api_server.ts",
+      "rel_path": "src\\infrastructure\\server\\mcp_api_server.ts",
+      "category": "source",
+      "size": 23358
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\mcp_server.py",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\server\\mcp_server.py",
+      "rel_path": "src\\infrastructure\\server\\mcp_server.py",
+      "category": "source",
+      "size": 16641
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\README.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\server\\README.md",
+      "rel_path": "src\\infrastructure\\server\\README.md",
+      "category": "doc",
+      "size": 1301
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\bridge_manager.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\workflow\\bridge_manager.ts",
+      "rel_path": "src\\infrastructure\\workflow\\bridge_manager.ts",
+      "category": "source",
+      "size": 11242
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\dify_client.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\workflow\\dify_client.ts",
+      "rel_path": "src\\infrastructure\\workflow\\dify_client.ts",
+      "category": "source",
+      "size": 14599
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\n8n_client.ts",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\workflow\\n8n_client.ts",
+      "rel_path": "src\\infrastructure\\workflow\\n8n_client.ts",
+      "category": "source",
+      "size": 6903
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\custom_nodes\\README.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\openclaw_project\\src\\infrastructure\\workflow\\custom_nodes\\README.md",
+      "rel_path": "src\\infrastructure\\workflow\\custom_nodes\\README.md",
+      "category": "doc",
+      "size": 758
+    }
+  ],
+  "conflict_moved": [
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\DECISIONS.md",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\DECISIONS.md",
+      "rel_path": "DECISIONS.md"
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\jest.config.cjs",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\jest.config.cjs",
+      "rel_path": "jest.config.cjs"
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\mcp-bridge.js",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\mcp-bridge.js",
+      "rel_path": "mcp-bridge.js"
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\package-lock.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\package-lock.json",
+      "rel_path": "package-lock.json"
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\package.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\package.json",
+      "rel_path": "package.json"
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\start_server.mjs",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\start_server.mjs",
+      "rel_path": "start_server.mjs"
+    },
+    {
+      "from": "E:\\OpenClaw-Base\\openclaw超级工程项目\\tsconfig.json",
+      "to": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\root_migration\\_conflicts\\tsconfig.json",
+      "rel_path": "tsconfig.json"
+    }
+  ],
+  "skipped_same_hash": [
+    {
+      "rel_path": "vitest.config.ts",
+      "reason": "same_hash"
+    }
+  ],
+  "summary": {
+    "migrated_count": 213,
+    "conflict_count": 7,
+    "skipped_same_hash_count": 1
+  }
+}

@@ -1,0 +1,698 @@
+{
+  "report_id": "R241-21G_UNIFIED_DEPENDENCY_MATRIX_REVIEW",
+  "phase": "phase_21g_unified_dependency_matrix_review",
+  "status": "passed_with_warnings",
+  "decision": "unified_matrix_completed_all_bundles_cross_dependent_on_surface010",
+  "source": "R241-21D_AUTH_BUNDLE_PORT_BACK_DESIGN_REVIEW + R241-21E_PERSISTENCE_BUNDLE_DESIGN_REVIEW + R241-21F_GATEWAY_GSIC_BUNDLE_DESIGN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "unified_dependency_graph": {
+    "description": "Cross-bundle dependency graph showing all 17 candidates and their interdependencies",
+    "layers": {
+      "Layer_0_DESIGN_ONLY": {
+        "candidates": ["CAND-001", "CAND-006", "CAND-019"],
+        "runtime_blocked": false,
+        "surface_010_impact": false,
+        "gsic_impact": false,
+        "note": "Design-only subset; no runtime activation"
+      },
+      "Layer_1_AUTH_INTERFACE": {
+        "candidates": ["CAND-002", "CAND-023"],
+        "runtime_blocked": false,
+        "surface_010_impact": false,
+        "gsic_impact": false,
+        "depends_on": ["Layer_0_DESIGN_ONLY"]
+      },
+      "Layer_2_AUTH_IMPLEMENTATION": {
+        "candidates": ["CAND-005", "CAND-004"],
+        "runtime_blocked": true,
+        "surface_010_impact": true,
+        "gsic_impact": "CAND-005 indirect",
+        "depends_on": ["Layer_0_DESIGN_ONLY", "Layer_1_AUTH_INTERFACE"],
+        "blocker": "SURFACE-010"
+      },
+      "Layer_3_PERSISTENCE_ENGINE": {
+        "candidates": ["CAND-009", "CAND-024"],
+        "runtime_blocked": true,
+        "surface_010_impact": true,
+        "gsic_impact": false,
+        "depends_on": [],
+        "blocker": "SURFACE-010"
+      },
+      "Layer_4_PERSISTENCE_REPOSITORIES": {
+        "candidates": ["CAND-010", "CAND-011", "CAND-012", "CAND-013"],
+        "runtime_blocked": true,
+        "surface_010_impact": "indirect",
+        "gsic_impact": false,
+        "depends_on": ["Layer_3_PERSISTENCE_ENGINE"],
+        "blocker": "SURFACE-010"
+      },
+      "Layer_5_PERSISTENCE_ENTRY": {
+        "candidates": ["CAND-008"],
+        "runtime_blocked": true,
+        "surface_010_impact": "indirect",
+        "gsic_impact": false,
+        "depends_on": ["Layer_3_PERSISTENCE_ENGINE", "Layer_4_PERSISTENCE_REPOSITORIES"],
+        "blocker": "SURFACE-010"
+      },
+      "Layer_6_GATEWAY_DEPS": {
+        "candidates": ["deps.py (implicit)"],
+        "runtime_blocked": true,
+        "surface_010_impact": true,
+        "gsic_impact": true,
+        "gsic_003_implicit": true,
+        "depends_on": ["Layer_3_PERSISTENCE_ENGINE", "Layer_5_PERSISTENCE_ENTRY", "Layer_2_AUTH_IMPLEMENTATION"],
+        "blocker": "SURFACE-010 + GSIC-003"
+      },
+      "Layer_7_GATEWAY_APP": {
+        "candidates": ["CAND-018"],
+        "runtime_blocked": true,
+        "surface_010_impact": true,
+        "gsic_impact": true,
+        "gsic_003": true,
+        "depends_on": ["Layer_6_GATEWAY_DEPS", "Layer_2_AUTH_IMPLEMENTATION"],
+        "blocker": "SURFACE-010 + GSIC-003"
+      },
+      "Layer_8_GATEWAY_ROUTES": {
+        "candidates": ["CAND-007"],
+        "runtime_blocked": true,
+        "surface_010_impact": "indirect",
+        "gsic_impact": true,
+        "gsic_004": true,
+        "depends_on": ["Layer_0_DESIGN_ONLY", "Layer_1_AUTH_INTERFACE", "Layer_2_AUTH_IMPLEMENTATION", "Layer_6_GATEWAY_DEPS"],
+        "blocker": "SURFACE-010 + GSIC-003 + GSIC-004"
+      }
+    }
+  },
+
+  "bundle_dependency_matrix": {
+    "auth_bundle": {
+      "bundle_id": "AUTH",
+      "candidates": ["CAND-001", "CAND-002", "CAND-004", "CAND-005", "CAND-006", "CAND-023"],
+      "sub_bundles": {
+        "A_interface_stub": ["CAND-001"],
+        "B_concrete_auth": ["CAND-002", "CAND-023"],
+        "C_auth_middleware": ["CAND-005"],
+        "D_privileged": ["CAND-004"],
+        "E_langgraph_auth": ["CAND-006"]
+      },
+      "depends_on": [],
+      "blocked_by": ["SURFACE-010", "CAND-002_memory_read_binding"],
+      "provides": ["auth/__init__.py exports", "jwt create/decode", "local auth provider", "auth middleware", "user_context", "reset_admin CLI"]
+    },
+    "persistence_bundle": {
+      "bundle_id": "PERSISTENCE",
+      "candidates": ["CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+      "sub_bundles": {
+        "engine": ["CAND-009"],
+        "models": ["CAND-024"],
+        "repositories": ["CAND-010", "CAND-011"],
+        "event_stores": ["CAND-012", "CAND-013"],
+        "aggregate": ["CAND-008"]
+      },
+      "depends_on": [],
+      "blocked_by": ["SURFACE-010"],
+      "provides": ["async SQLAlchemy engine", "session_factory", "UserRow ORM", "FeedbackRepository", "RunRepository", "DbRunEventStore", "JsonlRunEventStore"]
+    },
+    "gateway_bundle": {
+      "bundle_id": "GATEWAY",
+      "candidates": ["CAND-007", "CAND-018", "CAND-019"],
+      "sub_bundles": {
+        "services": ["CAND-019"],
+        "app_core": ["CAND-018"],
+        "auth_routes": ["CAND-007"]
+      },
+      "depends_on": ["AUTH", "PERSISTENCE"],
+      "blocked_by": ["SURFACE-010", "GSIC-003", "GSIC-004"],
+      "gsic_003_files": ["app.py", "deps.py"],
+      "gsic_004_files": ["routers/auth.py"],
+      "provides": ["FastAPI app with middleware", "dependency injection", "9 auth routes"]
+    }
+  },
+
+  "blocker_to_candidate_mapping": {
+    "SURFACE-010": {
+      "description": "memory runtime BLOCKED CRITICAL",
+      "directly_blocks": ["CAND-005", "CAND-009"],
+      "indirectly_blocks": ["CAND-004", "CAND-007", "CAND-008", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-018", "CAND-024", "deps.py"],
+      "root_causes": [
+        "auth_middleware.py uses user_context contextvar (memory per-request state)",
+        "persistence/engine.py triggers init_engine which does startup DB writes"
+      ],
+      "unblock_prerequisite": "Memory runtime must be verified stable with no leaks"
+    },
+    "CAND-002_memory_read_binding": {
+      "description": "memory_read_binding BLOCKED",
+      "directly_blocks": [],
+      "indirectly_blocks": ["CAND-002"],
+      "unblock_prerequisite": "memory_read_binding must be implemented"
+    },
+    "CAND-003_mcp_read_binding": {
+      "description": "mcp_read_binding DEFERRED",
+      "directly_blocks": [],
+      "indirectly_blocks": [],
+      "note": "DEFERRED, not blocking current phase"
+    },
+    "GSIC-003": {
+      "description": "blocking_gateway_main_path",
+      "directly_blocks": ["CAND-018", "deps.py"],
+      "indirectly_blocks": ["CAND-007"],
+      "gsic_003_reason": "app.py modifies FastAPI main path via middleware chain + lifespan hooks",
+      "unblock_prerequisite": "SURFACE-010 must be resolved first"
+    },
+    "GSIC-004": {
+      "description": "blocking_fastapi_route_registration",
+      "directly_blocks": ["CAND-007"],
+      "indirectly_blocks": [],
+      "gsic_004_reason": "routers/auth.py registers 9 routes at /api/v1/auth prefix",
+      "unblock_prerequisite": "Auth bundle must exist + GSIC-003 must be resolved"
+    },
+    "MAINLINE-GATEWAY-ACTIVATION": {
+      "description": "gateway cannot activate in mainline",
+      "directly_blocks": ["CAND-018", "CAND-007", "CAND-019"],
+      "indirectly_blocks": [],
+      "unblock_prerequisite": "SURFACE-010 + GSIC-003 + GSIC-004"
+    },
+    "DSRT-ENABLED": {
+      "description": "DSRT not enabled",
+      "directly_blocks": [],
+      "indirectly_blocks": [],
+      "note": "Not relevant to current bundles"
+    },
+    "DSRT-IMPLEMENTED": {
+      "description": "DSRT not implemented",
+      "directly_blocks": [],
+      "indirectly_blocks": [],
+      "note": "Not relevant to current bundles"
+    }
+  },
+
+  "candidate_to_required_files_mapping": {
+    "CAND-001": {
+      "path": "backend/app/gateway/auth/__init__.py",
+      "required_files": [
+        "backend/app/gateway/auth/__init__.py",
+        "backend/app/gateway/auth/config.py",
+        "backend/app/gateway/auth/errors.py",
+        "backend/app/gateway/auth/jwt.py",
+        "backend/app/gateway/auth/password.py",
+        "backend/app/gateway/auth/models.py",
+        "backend/app/gateway/auth/providers.py",
+        "backend/app/gateway/auth/repositories/base.py",
+        "backend/app/gateway/auth/local_provider.py"
+      ],
+      "total_files": 9,
+      "layer": "Layer_0_DESIGN_ONLY",
+      "implementation_allowed": false,
+      "reason": "auth directory cannot be created per authorization"
+    },
+    "CAND-002": {
+      "path": "backend/app/gateway/auth/jwt.py",
+      "required_files": [
+        "backend/app/gateway/auth/jwt.py",
+        "backend/app/gateway/auth/config.py",
+        "backend/app/gateway/auth/errors.py"
+      ],
+      "total_files": 3,
+      "layer": "Layer_1_AUTH_INTERFACE",
+      "implementation_allowed": false,
+      "reason": "blocked by CAND-002_memory_read_binding"
+    },
+    "CAND-004": {
+      "path": "backend/app/gateway/auth/reset_admin.py",
+      "required_files": [
+        "backend/app/gateway/auth/reset_admin.py",
+        "backend/app/gateway/auth/local_provider.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)",
+        "backend/app/gateway/deerflow/persistence/user/model.py (CAND-024)"
+      ],
+      "total_files": 4,
+      "layer": "Layer_2_AUTH_IMPLEMENTATION",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 + privileged auth + persistence dependency"
+    },
+    "CAND-005": {
+      "path": "backend/app/gateway/auth_middleware.py",
+      "required_files": [
+        "backend/app/gateway/auth_middleware.py",
+        "backend/app/gateway/authz.py",
+        "backend/app/gateway/internal_auth.py",
+        "backend/app/gateway/deerflow/runtime/user_context.py"
+      ],
+      "total_files": 4,
+      "layer": "Layer_2_AUTH_IMPLEMENTATION",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 direct (user_context contextvar)"
+    },
+    "CAND-006": {
+      "path": "backend/app/gateway/langgraph_auth.py",
+      "required_files": [
+        "backend/app/gateway/langgraph_auth.py",
+        "backend/app/gateway/auth/jwt.py (CAND-002)",
+        "backend/app/gateway/deps.py"
+      ],
+      "total_files": 3,
+      "layer": "Layer_0_DESIGN_ONLY",
+      "implementation_allowed": false,
+      "reason": "depends on CAND-002 which is blocked"
+    },
+    "CAND-007": {
+      "path": "backend/app/gateway/routers/auth.py",
+      "required_files": [
+        "backend/app/gateway/routers/auth.py",
+        "backend/app/gateway/auth/__init__.py (CAND-001)",
+        "backend/app/gateway/auth/jwt.py (CAND-002)",
+        "backend/app/gateway/auth/local_provider.py (CAND-023)",
+        "backend/app/gateway/auth/config.py",
+        "backend/app/gateway/auth/errors.py",
+        "backend/app/gateway/deps.py (implicit GSIC-003)"
+      ],
+      "total_files": 7,
+      "layer": "Layer_8_GATEWAY_ROUTES",
+      "implementation_allowed": false,
+      "reason": "GSIC-004 + GSIC-003 + SURFACE-010 all blocking"
+    },
+    "CAND-008": {
+      "path": "backend/app/gateway/deerflow/persistence/__init__.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/persistence/__init__.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)",
+        "backend/app/gateway/deerflow/persistence/user/model.py (CAND-024)",
+        "backend/app/gateway/deerflow/persistence/feedback/sql.py (CAND-010)",
+        "backend/app/gateway/deerflow/persistence/run/sql.py (CAND-011)"
+      ],
+      "total_files": 5,
+      "layer": "Layer_5_PERSISTENCE_ENTRY",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 (all dependencies blocked)"
+    },
+    "CAND-009": {
+      "path": "backend/app/gateway/deerflow/persistence/engine.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/persistence/engine.py"
+      ],
+      "total_files": 1,
+      "layer": "Layer_3_PERSISTENCE_ENGINE",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 PRIMARY TRIGGER"
+    },
+    "CAND-010": {
+      "path": "backend/app/gateway/deerflow/persistence/feedback/sql.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/persistence/feedback/sql.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)"
+      ],
+      "total_files": 2,
+      "layer": "Layer_4_PERSISTENCE_REPOSITORIES",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 indirect (depends on engine.py)"
+    },
+    "CAND-011": {
+      "path": "backend/app/gateway/deerflow/persistence/run/sql.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/persistence/run/sql.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)"
+      ],
+      "total_files": 2,
+      "layer": "Layer_4_PERSISTENCE_REPOSITORIES",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 indirect (depends on engine.py)"
+    },
+    "CAND-012": {
+      "path": "backend/app/gateway/deerflow/runtime/events/store/db.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/runtime/events/store/db.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)",
+        "backend/app/gateway/deerflow/runtime/user_context.py"
+      ],
+      "total_files": 3,
+      "layer": "Layer_4_PERSISTENCE_REPOSITORIES",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 indirect + user_context dependency"
+    },
+    "CAND-013": {
+      "path": "backend/app/gateway/deerflow/runtime/events/store/jsonl.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/runtime/events/store/jsonl.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)"
+      ],
+      "total_files": 2,
+      "layer": "Layer_4_PERSISTENCE_REPOSITORIES",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 indirect (filesystem write per event)"
+    },
+    "CAND-018": {
+      "path": "backend/app/gateway/app.py",
+      "required_files": [
+        "backend/app/gateway/app.py",
+        "backend/app/gateway/auth_middleware.py (CAND-005)",
+        "backend/app/gateway/deps.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)",
+        "backend/app/gateway/deerflow/persistence/user/model.py (CAND-024)"
+      ],
+      "total_files": 5,
+      "layer": "Layer_7_GATEWAY_APP",
+      "implementation_allowed": false,
+      "reason": "GSIC-003 + SURFACE-010"
+    },
+    "CAND-019": {
+      "path": "backend/app/gateway/services.py",
+      "required_files": [
+        "backend/app/gateway/services.py",
+        "backend/app/gateway/deps.py"
+      ],
+      "total_files": 2,
+      "layer": "Layer_0_DESIGN_ONLY",
+      "implementation_allowed": false,
+      "reason": "Design-only safe, but cannot create file per authorization"
+    },
+    "CAND-024": {
+      "path": "backend/app/gateway/deerflow/persistence/user/model.py",
+      "required_files": [
+        "backend/app/gateway/deerflow/persistence/user/model.py",
+        "backend/app/gateway/deerflow/persistence/engine.py (CAND-009)"
+      ],
+      "total_files": 2,
+      "layer": "Layer_3_PERSISTENCE_ENGINE",
+      "implementation_allowed": false,
+      "reason": "SURFACE-010 indirect (depends on engine.py)"
+    }
+  },
+
+  "surface_010_impact_map": {
+    "root_blocker": "SURFACE-010 memory BLOCKED CRITICAL",
+    "direct_triggers": [
+      {
+        "file": "deerflow/runtime/user_context.py",
+        "candidates": ["CAND-005"],
+        "reason": "ContextVar for per-request user state — memory storage"
+      },
+      {
+        "file": "deerflow/persistence/engine.py",
+        "candidates": ["CAND-009"],
+        "reason": "init_engine_from_config triggers startup DB writes (CREATE DATABASE, create_all)"
+      }
+    ],
+    "indirect_dependents": [
+      "CAND-004 (reset_admin uses persistence.engine)",
+      "CAND-007 (routers/auth uses local_provider + deps)",
+      "CAND-008 (persistence/__init__ triggers init_engine)",
+      "CAND-010 (FeedbackRepository uses session_factory)",
+      "CAND-011 (RunRepository uses session_factory)",
+      "CAND-012 (DbRunEventStore uses engine + user_context)",
+      "CAND-013 (JsonlRunEventStore uses engine)",
+      "CAND-018 (app.py imports auth_middleware + deps)",
+      "CAND-024 (UserRow uses engine)",
+      "deps.py (initializes persistence.engine)"
+    ],
+    "cascade_effect": "All 17 candidates ultimately depend on either user_context.py or engine.py, both of which are SURFACE-010 implicated",
+    "total_candidates_impacted": 17,
+    "unblock_sequence_required": [
+      "1. Memory runtime stability verified",
+      "2. SURFACE-010 lifted",
+      "3. Then all downstream candidates become unblocked"
+    ]
+  },
+
+  "gsic_dependency_map": {
+    "GSIC-003": {
+      "description": "Gateway main path modification",
+      "files": ["app.py", "deps.py"],
+      "candidates_affected": ["CAND-018", "CAND-007"],
+      "surface_010_coupling": true,
+      "depends_on": ["SURFACE-010"],
+      "blocks": ["CAND-018", "CAND-007"],
+      "unblock_after": ["SURFACE-010", "CAND-009", "CAND-024", "CAND-005"]
+    },
+    "GSIC-004": {
+      "description": "FastAPI route registration",
+      "files": ["routers/auth.py"],
+      "candidates_affected": ["CAND-007"],
+      "surface_010_coupling": "indirect",
+      "depends_on": ["SURFACE-010", "GSIC-003", "AUTH_BUNDLE"],
+      "blocks": ["CAND-007"],
+      "unblock_after": ["SURFACE-010", "GSIC-003", "CAND-001", "CAND-002", "CAND-005", "CAND-023"]
+    }
+  },
+
+  "minimum_viable_staged_sequence": {
+    "description": "7 stages to fully activate auth + persistence + gateway",
+    "stages": [
+      {
+        "stage": 1,
+        "name": "Auth Interface Stubs",
+        "candidates": ["CAND-001", "CAND-006"],
+        "sub_bundles": ["A", "E"],
+        "surface_010_impact": false,
+        "gsic_impact": false,
+        "blocked_by": ["CAND-002_memory_read_binding"],
+        "can_implement": "design_only",
+        "required_files": 12
+      },
+      {
+        "stage": 2,
+        "name": "SURFACE-010 Memory Unblock",
+        "candidates": ["user_context.py", "auth_middleware.py"],
+        "sub_bundles": ["C"],
+        "surface_010_impact": "direct (root unblock)",
+        "gsic_impact": false,
+        "blocked_by": [],
+        "can_implement": "requires memory runtime verification",
+        "required_files": 4,
+        "evidence_required": [
+          "Memory leak test under sustained load",
+          "Connection pool stability test",
+          "ContextVar isolation verification"
+        ]
+      },
+      {
+        "stage": 3,
+        "name": "Persistence Engine",
+        "candidates": ["CAND-009", "CAND-024"],
+        "sub_bundles": ["engine", "models"],
+        "surface_010_impact": "direct (primary trigger)",
+        "gsic_impact": false,
+        "blocked_by": ["SURFACE-010"],
+        "can_implement": "after stage 2",
+        "required_files": 2,
+        "evidence_required": [
+          "Database backup verified",
+          "Rollback procedure documented",
+          "Memory fallback tested"
+        ]
+      },
+      {
+        "stage": 4,
+        "name": "Persistence Repositories",
+        "candidates": ["CAND-010", "CAND-011"],
+        "sub_bundles": ["repositories"],
+        "surface_010_impact": "indirect",
+        "gsic_impact": false,
+        "blocked_by": ["SURFACE-010", "CAND-009"],
+        "can_implement": "after stage 3",
+        "required_files": 4
+      },
+      {
+        "stage": 5,
+        "name": "Event Stores + Persistence Entry",
+        "candidates": ["CAND-008", "CAND-012", "CAND-013"],
+        "sub_bundles": ["event_stores", "aggregate"],
+        "surface_010_impact": "indirect",
+        "gsic_impact": false,
+        "blocked_by": ["SURFACE-010", "CAND-009", "CAND-024"],
+        "can_implement": "after stage 3",
+        "required_files": 4
+      },
+      {
+        "stage": 6,
+        "name": "Gateway Deps + App",
+        "candidates": ["CAND-018", "deps.py"],
+        "sub_bundles": ["app_core"],
+        "surface_010_impact": "direct",
+        "gsic_impact": "GSIC-003",
+        "blocked_by": ["SURFACE-010", "GSIC-003"],
+        "can_implement": "after stages 2+3+4",
+        "required_files": 5,
+        "evidence_required": [
+          "All persistence stores initialized",
+          "Auth middleware stable",
+          "Startup time within threshold"
+        ]
+      },
+      {
+        "stage": 7,
+        "name": "Auth Routes (GSIC-004)",
+        "candidates": ["CAND-007"],
+        "sub_bundles": ["auth_routes"],
+        "surface_010_impact": "indirect",
+        "gsic_impact": "GSIC-004",
+        "blocked_by": ["SURFACE-010", "GSIC-003", "GSIC-004"],
+        "can_implement": "after stages 1+2+6",
+        "required_files": 7
+      }
+    ]
+  },
+
+  "impossible_parallelization_list": {
+    "description": "Pairs that cannot be parallelized due to hard dependencies",
+    "cannot_parallelize": [
+      ["CAND-005 auth_middleware", "CAND-009 engine.py — both SURFACE-010 direct triggers, must be sequential"],
+      ["CAND-008 persistence/__init__", "CAND-007 routers/auth — CAND-008 must exist before CAND-007 can import"],
+      ["CAND-018 app.py", "CAND-007 routers/auth — app.py lifespan initialization must complete before routes register"],
+      ["deps.py langgraph_runtime", "CAND-018 app.py — deps.py is a prerequisite for app.py"],
+      ["CAND-009 engine.py", "CAND-010 feedback/sql — engine.py must initialize before feedback/sql can use session_factory"],
+      ["CAND-009 engine.py", "CAND-011 run/sql — engine.py must initialize before run/sql can use session_factory"],
+      ["CAND-009 engine.py", "CAND-024 user/model — engine.py must initialize before UserRow can be used"],
+      ["CAND-024 UserRow", "CAND-018 app.py _ensure_admin_user — UserRow must exist before app.py _ensure_admin_user"],
+      ["CAND-001 auth/__init__", "CAND-007 routers/auth — auth/__init__ exports must exist before routers/auth imports"],
+      ["CAND-002 jwt.py", "CAND-006 langgraph_auth — jwt.py must exist before langgraph_auth can use create_access_token"]
+    ]
+  },
+
+  "safe_design_only_subset": {
+    "description": "Candidates with no runtime activation, no SURFACE-010, no GSIC",
+    "candidates": ["CAND-001", "CAND-006", "CAND-019"],
+    "total": 3,
+    "implementation_status": "design_only — cannot create files per authorization",
+    "files": [
+      "backend/app/gateway/auth/__init__.py",
+      "backend/app/gateway/auth/config.py",
+      "backend/app/gateway/auth/errors.py",
+      "backend/app/gateway/auth/jwt.py",
+      "backend/app/gateway/auth/password.py",
+      "backend/app/gateway/auth/models.py",
+      "backend/app/gateway/auth/providers.py",
+      "backend/app/gateway/auth/repositories/base.py",
+      "backend/app/gateway/auth/local_provider.py",
+      "backend/app/gateway/langgraph_auth.py",
+      "backend/app/gateway/services.py"
+    ],
+    "design_viable": true,
+    "apply_viable": false,
+    "reason": "All require creating auth/ directory which is outside current authorization scope"
+  },
+
+  "implementation_forbidden_subset": {
+    "description": "Candidates blocked by SURFACE-010, GSIC-003, or GSIC-004",
+    "candidates": [
+      "CAND-002", "CAND-004", "CAND-005", "CAND-007",
+      "CAND-008", "CAND-009", "CAND-010", "CAND-011",
+      "CAND-012", "CAND-013", "CAND-018", "CAND-024"
+    ],
+    "total": 12,
+    "blocked_by_surface_010": ["CAND-005", "CAND-009"],
+    "blocked_by_gsic_003": ["CAND-018", "deps.py"],
+    "blocked_by_gsic_004": ["CAND-007"],
+    "blocked_by_memory_read_binding": ["CAND-002"],
+    "blocked_by_privileged_auth": ["CAND-004"],
+    "blocked_by_persistence_chain": ["CAND-008", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"]
+  },
+
+  "evidence_required_before_unblock": {
+    "SURFACE-010": {
+      "evidence": [
+        "Memory leak test: No memory growth over 10k sustained requests",
+        "ContextVar isolation: Per-request user state not leaking between requests",
+        "Connection pool stability: Pool does not exhaust under 100 concurrent requests",
+        "Startup time: init_engine completes within 5 second threshold",
+        "Rollback: database.backend=memory fallback verified working",
+        "Backup: pg_dump/SQLite copy successful before any persistence activation"
+      ]
+    },
+    "GSIC-003": {
+      "evidence": [
+        "SURFACE-010 unblocked",
+        "CAND-009 engine.py initialized",
+        "CAND-024 UserRow schema available",
+        "All app.state singletons can be initialized without errors",
+        "Middleware chain does not break existing routes"
+      ]
+    },
+    "GSIC-004": {
+      "evidence": [
+        "SURFACE-010 unblocked",
+        "GSIC-003 resolved",
+        "CAND-001 auth bundle interface stubs exist",
+        "CAND-002 jwt.py implemented",
+        "CAND-023 local_provider.py implemented",
+        "All 9 auth routes can be registered without import errors"
+      ]
+    }
+  },
+
+  "final_recommended_r241_22a_entry_point": {
+    "entry_point": "R241-22A_MEMORY_RUNTIME_UNBLOCK",
+    "reason": "SURFACE-010 is the root blocker for all 17 candidates. Without memory runtime unblock, no bundle can proceed.",
+    "immediate_action": "Design and implement memory runtime with stable ContextVar per-request isolation",
+    "downstream_enables": [
+      "CAND-005 auth_middleware becomes implementable",
+      "CAND-009 persistence engine becomes implementable",
+      "All 12 blocked candidates begin to unblock"
+    ],
+    "alternative_entry_point": "R241-22B_AUTH_INTERFACE_STUB_APPLY",
+    "alternative_reason": "If authorization scope expands to allow auth/ directory creation",
+    "alternative_downstream": "Only enables design documentation, not runtime"
+  },
+
+  "classification_results": {
+    "total_candidates": 17,
+    "safe_design_only": 3,
+    "blocked_by_surface_010": 2,
+    "blocked_by_gsic_003": 1,
+    "blocked_by_gsic_004": 1,
+    "blocked_by_persistence_chain": 6,
+    "blocked_by_auth_chain": 2,
+    "blocked_by_privileged": 1,
+    "blocked_by_memory_read_binding": 1,
+    "all_candidates_blocked": true,
+    "implementation_allowed": false
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "auth_dir_created": false,
+    "persistence_dir_created": false,
+    "gateway_app_modified": false,
+    "route_registered": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "unified_matrix_completed_all_bundles_cross_dependent_on_surface010",
+    "unified_matrix_completed": true,
+    "bundles_merged": ["AUTH", "PERSISTENCE", "GATEWAY"],
+    "root_blocker": "SURFACE-010",
+    "implementation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22A",
+    "next_prompt_needed": "user_selection"
+  }
+}

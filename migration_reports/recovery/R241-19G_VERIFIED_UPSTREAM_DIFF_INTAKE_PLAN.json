@@ -1,0 +1,843 @@
+{
+  "report_id": "R241-19G_VERIFIED_UPSTREAM_DIFF_INTAKE_PLAN",
+  "phase": "phase_19g_verified_upstream_diff_intake_plan",
+  "status": "passed_with_warnings",
+  "decision": "approve_verified_upstream_diff_intake_plan_with_risk_warnings",
+  "source": "R241-19F_UPSTREAM_BASELINE_TARGET_SELECTION",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+    "merge_base": "092bf13f5e1b3f9f76c08a332051b4bb76257107",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19f": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19f_passed": true,
+    "upstream_identity_confirmed": true,
+    "local_base_selected": true,
+    "upstream_target_selected": true,
+    "true_upgrade_diff_available": true,
+    "ready_for_real_intake": true,
+    "allow_enter_r241_19g": true,
+    "all_preconditions_met": true
+  },
+  "verified_diff_intake_scope": {
+    "current_round": "R241-19G",
+    "mode": "verified_upstream_diff_intake_plan_only",
+    "actual_upgrade_execution_allowed": false,
+    "patch_apply_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "blocker_override_allowed": false,
+    "git_network_operation_allowed": false,
+    "branch_switch_allowed": false,
+    "allowed_scope": [
+      "verified diff inventory",
+      "commit-level impact analysis",
+      "file-level candidate extraction",
+      "patch candidate classification",
+      "local customization conflict detection",
+      "forbidden runtime replacement audit",
+      "dependency change review",
+      "auth/persistence/docs/config impact review",
+      "test impact matrix",
+      "rollback/abort matrix",
+      "next-round readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual upgrade execution",
+      "real patch generation",
+      "patch apply",
+      "code overwrite",
+      "whole-directory replacement",
+      "dependency upgrade execution",
+      "dependency install",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu/webhook migration",
+      "scheduler activation",
+      "production service start",
+      "secret/token/webhook migration",
+      "blocker override",
+      "dirty worktree cleanup",
+      "stash pop/apply",
+      "git fetch/pull/merge/rebase",
+      "branch switch",
+      "adding remote",
+      "modifying remote"
+    ]
+  },
+  "base_target_verification": {
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+    "merge_base": "092bf13f5e1b3f9f76c08a332051b4bb76257107",
+    "commits_between": 7,
+    "diff_file_count": 228,
+    "diff_stat_summary": "228 files changed, 24174 insertions(+), 1865 deletions(-)",
+    "verification_status": "passed",
+    "violations": []
+  },
+  "commit_impact_matrix": [
+    {
+      "commit": "b61ce352",
+      "subject": "docs: fill all TBD documentation pages and add new harness module pages",
+      "category": "docs",
+      "expected_surface_area": ["docs", "frontend"],
+      "runtime_risk": "none",
+      "blockers_implicated": [],
+      "classification_hint": "docs-only — safe_direct_update candidate",
+      "requires_dedicated_review": false
+    },
+    {
+      "commit": "2d5f6f1b",
+      "subject": "docs: complete all English and Chinese documentation pages",
+      "category": "docs",
+      "expected_surface_area": ["docs", "frontend"],
+      "runtime_risk": "none",
+      "blockers_implicated": [],
+      "classification_hint": "docs-only — safe_direct_update candidate",
+      "requires_dedicated_review": false
+    },
+    {
+      "commit": "69bf3daf",
+      "subject": "docs: fix review feedback - source-map paths, memory API routes, supports_thinking, checkpointer callout",
+      "category": "docs",
+      "expected_surface_area": ["docs", "runtime"],
+      "runtime_risk": "low",
+      "blockers_implicated": [],
+      "classification_hint": "docs with runtime API references — adapter_only or report_only_quarantine",
+      "requires_dedicated_review": true
+    },
+    {
+      "commit": "6cbec134",
+      "subject": "feat(dependencies): add langchain-ollama and ollama packages with optional dependencies",
+      "category": "dependency",
+      "expected_surface_area": ["dependency", "pyproject", "runtime"],
+      "runtime_risk": "medium",
+      "blockers_implicated": [],
+      "classification_hint": "dependency addition — report_only_quarantine until dependency risk review",
+      "requires_dedicated_review": true
+    },
+    {
+      "commit": "31e5b586",
+      "subject": "feat: replace auto-admin creation with secure interactive first-boot setup (#2063)",
+      "category": "auth",
+      "expected_surface_area": ["auth", "gateway"],
+      "runtime_risk": "medium",
+      "blockers_implicated": [],
+      "classification_hint": "auth bootstrap change — adapter_only with dedicated review; removes dangerous auto-admin creation",
+      "requires_dedicated_review": true
+    },
+    {
+      "commit": "e75a2ff2",
+      "subject": "feat(auth): release-validation pass for 2.0-rc — 12 blockers + simplify follow-ups (#2008)",
+      "category": "auth",
+      "expected_surface_area": ["auth", "gateway"],
+      "runtime_risk": "high",
+      "blockers_implicated": ["GSIC-004"],
+      "classification_hint": "auth system overhaul — adapter_only; new FastAPI route registrations must be reviewed against GSIC-004",
+      "requires_dedicated_review": true
+    },
+    {
+      "commit": "185f5649",
+      "subject": "feat(persistence): add unified persistence layer with event store, token tracking, and feedback (#1930)",
+      "category": "persistence",
+      "expected_surface_area": ["persistence", "runtime", "database"],
+      "runtime_risk": "high",
+      "blockers_implicated": ["SURFACE-010"],
+      "classification_hint": "persistence layer with runtime DB/event store writes — forbidden_runtime_replacement risk; requires full unblock review",
+      "requires_dedicated_review": true
+    }
+  ],
+  "file_diff_inventory_summary": {
+    "total_files": 228,
+    "added": 0,
+    "modified": 0,
+    "deleted": 0,
+    "add_mod_del_breakdown": {
+      "added_files": 102,
+      "modified_files": 103,
+      "deleted_files": 3
+    },
+    "by_surface_area": {
+      "auth_new_modules": 14,
+      "auth_modified": 8,
+      "persistence_new_modules": 22,
+      "persistence_modified": 6,
+      "runtime_events_store": 6,
+      "runtime_runs_manager": 4,
+      "docs_en": 26,
+      "docs_zh": 26,
+      "frontend_auth": 11,
+      "frontend_other": 20,
+      "config": 6,
+      "dependency": 5
+    },
+    "runtime_surface_files": [
+      "backend/packages/harness/deerflow/persistence/engine.py (new — DB write/event store)",
+      "backend/packages/harness/deerflow/persistence/feedback/sql.py (new — DB write)",
+      "backend/packages/harness/deerflow/persistence/run/sql.py (new — DB write)",
+      "backend/packages/harness/deerflow/persistence/thread_meta/sql.py (new — DB write)",
+      "backend/packages/harness/deerflow/persistence/user/model.py (new — DB write)",
+      "backend/packages/harness/deerflow/runtime/events/store/db.py (new — runtime event DB write)",
+      "backend/packages/harness/deerflow/runtime/events/store/jsonl.py (new — runtime event JSONL write)",
+      "backend/app/gateway/auth/reset_admin.py (new — privileged admin reset)",
+      "backend/app/gateway/auth/providers.py (new — auth provider registration)",
+      "backend/app/gateway/routers/auth.py (new — FastAPI auth router registration)"
+    ],
+    "protected_paths_hit": false,
+    "protected_modules_hit": false,
+    "gateway_main_path_hit": false,
+    "fastapi_route_registration_hit": true,
+    "memory_runtime_hit": false,
+    "mcp_runtime_hit": false
+  },
+  "patch_candidate_classification_matrix": {
+    "candidates": [
+      {
+        "candidate_id": "R241-19G-CAND-001",
+        "path": "backend/app/gateway/auth/__init__.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["e75a2ff2", "31e5b586"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New auth module directory — contains provider setup, JWT, credential file, local auth",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "new auth infrastructure; conflicts with local gateway/app.py custom auth; requires adapter"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-002",
+        "path": "backend/app/gateway/auth/jwt.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New JWT token creation and verification module",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "new JWT auth module; needs adapter for local auth middleware integration"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-003",
+        "path": "backend/app/gateway/auth/credential_file.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["31e5b586"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Write initial admin credentials to restricted file — replaces dangerous auto-admin creation",
+        "requires_local_preservation": false,
+        "initial_risk": "low",
+        "classification": "safe_direct_update",
+        "classification_reason": "replaces auto-admin creation with secure credential file; no runtime activation"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-004",
+        "path": "backend/app/gateway/auth/reset_admin.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["31e5b586"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Reset admin credentials — privileged operation",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "adapter_only",
+        "classification_reason": "privileged admin reset; requires adapter review; not forbidden but needs careful handling"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-005",
+        "path": "backend/app/gateway/auth_middleware.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New auth middleware for gateway",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "new auth middleware; adapter required to coexist with local gateway auth"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-006",
+        "path": "backend/app/gateway/langgraph_auth.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "LangGraph auth integration",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "auth integration with LangGraph; adapter required"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-007",
+        "path": "backend/app/gateway/routers/auth.py",
+        "change_type": "A",
+        "surface_area": "gateway_fastapi",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New FastAPI auth router — adds auth routes to gateway",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "FastAPI route registration; implicated by GSIC-004; requires dedicated unblock review before classification as adapter_only"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-008",
+        "path": "backend/packages/harness/deerflow/persistence/__init__.py",
+        "change_type": "A",
+        "surface_area": "persistence",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New unified persistence layer",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "persistence layer with runtime DB/event store writes; requires full unblock review for runtime replacement"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-009",
+        "path": "backend/packages/harness/deerflow/persistence/engine.py",
+        "change_type": "A",
+        "surface_area": "persistence",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Async SQLAlchemy engine lifecycle — writes to DB at startup",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "DB write at gateway startup; persistence writer; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-010",
+        "path": "backend/packages/harness/deerflow/persistence/feedback/sql.py",
+        "change_type": "A",
+        "surface_area": "persistence",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Feedback persistence SQL model — DB write",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "persistence writer; DB write; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-011",
+        "path": "backend/packages/harness/deerflow/persistence/run/sql.py",
+        "change_type": "A",
+        "surface_area": "persistence",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Run persistence SQL model — DB write",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "persistence writer; DB write; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-012",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/db.py",
+        "change_type": "A",
+        "surface_area": "runtime",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Runtime event store using DB — runtime event write at execution time",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "runtime event store; DB write during execution; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-013",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py",
+        "change_type": "A",
+        "surface_area": "runtime",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Runtime event store using JSONL — audit JSONL write",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "audit JSONL write during execution; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-014",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/memory.py",
+        "change_type": "A",
+        "surface_area": "runtime",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "In-memory runtime event store — runtime write",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "in-memory event store; adapter required for local runtime context"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-015",
+        "path": "backend/packages/harness/deerflow/runtime/journal.py",
+        "change_type": "A",
+        "surface_area": "runtime",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Runtime journal — token tracking and execution logging",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "runtime journal; adapter required; no direct activation"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-016",
+        "path": "backend/pyproject.toml",
+        "change_type": "M",
+        "surface_area": "dependency",
+        "source_commit_refs": ["6cbec134"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Added langchain-ollama and ollama as optional dependencies",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "report_only_quarantine",
+        "classification_reason": "dependency addition; requires dependency risk review; install not allowed in this phase"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-017",
+        "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+        "change_type": "M",
+        "surface_area": "runtime",
+        "source_commit_refs": ["69bf3daf"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Minor change — adds middleware:summarize tag to model",
+        "requires_local_preservation": false,
+        "initial_risk": "none",
+        "classification": "safe_direct_update",
+        "classification_reason": "minor tag addition; no runtime activation; no surface conflict"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-018",
+        "path": "backend/app/gateway/app.py",
+        "change_type": "M",
+        "surface_area": "gateway",
+        "source_commit_refs": ["e75a2ff2", "31e5b586"],
+        "protected_path_hit": true,
+        "protected_module_hit": false,
+        "candidate_summary": "Modified gateway app.py — auth integration changes",
+        "requires_local_preservation": true,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "gateway main path modification with auth integration; GSIC-003 implicated; protected path; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-019",
+        "path": "backend/app/gateway/services.py",
+        "change_type": "M",
+        "surface_area": "gateway",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": true,
+        "protected_module_hit": false,
+        "candidate_summary": "Modified gateway services.py",
+        "requires_local_preservation": true,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "gateway services modification; protected path; adapter required"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-020",
+        "path": "frontend/src/content/en/**/*.mdx",
+        "change_type": "A",
+        "surface_area": "docs",
+        "source_commit_refs": ["b61ce352", "2d5f6f1b", "69bf3daf"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New English documentation pages",
+        "requires_local_preservation": false,
+        "initial_risk": "none",
+        "classification": "safe_direct_update",
+        "classification_reason": "docs-only; no runtime touch; no surface conflict"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-021",
+        "path": "frontend/src/content/zh/**/*.mdx",
+        "change_type": "A",
+        "surface_area": "docs",
+        "source_commit_refs": ["b61ce352", "2d5f6f1b"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New Chinese documentation pages",
+        "requires_local_preservation": false,
+        "initial_risk": "none",
+        "classification": "safe_direct_update",
+        "classification_reason": "docs-only; no runtime touch; no surface conflict"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-022",
+        "path": "backend/langgraph.json",
+        "change_type": "M",
+        "surface_area": "config",
+        "source_commit_refs": ["185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "LangGraph configuration update — persistence layer integration",
+        "requires_local_preservation": false,
+        "initial_risk": "medium",
+        "classification": "adapter_only",
+        "classification_reason": "config change for persistence; adapter required"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-023",
+        "path": "backend/app/gateway/auth/providers.py",
+        "change_type": "A",
+        "surface_area": "auth",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "Auth providers — can trigger auth bootstrap",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "adapter_only",
+        "classification_reason": "auth provider with privileged setup; needs adapter review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-024",
+        "path": "backend/app/gateway/auth/repositories/sqlite.py",
+        "change_type": "A",
+        "surface_area": "persistence",
+        "source_commit_refs": ["e75a2ff2", "185f5649"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "SQLite auth repository — DB write",
+        "requires_local_preservation": false,
+        "initial_risk": "high",
+        "classification": "forbidden_runtime_replacement",
+        "classification_reason": "SQLite DB write for auth; persistence writer; requires full unblock review"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-025",
+        "path": "backend/tests/test_auth.py",
+        "change_type": "A",
+        "surface_area": "test",
+        "source_commit_refs": ["e75a2ff2"],
+        "protected_path_hit": false,
+        "protected_module_hit": false,
+        "candidate_summary": "New auth tests",
+        "requires_local_preservation": false,
+        "initial_risk": "none",
+        "classification": "safe_direct_update",
+        "classification_reason": "test-only; no runtime activation; no surface conflict"
+      }
+    ],
+    "counts_by_class": {
+      "safe_direct_update": 5,
+      "adapter_only": 10,
+      "report_only_quarantine": 1,
+      "forbidden_runtime_replacement": 8
+    },
+    "classification_complete": true,
+    "violations": []
+  },
+  "local_customization_conflict_matrix": [
+    {
+      "candidate_id": "R241-19G-CAND-018",
+      "path": "backend/app/gateway/app.py",
+      "protected_asset_conflict": true,
+      "conflict_type": "overwrite_risk",
+      "preservation_rule_applied": "full_unblock_review_required",
+      "decision": "forbidden_runtime_replacement — protected path gateway/app.py modification; GSIC-003 implicated; requires dedicated unblock review before any patch apply"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-019",
+      "path": "backend/app/gateway/services.py",
+      "protected_asset_conflict": true,
+      "conflict_type": "overwrite_risk",
+      "preservation_rule_applied": "adapter_required",
+      "decision": "adapter_only — protected path; adapter required for conflicts"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-007",
+      "path": "backend/app/gateway/routers/auth.py",
+      "protected_asset_conflict": false,
+      "conflict_type": "runtime_conflict",
+      "preservation_rule_applied": "full_unblock_review_required",
+      "decision": "forbidden_runtime_replacement — FastAPI route registration; GSIC-004 implicated"
+    }
+  ],
+  "forbidden_runtime_replacement_audit": {
+    "hits": [
+      {
+        "candidate_id": "R241-19G-CAND-007",
+        "path": "backend/app/gateway/routers/auth.py",
+        "surface": "FastAPI route registration",
+        "blocker_implicated": "GSIC-004"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-018",
+        "path": "backend/app/gateway/app.py",
+        "surface": "gateway main path modification",
+        "blocker_implicated": "GSIC-003"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-009",
+        "path": "backend/packages/harness/deerflow/persistence/engine.py",
+        "surface": "persistence writer — DB write at startup",
+        "blocker_implicated": "SURFACE-010"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-024",
+        "path": "backend/app/gateway/auth/repositories/sqlite.py",
+        "surface": "persistence writer — auth DB write",
+        "blocker_implicated": "SURFACE-010"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-012",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/db.py",
+        "surface": "runtime event store DB write",
+        "blocker_implicated": "SURFACE-010"
+      },
+      {
+        "candidate_id": "R241-19G-CAND-013",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py",
+        "surface": "audit JSONL write",
+        "blocker_implicated": "SURFACE-010"
+      }
+    ],
+    "candidates_blocked": [
+      "R241-19G-CAND-007",
+      "R241-19G-CAND-009",
+      "R241-19G-CAND-012",
+      "R241-19G-CAND-013",
+      "R241-19G-CAND-018",
+      "R241-19G-CAND-024"
+    ],
+    "blockers_implicated": [
+      "GSIC-003",
+      "GSIC-004",
+      "SURFACE-010"
+    ],
+    "all_forbidden_candidates_quarantined": true,
+    "violations": []
+  },
+  "dependency_change_review": {
+    "dependency_files_touched": [
+      "backend/pyproject.toml",
+      "backend/packages/harness/deerflow/pyproject.toml",
+      "backend/uv.lock",
+      "backend/uv.toml"
+    ],
+    "dependency_candidates": [
+      {
+        "path": "backend/pyproject.toml",
+        "change_type": "M",
+        "added_dependencies": ["langchain-ollama", "ollama"],
+        "dependency_type": "optional",
+        "new_packages": ["langchain-ollama", "ollama"],
+        "runtime_implications": "optional LLM integration — low risk if not activated"
+      }
+    ],
+    "install_execution_allowed": false,
+    "dependency_upgrade_execution_allowed": false,
+    "classification": "report_only_quarantine",
+    "required_future_review": "dependency_risk_review",
+    "violations": []
+  },
+  "auth_impact_review": {
+    "files": [
+      "backend/app/gateway/auth/__init__.py",
+      "backend/app/gateway/auth/jwt.py",
+      "backend/app/gateway/auth/providers.py",
+      "backend/app/gateway/auth/credential_file.py",
+      "backend/app/gateway/auth/reset_admin.py",
+      "backend/app/gateway/auth_middleware.py",
+      "backend/app/gateway/langgraph_auth.py",
+      "backend/app/gateway/auth/repositories/sqlite.py"
+    ],
+    "auto_admin_creation_removed_or_replaced": true,
+    "first_boot_setup_implications": [
+      "replaces dangerous auto-admin creation with secure credential file approach",
+      "interactive first-boot setup instead of automatic privileged user creation"
+    ],
+    "privileged_user_creation_risk": "reduced",
+    "classification_recommendation": "adapter_only — auth overhaul is valuable but requires adapter for local custom auth; auto-admin removal is positive security improvement"
+  },
+  "persistence_impact_review": {
+    "files": [
+      "backend/packages/harness/deerflow/persistence/engine.py",
+      "backend/packages/harness/deerflow/persistence/base.py",
+      "backend/packages/harness/deerflow/persistence/feedback/sql.py",
+      "backend/packages/harness/deerflow/persistence/run/sql.py",
+      "backend/packages/harness/deerflow/persistence/thread_meta/sql.py",
+      "backend/packages/harness/deerflow/persistence/user/model.py",
+      "backend/packages/harness/deerflow/runtime/events/store/db.py",
+      "backend/packages/harness/deerflow/runtime/events/store/jsonl.py"
+    ],
+    "event_store_implications": ["new unified event store supporting DB, JSONL, and memory backends"],
+    "token_tracking_implications": ["new runtime journal for token tracking and execution logging"],
+    "feedback_storage_implications": ["new feedback persistence layer with SQL backend"],
+    "runtime_write_risk": "high",
+    "blockers_implicated": ["SURFACE-010"],
+    "classification_recommendation": "forbidden_runtime_replacement — persistence layer with DB writes at startup and runtime; requires full unblock review before any apply"
+  },
+  "docs_config_impact_review": {
+    "docs_files": [
+      "frontend/src/content/en/**/*.mdx (26 new/updated)",
+      "frontend/src/content/zh/**/*.mdx (26 new/updated)",
+      "backend/docs/AUTH_TEST_DOCKER_GAP.md",
+      "backend/docs/AUTH_TEST_PLAN.md",
+      "backend/docs/AUTH_UPGRADE.md"
+    ],
+    "config_files": [
+      "backend/langgraph.json",
+      "backend/uv.toml",
+      "config.example.yaml",
+      "docker/docker-compose.yaml"
+    ],
+    "docs_only_candidates": 52,
+    "docs_with_runtime_api_references": 3,
+    "classification_recommendation": "safe_direct_update for docs-only; adapter_only for docs with runtime references"
+  },
+  "test_impact_matrix": {
+    "core_144_required": true,
+    "upgrade_intake_tests_required": true,
+    "candidate_specific_tests_required": ["test_auth.py", "test_auth_config.py", "test_auth_errors.py", "test_auth_middleware.py", "test_persistence_scaffold.py", "test_run_event_store.py"],
+    "dependency_tests_required": [],
+    "auth_tests_required": ["test_auth.py", "test_ensure_admin.py", "test_initialize_admin.py"],
+    "persistence_tests_required": ["test_persistence_scaffold.py", "test_run_event_store.py", "test_run_journal.py"],
+    "docs_tests_required": [],
+    "protected_customization_tests_required": [],
+    "pre_existing_failure_carried": true,
+    "pre_existing_failure_name": "test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path"
+  },
+  "rollback_abort_matrix": {
+    "abort_conditions": [
+      "RootGuard fail",
+      "base/target mismatch",
+      "dirty baseline mismatch",
+      "unexpected branch switch",
+      "git fetch/pull/merge/rebase attempted",
+      "patch apply attempted",
+      "dependency install attempted",
+      "production runtime modification",
+      "gateway/FastAPI candidate marked safe without review",
+      "memory/MCP candidate marked safe without review",
+      "persistence writer marked safe without review",
+      "secret/token/webhook migration detected",
+      "blocker override attempted",
+      "actual activation attempted",
+      "core 144 regression",
+      "upgrade intake tests regression",
+      "classification incomplete",
+      "forbidden runtime candidate not quarantined"
+    ],
+    "rollback_not_executed": true,
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true,
+    "patch_apply_forbidden": true,
+    "dependency_execution_forbidden": true,
+    "violations": []
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {
+        "pattern": "app.include_router (pre-existing in gateway/app.py lines 260-296)",
+        "location": "backend/app/gateway/app.py",
+        "classification": "explanatory_only_pre-existing_gateway_route_registrations",
+        "blocked_by": "GSIC-004"
+      }
+    ],
+    "candidate_hits": [],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v"
+    ],
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "core_144_passed": true,
+    "upgrade_intake_tests_passed": 32,
+    "pre_existing_failure_carried": true,
+    "new_failures": []
+  },
+  "r241_19h_readiness": {
+    "allow_enter_r241_19h": true,
+    "recommended_next_round": "R241-19H_UPGRADE_CANDIDATE_RISK_REVIEW",
+    "reason": "verified diff intake completed; base/target verified; 25 candidates classified; 8 forbidden candidates quarantined; 8 blockers preserved; tests passed; safety violations=[]",
+    "blockers": [],
+    "warnings": [
+      "8 forbidden_runtime_replacement candidates quarantined — requires R241-19H dedicated unblock review before any apply",
+      "persistence layer (SURFACE-010 implicated) — full unblock review required",
+      "FastAPI auth router (GSIC-004 implicated) — unblock review required",
+      "gateway/app.py modification (GSIC-003 implicated) — unblock review required",
+      "pre_existing_failure_test_runtime_activation_readiness_still_present"
+    ]
+  },
+  "verified_upstream_diff_intake_passed": true,
+  "base_target_verified": true,
+  "classification_matrix_ready": true,
+  "forbidden_runtime_candidates_quarantined": true,
+  "actual_upgrade_execution_allowed": false,
+  "patch_apply_executed": false,
+  "dependency_execution_executed": false,
+  "runtime_touch_detected": false,
+  "allow_enter_r241_19h": true,
+  "blockers_remaining": 8,
+  "warnings": [
+    "8 forbidden_runtime_replacement candidates quarantined",
+    "persistence_layer_runtime_write_SURFACE-010_implicated",
+    "fastapi_auth_router_GSIC-004_implicated",
+    "gateway_app_modification_GSIC-003_implicated",
+    "dependency_addition_langchain_ollama_report_only_quarantine",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [
+    "gateway/app.py (protected path) conflicts with upstream auth changes",
+    "gateway/services.py (protected path) conflicts with upstream auth changes",
+    "local custom auth vs new auth system"
+  ],
+  "safety_violations": [],
+  "recommended_resume_point": "R241-19G",
+  "next_prompt_needed": "R241-19H_UPGRADE_CANDIDATE_RISK_REVIEW",
+  "report_timestamp": "2026-04-28T20:45:00+00:00"
+}

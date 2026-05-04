@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-4_5_STATE_GRAPH.json",
+  "title": "State Graph",
+  "description": "All state systems, their storage, lifecycle, and read/write access patterns",
+  "state_systems": [
+    {
+      "id": "gateway_run_state",
+      "owner": "Gateway",
+      "storage": "In-memory RunManager (backend/packages/harness/deerflow/runtime/runs/manager.py:40)",
+      "persistence": "Non-persistent. Lost on process restart.",
+      "lifecycle": "Per run (run_id generated, task created, task completes/fails/cancels)",
+      "read_systems": ["Gateway (sse_consumer)", "ChannelManager"],
+      "write_systems": ["Gateway (start_run)", "DeerFlow runtime (via run_mgr)"],
+      "cleanup": "run_mgr.cleanup() called on completion/cancel",
+      "id_fields": ["run_id (UUID, not persisted)", "thread_id"],
+      "same_name_different_meaning": "run_id is unique per invocation; not related to M04 task_id"
+    },
+    {
+      "id": "deerflow_thread_state",
+      "owner": "DeerFlow/LangGraph",
+      "storage": "LangGraph Checkpointer + Store (async_provider.py)",
+      "persistence": "Persisted to filesystem. Checkpoint per node. Store for thread metadata.",
+      "lifecycle": "Per thread -- created via POST /api/threads, lives until explicit delete",
+      "read_systems": ["Gateway (thread state API)", "Frontend (via LangGraph SDK)", "DeerFlow runtime (checkpointer attached to agent)"],
+      "write_systems": ["DeerFlow runtime (agent state updates)", "TitleMiddleware (title sync)", "Gateway (_sync_thread_title_after_run)"],
+      "cleanup": "ThreadStateResponse indicates when tasks are done. No automatic cleanup.",
+      "id_fields": ["thread_id (UUID)", "checkpoint_id", "parent_checkpoint_id"],
+      "same_name_different_meaning": "thread_id here is the LangGraph thread_id; M01 uses sessionId differently"
+    },
+    {
+      "id": "m01_request_state",
+      "owner": "M01 Orchestrator",
+      "storage": "In-memory (RuntimeState singleton + MainAgentHandoffManager singleton)",
+      "persistence": "Non-persistent. In-process only.",
+      "lifecycle": "Per OrchestrationRequest.execute() call",
+      "read_systems": ["M01 Orchestrator", "RTCM handoff"],
+      "write_systems": ["M01 Orchestrator (execute())"],
+      "cleanup": "RuntimeState cleared per request; MainAgentHandoffManager uses TTL",
+      "id_fields": ["requestId (OrchestrationRequest)", "sessionId (OrchestrationRequest)"],
+      "same_name_different_meaning": "sessionId is M01's session identifier; NOT the same as Gateway thread_id or RTCM session_id"
+    },
+    {
+      "id": "m04_task_state",
+      "owner": "M04 Coordinator",
+      "storage": "In-memory Map<string, Task> + unified_executor.ts checkpoints",
+      "persistence": "Optional checkpoint to /tmp/openclaw/checkpoints (coordinator.ts:115)",
+      "lifecycle": "Per task -- created when DAG node executes, removed on completion/failure",
+      "read_systems": ["M04 Coordinator", "M04 DAGExecutor", "e2e tests"],
+      "write_systems": ["M04 Coordinator (createTask, updateTask)"],
+      "cleanup": "Task map cleared on coordinator shutdown; checkpoint recovery available",
+      "id_fields": ["task_id (= request_id from ExecutionContext)", "node_id (DAG node)"],
+      "same_name_different_meaning": "task_id in M04 is request_id; NOT the same as Governance task_id or RTCM task_id"
+    },
+    {
+      "id": "rtcm_session_state",
+      "owner": "RTCM",
+      "storage": "In-memory RuntimeState singleton + file system (~/.deerflow/rtcm/)",
+      "persistence": "Session state in-memory with TTL; dossier/council persisted to filesystem",
+      "lifecycle": "Per RTCM session -- ACTIVE -> PAUSED/WAITING_FOR_USER -> ARCHIVED/FAILED",
+      "read_systems": ["RTCM handoff manager", "RTCM session manager", "dossier_writer"],
+      "write_systems": ["RTCM handoff manager (activateRTCM, resumeRTCMSession)", "userInterventionClassifier", "dossier_writer"],
+      "cleanup": "TTL-based expiry (24h default); archived sessions persist dossier",
+      "id_fields": ["rtcm_session_id", "projectId", "threadId (rtcm thread)", "issueId"],
+      "same_name_different_meaning": "threadId in RTCM is rtcm thread, NOT Gateway thread_id"
+    },
+    {
+      "id": "governance_state",
+      "owner": "M11 GovernanceBridge",
+      "storage": "governance_state.json (backend/app/m11/governance_state.json)",
+      "persistence": "Persistent. Append-only decisions array (last 100). Append-only outcome_records (last 100).",
+      "lifecycle": "Long-lived. Updated by record_outcome() and _add_decision().",
+      "read_systems": ["DPBS (discovery reads outcome_records)", "M08 learning_system", "UpgradeCenter (demand sampling)", "GovernanceBridge (_load_state)"],
+      "write_systems": ["QueueConsumer (sandbox_execution_result)", "Watchdog (nightly_evolution, doctrine_drift, upgrade_center_*)", "DPBS (asset_promotion)", "UpgradeCenter (backflow)"],
+      "cleanup": "No automatic cleanup. Manual truncation if file grows too large.",
+      "id_fields": ["decision_id (UUID)", "outcome_id (UUID)", "governance_trace_id (optional, from ContextEnvelope)"],
+      "same_name_different_meaning": "governance_trace_id is from ContextEnvelope, NOT the same as M01 requestId"
+    },
+    {
+      "id": "upgrade_center_state",
+      "owner": "UpgradeCenter",
+      "storage": "~/.deerflow/upgrade-center/state/ (observation_pool.json, experiment_pool.json, approval_backlog.json, cooldown_registry.json)",
+      "persistence": "Persistent across UC runs",
+      "lifecycle": "Per UC invocation (U0-U8 pipeline); state survives process restarts",
+      "read_systems": ["UpgradeCenter (U1-U8 pipeline stages)", "QueueConsumer (reads experiment_queue.json)"],
+      "write_systems": ["UpgradeCenter (each stage writes its output)"],
+      "cleanup": "State persists; cooldown_registry has 7-day TTL per entry",
+      "id_fields": ["candidate_id (demand-{timestamp}-{project})", "experiment_id"],
+      "same_name_different_meaning": "candidate_id is UpgradeCenter's own ID; NOT the same as governance candidate_id"
+    },
+    {
+      "id": "memory_state",
+      "owner": "DeerFlow Memory",
+      "storage": "FileMemoryStorage (JSON ~/.deerflow/memory/) + Qdrant vector DB",
+      "persistence": "Persistent. FileMemoryStorage JSON + Qdrant sync.",
+      "lifecycle": "Per thread_id session; FileMemoryStorage scoped by agent_name",
+      "read_systems": ["MemoryMiddleware (abefore_agent -- semantic search)", "MemoryUpdater (read for update)"],
+      "write_systems": ["MemoryUpdater (update_memory -> save)", "MemoryMiddleware (after_agent queues update)"],
+      "cleanup": "No automatic cleanup. FileMemoryStorage has mtime-based cache.",
+      "id_fields": ["fact_id (hash-based)", "agent_name (path scope)"],
+      "same_name_different_meaning": "memory has no thread_id in storage key; only agent_name is used for scope"
+    },
+    {
+      "id": "asset_state",
+      "owner": "M07 DPBS",
+      "storage": "latest_binding_report.json (.openclaw/data/dpbs/) + governance_state.json (outcome_records)",
+      "persistence": "Persistent. DPBS report + governance outcome records.",
+      "lifecycle": "Long-lived. Asset persists until manually deregistered.",
+      "read_systems": ["DPBS discovery engine", "M08 learning_system (asset hit quality)"],
+      "write_systems": ["DPBS bind_platform() (asset_promotion outcome)", "DPBS discovery (reads governance outcome_records)"],
+      "cleanup": "No automatic cleanup. Self-reinforcing: asset_promotion outcomes feed discovery.",
+      "id_fields": ["asset_id (mcp-{server} or gov-{tool})", "candidate_id (source demand)"],
+      "same_name_different_meaning": "asset_id is unique per platform/MCP; candidate_id is demand source"
+    },
+    {
+      "id": "watchdog_state",
+      "owner": "Watchdog",
+      "storage": "boulder.json (backend/src/infrastructure/boulder.json)",
+      "persistence": "Persistent. Heartbeat state including last_nightly_review, last_upgrade_center_run.",
+      "lifecycle": "24/7 sentinel process. DAY mode (5min intervals 06:00-22:00), NIGHT mode (30min intervals).",
+      "read_systems": ["Watchdog (all trigger checks)", "NightlyDistiller (reads needs_attention flag)"],
+      "write_systems": ["Watchdog (heartbeat update, nightly_upgrade_pending, needs_attention)"],
+      "cleanup": "Never deleted. Persistent across restarts.",
+      "id_fields": ["mode (DAY/NIGHT)", "last_sync", "nightly_upgrade_pending", "distiller_coordination"],
+      "same_name_different_meaning": "watchdog has no thread_id/run_id -- completely independent state system"
+    },
+    {
+      "id": "frontend_thread_state",
+      "owner": "Frontend",
+      "storage": "In-memory React state (AgentThreadState: title, messages[], artifacts[], todos[])",
+      "persistence": "SessionStorage/LocalStorage optionally. Not persisted to backend.",
+      "lifecycle": "Per user session in browser",
+      "read_systems": ["Frontend React components"],
+      "write_systems": ["Frontend thread hooks (sendMessage, receive streaming events)"],
+      "cleanup": "Browser session end or explicit clear",
+      "id_fields": ["AgentThreadContext.thread_id (maps to Gateway thread_id)", "conversation_id"],
+      "same_name_different_meaning": "Frontend thread_id == Gateway thread_id (same UUID, same entity)"
+    }
+  ],
+  "state_interaction_matrix": {
+    "describes": "which state systems read/write each other's data",
+    "cross_references": [
+      {"state": "governance_state", "reads_from": ["asset_state (outcome_records)"], "writes_to": ["asset_state (via DPBS discovery loop)"]},
+      {"state": "deerflow_thread_state", "reads_from": [], "writes_to": ["memory_state (MemoryMiddleware writes memory per thread)"]},
+      {"state": "m04_task_state", "reads_from": [], "writes_to": ["governance_state (via ExecutorAdapter -> queue_consumer -> governance)"]},
+      {"state": "upgrade_center_state", "reads_from": ["governance_state (demand sampling)"], "writes_to": ["governance_state (backflow outcomes)", "upgrade_center_state (experiment_queue -> queue_consumer)"]},
+      {"state": "memory_state", "reads_from": ["deerflow_thread_state (MemoryMiddleware reads thread state)"], "writes_to": []},
+      {"state": "rtcm_session_state", "reads_from": [], "writes_to": ["governance_state (NO -- RTCM does NOT write governance_state)"]}
+    ]
+  },
+  "same_name_conflicts": [
+    {"id": "thread_id", "in_systems": ["deerflow_thread_state", "frontend_thread_state", "rtcm_session_state"], "note": "Frontend/Gateway thread_id = same entity. RTCM threadId = rtcm thread, different."},
+    {"id": "session_id", "in_systems": ["m01_request_state", "rtcm_session_state"], "note": "M01 sessionId != RTCM rtcm_session_id. Completely independent."},
+    {"id": "task_id", "in_systems": ["m04_task_state", "governance_state"], "note": "M04 task_id = request_id. Governance has task_id in outcome context but NOT as primary key."},
+    {"id": "request_id", "in_systems": ["m01_request_state", "governance_state (as governance_trace_id)"], "note": "M01 requestId carried as governance_trace_id in ContextEnvelope."}
+  ]
+}

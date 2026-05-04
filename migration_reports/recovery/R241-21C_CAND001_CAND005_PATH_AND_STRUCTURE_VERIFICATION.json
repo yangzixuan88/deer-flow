@@ -1,0 +1,144 @@
+{
+  "report_id": "R241-21C_CAND001_CAND005_PATH_AND_STRUCTURE_VERIFICATION",
+  "phase": "phase_21c_cand001_cand005_path_and_structure_verification",
+  "status": "blocked_candidates_requires_auth_bundle_design",
+  "decision": "no_cand001_cand005_safe_to_apply_without_auth_bundle",
+  "source": "R241-21B_SAFE_CONFIG_CHANGE_BATCH2",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "local_structure_check": {
+    "backend_app_gateway_exists": true,
+    "backend_app_gateway_app_exists": true,
+    "backend_app_gateway_services_exists": true,
+    "backend_app_gateway_routers_exists": true,
+    "backend_app_gateway_auth_exists": false,
+    "backend_app_gateway_auth_init_exists": false,
+    "backend_app_gateway_auth_middleware_exists": false,
+    "backend_app_gateway_authz_exists": false,
+    "backend_app_gateway_internal_auth_exists": false,
+    "deerflow_runtime_user_context_exists": false
+  },
+
+  "cand001_analysis": {
+    "candidate": "CAND-001",
+    "path": "backend/app/gateway/auth/__init__.py",
+    "type": "auth",
+    "upstream_dependencies": [
+      "auth/config.py",
+      "auth/errors.py",
+      "auth/jwt.py",
+      "auth/local_provider.py",
+      "auth/models.py",
+      "auth/password.py",
+      "auth/providers.py",
+      "auth/repositories/base.py"
+    ],
+    "local_dependencies_exist": 0,
+    "can_apply_independently": false,
+    "status": "requires_auth_bundle_design",
+    "priority": "P3"
+  },
+
+  "cand005_analysis": {
+    "candidate": "CAND-005",
+    "path": "backend/app/gateway/auth_middleware.py",
+    "type": "auth",
+    "upstream_dependencies": [
+      "app/gateway/auth/errors.py",
+      "app/gateway/authz.py",
+      "app/gateway/internal_auth.py",
+      "deerflow/runtime/user_context.py"
+    ],
+    "local_dependencies_exist": 0,
+    "can_apply_independently": false,
+    "surface_010_related": true,
+    "reason": "user_context triggers memory runtime initialization",
+    "status": "requires_auth_bundle_design",
+    "priority": "P4"
+  },
+
+  "classification_results": {
+    "cand001_status": "requires_auth_bundle_design",
+    "cand005_status": "requires_auth_bundle_design",
+    "safe_to_implement_now": [],
+    "requires_bundle_design": ["CAND-001", "CAND-005"],
+    "blocked_candidates": [
+      "CAND-001", "CAND-002", "CAND-004", "CAND-005",
+      "CAND-006", "CAND-014", "CAND-015", "CAND-019", "CAND-023"
+    ],
+    "auth_bundle_required": true,
+    "auth_bundle_candidates_count": 6
+  },
+
+  "auth_bundle_members": {
+    "count": 6,
+    "candidates": [
+      {"id": "CAND-001", "path": "auth/__init__.py", "priority": "P3"},
+      {"id": "CAND-002", "path": "auth/jwt.py", "priority": "blocked"},
+      {"id": "CAND-004", "path": "auth/reset_admin.py", "priority": "auth_review"},
+      {"id": "CAND-005", "path": "auth_middleware.py", "priority": "P4 (SURFACE-010)"},
+      {"id": "CAND-006", "path": "langgraph_auth.py", "priority": "blocked"},
+      {"id": "CAND-023", "path": "auth/providers.py", "priority": "auth_review"}
+    ]
+  },
+
+  "revised_safe_subset": {
+    "total_candidates": 10,
+    "safe_now": [],
+    "requires_bundle_design": ["CAND-001", "CAND-005"],
+    "blocked_by_carryover": ["CAND-002", "CAND-014", "CAND-015", "CAND-019"],
+    "auth_review_required": ["CAND-004", "CAND-023"],
+    "no_action_needed": ["CAND-022"]
+  },
+
+  "safety_verification": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "patch_applied": false,
+    "auth_dir_created": false,
+    "auth_middleware_created": false,
+    "gateway_modified": false,
+    "route_registered": false,
+    "runtime_activated": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "blocked_candidates_requires_auth_bundle_design",
+    "decision": "no_cand001_cand005_safe_to_apply_without_auth_bundle",
+    "cand001_status": "requires_auth_bundle_design",
+    "cand005_status": "requires_auth_bundle_design",
+    "safe_to_implement_now": [],
+    "auth_bundle_required": true,
+    "auth_bundle_candidates_count": 6,
+    "surface_010_related_cand005": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-21C",
+    "next_prompt_needed": "user_selection"
+  }
+}

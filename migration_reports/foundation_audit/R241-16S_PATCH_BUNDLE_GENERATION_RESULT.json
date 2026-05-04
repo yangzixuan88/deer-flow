@@ -1,0 +1,532 @@
+{
+  "result_id": "R241-16S-result-20260426070834",
+  "generated_at": "2026-04-26T07:08:34.787408+00:00",
+  "status": "generated",
+  "decision": "generate_patch_and_bundle",
+  "source_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+  "source_commit_only_target_workflow": true,
+  "patch_generated": true,
+  "bundle_generated": true,
+  "manifest_generated": true,
+  "artifacts": [
+    {
+      "artifact_id": "artifact-patch-R241-16S-result-20260426070834",
+      "artifact_type": "patch",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch",
+      "exists": true,
+      "size_bytes": 3277,
+      "sha256": "3f9d456c201e4155787595ba18c45a06425264b6e1b6342289a3d4599c7f6fa8",
+      "contains_target_workflow": true,
+      "contains_non_target_files": false,
+      "safe_to_share": true,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "artifact-bundle-R241-16S-result-20260426070834",
+      "artifact_type": "bundle",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+      "exists": true,
+      "size_bytes": 1314,
+      "sha256": "99198cd2a9ae1c93d7302dafa0906dbf97746de515ab775fecb62996988092a6",
+      "safe_to_share": true,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "artifact-manifest-R241-16S-result-20260426070834",
+      "artifact_type": "manifest",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_MANIFEST.json",
+      "exists": true,
+      "size_bytes": 2530,
+      "sha256": "e3a798e6d9f8d72b49d4c4b1a7fa82ef5fd6cf60e12a3322728c9d83f442ddf2",
+      "safe_to_share": true,
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "prechecks": {
+    "all_passed": true,
+    "precheck_id": "precheck-20260426070834",
+    "generated_at": "2026-04-26T07:08:34.251945+00:00",
+    "checks": [
+      {
+        "check_id": "gate_status",
+        "check_type": "gate_status",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16R gate status must be allowed_for_next_review",
+        "observed_value": "allowed_for_next_review",
+        "expected_value": "allowed_for_next_review",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "gate_decision",
+        "check_type": "gate_decision",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16R gate decision must be allow_recovery_implementation_review",
+        "observed_value": "allow_recovery_implementation_review",
+        "expected_value": "allow_recovery_implementation_review",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "gate_requested_option",
+        "check_type": "requested_option",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Requested option must be option_d_generate_patch_bundle_after_confirmation",
+        "observed_value": "option_d_generate_patch_bundle_after_confirmation",
+        "expected_value": "option_d_generate_patch_bundle_after_confirmation",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "gate_next_phase",
+        "check_type": "next_phase",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Allowed next phase must be R241-16S_patch_bundle_generation",
+        "observed_value": "R241-16S_patch_bundle_generation",
+        "expected_value": "R241-16S_patch_bundle_generation",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "gate_recovery_contract",
+        "check_type": "recovery_contract",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16R gate must set recovery_action_allowed_now=false (gate contract)",
+        "observed_value": false,
+        "expected_value": false,
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "gate_staged_area_clean",
+        "check_type": "staged_area_clean",
+        "passed": true,
+        "risk_level": "high",
+        "description": "R241-16Q-B staged area must be empty",
+        "observed_value": true,
+        "expected_value": true,
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "gate_commit_hash",
+        "check_type": "commit_hash",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Local commit hash must be 94908556cc2ca66c219d361f424954945eee9e67",
+        "observed_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "expected_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "git_available",
+        "check_type": "git_available",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "git must be available",
+        "observed_value": "git version 2.53.0.windows.1",
+        "expected_value": "git version ...",
+        "blocked_reasons": [],
+        "command_result": {
+          "argv": [
+            "git",
+            "--version"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": "git version 2.53.0.windows.1\n",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "local_commit_exists",
+        "check_type": "commit_exists",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Local commit 94908556cc2ca66c219d361f424954945eee9e67 must exist",
+        "observed_value": 0,
+        "expected_value": 0,
+        "blocked_reasons": [],
+        "command_result": {
+          "argv": [
+            "git",
+            "cat-file",
+            "-t",
+            "94908556cc2ca66c219d361f424954945eee9e67"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": "commit\n",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "commit_changed_files",
+        "check_type": "commit_scope",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Commit must only change .github/workflows/foundation-manual-dispatch.yml",
+        "observed_value": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "expected_value": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "blocked_reasons": [],
+        "command_result": {
+          "argv": [
+            "git",
+            "diff-tree",
+            "--no-commit-id",
+            "--name-only",
+            "-r",
+            "94908556cc2ca66c219d361f424954945eee9e67"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": ".github/workflows/foundation-manual-dispatch.yml\n",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "head_matches_commit",
+        "check_type": "head_stable",
+        "passed": true,
+        "risk_level": "high",
+        "description": "HEAD must be at 94908556cc2ca66c219d361f424954945eee9e67",
+        "observed_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "expected_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "blocked_reasons": [],
+        "command_result": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": "94908556cc2ca66c219d361f424954945eee9e67\n",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "remote_workflow_missing",
+        "check_type": "remote_missing",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Remote origin/main must not contain target workflow",
+        "observed_value": "",
+        "expected_value": "",
+        "blocked_reasons": [],
+        "command_result": {
+          "argv": [
+            "git",
+            "ls-tree",
+            "-r",
+            "origin/main",
+            "--",
+            ".github/workflows/foundation-manual-dispatch.yml"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "staged_area_empty",
+        "check_type": "staged_area_clean",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Current staged area must be empty",
+        "observed_value": "",
+        "expected_value": "",
+        "blocked_reasons": [],
+        "command_result": {
+          "argv": [
+            "git",
+            "diff",
+            "--cached",
+            "--name-only"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "workflow_content_safe",
+        "check_type": "workflow_content",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Target workflow must be workflow_dispatch only",
+        "observed_value": {
+          "has_dispatch": true,
+          "no_pr_trigger": false
+        },
+        "expected_value": {
+          "has_dispatch": true
+        },
+        "blocked_reasons": [],
+        "warnings": [
+          "workflow_may_have_pr_trigger"
+        ],
+        "errors": []
+      },
+      {
+        "check_id": "output_directory_exists",
+        "check_type": "output_dir",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Output directory E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit must exist",
+        "observed_value": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+        "expected_value": "directory exists",
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": [],
+    "gate_loaded": true,
+    "gate_passed": true
+  },
+  "baseline_captured": true,
+  "patch_artifact": {
+    "artifact_type": "patch",
+    "command_executed": true,
+    "exit_code": 0,
+    "argv": [
+      "git",
+      "format-patch",
+      "-1",
+      "94908556cc2ca66c219d361f424954945eee9e67",
+      "-o",
+      "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit"
+    ],
+    "stdout_tail": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit/0001-Add-manual-foundation-CI-workflow.patch\n",
+    "stderr_tail": "",
+    "generated_patch_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\0001-Add-manual-foundation-CI-workflow.patch",
+    "canonical_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch",
+    "artifacts_found": [
+      "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\0001-Add-manual-foundation-CI-workflow.patch",
+      "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch"
+    ],
+    "warnings": [
+      "could_not_rename_patch"
+    ],
+    "errors": [],
+    "patch_exists": true,
+    "patch_size_bytes": 3277,
+    "patch_sha256": "3f9d456c201e4155787595ba18c45a06425264b6e1b6342289a3d4599c7f6fa8",
+    "patch_changed_files": [
+      ".github/workflows/foundation-manual-dispatch.yml"
+    ],
+    "contains_only_target_workflow": true
+  },
+  "bundle_artifact": {
+    "artifact_type": "bundle",
+    "command_executed": true,
+    "exit_code": 0,
+    "argv": [
+      "git",
+      "bundle",
+      "create",
+      "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+      "HEAD~1..HEAD"
+    ],
+    "stdout_tail": "",
+    "stderr_tail": "",
+    "bundle_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+    "warnings": [],
+    "errors": [],
+    "bundle_exists": true,
+    "bundle_size_bytes": 1314,
+    "bundle_sha256": "99198cd2a9ae1c93d7302dafa0906dbf97746de515ab775fecb62996988092a6"
+  },
+  "manifest_result": {
+    "manifest_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_MANIFEST.json",
+    "manifest_exists": true,
+    "manifest_size_bytes": 2530,
+    "manifest_sha256": "e3a798e6d9f8d72b49d4c4b1a7fa82ef5fd6cf60e12a3322728c9d83f442ddf2",
+    "warnings": [],
+    "errors": []
+  },
+  "git_command_results": [
+    {
+      "argv": [
+        "git",
+        "format-patch",
+        "-1",
+        "94908556cc2ca66c219d361f424954945eee9e67",
+        "-o",
+        "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit"
+      ],
+      "exit_code": 0,
+      "command_executed": true
+    },
+    {
+      "argv": [
+        "git",
+        "bundle",
+        "create",
+        "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+        "HEAD~1..HEAD"
+      ],
+      "exit_code": 0,
+      "command_executed": true
+    }
+  ],
+  "validation": {
+    "valid": true,
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "local_mutation_guard": {
+    "all_passed": true,
+    "baseline": {
+      "captured_at": "2026-04-26T07:08:34.383898+00:00",
+      "head_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+      "branch": "main",
+      "staged_files": [],
+      "git_status_short": " M .dockerignore\n M .gitignore\n M backend/AGENTS.md\n M backend/Dockerfile\n M backend/app/channels/discord.py\n M backend/app/channels/feishu.py\n M backend/app/channels/manager.py\n M backend/app/channels/service.py\n M backend/app/channels/slack.py\n M backend/app/channels/telegram.py\n M backend/app/gateway/__init__.py\n M backend/app/gateway/app.py\n M backend/app/gateway/config.py\n M backend/app/gateway/routers/__init__.py\n M backend/app/gateway/routers/agents.py\n M backend/app/gateway/routers/mcp.py\n M backend/app/gateway/services.py\n M backend/packages/harness/deerflow/agents/factory.py\n M backend/packages/harness/deerflow/agents/lead_agent/__init__.py\n M backend/packages/harness/deerflow/agents/lead_agent/agent.py\n M backend/packages/harness/deerflow/agents/lead_agent/prompt.py\n M backend/packages/harness/deerflow/agents/memory/prompt.py\n M backend/packages/harness/deerflow/agents/memory/storage.py\n M backend/packages/harness/deerflow/agents/memory/updater.py\n M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\n M backend/packages/harness/deerflow/agents/thread_state.py\n M backend/packages/harness/deerflow/config/agents_config.py\n M backend/packages/harness/deerflow/config/app_config.py\n M backend/packages/harness/deerflow/config/extensions_config.py\n M backend/packages/harness/deerflow/config/memory_config.py\n M backend/packages/harness/deerflow/config/paths.py\n M backend/packages/harness/deerflow/mcp/client.py\n M backend/packages/harness/deerflow/mcp/oauth.py\n M backend/packages/harness/deerflow/mcp/tools.py\n M backend/packages/harness/deerflow/models/factory.py\n M backend/packages/harness/deerflow/models/patched_minimax.py\n M backend/packages/harness/deerflow/runtime/runs/worker.py\n M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py\n M backend/packages/harness/deerflow/tools/builtins/__init__.py\n M backend/packages/harness/deerflow/tools/builtins/task_tool.py\n M backend/packages/harness/deerflow/tools/tools.py\n M backend/packages/harness/pyproject.toml\n M backend/pyproject.toml\n M backend/tests/test_channels.py\n M backend/uv.lock\n M docker/provisioner/app.py\n M frontend/.env.example\n M frontend/CLAUDE.md\n M frontend/README.md\n M frontend/next.config.js\n M frontend/package.json\n M frontend/src/core/mcp/api.ts\n M frontend/src/core/models/api.ts\n M frontend/src/core/skills/api.ts\n M frontend/src/server/better-auth/config.ts\n?? .openclaw/\n?? .serena/\n?? DECISIONS.md\n?? OpenClaw-DeerFlow.code-workspace\n?? R241-16M.json\n?? R241-16N.json\n?? UPGRADE_CENTER.md\n?? assets/\n?? backend/.lark-cli/\n?? backend/MEMORY.md\n?? backend/app/asset/\n?? backend/app/audit/\n?? backend/app/foundation/\n?? backend/app/gateway/context.py\n?? backend/app/gateway/mode_instrumentation.py\n?? backend/app/gateway/mode_router.py\n?? backend/app/gateway/test_context_envelope_smoke.py\n?? backend/app/gateway/test_mode_instrumentation_smoke.py\n?? backend/app/m03/\n?? backend/app/m04/\n?? backend/app/m05/\n?? backend/app/m07/\n?? backend/app/m08/\n?? backend/app/m09/\n?? backend/app/m10/\n?? backend/app/m11/\n?? backend/app/m12/\n?? backend/app/memory/\n?? backend/app/mode/\n?? backend/app/nightly/\n?? backend/app/perception/\n?? backend/app/prompt/\n?? backend/app/rtcm/\n?? backend/app/runtime_paths.py\n?? backend/app/scripts/\n?? backend/app/tool_runtime/\n?? backend/apply_slow_markers.py\n?? backend/audit_r205_align.py\n?? backend/boulder.json\n?? backend/check_fi.py\n?? backend/check_missing_plus.py\n?? backend/data/\n?? backend/docker-compose.yaml\n?? backend/external/\n?? backend/find_broken.py\n?? backend/fix_concat.py\n?? backend/fix_rollback_v8.py\n?? backend/fix_sandbox.py\n?? backend/fix_sandbox_v2.py\n?? backend/fix_sandbox_v3.py\n?? backend/fix_sandbox_v4.py\n?? backend/fix_sandbox_v5.py\n?? backend/fix_sandbox_v6.py\n?? backend/fix_sandbox_v7.py\n?? backend/fix_verify_section.py\n?? backend/generate_r241_14c_report.py\n?? backend/migration_reports/\n?? backend/n8n_data/\n?? backend/packages/harness/deerflow/agents/evaluator/\n?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py\n?? backend/packages/harness/deerflow/agents/memory/vector_storage.py\n?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py\n?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py\n?? backend/packages/harness/deerflow/assets/\n?? backend/packages/harness/deerflow/harness_server.py\n?? backend/packages/harness/deerflow/scratch/\n?? backend/packages/harness/deerflow/skills/system/\n?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py\n?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py\n?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py\n?? backend/packages/harness/deerflow/tools/minimax_multimodal.py\n?? backend/packages/harness/scratch/\n?? backend/packages/workspace/\n?? backend/probe2.py\n?? backend/probe_channelmgr.py\n?? backend/probe_errors.py\n?? backend/probe_final.py\n?? backend/probe_lg.py\n?? backend/probe_m01_bridge.py\n?? backend/probe_m01_entry.py\n?? backend/probe_readfile.py\n?? backend/probe_readfile2.py\n?? backend/qdrant_storage/\n?? backend/rewrite_rollback.py\n?? backend/rewrite_verify.py\n?? backend/scratch/\n?? backend/scripts/\n?? backend/server_lark.log\n?? backend/server_output.log\n?? backend/src/\n?? backend/start_server.py\n?? backend/test_api.py\n?? backend/test_env.py\n?? backend/test_escape.txt\n?? backend/test_fr_script.ts\n?? backend/test_gov_engine.py\n?? backend/test_gov_import.py\n?? backend/test_governance_import.cjs\n?? backend/test_minimal.py\n?? backend/test_r187_diag.py\n?? backend/test_r187_dpbs_runtime.py\n?? backend/test_r188_roi_verification.ts\n?? backend/test_r189_roi_rollback.ts\n?? backend/test_r190_real_verification.ts\n?? backend/test_r191_real_rollback.ts\n?? backend/test_r194_uc_approval_outcome.py\n?? backend/test_r198_feishu_cards.cjs\n?? backend/test_r198_feishu_cards.ts\n?? backend/test_r199_approval_result.ts\n?? backend/test_r201_integration.ts\n?? backend/test_r202_idempotency.ts\n?? backend/test_r203_roi_freshness.ts\n?? backend/test_r204_scoring_accuracy.ts\n?? backend/test_record_outcome.cjs\n?? backend/test_record_outcome.py\n?? backend/test_spawn_compare.cjs\n?? backend/test_spawn_env.cjs\n?? backend/test_spawn_env.js\n?? backend/tests/foundation/\n?? backend/tmp_uc_backflow.json\n?? backend/tmp_uc_backflow.py\n?? baseline.md\n?? boulder.json\n?? crontabs.yaml\n?? docker-compose.yaml\n?? docs/LARK_CLI_INTEGRATION_REPORT.md\n?? docs/testing/\n?? evolution_seams.md\n?? frontend/package-lock.json\n?? gw_scan.py\n?? jest.config.cjs\n?? mcp-bridge.js\n?? memory/\n?? migration_reports/\n?? mission/\n?? openclaw_project/\n?? package-lock.json\n?? package.json\n?? pytest.ini\n?? rtcm/\n?? runbook.md\n?? scratch/\n?? scripts/ci_foundation_check.py\n?? scripts/foundation_diagnose.py\n?? scripts/root_guard.ps1\n?? scripts/root_guard.py\n?? start_deerflow.bat\n?? start_server.mjs\n?? tsconfig.json\n?? vitest.config.ts\n",
+      "audit_jsonl_line_count": 14,
+      "runtime_dir_exists": false,
+      "existing_patch_present": true,
+      "existing_bundle_present": true,
+      "existing_manifest_present": true
+    },
+    "after_state": {
+      "captured_at": "2026-04-26T07:08:34.721327+00:00",
+      "head_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+      "branch": "main",
+      "staged_files": [],
+      "git_status_short": " M .dockerignore\n M .gitignore\n M backend/AGENTS.md\n M backend/Dockerfile\n M backend/app/channels/discord.py\n M backend/app/channels/feishu.py\n M backend/app/channels/manager.py\n M backend/app/channels/service.py\n M backend/app/channels/slack.py\n M backend/app/channels/telegram.py\n M backend/app/gateway/__init__.py\n M backend/app/gateway/app.py\n M backend/app/gateway/config.py\n M backend/app/gateway/routers/__init__.py\n M backend/app/gateway/routers/agents.py\n M backend/app/gateway/routers/mcp.py\n M backend/app/gateway/services.py\n M backend/packages/harness/deerflow/agents/factory.py\n M backend/packages/harness/deerflow/agents/lead_agent/__init__.py\n M backend/packages/harness/deerflow/agents/lead_agent/agent.py\n M backend/packages/harness/deerflow/agents/lead_agent/prompt.py\n M backend/packages/harness/deerflow/agents/memory/prompt.py\n M backend/packages/harness/deerflow/agents/memory/storage.py\n M backend/packages/harness/deerflow/agents/memory/updater.py\n M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\n M backend/packages/harness/deerflow/agents/thread_state.py\n M backend/packages/harness/deerflow/config/agents_config.py\n M backend/packages/harness/deerflow/config/app_config.py\n M backend/packages/harness/deerflow/config/extensions_config.py\n M backend/packages/harness/deerflow/config/memory_config.py\n M backend/packages/harness/deerflow/config/paths.py\n M backend/packages/harness/deerflow/mcp/client.py\n M backend/packages/harness/deerflow/mcp/oauth.py\n M backend/packages/harness/deerflow/mcp/tools.py\n M backend/packages/harness/deerflow/models/factory.py\n M backend/packages/harness/deerflow/models/patched_minimax.py\n M backend/packages/harness/deerflow/runtime/runs/worker.py\n M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py\n M backend/packages/harness/deerflow/tools/builtins/__init__.py\n M backend/packages/harness/deerflow/tools/builtins/task_tool.py\n M backend/packages/harness/deerflow/tools/tools.py\n M backend/packages/harness/pyproject.toml\n M backend/pyproject.toml\n M backend/tests/test_channels.py\n M backend/uv.lock\n M docker/provisioner/app.py\n M frontend/.env.example\n M frontend/CLAUDE.md\n M frontend/README.md\n M frontend/next.config.js\n M frontend/package.json\n M frontend/src/core/mcp/api.ts\n M frontend/src/core/models/api.ts\n M frontend/src/core/skills/api.ts\n M frontend/src/server/better-auth/config.ts\n?? .openclaw/\n?? .serena/\n?? DECISIONS.md\n?? OpenClaw-DeerFlow.code-workspace\n?? R241-16M.json\n?? R241-16N.json\n?? UPGRADE_CENTER.md\n?? assets/\n?? backend/.lark-cli/\n?? backend/MEMORY.md\n?? backend/app/asset/\n?? backend/app/audit/\n?? backend/app/foundation/\n?? backend/app/gateway/context.py\n?? backend/app/gateway/mode_instrumentation.py\n?? backend/app/gateway/mode_router.py\n?? backend/app/gateway/test_context_envelope_smoke.py\n?? backend/app/gateway/test_mode_instrumentation_smoke.py\n?? backend/app/m03/\n?? backend/app/m04/\n?? backend/app/m05/\n?? backend/app/m07/\n?? backend/app/m08/\n?? backend/app/m09/\n?? backend/app/m10/\n?? backend/app/m11/\n?? backend/app/m12/\n?? backend/app/memory/\n?? backend/app/mode/\n?? backend/app/nightly/\n?? backend/app/perception/\n?? backend/app/prompt/\n?? backend/app/rtcm/\n?? backend/app/runtime_paths.py\n?? backend/app/scripts/\n?? backend/app/tool_runtime/\n?? backend/apply_slow_markers.py\n?? backend/audit_r205_align.py\n?? backend/boulder.json\n?? backend/check_fi.py\n?? backend/check_missing_plus.py\n?? backend/data/\n?? backend/docker-compose.yaml\n?? backend/external/\n?? backend/find_broken.py\n?? backend/fix_concat.py\n?? backend/fix_rollback_v8.py\n?? backend/fix_sandbox.py\n?? backend/fix_sandbox_v2.py\n?? backend/fix_sandbox_v3.py\n?? backend/fix_sandbox_v4.py\n?? backend/fix_sandbox_v5.py\n?? backend/fix_sandbox_v6.py\n?? backend/fix_sandbox_v7.py\n?? backend/fix_verify_section.py\n?? backend/generate_r241_14c_report.py\n?? backend/migration_reports/\n?? backend/n8n_data/\n?? backend/packages/harness/deerflow/agents/evaluator/\n?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py\n?? backend/packages/harness/deerflow/agents/memory/vector_storage.py\n?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py\n?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py\n?? backend/packages/harness/deerflow/assets/\n?? backend/packages/harness/deerflow/harness_server.py\n?? backend/packages/harness/deerflow/scratch/\n?? backend/packages/harness/deerflow/skills/system/\n?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py\n?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py\n?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py\n?? backend/packages/harness/deerflow/tools/minimax_multimodal.py\n?? backend/packages/harness/scratch/\n?? backend/packages/workspace/\n?? backend/probe2.py\n?? backend/probe_channelmgr.py\n?? backend/probe_errors.py\n?? backend/probe_final.py\n?? backend/probe_lg.py\n?? backend/probe_m01_bridge.py\n?? backend/probe_m01_entry.py\n?? backend/probe_readfile.py\n?? backend/probe_readfile2.py\n?? backend/qdrant_storage/\n?? backend/rewrite_rollback.py\n?? backend/rewrite_verify.py\n?? backend/scratch/\n?? backend/scripts/\n?? backend/server_lark.log\n?? backend/server_output.log\n?? backend/src/\n?? backend/start_server.py\n?? backend/test_api.py\n?? backend/test_env.py\n?? backend/test_escape.txt\n?? backend/test_fr_script.ts\n?? backend/test_gov_engine.py\n?? backend/test_gov_import.py\n?? backend/test_governance_import.cjs\n?? backend/test_minimal.py\n?? backend/test_r187_diag.py\n?? backend/test_r187_dpbs_runtime.py\n?? backend/test_r188_roi_verification.ts\n?? backend/test_r189_roi_rollback.ts\n?? backend/test_r190_real_verification.ts\n?? backend/test_r191_real_rollback.ts\n?? backend/test_r194_uc_approval_outcome.py\n?? backend/test_r198_feishu_cards.cjs\n?? backend/test_r198_feishu_cards.ts\n?? backend/test_r199_approval_result.ts\n?? backend/test_r201_integration.ts\n?? backend/test_r202_idempotency.ts\n?? backend/test_r203_roi_freshness.ts\n?? backend/test_r204_scoring_accuracy.ts\n?? backend/test_record_outcome.cjs\n?? backend/test_record_outcome.py\n?? backend/test_spawn_compare.cjs\n?? backend/test_spawn_env.cjs\n?? backend/test_spawn_env.js\n?? backend/tests/foundation/\n?? backend/tmp_uc_backflow.json\n?? backend/tmp_uc_backflow.py\n?? baseline.md\n?? boulder.json\n?? crontabs.yaml\n?? docker-compose.yaml\n?? docs/LARK_CLI_INTEGRATION_REPORT.md\n?? docs/testing/\n?? evolution_seams.md\n?? frontend/package-lock.json\n?? gw_scan.py\n?? jest.config.cjs\n?? mcp-bridge.js\n?? memory/\n?? migration_reports/\n?? mission/\n?? openclaw_project/\n?? package-lock.json\n?? package.json\n?? pytest.ini\n?? rtcm/\n?? runbook.md\n?? scratch/\n?? scripts/ci_foundation_check.py\n?? scripts/foundation_diagnose.py\n?? scripts/root_guard.ps1\n?? scripts/root_guard.py\n?? start_deerflow.bat\n?? start_server.mjs\n?? tsconfig.json\n?? vitest.config.ts\n",
+      "audit_jsonl_line_count": 14,
+      "runtime_dir_exists": false,
+      "existing_patch_present": true,
+      "existing_bundle_present": true,
+      "existing_manifest_present": true
+    },
+    "checks": [
+      {
+        "check_id": "head_unchanged",
+        "check_type": "head_stable",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "HEAD hash must not change during artifact generation",
+        "observed_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "expected_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "branch_unchanged",
+        "check_type": "branch_stable",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Current branch must not change",
+        "observed_value": "main",
+        "expected_value": "main",
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "staged_area_still_empty",
+        "check_type": "staged_area",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Staged area must still be empty after generation",
+        "observed_value": [],
+        "expected_value": [],
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "audit_jsonl_unchanged",
+        "check_type": "audit_jsonl",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Audit JSONL line count must not change",
+        "observed_value": 14,
+        "expected_value": 14,
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "runtime_dir_unchanged",
+        "check_type": "runtime_dir",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Runtime directory must not change",
+        "observed_value": false,
+        "expected_value": false,
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "workflow_file_unchanged",
+        "check_type": "workflow_mutation",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Target workflow .github/workflows/foundation-manual-dispatch.yml must not be modified",
+        "observed_value": "unchanged",
+        "expected_value": "unchanged",
+        "command_result": {
+          "argv": [
+            "git",
+            "diff",
+            ".github/workflows/foundation-manual-dispatch.yml"
+          ],
+          "command_executed": true,
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "cwd": "E:\\OpenClaw-Base\\deerflow",
+          "runtime_seconds": null
+        },
+        "blocked_reasons": []
+      },
+      {
+        "check_id": "no_unexpected_artifacts",
+        "check_type": "artifact_naming",
+        "passed": true,
+        "risk_level": "low",
+        "description": "Only R241-16S-* artifact files should be generated",
+        "observed_value": [],
+        "expected_value": [],
+        "blocked_reasons": []
+      }
+    ],
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "existing_workflows_unchanged": true,
+  "warnings": [],
+  "errors": []
+}

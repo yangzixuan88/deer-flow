@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-6_TruthEvent.schema.json",
+  "title": "TruthEvent",
+  "description": "Unified truth event schema for actual observations, predictions, approvals, and execution results in DeerFlow governance system.",
+  "type": "object",
+  "required": [
+    "truth_event_id",
+    "truth_type",
+    "truth_track",
+    "subject_type",
+    "subject_id",
+    "source_system",
+    "created_at"
+  ],
+  "properties": {
+    "truth_event_id": {
+      "type": "string",
+      "description": "UUID -- globally unique identifier for this truth event"
+    },
+    "context_id": {
+      "type": ["string", "null"],
+      "description": "Associated ContextEnvelope.context_id (R240-4). Links this truth to a specific orchestration context."
+    },
+    "request_id": {
+      "type": ["string", "null"],
+      "description": "Associated OrchestrationRequest.requestId from M01. Links to the originating request."
+    },
+    "governance_trace_id": {
+      "type": ["string", "null"],
+      "description": "ContextEnvelope.governance_trace_id for cross-system lineage tracing. NOT currently propagated in outcome_records (R240-6 gap)."
+    },
+    "source_system": {
+      "type": "string",
+      "description": "System that produced this truth event: queue_consumer, governance_bridge, learning_system, watchdog, rtcm, ..."
+    },
+    "truth_type": {
+      "type": "string",
+      "enum": [
+        "predicted_outcome",
+        "actual_outcome",
+        "approval_decision",
+        "execution_result",
+        "verification_result",
+        "rollback_result",
+        "observation_signal",
+        "user_feedback",
+        "asset_quality_signal",
+        "rtcm_verdict"
+      ],
+      "description": "Semantic type of this truth event. Determines how actual/predicted/confidence fields are interpreted."
+    },
+    "truth_track": {
+      "type": "string",
+      "enum": [
+        "execution_truth",
+        "governance_truth",
+        "observation_truth",
+        "user_truth",
+        "asset_truth",
+        "rtcm_truth"
+      ],
+      "description": "The domain/track this truth belongs to. Determines which governance learning system consumes it."
+    },
+    "subject_type": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "tool",
+        "asset",
+        "rule",
+        "doctrine",
+        "rtcm_issue",
+        "memory_fact",
+        "queue_task",
+        "workflow"
+      ],
+      "description": "Type of entity this truth is about."
+    },
+    "subject_id": {
+      "type": "string",
+      "description": "Identifier of the subject: candidate_id, tool_name, asset_id, doctrine_id, etc."
+    },
+    "actual_value": {
+      "type": ["number", "null"],
+      "description": "Actual observed/measured value. Interpretation depends on truth_type: binary 1.0/0.0 for actual_outcome; 0.0-1.0 quality signal for asset_quality_signal; accept/reject/needs_revision string for approval_decision/rtcm_verdict."
+    },
+    "predicted_value": {
+      "type": ["number", "null"],
+      "description": "Predicted/expected value before execution. Range 0.0-1.0. Null means no prediction was made."
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence level for predicted_outcome truth_type. Not used for actual_outcome or approval_decision."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "References to evidence artifacts: governance_state.json lines, artifact paths, log files, governance_trace_id chain."
+    },
+    "producer": {
+      "type": "string",
+      "description": "Function/class that produced this event: queue_consumer.write_governance_outcome, governance_bridge.record_outcome, learning_system.evolve, etc."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this truth event was recorded."
+    },
+    "related_state_id": {
+      "type": ["string", "null"],
+      "description": "Associated StateEvent.state_event_id if this truth event triggered a state transition."
+    }
+  }
+}

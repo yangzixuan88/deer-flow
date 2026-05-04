@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openclaw.local/contracts/ModeExecutionResult.schema.json",
+  "title": "ModeExecutionResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "selected_mode",
+    "executor",
+    "status",
+    "success",
+    "output_refs",
+    "memory_writes",
+    "asset_writes",
+    "governance_writes",
+    "tool_calls",
+    "errors",
+    "truth_track",
+    "created_at",
+    "finished_at"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_mode": {
+      "type": "string",
+      "enum": [
+        "search",
+        "task",
+        "workflow",
+        "autonomous_agent",
+        "roundtable",
+        "direct_answer",
+        "clarification",
+        "governance_review",
+        "mixed_mode"
+      ]
+    },
+    "executor": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "cancelled",
+        "blocked",
+        "needs_clarification"
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    },
+    "output_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "memory_writes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "asset_writes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "governance_writes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "tool_calls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tool_call"
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/error"
+      }
+    },
+    "truth_track": {
+      "$ref": "#/$defs/truth_track"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "tool_call": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "tool_name": {
+          "type": "string"
+        },
+        "tool_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "finished_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "recoverable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "truth_track": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "predicted": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actual": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "verified",
+            "failed",
+            "conflicted"
+          ],
+          "default": "pending"
+        }
+      },
+      "default": {}
+    }
+  }
+}

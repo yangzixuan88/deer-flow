@@ -1,0 +1,263 @@
+{
+  "phase": "R147D",
+  "title": "LARK_TOKEN_INFRASTRUCTURE_DIAGNOSTIC_AND_REPAIR_PLAN",
+  "status": "passed",
+  "preceded_by": "R147C",
+  "proceeding_to": "R147E_LARK_TENANT_TOKEN_SMOKE",
+  "pressure_assessment": {
+    "previous_phase": "R147C",
+    "current_phase": "R147D",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147C",
+    "current_phase": "R147D",
+    "recommended_pressure": "XXL",
+    "reason": "Lark runtime loads tools but API call fails with missing access token (99991661); token infrastructure broken — diagnose storage chain before retry."
+  },
+  "lane_1_r147c_failure": {
+    "tool_smoke_attempted": true,
+    "tool_name": "lark_im_v1_chat_list",
+    "error_code": "99991661",
+    "error_message": "Missing access token for authorization",
+    "lark_runtime_started": true,
+    "tools_listed": true,
+    "tool_count": 19,
+    "tool_call_failed_before_business_logic": true,
+    "blocker_class": "missing_access_token",
+    "blocker_location": "token_acquisition / token_storage / token_injection"
+  },
+  "lane_2_token_requirement_mapping": {
+    "required_token_type": "user_access_token (oauth) OR tenant_access_token (app-level)",
+    "required_envs": ["LARK_APP_ID", "LARK_APP_SECRET"],
+    "optional_envs": ["LARK_TOKEN_MODE (auto|user_access_token|tenant_access_token)", "USER_ACCESS_TOKEN"],
+    "oauth_required": true,
+    "oauth_for_user_token": true,
+    "app_secret_sufficient_for_tenant": true,
+    "lark_cli_token_modes": ["auto (default)", "user_access_token", "tenant_access_token"],
+    "token_acquisition_paths": [
+      {
+        "mode": "auto (default) + oauth=false",
+        "description": "Uses SDK internal tenant_access_token manager; no OAuth needed; appId+appSecret sufficient",
+        "fallback_on_failure": "none — SDK fails to call API if token fetch fails"
+      },
+      {
+        "mode": "user_access_token",
+        "description": "Requires valid user access token (from OAuth login or pre-existing token env)",
+        "fallback_on_failure": "API returns 99991668/99991679"
+      },
+      {
+        "mode": "tenant_access_token",
+        "description": "SDK fetches tenant_access_token via /open-apis/auth/v3/tenant_access_token/internal",
+        "fallback_on_failure": "SDK calls API without token; API returns 99991661"
+      }
+    ],
+    "answer_app_secret_sufficient": "Yes for tenant_access_token flow; SDK's internal token manager uses appId+appSecret to fetch tenant token automatically",
+    "answer_user_vs_app_token": "lark_im_v1_chat_list works with both user_access_token and tenant_access_token; SDK auto-selects based on tokenMode",
+    "answer_oauth_required": "OAuth (interactive browser login) is NOT strictly required if using tenant_access_token mode"
+  },
+  "lane_3_keytar_analysis": {
+    "keytar_required_for_persistent_token": true,
+    "keytar_is_required_not_optional": true,
+    "missing_binary_path": "C:\\Users\\win\\AppData\\Local\\pnpm-cache\\dlx\\...\\keytar\\build\\Release\\keytar.node",
+    "keytar_failure_causes": "StorageManager.encrypt/decrypt fails; isInitializedStorageSuccess=false; saveStorageData() returns early without writing; loadStorageData() returns {}",
+    "fallback_store": "memory only",
+    "memory_store_persistence_scope": "single stdio process lifetime only",
+    "token_lost_on_process_exit": true,
+    "install_or_rebuild_needed": true,
+    "keytar_failure_does_not_block": "tenant_access_token mode (SDK fetches token per-request via HTTP, no storage needed)",
+    "risk": "high (blocks persistent OAuth token; does not block tenant_access_token flow)"
+  },
+  "lane_4_stdio_lifecycle": {
+    "process_reused_between_tool_list_and_call": false,
+    "lark_runtime_probe_attempted": "in R147A via get_cached_mcp_tools() which starts stdio process and calls list_tools",
+    "tool_list_in_r147a": "started stdio process, called list_tools — SDK initialized",
+    "tool_call_in_r147c": "new stdio process started via get_cached_mcp_tools(); SDK re-initialized; OAuth token not available",
+    "token_store_in_memory_lost_between_calls": true,
+    "auth_store_memory_lost_on_restart": true,
+    "explains_missing_access_token": "partially — in auto mode with oauth=false, SDK should use tenant_access_token (no storage needed); but SDK tried user token path instead",
+    "keytar_fails_breaks": "OAuth user token storage only; does not break tenant_access_token flow which uses HTTP fetch per-request"
+  },
+  "lane_5_credential_presence": {
+    "lark_app_id": "PRESENT",
+    "lark_app_secret": "PRESENT",
+    "feishu_app_id": "PRESENT",
+    "feishu_app_secret": "PRESENT",
+    "lark_access_token": "MISSING",
+    "lark_tenant_access_token": "MISSING",
+    "lark_user_access_token": "MISSING",
+    "secret_values_printed": false,
+    "env_source": "backend/.env — LARK_APP_ID=cli_a92772edd278dcc1, LARK_APP_SECRET=[PRESENT]"
+  },
+  "lane_6_repair_options": [
+    {
+      "option": "A",
+      "name": "Fix keytar native dependency",
+      "description": "Rebuild/reinstall keytar so StorageManager can persist user tokens across stdio process restarts",
+      "code_change_required": false,
+      "dependency_install_required": true,
+      "env_change_required": false,
+      "user_action_required": "maybe (npm rebuild keytar native module)",
+      "risk": "medium",
+      "recommended": false,
+      "reason": "Solves root cause of token storage failure, but introduces build complexity. Not the lowest-risk path."
+    },
+    {
+      "option": "B",
+      "name": "Provide explicit user_access_token via env",
+      "description": "Pass USER_ACCESS_TOKEN env var to Lark MCP so SDK skips OAuth flow",
+      "code_change_required": true,
+      "dependency_install_required": false,
+      "env_change_required": true,
+      "user_action_required": "YES — user must obtain a valid Lark user access token via lark-mcp login",
+      "risk": "high",
+      "recommended": false,
+      "reason": "Introduces long-lived secret token as env var — security risk; requires OAuth login which needs keytar to work"
+    },
+    {
+      "option": "C",
+      "name": "Switch to tenant_access_token mode",
+      "description": "Pass LARK_TOKEN_MODE=tenant_access_token so SDK uses app-level token fetched via appId+appSecret (no OAuth, no keytar needed)",
+      "code_change_required": true,
+      "dependency_install_required": false,
+      "env_change_required": true,
+      "user_action_required": false,
+      "risk": "medium",
+      "recommended": true,
+      "reason": "Lowest-risk path: no new dependencies, no new secrets, no user interaction. SDK fetches tenant_access_token per-request via HTTP using appId+appSecret."
+    },
+    {
+      "option": "D",
+      "name": "Enable --oauth flag with interactive login",
+      "description": "Add --oauth to lark MCP args; run lark-mcp login first; token stored via keytar (which is broken)",
+      "code_change_required": true,
+      "dependency_install_required": false,
+      "env_change_required": false,
+      "user_action_required": "YES — interactive browser login; keytar must work for persistent token",
+      "risk": "high",
+      "recommended": false,
+      "reason": "Interactive flow blocks automation; keytar still broken so login would not persist"
+    },
+    {
+      "option": "E",
+      "name": "Keep Lark MCP disabled",
+      "description": "Disable Lark MCP; focus on Tavily re-enablement or mainline work",
+      "code_change_required": true,
+      "dependency_install_required": false,
+      "env_change_required": false,
+      "user_action_required": false,
+      "risk": "low",
+      "recommended": false,
+      "reason": "Defers Lark work indefinitely; Option C is a simple fix worth trying first"
+    }
+  ],
+  "lane_7_recommended_strategy": {
+    "recommended_strategy": "Option C — Switch to tenant_access_token mode",
+    "reason": "LARK_TOKEN_MODE=tenant_access_token makes SDK use app-level tenant_access_token fetched directly via appId+appSecret (no OAuth, no keytar). The SDK's Node.js Client fetches tenant token via /open-apis/auth/v3/tenant_access_token/internal on each request — no persistent storage needed. Lowest-risk path: no new dependencies, no new secrets, no user interaction. Only difference vs user token: some app permissions that require user context may not work, but lark_im_v1_chat_list only needs bot membership which tenant token covers.",
+    "requires_user_action": false,
+    "requires_dependency_install": false,
+    "requires_env_update": true,
+    "requires_code_patch": true,
+    "patch_target": "backend/extensions_config.json — add \"env\": {\"LARK_TOKEN_MODE\": \"tenant_access_token\"} to lark entry"
+  },
+  "lane_8_r147e_authorization_package": {
+    "recommended_phase": "R147E_LARK_TENANT_TOKEN_SMOKE",
+    "selected_tool": "lark_im_v1_chat_list",
+    "allowed_tool_calls": 1,
+    "model_call_allowed": false,
+    "write_tool_allowed": false,
+    "params": {},
+    "timeout_seconds": 60,
+    "patch_required": true,
+    "patch_target": "backend/extensions_config.json — add \"env\": {\"LARK_TOKEN_MODE\": \"tenant_access_token\"} to lark entry",
+    "dependency_install_required": false,
+    "env_update_required": false,
+    "user_action_required": false,
+    "files_allowed": [
+      "backend/extensions_config.json (patch)",
+      "backend/run_r147e.py (temp harness)"
+    ],
+    "files_forbidden": [
+      ".env",
+      "backend/packages/*",
+      "package.json",
+      "*.lock"
+    ],
+    "validation_plan": [
+      "1. Patch extensions_config.json: add env.LARK_TOKEN_MODE=tenant_access_token to lark entry",
+      "2. Reset MCP tools cache (reset_mcp_tools_cache)",
+      "3. Load lark_im_v1_chat_list via get_cached_mcp_tools()",
+      "4. Invoke with empty params {}",
+      "5. Expect: [] (bot not in any groups) or list of chat objects — both are success",
+      "6. If error 99991661: tenant token also failed — fall back to R147F (keytar fix or Lark disable)",
+      "7. If error other: inspect and classify",
+      "8. Record: tool execution success/failure, error code, response shape, elapsed time"
+    ],
+    "rollback_plan": "Remove LARK_TOKEN_MODE from extensions_config.json env field"
+  },
+  "lane_9_mcp_branch_decision": {
+    "continue_lark_now": true,
+    "pause_lark_until_token_fixed": false,
+    "switch_to_tavily_investigation": false,
+    "return_to_non_mcp_mainline": false,
+    "rationale": "R147D identified Option C (tenant_access_token mode) as a viable no-dependency fix — a single env var change. R147E should attempt this before concluding Lark is blocked. Only if R147E fails should Lark be paused and Tavily re-enablement investigated. The tenant_access_token flow bypasses keytar entirely since it fetches tokens per-request via HTTP, not from persistent storage."
+  },
+  "lane_10_unknown_registry_updates": [
+    {
+      "id": "U-lark-access-token-missing",
+      "description": "R147C smoke call failed with 99991661 'Missing access token for authorization' — SDK attempted API call without token",
+      "priority": "high",
+      "fix_applied": "R147D: diagnosed — SDK in auto mode tried user token path; keytar missing breaks OAuth storage; tenant token mode (Option C) bypasses both"
+    },
+    {
+      "id": "U-lark-keytar-warning-upgraded",
+      "description": "R147A keytar.node missing warning is actually HIGH blocker — it breaks OAuth user token persistence. But it does NOT block tenant_access_token flow.",
+      "priority": "high",
+      "fix_applied": "R147D: keytar is required for persistent OAuth token store; memory fallback loses tokens on process restart"
+    },
+    {
+      "id": "U-lark-token-storage-chain",
+      "description": "AuthStore+StorageManager chain: keytar failure → isInitializedStorageSuccess=false → saveStorageData() no-ops → tokens not persisted → memory-only → lost on restart",
+      "priority": "high",
+      "fix_applied": "R147D: token storage chain traced; tenant_access_token mode avoids this chain (no storage needed)"
+    },
+    {
+      "id": "U-lark-oauth-requirement",
+      "description": "Lark MCP --oauth mode requires: (1) keytar working, (2) interactive browser login, (3) redirect URI configured. Current environment fails (1).",
+      "priority": "high",
+      "fix_applied": "R147D: OAuth is NOT the only path — tenant_access_token mode requires only appId+appSecret"
+    },
+    {
+      "id": "U-lark-stdio-process-token-lifecycle",
+      "description": "Lark MCP stdio process is started fresh per get_cached_mcp_tools() call; no token persistence between calls; memory store tokens lost on exit",
+      "priority": "medium",
+      "fix_applied": "R147D: stdio process lifecycle confirmed; tenant_access_token flow works with per-call fetch (no persistence needed)"
+    },
+    {
+      "id": "U-lark-repair-path",
+      "description": "R147D recommended Option C: LARK_TOKEN_MODE=tenant_access_token — bypasses OAuth and keytar dependency",
+      "priority": "high",
+      "fix_applied": "R147D: repair path selected; R147E authorized to patch extensions_config.json and retry smoke"
+    },
+    {
+      "id": "U-lark-sdk-auto-mode-behavior",
+      "description": "Lark MCP SDK in tokenMode='auto' (default): uses LarkAuthHandlerLocal.getLocalAccessToken(appId) which requires keytar-persisted token; falls back to no-token if keytar missing",
+      "priority": "high",
+      "fix_applied": "R147D: auto mode does NOT fall back to tenant_access_token automatically; explicit tokenMode=tenant_access_token needed"
+    }
+  ],
+  "classification": "passed",
+  "code_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+  "recommended_next_phase": "R147E_LARK_TENANT_TOKEN_SMOKE",
+  "next_prompt_needed": true
+}

@@ -1,0 +1,88 @@
+{
+  "version": "R240-2-draft",
+  "status": "design_draft_not_implemented",
+  "selected_mode_enum": [
+    "search",
+    "task",
+    "workflow",
+    "autonomous_agent",
+    "roundtable",
+    "direct_answer",
+    "clarification",
+    "governance_review",
+    "mixed_mode"
+  ],
+  "default_priority_order": [
+    "governance_review",
+    "clarification",
+    "roundtable",
+    "autonomous_agent",
+    "workflow",
+    "task",
+    "search",
+    "direct_answer",
+    "mixed_mode"
+  ],
+  "confidence_policy": {
+    "minimum_execute_confidence": 0.65,
+    "minimum_margin_between_top_two_modes": 0.15,
+    "low_confidence_action": "select_clarification"
+  },
+  "rules": [
+    {
+      "id": "governance_over_ordinary_execution",
+      "description": "Governance review wins when the request concerns approval, rollback, safety policy, evolution policy, controlled release, audit, or high-risk truth tracking."
+    },
+    {
+      "id": "clarification_before_execution",
+      "description": "Clarification wins when target, permission, state scope, required files, destructive risk, or acceptance criteria are missing."
+    },
+    {
+      "id": "roundtable_over_autonomous_agent",
+      "description": "Roundtable wins over autonomous_agent for explicit RTCM/roundtable/debate/meeting requests, high-stakes architecture or strategy decisions, multi-party dissent, or irreversible governance decisions."
+    },
+    {
+      "id": "roundtable_must_not_steal_clear_execution",
+      "description": "Roundtable must not steal clear low-risk execution, bounded search, direct answer, or task requests unless the user explicitly asks for discussion or the governance layer requires review."
+    },
+    {
+      "id": "suggested_roundtable_requires_confirmation",
+      "description": "If roundtable is only inferred from complexity or uncertainty, request human confirmation before activating RTCM."
+    },
+    {
+      "id": "workflow_over_task",
+      "description": "Workflow wins over task when the work is reusable, recurring, multi-system, DAG-like, has checkpoints, or needs orchestration policy."
+    },
+    {
+      "id": "task_over_workflow",
+      "description": "Task wins over workflow for bounded one-off work with a clear target and no reusable process requirement."
+    },
+    {
+      "id": "search_over_direct_answer",
+      "description": "Search wins when the answer depends on current, external, cited, or verifiable facts."
+    },
+    {
+      "id": "direct_answer_fast_path",
+      "description": "Direct answer is allowed only for stable, short, no-tool, no-state-change requests."
+    },
+    {
+      "id": "explicit_mode_hint_precedence",
+      "description": "User explicit mode hints win over automatic classification unless blocked by safety, governance, missing context, or impossible execution permissions."
+    },
+    {
+      "id": "mixed_mode_supervised_only",
+      "description": "Mixed mode is not a raw fallback; it must decompose into governed child ModeDecision records with explicit result sinks."
+    }
+  ],
+  "delegation_defaults": {
+    "search": "m04_coordinator",
+    "task": "m04_coordinator",
+    "workflow": "m04_coordinator",
+    "autonomous_agent": "deerflow_harness",
+    "roundtable": "rtcm_main_agent_handoff",
+    "direct_answer": "m01_orchestrator",
+    "clarification": "m01_orchestrator",
+    "governance_review": "governance_bridge",
+    "mixed_mode": "m01_orchestrator"
+  }
+}

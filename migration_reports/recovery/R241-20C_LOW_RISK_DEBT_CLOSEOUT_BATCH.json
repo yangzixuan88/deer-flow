@@ -1,0 +1,198 @@
+{
+  "report_id": "R241-20C_LOW_RISK_DEBT_CLOSEOUT_BATCH",
+  "phase": "phase_20c_low_risk_debt_closeout_batch",
+  "status": "passed_with_pending_cleanup_authorization",
+  "decision": "approve_low_risk_debt_closeout_with_cleanup_pending",
+  "source": "R241-20B_TRACK_A_FOUNDATION_REPAIR_BATCH2",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "HEAD": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "dirty_tracked_count": 329,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_list": [
+      "E:/OpenClaw-Base/deerflow             0bb97b51 [main]",
+      "E:/OpenClaw-Base/.tmp_r241_19i3_patch 9aac8c65 (detached HEAD)",
+      "E:/OpenClaw-Base/r241_19i3_full       9aac8c65 [r241_19i3_full]",
+      "E:/OpenClaw-Base/r241_19i3_worktree   ae9cc034 [r241_19i3_patch]"
+    ]
+  },
+  "preconditions_from_r241_20b": {
+    "r241_20b_status": "passed",
+    "decision": "approve_foundation_repair_batch2",
+    "pre_existing_failure_fixed": true,
+    "tests_passed": 117,
+    "tests_failed": 0,
+    "allow_enter_r241_20c": true,
+    "all_preconditions_met": true
+  },
+  "low_risk_debt_ledger": {
+    "track_a_batch2": {
+      "status": "fixed",
+      "fixed_failure": "test_report_generation_writes_only_to_tmp_path",
+      "tests_passed": 117,
+      "tests_failed": 0
+    },
+    "isolated_worktrees": {
+      "status": "preserved",
+      "count": 3,
+      "paths": [
+        "E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+        "E:/OpenClaw-Base/r241_19i3_full",
+        "E:/OpenClaw-Base/r241_19i3_worktree"
+      ],
+      "cleanup_requires_user_authorization": true
+    },
+    "adapter_candidates": {
+      "status": "not_started",
+      "count": 10,
+      "next_recommended_round": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW"
+    },
+    "dependency_candidate": {
+      "status": "quarantined",
+      "count": 1,
+      "install_allowed": false
+    },
+    "forbidden_runtime_candidates": {
+      "status": "quarantined",
+      "count": 8,
+      "requires_dedicated_unblock_review": true
+    },
+    "push": {
+      "status": "not_executed",
+      "commit": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+      "requires_separate_authorization": true
+    }
+  },
+  "isolated_worktree_cleanup_review": {
+    "cleanup_candidate_count": 3,
+    "cleanup_candidates": [
+      {
+        "name": ".tmp_r241_19i3_patch",
+        "path": "E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+        "base": "9aac8c65",
+        "state": "detached orphan"
+      },
+      {
+        "name": "r241_19i3_full",
+        "path": "E:/OpenClaw-Base/r241_19i3_full",
+        "base": "9aac8c65",
+        "branch": "r241_19i3_full"
+      },
+      {
+        "name": "r241_19i3_worktree",
+        "path": "E:/OpenClaw-Base/r241_19i3_worktree",
+        "base": "ae9cc034",
+        "branch": "r241_19i3_patch"
+      }
+    ],
+    "main_worktree_must_not_be_cleaned": true,
+    "evidence_reports_must_not_be_deleted": true,
+    "safe_to_cleanup_if_user_authorizes": true,
+    "cleanup_risks": [
+      "r241_19i3_full contains local en/zh docs — evidence attribution must be preserved in git history",
+      ".tmp_r241_19i3_patch is orphan — requires git worktree remove --force"
+    ],
+    "cleanup_commands_proposed": [
+      "git worktree remove --force E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+      "git worktree remove E:/OpenClaw-Base/r241_19i3_full",
+      "git worktree remove E:/OpenClaw-Base/r241_19i3_worktree"
+    ]
+  },
+  "adapter_lane_entry": {
+    "next_round": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW",
+    "candidate_count": 10,
+    "apply_allowed": false,
+    "design_only": true,
+    "expected_scope": [
+      "auth adapter design review",
+      "gateway services adapter design review",
+      "runtime event memory store compatibility review",
+      "langgraph config adapter review"
+    ],
+    "batch_mode": true
+  },
+  "next_lane_priority": [
+    {
+      "rank": 1,
+      "round": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW",
+      "reason": "highest value after Track A fix and Track B closeout; design-only, no runtime activation"
+    },
+    {
+      "rank": 2,
+      "round": "R241-20E_DEPENDENCY_RISK_REVIEW",
+      "reason": "dependency remains quarantined; install still forbidden"
+    },
+    {
+      "rank": 3,
+      "round": "R241-20F_FORBIDDEN_RUNTIME_UNBLOCK_PLANNING",
+      "reason": "planning only; no blocker override"
+    },
+    {
+      "rank": 4,
+      "round": "R241-20G_PUSH_AUTHORIZATION_REVIEW",
+      "reason": "push is external side effect; defer until local stability improved"
+    }
+  ],
+  "cleanup_authorization_options": {
+    "authorize_isolated_worktree_cleanup": "A — 授权清理 3 个 isolated worktrees",
+    "defer_cleanup_and_continue_adapter_design": "B — 跳过 cleanup，继续 R241-20D adapter design review",
+    "skip_cleanup": "C — 保持现状，不清理"
+  },
+  "test_results": {
+    "test_runtime_activation_readiness_37": {
+      "passed": 37,
+      "failed": 0
+    },
+    "test_gateway_sidecar_48": {
+      "passed": 48,
+      "failed": 0
+    },
+    "test_upstream_upgrade_intake_32": {
+      "passed": 32,
+      "failed": 0
+    },
+    "total_passed": 117,
+    "total_failed": 0
+  },
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "no_new_violations": true,
+    "blockers_preserved": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed_with_pending_cleanup_authorization",
+    "decision": "approve_low_risk_debt_closeout_with_cleanup_pending",
+    "cleanup_executed": false,
+    "adapter_lane_ready": true,
+    "tests_passed": 117,
+    "tests_failed": 0,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "allow_enter_r241_20d": true,
+    "recommended_resume_point": "R241-20C",
+    "next_prompt_needed": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW"
+  }
+}

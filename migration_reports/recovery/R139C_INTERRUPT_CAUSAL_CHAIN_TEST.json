@@ -1,0 +1,57 @@
+{
+  "phase": "R139C",
+  "title": "INTERRUPT_CAUSAL_CHAIN_TEST",
+  "status": "passed",
+  "preceded_by": "R139B",
+  "proceeding_to": "R140_GRAPH_MIDDLEWARE_FIX",
+  "pressure_assessment": {
+    "previous_phase": "R139B",
+    "current_phase": "R139C",
+    "recommended_pressure": "XXL",
+    "reason": "Model API call with inline await (no background task)"
+  },
+  "preflight": {
+    "minimax_api_key_present": true,
+    "workspace_clean": true,
+    "health_200": true,
+    "preflight_passed": true
+  },
+  "model_config": {
+    "name": "minimax-m2.7",
+    "model": "MiniMax-M2.7",
+    "api_key_redacted": "sk-cp-L..."
+  },
+  "harness_setup": {
+    "record_created": true,
+    "run_id": "05b4665e-b00f-4f6d-9a95-f5a787709f31",
+    "interrupt_before_sent": [],
+    "interrupt_after_sent": []
+  },
+  "inline_execution": {
+    "worker_started": true,
+    "worker_completed": true,
+    "worker_error": null,
+    "execution_mode": "inline await (NOT asyncio.create_task)"
+  },
+  "run_status_check": {
+    "final_status": "success",
+    "final_error": null
+  },
+  "event_inspection": {
+    "stream_bridge_stream_created": true,
+    "stream_event_count": 5,
+    "model_response_detected": true,
+    "model_response_length": 103
+  },
+  "result_classification": {
+    "r139c_result": "passed",
+    "outcome": "Outcome A \u2014 clean success (inline await)",
+    "failure_class": null
+  },
+  "cause_analysis": {
+    "if_passed_cause_a_confirmed": "TestClient lifecycle cancellation is the interrupt source",
+    "if_partial_cause_a_disconfirmed": "Interrupt source is in graph/middleware/checkpointer layer",
+    "key_difference_from_r139": "run_agent awaited inline (no background task) instead of asyncio.create_task"
+  },
+  "recommended_next_phase": "R140_GRAPH_MIDDLEWARE_FIX"
+}

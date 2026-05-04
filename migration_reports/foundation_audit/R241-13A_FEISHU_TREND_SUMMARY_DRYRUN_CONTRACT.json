@@ -1,0 +1,427 @@
+{
+  "design": {
+    "design_id": "feishu_trend_design_df2f2ddfc08e",
+    "generated_at": "2026-04-25T05:07:57.220398+00:00",
+    "input_sources": [
+      {
+        "module": "backend/app/audit/audit_trend_projection.py",
+        "functions": [
+          "summarize_trend_report",
+          "format_trend_report"
+        ],
+        "read_only": true
+      },
+      {
+        "module": "backend/app/audit/audit_trend_cli_guard.py",
+        "functions": [
+          "run_guarded_audit_trend_cli_projection",
+          "validate_trend_cli_output_safety"
+        ],
+        "read_only": true
+      },
+      {
+        "module": "backend/app/nightly/foundation_health_summary.py",
+        "functions": [
+          "build_feishu_card_payload_projection",
+          "validate_feishu_payload_projection"
+        ],
+        "reference_only": true
+      }
+    ],
+    "payload_schema": {
+      "dataclass": "FeishuTrendPayloadProjection",
+      "fields": [
+        "payload_id",
+        "generated_at",
+        "status",
+        "title",
+        "template",
+        "source_trend_report_id",
+        "source_window",
+        "source_record_count",
+        "regression_count",
+        "by_severity",
+        "sections",
+        "card_json",
+        "send_permission",
+        "send_allowed",
+        "webhook_required",
+        "no_webhook_call",
+        "no_runtime_write",
+        "no_action_queue_write",
+        "no_auto_fix",
+        "warnings",
+        "errors"
+      ],
+      "status_values": [
+        "design_only",
+        "projection_only",
+        "ready_for_dry_run",
+        "blocked_no_webhook_policy",
+        "blocked_sensitive_content",
+        "blocked_line_count_changed",
+        "blocked_runtime_write_risk",
+        "unknown"
+      ],
+      "send_permission_values": [
+        "forbidden",
+        "projection_only",
+        "manual_send_later",
+        "requires_webhook_policy",
+        "requires_user_confirmation",
+        "unknown"
+      ]
+    },
+    "card_section_schema": {
+      "dataclass": "FeishuTrendCardSection",
+      "fields": [
+        "section_id",
+        "section_type",
+        "title",
+        "content",
+        "severity",
+        "items",
+        "source_metric_names",
+        "source_regression_ids",
+        "warnings"
+      ],
+      "section_type_values": [
+        "headline",
+        "trend_overview",
+        "regression_summary",
+        "guard_summary",
+        "artifact_links",
+        "warnings",
+        "next_step",
+        "safety_notice",
+        "unknown"
+      ],
+      "severity_values": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical",
+        "unknown"
+      ]
+    },
+    "validation_rules": [
+      {
+        "rule_id": "send_allowed_false",
+        "condition": "send_allowed is false",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "status_projection_only",
+        "condition": "status in design_only/projection_only",
+        "severity": "high"
+      },
+      {
+        "rule_id": "webhook_url_forbidden",
+        "condition": "webhook URL must not appear",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "token_secret_api_key_forbidden",
+        "condition": "token/secret/api_key must not appear",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "no_webhook_call_true",
+        "condition": "no_webhook_call is true",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "no_runtime_write_true",
+        "condition": "no_runtime_write is true",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "no_action_queue_write_true",
+        "condition": "no_action_queue_write is true",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "no_auto_fix_true",
+        "condition": "no_auto_fix is true",
+        "severity": "critical"
+      },
+      {
+        "rule_id": "line_count_changed_false",
+        "condition": "line_count_changed is false",
+        "severity": "high"
+      },
+      {
+        "rule_id": "sensitive_output_detected_false",
+        "condition": "sensitive_output_detected is false",
+        "severity": "high"
+      },
+      {
+        "rule_id": "card_json_serializable",
+        "condition": "card_json can be JSON serialized",
+        "severity": "medium"
+      },
+      {
+        "rule_id": "artifact_links_report_only",
+        "condition": "artifact links must be migration report artifacts only",
+        "severity": "high"
+      }
+    ],
+    "blocked_send_paths": [
+      {
+        "path": "real_feishu_send",
+        "blocked": true,
+        "reason": "webhook_policy_not_designed"
+      },
+      {
+        "path": "webhook_call",
+        "blocked": true,
+        "reason": "network_forbidden_in_r241_13a"
+      },
+      {
+        "path": "scheduler_push",
+        "blocked": true,
+        "reason": "scheduler_integration_requires_separate_review"
+      },
+      {
+        "path": "action_queue_write",
+        "blocked": true,
+        "reason": "trend_summary_must_not_create_actions"
+      },
+      {
+        "path": "auto_fix",
+        "blocked": true,
+        "reason": "trend summary is diagnostic_only"
+      }
+    ],
+    "future_integration_points": [
+      {
+        "phase": "payload_projection",
+        "description": "Generate FeishuTrendPayloadProjection from trend report and guard result.",
+        "send_enabled": false
+      },
+      {
+        "phase": "cli_dry_run_preview",
+        "description": "Add audit-trend-feishu preview command.",
+        "send_enabled": false
+      },
+      {
+        "phase": "manual_send_policy",
+        "description": "Design webhook policy and user confirmation gate.",
+        "send_enabled": false
+      },
+      {
+        "phase": "manual_send_implementation",
+        "description": "Optional later manual send implementation, disabled by default.",
+        "send_enabled": false
+      },
+      {
+        "phase": "scheduler_review",
+        "description": "Separate review before any scheduler integration.",
+        "send_enabled": false
+      }
+    ],
+    "implementation_phases": [
+      {
+        "phase": "Phase 1",
+        "name": "Design-only Contract",
+        "scope": "Current R241-13A schema/mapping/validation only.",
+        "writes_runtime": false,
+        "sends_feishu": false
+      },
+      {
+        "phase": "Phase 2",
+        "name": "Payload Projection",
+        "scope": "Build FeishuTrendPayloadProjection from trend report plus guard.",
+        "writes_runtime": false,
+        "sends_feishu": false
+      },
+      {
+        "phase": "Phase 3",
+        "name": "CLI Dry-run Preview",
+        "scope": "Add audit-trend-feishu CLI preview output.",
+        "writes_runtime": false,
+        "sends_feishu": false
+      },
+      {
+        "phase": "Phase 4",
+        "name": "Manual Send Policy Design",
+        "scope": "Define webhook policy, user confirmation, redaction review.",
+        "writes_runtime": false,
+        "sends_feishu": false
+      },
+      {
+        "phase": "Phase 5",
+        "name": "Manual Send Implementation",
+        "scope": "Separate implementation, disabled by default.",
+        "writes_runtime": false,
+        "sends_feishu": false
+      },
+      {
+        "phase": "Phase 6",
+        "name": "Scheduler Integration Review",
+        "scope": "Separate review before any scheduler/watchdog integration.",
+        "writes_runtime": false,
+        "sends_feishu": false
+      }
+    ],
+    "warnings": [],
+    "section_catalog": [
+      {
+        "section_type": "headline",
+        "source_fields": [
+          "trend_report.status",
+          "trend_report.window",
+          "regression_count"
+        ],
+        "max_item_count": 1,
+        "redaction_rule": "metadata_only_no_raw_records",
+        "display purpose": "One-line trend health headline for operators."
+      },
+      {
+        "section_type": "trend_overview",
+        "source_fields": [
+          "total_records_analyzed",
+          "series_count",
+          "by_severity"
+        ],
+        "max_item_count": 6,
+        "redaction_rule": "counts_only",
+        "display purpose": "Show current trend window and aggregate counts."
+      },
+      {
+        "section_type": "regression_summary",
+        "source_fields": [
+          "top_regressions",
+          "metric_name",
+          "severity",
+          "current_value"
+        ],
+        "max_item_count": 5,
+        "redaction_rule": "no_evidence_payload_body",
+        "display purpose": "Highlight strongest regression signals without raw evidence bodies."
+      },
+      {
+        "section_type": "guard_summary",
+        "source_fields": [
+          "guard.audit_jsonl_unchanged",
+          "guard.sensitive_output_detected",
+          "guard.network_call_detected"
+        ],
+        "max_item_count": 8,
+        "redaction_rule": "booleans_only",
+        "display purpose": "Show safety guard results for the dry-run command."
+      },
+      {
+        "section_type": "artifact_links",
+        "source_fields": [
+          "artifact_bundle.artifacts.output_path"
+        ],
+        "max_item_count": 5,
+        "redaction_rule": "report_artifact_paths_only",
+        "display purpose": "Reference local report artifacts; never include webhook or runtime paths."
+      },
+      {
+        "section_type": "warnings",
+        "source_fields": [
+          "trend_report.warnings",
+          "guard.warnings"
+        ],
+        "max_item_count": 10,
+        "redaction_rule": "truncate_and_redact_sensitive_markers",
+        "display purpose": "Show non-fatal warnings that need operator review."
+      },
+      {
+        "section_type": "next_step",
+        "source_fields": [
+          "recommended_next_step"
+        ],
+        "max_item_count": 3,
+        "redaction_rule": "static_policy_text_only",
+        "display purpose": "Suggest next dry-run or manual review step."
+      },
+      {
+        "section_type": "safety_notice",
+        "source_fields": [
+          "send_allowed",
+          "no_webhook_call",
+          "no_auto_fix"
+        ],
+        "max_item_count": 1,
+        "redaction_rule": "policy_flags_only",
+        "display purpose": "Make it explicit that the payload is projection-only."
+      }
+    ],
+    "payload_mapping": {
+      "input_sources": [
+        {
+          "module": "backend/app/audit/audit_trend_projection.py",
+          "functions": [
+            "summarize_trend_report",
+            "format_trend_report"
+          ],
+          "read_only": true
+        },
+        {
+          "module": "backend/app/audit/audit_trend_cli_guard.py",
+          "functions": [
+            "run_guarded_audit_trend_cli_projection",
+            "validate_trend_cli_output_safety"
+          ],
+          "read_only": true
+        },
+        {
+          "module": "backend/app/nightly/foundation_health_summary.py",
+          "functions": [
+            "build_feishu_card_payload_projection",
+            "validate_feishu_payload_projection"
+          ],
+          "reference_only": true
+        }
+      ],
+      "field_mapping": {
+        "status": "trend_report.status",
+        "window": "trend_report.window",
+        "source_record_count": "trend_report.total_records_analyzed",
+        "series_count": "summary.series_count",
+        "regression_count": "summary.regression_count",
+        "by_severity": "summary.by_severity",
+        "top_regressions": "summary.top_regressions",
+        "audit_jsonl_unchanged": "guard.audit_jsonl_unchanged",
+        "sensitive_output_detected": "guard.sensitive_output_detected",
+        "network_call_detected": "guard.network_call_detected",
+        "artifact_paths": "artifact_bundle.artifacts.output_path"
+      },
+      "payload_policy": {
+        "send_allowed": false,
+        "send_permission": "projection_only",
+        "webhook_required": true,
+        "no_webhook_call": true,
+        "no_runtime_write": true,
+        "no_action_queue_write": true,
+        "no_auto_fix": true,
+        "default_status": "design_only"
+      },
+      "card_json_shape": {
+        "config": {
+          "wide_screen_mode": true
+        },
+        "header": {
+          "title": "Nightly Trend Summary",
+          "template": "blue"
+        },
+        "elements": "projection_only_sections",
+        "safety_notice": "projection_only_no_webhook_no_auto_fix"
+      },
+      "warnings": []
+    },
+    "root": "E:\\OpenClaw-Base\\deerflow"
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  },
+  "generated_at": "2026-04-25T05:07:57.221195+00:00",
+  "warnings": []
+}

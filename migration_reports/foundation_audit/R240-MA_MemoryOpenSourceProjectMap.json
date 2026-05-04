@@ -1,0 +1,62 @@
+{
+  "audit_id": "R240-MA",
+  "note": "The user described two open-source memory projects, but the recovered design documents name more than two. The principal long-term pair is MemOS and GraphRAG+Mem0.",
+  "projects": [
+    {
+      "project": "ReMe",
+      "assigned_layers": ["L1"],
+      "responsibility": "Real-time working memory compaction for active task context.",
+      "design_state": true,
+      "code_state": "represented_by_working_memory_layer",
+      "runtime_state": "not_independently_verified"
+    },
+    {
+      "project": "SimpleMem",
+      "assigned_layers": ["L2"],
+      "responsibility": "Session memory compression and recent session retention.",
+      "design_state": true,
+      "code_state": "represented_by_session_memory_layer",
+      "runtime_state": "partially_overlapped_by_deerflow_file_memory"
+    },
+    {
+      "project": "MemOS",
+      "assigned_layers": ["L3"],
+      "responsibility": "Persistent local structured memory, stable preferences, capability and fact storage.",
+      "design_state": true,
+      "code_state": "represented_by_persistent_memory_layer_and_file_memory_storage",
+      "runtime_state": "active_file_memory_exists"
+    },
+    {
+      "project": "GraphRAG",
+      "assigned_layers": ["L4"],
+      "responsibility": "Knowledge graph extraction, relation graph, cross-task semantic retrieval.",
+      "design_state": true,
+      "code_state": "represented_by_knowledge_graph_layer",
+      "runtime_state": "qdrant_vector_store_exists_but_sparse"
+    },
+    {
+      "project": "Mem0",
+      "assigned_layers": ["L4"],
+      "responsibility": "Semantic memory network associated with knowledge graph retrieval.",
+      "design_state": true,
+      "code_state": "design_reference_found",
+      "runtime_state": "not_independently_verified"
+    },
+    {
+      "project": "CortexaDB",
+      "assigned_layers": ["L5"],
+      "responsibility": "Visual anchor memory for GUI automation and UI snapshots.",
+      "design_state": true,
+      "code_state": "visual_anchor_layer_exists",
+      "runtime_state": "not_verified_as_active_store"
+    },
+    {
+      "project": "agentmemory",
+      "assigned_layers": ["pipeline", "L3", "L4"],
+      "responsibility": "PostToolUse semantic write pipeline, hybrid search, MCP integration.",
+      "design_state": true,
+      "code_state": "semantic_writer_pipeline_exists",
+      "runtime_state": "not_verified_as_active_mcp_runtime"
+    }
+  ]
+}

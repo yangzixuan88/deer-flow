@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-3_ContextNormalizationPlan.json",
+  "title": "ContextNormalizationPlan",
+  "description": "Context Contract 规范化接入计划 — 各系统如何逐步接入统一 ContextEnvelope 而不破坏现有架构",
+  "phases": {
+    "phase1_minimal_wrapper": {
+      "title": "Phase 1: 最小 ContextEnvelope Wrapper（Mode Router 实现前置条件）",
+      "goal": "在不修改现有业务逻辑的情况下，在关键入口/出口添加 ContextEnvelope wrapper",
+      "constraints": [
+        "只做 wrapper/adapter，不直接大改内部逻辑",
+        "不修改现有函数签名（通过可选参数或环境变量注入）",
+        "不要求一次性重构所有系统"
+      ],
+      "adapters": [
+        {
+          "system": "gateway",
+          "entry_point": "app/gateway/routers/thread_runs.py:create_run()",
+          "wrapper_action": "在 RunCreateRequest 中透传可选 context_envelope 字段；从 envelope 提取 thread_id 传给 checkpointer",
+          "output_location": "RunManager record 的 metadata 字段",
+          "minimal_fields": ["context_id", "request_id", "thread_id", "run_id", "created_at", "source_system"],
+          "blocking_issue": "RunCreateRequest 当前无 request_id — 需要外部传入或生成"
+        },
+        {
+          "system": "m01",
+          "entry_point": "src/domain/m01/orchestrator.ts:execute()",
+          "wrapper_action": "在 OrchestrationRequest 中透传可选 context_envelope 字段；如果外部未提供 request_id，则生成 UUID",
+          "output_location": "OrchestrationResult.result_envelope 字段",
+          "minimal_fields": ["context_id", "request_id", "created_at", "source_system"],
+          "blocking_issue": "OrchestrationRequest 当前无 request_id 字段 — 需要添加"
+        },
+        {
+          "system": "deerflow",
+          "entry_point": "packages/harness/deerflow/client.py:run()",
+          "wrapper_action": "传递 context_envelope 而不是单独传递 thread_id；envelope 中的 thread_id 用于 checkpointer configurable",
+          "output_location": "StreamBridge event metadata",
+          "minimal_fields": ["context_id", "request_id", "thread_id", "created_at", "source_system"],
+          "blocking_issue": "无阻塞 — DeerFlow client 已经有 thread_id 生成逻辑"
+        },
+        {
+          "system": "governance",
+          "entry_point": "app/m11/governance_bridge.py:record_outcome()",
+          "wrapper_action": "在 outcome record 中添加 context_envelope_ref 字段（可选，不阻塞现有逻辑）",
+          "output_location": "governance_state.json outcome_records[].context_envelope_ref",
+          "minimal_fields": ["context_id", "governance_trace_id", "created_at"],
+          "blocking_issue": "无阻塞 — governance outcome 记录可以独立工作，不强制要求 context 追溯"
+        }
+      ],
+      "success_criteria": [
+        "Gateway thread_runs.py 可以接收和传递 ContextEnvelope",
+        "M01 orchestrator 可以生成/接收 request_id 并传递给 OrchestrationResult",
+        "DeerFlow client 的 run() 方法接受 context_envelope 参数",
+        "governance_bridge.record_outcome() 可以记录 context_envelope_ref（可选）"
+      ]
+    },
+    "phase2_contextlink_population": {
+      "title": "Phase 2: ContextLink 关系填充",
+      "goal": "在关键调用路径上建立 ID 之间的关系链",
+      "constraints": [
+        "ContextLink 是可选的 — 不阻断现有流程",
+        "优先建立高价值链路：request→thread→run→task",
+        "不要求 100% 覆盖所有 ID 组合"
+      ],
+      "link_chains": [
+        {
+          "chain_name": "request_to_task",
+          "path": "request_id → thread_id → run_id → task_id",
+          "source_systems": ["gateway", "deerflow", "m04"],
+          "relation_types": ["derived_from", "belongs_to_thread", "executes_as"],
+          "priority": "high",
+          "implementation_hint": "在 RunManager.create() 时，从 context_envelope 提取 request_id，并在 RunRecord.metadata 中建立 request_id→run_id 映射"
+        },
+        {
+          "chain_name": "task_to_governance",
+          "path": "task_id → candidate_id → governance_decision_id",
+          "source_systems": ["m04", "governance"],
+          "relation_types": ["promotes_asset_for", "records_outcome_for"],
+          "priority": "medium",
+          "implementation_hint": "在 task 执行完成后（task_tool 或 subagent_executor），将 task_id 和 context_envelope_ref 嵌入 governance outcome 记录"
+        },
+        {
+          "chain_name": "rtcm_thread_interop",
+          "path": "gateway_thread_id ↔ rtcm_session_id",
+          "source_systems": ["gateway", "rtcm"],
+          "relation_types": ["belongs_to_rtcm", "intercepts", "spawns"],
+          "priority": "low",
+          "implementation_hint": "MainAgentHandoffManager 在 intercept 时，保存对原始 Gateway thread_id 的引用到 handoff dir 文件"
+        }
+      ],
+      "success_criteria": [
+        "RunRecord 可以通过 metadata 追溯到原始 request_id",
+        "governance outcome record 可以追溯到发起 task_id",
+        "RTCM intercept 时可以知道原始 Gateway thread_id"
+      ]
+    },
+    "phase3_memory_scope_normalization": {
+      "title": "Phase 3: Memory Scope 规范化",
+      "goal": "确保 memory 写入严格按 scope 划分，防止跨请求污染",
+      "constraints": [
+        "只改 memory_middleware 和 memory_updater",
+        "不修改其他系统的 memory 读取逻辑"
+      ],
+      "changes": [
+        {
+          "file": "packages/harness/deerflow/agents/middlewares/memory_middleware.py",
+          "change": "memory_middleware 写入时，必须携带 context_envelope 并从中提取 memory_scope；拒绝没有 context_envelope 的写入请求"
+        },
+        {
+          "file": "packages/harness/deerflow/agents/memory/updater.py",
+          "change": "memory item 生成独立 UUID（不依赖 thread_id 作为唯一标识）；添加 memory_item_id 字段"
+        },
+        {
+          "file": "src/domain/memory/layer2/session_memory.ts",
+          "change": "session_memory 写入时校验 memory_scope，只能写入 session/task 级别"
+        }
+      ],
+      "success_criteria": [
+        "memory_updater 每条记录都有独立 memory_item_id",
+        "memory_middleware 拒绝将 task scope 的数据写入 user scope",
+        "session_memory 不被 workflow 级别的 scratchpad 污染"
+      ]
+    }
+  },
+  "integration_matrix": {
+    "title": "接入矩阵 — 各系统最小接入点",
+    "matrix": {
+      "m01": {
+        "entry_file": "src/domain/m01/orchestrator.ts",
+        "entry_method": "execute(request: OrchestrationRequest)",
+        "context_field": "request.context_envelope",
+        "id_generation": "orchestrator 生成 request_id（UUID）如果外部未提供",
+        "output_to": "result.envelope"
+      },
+      "m04": {
+        "entry_file": "src/domain/m04/coordinator.ts",
+        "entry_method": "execute(request: any)",
+        "context_field": "request.context_envelope",
+        "id_generation": "从 context_envelope 提取 task_id，不自己生成",
+        "output_to": "coordinator_state.context_envelope"
+      },
+      "gateway": {
+        "entry_file": "app/gateway/routers/thread_runs.py",
+        "entry_method": "create_run(body: RunCreateRequest, thread_id: str)",
+        "context_field": "body.context",
+        "id_generation": "从 context_envelope 提取 thread_id，RunManager 生成 run_id",
+        "output_to": "RunRecord.metadata.envelope"
+      },
+      "deerflow": {
+        "entry_file": "packages/harness/deerflow/client.py",
+        "entry_method": "run(input: any, thread_id?: str)",
+        "context_field": "context_envelope parameter",
+        "id_generation": "从 envelope 提取 thread_id，不自己生成",
+        "output_to": "StreamBridge event metadata"
+      },
+      "rtcm": {
+        "entry_file": "src/rtcm/rtcm_entry_adapter.ts",
+        "entry_method": "handleEntry(request: any)",
+        "context_field": "request.context_envelope",
+        "id_generation": "RTCM SessionManager 生成 session_id/project_id，覆盖 envelope 中的 rtcm_* 字段",
+        "output_to": "rtcm_project.dossier_dir"
+      },
+      "governance": {
+        "entry_file": "app/m11/governance_bridge.py",
+        "entry_method": "record_outcome(outcome_type: str, data: dict)",
+        "context_field": "data.get('context_envelope_ref')",
+        "id_generation": "governance_bridge 生成 decision_id/outcome_id，不依赖外部",
+        "output_to": "governance_state.json outcome_records"
+      },
+      "memory": {
+        "entry_file": "packages/harness/deerflow/agents/middlewares/memory_middleware.py",
+        "entry_method": "write_memory(state: State, envelope: ContextEnvelope)",
+        "context_field": "envelope.memory_scope",
+        "id_generation": "memory_updater 生成 memory_item_id",
+        "output_to": "memory store"
+      },
+      "asset": {
+        "entry_file": "app/m07/asset_system.py",
+        "entry_method": "promote_asset(candidate: dict, envelope: ContextEnvelope)",
+        "context_field": "envelope.candidate_id",
+        "id_generation": "DPBS 生成 asset_id",
+        "output_to": "asset registry"
+      },
+      "sandbox": {
+        "entry_file": "packages/harness/deerflow/sandbox/sandbox_provider.py",
+        "entry_method": "execute(tool_call: dict, envelope: ContextEnvelope)",
+        "context_field": "envelope",
+        "id_generation": "sandbox 执行生成 execution_id（UUID）",
+        "output_to": "verify_script 输出 + governance record"
+      },
+      "watchdog": {
+        "entry_file": "src/infrastructure/watchdog.ts",
+        "entry_method": "check(state: any, envelope: ContextEnvelope)",
+        "context_field": "envelope",
+        "id_generation": "watchdog 不生成 ID，只使用 envelope 中的 ID",
+        "output_to": "governance drift record"
+      }
+    }
+  },
+  "design_principles": [
+    "ContextEnvelope 是传递载体，不是状态容器 — 不承载执行状态，只承载 ID 关系",
+    "ContextLink 是关系表，不是引用完整性约束 — 允许悬空链接，不阻断流程",
+    "各系统的 ID 生成逻辑保持不变 — ContextEnvelope 只是包裹层",
+    "memory_scope 是写入策略，不是读取策略 — 读取不受 scope 限制",
+    "不要求一次性 100% 覆盖 — Phase 1 只要求关键入口可透传，ContextLink 可选",
+    "runtime artifact 不进入 ContextEnvelope 主链 — 它们是执行副产品，通过独立路径追溯"
+  ],
+  "not_implemented_constraints": [
+    "不实现：不要求所有系统同时修改 — 遗留系统可以继续用旧逻辑，只需要在接口处包装",
+    "不实现：不要求 ContextLink 的引用完整性 — 允许悬空链接，不报错",
+    "不实现：不要求 memory item 有强制的独立 ID — Phase 1 仍可用 thread_id 作为 scope key",
+    "不实现：不要求 governance outcome 必须有 context_envelope_ref — 可选字段，不阻断现有逻辑"
+  ]
+}

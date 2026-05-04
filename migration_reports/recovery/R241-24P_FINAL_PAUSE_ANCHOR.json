@@ -1,0 +1,62 @@
+{
+  "phase": "R241-24P",
+  "status": "PAUSED",
+  "frozen_at": "2026-04-29",
+  "description": "Final Pause Anchor — R241 track frozen state",
+  "git_state": {
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "29f8ed8a",
+    "private_main": "8f69ffce",
+    "origin_main": "4a9f1d54",
+    "origin_r241_branch": "672dc6eb (separate upstream fork branch)",
+    "feature_branch_deleted_on_private": true
+  },
+  "pr_2645": {
+    "pr": "bytedance/deer-flow#2645",
+    "state": "OPEN",
+    "ci": {
+      "license/cla": "success",
+      "all_others": "not_triggered"
+    },
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "note": "External fork PR requires maintainer manual CI trigger"
+  },
+  "safety_invariants": {
+    "auth_flags_disabled": true,
+    "no_gateway_activation": true,
+    "no_db_writes": true,
+    "no_jsonl_writes": true,
+    "dsrt_compliant": true,
+    "mcp_blockers_preserved": true,
+    "production_sqlite_postgres_blockers_preserved": true
+  },
+  "auth_activation_gate": {
+    "status": "CONDITIONAL_GREEN",
+    "controlled_tests": "PASSED",
+    "production_gaps": "3 blocking (schema, bootstrap, authz)"
+  },
+  "blockers": {
+    "pending": 2,
+    "needs_authorization": 3,
+    "blocked": 4
+  },
+  "handoff_files": [
+    "migration_reports/recovery/R241-24L_FINAL_HANDOFF_SUMMARY.md",
+    "migration_reports/recovery/R241-24L_FINAL_HANDOFF_SUMMARY.json",
+    "migration_reports/recovery/R241-24A_FULL_HANDOFF_SUMMARY.md",
+    "migration_reports/recovery/R241-24A_FULL_HANDOFF_SUMMARY.json"
+  ],
+  "resume_prompt": "Enter R241-24P_RESUME. CONTEXT: R241 track PAUSED at R241-24P. PR #2645 open (CI not triggered). Auth gate CONDITIONAL_GREEN. 21 phases completed. PROHIBITIONS: no code mod, no prod DB, no AUTH flags, no gateway, no push, no merge. RESUME OPTIONS: A(wait CI), B(prod sqlite review), C(auth activation review), D(new goal), E(stay paused).",
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "gate_id": "R241-17D-GATE",
+  "generated_at": "2026-04-27T08:56:49.068620+00:00",
+  "local_closure_complete": true,
+  "post_publish_audit_stable": true,
+  "workflow_dispatch_only": true,
+  "upstream_intake_matrix_ready": true,
+  "no_critical_unresolved_local_issue": true,
+  "direct_update_candidates_count": 0,
+  "adapter_patch_candidates_count": 4,
+  "quarantine_candidates_count": 2,
+  "forbidden_candidates_count": 1,
+  "mainline_resume_allowed": true,
+  "next_mainline_phase": "R241-18A_RUNTIME_ACTIVATION_READINESS_REVIEW",
+  "blocked_reasons": [],
+  "warnings": [],
+  "errors": []
+}

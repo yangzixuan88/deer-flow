@@ -1,0 +1,745 @@
+{
+  "report_id": "R241-19H_UPGRADE_CANDIDATE_RISK_REVIEW",
+  "phase": "phase_19h_upgrade_candidate_risk_review",
+  "status": "passed_with_warnings",
+  "decision": "approve_upgrade_candidate_risk_review_with_quarantine_warnings",
+  "source": "R241-19G_VERIFIED_UPSTREAM_DIFF_INTAKE_PLAN",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19g": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19g_passed_with_warnings": true,
+    "verified_upstream_diff_intake_passed": true,
+    "base_target_verified": true,
+    "classification_matrix_ready": true,
+    "forbidden_runtime_candidates_quarantined": true,
+    "allow_enter_r241_19h": true,
+    "all_preconditions_met": true
+  },
+  "upgrade_candidate_risk_review_scope": {
+    "current_round": "R241-19H",
+    "mode": "upgrade_candidate_risk_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "patch_apply_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "blocker_override_allowed": false,
+    "git_network_operation_allowed": false,
+    "branch_switch_allowed": false,
+    "unblock_review_allowed": false,
+    "allowed_scope": [
+      "candidate inventory reconciliation",
+      "classification consistency review",
+      "candidate risk scoring",
+      "blocker-to-candidate mapping",
+      "local customization conflict review",
+      "lane assignment",
+      "next-round readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual upgrade execution",
+      "patch generation",
+      "patch apply",
+      "code overwrite",
+      "whole-directory replacement",
+      "dependency upgrade execution",
+      "dependency install",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu/webhook migration",
+      "scheduler activation",
+      "production service start",
+      "secret/token/webhook migration",
+      "blocker override",
+      "blocker unblock",
+      "dirty worktree cleanup",
+      "stash pop/apply",
+      "git fetch/pull/merge/rebase",
+      "branch switch",
+      "adding remote",
+      "modifying remote"
+    ]
+  },
+  "canonical_candidate_inventory": {
+    "total_candidates": 25,
+    "counts_by_class_reported": {
+      "safe_direct_update": 5,
+      "adapter_only": 10,
+      "report_only_quarantine": 1,
+      "forbidden_runtime_replacement": 8
+    },
+    "counts_by_class_reconciled": {
+      "safe_direct_update": 5,
+      "adapter_only": 10,
+      "report_only_quarantine": 1,
+      "forbidden_runtime_replacement": 9
+    },
+    "forbidden_candidates_reported_in_text": [
+      "CAND-007 (gateway/routers/auth.py)",
+      "CAND-008 (persistence/__init__.py)",
+      "CAND-009 (persistence/engine.py)",
+      "CAND-010 (persistence/feedback/sql.py)",
+      "CAND-011 (persistence/run/sql.py)",
+      "CAND-012 (runtime/events/store/db.py)",
+      "CAND-013 (runtime/events/store/jsonl.py)",
+      "CAND-018 (gateway/app.py)",
+      "CAND-024 (auth/repositories/sqlite.py)"
+    ],
+    "forbidden_candidates_reconciled": [
+      "CAND-007 gateway/routers/auth.py",
+      "CAND-008 persistence/__init__.py (package namespace umbrella)",
+      "CAND-009 persistence/engine.py",
+      "CAND-010 persistence/feedback/sql.py",
+      "CAND-011 persistence/run/sql.py",
+      "CAND-012 runtime/events/store/db.py",
+      "CAND-013 runtime/events/store/jsonl.py",
+      "CAND-018 gateway/app.py",
+      "CAND-024 auth/repositories/sqlite.py"
+    ],
+    "audit_direct_hits": [
+      "CAND-007 FastAPI route registration",
+      "CAND-009 DB write at startup",
+      "CAND-012 runtime event DB write",
+      "CAND-013 audit JSONL write",
+      "CAND-018 gateway main path modification",
+      "CAND-024 auth SQLite DB write"
+    ],
+    "grouped_candidates": [
+      {
+        "group_id": "persistence_layer_group",
+        "members": ["CAND-008", "CAND-009", "CAND-010", "CAND-011"],
+        "umbrella": "persistence/__init__.py (CAND-008) is package namespace; individual files include engine.py, feedback/sql.py, run/sql.py",
+        "blocked_by": "SURFACE-010",
+        "note": "CAND-008 is package umbrella, not separate executable candidate"
+      },
+      {
+        "group_id": "auth_db_write_group",
+        "members": ["CAND-024"],
+        "blocked_by": "SURFACE-010",
+        "note": "auth/repositories/sqlite.py — DB write for auth persistence"
+      },
+      {
+        "group_id": "runtime_event_store_group",
+        "members": ["CAND-012", "CAND-013"],
+        "blocked_by": "SURFACE-010",
+        "note": "runtime event store DB and JSONL writers"
+      }
+    ],
+    "count_discrepancies": [
+      {
+        "discrepancy": "counts_by_class.reported.forbidden_runtime_replacement=8 but text lists 9 candidate IDs",
+        "cause": "R241-19G JSON counts field = 8 (correct canonical count); forbidden candidates text field lists 9 IDs because it counts package namespace CAND-008 separately from individual SQL files",
+        "resolution": "Canonical count = 8 (excluding package namespace umbrella from distinct file candidates); actual forbidden file candidates = 9 including persistence package namespace",
+        "impact": "non-blocking — all forbidden candidates remain quarantined; no candidate misclassified as safe"
+      },
+      {
+        "discrepancy": "forbidden_runtime_replacement_audit.hits = 6 but forbidden_candidates = 9",
+        "cause": "Audit hits only count direct runtime surface violations; CAND-008 (package namespace), CAND-010 (persistence SQL), CAND-011 (persistence SQL) are also forbidden but not direct audit hits (they are structural persistence layer members)",
+        "resolution": "Audit shows 6 direct runtime surface hits; remaining 3 (CAND-008, CAND-010, CAND-011) are structural persistence layer members blocked by SURFACE-010",
+        "impact": "non-blocking — all 9 forbidden candidates quarantined via SURFACE-010 or GSIC-003/004"
+      }
+    ],
+    "reconciliation_decision": "passed_with_warning",
+    "reconciliation_note": "All discrepancies are non-blocking counting differences; no candidate was misclassified as safe; all forbidden candidates properly quarantined"
+  },
+  "classification_consistency_review": [
+    {
+      "candidate_id": "R241-19G-CAND-001",
+      "path": "backend/app/gateway/auth/__init__.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "new auth module directory; conflicts with local gateway custom auth; adapter required",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-002",
+      "path": "backend/app/gateway/auth/jwt.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "new JWT auth module; needs adapter for local auth middleware integration",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-003",
+      "path": "backend/app/gateway/auth/credential_file.py",
+      "r241_19g_classification": "safe_direct_update",
+      "r241_19h_reviewed_classification": "safe_direct_update",
+      "classification_consistent": true,
+      "risk_reason": "replaces dangerous auto-admin creation with secure credential file approach; no runtime activation",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain safe_direct_update — positive security improvement"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-004",
+      "path": "backend/app/gateway/auth/reset_admin.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "privileged admin reset; requires adapter review; not forbidden but needs careful handling",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only — privileged operation"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-005",
+      "path": "backend/app/gateway/auth_middleware.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "new auth middleware; adapter required for local gateway integration",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-006",
+      "path": "backend/app/gateway/langgraph_auth.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "auth integration with LangGraph; adapter required",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-007",
+      "path": "backend/app/gateway/routers/auth.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "FastAPI route registration; GSIC-004 implicated; requires dedicated unblock review",
+      "blockers_implicated": ["GSIC-004"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-008",
+      "path": "backend/packages/harness/deerflow/persistence/__init__.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "persistence layer package namespace; SURFACE-010 implicated; structural blocker",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined; package namespace umbrella"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-009",
+      "path": "backend/packages/harness/deerflow/persistence/engine.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "DB write at gateway startup; SURFACE-010; direct runtime surface hit",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined; direct audit hit"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-010",
+      "path": "backend/packages/harness/deerflow/persistence/feedback/sql.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "DB write; SURFACE-010; structural persistence writer",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-011",
+      "path": "backend/packages/harness/deerflow/persistence/run/sql.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "DB write; SURFACE-010; structural persistence writer",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-012",
+      "path": "backend/packages/harness/deerflow/runtime/events/store/db.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "runtime event DB write; SURFACE-010; direct audit hit",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined; direct audit hit"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-013",
+      "path": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "audit JSONL write; SURFACE-010; direct audit hit",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined; direct audit hit"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-014",
+      "path": "backend/packages/harness/deerflow/runtime/events/store/memory.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "in-memory event store; adapter required; no persistent write",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-015",
+      "path": "backend/packages/harness/deerflow/runtime/journal.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "runtime journal; adapter required; no direct activation",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-016",
+      "path": "backend/pyproject.toml",
+      "r241_19g_classification": "report_only_quarantine",
+      "r241_19h_reviewed_classification": "report_only_quarantine",
+      "classification_consistent": true,
+      "risk_reason": "langchain-ollama/ollama optional dependency; install not allowed in this phase",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain report_only_quarantine"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-017",
+      "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+      "r241_19g_classification": "safe_direct_update",
+      "r241_19h_reviewed_classification": "safe_direct_update",
+      "classification_consistent": true,
+      "risk_reason": "minor tag addition; no runtime activation; no surface conflict",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain safe_direct_update"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-018",
+      "path": "backend/app/gateway/app.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "gateway main path modification; GSIC-003 implicated; protected path; direct audit hit",
+      "blockers_implicated": ["GSIC-003"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined; direct audit hit"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-019",
+      "path": "backend/app/gateway/services.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "gateway services modification; protected path; adapter required",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only — protected path"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-020",
+      "path": "frontend/src/content/en/**/*.mdx",
+      "r241_19g_classification": "safe_direct_update",
+      "r241_19h_reviewed_classification": "safe_direct_update",
+      "classification_consistent": true,
+      "risk_reason": "docs-only; no runtime touch; no surface conflict",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain safe_direct_update"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-021",
+      "path": "frontend/src/content/zh/**/*.mdx",
+      "r241_19g_classification": "safe_direct_update",
+      "r241_19h_reviewed_classification": "safe_direct_update",
+      "classification_consistent": true,
+      "risk_reason": "docs-only; no runtime touch; no surface conflict",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain safe_direct_update"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-022",
+      "path": "backend/langgraph.json",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "config change for persistence layer; adapter required",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-023",
+      "path": "backend/app/gateway/auth/providers.py",
+      "r241_19g_classification": "adapter_only",
+      "r241_19h_reviewed_classification": "adapter_only",
+      "classification_consistent": true,
+      "risk_reason": "auth provider with privileged setup; needs adapter review",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain adapter_only"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-024",
+      "path": "backend/app/gateway/auth/repositories/sqlite.py",
+      "r241_19g_classification": "forbidden_runtime_replacement",
+      "r241_19h_reviewed_classification": "forbidden_runtime_replacement",
+      "classification_consistent": true,
+      "risk_reason": "SQLite DB write for auth; persistence writer; SURFACE-010; direct audit hit",
+      "blockers_implicated": ["SURFACE-010"],
+      "requires_reclassification": false,
+      "decision": "maintain forbidden_runtime_replacement — quarantined; direct audit hit"
+    },
+    {
+      "candidate_id": "R241-19G-CAND-025",
+      "path": "backend/tests/test_auth.py",
+      "r241_19g_classification": "safe_direct_update",
+      "r241_19h_reviewed_classification": "safe_direct_update",
+      "classification_consistent": true,
+      "risk_reason": "test-only; no runtime activation; no surface conflict",
+      "blockers_implicated": [],
+      "requires_reclassification": false,
+      "decision": "maintain safe_direct_update"
+    }
+  ],
+  "safe_direct_update_risk_review": {
+    "candidates_reviewed": [
+      {"candidate_id": "R241-19G-CAND-003", "path": "backend/app/gateway/auth/credential_file.py", "risk": "low", "decision": "approve_for_future_patch_review"},
+      {"candidate_id": "R241-19G-CAND-017", "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py", "risk": "none", "decision": "approve_for_future_patch_review"},
+      {"candidate_id": "R241-19G-CAND-020", "path": "frontend/src/content/en/**/*.mdx", "risk": "none", "decision": "approve_for_future_patch_review"},
+      {"candidate_id": "R241-19G-CAND-021", "path": "frontend/src/content/zh/**/*.mdx", "risk": "none", "decision": "approve_for_future_patch_review"},
+      {"candidate_id": "R241-19G-CAND-025", "path": "backend/tests/test_auth.py", "risk": "none", "decision": "approve_for_future_patch_review"}
+    ],
+    "candidates_approved_for_future_patch_review": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "candidates_requiring_reclassification": [],
+    "constraints": [
+      "future patch review only in R241-19I",
+      "no patch apply in R241-19H",
+      "must preserve local customization",
+      "must run core_144 and candidate-specific tests before any apply",
+      "credential_file.py is positive security improvement — removes auto-admin creation"
+    ],
+    "review_status": "passed"
+  },
+  "adapter_only_risk_review": {
+    "candidates_reviewed": [
+      "CAND-001 auth module directory",
+      "CAND-002 auth/jwt.py",
+      "CAND-004 auth/reset_admin.py",
+      "CAND-005 auth_middleware.py",
+      "CAND-006 langgraph_auth.py",
+      "CAND-014 runtime/events/store/memory.py",
+      "CAND-015 runtime/journal.py",
+      "CAND-019 gateway/services.py (protected path)",
+      "CAND-022 langgraph.json",
+      "CAND-023 auth/providers.py"
+    ],
+    "adapter_design_required": [
+      "CAND-001 (auth module — local gateway custom auth conflict)",
+      "CAND-002 (auth/jwt.py — local auth middleware integration)",
+      "CAND-004 (auth/reset_admin.py — privileged auth review)",
+      "CAND-005 (auth_middleware.py — local gateway integration)",
+      "CAND-006 (langgraph_auth.py — adapter for LangGraph integration)",
+      "CAND-014 (runtime/events/store/memory.py — local runtime context)",
+      "CAND-015 (runtime/journal.py — local runtime context)"
+    ],
+    "privileged_auth_review_required": ["CAND-004", "CAND-023"],
+    "protected_path_conflicts": ["CAND-019 (gateway/services.py — protected path)"],
+    "runtime_context_conflicts": ["CAND-014", "CAND-015"],
+    "candidates_requiring_reclassification": [],
+    "review_status": "passed"
+  },
+  "report_only_quarantine_risk_review": {
+    "candidates_reviewed": ["CAND-016 backend/pyproject.toml"],
+    "quarantine_reason": [
+      "langchain-ollama and ollama optional dependencies added",
+      "dependency install not allowed in this phase",
+      "requires dependency risk review before any install"
+    ],
+    "dependency_risk_review_required": true,
+    "install_allowed_now": false,
+    "dependency_execution_allowed_now": false,
+    "review_status": "passed"
+  },
+  "forbidden_runtime_replacement_risk_review": {
+    "candidates_reviewed": [
+      "CAND-007 gateway/routers/auth.py",
+      "CAND-008 persistence/__init__.py (package namespace)",
+      "CAND-009 persistence/engine.py",
+      "CAND-010 persistence/feedback/sql.py",
+      "CAND-011 persistence/run/sql.py",
+      "CAND-012 runtime/events/store/db.py",
+      "CAND-013 runtime/events/store/jsonl.py",
+      "CAND-018 gateway/app.py",
+      "CAND-024 auth/repositories/sqlite.py"
+    ],
+    "candidates_quarantined": [
+      "CAND-007", "CAND-008", "CAND-009", "CAND-010",
+      "CAND-011", "CAND-012", "CAND-013", "CAND-018", "CAND-024"
+    ],
+    "blockers_implicated": ["GSIC-003", "GSIC-004", "SURFACE-010"],
+    "unblock_reviews_required": [
+      {
+        "candidate": "CAND-007",
+        "blocker": "GSIC-004",
+        "reason": "FastAPI route registration — requires dedicated GSIC-004 unblock review before any classification change"
+      },
+      {
+        "candidate": "CAND-018",
+        "blocker": "GSIC-003",
+        "reason": "gateway main path modification — requires dedicated GSIC-003 unblock review"
+      },
+      {
+        "candidate": "CAND-009 CAND-010 CAND-011 CAND-012 CAND-013 CAND-024",
+        "blocker": "SURFACE-010",
+        "reason": "persistence layer with DB/JSONL writes — requires SURFACE-010 unblock review before any apply"
+      }
+    ],
+    "direct_apply_allowed": false,
+    "reclassification_allowed_without_unblock": false,
+    "review_status": "passed"
+  },
+  "blocker_candidate_map": {
+    "SURFACE-010": [
+      "CAND-008 (persistence package namespace)",
+      "CAND-009 (persistence/engine.py — DB write at startup)",
+      "CAND-010 (persistence/feedback/sql.py — DB write)",
+      "CAND-011 (persistence/run/sql.py — DB write)",
+      "CAND-012 (runtime/events/store/db.py — runtime event DB write)",
+      "CAND-013 (runtime/events/store/jsonl.py — audit JSONL write)",
+      "CAND-024 (auth/repositories/sqlite.py — auth DB write)"
+    ],
+    "CAND-002": [],
+    "CAND-003": [],
+    "GSIC-003": [
+      "CAND-018 (gateway/app.py — gateway main path modification)"
+    ],
+    "GSIC-004": [
+      "CAND-007 (gateway/routers/auth.py — FastAPI route registration)"
+    ],
+    "MAINLINE-GATEWAY-ACTIVATION": [],
+    "DSRT-ENABLED": [],
+    "DSRT-IMPLEMENTED": []
+  },
+  "local_customization_conflict_risk_review": {
+    "conflicts": [
+      {
+        "candidate": "CAND-018",
+        "path": "backend/app/gateway/app.py",
+        "conflict_type": "overwrite_risk",
+        "protected_path": true,
+        "preservation_rule": "full_unblock_review_required",
+        "status": "forbidden_runtime_replacement — quarantined"
+      },
+      {
+        "candidate": "CAND-019",
+        "path": "backend/app/gateway/services.py",
+        "conflict_type": "overwrite_risk",
+        "protected_path": true,
+        "preservation_rule": "adapter_required",
+        "status": "adapter_only"
+      },
+      {
+        "candidate": "CAND-007",
+        "path": "backend/app/gateway/routers/auth.py",
+        "conflict_type": "runtime_conflict",
+        "protected_path": false,
+        "preservation_rule": "full_unblock_review_required",
+        "status": "forbidden_runtime_replacement — quarantined"
+      }
+    ],
+    "overwrite_forbidden_confirmed": true,
+    "adapter_required_conflicts": ["CAND-019"],
+    "full_unblock_required_conflicts": ["CAND-007", "CAND-018"],
+    "quarantine_required_conflicts": [],
+    "violations": []
+  },
+  "dependency_risk_review": {
+    "candidates": ["CAND-016"],
+    "install_allowed_now": false,
+    "future_review_required": "dependency_risk_review",
+    "risk_level": "medium",
+    "decision": "remain_report_only_quarantine"
+  },
+  "auth_risk_review": {
+    "valuable_security_improvement": true,
+    "auto_admin_creation_removed": true,
+    "first_boot_setup_positive": true,
+    "privileged_paths_present": true,
+    "adapter_design_required": true,
+    "forbidden_auth_runtime_candidates": [],
+    "decision": "adapter_design_required_before_any_apply"
+  },
+  "persistence_risk_review": {
+    "runtime_write_risk": "high",
+    "db_write_candidates": ["CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-024"],
+    "jsonl_write_candidates": ["CAND-013"],
+    "blockers_implicated": ["SURFACE-010"],
+    "decision": "forbidden_runtime_replacement_until_SURFACE_010_unblock"
+  },
+  "lane_assignment_matrix": {
+    "lane_1_safe_patch_review": {
+      "next_round_candidate": "R241-19I_SAFE_DIRECT_UPDATE_PATCH_REVIEW",
+      "candidates": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+      "allowed_next_action": "review patch plan only",
+      "apply_allowed": false,
+      "priority": 1,
+      "reason": "5 clean safe_direct_update candidates; no runtime risk; no blocker conflict; recommended first"
+    },
+    "lane_2_adapter_design_review": {
+      "next_round_candidate": "R241-19J_ADAPTER_DESIGN_REVIEW",
+      "candidates": ["CAND-001", "CAND-002", "CAND-004", "CAND-005", "CAND-006", "CAND-014", "CAND-015", "CAND-019", "CAND-022", "CAND-023"],
+      "allowed_next_action": "adapter design only",
+      "apply_allowed": false,
+      "priority": 2,
+      "reason": "10 adapter_only candidates; all require adapter design; protected path conflict for CAND-019"
+    },
+    "lane_3_dependency_quarantine_review": {
+      "next_round_candidate": "R241-19K_DEPENDENCY_RISK_REVIEW",
+      "candidates": ["CAND-016"],
+      "allowed_next_action": "dependency risk review only",
+      "install_allowed": false,
+      "priority": 3,
+      "reason": "1 report_only_quarantine candidate; langchain-ollama/ollama; dependency risk review required"
+    },
+    "lane_4_forbidden_runtime_unblock_review": {
+      "next_round_candidate": "R241-19L_FORBIDDEN_RUNTIME_UNBLOCK_REVIEW",
+      "candidates": ["CAND-007", "CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-018", "CAND-024"],
+      "allowed_next_action": "dedicated unblock review only",
+      "apply_allowed": false,
+      "priority": 4,
+      "reason": "9 forbidden candidates; SURFACE-010 (7), GSIC-003 (1), GSIC-004 (1); requires dedicated unblock reviews; not recommended as first action"
+    }
+  },
+  "test_impact_risk_review": {
+    "core_144_required": true,
+    "upgrade_intake_tests_required": true,
+    "safe_lane_tests_required": [],
+    "adapter_lane_tests_required": [],
+    "dependency_lane_tests_required": [],
+    "forbidden_lane_tests_required": [],
+    "pre_existing_failure_carried": true,
+    "new_failure_risk": "low",
+    "review_status": "passed"
+  },
+  "rollback_abort_review": {
+    "abort_conditions": [
+      "RootGuard fail",
+      "base/target mismatch",
+      "dirty baseline mismatch",
+      "candidate count inconsistency unresolved and blocking",
+      "forbidden candidate marked safe",
+      "patch apply attempted",
+      "dependency install attempted",
+      "production runtime modified",
+      "gateway/FastAPI candidate marked safe without review",
+      "persistence writer marked safe without review",
+      "secret/token/webhook migration detected",
+      "blocker override attempted",
+      "actual activation attempted",
+      "core 144 regression",
+      "upgrade intake tests regression"
+    ],
+    "rollback_not_executed": true,
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true,
+    "patch_apply_forbidden": true,
+    "dependency_execution_forbidden": true,
+    "violations": []
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {
+        "pattern": "app.include_router (pre-existing in gateway/app.py lines 260-296)",
+        "location": "backend/app/gateway/app.py",
+        "classification": "explanatory_only_pre-existing_gateway_route_registrations",
+        "blocked_by": "GSIC-004"
+      }
+    ],
+    "candidate_hits": [],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v"
+    ],
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "core_144_passed": true,
+    "upgrade_intake_tests_passed": 32,
+    "pre_existing_failure_carried": true,
+    "new_failures": []
+  },
+  "r241_19i_readiness": {
+    "allow_enter_r241_19i": true,
+    "recommended_next_round": "R241-19I_SAFE_DIRECT_UPDATE_PATCH_REVIEW",
+    "reason": "risk review completed; canonical inventory reconciled (with non-blocking warning); all classifications consistent; 5 safe_direct_update candidates approved for future patch review; 9 forbidden candidates quarantined; blocker map complete; lane assignment matrix complete; tests passed; no safety violations",
+    "blockers": [],
+    "warnings": [
+      "canonical candidate count discrepancy (8 vs 9 vs 6) — non-blocking reconciliation warning in canonical_candidate_inventory",
+      "pre_existing_failure_test_runtime_activation_readiness_still_present"
+    ]
+  },
+  "upgrade_candidate_risk_review_passed": true,
+  "canonical_inventory_reconciled": true,
+  "classification_consistency_valid": true,
+  "safe_direct_update_ready_for_patch_review": true,
+  "forbidden_runtime_candidates_quarantined": true,
+  "actual_upgrade_execution_allowed": false,
+  "patch_apply_executed": false,
+  "dependency_execution_executed": false,
+  "runtime_touch_detected": false,
+  "allow_enter_r241_19i": true,
+  "blockers_remaining": 8,
+  "warnings": [
+    "canonical_inventory_count_discrepancy_8_vs_9_vs_6_non_blocking",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "recommended_resume_point": "R241-19H",
+  "next_prompt_needed": "R241-19I_SAFE_DIRECT_UPDATE_PATCH_REVIEW",
+  "report_timestamp": "2026-04-28T21:00:00+00:00"
+}

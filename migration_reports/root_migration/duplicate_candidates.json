@@ -1,0 +1,1338 @@
+{
+  "same_hash": [
+    {
+      "rel_path": "vitest.config.ts",
+      "sha256": "94860819de7474a67bf424735c3e1c66ad9ebe6b673180eba89b38760ca7f9c5",
+      "size": 437
+    }
+  ],
+  "same_name_different_hash": [
+    {
+      "rel_path": "DECISIONS.md",
+      "old_sha256": "69ebc08f712e2fdc814460acc8bfe0363947b84cb891bbd3f283cb20d75a93f4",
+      "old_size": 1117,
+      "target_sha256": "8cd756f6440e3a40de6d6201dfbc32bad41f514d7e6996d5adeeae395b7faed5"
+    },
+    {
+      "rel_path": "jest.config.cjs",
+      "old_sha256": "53276aabda1d09b159491a83df7345322b1b014ddf468bc3c5b86eb5d5b19add",
+      "old_size": 1071,
+      "target_sha256": "1f10c11eb3a91c5b1f3a5ece12bb4a1a5da2703174ab3cac9353ececa65deb8a"
+    },
+    {
+      "rel_path": "mcp-bridge.js",
+      "old_sha256": "7fa9d6fdb658dbde9036d79d58917821f4fb5387e8b63d5ad9d9cf3a3bb2255e",
+      "old_size": 9317,
+      "target_sha256": "501863fa0844d05d9d5a8830ca5e3c2e4a694b491d236a2269f5a934ec6b8a96"
+    },
+    {
+      "rel_path": "package-lock.json",
+      "old_sha256": "509859a4581eb71200c8aba5d96cc57efd62989c7ae75e54de80e3d367533360",
+      "old_size": 239743,
+      "target_sha256": "c17f31c0ccfd00ab31ddbe3b0bf65650a1c7bf03cb07f7666c14093058a7b7e2"
+    },
+    {
+      "rel_path": "package.json",
+      "old_sha256": "565175ee94cf45e5404594d0f4c6d0bd40ab5ae5dd92729e593df5453f954db7",
+      "old_size": 1004,
+      "target_sha256": "d303d2b384d4121d23b6957c9c42e249fa87b11ab16774af8bc561639c23d698"
+    },
+    {
+      "rel_path": "start_server.mjs",
+      "old_sha256": "11721bfe14c80e7029fc18e19059ade06cc03182f0e6b1154a4eef5cdaf266eb",
+      "old_size": 614,
+      "target_sha256": "31edd56fa2796cf841247d7bd56e053f081139bcc69e83d4b499e6c367e052c2"
+    },
+    {
+      "rel_path": "tsconfig.json",
+      "old_sha256": "ac8ff2d953295cb7642bcb79d23000a53764f168a7e41a4742d0b555db79a5fd",
+      "old_size": 712,
+      "target_sha256": "fc8bf11f3e6dd5fcdd83262d2810566e47b062440401fbfb152c8707a75f1282"
+    }
+  ],
+  "only_in_old": [
+    {
+      "rel_path": "ACCEPTANCE_REPORT.md",
+      "category": "doc",
+      "sha256": "43c3f8be6baff7edbbbd45a707e219176296a94cb0b54f7ccfaaac63926627ff",
+      "size": 10822
+    },
+    {
+      "rel_path": "BUILD_PLAN.md",
+      "category": "doc",
+      "sha256": "c4fec0ee712f6d44dc6708d6788ab3d12bcbadcdb72ce8735f89da0bf57b4f99",
+      "size": 12431
+    },
+    {
+      "rel_path": "BUILD_PLAN_DETAILED.md",
+      "category": "doc",
+      "sha256": "0ae71067be4acd4a2a3d2f2b8f810b8ac2b7c5a51da84f9f8c085384487a2813",
+      "size": 17732
+    },
+    {
+      "rel_path": "Decision_Log.md",
+      "category": "doc",
+      "sha256": "a9101a966117afeb224b4ea6e33d47456770e526e63eab7b95d7ba4f97e4fd44",
+      "size": 8511
+    },
+    {
+      "rel_path": "DEPLOYMENT_CHECKLIST.md",
+      "category": "doc",
+      "sha256": "fd3518d9fc2efabc59c933718301b4d693a31b35a4d445618cb962e634c0d3e0",
+      "size": 3244
+    },
+    {
+      "rel_path": "DESIGN_AUDIT_REPORT.md",
+      "category": "doc",
+      "sha256": "48401910ddf3f81924fabce15f15e842da60d03d9786edfd579e72486578fbba",
+      "size": 10850
+    },
+    {
+      "rel_path": "Mission.md",
+      "category": "doc",
+      "sha256": "8f6a603f978e24657faf9fc9847b2ee61e082fa8238938e5efe78c8bae02d13f",
+      "size": 7689
+    },
+    {
+      "rel_path": "NEXT_ACTION_PLAN.md",
+      "category": "doc",
+      "sha256": "170e6362ff15ea0ae50169c770dbbb3f701f0c6667f57aae26c5c80e8cc56818",
+      "size": 7495
+    },
+    {
+      "rel_path": "NEXT_ACTION_PLAN_V2.md",
+      "category": "doc",
+      "sha256": "c296047a26e624c5c477a2a378dface7af4581a3f189626f02d5ffe1301bd8f3",
+      "size": 18841
+    },
+    {
+      "rel_path": "NEXT_PLAN.md",
+      "category": "doc",
+      "sha256": "db1e4c0399b86cc037b1ecb32f4bb9accd593d43d7801398202e16e9801da2ae",
+      "size": 5724
+    },
+    {
+      "rel_path": "OpenClaw超级工程项目_V1_Full_Archive.md",
+      "category": "doc",
+      "sha256": "3ccde3d951f46fb8409a7f29f340f19ff041ae0e4719225b4344d76d36e57270",
+      "size": 382643
+    },
+    {
+      "rel_path": "Phase.md",
+      "category": "doc",
+      "sha256": "1ace90d2f1fe9a6d68a2c84024830bb3c5e771fe376ab575892bf6136ddbc325",
+      "size": 8784
+    },
+    {
+      "rel_path": "PHASE_10_5_DETAILED_PLAN.md",
+      "category": "doc",
+      "sha256": "e29b59eb0b9d73cd605421a71dccbe6540a298ce2ec81e22ffb65172a9d08fb6",
+      "size": 25690
+    },
+    {
+      "rel_path": "PHASE_16_18_IMPLEMENTATION_PLAN.md",
+      "category": "doc",
+      "sha256": "1e84bc24ea63bfc420c45f468fa3568f3f67ae62fc45a7066dc314203ad806fc",
+      "size": 17266
+    },
+    {
+      "rel_path": "portable_setup.ps1",
+      "category": "script",
+      "sha256": "6780c61dff5c07dd2cb2611bf322c82d12355eb86d92b169139f17a257c71d8b",
+      "size": 3297
+    },
+    {
+      "rel_path": "PROBLEMS_AND_FIXES.md",
+      "category": "doc",
+      "sha256": "1965e70188192e8b25d5f1d0aca86eed52c7feaa7c17d36221803d2be6c6d25b",
+      "size": 10320
+    },
+    {
+      "rel_path": "REMEDIATION_PLAN.md",
+      "category": "doc",
+      "sha256": "d853f6c19e7c5c0d8d0564bec023bf285b4a1b20902050362b04c07136f9a5e4",
+      "size": 4076
+    },
+    {
+      "rel_path": "Round51_Gateway_API_Verification_Report.md",
+      "category": "doc",
+      "sha256": "6b1fe1702be0a6af709cba45c8daaf5e175e035b24502dde502b2f9637ef66ab",
+      "size": 15434
+    },
+    {
+      "rel_path": "Round52_Governance_Health_Observability_Report.md",
+      "category": "doc",
+      "sha256": "f1c76214e2f49f2f281b043fee5ecc559ad02d84c98f8fc34577569bfb03d72d",
+      "size": 9293
+    },
+    {
+      "rel_path": "Round53_Container_Rebuild_Verification_Report.md",
+      "category": "doc",
+      "sha256": "17089f819389e180c32a02c0ba68e5c2478e13fdaa095138891b62a9f2e7c086",
+      "size": 6540
+    },
+    {
+      "rel_path": "Round55_n8n_Integration_Verification_Report.md",
+      "category": "doc",
+      "sha256": "208f8cfdab05af336749083d3e2d2763348aeaadbb0490b2ac84087a16229fa9",
+      "size": 7182
+    },
+    {
+      "rel_path": "Round56_M04_TypeScript_Coordination_Layer_Verification_Report.md",
+      "category": "doc",
+      "sha256": "9e6acbde0374369722771b72758b48977a08517e93fcf77339324c1a8a248137",
+      "size": 8787
+    },
+    {
+      "rel_path": "Round57_Governance_Execution_Closure_Verification_Report.md",
+      "category": "doc",
+      "sha256": "9152daece4d623066124fff0280f020850f3e84b85a24ec91c4f0928009ac035",
+      "size": 12426
+    },
+    {
+      "rel_path": "Round58_Governance_Architecture_Unification_Report.md",
+      "category": "doc",
+      "sha256": "0a347c213ffb45f4a161da336a447625da23593181927deeb8e9c012f26af8e8",
+      "size": 11645
+    },
+    {
+      "rel_path": "Round59_Governance_E2E_Live_Closure_Verification_Report.md",
+      "category": "doc",
+      "sha256": "3b5652a09e9821e2343208ab255598882a79719fcd382bf9e35c845af6802d8c",
+      "size": 9437
+    },
+    {
+      "rel_path": "Round60_Global_System_State_Convergence_Report.md",
+      "category": "doc",
+      "sha256": "45c33e5229bf165a81c86e4b683772d2a00f45d5ed057577a17156d1e42aa202",
+      "size": 10037
+    },
+    {
+      "rel_path": "Round61_Feishu_Ingress_Activation_Verification_Report.md",
+      "category": "doc",
+      "sha256": "ce33d073e345bbe9a98a0af94d16a880519ba01f733b371dd2520d4f3883b3c3",
+      "size": 8648
+    },
+    {
+      "rel_path": "Round62_n8n_Module_Disposition_Verification_Report.md",
+      "category": "doc",
+      "sha256": "5008d115a8b11cebb8da7950beaa859ab4844f6d6d25431814ed1d9fc359ee12",
+      "size": 10278
+    },
+    {
+      "rel_path": "Round63_Dify_Vector_Service_Integration_Verification_Report.md",
+      "category": "doc",
+      "sha256": "06e8f507703fb6de767d9221f63d32088d3fad6f6950bff1bac26bffeb854527",
+      "size": 9572
+    },
+    {
+      "rel_path": "Round64_Feishu_Event_Subscription_Platform_Verification_Report.md",
+      "category": "doc",
+      "sha256": "7e1dc80060ff2e3cccffbd0d509ccf7ce0b9abcc3d3078524993aa727886e842",
+      "size": 9133
+    },
+    {
+      "rel_path": "Round65_LangGraph_API_Server_Verification_Report.md",
+      "category": "doc",
+      "sha256": "7bc4806368fffdaf58f16a47296c3b076e2686d3db90cf403b409703e79beaaa",
+      "size": 14200
+    },
+    {
+      "rel_path": "Round66B_Feishu_E2E_Closure_Verification_Report.md",
+      "category": "doc",
+      "sha256": "bc6f769041ed50cba622bb71b488c69c1e4e14c794869628c324c0df59553515",
+      "size": 6259
+    },
+    {
+      "rel_path": "test_auth.mjs",
+      "category": "script",
+      "sha256": "c015c3b29aed32f5740342475a8f7aa45caa77c5e2288b7652d65720d6b16928",
+      "size": 3543
+    },
+    {
+      "rel_path": "TEST_PLAN.md",
+      "category": "doc",
+      "sha256": "a8dbefea7e546fab1d1b61646274aa64c4170e28342d1434aec6262fa5f05b63",
+      "size": 12149
+    },
+    {
+      "rel_path": "typedoc.json",
+      "category": "config",
+      "sha256": "1fc97447636c9d94973c5f30ec2212ce7543bed1172e5dbb7afa82f4d27bad97",
+      "size": 812
+    },
+    {
+      "rel_path": "Unresolved_Issues.md",
+      "category": "doc",
+      "sha256": "07f955e7f18821ca3bde3797857678b46968ef4267d3d648a72ee4e78175a18e",
+      "size": 1722
+    },
+    {
+      "rel_path": "VERIFICATION_REPORT.md",
+      "category": "doc",
+      "sha256": "a3f30974a16e101c244762bea9fad3d698b950a9fe76766bea3d631c48182883",
+      "size": 6989
+    },
+    {
+      "rel_path": "assets\\domain_knowledge\\react_ui_comparison.md",
+      "category": "doc",
+      "sha256": "6e91f226d70970deaa458ccd57160746d2f84b2366e28c2b197242d503f2191d",
+      "size": 2198
+    },
+    {
+      "rel_path": "docs\\00_Module_Index.md",
+      "category": "doc",
+      "sha256": "ffc8a844cefa7ad17b260f8b2b802852ac64a4dc6fecb8280103f2163cf8bfa3",
+      "size": 4709
+    },
+    {
+      "rel_path": "docs\\01_Orchestration_Engine.md",
+      "category": "doc",
+      "sha256": "c6017ee421ca84449bfd7a3c93858a5c961ed5a52415486e07741dce14c98d43",
+      "size": 26646
+    },
+    {
+      "rel_path": "docs\\02_OMO_Agent_Matrix.md",
+      "category": "doc",
+      "sha256": "766826ad7a687858579cbc81b06cf3f1413fedbd9bedabff46abed6e07ab5737",
+      "size": 32491
+    },
+    {
+      "rel_path": "docs\\03_Harness_Hooks_System.md",
+      "category": "doc",
+      "sha256": "ea45468ef2be0318f6966a6fdcf6a167cbda2d43f52eaf7fea0a2affadc5cd2e",
+      "size": 30729
+    },
+    {
+      "rel_path": "docs\\04_Three_Systems_Coordination.md",
+      "category": "doc",
+      "sha256": "a102a6628f113debab312b35a48cdb24659d368e2ca17af434c822f95e3874be",
+      "size": 24092
+    },
+    {
+      "rel_path": "docs\\05_Autonomous_Agent_Layer.md",
+      "category": "doc",
+      "sha256": "33b9850ad50dcf61b3e4ecee663e38647c465e01040ade4f39f4d1ddad3d7439",
+      "size": 22829
+    },
+    {
+      "rel_path": "docs\\06_Memory_Architecture.md",
+      "category": "doc",
+      "sha256": "42320ce436247821d769db6254d6e7399028d940c791bf0d9871dcf3af486f47",
+      "size": 24790
+    },
+    {
+      "rel_path": "docs\\07_Digital_Asset_System.md",
+      "category": "doc",
+      "sha256": "f134352560dd3ed0fa2e999f07d2bdb76e43bd41fc706630a3e00525f677938d",
+      "size": 38992
+    },
+    {
+      "rel_path": "docs\\08_Learning_System.md",
+      "category": "doc",
+      "sha256": "c40162d03e25e42c4ae841e262e4634e4c6cefd7ba3c5cf7b48a2b53a2f33ccc",
+      "size": 17037
+    },
+    {
+      "rel_path": "docs\\09_Prompt_Engineering_System.md",
+      "category": "doc",
+      "sha256": "f03709b931e7e81daaf1e3530c95d84909d508dc6427433bc2ccff748ea278d1",
+      "size": 24438
+    },
+    {
+      "rel_path": "docs\\10_Intent_Clarification_Engine.md",
+      "category": "doc",
+      "sha256": "0ec46f3c59324b01efcc32f69397999337dd0e93600c61edbaa0901ab3474ac0",
+      "size": 26108
+    },
+    {
+      "rel_path": "docs\\11_Execution_And_Daemons.md",
+      "category": "doc",
+      "sha256": "cc3adc406c33a7a8df4972ca9dda7e5dd107ac306b1aad9a68b8b8b91c35273a",
+      "size": 16902
+    },
+    {
+      "rel_path": "docs\\12_Tech_Stack_And_Config.md",
+      "category": "doc",
+      "sha256": "59f2525c69316b45195daa877219a4749c50b133d506b1a8ec2a03e27e02169f",
+      "size": 14466
+    },
+    {
+      "rel_path": "docs\\13_Phased_Implementation.md",
+      "category": "doc",
+      "sha256": "270f06fc739839444243aedba85b77223fdde326b9c66e560db922361cbadbcc",
+      "size": 18505
+    },
+    {
+      "rel_path": "docs\\CLAUDE_CODE_DEEP_INTEGRATION_REPORT.md",
+      "category": "doc",
+      "sha256": "a665a0f15fbd86c004dba0ef84c0dcd2d17ddfa5c3c6956a918efa9c1593542e",
+      "size": 34364
+    },
+    {
+      "rel_path": "docs\\DISASTER_RECOVERY_PLAYBOOK.md",
+      "category": "doc",
+      "sha256": "15beaec8b626a830ad16516a46287c851f712896d5e356007cf3e6aa25b71161",
+      "size": 7303
+    },
+    {
+      "rel_path": "docs\\FEISHU_CLI深度接入计划.md",
+      "category": "doc",
+      "sha256": "de6086725689f5651b4066babd082ea4b7a9c5d8ea62180b145c717bfebb2264",
+      "size": 28055
+    },
+    {
+      "rel_path": "docs\\Hermes_Agent_Deep_Analysis.md",
+      "category": "doc",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size": 1
+    },
+    {
+      "rel_path": "docs\\hermes_opencli_deep_改造计划.md",
+      "category": "doc",
+      "sha256": "ee7c20369ad567d2a0c96d2ae60679a34d3ceadde611ed94a23fb3ff68217825",
+      "size": 34232
+    },
+    {
+      "rel_path": "docs\\M00_System_Overview.md",
+      "category": "doc",
+      "sha256": "08d0f1821efdc8d717206b205ece512b23b418170e45f341f73405ac2b0df57b",
+      "size": 13453
+    },
+    {
+      "rel_path": "docs\\M01_DEERFLOW_INJECTION_PLAN.md",
+      "category": "doc",
+      "sha256": "1db2a9eee4ab43e86f400b92844f46032e9340a3f21e42cf3893ac0b7cb98843",
+      "size": 6821
+    },
+    {
+      "rel_path": "docs\\M01_DeerFlow_Integration_Design.md",
+      "category": "doc",
+      "sha256": "a57ae1fac38fcb33f8f3dd21b76f7f7793688ee16401c9f5abf8c110ea69e21c",
+      "size": 4248
+    },
+    {
+      "rel_path": "docs\\OPENCLI_INTEGRATION_PLAN.md",
+      "category": "doc",
+      "sha256": "435c8914834f89ab51995378393f5ad8d728b59f2d93d0bbea019c8d487b64d0",
+      "size": 33237
+    },
+    {
+      "rel_path": "docs\\TRI_UNIFIED_AUTOMATION_PLAN.md",
+      "category": "doc",
+      "sha256": "d62613fcf4f4f44b6b6e7a4d23714d509e21ff3391015110ab162234b19f738a",
+      "size": 66133
+    },
+    {
+      "rel_path": "docs\\api\\assets\\hierarchy.js",
+      "category": "source",
+      "sha256": "3686dc86b4b3382fe2d8317fdb8bf610597c1b393dd95f959a6049e989d58557",
+      "size": 305
+    },
+    {
+      "rel_path": "docs\\api\\assets\\icons.js",
+      "category": "source",
+      "sha256": "ef46752ace8ec936ceeaf75e4499774ba970ae6e8fc663f35a3a6c08ed7c7e1b",
+      "size": 15087
+    },
+    {
+      "rel_path": "docs\\api\\assets\\main.js",
+      "category": "source",
+      "sha256": "a5b87236132a708b28f1996c0a0bf4ef7941dbebd36642c53b27cc13c0181a70",
+      "size": 51109
+    },
+    {
+      "rel_path": "docs\\api\\assets\\navigation.js",
+      "category": "source",
+      "sha256": "df8ff132a21b3e21175133ae058fcd47ce408d35af09c11d2544949e2685eafe",
+      "size": 2550
+    },
+    {
+      "rel_path": "docs\\api\\assets\\search.js",
+      "category": "source",
+      "sha256": "b8b25f35e1ecbd1f44e53633c1eacafa79a633ba56f5a6891f38b5ae1f4305da",
+      "size": 35631
+    },
+    {
+      "rel_path": "src\\hello.ts",
+      "category": "source",
+      "sha256": "dca7981c08b32e6cdc3f523e233d4eb144432a14127cd4c3374382e1e5fbf53b",
+      "size": 115
+    },
+    {
+      "rel_path": "src\\application\\search_service.ts",
+      "category": "source",
+      "sha256": "57e3498df94b323b5730ef17fd186f97c592654dd756894fa415911e7be0c1a6",
+      "size": 3484
+    },
+    {
+      "rel_path": "src\\application\\ui\\evolution_digest.json",
+      "category": "config",
+      "sha256": "d1e43caad3a81071d40e957f0a815160a9277c4bfb99da6296c36fb1dd48557e",
+      "size": 876
+    },
+    {
+      "rel_path": "src\\application\\ui\\feishu_cards.json",
+      "category": "config",
+      "sha256": "4e26908c7ca0b726bd1ea94b783cfad3e7cd4376d53d5bb53e92050024c61ee5",
+      "size": 959
+    },
+    {
+      "rel_path": "src\\domain\\asset_manager.test.ts",
+      "category": "source",
+      "sha256": "e3f354cdffd2a6e82976d51e499bed2c3214520ff82681496f7d9126703ae182",
+      "size": 20738
+    },
+    {
+      "rel_path": "src\\domain\\asset_manager.ts",
+      "category": "source",
+      "sha256": "406841ab069b78da611add5afbcb12e861cfdd5bb1b948a03c1d98f6ffadddb4",
+      "size": 11852
+    },
+    {
+      "rel_path": "src\\domain\\asset_packer.ts",
+      "category": "source",
+      "sha256": "019fb3d5eafe1e1e2a9bddf8d01f13313c406726ba29dd9c843db8f9ba7a3b25",
+      "size": 4207
+    },
+    {
+      "rel_path": "src\\domain\\auto_patcher.ts",
+      "category": "source",
+      "sha256": "e88c0a9ea8098189ff19bea8d7ed06fe41f9922100b3665311f97fb86c99641d",
+      "size": 2961
+    },
+    {
+      "rel_path": "src\\domain\\decision_engine.ts",
+      "category": "source",
+      "sha256": "8906f5afbda954f8b466b039e703f65e384246633aa3225c12e54b3c7c86c7ee",
+      "size": 4554
+    },
+    {
+      "rel_path": "src\\domain\\errors.ts",
+      "category": "source",
+      "sha256": "3e0fbfbbd84108bcd18bbf7b6407f112aaced8f81693cd18786311ca42b961cf",
+      "size": 10901
+    },
+    {
+      "rel_path": "src\\domain\\errors_mod.ts",
+      "category": "source",
+      "sha256": "6e8d8cb7985e517c61e967e25ac2b43304ca29c3ba9721c129067f780d569f99",
+      "size": 959
+    },
+    {
+      "rel_path": "src\\domain\\hooks.test.ts",
+      "category": "source",
+      "sha256": "264a055b45165920fc4341d2723cf3269b039d1bd04342ff572b29834f15f901",
+      "size": 16435
+    },
+    {
+      "rel_path": "src\\domain\\hooks.ts",
+      "category": "source",
+      "sha256": "ebe1d727ca3286b67f53c111f7871fa0da2bb2f656069464ac4436e32348886f",
+      "size": 16565
+    },
+    {
+      "rel_path": "src\\domain\\ice_engine.test.ts",
+      "category": "source",
+      "sha256": "9c633d770eaf3de98701b13c26bdb0a326806b2467892af6964a846a9734f492",
+      "size": 24070
+    },
+    {
+      "rel_path": "src\\domain\\ice_engine.ts",
+      "category": "source",
+      "sha256": "0a094b6d04724d1d6cf5435fddb6c255a083b9707c011998d91bce35a4a2bae2",
+      "size": 16215
+    },
+    {
+      "rel_path": "src\\domain\\ice_engine_m06_integration.test.ts",
+      "category": "source",
+      "sha256": "91ad9fb4f95666c32bd7ee046566f47eef0bdb7bb3bf578e1993afc8685959f7",
+      "size": 12812
+    },
+    {
+      "rel_path": "src\\domain\\nightly_distiller.test.ts",
+      "category": "source",
+      "sha256": "61ccfdbdf3fbe45368270dfaaafc9ccd70183f13324b434d39040046b6aab3fc",
+      "size": 26617
+    },
+    {
+      "rel_path": "src\\domain\\nightly_distiller.ts",
+      "category": "source",
+      "sha256": "0c59eec92e787e4c680b87e07c76c809386842929715358dd947bb5596a82cc1",
+      "size": 27068
+    },
+    {
+      "rel_path": "src\\domain\\optimizer.test.ts",
+      "category": "source",
+      "sha256": "74301aa757558fe022a7fce63df9a181b482b0d21c9eb863c3a3a4eabf2fc40d",
+      "size": 16760
+    },
+    {
+      "rel_path": "src\\domain\\optimizer.ts",
+      "category": "source",
+      "sha256": "078dfa3649949d160516d69bc15e55cf643313735c9860cb659a61f599837f0d",
+      "size": 8808
+    },
+    {
+      "rel_path": "src\\domain\\oracle_rules.ts",
+      "category": "source",
+      "sha256": "789cd01d892604f24b69d54dc9de0a16e58a3f2a63eddad2be33b320df21eb2c",
+      "size": 1177
+    },
+    {
+      "rel_path": "src\\domain\\roi_engine.ts",
+      "category": "source",
+      "sha256": "51cb2663d33de02afbc3b2954891d10039ba6e3d8d6c6d6e3250788be49c920c",
+      "size": 3547
+    },
+    {
+      "rel_path": "src\\domain\\search_protocol.ts",
+      "category": "source",
+      "sha256": "ab7eaa1cf86d7abe03f30adfb5db453484b3718bb3f700335812baaf342d16d3",
+      "size": 3117
+    },
+    {
+      "rel_path": "src\\domain\\shadow_tester.ts",
+      "category": "source",
+      "sha256": "fd4367171b8d8a812a4b6a1f48f896a21d3979c77e69cc973f7b00c69768b63b",
+      "size": 3243
+    },
+    {
+      "rel_path": "src\\domain\\watchdog_distiller_integration.test.ts",
+      "category": "source",
+      "sha256": "62a9713bcb3029d662af5eb49b466e56104fe9d92ca98c60a81c9cafff21106f",
+      "size": 15656
+    },
+    {
+      "rel_path": "src\\domain\\e2e\\performance.test.ts",
+      "category": "source",
+      "sha256": "e816d5f44aa16aebde9d7b449ed44c69c8ae1d9dffd0d9a4120bd6667be59b17",
+      "size": 6663
+    },
+    {
+      "rel_path": "src\\domain\\e2e\\scenarios.test.ts",
+      "category": "source",
+      "sha256": "8506c29736b66c30d3eb20bacb580c7d754cda283bcb4e941c527d6a9adc2722",
+      "size": 12708
+    },
+    {
+      "rel_path": "src\\domain\\e2e\\stress.test.ts",
+      "category": "source",
+      "sha256": "e3b2fefc422c7ac6ad8ef73ff4711b5ac5b39030b8715c6a5fbfddc45864d86f",
+      "size": 11121
+    },
+    {
+      "rel_path": "src\\domain\\evolution\\openspace_state_machine.ts",
+      "category": "source",
+      "sha256": "9276fdb8cf17932e95696a1fd613eb076d5e5292d69dd474f0414261aceda7c4",
+      "size": 3862
+    },
+    {
+      "rel_path": "src\\domain\\evolution\\reflective_adaptor.ts",
+      "category": "source",
+      "sha256": "46af3e40d436e78a3085788212e8f9b952ed444b19a49211297ca7775ce95a57",
+      "size": 3539
+    },
+    {
+      "rel_path": "src\\domain\\m01\\dag_planner.ts",
+      "category": "source",
+      "sha256": "e52d934cc4269149374d8e42c92bae85d6458e62a682260418d2f0323f780843",
+      "size": 9734
+    },
+    {
+      "rel_path": "src\\domain\\m01\\deerflow_client.ts",
+      "category": "source",
+      "sha256": "19d3e550b1571e72fb7b08977468939e70b8bc8554b5a09ccdb54fb481597103",
+      "size": 5892
+    },
+    {
+      "rel_path": "src\\domain\\m01\\intent_classifier.ts",
+      "category": "source",
+      "sha256": "7378e369f104f61cdce41e3fff83b9ff3375733771523e21307f41925106d8c7",
+      "size": 7246
+    },
+    {
+      "rel_path": "src\\domain\\m01\\mod.ts",
+      "category": "source",
+      "sha256": "e003c0f2b5498667fd99f40e1089065ed4636aabc648f53ec33e6a81c0a33a68",
+      "size": 513
+    },
+    {
+      "rel_path": "src\\domain\\m01\\orchestrator.test.ts",
+      "category": "source",
+      "sha256": "d64d94bac0a2d8f5a6d0435d5c0eb44adf60046a6591946745064c84361b085e",
+      "size": 9786
+    },
+    {
+      "rel_path": "src\\domain\\m01\\orchestrator.ts",
+      "category": "source",
+      "sha256": "1fe2327e47081bd270ee8281179431748a827e7b8fbf253c135ca3e4aaf77330",
+      "size": 9878
+    },
+    {
+      "rel_path": "src\\domain\\m01\\types.ts",
+      "category": "source",
+      "sha256": "f8bf3c2b02c07a8b4eb8e71b54b79e10bc956b2bec2d45909468a57d14a86519",
+      "size": 4844
+    },
+    {
+      "rel_path": "src\\domain\\m04\\coordinator.test.ts",
+      "category": "source",
+      "sha256": "7a294a16f55d9d1d8c733bfc5a6337d46ee6d8c4f2f0e0f8a28c99085ac9b843",
+      "size": 6207
+    },
+    {
+      "rel_path": "src\\domain\\m04\\coordinator.ts",
+      "category": "source",
+      "sha256": "249baecd35ab33c5642e6b752c41a2d559c672d03c93a84f58d268b5ee0b68b3",
+      "size": 21014
+    },
+    {
+      "rel_path": "src\\domain\\m04\\coordinator_sandbox_integration.test.ts",
+      "category": "source",
+      "sha256": "a747375f7e887552257eb12977aa1ee736c6c775dd9a1d9ccbd6636c69b46ca6",
+      "size": 6382
+    },
+    {
+      "rel_path": "src\\domain\\m04\\dify_adapter.ts",
+      "category": "source",
+      "sha256": "6963d2fee93d4941e5bb3ca8cd0fe592a1aded1d6d4b5d17410f30cff6eb44a0",
+      "size": 16955
+    },
+    {
+      "rel_path": "src\\domain\\m04\\engine_enum.ts",
+      "category": "source",
+      "sha256": "a23a638853e0edd159646780f33e1708134aa22babe25207ae4c9e47c486e020",
+      "size": 3035
+    },
+    {
+      "rel_path": "src\\domain\\m04\\mod.ts",
+      "category": "source",
+      "sha256": "8b360d2636dbf494776a02a45d5a1de057eaff51a7109df146018889ca754862",
+      "size": 1885
+    },
+    {
+      "rel_path": "src\\domain\\m04\\shared_context.ts",
+      "category": "source",
+      "sha256": "e9a802beabc7a5595db7a1e4c7b7434c2ed171a2d27c8fa97528cef14732e509",
+      "size": 6353
+    },
+    {
+      "rel_path": "src\\domain\\m04\\skill_loader.ts",
+      "category": "source",
+      "sha256": "f5d5c68fcb04e7b1d3ce4a6fe512b96a8852358fb3558f29d13a24becf883d8c",
+      "size": 7784
+    },
+    {
+      "rel_path": "src\\domain\\m04\\skill_router.test.ts",
+      "category": "source",
+      "sha256": "9b938133f80470bf09d8375bbbf5761850d5a96dfc3eaa259cc42c9f9026056a",
+      "size": 2236
+    },
+    {
+      "rel_path": "src\\domain\\m04\\skill_router.ts",
+      "category": "source",
+      "sha256": "b4ce6f1b4b796dfeac07c931ca4fdbd388785e8202af81db09431f246ef5cc92",
+      "size": 9339
+    },
+    {
+      "rel_path": "src\\domain\\m04\\transformer.ts",
+      "category": "source",
+      "sha256": "7088afc6b76f162661452b3b293975f293f0a6eccddda1b5a07110ee66776d30",
+      "size": 6719
+    },
+    {
+      "rel_path": "src\\domain\\m04\\types.ts",
+      "category": "source",
+      "sha256": "bce7632913e49dd51c001e0920fde22f051a004dc49fd53509d92b5498008a6d",
+      "size": 11585
+    },
+    {
+      "rel_path": "src\\domain\\m04\\unified_builder.ts",
+      "category": "source",
+      "sha256": "e9d27319f9f989c9f67ab7d1c37418e2ad9ddd7338d337c821a2d63672c4bb79",
+      "size": 19962
+    },
+    {
+      "rel_path": "src\\domain\\m04\\unified_executor.ts",
+      "category": "source",
+      "sha256": "547d291d7db76a86b9e1d9aed988736f7a10383aa3b26be5e18b2bdfe10e0eff",
+      "size": 23305
+    },
+    {
+      "rel_path": "src\\domain\\m04\\unified_registry.ts",
+      "category": "source",
+      "sha256": "534e65c359dd5310e75b9448122ff68e46649ee60ea3973a610ef6f97afe05b9",
+      "size": 43796
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\index.ts",
+      "category": "source",
+      "sha256": "1f9b6de18c6cd80cde68db7ad833878c69e8dec747abd654b5e9fc7e0cce2d84",
+      "size": 236
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\search_adapter.ts",
+      "category": "source",
+      "sha256": "42b5562e7bf87a560f7a98a19a16973df1120697bb83fbd97e3aa961968ff5a7",
+      "size": 15843
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\task_adapter.ts",
+      "category": "source",
+      "sha256": "0c92c274c40666a6ce168679149726db137f90bf5b066e5f0db9338b05f70e06",
+      "size": 8802
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\workflow_adapter.ts",
+      "category": "source",
+      "sha256": "817a84c68287768e9dea009d74cee17a565bfde6671959fb42eb9710d8d131e5",
+      "size": 12576
+    },
+    {
+      "rel_path": "src\\domain\\m11\\daemon_manager.ts",
+      "category": "source",
+      "sha256": "78f9d18e36cec1055dcfb33b0274b8039630c4d14700cd8eb69920e222cb85ac",
+      "size": 12430
+    },
+    {
+      "rel_path": "src\\domain\\m11\\mod.ts",
+      "category": "source",
+      "sha256": "f237dabb46b848050f6d3993edf3a774506ba73efdd6ac76ca2df1a2f19a1c7f",
+      "size": 674
+    },
+    {
+      "rel_path": "src\\domain\\m11\\opencli_daemon.ts",
+      "category": "source",
+      "sha256": "3531ff3ec68d85a6482c738c97320176c21afe21e67ada7f315574a80217ee4c",
+      "size": 10209
+    },
+    {
+      "rel_path": "src\\domain\\m11\\sandbox.test.ts",
+      "category": "source",
+      "sha256": "2ed07c45d9dc8e5bfde78a93e54c94ff4e62b82f5091b84f61961648936ba70b",
+      "size": 3997
+    },
+    {
+      "rel_path": "src\\domain\\m11\\sandbox.ts",
+      "category": "source",
+      "sha256": "cc20ba27521b24615df099fcea67a514800beeb4752eab10260a569bb7d16cc6",
+      "size": 13737
+    },
+    {
+      "rel_path": "src\\domain\\m11\\types.ts",
+      "category": "source",
+      "sha256": "780424473fc91af923f4d88dca96e3f0980fd109ac9b32cd70e3fd0d9e0e1252",
+      "size": 5150
+    },
+    {
+      "rel_path": "src\\domain\\m11\\adapters\\executor_adapter.test.ts",
+      "category": "source",
+      "sha256": "2f72d04ca363d1c14d9cf4e705a61c889675a88c929ef7b89c2aa153b8bdf858",
+      "size": 6067
+    },
+    {
+      "rel_path": "src\\domain\\m11\\adapters\\executor_adapter.ts",
+      "category": "source",
+      "sha256": "6c3422ae4f4f8a0820078ef6c6371badc9bb303205adc359a9641c3972afa4a1",
+      "size": 28305
+    },
+    {
+      "rel_path": "src\\domain\\m11\\adapters\\index.ts",
+      "category": "source",
+      "sha256": "9223f474a91d1a5d228110f5a9fca883d62facb355231ce743409656ca68a36e",
+      "size": 143
+    },
+    {
+      "rel_path": "src\\domain\\memory\\memory_asset_integration.test.ts",
+      "category": "source",
+      "sha256": "3cdbc0a491c8a4f67ac42c69af9b9e939099c27830e90f07604f52af9ca58e7e",
+      "size": 6621
+    },
+    {
+      "rel_path": "src\\domain\\memory\\mod.ts",
+      "category": "source",
+      "sha256": "e4e849b8dc39dcc4f8a3a40e25a80ecc75b645145f6a03c22b9a575321880eb7",
+      "size": 962
+    },
+    {
+      "rel_path": "src\\domain\\memory\\types.ts",
+      "category": "source",
+      "sha256": "e070b092acb82111fdb2d760f31e7d1f4ba4a008c76e9ad85465f6e0ae388fe2",
+      "size": 9533
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer1\\index.ts",
+      "category": "source",
+      "sha256": "c4434a994d89a6e1cc46b67d353efd06e9a3fb49c6f8c697abeed4a0e1f0553b",
+      "size": 103
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer1\\working_memory.test.ts",
+      "category": "source",
+      "sha256": "d11ee848cc80e9560206678da278689a324fd793965aed885633c9e52dbb2df4",
+      "size": 3020
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer1\\working_memory.ts",
+      "category": "source",
+      "sha256": "4dfe97fc1116cb2561695057bd941b770e9ba856feea9c36be890a9b6f54aafe",
+      "size": 9616
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer2\\index.ts",
+      "category": "source",
+      "sha256": "8dda4379dad43901ea613300d4bbfa8a3a18e846dedbebd07236423cf21d6e31",
+      "size": 103
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer2\\session_memory.ts",
+      "category": "source",
+      "sha256": "2492597e948b52bf18a10ce2f71ff5ded7607bd6f65bb5acfb724a912487bf6f",
+      "size": 5760
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer3\\index.ts",
+      "category": "source",
+      "sha256": "6c42ab5482adb08f5e46c789b92b6fb6cda400066d06b3a4081d788cdd6c5ce1",
+      "size": 112
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer3\\persistent_memory.ts",
+      "category": "source",
+      "sha256": "3d71cb75230d09ed0f2881d04e5b508fb620c908d6dd759e5dbf5d4c8c5ff750",
+      "size": 7922
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer4\\index.ts",
+      "category": "source",
+      "sha256": "1c9f5d3e98cf9507360db36359b2c81905664d9064c2472bff2fef6ac3aee300",
+      "size": 101
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer4\\knowledge_graph.test.ts",
+      "category": "source",
+      "sha256": "41aef8539a345b7caee942a7094a2a56712cb396ed546f42f179c4346c04ab00",
+      "size": 11019
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer4\\knowledge_graph.ts",
+      "category": "source",
+      "sha256": "1f9ab8fa5e5127530f60b9756b91dd9b8d876f546ea3b7044eca8233c59a20b0",
+      "size": 13013
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer5\\index.ts",
+      "category": "source",
+      "sha256": "8a98c77096ce0ef70ac58c144ed2ba6bd291c775cbc35e7b890f4defc9406ef7",
+      "size": 100
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer5\\visual_anchor.test.ts",
+      "category": "source",
+      "sha256": "0f9ff7a084fe7b7a37794324a20ba744243485c9fb1abb4480ef0c33b6140e0c",
+      "size": 8836
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer5\\visual_anchor.ts",
+      "category": "source",
+      "sha256": "28404989f5a40363925709ff68ac61ad4ce81c83714c2881d8114283f602b613",
+      "size": 7126
+    },
+    {
+      "rel_path": "src\\domain\\memory\\pipeline\\index.ts",
+      "category": "source",
+      "sha256": "a2cec6fb55cf000610cb4e8a1d9c88b19a26a23415566d2eb7d92941c804e797",
+      "size": 109
+    },
+    {
+      "rel_path": "src\\domain\\memory\\pipeline\\semantic_writer.test.ts",
+      "category": "source",
+      "sha256": "0156939ad1a58857bb9619840546e9e4b915063e90a700dfe0311cb6f5459776",
+      "size": 7765
+    },
+    {
+      "rel_path": "src\\domain\\memory\\pipeline\\semantic_writer.ts",
+      "category": "source",
+      "sha256": "fc50d377601076de5f6dae5f98f7dcbb44415dcf76d296705960d9b6db90e5fa",
+      "size": 9308
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\dspy_compiler.ts",
+      "category": "source",
+      "sha256": "6f7fd867e293366feb26b2ec3f3d2c3f8c8e625682eb3435f1712de3cbc0c106",
+      "size": 34529
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\integration.test.ts",
+      "category": "source",
+      "sha256": "0a9647342d2584c40902b6b82bf1db84f04302013240e034c94d1044a29f959a",
+      "size": 11454
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\integration.tests.ts",
+      "category": "source",
+      "sha256": "18d9abd04ebb9dd10b60731b8104e470995800e9431bce36237384bfeb4bb50e",
+      "size": 16010
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\integration.ts",
+      "category": "source",
+      "sha256": "0e1a383e33f8e27aa0304825ed557a7183cc9ac3a2a8f76e57571d52bd84c5ef",
+      "size": 14536
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer1_router.ts",
+      "category": "source",
+      "sha256": "5cfd08d7d9227f3fd271887f54c6bd6216a14105ee5a2cfaecfb3b997717966f",
+      "size": 16250
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer2_monitor.ts",
+      "category": "source",
+      "sha256": "5d4a1752610ff1530332b53f126e6eb3707689cd8ee21bd978a201d4e58d59d0",
+      "size": 10481
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer3_feedback.ts",
+      "category": "source",
+      "sha256": "d835f16cb5ae4b6ef689f8f8312356ee24727d4ab9a77f4083c8d890017af504",
+      "size": 9573
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer4_nightly.ts",
+      "category": "source",
+      "sha256": "ad8a6517051a6b75ba5ecba7746a313137d5f2ed7fb6a5553b7d5ce75b3f71bc",
+      "size": 16725
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer5_asset.ts",
+      "category": "source",
+      "sha256": "22c5242c8cc6cfc8f95e5a767cb7ea4147bc3890f4c8e4e6d4d96064c94d5cda",
+      "size": 11169
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\mod.ts",
+      "category": "source",
+      "sha256": "511333fcbb8e34a1dc276750cfea63dff9bfebbdf0cc27b53a260207568d9194",
+      "size": 2295
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\prompt_engine.test.ts",
+      "category": "source",
+      "sha256": "6cfcb555764f01e911d06eb0a4a3caf1d148247591350e94f83bc87b97bfc28d",
+      "size": 18347
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\soul.md",
+      "category": "doc",
+      "sha256": "bdfb2577241a4cab816298a3b49e077e9812b067b21a742d24f814c9fadbd8e6",
+      "size": 3153
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\types.ts",
+      "category": "source",
+      "sha256": "aef6c76d9151e92c671cbcf6b2cc719cbb332e9a64080256c3e757c7c3c19586",
+      "size": 12996
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\assembly\\mod.ts",
+      "category": "source",
+      "sha256": "b7d8d9d5593241adcfc521f5c5a2d8fc3129bfc437a0c0df066ef64d79b78ea0",
+      "size": 164
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\dspy\\mod.ts",
+      "category": "source",
+      "sha256": "c5f218b74f7b5c6af48aee0cf5250d9bf3d291553b47cf655fdb54784ca69c6f",
+      "size": 204
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\gepa\\mod.ts",
+      "category": "source",
+      "sha256": "bdd685e9a58737f2366f416eb6a183b9f5832103efa40826a01abf2209fe9d58",
+      "size": 161
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\recipes\\mod.ts",
+      "category": "source",
+      "sha256": "efdaa4428b4e0a4e8a50b83f326bd560d40720048de387fa1cfe6256c703d571",
+      "size": 19240
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\search\\mod.ts",
+      "category": "source",
+      "sha256": "9d87283d87f6e39731c45b642d2d24aa00b1541ec7f18ab07db8a0b9dc1c5c7b",
+      "size": 2117
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\signatures\\mod.ts",
+      "category": "source",
+      "sha256": "e2ac75ed374a2d076ee44986f47c07fdddf543357d71c3edc868332801053ff7",
+      "size": 4642
+    },
+    {
+      "rel_path": "src\\domain\\skill_factory\\skill_compiler.ts",
+      "category": "source",
+      "sha256": "8eb4117b32f36fec2b9d32ee9ebe5eff16ee7226dd46a2959c7db79e4e43ef8a",
+      "size": 3804
+    },
+    {
+      "rel_path": "src\\infrastructure\\alertmanager.yml",
+      "category": "config",
+      "sha256": "3a0f1d5d0826a9520020b2501c61cc1f8f6d907cc73cb5eab7dbc8eb0aca7144",
+      "size": 3095
+    },
+    {
+      "rel_path": "src\\infrastructure\\asset_indexer.py",
+      "category": "source",
+      "sha256": "34e24ed2dcc68d7839e01bbc70ff4c546f26e1c71de11fa2e643028a37776363",
+      "size": 7145
+    },
+    {
+      "rel_path": "src\\infrastructure\\boulder.json",
+      "category": "config",
+      "sha256": "fdf4a05d441fb3964f953d5783d17fd060a7a1092829dd2c5c8be0e05217c88a",
+      "size": 561
+    },
+    {
+      "rel_path": "src\\infrastructure\\docker-compose.yml",
+      "category": "config",
+      "sha256": "6517fecb14bb17286b1edfb40733bfb9b4d5aa56d8edeac9464a603c44bd8275",
+      "size": 6699
+    },
+    {
+      "rel_path": "src\\infrastructure\\Dockerfile",
+      "category": "config",
+      "sha256": "d0caff91fec1b080e9222d7cfc79cd2e8f7be71213af89cbb63167725d71138f",
+      "size": 1522
+    },
+    {
+      "rel_path": "src\\infrastructure\\dreaming_rules.json",
+      "category": "config",
+      "sha256": "5d421a7c77768fd9acda08a6d660be9940fc1a0911a35f3e5b94e763e42f616e",
+      "size": 2835
+    },
+    {
+      "rel_path": "src\\infrastructure\\jina_adapter.ts",
+      "category": "source",
+      "sha256": "e2e047264f1670166de646f8ad070eee9202885e89018b8c2e8000cd039896fa",
+      "size": 1508
+    },
+    {
+      "rel_path": "src\\infrastructure\\llm_adapter.ts",
+      "category": "source",
+      "sha256": "98a8e1d023121e0b2d730dff5e7073f92f6cebea97cbcfb9fc96ea3af42afa82",
+      "size": 16035
+    },
+    {
+      "rel_path": "src\\infrastructure\\logger.ts",
+      "category": "source",
+      "sha256": "e143d7f5e8f342b02195f507b370b8efcbebf79de844fa8c2f105dbf28bff301",
+      "size": 10856
+    },
+    {
+      "rel_path": "src\\infrastructure\\prometheus.yml",
+      "category": "config",
+      "sha256": "f22ee130d2107d9b63aa28f3438b8325fb6f1e04cc84249787bc6412570f293e",
+      "size": 714
+    },
+    {
+      "rel_path": "src\\infrastructure\\prometheus_alerts.yml",
+      "category": "config",
+      "sha256": "cf21c26be1fb10f9a151f457c770316219ccee22d807152746bbd49341880ead",
+      "size": 6675
+    },
+    {
+      "rel_path": "src\\infrastructure\\redis.conf",
+      "category": "config",
+      "sha256": "8d11a28dba7b850869190150a16c01cf5435c9e84ab1722d353dbfb61d318545",
+      "size": 620
+    },
+    {
+      "rel_path": "src\\infrastructure\\registry.json",
+      "category": "config",
+      "sha256": "8c4f0db016ad586204845e9c03f72e0c97f479ddf5e350f1b4be8415af629397",
+      "size": 260
+    },
+    {
+      "rel_path": "src\\infrastructure\\watchdog.py",
+      "category": "source",
+      "sha256": "283abc01a648500feb2e3de24e1fe7f8e0fa2d6871733486a5e6b9293e71f610",
+      "size": 8850
+    },
+    {
+      "rel_path": "src\\infrastructure\\watchdog.test.ts",
+      "category": "source",
+      "sha256": "a0f5e5427468ca05fc35800f4ee193af8eb188241e6c4a0620b321ecef45010c",
+      "size": 10146
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\dapr_client.ts",
+      "category": "source",
+      "sha256": "f447174132a3d920e718ddcdc62b202301ad48388a2767f57a5394bef7590973",
+      "size": 15269
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\mod.ts",
+      "category": "source",
+      "sha256": "7b98cb4b7ccf75ebf052b454c1e8f301fa9bf04a28f09cc70b35a7c8bc908c5a",
+      "size": 119
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\components\\pubsub.yaml",
+      "category": "config",
+      "sha256": "926f1175a19acc48a79f8f3ccb0260736af4125c79776c77e622dc4376ab24cc",
+      "size": 215
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\components\\statestore.yaml",
+      "category": "config",
+      "sha256": "f5b9653a2f389329b24baf25c7e8a97b04fafb2d7a6ce21895c6506efe7a2dcc",
+      "size": 218
+    },
+    {
+      "rel_path": "src\\infrastructure\\env_adapter\\env_adapter.py",
+      "category": "source",
+      "sha256": "d102d940948bd19096204aa849d8192cc43e6cc0f02dbaaa88bdfa5e27dda33d",
+      "size": 1209
+    },
+    {
+      "rel_path": "src\\infrastructure\\env_adapter\\penetration_test.sh",
+      "category": "script",
+      "sha256": "ad66a57472fe568e9603d6f20de836f8df8fd4009a03497e9e859981240b7539",
+      "size": 921
+    },
+    {
+      "rel_path": "src\\infrastructure\\evolution\\dspy_mipro_adapter.py",
+      "category": "source",
+      "sha256": "091aa29e61f798c09bc96c080706c0307f990f743cccfec98bd5af81436efd3a",
+      "size": 2821
+    },
+    {
+      "rel_path": "src\\infrastructure\\evolution\\tes_sandbox\\config.json",
+      "category": "config",
+      "sha256": "8305c363991342df0fb1ff40a17e7f43513153927690e402f055f1d3031ed56c",
+      "size": 249
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\base_adapter.ts",
+      "category": "source",
+      "sha256": "55454eb580502de710ddf8c4254fd6821801345ad87b297915ec8d6d5ee8d0d9",
+      "size": 3811
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\claude_code_adapter.ts",
+      "category": "source",
+      "sha256": "4a27ca96c36d62aadaf58dce6ce930f4b734fcc99f146a04d7d8b7cc841d2d5f",
+      "size": 5943
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\midscene_adapter.ts",
+      "category": "source",
+      "sha256": "90a3342e7092cd7145342ad7e32efbf44eb2797190fdd383dae759788eba43c0",
+      "size": 1329
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\opencli_command_registry.ts",
+      "category": "source",
+      "sha256": "7fb60bb124af208c3cd721b9754e97565ec48049282d3ec74be3e58438aaebda",
+      "size": 7637
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\opencli_http_client.ts",
+      "category": "source",
+      "sha256": "3e23548eedf8fce4f75af58fd2e3efdf4f73198b4687b0db6b5f5aa0fb010975",
+      "size": 8574
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\cli_dictionary\\mapping_dictionaries.json",
+      "category": "config",
+      "sha256": "60e882bb4e47ef5ee300ad5abac9163676a3b46015f51029852013f68eed8937",
+      "size": 3008
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\cli_dictionary\\README.md",
+      "category": "doc",
+      "sha256": "6ca9a6fb3168894e0d92446fff0c0953b5275089e3d921b2e91a5e0d9a6946d0",
+      "size": 1817
+    },
+    {
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\dashboards\\dashboards.yml",
+      "category": "config",
+      "sha256": "c5cef3fa44cafa256e5a2b138d56e2097443a2f1decf216c5c1dde4a8aecc3d5",
+      "size": 198
+    },
+    {
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\dashboards\\openclaw\\openclaw-overview.json",
+      "category": "config",
+      "sha256": "3eded8fd00ebd23e615f4d0504b37acbf3fe0b468d2979bef1de88ad1d589594",
+      "size": 18886
+    },
+    {
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\datasources\\datasources.yml",
+      "category": "config",
+      "sha256": "ce0bd69f3a72d7e42d085211153cbb1036e9a55cd7ae88de109fb3b5160bc300",
+      "size": 160
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\backup_manager.py",
+      "category": "source",
+      "sha256": "9839d2f4ed31458272cdde3ea94e3538bd359f5cc0838b3ed1bdd95d83f0bc65",
+      "size": 13118
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\health_server.ts",
+      "category": "source",
+      "sha256": "33f85a42e378460ca0e28dce8fa2fc8d549df31a6591505539e0e68e4a5b5e98",
+      "size": 12333
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\mcp_api_server.ts",
+      "category": "source",
+      "sha256": "3e08dbd670bb76c65427489ad89a525b6e2d9a87f27e58cf58413875e5057473",
+      "size": 23358
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\mcp_server.py",
+      "category": "source",
+      "sha256": "a5f1f209d2da78a013b7bf05cdde2085e64d0f0f14c82315e5539a85c9281f82",
+      "size": 16641
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\README.md",
+      "category": "doc",
+      "sha256": "4b760352f628fb4ae1c5127a61a46b0af633f0e95c8a079f6c5080b53e61b7d6",
+      "size": 1301
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\bridge_manager.ts",
+      "category": "source",
+      "sha256": "471859f525348c56e07c60708f492593e65ac8bcc00a5040c6de2847a63670b8",
+      "size": 11242
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\dify_client.ts",
+      "category": "source",
+      "sha256": "d0bdedb7c9b17a65fe8d620f11f9477d74ec9bededd857dc2986acdc3faf2461",
+      "size": 14599
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\n8n_client.ts",
+      "category": "source",
+      "sha256": "a112e530b98a5c1602a1a575b8d1cec3559da4e18d82735cea5d7344d716e5c3",
+      "size": 6903
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\custom_nodes\\README.md",
+      "category": "doc",
+      "sha256": "8bbcf441a109ea874060366494208b2b99ae043699503dc239479dd59ee886f1",
+      "size": 758
+    }
+  ],
+  "summary": {
+    "same_hash_count": 1,
+    "same_name_different_hash_count": 7,
+    "only_in_old_count": 213
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "report_id": "R241-21F_GATEWAY_GSIC_BUNDLE_DESIGN_REVIEW",
+  "phase": "phase_21f_gateway_gsic_bundle_design_review",
+  "status": "passed_with_warnings",
+  "decision": "gateway_bundle_design_review_completed_cross_dependency_on_auth_and_persistence",
+  "source": "R241-21E_PERSISTENCE_BUNDLE_DESIGN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "gateway_bundle_members": {
+    "CAND-007": {
+      "path": "backend/app/gateway/routers/auth.py",
+      "type": "FastAPI router",
+      "routes": [
+        "POST /api/v1/auth/login/local",
+        "POST /api/v1/auth/register",
+        "POST /api/v1/auth/logout",
+        "POST /api/v1/auth/change-password",
+        "GET /api/v1/auth/me",
+        "GET /api/v1/auth/setup-status",
+        "POST /api/v1/auth/initialize",
+        "GET /api/v1/auth/oauth/{provider}",
+        "GET /api/v1/auth/callback/{provider}"
+      ],
+      "gsic_004": true,
+      "runtime_activation": "FastAPI route registration",
+      "surface_010": "indirect via auth dependencies",
+      "priority": "P0"
+    },
+    "CAND-018": {
+      "path": "backend/app/gateway/app.py",
+      "type": "FastAPI application",
+      "gsic_003": true,
+      "runtime_activation": "middleware chain + lifespan hooks + persistence init",
+      "surface_010": "true via auth_middleware + persistence.engine",
+      "priority": "P0",
+      "dependencies": [
+        "app.gateway.auth_middleware (CAND-005)",
+        "app.gateway.csrf_middleware",
+        "app.gateway.deps (langgraph_runtime)",
+        "deerflow.config.app_config",
+        "deerflow.persistence.engine"
+      ]
+    },
+    "CAND-019": {
+      "path": "backend/app/gateway/services.py",
+      "type": "business logic layer",
+      "gsic_003": "indirect (called by routers)",
+      "runtime_activation": "none (import-time only)",
+      "surface_010": "indirect via deps",
+      "priority": "P2"
+    },
+    "CAND-009-related": {
+      "path": "backend/app/gateway/deps.py",
+      "type": "dependency injection",
+      "gsic_003": "implicit (initializes langgraph_runtime)",
+      "runtime_activation": "langgraph_runtime context manager calls persistence init",
+      "surface_010": "true via persistence.engine.init",
+      "priority": "P0"
+    }
+  },
+
+  "gateway_dependency_graph": {
+    "app.py (CAND-018, GSIC-003)": {
+      "imports": [
+        "app.gateway.auth_middleware (CAND-005, SURFACE-010)",
+        "app.gateway.config",
+        "app.gateway.csrf_middleware",
+        "app.gateway.deps.langgraph_runtime",
+        "app.gateway.routers (agents, artifacts, assistants_compat, auth, channels, feedback, mcp, memory, models, runs, skills, suggestions, thread_runs, threads, uploads)"
+      ],
+      "lifespan": "langgraph_runtime(app) context manager",
+      "lifespan_persistence_init": "init_engine_from_config(config.database)",
+      "lifespan_ensure_admin": "_ensure_admin_user(app) uses UserRow + session_factory",
+      "gsic_003_reason": "Modifies app main path: middleware chain + lifespan hooks + router registration"
+    },
+    "deps.py (langgraph_runtime)": {
+      "initializes": [
+        "app.state.stream_bridge (StreamBridge)",
+        "app.state.checkpointer (checkpointer)",
+        "app.state.store (LangGraph store)",
+        "app.state.run_store (RunRepository or MemoryRunStore)",
+        "app.state.feedback_repo (FeedbackRepository or None)",
+        "app.state.thread_store (ThreadMetaStore)",
+        "app.state.run_event_store (RunEventStore via make_run_event_store)",
+        "app.state.run_manager (RunManager)"
+      ],
+      "persistence_init_order": [
+        "1. init_engine_from_config(config.database) — creates DB engine, runs CREATE DATABASE",
+        "2. make_checkpointer(config) — uses persistence",
+        "3. make_store(config) — uses persistence",
+        "4. RunRepository( session_factory ) — uses persistence",
+        "5. FeedbackRepository( session_factory ) — uses persistence",
+        "6. make_thread_store — uses persistence + store",
+        "7. make_run_event_store — uses persistence (config-driven backend selection)"
+      ]
+    },
+    "routers/auth.py (CAND-007, GSIC-004)": {
+      "depends_on": [
+        "app.gateway.auth (auth bundle exports)",
+        "app.gateway.auth.config (get_auth_config)",
+        "app.gateway.auth.errors (AuthErrorCode, AuthErrorResponse)",
+        "app.gateway.deps (get_current_user_from_request, get_local_provider)"
+      ],
+      "gsic_004_reason": "Registers 9 FastAPI routes at /api/v1/auth prefix",
+      "auth_methods": ["local password", "OAuth placeholder (future)"]
+    },
+    "services.py (CAND-019)": {
+      "used_by": ["thread_runs router", "runs router"],
+      "runtime_activation": "none (pure business logic)",
+      "surface_010": "indirect via deps singletons"
+    }
+  },
+
+  "gsic_analysis": {
+    "GSIC-003": {
+      "implicated": true,
+      "files": ["app.py", "deps.py"],
+      "reason": "app.py modifies main FastAPI path via middleware chain + lifespan hooks; deps.py initializes all runtime singletons",
+      "modifications": [
+        "AuthMiddleware imported and chained",
+        "CSRFMiddleware imported and chained",
+        "langgraph_runtime(app) lifespan context manager",
+        "All app.state singletons set in langgraph_runtime"
+      ],
+      "unblock_prerequisite": "SURFACE-010 unblock + auth bundle + persistence bundle"
+    },
+    "GSIC-004": {
+      "implicated": true,
+      "files": ["routers/auth.py"],
+      "reason": "FastAPI route registration at /api/v1/auth prefix",
+      "routes_count": 9,
+      "unblock_prerequisite": "Auth bundle (auth/__init__.py, jwt.py, etc.) must exist first"
+    }
+  },
+
+  "surface_010_cross_dependency": {
+    "auth_middleware": {
+      "path": "app.gateway.auth_middleware",
+      "surface_010_direct": true,
+      "reason": "Uses user_context contextvar for per-request user state"
+    },
+    "persistence_engine": {
+      "path": "deerflow.persistence.engine",
+      "surface_010_direct": true,
+      "reason": "init_engine_from_config triggers startup DB writes (CREATE DATABASE, create_all)"
+    },
+    "app_py_init_order": {
+      "step_1": "langgraph_runtime(app) enters lifespan context",
+      "step_2": "init_engine_from_config(config.database) — SURFACE-010 persistence trigger",
+      "step_3": "_ensure_admin_user(app) — uses UserRow + session_factory",
+      "step_4": "app.state.run_event_store = make_run_event_store(config) — indirect SURFACE-010 via user_context in db.py"
+    }
+  },
+
+  "auth_bundle_cross_dependency": {
+    "auth_router_requires": [
+      "app.gateway.auth (CAND-001 aggregate)",
+      "app.gateway.auth.jwt (CAND-002)",
+      "app.gateway.auth.local_provider (CAND-023)",
+      "app.gateway.auth.config (CAND-001)",
+      "app.gateway.auth.errors (CAND-001)"
+    ],
+    "app_middleware_requires": [
+      "app.gateway.auth_middleware (CAND-005, SURFACE-010)"
+    ],
+    "deps_requires": [
+      "deerflow.persistence.engine (CAND-009, SURFACE-010)",
+      "deerflow.persistence.user.model (CAND-024, SURFACE-010 indirect)"
+    ]
+  },
+
+  "persistence_bundle_cross_dependency": {
+    "deps_init_requires": [
+      "deerflow.persistence.engine (CAND-009)",
+      "deerflow.persistence.feedback (CAND-010)",
+      "deerflow.persistence.run (CAND-011)",
+      "deerflow.persistence.thread_meta (upstream)"
+    ],
+    "app_ensure_admin_requires": [
+      "deerflow.persistence.engine.get_session_factory",
+      "deerflow.persistence.user.model.UserRow"
+    ]
+  },
+
+  "parallel_activation_risk": {
+    "scenario": "What if we try to activate gateway before auth + persistence are ready?",
+    "risks": [
+      "app.py imports auth_middleware → ImportError if auth/ doesn't exist",
+      "langgraph_runtime calls init_engine → SURFACE-010 trigger if engine.py missing",
+      "deps.py initializes RunRepository → ImportError if persistence/run/ doesn't exist",
+      "routers/auth.py imports from app.gateway.auth → ImportError if auth bundle missing"
+    ],
+    "conclusion": "Gateway bundle CANNOT be activated independently — requires auth bundle + persistence bundle as prerequisites"
+  },
+
+  "route_registration_sequence": {
+    "step_1_auth_bundle": "Port auth bundle Sub-Bundle A (interface stubs) + Sub-Bundle B (local_provider)",
+    "step_2_auth_middleware": "Port auth bundle Sub-Bundle C (auth_middleware + user_context) — SURFACE-010",
+    "step_3_persistence_bundle": "Port persistence bundle CAND-009 (engine.py) + CAND-024 (UserRow) + CAND-010+CAND-011 — SURFACE-010",
+    "step_4_deps_init": "Port deps.py langgraph_runtime context",
+    "step_5_app_middleware": "Port app.py middleware chain + lifespan",
+    "step_6_auth_routes": "Port routers/auth.py (CAND-007) — GSIC-004",
+    "step_7_gateway_full": "All gateway components integrated"
+  },
+
+  "pr_2645_compatibility": {
+    "pr_path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "gsic_bundle_overlap": false,
+    "conflict_risk": "none",
+    "reason": "PR #2645 modifies lead_agent summarization config only; gateway bundle doesn't touch agents/"
+  },
+
+  "classification_results": {
+    "safe_design_subset": ["services.py (CAND-019)"],
+    "blocked_runtime_subset": ["app.py (CAND-018, GSIC-003)", "routers/auth.py (CAND-007, GSIC-004)", "deps.py (GSIC-003)"],
+    "gsic_003_implicated": ["app.py", "deps.py"],
+    "gsic_004_implicated": ["routers/auth.py"],
+    "surface_010_implicated": true,
+    "all_candidates_blocked": true
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "gateway_app_modified": false,
+    "route_registered": false,
+    "persistence_engine_activated": false,
+    "auth_middleware_added": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "unblock_sequence": {
+    "step_1": "SURFACE-010 memory runtime unblock",
+    "step_2": "Auth bundle Sub-Bundle C (auth_middleware + user_context)",
+    "step_3": "Persistence bundle CAND-009 (engine.py) + CAND-024 (UserRow)",
+    "step_4": "Auth bundle Sub-Bundle A + B (interface stubs)",
+    "step_5": "deps.py langgraph_runtime context",
+    "step_6": "app.py middleware + lifespan",
+    "step_7": "routers/auth.py (CAND-007, GSIC-004)"
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "gateway_bundle_design_review_completed_cross_dependency_on_auth_and_persistence",
+    "gateway_bundle_design_completed": true,
+    "bundle_candidates": ["CAND-007", "CAND-018", "CAND-019"],
+    "gsic_003_implicated": true,
+    "gsic_004_implicated": true,
+    "surface_010_implicated": true,
+    "auth_bundle_required": true,
+    "persistence_bundle_required": true,
+    "implementation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-21F",
+    "next_prompt_needed": "user_selection"
+  }
+}

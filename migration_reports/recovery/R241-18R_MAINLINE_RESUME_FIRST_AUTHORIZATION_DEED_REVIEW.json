@@ -1,0 +1,283 @@
+{
+  "report_id": "R241-18R_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_REVIEW",
+  "status": "passed",
+  "decision": "approve_first_authorization_deed_review",
+  "source": "R241-18Q_MAINLINE_RESUME_ACTIVATION_AUTHORIZATION_REVIEW",
+  "phase": "phase_11_mainline_resume_first_authorization_deed_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked"
+  },
+  "preconditions": {
+    "r241_18q_passed": true,
+    "authorization_review_passed": true,
+    "authorization_deed_allowed": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "allow_enter_r241_18r": true,
+    "safety_violations_clean": true
+  },
+  "deed_review_scope": {
+    "current_round": "R241-18R",
+    "mode": "authorization_deed_review_only",
+    "authorization_deed_generation_allowed": true,
+    "authorization_deed_execution_allowed": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "deed_is_structural_proposal_only": true
+  },
+  "deed_structure": {
+    "deed_id": "PROPOSED-DEED-18R-001",
+    "deed_type": "mainline_resume_first_authorization_deed_proposal",
+    "status": "structurally_valid_but_not_executed",
+    "requires_human_review": true,
+    "requires_explicit_user_authorization": true,
+    "deed_provisions": [
+      {
+        "provision_id": "PROV-001",
+        "scope": "authorization to produce bounded activation proposal",
+        "authorization_level": "prepare_deed_review_only",
+        "actionable": false,
+        "blocker_compliant": true,
+        "blocking_surfaces_respected": ["SURFACE-010", "CAND-002", "CAND-003", "GSIC-003", "GSIC-004"]
+      },
+      {
+        "provision_id": "PROV-002",
+        "scope": "authorization to package evidence for future activation",
+        "authorization_level": "evidence_packaging",
+        "actionable": false,
+        "blocker_compliant": true,
+        "blocking_surfaces_respected": ["SURFACE-010", "CAND-002", "CAND-003", "GSIC-003", "GSIC-004"]
+      },
+      {
+        "provision_id": "PROV-003",
+        "scope": "authorization to continue read-only review cycles",
+        "authorization_level": "review_continuation",
+        "actionable": false,
+        "blocker_compliant": true,
+        "blocking_surfaces_respected": ["SURFACE-010", "CAND-002", "CAND-003", "GSIC-003", "GSIC-004"]
+      }
+    ],
+    "deed_constraints": [
+      {
+        "constraint_id": "CONST-001",
+        "description": "This deed does NOT activate gateway, memory, MCP, Feishu, scheduler, runtime writes",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-002",
+        "description": "This deed does NOT override SURFACE-010 BLOCKED",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-003",
+        "description": "This deed does NOT override CAND-002 BLOCKED",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-004",
+        "description": "This deed does NOT override CAND-003 DEFERRED",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-005",
+        "description": "This deed does NOT override GSIC-003/GSIC-004 BLOCKED",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-006",
+        "description": "This deed does NOT set mainline_gateway_activation_allowed=true",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-007",
+        "description": "This deed does NOT enable DSRT-001~006",
+        "compliant": true
+      },
+      {
+        "constraint_id": "CONST-008",
+        "description": "This deed does NOT authorize actual activation",
+        "compliant": true
+      }
+    ],
+    "deed_execution_conditions": [
+      "Human explicit authorization must be obtained in R241-18S",
+      "User must explicitly confirm deed provisions in current conversation",
+      "All blockers (SURFACE-010, CAND-002, CAND-003, GSIC-003, GSIC-004) must remain intact",
+      "Deed must not be executed until next gate review (R241-18T) passes"
+    ],
+    "deed_nonexecution_conditions": [
+      "User does not provide explicit authorization",
+      "Any blocker is found to be improperly cleared",
+      "R241-18T gate review does not pass",
+      "Evidence package is incomplete"
+    ]
+  },
+  "deed_review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18Q authorization review carryover",
+      "source_round": "R241-18Q",
+      "required_evidence": "R241-18Q status=passed, authorization_review_passed=true, allow_enter_r241_18r=true",
+      "observed_state": "R241-18Q JSON confirmed: status=passed, decision=approve_authorization_review, authorization_review_passed=true, allow_enter_r241_18r=true, review_objects_A_to_L=12/12 passed",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Authorization deed scope definition",
+      "source_round": "R241-18R",
+      "required_evidence": "deed is structural proposal only, not executable, requires human review",
+      "observed_state": "deed_review_scope defined: mode=authorization_deed_review_only, authorization_deed_generation_allowed=true, authorization_deed_execution_allowed=false, deed_is_structural_proposal_only=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Deed structural validity",
+      "source_round": "R241-18R",
+      "required_evidence": "deed has valid provisions, constraints, and execution/nonexecution conditions",
+      "observed_state": "PROPOSED-DEED-18R-001 has 3 provisions (PROV-001~003) covering review continuation, evidence packaging, bounded activation proposal. All 8 constraints (CONST-001~008) are compliant with blocker non-override rules. Execution/nonexecution conditions are well-defined.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Deed blocker compliance",
+      "source_round": "R241-18R",
+      "required_evidence": "deed does not override any blocker",
+      "observed_state": "All 8 deed constraints are compliant: SURFACE-010 BLOCKED respected, CAND-002 BLOCKED respected, CAND-003 DEFERRED respected, GSIC-003/004 BLOCKED respected, mainline_gateway_activation_allowed=false, DSRT enabled=false, implemented_now=false. No blocker override.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Deed provisions scope limitation",
+      "source_round": "R241-18R",
+      "required_evidence": "all provisions limited to review/evidence/packaging scope, no activation",
+      "observed_state": "PROV-001: prepare_deed_review_only (no activation). PROV-002: evidence_packaging (no runtime activation). PROV-003: review_continuation (read-only). All provisions within maximum_authorization_level=prepare_deed_review_only.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Deed execution conditions completeness",
+      "source_round": "R241-18R",
+      "required_evidence": "deed has clear execution and nonexecution conditions",
+      "observed_state": "Deed has 4 execution_conditions (human auth required in R241-18S, user confirmation, blockers intact, R241-18T gate pass) and 4 nonexecution_conditions (no user auth, blocker improperly cleared, R241-18T fails, evidence incomplete).",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Human authorization prerequisite for deed execution",
+      "source_round": "R241-18R",
+      "required_evidence": "deed execution requires explicit human authorization in R241-18S",
+      "observed_state": "deed_execution_conditions[0]: 'Human explicit authorization must be obtained in R241-18S'. requires_explicit_user_authorization=true. authorization_present_in_current_round=false. explicit_user_authorization_required=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "DSRT non-activation constraint",
+      "source_round": "R241-18R",
+      "required_evidence": "deed CONST-007 confirms DSRT-001~006 remain disabled",
+      "observed_state": "CONST-007: 'This deed does NOT enable DSRT-001~006' — compliant. DSRT entries remain at enabled=False, disabled_by_default=True, implemented_now=False.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Deed proposal is not actual activation",
+      "source_round": "R241-18R",
+      "required_evidence": "deed is structural proposal only, not activation",
+      "observed_state": "deed_type=mainline_resume_first_authorization_deed_proposal. status=structurally_valid_but_not_executed. actionable=false. deed_is_structural_proposal_only=true. activation_allowed=false throughout.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "R241-18S human review readiness",
+      "source_round": "R241-18R",
+      "required_evidence": "deed is ready for human review in R241-18S",
+      "observed_state": "PROPOSED-DEED-18R-001 is structurally valid, blocker-compliant, scope-limited, and ready for R241-18S human explicit authorization review. R241-18S requires user explicit confirmation of deed provisions.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.11,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "deed_execution_status": "not_executed",
+  "deed_executable": false,
+  "human_authorization_required": true,
+  "human_authorization_obtained": false,
+  "activation_allowed": false,
+  "blocker_override_allowed": false,
+  "allow_enter_r241_18s": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "PROPOSED-DEED-18R-001 is a proposal only — has not been executed, requires human authorization in R241-18S"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_first_authorization_deed_review",
+    "deed_review_passed": true,
+    "deed_structure": "valid_proposal_not_executed",
+    "deed_executable": false,
+    "deed_blocker_compliant": true,
+    "deed_scope_limited": true,
+    "human_authorization_required": true,
+    "human_authorization_obtained": false,
+    "review_objects_A_to_J": "10/10 passed",
+    "allow_enter_r241_18s": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18R",
+    "next_prompt_needed": "R241-18S_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_HUMAN_REVIEW"
+  }
+}

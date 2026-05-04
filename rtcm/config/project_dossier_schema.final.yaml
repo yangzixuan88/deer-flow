@@ -1,0 +1,124 @@
+schema_version: "1.1"
+schema_id: "project_dossier_final"
+root_dir: "~/.deerflow/roundtables"
+
+directory_layout:
+  project_root: "{project_slug}/"
+  files:
+    manifest: "manifest.json"
+    council_log: "council_log.jsonl"
+    hypothesis_board: "hypothesis_board.json"
+    plan_versions: "plan_versions/"
+    validation_runs: "validation_runs/"
+    issue_cards: "issue_cards/"
+    brief_report: "brief_report.md"
+    final_report: "final_report.md"
+    linked_assets: "linked_assets.json"
+    acceptance_log: "acceptance_log.jsonl"
+    resume_index: "resume_index.json"
+    evidence_ledger: "evidence_ledger.json"
+    issue_graph: "issue_graph.json"
+    workflow_optimization_suggestions: "workflow_optimization_suggestions.json"
+
+manifest_schema:
+  required_fields:
+    - "project_id"
+    - "project_name"
+    - "project_slug"
+    - "mode"
+    - "status"
+    - "created_at"
+    - "updated_at"
+    - "created_by"
+    - "chair_agent_id"
+    - "member_agent_ids"
+    - "user_goal"
+    - "acceptance_status"
+    - "current_round"
+    - "current_issue_id"
+
+hypothesis_board_schema:
+  required_fields:
+    - "project_id"
+    - "issues"
+
+issue_card_schema:
+  required_fields:
+    - "issue_id"
+    - "issue_title"
+    - "problem_statement"
+    - "candidate_hypotheses"
+    - "evidence_summary"
+    - "challenge_log"
+    - "response_summary"
+    - "known_gaps"
+    - "validation_plan_or_result"
+    - "verdict"
+    - "next_action"
+    - "strongest_dissent"
+    - "confidence_interval"
+    - "unresolved_uncertainties"
+    - "conditions_to_reopen"
+    - "evidence_ledger_refs"
+
+validation_run_schema:
+  required_fields:
+    - "run_id"
+    - "project_id"
+    - "issue_id"
+    - "started_at"
+    - "ended_at"
+    - "executor"
+    - "validation_plan_ref"
+    - "observed_results"
+    - "comparison_dimensions"
+    - "acceptance_thresholds"
+    - "pass_fail_summary"
+    - "reopen_reason_if_any"
+
+evidence_ledger_schema:
+  required_fields:
+    - "evidence_id"
+    - "source_type"
+    - "source_ref"
+    - "claim_supported"
+    - "confidence"
+    - "conflicts_with"
+    - "used_in_issue_ids"
+
+issue_graph_schema:
+  required_fields:
+    - "project_id"
+    - "nodes"
+    - "edges"
+
+brief_report_schema:
+  required_sections:
+    - "project_name"
+    - "last_updated"
+    - "status"
+    - "one_line_conclusion"
+    - "current_best_plan"
+    - "latest_validation_result"
+    - "major_remaining_risks"
+    - "strongest_dissent"
+    - "unresolved_uncertainties"
+    - "next_recommended_action"
+
+final_report_schema:
+  required_sections:
+    - "项目背景"
+    - "用户目标"
+    - "核心议题列表"
+    - "最终采用路线"
+    - "被放弃路线及原因"
+    - "执行过程摘要"
+    - "验证结果"
+    - "关键改进点"
+    - "最终结论"
+    - "最强异议"
+    - "未决不确定性"
+    - "重开条件"
+    - "剩余风险"
+    - "后续建议"
+    - "验收记录"

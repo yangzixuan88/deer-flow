@@ -1,0 +1,26 @@
+{
+  "templates": {
+    "evolution_digest": {
+      "title": "🧬 系统进化早报 (Evolution Digest)",
+      "timestamp": "07:00 AM",
+      "summary": {
+        "pruned_steps": {
+          "label": "冗余步骤剪除 (Pruned)",
+          "value": 0,
+          "description": "通过 Optimizer 节点分析出的重复或无效执行路径。"
+        },
+        "new_signatures": {
+          "label": "新编译 Signature",
+          "value": 0,
+          "description": "由 DSPy 自动生成的优化提示词签名。"
+        },
+        "success_rate_increase": {
+          "label": "成功率提升 (ROI)",
+          "value": "0%",
+          "description": "相比昨日，执行成功率的环比提升。"
+        }
+      },
+      "footer": "每日凌晨 02:00 完成 GEPA 反射炼金。非必要不干扰。 @Accio_official"
+    }
+  }
+}

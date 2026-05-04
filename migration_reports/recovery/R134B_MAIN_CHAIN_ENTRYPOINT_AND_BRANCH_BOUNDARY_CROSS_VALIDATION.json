@@ -1,0 +1,164 @@
+{
+  "phase": "R134B",
+  "title": "MAIN_CHAIN_ENTRYPOINT_AND_BRANCH_BOUNDARY_CROSS_VALIDATION",
+  "status": "completed",
+  "preceded_by": "R134A",
+  "proceeding_to": "R134C",
+  "pressure_assessment": {
+    "previous_phase": "R134A",
+    "previous_status": "passed",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Read-only cross-validation; map TypeScript M01/M04/M11 chains, classify main vs branch, revalidate blocker taxonomy, output R134C proposal. No code changes."
+  },
+  "typescript_chain": {
+    "orchestrator_execute": "m01/orchestrator.ts:62",
+    "handle_orchestration": "m01/orchestrator.ts:168",
+    "handle_deerflow_execution": "m01/orchestrator.ts:199",
+    "deerflow_client_health_check": "m01/deerflow_client.ts healthCheck()",
+    "deerflow_client_create_thread": "m01/deerflow_client.ts createThread() → POST /api/threads",
+    "deerflow_client_execute_until_complete": "m01/deerflow_client.ts executeUntilComplete()",
+    "deerflow_client_run_task": "m01/deerflow_client.ts runTask() → POST /api/threads/{threadId}/runs (SYNCHRONOUS, NOT /stream)",
+    "deerflow_client_get_thread_status": "m01/deerflow_client.ts getThreadStatus() polling",
+    "fallback_to_local": "handleLocalExecution() → M04Coordinator → executorAdapter → M11 → CLI"
+  },
+  "path_a_boundary": {
+    "m04_coordinator_file": "backend/src/domain/m04/coordinator.ts",
+    "m04_routes": ["SEARCH", "TASK", "WORKFLOW", "CLAUDE_CODE", "GSTACK_SKILL", "LARKSUITE", "VISUAL_WEB", "DESKTOP_APP"],
+    "executor": "executorAdapter from m11/mod.ts",
+    "m11_exports": ["executorAdapter", "executeWithAutoSelect", "checkExecutorHealth", "larkCLIAdapter", "DesktopToolSelector", "VisualToolSelector"],
+    "status": "CLEAR"
+  },
+  "path_b_boundary": {
+    "deerflow_client_file": "backend/src/domain/m01/deerflow_client.ts",
+    "create_thread_endpoint": "POST /api/threads",
+    "run_task_endpoint": "POST /api/threads/{threadId}/runs (SYNCHRONOUS)",
+    "get_status_endpoint": "GET /api/threads/{threadId}/runs/{runId}",
+    "stream_endpoint_used_by_deerflow_client": false,
+    "stream_endpoint_exists_but_unused": "POST /api/threads/{threadId}/runs/stream"
+  },
+  "endpoint_vs_sse_distinction": {
+    "key_finding": "DeerFlowClient uses synchronous POST /runs (wait for completion), NOT SSE /stream endpoint",
+    "stream_endpoint_location": "thread_runs.py:103 stream_run()",
+    "stream_endpoint_handler": "same start_run() path as sync, different response serialization (StreamingResponse vs RunResponse)",
+    "all_post_runs_blocked_by_csrf": ["POST /api/threads/{id}/runs (sync)", "POST /api/threads/{id}/runs/stream (SSE)", "POST /api/threads/{id}/runs/wait (blocking)"]
+  },
+  "gateway_runtime_chain": {
+    "endpoint_to_service": "thread_runs.py create_run() → services.py start_run()",
+    "service_to_worker": "asyncio.create_task(run_agent(...)) → worker.py run_agent()",
+    "worker_to_agent": "agent_factory(config=runnable_config) called inside run_agent()",
+    "runtime_context_injection": "Runtime(context={thread_id, run_id}) injected at worker.py:181 into config['configurable']['__pregel_runtime']",
+    "thread_data_middleware_placement": "middleware chain index 0 of 14 (factory.py:201)",
+    "persistence_surfaces": ["stream_bridge", "checkpointer", "store", "run_store", "feedback_repo", "thread_store", "run_event_store"],
+    "gateway_runtime_boundary_status": "VALID"
+  },
+  "thread_data_middleware_analysis": {
+    "file": "packages/harness/deerflow/agents/middlewares/thread_data_middleware.py",
+    "line_110": "runtime.context.get('run_id') — unguarded direct access",
+    "line_83": "context = runtime.context or {} — partial guard with or {} fallback",
+    "crash_scenario": "AttributeError when runtime is None (not empty dict)",
+    "gateway_path_immune": true,
+    "gateway_immunity_reason": "worker.py:181 creates Runtime(context={thread_id, run_id}) before calling agent factory",
+    "direct_path_vulnerable": true,
+    "direct_path_vulnerability_reason": "debug.py direct invocation has no Runtime injection"
+  },
+  "chain_taxonomy": {
+    "main_http": {
+      "path": "HTTP POST /runs → start_run → run_agent → astream",
+      "status": "UNBLOCKED",
+      "runtime_injection": "CONFIRMED at worker.py:181"
+    },
+    "branch_sse": {
+      "path": "HTTP POST /stream → SSE StreamingResponse",
+      "status": "BLOCKED_CSRF",
+      "note": "Same start_run() path; different response serialization"
+    },
+    "branch_direct_python": {
+      "path": "Direct make_lead_agent() → astream()",
+      "status": "BLOCKED",
+      "blocker": "No Runtime injection → ThreadDataMiddleware crashes"
+    },
+    "main_deerflow_client": {
+      "path": "DeerFlowClient → POST /threads/runs (sync wait)",
+      "status": "BLOCKED_CSRF",
+      "note": "Uses /runs (sync), not /stream (SSE)"
+    },
+    "main_path_a": {
+      "path": "M01 orchestrator → M04Coordinator → M11 → CLI",
+      "status": "CLEAR",
+      "note": "No gateway dependency"
+    }
+  },
+  "blocker_classification": {
+    "thread_data_middleware": {
+      "type": "Runtime Context",
+      "gateway_path": "RESOLVED",
+      "direct_python_path": "BLOCKED",
+      "test_artifact": false,
+      "detail": "worker.py:181 injects Runtime for gateway path; direct path has no injection"
+    },
+    "csrf_middleware": {
+      "type": "CSRF",
+      "gateway_path": "BLOCKED",
+      "direct_python_path": "BLOCKED",
+      "test_artifact": true,
+      "detail": "All POST /runs endpoints blocked; not a runtime failure"
+    },
+    "config_var_bug": {
+      "type": "Latent Config",
+      "gateway_path": "BYPASS",
+      "direct_python_path": "LATENT",
+      "test_artifact": false,
+      "detail": "os.getenv bug in app_config.py:250 doesn't affect GatewayConfig path"
+    },
+    "require_existing": {
+      "type": "Auth Gate",
+      "gateway_path": "BLOCKED",
+      "detail": "require_existing=True blocks new thread creation; must use POST /threads first"
+    }
+  },
+  "boundary_risk_matrix": {
+    "typescript_to_python": "LOW",
+    "gateway_to_services": "LOW",
+    "worker_to_runtime_injection": "LOW",
+    "thread_data_middleware": "MEDIUM",
+    "langgraph_runtime": "LOW",
+    "csrf_post": "LOW_test_artifact"
+  },
+  "r134c_proposal": {
+    "phase": "R134C",
+    "title": "DIRECT_PYTHON_PATH_RUNTIME_CONTEXT_FIX_AND_DEERFLOW_CLIENT_SMOKE",
+    "goals": [
+      "Fix ThreadDataMiddleware line 110 null guard for run_id access",
+      "DeerFlowClient HTTP-level smoke (CSRF-aware test approach)",
+      "BP-02 MCP credential gap mapping (R134A deferred)"
+    ],
+    "constraints": {
+      "code_modification": "ALLOWED",
+      "gateway_startup": "ALLOWED",
+      "model_api_calls": "ALLOWED",
+      "production_db_write": "PROHIBITED",
+      "push_to_remote": "PROHIBITED"
+    }
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R134B_MAIN_CHAIN_ENTRYPOINT_AND_BRANCH_BOUNDARY_CROSS_VALIDATION.md",
+    "migration_reports/recovery/R134B_MAIN_CHAIN_ENTRYPOINT_AND_BRANCH_BOUNDARY_CROSS_VALIDATION.json"
+  ],
+  "recommended_next_phase": "R134C_DIRECT_PYTHON_PATH_RUNTIME_CONTEXT_FIX_AND_DEERFLOW_CLIENT_SMOKE",
+  "next_prompt_needed": "R134C_DIRECT_PYTHON_PATH_RUNTIME_CONTEXT_FIX_AND_DEERFLOW_CLIENT_SMOKE"
+}

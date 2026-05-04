@@ -1,0 +1,491 @@
+{
+  "report_id": "R241-19I_SAFE_DIRECT_UPDATE_PATCH_REVIEW",
+  "phase": "phase_19i_safe_direct_update_patch_review",
+  "status": "passed_with_warnings",
+  "decision": "approve_safe_direct_update_patch_review_with_warnings",
+  "source": "R241-19H_UPGRADE_CANDIDATE_RISK_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19h": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19h_passed_with_warnings": true,
+    "upgrade_candidate_risk_review_passed": true,
+    "canonical_inventory_reconciled": true,
+    "classification_consistency_valid": true,
+    "safe_direct_update_ready_for_patch_review": true,
+    "forbidden_runtime_candidates_quarantined": true,
+    "allow_enter_r241_19i": true,
+    "all_preconditions_met": true
+  },
+  "safe_direct_update_patch_review_scope": {
+    "current_round": "R241-19I",
+    "mode": "safe_direct_update_patch_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "patch_apply_allowed": false,
+    "patch_generation_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "blocker_override_allowed": false,
+    "git_network_operation_allowed": false,
+    "branch_switch_allowed": false,
+    "allowed_scope": [
+      "safe lane candidate review",
+      "read-only upstream diff summary",
+      "patch plan generation",
+      "local customization conflict check",
+      "runtime absence validation",
+      "candidate-specific test plan",
+      "next-round authorization readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual upgrade execution",
+      "patch generation",
+      "patch apply",
+      "code overwrite",
+      "whole-directory replacement",
+      "dependency upgrade execution",
+      "dependency install",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu / webhook migration",
+      "scheduler activation",
+      "production service start",
+      "secret/token/webhook migration",
+      "blocker override",
+      "blocker unblock",
+      "dirty worktree cleanup",
+      "stash pop/apply",
+      "git fetch/pull/merge/rebase",
+      "branch switch",
+      "adding remote",
+      "modifying remote"
+    ]
+  },
+  "lane_1_candidate_inventory": [
+    {
+      "candidate_id": "CAND-003",
+      "path": "backend/app/gateway/auth/credential_file.py",
+      "classification": "safe_direct_update",
+      "risk": "low",
+      "change_type": "A (new file)",
+      "diff_lines": "48 additions, 0 deletions",
+      "approved_for_future_patch_review": true
+    },
+    {
+      "candidate_id": "CAND-017",
+      "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+      "classification": "safe_direct_update",
+      "risk": "none",
+      "change_type": "M (modified)",
+      "diff_lines": "8 additions, 3 deletions",
+      "approved_for_future_patch_review": true
+    },
+    {
+      "candidate_id": "CAND-020",
+      "path": "frontend/src/content/en/**/*.mdx",
+      "classification": "safe_direct_update",
+      "risk": "none",
+      "change_type": "A+M (31 files)",
+      "diff_lines": "3789 additions, 26 deletions",
+      "approved_for_future_patch_review": true
+    },
+    {
+      "candidate_id": "CAND-021",
+      "path": "frontend/src/content/zh/**/*.mdx",
+      "classification": "safe_direct_update",
+      "risk": "none",
+      "change_type": "A+M (41 files)",
+      "diff_lines": "3967 additions, 2 deletions",
+      "approved_for_future_patch_review": true
+    },
+    {
+      "candidate_id": "CAND-025",
+      "path": "backend/tests/test_auth.py",
+      "classification": "safe_direct_update",
+      "risk": "none",
+      "change_type": "A (new file)",
+      "diff_lines": "654 additions, 0 deletions",
+      "approved_for_future_patch_review": true
+    }
+  ],
+  "candidate_source_diff_summary": [
+    {
+      "candidate_id": "CAND-003",
+      "path": "backend/app/gateway/auth/credential_file.py",
+      "change_type": "A (new file)",
+      "diff_summary": "New file: writes initial admin credentials to a 0600-mode file instead of logging. Uses os.open atomic create with mode 0600. Returns Path object (not credential). No hardcoded secrets. Replaces dangerous auto-admin creation.",
+      "added_lines": 48,
+      "deleted_lines": 0,
+      "runtime_surface_terms_found": [],
+      "secret_like_terms_found": ["password", "credential", "admin"],
+      "secret_like_classification": "contextual_secure_usage — password/credential are parameters written to a secure file with mode 0600 atomic create; not hardcoded secrets",
+      "review_status": "passed"
+    },
+    {
+      "candidate_id": "CAND-017",
+      "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+      "change_type": "M (modified)",
+      "diff_summary": "Minor tag addition: model.with_config(tags=['middleware:summarize']). Added comment explaining tag purpose. Removed fallback comment about lightweight model. No runtime behavior change.",
+      "added_lines": 8,
+      "deleted_lines": 3,
+      "runtime_surface_terms_found": [],
+      "secret_like_terms_found": [],
+      "review_status": "passed"
+    },
+    {
+      "candidate_id": "CAND-020",
+      "path": "frontend/src/content/en/**/*.mdx",
+      "change_type": "A+M (31 files)",
+      "diff_summary": "English documentation: 3789 insertions, 26 deletions across 31 files (harness, reference, tutorials). New pages: lead-agent.mdx, mcp.mdx, middlewares.mdx, subagents.mdx. Modified existing pages for completeness.",
+      "added_lines": 3789,
+      "deleted_lines": 26,
+      "runtime_surface_terms_found": [],
+      "secret_like_terms_found": [],
+      "review_status": "passed"
+    },
+    {
+      "candidate_id": "CAND-021",
+      "path": "frontend/src/content/zh/**/*.mdx",
+      "change_type": "A+M (41 files)",
+      "diff_summary": "Chinese documentation: 3967 insertions, 2 deletions across 41 files (same structure as English). All docs-only changes.",
+      "added_lines": 3967,
+      "deleted_lines": 2,
+      "runtime_surface_terms_found": [],
+      "secret_like_terms_found": [],
+      "review_status": "passed"
+    },
+    {
+      "candidate_id": "CAND-025",
+      "path": "backend/tests/test_auth.py",
+      "change_type": "A (new file)",
+      "diff_summary": "New test file for auth module: JWT, password hashing, AuthContext, authz decorators. Uses FastAPI TestClient with mocks. No real service start, no DB write, no runtime activation.",
+      "added_lines": 654,
+      "deleted_lines": 0,
+      "runtime_surface_terms_found": [],
+      "secret_like_terms_found": [],
+      "review_status": "passed"
+    }
+  ],
+  "candidate_safety_boundary_validation": {
+    "CAND-003": {
+      "valid": true,
+      "checks": {
+        "no_hardcoded_secret": true,
+        "no_default_admin_password": true,
+        "no_service_start": true,
+        "no_runtime_write": true,
+        "atomic_file_create": true,
+        "secure_mode_0600": true,
+        "returns_path_not_credential": true,
+        "positive_security_improvement": true
+      },
+      "classification": "positive_security_improvement"
+    },
+    "CAND-017": {
+      "valid": true,
+      "checks": {
+        "minor_tag_metadata_only": true,
+        "no_runtime_behavior_change": true,
+        "no_memory_mcp_tool_enforcement": true,
+        "no_network_calls": true
+      },
+      "classification": "minor_metadata_tag"
+    },
+    "CAND-020": {
+      "valid": true,
+      "checks": {
+        "docs_only": true,
+        "no_runtime_activation": true,
+        "no_secret_token_webhook": true,
+        "docs_runtime_reference_warning": false
+      },
+      "classification": "docs_only"
+    },
+    "CAND-021": {
+      "valid": true,
+      "checks": {
+        "docs_only": true,
+        "no_runtime_activation": true,
+        "no_secret_token_webhook": true,
+        "docs_runtime_reference_warning": false
+      },
+      "classification": "docs_only"
+    },
+    "CAND-025": {
+      "valid": true,
+      "checks": {
+        "test_only": true,
+        "no_real_service_start": true,
+        "no_real_db_write": true,
+        "no_fastapi_route_activation": true,
+        "uses_test_client_with_mocks": true
+      },
+      "classification": "test_only_mocked"
+    },
+    "all_safe_boundaries_valid": true,
+    "violations": []
+  },
+  "local_customization_conflict_check": {
+    "candidates_checked": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "protected_path_hits": [
+      {
+        "candidate": "CAND-003",
+        "path": "backend/app/gateway/auth/credential_file.py",
+        "protected_path": "backend/app/gateway/",
+        "note": "NEW file in gateway/auth/ subdirectory — not overwriting gateway/app.py or gateway/services.py",
+        "is_overwrite": false,
+        "safe_as_new_module": true
+      }
+    ],
+    "protected_module_hits": [],
+    "overwrite_risk": [],
+    "adapter_required_due_to_conflict": [],
+    "safe_to_review_as_patch_plan": true,
+    "cand_003_analysis": {
+      "is_new_file": true,
+      "overwrites_existing": false,
+      "registers_fastapi_route": false,
+      "changes_gateway_main_path": false,
+      "touches_protected_module": false,
+      "isolated_safe_patch": true,
+      "conclusion": "CAND-003 is a NEW auth module file in backend/app/gateway/auth/ — not a modification of gateway/app.py or gateway/services.py. It does not register FastAPI routes or modify gateway main path. Safe for isolated patch plan."
+    },
+    "warnings": [
+      "CAND-003 is new file in protected path backend/app/gateway/ — must be applied as NEW file insertion, not overwrite of existing gateway files"
+    ],
+    "violations": []
+  },
+  "candidate_patch_review_plan": [
+    {
+      "candidate_id": "CAND-003",
+      "path": "backend/app/gateway/auth/credential_file.py",
+      "review_recommendation": "approve_for_patch_authorization_review",
+      "apply_allowed_now": false,
+      "future_apply_requires": [
+        "user explicit approval for credential-handling patch",
+        "isolated patch strategy (NEW file insertion, not overwrite)",
+        "post-apply credential file permission verification",
+        "no dependency on gateway/app.py modification"
+      ],
+      "candidate_specific_tests": [
+        "verify file mode 0600 on admin_initial_credentials.txt after apply",
+        "verify no credential logging in stdout/stderr after apply"
+      ],
+      "rollback_strategy": "git restore (remove new file)",
+      "notes": "POSITIVE SECURITY IMPROVEMENT — replaces CodeQL clear-text-logging-sensitive-data finding with secure atomic file write. Not a secret leak — the credential is a parameter passed to the function, not hardcoded. The function writes it to a 0600 file and returns the path (not the credential). This is a model example of secure credential handling."
+    },
+    {
+      "candidate_id": "CAND-017",
+      "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+      "review_recommendation": "approve_for_patch_authorization_review",
+      "apply_allowed_now": false,
+      "future_apply_requires": [
+        "user explicit approval",
+        "verify middleware:summarize tag applied correctly",
+        "agent behavior regression test if available"
+      ],
+      "candidate_specific_tests": [],
+      "rollback_strategy": "git restore (revert tag addition)",
+      "notes": "Minor tag metadata addition only — no runtime behavior change. Safe for patch apply."
+    },
+    {
+      "candidate_id": "CAND-020",
+      "path": "frontend/src/content/en/**/*.mdx",
+      "review_recommendation": "approve_for_patch_authorization_review",
+      "apply_allowed_now": false,
+      "future_apply_requires": [
+        "user explicit approval for docs patch",
+        "docs build/lint test if available",
+        "no dependency install required for docs-only apply"
+      ],
+      "candidate_specific_tests": [
+        "docs build smoke test if available"
+      ],
+      "rollback_strategy": "git restore (revert docs changes)",
+      "notes": "Docs-only patch. 31 English documentation files. No runtime risk."
+    },
+    {
+      "candidate_id": "CAND-021",
+      "path": "frontend/src/content/zh/**/*.mdx",
+      "review_recommendation": "approve_for_patch_authorization_review",
+      "apply_allowed_now": false,
+      "future_apply_requires": [
+        "user explicit approval for docs patch",
+        "docs build/lint test if available",
+        "no dependency install required for docs-only apply"
+      ],
+      "candidate_specific_tests": [
+        "docs build smoke test if available"
+      ],
+      "rollback_strategy": "git restore (revert docs changes)",
+      "notes": "Docs-only patch. 41 Chinese documentation files. No runtime risk."
+    },
+    {
+      "candidate_id": "CAND-025",
+      "path": "backend/tests/test_auth.py",
+      "review_recommendation": "approve_for_patch_authorization_review",
+      "apply_allowed_now": false,
+      "future_apply_requires": [
+        "user explicit approval for test-only patch",
+        "pytest run (dry-run without service start) to verify test loads",
+        "no FastAPI route registration required",
+        "no real DB write required"
+      ],
+      "candidate_specific_tests": [
+        "pytest backend/tests/test_auth.py -v (dry-run, no service start)"
+      ],
+      "rollback_strategy": "git restore (remove new test file)",
+      "notes": "Test-only patch using mocked FastAPI TestClient. No runtime activation required."
+    }
+  ],
+  "candidate_test_plan": {
+    "core_tests": [
+      "backend/app/foundation/test_gateway_sidecar_integration_review.py",
+      "backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report'"
+    ],
+    "upgrade_intake_tests": [
+      "backend/app/foundation/test_upstream_upgrade_intake_matrix.py"
+    ],
+    "candidate_specific_tests": {
+      "CAND-003": [
+        "file permission check on credential output file post-apply",
+        "verify no credential in stdout/stderr post-apply"
+      ],
+      "CAND-017": [
+        "agent metadata/tag regression check if available"
+      ],
+      "CAND-020": [
+        "docs build smoke test if available (no dependency install)"
+      ],
+      "CAND-021": [
+        "docs build smoke test if available (no dependency install)"
+      ],
+      "CAND-025": [
+        "pytest backend/tests/test_auth.py -v --collect-only (verify test loads without service start)"
+      ]
+    },
+    "pre_existing_failure_carried": true
+  },
+  "patch_application_authorization_boundary": {
+    "patch_apply_allowed_in_r241_19i": false,
+    "future_patch_apply_requires_explicit_user_approval": true,
+    "future_patch_apply_requires_clean_or_isolated_worktree_strategy": true,
+    "future_patch_apply_requires_candidate_specific_tests": true,
+    "future_patch_apply_requires_no_forbidden_runtime_touch": true,
+    "future_patch_apply_requires_blockers_preserved": true,
+    "actual_upgrade_execution_allowed": false
+  },
+  "rollback_abort_matrix": {
+    "abort_conditions": [
+      "RootGuard fail",
+      "dirty baseline mismatch",
+      "candidate not in Lane 1",
+      "candidate classification drift",
+      "protected path overwrite risk unresolved",
+      "runtime surface detected in safe candidate",
+      "secret/token/webhook detected in plaintext",
+      "patch apply attempted",
+      "dependency install attempted",
+      "gateway/FastAPI route activation attempted",
+      "memory/MCP activation attempted",
+      "production runtime modified",
+      "blocker override attempted",
+      "actual activation attempted",
+      "core 144 regression",
+      "upgrade intake tests regression"
+    ],
+    "rollback_not_executed": true,
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true,
+    "patch_apply_forbidden": true,
+    "dependency_execution_forbidden": true,
+    "violations": []
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {
+        "pattern": "app.include_router (pre-existing in gateway/app.py lines 260-296)",
+        "location": "backend/app/gateway/app.py",
+        "classification": "explanatory_only_pre-existing_gateway_route_registrations",
+        "blocked_by": "GSIC-004"
+      }
+    ],
+    "candidate_hits": [
+      {
+        "candidate": "CAND-003",
+        "pattern": "password/credential/admin",
+        "location": "backend/app/gateway/auth/credential_file.py",
+        "classification": "contextual_secure_usage — parameters written to secure 0600 file, not hardcoded secrets",
+        "is_violation": false
+      }
+    ],
+    "secret_like_hits": [],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v"
+    ],
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "core_144_passed": true,
+    "upgrade_intake_tests_passed": 32,
+    "candidate_specific_tests_passed": null,
+    "pre_existing_failure_carried": true,
+    "new_failures": []
+  },
+  "r241_19i2_readiness": {
+    "allow_enter_r241_19i2": true,
+    "recommended_next_round": "R241-19I2_SAFE_DIRECT_UPDATE_PATCH_AUTHORIZATION_REVIEW",
+    "alternative_next_round": "R241-19J_ADAPTER_DESIGN_REVIEW",
+    "reason": "R241-19I safe direct update patch review PASSED. All 5 Lane 1 candidates reviewed — no runtime touch, no dangerous patterns, no secret leaks. CAND-003 is positive security improvement (replaces CodeQL clear-text-logging finding with atomic 0600 file write). All candidates approved for future patch authorization. No blockers triggered. No test regressions. Next step is R241-19I2 explicit authorization round for user-approved patch apply.",
+    "blockers": [],
+    "warnings": [
+      "CAND-003 credential_file.py uses 'password'/'credential' in code context — classified as contextual_secure_usage (positive security improvement), not secret leak",
+      "pre_existing_failure_test_runtime_activation_readiness_still_present"
+    ]
+  },
+  "safe_direct_update_patch_review_passed": true,
+  "lane_1_candidates_reviewed": 5,
+  "safe_candidates_ready_for_authorization_review": true,
+  "actual_upgrade_execution_allowed": false,
+  "patch_apply_executed": false,
+  "dependency_execution_executed": false,
+  "runtime_touch_detected": false,
+  "allow_enter_r241_19i2": true,
+  "blockers_remaining": 8,
+  "warnings": [
+    "CAND-003 credential_file.py contains 'password'/'credential' terms — contextual_secure_usage, not a violation",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "recommended_resume_point": "R241-19I",
+  "next_prompt_needed": "R241-19I2_SAFE_DIRECT_UPDATE_PATCH_AUTHORIZATION_REVIEW",
+  "report_timestamp": "2026-04-28T21:30:00+00:00"
+}

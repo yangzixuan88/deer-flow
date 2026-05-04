@@ -1,0 +1,137 @@
+spec_version: "1.1"
+spec_id: "feishu_rendering_spec_final"
+mode_id: "rtcm_v2"
+
+design_goals:
+  - "make_roundtable_visible_not_black_box"
+  - "show_state_not_raw_internal_noise"
+  - "support_intervention_resume_acceptance"
+  - "preserve_human_sovereignty"
+  - "surface_dissent_and_uncertainty"
+
+rendering_modes:
+  - "session_opened_card"
+  - "issue_progress_card"
+  - "execution_progress_card"
+  - "validation_result_card"
+  - "reopen_card"
+  - "acceptance_card"
+  - "resume_suggestion_card"
+  - "daily_summary_card"
+
+status_badges:
+  session_opened: "🟦 已开会"
+  debating: "🟨 讨论中"
+  executing: "🟪 执行中"
+  validating: "🟧 验证中"
+  reopened: "🟥 已返会"
+  awaiting_user_acceptance: "🟩 待验收"
+  accepted: "✅ 已通过"
+  rejected: "❌ 未通过"
+  archived: "📦 已归档"
+
+shared_card_fields:
+  required:
+    - "project_name"
+    - "project_status"
+    - "current_issue_title"
+    - "current_stage"
+    - "one_line_summary"
+    - "next_action"
+    - "user_options"
+  optional:
+    - "strongest_dissent"
+    - "unresolved_uncertainties"
+    - "latest_validation_result"
+    - "risk_level"
+
+card_templates:
+  session_opened_card:
+    sections:
+      - "基础信息"
+      - "一句话说明"
+      - "当前安排"
+      - "你可以做什么"
+  issue_progress_card:
+    sections:
+      - "议题状态"
+      - "当前共识"
+      - "当前分歧"
+      - "未决问题"
+      - "下一步"
+  execution_progress_card:
+    sections:
+      - "执行概况"
+      - "执行摘要"
+      - "风险提示"
+      - "如果你要干预"
+  validation_result_card:
+    sections:
+      - "验证结论"
+      - "核心偏差"
+      - "最强异议"
+      - "未决不确定性"
+      - "建议动作"
+  reopen_card:
+    sections:
+      - "返会原因"
+      - "回到哪一步"
+      - "重点关注"
+      - "下一步"
+  acceptance_card:
+    sections:
+      - "总览"
+      - "最终采用路线"
+      - "验证结果"
+      - "最强异议"
+      - "未决不确定性"
+      - "后续建议"
+
+push_policy:
+  push_on_events:
+    - "session_opened"
+    - "issue_started"
+    - "execution_started"
+    - "validation_completed"
+    - "issue_reopened"
+    - "project_ready_for_acceptance"
+    - "project_archived"
+  periodic_push:
+    enabled: true
+    default_interval_hours: 4
+    suppress_if_no_material_change: true
+
+user_action_mapping:
+  "提交观点": "user_intervention.opinion"
+  "追加约束": "user_intervention.constraint"
+  "要求改方向": "user_intervention.direction_change"
+  "暂停": "user_command.pause"
+  "继续执行": "user_command.continue"
+  "返会重议": "user_command.reopen"
+  "验收通过": "user_acceptance.accepted"
+  "需要修改": "user_acceptance.needs_revision"
+  "不通过": "user_acceptance.rejected"
+  "接续旧会": "resume.resume_existing"
+  "基于旧会重开": "resume.restart_from_existing"
+  "开启新会": "resume.start_new"
+
+visibility_policy:
+  always_show:
+    - "one_line_summary"
+    - "current_stage"
+    - "next_action"
+  show_on_risk:
+    - "strongest_dissent"
+    - "risk_level"
+    - "unresolved_uncertainties"
+
+safety_rendering_rules:
+  if_dangerous_action_pending:
+    must_show:
+      - "unsafe_action_pending_confirmation"
+      - "why_confirmation_required"
+      - "what_will_happen_if_approved"
+  if_protocol_blocked:
+    must_show:
+      - "block_reason"
+      - "required_fix"

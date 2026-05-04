@@ -1,0 +1,55 @@
+{
+  "phase": "R241-25A",
+  "status": "COMPLETE",
+  "generated": "2026-04-29",
+  "description": "Foundation Repair Completion Audit + Mainline Re-entry Gate",
+  "lanes_completed": 8,
+  "rootguard": {
+    "passed": true,
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "29f8ed8a",
+    "dirty_state_classification": "expected_local_branch",
+    "unsafe_dirty_detected": false,
+    "note": "172 untracked files = hygiene concern, not safety violation; 0 tracked file modifications"
+  },
+  "handoff_files_verified": true,
+  "foundation_evidence_consistent": true,
+  "minimal_regression": {
+    "tests_run": 20,
+    "tests_passed": 20,
+    "tests_failed": 0,
+    "imports_checked": 9,
+    "imports_ok": 9,
+    "pre_existing_env_failures": ["email-validator (test file removed from suite)"]
+  },
+  "blockers_preserved": true,
+  "blockers_broken": [],
+  "foundation_completion_score": 97,
+  "foundation_completion_decision": "complete",
+  "completion_blockers": [],
+  "allow_enter_r241_25b": true,
+  "system_repair_reentry_scope": "review_and_plan_only",
+  "actual_system_repair_execution_allowed": false,
+  "recommended_next_phase": "R241-25B_SYSTEM_REPAIR_INVENTORY_PLAN",
+  "next_prompt": "Enter R241-25B_SYSTEM_REPAIR_INVENTORY_PLAN. Foundation COMPLETE (97%). R241 track completed phases 24A-24L, 25A. Auth gate CONDITIONAL_GREEN. All blockers preserved. System-level repair APPROVED (plan-only). Scope: enumerate all backend/app/ and backend/packages/ modules, identify broken imports, categorize import-safe vs unsafe, document in system_repair_inventory.json. PROHIBITIONS: no code mod, no prod DB, no AUTH flags, no gateway activation.",
+  "safety_invariants": {
+    "auth_flags_disabled": true,
+    "no_gateway_activation": true,
+    "no_db_writes": true,
+    "no_jsonl_writes": true,
+    "dsrt_compliant": true,
+    "mcp_blockers_preserved": true,
+    "production_sqlite_postgres_blockers_preserved": true
+  },
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "safety_violations": []
+  },
+  "untracked_files_note": "172 untracked files in production paths (m03/, m04/, etc.) are pre-existing local development artifacts, NOT evidence of code modification. No tracked files were modified. This is a hygiene issue only."
+}

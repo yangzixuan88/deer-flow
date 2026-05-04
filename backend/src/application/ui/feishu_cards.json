@@ -1,0 +1,34 @@
+{
+  "templates": {
+    "red_alert": {
+      "title": "🔴 权限请求与安全熔断",
+      "description": "检测到 Tier 2/3 操作或置信度低于 0.7，系统已强制挂起任务，等待授权。",
+      "actions": ["允许执行", "修改指令", "立即终止"]
+    },
+    "yellow_milestone": {
+      "title": "🟡 里程碑达成",
+      "description": "Phase {{current_phase}} 目标已全部完成，正在准备进入下一阶段。",
+      "actions": ["查看简报"]
+    },
+    "blue_progress": {
+      "title": "🔵 执行进度同步 (2min/条)",
+      "description": "正在执行: {{current_task}} | 已耗时: {{duration}} | Token 预估: {{cost}}",
+      "timer": "120s"
+    },
+    "gray_summary": {
+      "title": "⚪ 任务摘要 (15min汇总)",
+      "description": "过去 15 分钟内完成了 {{completed_steps}} 项操作，目前系统状态稳定。",
+      "actions": ["详细日志"]
+    },
+    "upgrade_review": {
+      "title": "🟠 夜间升级中枢日报",
+      "description": "**日期**: {{date}}\n**扫描候选**: {{demands_scanned}}\n**高价值候选**: {{high_value_count}}\n\n{{candidate_details}}",
+      "actions": ["查看详情", "批准接入", "加入观察池", "否决"]
+    },
+    "approval_request": {
+      "title": "🔴 升级审批请求",
+      "description": "**项目**: {{project_name}}\n**先验分**: {{prior_score}}/100 ({{tier}})\n**涉及模块**: {{modules}}\n**风险等级**: {{risk_level}}\n\n{{impact_analysis}}\n\n**回滚方案**: {{rollback_plan}}",
+      "actions": ["批准", "修改参数", "加入观察池", "否决"]
+    }
+  }
+}

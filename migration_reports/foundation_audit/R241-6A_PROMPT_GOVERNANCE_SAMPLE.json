@@ -1,0 +1,480 @@
+{
+  "records": [
+    {
+      "prompt_source_id": "promptsrc_456b164e8ec047cf999c997a51dc9214",
+      "source_type": "soul",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P6_identity_base",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": false,
+      "can_be_optimized": false,
+      "optimization_status": "production",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": false,
+      "risk_level": "critical",
+      "warnings": [
+        "soul_is_identity_base_not_highest_override"
+      ],
+      "observed_at": "2026-04-24T22:18:35.948558+00:00",
+      "source_path": "SOUL.md",
+      "version": null,
+      "source_hash": "bde0ac766bf0a14e24556e1998952f8521c6b1c9f90ecb9a0295f905eddac9d4",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_a11fcc93d9a44a7290e26754c77fe4da",
+      "source_type": "user_preference",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P2_user_preferences",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": true,
+      "can_be_optimized": true,
+      "optimization_status": "production",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": false,
+      "risk_level": "high",
+      "warnings": [],
+      "observed_at": "2026-04-24T22:18:35.948631+00:00",
+      "source_path": "user/preferences/high_autonomy.md",
+      "version": null,
+      "source_hash": "576d7d36408e99a2165af690e5a80b346345e0c98f82bd1c31227395ef15ca54",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_b3e0e987add4495d8d41e583386417ab",
+      "source_type": "mode_prompt",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P3_mode_collaboration",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": true,
+      "can_be_optimized": true,
+      "optimization_status": "production",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": true,
+      "risk_level": "high",
+      "warnings": [],
+      "observed_at": "2026-04-24T22:18:35.948676+00:00",
+      "source_path": "prompts/mode_orchestration_prompt.md",
+      "version": null,
+      "source_hash": "e00f6f3066c6b4f7f0f2046ac0b494525489400b66dfe6124a8a417b36839db3",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_f82c754e96e040bb9729d5d822b2ef01",
+      "source_type": "skill_prompt",
+      "owner_system": "skill",
+      "priority_layer": "P4_task_skill",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": false,
+      "can_be_optimized": true,
+      "optimization_status": "production",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": true,
+      "risk_level": "medium",
+      "warnings": [],
+      "observed_at": "2026-04-24T22:18:35.948715+00:00",
+      "source_path": "skills/code/SKILL.md",
+      "version": null,
+      "source_hash": "684430d6d91772ef506b6d741604484858204cf484d1a6b04da76f30e66b2929",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_a81bc4e73ab841b9ada8e409d3412747",
+      "source_type": "runtime_context",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P5_runtime_context",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": false,
+      "can_be_optimized": true,
+      "optimization_status": "production",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": false,
+      "risk_level": "medium",
+      "warnings": [],
+      "observed_at": "2026-04-24T22:18:35.948754+00:00",
+      "source_path": "runtime/context_prompt.md",
+      "version": null,
+      "source_hash": "45dbbde3d2ff785a77cb754f96a4e68d20cec07d8734c67119577e031af46a21",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_9de27ecd50f8497c997855871bd1aa8f",
+      "source_type": "dspy_candidate",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P4_task_skill",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": false,
+      "can_be_optimized": true,
+      "optimization_status": "candidate",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": true,
+      "risk_level": "high",
+      "warnings": [
+        "generated_prompt_requires_test_backup_rollback"
+      ],
+      "observed_at": "2026-04-24T22:18:35.948792+00:00",
+      "source_path": "experiments/dspy/signature.json",
+      "version": null,
+      "source_hash": "eef851dbe63a1862c34cecca8b8557c33af430504ec50916db5c7975f134d63e",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_5fb6d6546ee54043910582de73b57369",
+      "source_type": "gepa_candidate",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P4_task_skill",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": false,
+      "can_be_optimized": true,
+      "optimization_status": "candidate",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": true,
+      "risk_level": "high",
+      "warnings": [
+        "generated_prompt_requires_test_backup_rollback"
+      ],
+      "observed_at": "2026-04-24T22:18:35.948827+00:00",
+      "source_path": "experiments/gepa/generated_prompt.md",
+      "version": null,
+      "source_hash": "23391a86010a943fa902e9a794f246656c5feba5c06f9c870e37b95dc179f367",
+      "last_verified_at": null
+    },
+    {
+      "prompt_source_id": "promptsrc_66baddffc49a4bf38c3c64681d1d8de4",
+      "source_type": "system_base",
+      "owner_system": "prompt_governance",
+      "priority_layer": "P1_hard_constraints",
+      "allowed_modes": [],
+      "denied_modes": [],
+      "can_override_lower_layer": true,
+      "can_be_optimized": false,
+      "optimization_status": "production",
+      "rollback_available": false,
+      "backup_refs": [],
+      "rollback_refs": [],
+      "asset_candidate_eligible": false,
+      "risk_level": "critical",
+      "warnings": [],
+      "observed_at": "2026-04-24T22:18:35.948860+00:00",
+      "source_path": "prompts/hard_constraints/root_guard_prompt.md",
+      "version": null,
+      "source_hash": "90b7a7bd212fd797278da02225249eb414bbf70d401f910ab684c2885b8e9724",
+      "last_verified_at": null
+    }
+  ],
+  "replacement_risks": [
+    {
+      "prompt_source_id": "promptsrc_456b164e8ec047cf999c997a51dc9214",
+      "risk_level": "critical",
+      "replacement_allowed": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": false,
+      "requires_user_confirmation": true,
+      "asset_candidate_required": false,
+      "warnings": [
+        "soul_replacement_requires_user_confirmation_backup_rollback"
+      ],
+      "required_followups": [
+        "user_confirmation_required",
+        "backup_required",
+        "rollback_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_a11fcc93d9a44a7290e26754c77fe4da",
+      "risk_level": "high",
+      "replacement_allowed": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": true,
+      "requires_user_confirmation": true,
+      "asset_candidate_required": false,
+      "warnings": [],
+      "required_followups": [
+        "user_confirmation_or_governance_review_required",
+        "backup_required",
+        "rollback_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_b3e0e987add4495d8d41e583386417ab",
+      "risk_level": "high",
+      "replacement_allowed": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": false,
+      "requires_user_confirmation": false,
+      "asset_candidate_required": false,
+      "warnings": [],
+      "required_followups": [
+        "test_required",
+        "rollback_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_f82c754e96e040bb9729d5d822b2ef01",
+      "risk_level": "high",
+      "replacement_allowed": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": false,
+      "requires_user_confirmation": false,
+      "asset_candidate_required": false,
+      "warnings": [],
+      "required_followups": [
+        "test_required",
+        "rollback_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_a81bc4e73ab841b9ada8e409d3412747",
+      "risk_level": "medium",
+      "replacement_allowed": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": false,
+      "requires_user_confirmation": false,
+      "asset_candidate_required": false,
+      "warnings": [],
+      "required_followups": [
+        "context_leakage_review_required",
+        "test_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_9de27ecd50f8497c997855871bd1aa8f",
+      "risk_level": "medium",
+      "replacement_allowed": false,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": false,
+      "requires_user_confirmation": false,
+      "asset_candidate_required": true,
+      "warnings": [
+        "generated_candidate_cannot_directly_replace_production"
+      ],
+      "required_followups": [
+        "test_required",
+        "rollback_required",
+        "candidate_path_required",
+        "asset_candidate_required",
+        "backup_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_5fb6d6546ee54043910582de73b57369",
+      "risk_level": "medium",
+      "replacement_allowed": false,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": false,
+      "requires_user_confirmation": false,
+      "asset_candidate_required": true,
+      "warnings": [
+        "generated_candidate_cannot_directly_replace_production"
+      ],
+      "required_followups": [
+        "test_required",
+        "rollback_required",
+        "candidate_path_required",
+        "asset_candidate_required",
+        "backup_required"
+      ]
+    },
+    {
+      "prompt_source_id": "promptsrc_66baddffc49a4bf38c3c64681d1d8de4",
+      "risk_level": "critical",
+      "replacement_allowed": false,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "requires_test": true,
+      "requires_governance_review": true,
+      "requires_user_confirmation": true,
+      "asset_candidate_required": false,
+      "warnings": [],
+      "required_followups": [
+        "user_confirmation_required",
+        "governance_review_required",
+        "backup_required",
+        "rollback_required",
+        "test_required"
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "higher_priority_source": "promptsrc_a11fcc93d9a44a7290e26754c77fe4da",
+      "lower_priority_source": "promptsrc_cd01660f962c4301b32d9f5fbcea37fd",
+      "winning_layer": "P2_user_preferences",
+      "losing_layer": "P4_task_skill",
+      "conflict_type": "layer_priority",
+      "decision": "source_a_wins",
+      "warnings": [],
+      "required_followups": []
+    },
+    {
+      "higher_priority_source": "promptsrc_66baddffc49a4bf38c3c64681d1d8de4",
+      "lower_priority_source": "promptsrc_456b164e8ec047cf999c997a51dc9214",
+      "winning_layer": "P1_hard_constraints",
+      "losing_layer": "P6_identity_base",
+      "conflict_type": "layer_priority",
+      "decision": "source_a_wins",
+      "warnings": [],
+      "required_followups": []
+    }
+  ],
+  "asset_candidate_projection": [
+    {
+      "asset_candidate_eligible": false,
+      "asset_category": "protected_identity_source",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [],
+      "warnings": [
+        "soul_not_ordinary_a7_prompt_asset"
+      ]
+    },
+    {
+      "asset_candidate_eligible": false,
+      "asset_category": "unknown",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [],
+      "warnings": [
+        "prompt_source_not_asset_candidate"
+      ]
+    },
+    {
+      "asset_candidate_eligible": true,
+      "asset_category": "A7_prompt_instruction",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [
+        "tests",
+        "rollback_ref",
+        "usage_context",
+        "governance_review_if_production"
+      ],
+      "warnings": []
+    },
+    {
+      "asset_candidate_eligible": true,
+      "asset_category": "A7_prompt_instruction",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [
+        "tests",
+        "rollback_ref",
+        "usage_context",
+        "governance_review_if_production"
+      ],
+      "warnings": []
+    },
+    {
+      "asset_candidate_eligible": false,
+      "asset_category": "unknown",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [],
+      "warnings": [
+        "prompt_source_not_asset_candidate"
+      ]
+    },
+    {
+      "asset_candidate_eligible": true,
+      "asset_category": "A7_prompt_instruction",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [
+        "tests",
+        "rollback_ref",
+        "usage_context",
+        "governance_review_if_production"
+      ],
+      "warnings": []
+    },
+    {
+      "asset_candidate_eligible": true,
+      "asset_category": "A7_prompt_instruction",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [
+        "tests",
+        "rollback_ref",
+        "usage_context",
+        "governance_review_if_production"
+      ],
+      "warnings": []
+    },
+    {
+      "asset_candidate_eligible": false,
+      "asset_category": "protected_hard_constraint_source",
+      "lifecycle_tier": "candidate",
+      "required_evidence": [],
+      "warnings": [
+        "p1_hard_constraint_not_ordinary_prompt_asset"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "by_layer": {
+      "P6_identity_base": 1,
+      "P2_user_preferences": 1,
+      "P3_mode_collaboration": 1,
+      "P4_task_skill": 3,
+      "P5_runtime_context": 1,
+      "P1_hard_constraints": 1
+    },
+    "by_source_type": {
+      "soul": 1,
+      "user_preference": 1,
+      "mode_prompt": 1,
+      "skill_prompt": 1,
+      "runtime_context": 1,
+      "dspy_candidate": 1,
+      "gepa_candidate": 1,
+      "system_base": 1
+    },
+    "by_risk_level": {
+      "critical": 2,
+      "high": 4,
+      "medium": 2
+    },
+    "optimization_candidates": 2,
+    "asset_candidates": 4,
+    "critical_sources": 2,
+    "rollback_missing_count": 6,
+    "warnings_summary": {
+      "soul_is_identity_base_not_highest_override": 1,
+      "generated_prompt_requires_test_backup_rollback": 2
+    }
+  },
+  "generated_at": "2026-04-24T22:18:35.949104+00:00",
+  "warnings": [
+    "soul_is_identity_base_not_highest_override",
+    "generated_prompt_requires_test_backup_rollback"
+  ]
+}

@@ -1,0 +1,5387 @@
+{
+  "decisions": [
+    {
+      "decision_id": "gov_103_1776968735891",
+      "timestamp": "2026-04-24T02:25:35.891033",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T18:25:32.067Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776968743439",
+      "timestamp": "2026-04-24T02:25:43.439612",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "outcome_type": "upgrade_center_approval",
+        "actual": 1.0,
+        "predicted": 0.6,
+        "context": {
+          "candidate_id": "demand-1776968732051-governance-decision-asset-unknown",
+          "tier": "T3",
+          "requires_approval": true,
+          "can_proceed_to_experiment": false,
+          "long_term_value": 7,
+          "ltv_bonus": 1,
+          "leniency": "tighten",
+          "experiment_access_via_roi": false,
+          "roi_leniency_applied": false,
+          "risk_level": "critical",
+          "executed_at": "2026-04-23T18:25:32.067Z",
+          "success": true
+        },
+        "timestamp": "2026-04-24T02:25:35.891064"
+      },
+      "reason": "outcome_recorded",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {
+        "allowed": true,
+        "reason": "outcome_recorded",
+        "outcome_type": "upgrade_center_approval"
+      }
+    },
+    {
+      "decision_id": "gov_105_1776968743446",
+      "timestamp": "2026-04-24T02:25:43.446914",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-1776968732051-governance-decision-asset-unknown",
+        "tier": "T3",
+        "risk_level": "critical",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": false,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "awaiting_approval",
+        "target_modules": [],
+        "executed_at": "2026-04-23T18:25:32.067Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_106_1776968743454",
+      "timestamp": "2026-04-24T02:25:43.454003",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776968732049-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T18:25:32.067Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_107_1776968743461",
+      "timestamp": "2026-04-24T02:25:43.461182",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776968732049-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T18:25:32.067Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776970493714",
+      "timestamp": "2026-04-24T02:54:53.714464",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-23T18:54:49.838Z",
+        "demands_scanned": 3,
+        "outcome_type": "upgrade_center_execution"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776970493721",
+      "timestamp": "2026-04-24T02:54:53.721700",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 3,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 1,
+        "pending_approvals": 1,
+        "top_candidates_for_approval": [
+          {
+            "candidate_id": "demand-1776970489819-governance-decision-asset-unknown",
+            "tier": "T3",
+            "risk_level": "critical",
+            "requires_approval": true,
+            "can_proceed_to_experiment": false,
+            "long_term_value": 7,
+            "experiment_access_via_roi_leniency": false,
+            "roi_leniency_applied": false,
+            "predicted_value": 0.6
+          }
+        ],
+        "executed_at": "2026-04-23T18:54:49.838Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776970493728",
+      "timestamp": "2026-04-24T02:54:53.728783",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T18:54:49.838Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776970501009",
+      "timestamp": "2026-04-24T02:55:01.009017",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "outcome_type": "upgrade_center_approval",
+        "actual": 1.0,
+        "predicted": 0.6,
+        "context": {
+          "candidate_id": "demand-1776970489819-governance-decision-asset-unknown",
+          "tier": "T3",
+          "requires_approval": true,
+          "can_proceed_to_experiment": false,
+          "long_term_value": 7,
+          "ltv_bonus": 1,
+          "leniency": "tighten",
+          "experiment_access_via_roi": false,
+          "roi_leniency_applied": false,
+          "risk_level": "critical",
+          "executed_at": "2026-04-23T18:54:49.838Z",
+          "success": true
+        },
+        "timestamp": "2026-04-24T02:54:53.728798"
+      },
+      "reason": "outcome_recorded",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {
+        "allowed": true,
+        "reason": "outcome_recorded",
+        "outcome_type": "upgrade_center_approval"
+      }
+    },
+    {
+      "decision_id": "gov_105_1776970501016",
+      "timestamp": "2026-04-24T02:55:01.016445",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-1776970489819-governance-decision-asset-unknown",
+        "tier": "T3",
+        "risk_level": "critical",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": false,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "awaiting_approval",
+        "target_modules": [],
+        "executed_at": "2026-04-23T18:54:49.838Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_106_1776970501023",
+      "timestamp": "2026-04-24T02:55:01.023660",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776970489816-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T18:54:49.838Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_107_1776970501030",
+      "timestamp": "2026-04-24T02:55:01.030757",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776970489816-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T18:54:49.838Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776984147273",
+      "timestamp": "2026-04-24T06:42:27.273695",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-23T22:42:22.939Z",
+        "demands_scanned": 3,
+        "outcome_type": "upgrade_center_execution"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776984147280",
+      "timestamp": "2026-04-24T06:42:27.280868",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 3,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 1,
+        "pending_approvals": 1,
+        "top_candidates_for_approval": [
+          {
+            "candidate_id": "demand-1776984142920-governance-decision-asset-unknown",
+            "tier": "T2",
+            "risk_level": "high",
+            "requires_approval": true,
+            "can_proceed_to_experiment": true,
+            "long_term_value": 7,
+            "experiment_access_via_roi_leniency": false,
+            "roi_leniency_applied": false,
+            "predicted_value": 0.75,
+            "filter_result": "observation_pool"
+          }
+        ],
+        "executed_at": "2026-04-23T22:42:22.939Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776984147287",
+      "timestamp": "2026-04-24T06:42:27.287925",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T22:42:22.939Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776984154911",
+      "timestamp": "2026-04-24T06:42:34.911783",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "outcome_type": "upgrade_center_approval",
+        "actual": 1.0,
+        "predicted": 0.75,
+        "context": {
+          "candidate_id": "demand-1776984142920-governance-decision-asset-unknown",
+          "tier": "T2",
+          "requires_approval": true,
+          "can_proceed_to_experiment": true,
+          "long_term_value": 7,
+          "ltv_bonus": 1,
+          "leniency": "tighten",
+          "experiment_access_via_roi": false,
+          "roi_leniency_applied": false,
+          "risk_level": "high",
+          "executed_at": "2026-04-23T22:42:22.939Z",
+          "success": true
+        },
+        "timestamp": "2026-04-24T06:42:27.287942"
+      },
+      "reason": "outcome_recorded",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {
+        "allowed": true,
+        "reason": "outcome_recorded",
+        "outcome_type": "upgrade_center_approval"
+      }
+    },
+    {
+      "decision_id": "gov_105_1776984154919",
+      "timestamp": "2026-04-24T06:42:34.919146",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-1776984142920-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "approved_for_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T22:42:22.939Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool",
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_106_1776984154926",
+      "timestamp": "2026-04-24T06:42:34.926263",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776984142918-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T22:42:22.939Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_107_1776984154933",
+      "timestamp": "2026-04-24T06:42:34.933236",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776984142918-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T22:42:22.939Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776984264866",
+      "timestamp": "2026-04-24T06:44:24.866767",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-23T22:44:21.024Z",
+        "demands_scanned": 3,
+        "outcome_type": "upgrade_center_execution"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776984264873",
+      "timestamp": "2026-04-24T06:44:24.873830",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 3,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 1,
+        "pending_approvals": 1,
+        "top_candidates_for_approval": [
+          {
+            "candidate_id": "demand-1776984261007-governance-decision-asset-unknown",
+            "tier": "T2",
+            "risk_level": "high",
+            "requires_approval": true,
+            "can_proceed_to_experiment": true,
+            "long_term_value": 7,
+            "experiment_access_via_roi_leniency": false,
+            "roi_leniency_applied": false,
+            "predicted_value": 0.75,
+            "filter_result": "observation_pool"
+          }
+        ],
+        "executed_at": "2026-04-23T22:44:21.024Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776984264880",
+      "timestamp": "2026-04-24T06:44:24.880913",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T22:44:21.024Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776984272314",
+      "timestamp": "2026-04-24T06:44:32.314434",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "outcome_type": "upgrade_center_approval",
+        "actual": 1.0,
+        "predicted": 0.75,
+        "context": {
+          "candidate_id": "demand-1776984261007-governance-decision-asset-unknown",
+          "tier": "T2",
+          "requires_approval": true,
+          "can_proceed_to_experiment": true,
+          "long_term_value": 7,
+          "ltv_bonus": 1,
+          "leniency": "tighten",
+          "experiment_access_via_roi": false,
+          "roi_leniency_applied": false,
+          "risk_level": "high",
+          "executed_at": "2026-04-23T22:44:21.024Z",
+          "success": true,
+          "filter_result": "observation_pool"
+        },
+        "timestamp": "2026-04-24T06:44:24.880929"
+      },
+      "reason": "outcome_recorded",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {
+        "allowed": true,
+        "reason": "outcome_recorded",
+        "outcome_type": "upgrade_center_approval"
+      }
+    },
+    {
+      "decision_id": "gov_105_1776984272321",
+      "timestamp": "2026-04-24T06:44:32.321680",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-1776984261007-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "approved_for_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T22:44:21.024Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool",
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_106_1776984272328",
+      "timestamp": "2026-04-24T06:44:32.328712",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776984261005-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T22:44:21.024Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_107_1776984272335",
+      "timestamp": "2026-04-24T06:44:32.335725",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776984261005-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T22:44:21.024Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776985726418",
+      "timestamp": "2026-04-24T07:08:46.418295",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776984261005-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:08:42.775090+00:00",
+        "started_at": "2026-04-23T23:08:42.759991+00:00",
+        "task_id": "task-1776984261020-demand-external-1776984261005-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "outcome_type": "sandbox_execution_result"
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776986750840",
+      "timestamp": "2026-04-24T07:25:50.840476",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "demands_scanned": 3,
+        "outcome_type": "upgrade_center_execution",
+        "actual": null,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776986750847",
+      "timestamp": "2026-04-24T07:25:50.847367",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 3,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 1,
+        "pending_approvals": 1,
+        "top_candidates_for_approval": [
+          {
+            "candidate_id": "demand-1776986746972-governance-decision-asset-unknown",
+            "tier": "T2",
+            "risk_level": "high",
+            "requires_approval": true,
+            "can_proceed_to_experiment": true,
+            "long_term_value": 7,
+            "experiment_access_via_roi_leniency": false,
+            "roi_leniency_applied": false,
+            "predicted_value": 0.75,
+            "filter_result": "observation_pool"
+          }
+        ],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": null,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776986750854",
+      "timestamp": "2026-04-24T07:25:50.854327",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": null,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776986758351",
+      "timestamp": "2026-04-24T07:25:58.351299",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "outcome_type": "upgrade_center_approval",
+        "actual": 1.0,
+        "predicted": 0.75,
+        "context": {
+          "candidate_id": "demand-1776986746972-governance-decision-asset-unknown",
+          "tier": "T2",
+          "requires_approval": true,
+          "can_proceed_to_experiment": true,
+          "long_term_value": 7,
+          "ltv_bonus": 1,
+          "leniency": "tighten",
+          "experiment_access_via_roi": false,
+          "roi_leniency_applied": false,
+          "risk_level": "high",
+          "executed_at": "2026-04-23T23:25:46.987Z",
+          "success": true,
+          "filter_result": "observation_pool"
+        },
+        "timestamp": "2026-04-24T07:25:50.854350"
+      },
+      "reason": "outcome_recorded",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {
+        "allowed": true,
+        "reason": "outcome_recorded",
+        "outcome_type": "upgrade_center_approval"
+      }
+    },
+    {
+      "decision_id": "gov_105_1776986758358",
+      "timestamp": "2026-04-24T07:25:58.358587",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "approved_for_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": null,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_106_1776986758365",
+      "timestamp": "2026-04-24T07:25:58.365598",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986746970-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": null,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_107_1776986758372",
+      "timestamp": "2026-04-24T07:25:58.372514",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986746970-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": null,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776986894027",
+      "timestamp": "2026-04-24T07:28:14.027275",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "demands_scanned": 3,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776986894034",
+      "timestamp": "2026-04-24T07:28:14.034607",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 3,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 1,
+        "pending_approvals": 1,
+        "top_candidates_for_approval": [
+          {
+            "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+            "tier": "T2",
+            "risk_level": "high",
+            "requires_approval": true,
+            "can_proceed_to_experiment": true,
+            "long_term_value": 7,
+            "experiment_access_via_roi_leniency": false,
+            "roi_leniency_applied": false,
+            "predicted_value": 0.75,
+            "filter_result": "observation_pool"
+          }
+        ],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776986894041",
+      "timestamp": "2026-04-24T07:28:14.041660",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776986901293",
+      "timestamp": "2026-04-24T07:28:21.293707",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "outcome_type": "upgrade_center_approval",
+        "actual": 1.0,
+        "predicted": 0.75,
+        "context": {
+          "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+          "tier": "T2",
+          "requires_approval": true,
+          "can_proceed_to_experiment": true,
+          "long_term_value": 7,
+          "ltv_bonus": 1,
+          "leniency": "tighten",
+          "experiment_access_via_roi": false,
+          "roi_leniency_applied": false,
+          "risk_level": "high",
+          "executed_at": "2026-04-23T23:28:10.063Z",
+          "success": true,
+          "filter_result": "observation_pool"
+        },
+        "timestamp": "2026-04-24T07:28:14.041678"
+      },
+      "reason": "outcome_recorded",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {
+        "allowed": true,
+        "reason": "outcome_recorded",
+        "outcome_type": "upgrade_center_approval"
+      }
+    },
+    {
+      "decision_id": "gov_105_1776986901300",
+      "timestamp": "2026-04-24T07:28:21.300958",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "approved_for_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.75
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_106_1776986901307",
+      "timestamp": "2026-04-24T07:28:21.307907",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986890047-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_107_1776986901314",
+      "timestamp": "2026-04-24T07:28:21.314856",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986890047-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776987628042",
+      "timestamp": "2026-04-24T07:40:28.042903",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986746970-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:24.232300+00:00",
+        "started_at": "2026-04-23T23:40:24.217237+00:00",
+        "task_id": "task-1776986746983-demand-external-1776986746970-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "outcome_type": "sandbox_execution_result",
+        "actual": 0.0,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776987628090",
+      "timestamp": "2026-04-24T07:40:28.090916",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986746970-litellm-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:28.068396+00:00",
+        "started_at": "2026-04-23T23:40:28.053478+00:00",
+        "task_id": "task-1776986746984-demand-external-1776986746970-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "outcome_type": "sandbox_execution_result",
+        "actual": 0.0,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776987628136",
+      "timestamp": "2026-04-24T07:40:28.136529",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776986890047-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:28.114310+00:00",
+        "started_at": "2026-04-23T23:40:28.100505+00:00",
+        "task_id": "task-1776986890060-demand-external-1776986890047-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "outcome_type": "sandbox_execution_result",
+        "actual": 0.0,
+        "predicted": null
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776989041645",
+      "timestamp": "2026-04-24T08:04:01.645079",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776989041652",
+      "timestamp": "2026-04-24T08:04:01.652065",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776989041659",
+      "timestamp": "2026-04-24T08:04:01.659324",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776989041666",
+      "timestamp": "2026-04-24T08:04:01.666609",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776989037737-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776989115399",
+      "timestamp": "2026-04-24T08:05:15.399771",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776989115407",
+      "timestamp": "2026-04-24T08:05:15.407359",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776989115414",
+      "timestamp": "2026-04-24T08:05:15.414958",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776989115422",
+      "timestamp": "2026-04-24T08:05:15.422471",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776989111518-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776989304289",
+      "timestamp": "2026-04-24T08:08:24.289910",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776989304296",
+      "timestamp": "2026-04-24T08:08:24.296943",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776989304304",
+      "timestamp": "2026-04-24T08:08:24.304145",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776989304311",
+      "timestamp": "2026-04-24T08:08:24.311171",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776989300499-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776989368605",
+      "timestamp": "2026-04-24T08:09:28.605994",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776989368613",
+      "timestamp": "2026-04-24T08:09:28.613113",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776989368620",
+      "timestamp": "2026-04-24T08:09:28.620048",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776989368627",
+      "timestamp": "2026-04-24T08:09:28.627026",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776989364818-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776989449132",
+      "timestamp": "2026-04-24T08:10:49.132114",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776989449139",
+      "timestamp": "2026-04-24T08:10:49.139147",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776989449146",
+      "timestamp": "2026-04-24T08:10:49.146236",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776989449153",
+      "timestamp": "2026-04-24T08:10:49.153211",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776989445382-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776989862193",
+      "timestamp": "2026-04-24T08:17:42.193735",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776989862200",
+      "timestamp": "2026-04-24T08:17:42.200964",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776989862208",
+      "timestamp": "2026-04-24T08:17:42.208043",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776989862215",
+      "timestamp": "2026-04-24T08:17:42.215023",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776989858288-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776991326868",
+      "timestamp": "2026-04-24T08:42:06.868595",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776991326875",
+      "timestamp": "2026-04-24T08:42:06.875807",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776991326882",
+      "timestamp": "2026-04-24T08:42:06.882991",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776991326890",
+      "timestamp": "2026-04-24T08:42:06.890171",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776991322957-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776992022598",
+      "timestamp": "2026-04-24T08:53:42.598690",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776992022606",
+      "timestamp": "2026-04-24T08:53:42.606014",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776992022613",
+      "timestamp": "2026-04-24T08:53:42.613191",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776992022620",
+      "timestamp": "2026-04-24T08:53:42.620783",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776992018703-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776992054671",
+      "timestamp": "2026-04-24T08:54:14.671478",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776992054678",
+      "timestamp": "2026-04-24T08:54:14.678817",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776992054686",
+      "timestamp": "2026-04-24T08:54:14.686091",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776992054693",
+      "timestamp": "2026-04-24T08:54:14.693987",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776992050844-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776992146241",
+      "timestamp": "2026-04-24T08:55:46.241502",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776992146248",
+      "timestamp": "2026-04-24T08:55:46.248864",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776992146256",
+      "timestamp": "2026-04-24T08:55:46.256030",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776992146263",
+      "timestamp": "2026-04-24T08:55:46.263281",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776992142326-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776993183095",
+      "timestamp": "2026-04-24T09:13:03.095086",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776993183102",
+      "timestamp": "2026-04-24T09:13:03.102481",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776993183109",
+      "timestamp": "2026-04-24T09:13:03.109839",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776993183118",
+      "timestamp": "2026-04-24T09:13:03.118381",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776993179179-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776993269318",
+      "timestamp": "2026-04-24T09:14:29.318696",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776993269325",
+      "timestamp": "2026-04-24T09:14:29.325960",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776993269333",
+      "timestamp": "2026-04-24T09:14:29.333186",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776993269340",
+      "timestamp": "2026-04-24T09:14:29.340587",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776993265460-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776993770824",
+      "timestamp": "2026-04-24T09:22:50.824171",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776993770831",
+      "timestamp": "2026-04-24T09:22:50.831498",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776993770838",
+      "timestamp": "2026-04-24T09:22:50.838785",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776993770846",
+      "timestamp": "2026-04-24T09:22:50.846051",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776993766903-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_101_1776994969157",
+      "timestamp": "2026-04-24T09:42:49.157576",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "demands_scanned": 2,
+        "outcome_type": "upgrade_center_execution",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_102_1776994969164",
+      "timestamp": "2026-04-24T09:42:49.164851",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "success": true,
+        "outcome_type": "upgrade_center_summary",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_103_1776994969172",
+      "timestamp": "2026-04-24T09:42:49.172187",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "success": true,
+        "outcome_type": "upgrade_queue_snapshot",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    },
+    {
+      "decision_id": "gov_104_1776994969179",
+      "timestamp": "2026-04-24T09:42:49.179390",
+      "layer": "outcome_record",
+      "decision": "ALLOW",
+      "context": {
+        "candidate_id": "demand-external-1776994965467-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool",
+        "outcome_type": "upgrade_center_execution_result",
+        "actual": 1.0,
+        "predicted": 0.9
+      },
+      "reason": "approved",
+      "blocking": false,
+      "applied": true,
+      "subprocess_result": {}
+    }
+  ],
+  "outcome_records": [
+    {
+      "outcome_type": "upgrade_center_approval",
+      "actual": 1.0,
+      "predicted": 0.75,
+      "context": {
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown",
+        "tier": "T2",
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "long_term_value": 7,
+        "ltv_bonus": 1,
+        "leniency": "tighten",
+        "experiment_access_via_roi": false,
+        "roi_leniency_applied": false,
+        "risk_level": "high",
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "success": true,
+        "filter_result": "observation_pool"
+      },
+      "timestamp": "2026-04-24T07:25:50.854350"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.75,
+      "context": {
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "approved_for_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool"
+      },
+      "timestamp": "2026-04-24T07:25:58.351325"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776986746970-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T07:25:58.358604"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776986746970-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T07:25:58.365613"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 0.5,
+      "predicted": 0.75,
+      "context": {
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "observation_pool",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:25:46.987Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool"
+      },
+      "timestamp": "2026-04-24T07:25:58.372529"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "demands_scanned": 3
+      },
+      "timestamp": "2026-04-24T07:28:14.019825"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 3,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 1,
+        "pending_approvals": 1,
+        "top_candidates_for_approval": [
+          {
+            "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+            "tier": "T2",
+            "risk_level": "high",
+            "requires_approval": true,
+            "can_proceed_to_experiment": true,
+            "long_term_value": 7,
+            "experiment_access_via_roi_leniency": false,
+            "roi_leniency_applied": false,
+            "predicted_value": 0.75,
+            "filter_result": "observation_pool"
+          }
+        ],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T07:28:14.027294"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T07:28:14.034632"
+    },
+    {
+      "outcome_type": "upgrade_center_approval",
+      "actual": 1.0,
+      "predicted": 0.75,
+      "context": {
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+        "tier": "T2",
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "long_term_value": 7,
+        "ltv_bonus": 1,
+        "leniency": "tighten",
+        "experiment_access_via_roi": false,
+        "roi_leniency_applied": false,
+        "risk_level": "high",
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "success": true,
+        "filter_result": "observation_pool"
+      },
+      "timestamp": "2026-04-24T07:28:14.041678"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.75,
+      "context": {
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "approved_for_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool"
+      },
+      "timestamp": "2026-04-24T07:28:21.293733"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776986890047-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T07:28:21.300977"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776986890047-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T07:28:21.307923"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 0.5,
+      "predicted": 0.75,
+      "context": {
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown",
+        "tier": "T2",
+        "risk_level": "high",
+        "long_term_value": 7,
+        "requires_approval": true,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": false,
+        "roi_leniency_applied": false,
+        "execution_stage": "observation_pool",
+        "target_modules": [],
+        "executed_at": "2026-04-23T23:28:10.063Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "observation_pool"
+      },
+      "timestamp": "2026-04-24T07:28:21.314871"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776986746970-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:24.232300+00:00",
+        "started_at": "2026-04-23T23:40:24.217237+00:00",
+        "task_id": "task-1776986746983-demand-external-1776986746970-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����"
+      },
+      "timestamp": "2026-04-24T07:40:28.035433"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776986746970-litellm-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:28.068396+00:00",
+        "started_at": "2026-04-23T23:40:28.053478+00:00",
+        "task_id": "task-1776986746984-demand-external-1776986746970-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����"
+      },
+      "timestamp": "2026-04-24T07:40:28.083708"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776986890047-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:28.114310+00:00",
+        "started_at": "2026-04-23T23:40:28.100505+00:00",
+        "task_id": "task-1776986890060-demand-external-1776986890047-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����"
+      },
+      "timestamp": "2026-04-24T07:40:28.129277"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776986890047-litellm-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-23T23:40:28.160264+00:00",
+        "started_at": "2026-04-23T23:40:28.146435+00:00",
+        "task_id": "task-1776986890060-demand-external-1776986890047-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����"
+      },
+      "timestamp": "2026-04-24T07:40:28.174519"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:04:01.637661"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:04:01.645100"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:04:01.652081"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989037737-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:04:01.659342"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989037737-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:03:57.758Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:04:01.666640"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:05:15.391706"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:05:15.399794"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:05:15.407383"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989111518-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:05:15.414993"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989111518-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:05:11.532Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:05:15.422497"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:08:24.282237"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:08:24.289931"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:08:24.296959"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989300499-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:08:24.304172"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989300499-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:08:20.514Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:08:24.311188"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:09:28.598716"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:09:28.606014"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:09:28.613128"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989364818-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:09:28.620065"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989364818-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:09:24.834Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:09:28.627042"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:10:49.124619"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:10:49.132132"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:10:49.139165"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989445382-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:10:49.146253"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989445382-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:10:45.398Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:10:49.153227"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:17:42.186288"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:17:42.193757"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:17:42.200987"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989858288-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:17:42.208061"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989858288-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:17:38.304Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:17:42.215039"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:42:06.861119"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:42:06.868613"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:42:06.875824"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776991322957-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:42:06.883012"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776991322957-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:42:02.977Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:42:06.890186"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:53:42.591132"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:53:42.598717"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:53:42.606039"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776992018703-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:53:42.613218"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776992018703-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:53:38.720Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:53:42.620818"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:54:14.663974"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:54:14.671502"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:54:14.678843"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776992050844-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:54:14.686117"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776992050844-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:54:10.859Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:54:14.694016"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T08:55:46.233815"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:55:46.241521"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T08:55:46.248882"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776992142326-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:55:46.256048"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776992142326-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T00:55:42.342Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T08:55:46.263297"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T09:13:03.087499"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:13:03.095103"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:13:03.102498"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776993179179-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:13:03.109857"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776993179179-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:12:59.196Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:13:03.118406"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T09:14:29.310919"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:14:29.318715"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:14:29.325975"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776993265460-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:14:29.333202"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776993265460-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:14:25.474Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:14:29.340612"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T09:22:50.816499"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:22:50.824189"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:22:50.831512"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776993766903-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:22:50.838801"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776993766903-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:22:46.918Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:22:50.846066"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776989037737-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-24T01:23:23.812756+00:00",
+        "started_at": "2026-04-24T01:23:23.791866+00:00",
+        "task_id": "task-1776989037755-demand-external-1776989037737-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����"
+      },
+      "timestamp": "2026-04-24T09:23:27.430175"
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "task_goal": "Upgrade Center U0-U8 nightly execution",
+        "success": true,
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "demands_scanned": 2
+      },
+      "timestamp": "2026-04-24T09:42:49.149888"
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "demands_scanned": 2,
+        "experiment_pool_size": 0,
+        "observation_pool_size": 0,
+        "pending_approvals": 0,
+        "top_candidates_for_approval": [],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:42:49.157595"
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "source_id": "upgrade_center_runner",
+        "top_n_count": 5,
+        "candidates": [
+          {
+            "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776706840217-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-20T17:40:40.225Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-dspy-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          },
+          {
+            "candidate_id": "demand-external-1776881368893-litellm-001",
+            "status": "pending",
+            "created_at": "2026-04-22T18:09:28.905Z",
+            "type": "sandbox_validation"
+          }
+        ],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "success": true
+      },
+      "timestamp": "2026-04-24T09:42:49.164866"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776994965467-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 14,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:42:49.172207"
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776994965467-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "long_term_value": 7,
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "execution_stage": "bypass_to_experiment",
+        "target_modules": [],
+        "executed_at": "2026-04-24T01:42:45.481Z",
+        "source": "upgrade_center_runner",
+        "success": true,
+        "filter_result": "deep_analysis_pool"
+      },
+      "timestamp": "2026-04-24T09:42:49.179405"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776989037737-litellm-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-24T01:43:15.688020+00:00",
+        "started_at": "2026-04-24T01:43:15.674022+00:00",
+        "task_id": "task-1776989037756-demand-external-1776989037737-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "filter_result": null,
+        "execution_stage": null,
+        "tier": null,
+        "ltv": null
+      },
+      "timestamp": "2026-04-24T09:43:19.322701"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": null,
+      "context": {
+        "candidate_id": "demand-external-1776989111518-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-24T01:43:42.874076+00:00",
+        "started_at": "2026-04-24T01:43:42.859611+00:00",
+        "task_id": "task-1776989111530-demand-external-1776989111518-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "filter_result": null,
+        "execution_stage": null,
+        "tier": null,
+        "ltv": null
+      },
+      "timestamp": "2026-04-24T09:43:46.553807"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776994965467-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-24T01:45:25.474034+00:00",
+        "started_at": "2026-04-24T01:45:25.462263+00:00",
+        "task_id": "task-1776994965478-demand-external-1776994965467-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "ϵͳ�Ҳ���ָ����·����",
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 14
+      },
+      "timestamp": "2026-04-24T09:45:29.040524"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776994965467-litellm-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 1,
+        "executed_at": "2026-04-24T02:16:33.723175+00:00",
+        "started_at": "2026-04-24T02:16:33.705967+00:00",
+        "task_id": "task-1776994965479-demand-external-1776994965467-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": "'DEERFLOW_ROOT' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���\n���������ļ���",
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 7
+      },
+      "timestamp": "2026-04-24T10:16:37.455304"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776994965467-litellm-001",
+        "execution_status": "success",
+        "verify_exit_code": 0,
+        "rollback_invoked": false,
+        "rollback_exit_code": null,
+        "executed_at": "2026-04-24T02:22:32.496774+00:00",
+        "started_at": "2026-04-24T02:22:20.311988+00:00",
+        "task_id": "task-1776994965479-demand-external-1776994965467-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": null,
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 7
+      },
+      "timestamp": "2026-04-24T10:22:36.314367"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776994965467-dspy-001",
+        "execution_status": "success",
+        "verify_exit_code": 0,
+        "rollback_invoked": false,
+        "rollback_exit_code": null,
+        "executed_at": "2026-04-24T02:23:29.611306+00:00",
+        "started_at": "2026-04-24T02:23:17.308589+00:00",
+        "task_id": "task-1776994965478-demand-external-1776994965467-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": null,
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 14
+      },
+      "timestamp": "2026-04-24T10:23:33.201460"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989300499-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 0,
+        "executed_at": "2026-04-24T02:53:53.283047+00:00",
+        "started_at": "2026-04-24T02:53:30.833059+00:00",
+        "task_id": "task-r234-manual-1776989300499-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "[验证] 开始积极验证 demand-external-1776989300499-dspy-001 (LTV=14)...\n[验证] 检查 Python + pytest...\n[验证] 检查 deer-flow 包可用性...\n  deerflow 包: OK\n[验证] 运行全量 pytest（广覆盖 + fast-fail）...\n[验证] 命令: python -m pytest /e/OpenClaw-Base/deerflow/backend/tests -v --tb=short -x\n============================= test session starts =============================\nplatform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0 -- C:\\Program Files\\Python313\\python.exe\ncachedir: .pytest_cache\nrootdir: E:\\OpenClaw-Base\\deerflow\\backend",
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 14
+      },
+      "timestamp": "2026-04-24T10:54:09.788088"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989300499-litellm-001",
+        "execution_status": "success",
+        "verify_exit_code": 0,
+        "rollback_invoked": false,
+        "rollback_exit_code": null,
+        "executed_at": "2026-04-24T02:54:56.214216+00:00",
+        "started_at": "2026-04-24T02:54:44.077093+00:00",
+        "task_id": "task-r234-manual-1776989300499-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": null,
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 7
+      },
+      "timestamp": "2026-04-24T10:54:59.796121"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989445382-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 0,
+        "executed_at": "2026-04-24T02:55:31.618512+00:00",
+        "started_at": "2026-04-24T02:55:09.307078+00:00",
+        "task_id": "task-r234-manual-1776989445382-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "[验证] 开始积极验证 demand-external-1776989445382-dspy-001 (LTV=14)...\n[验证] 检查 Python + pytest...\n[验证] 检查 deer-flow 包可用性...\n  deerflow 包: OK\n[验证] 运行全量 pytest（广覆盖 + fast-fail）...\n[验证] 命令: python -m pytest /e/OpenClaw-Base/deerflow/backend/tests -v --tb=short -x\n============================= test session starts =============================\nplatform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0 -- C:\\Program Files\\Python313\\python.exe\ncachedir: .pytest_cache\nrootdir: E:\\OpenClaw-Base\\deerflow\\backend",
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 14
+      },
+      "timestamp": "2026-04-24T10:55:47.790173"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 0.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989858288-dspy-001",
+        "execution_status": "failed",
+        "verify_exit_code": 1,
+        "rollback_invoked": true,
+        "rollback_exit_code": 0,
+        "executed_at": "2026-04-24T02:57:09.627960+00:00",
+        "started_at": "2026-04-24T02:56:47.216261+00:00",
+        "task_id": "task-r234-1776989858288-dspy-001",
+        "source": "sandbox_executor",
+        "last_error": "[验证] 开始积极验证 demand-external-1776989858288-dspy-001 (LTV=14)...\n[验证] 检查 Python + pytest...\n[验证] 检查 deer-flow 包可用性...\n  deerflow 包: OK\n[验证] 运行全量 pytest（广覆盖 + fast-fail）...\n[验证] 命令: python -m pytest /e/OpenClaw-Base/deerflow/backend/tests -v --tb=short -x\n============================= test session starts =============================\nplatform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0 -- C:\\Program Files\\Python313\\python.exe\ncachedir: .pytest_cache\nrootdir: E:\\OpenClaw-Base\\deerflow\\backend",
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 14
+      },
+      "timestamp": "2026-04-24T10:57:25.370175"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776989858288-litellm-001",
+        "execution_status": "success",
+        "verify_exit_code": 0,
+        "rollback_invoked": false,
+        "rollback_exit_code": null,
+        "executed_at": "2026-04-24T02:57:46.457094+00:00",
+        "started_at": "2026-04-24T02:57:34.256858+00:00",
+        "task_id": "task-r234-1776989858288-litellm-001",
+        "source": "sandbox_executor",
+        "last_error": null,
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 7
+      },
+      "timestamp": "2026-04-24T10:57:50.033787"
+    },
+    {
+      "outcome_type": "sandbox_execution_result",
+      "actual": 1.0,
+      "predicted": 0.9,
+      "context": {
+        "candidate_id": "demand-external-1776999999001-hybrid-001",
+        "execution_status": "success",
+        "verify_exit_code": 0,
+        "rollback_invoked": false,
+        "rollback_exit_code": null,
+        "executed_at": "2026-04-24T04:59:03.487832+00:00",
+        "started_at": "2026-04-24T04:57:22.006496+00:00",
+        "task_id": "task-r236-manual-1776999999001-hybrid-001",
+        "source": "sandbox_executor",
+        "last_error": null,
+        "filter_result": "deep_analysis_pool",
+        "execution_stage": "queued_for_experiment",
+        "tier": "T1",
+        "ltv": 12
+      },
+      "timestamp": "2026-04-24T12:59:08.967266"
+    }
+  ],
+  "last_updated": "2026-04-24T12:59:08.968148"
+}

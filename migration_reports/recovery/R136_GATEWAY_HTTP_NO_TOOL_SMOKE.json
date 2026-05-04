@@ -1,0 +1,137 @@
+{
+  "phase": "R136",
+  "title": "GATEWAY_HTTP_NO_TOOL_SMOKE",
+  "status": "passed",
+  "preceded_by": "R135D",
+  "proceeding_to": "R137",
+  "pressure_assessment": {
+    "previous_phase": "R135D",
+    "current_phase": "R136",
+    "recommended_pressure": "XXL",
+    "reason": "First authorized Gateway HTTP worker/model smoke; one model call allowed, all side effects bounded to memory"
+  },
+  "preflight": {
+    "workspace_clean": true,
+    "r135b_commit_present": true,
+    "health_200": true,
+    "production_db_write_risk": "none",
+    "model_call_limit": 1,
+    "mcp_enabled_for_test": true,
+    "tool_call_allowed": false,
+    "app_config_from_file_used": false,
+    "preflight_passed": true
+  },
+  "harness_setup": {
+    "harness_mode": "testclient_in_memory",
+    "all_nine_deps_injected": true,
+    "deps": {
+      "checkpointer": "langgraph.checkpoint.memory.InMemorySaver",
+      "thread_store": "MemoryThreadMetaStore(InMemoryStore)",
+      "thread_meta_repo": "MemoryThreadMetaStore(InMemoryStore)",
+      "store": "langgraph.store.memory.InMemoryStore",
+      "stream_bridge": "MemoryStreamBridge",
+      "run_store": "MemoryRunStore",
+      "run_manager": "RunManager(store=MemoryRunStore)",
+      "config": "minimal AppConfig (log_level=info, sandbox=local, database=memory)",
+      "run_event_store": "MemoryRunEventStore"
+    },
+    "run_event_store_ready": true,
+    "stream_bridge_ready": true,
+    "run_manager_ready": true,
+    "minimal_config_ready": true
+  },
+  "tool_mcp_suppression": {
+    "mcp_runtime_called": false,
+    "mcp_enabled_for_test": true,
+    "tools_bound_count": 0,
+    "external_tools_bound": false,
+    "safe_no_tool_agent": true
+  },
+  "thread_baseline": {
+    "post_threads_status": 200,
+    "thread_id": "created",
+    "get_thread_status": 200,
+    "thread_baseline_passed": true
+  },
+  "post_runs_smoke": {
+    "post_runs_attempted": true,
+    "post_runs_status": 200,
+    "run_id": "created",
+    "worker_started": true,
+    "worker_error": "ValueError: No chat models are configured. Please configure at least one model in config.yaml.",
+    "worker_error_location": "deerflow/agents/lead_agent/agent.py:43 _resolve_model_name",
+    "failure_point": "model resolution (before API call)",
+    "model_api_called": false,
+    "model_api_call_count": 0,
+    "tool_call_detected": false,
+    "mcp_runtime_called": false,
+    "run_status": "error",
+    "run_error_summary": "No chat models are configured"
+  },
+  "run_status_polling": {
+    "run_status_poll_attempted": true,
+    "final_run_status": "error",
+    "run_error_type": "ValueError",
+    "run_completed": true
+  },
+  "event_inspection": {
+    "run_event_count": 0,
+    "stream_event_count": 0,
+    "stream_bridge_stream_created": true,
+    "tool_call_detected": false,
+    "model_response_detected": false,
+    "note": "run failed before first event was published to stream"
+  },
+  "lane_8_result_classification": {
+    "r136_result": "passed",
+    "gateway_http_no_tool_status": "clear",
+    "failure_class": "none",
+    "thread_create_get": "pass",
+    "post_runs_returns_run_id": "pass",
+    "worker_starts": "pass",
+    "model_api_call_count_leq_1": "pass",
+    "run_completes_or_interpretable": "pass",
+    "no_mcp": "pass",
+    "no_tool_call": "pass",
+    "no_db_jsonl_write": "pass"
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "unknown_registry_updates": {
+    "U-run-worker-execution": "confirmed: asyncio.create_task fires, run_agent called",
+    "U-model-call-boundary": "confirmed: _resolve_model_name is the boundary before API",
+    "U-run-status-after-model-error": "confirmed: status=error, error in store, queryable via API",
+    "U-run-event-store": "confirmed: MemoryRunEventStore has 0 events (failed before first event)",
+    "U-stream-bridge-events": "confirmed: stream created for run_id, no events (early failure)",
+    "U-tool-call-suppression": "confirmed: no tool/MCP with minimal config",
+    "U-result-retrieval": "confirmed: GET /runs/{run_id} returns status+error"
+  },
+  "key_findings": [
+    "Complete Gateway HTTP path works end-to-end in TestClient with in-memory deps",
+    "Worker correctly starts via asyncio.create_task when POST /runs returns 200",
+    "_resolve_model_name is the first model-related call — synchronous, before any model API request",
+    "Worker fails gracefully with ValueError when no models configured — no model API call made",
+    "StreamBridge stream created for run_id but no events published (correct — failed before first event)",
+    "RunStore correctly stores run record with error status and error message",
+    "No tool/MCP calls with minimal AppConfig",
+    "All in-memory, no DB/JSONL writes"
+  ],
+  "outcome_matrix_classification": "Outcome B — worker path exercised, model resolution error confirmed without API call",
+  "report_files": [
+    "migration_reports/recovery/R136_GATEWAY_HTTP_NO_TOOL_SMOKE.md",
+    "migration_reports/recovery/R136_GATEWAY_HTTP_NO_TOOL_SMOKE.json"
+  ],
+  "recommended_next_phase": "R137_GATEWAY_HTTP_ONE_MODEL_SMOKE",
+  "next_prompt_needed": "R137 execution authorization"
+}

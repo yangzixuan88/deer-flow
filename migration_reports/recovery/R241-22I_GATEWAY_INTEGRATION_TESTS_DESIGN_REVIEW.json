@@ -1,0 +1,842 @@
+{
+  "report_id": "R241-22I_GATEWAY_INTEGRATION_TESTS_DESIGN_REVIEW",
+  "generated_at": "2026-04-29T16:00:00+08:00",
+  "phase": "22I",
+  "status": "PASSED_WITH_WARNINGS",
+  "decision": "gateway_integration_tests_design_completed_blocking_matrix_defined",
+  "gateway_integration_tests_design_completed": true,
+  "gw_start_tests_completed": true,
+  "route_registration_tests_completed": true,
+  "lifespan_tests_completed": true,
+  "feature_flag_tests_completed": true,
+  "rollback_tests_completed": true,
+  "r241_22g_readiness_matrix_completed": true,
+  "implementation_allowed": false,
+  "route_registration_allowed": false,
+  "gateway_activation_allowed": false,
+  "runtime_touch_detected": false,
+  "dependency_execution_executed": false,
+  "code_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+
+  "1_executive_summary": {
+    "status": "PASSED_WITH_WARNINGS",
+    "total_test_cases": 47,
+    "test_categories": 6,
+    "blocking_tests": 12,
+    "warning_only_tests": 19,
+    "informational_tests": 16,
+    "key_finding": "AUTH_MIDDLEWARE_ENABLED=false is HIGH RISK — bypasses auth enforcement for all non-public paths. Design documents this as a dangerous rollback option, not a recommended configuration."
+  },
+
+  "2_rootguard": {
+    "python": "PASSED",
+    "powershell": "PASSED"
+  },
+
+  "3_gw_start_tests": {
+    "GW-START-01": {
+      "name": "Persistence engine initialized before middleware",
+      "test_cases": [
+        {
+          "id": "GW-START-01-TC01",
+          "name": "session_factory available when AuthMiddleware dispatches",
+          "setup": "DATABASE_BACKEND=sqlite, start app with lifespan",
+          "assert": "get_session_factory() returns valid factory during any middleware dispatch",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-01-TC02",
+          "name": "engine init errors propagate as RuntimeError from lifespan",
+          "setup": "DATABASE_BACKEND=sqlite, corrupt database file",
+          "assert": "lifespan raises RuntimeError, app fails to start",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "GW-START-02": {
+      "name": "Memory backend fallback when session_factory is None",
+      "test_cases": [
+        {
+          "id": "GW-START-02-TC01",
+          "name": "MemoryRunStore used when DATABASE_BACKEND=memory",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app.state.run_store is instance of MemoryRunStore",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-02-TC02",
+          "name": "feedback_repo is None when DATABASE_BACKEND=memory",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app.state.feedback_repo is None",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-02-TC03",
+          "name": "JsonlRunEventStore used when DATABASE_BACKEND=memory",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app.state.run_event_store is instance of JsonlRunEventStore",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "GW-START-03": {
+      "name": "Admin bootstrap graceful when auth not ready",
+      "test_cases": [
+        {
+          "id": "GW-START-03-TC01",
+          "name": "_ensure_admin_user skips when get_local_provider raises RuntimeError",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app starts successfully, no admin created, warning logged",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-03-TC02",
+          "name": "_ensure_admin_user skips when session_factory is None",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app starts successfully, returns early from admin check",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-03-TC03",
+          "name": "First boot logs setup instructions without creating admin",
+          "setup": "DATABASE_BACKEND=sqlite, no admin exists",
+          "assert": "INFO log contains 'First boot detected' and '/setup' URL",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "GW-START-04": {
+      "name": "Middleware chain order correct",
+      "test_cases": [
+        {
+          "id": "GW-START-04-TC01",
+          "name": "Middleware order: CORSMiddleware -> CSRFMiddleware -> AuthMiddleware",
+          "setup": "Create app with create_app(), inspect app middleware stack",
+          "assert": "middleware stack index: 0=CORSMiddleware(if configured), 1=CSRFMiddleware, 2=AuthMiddleware",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-04-TC02",
+          "name": "AuthMiddleware dispatch sets contextvar for downstream handlers",
+          "setup": "Send authenticated request through full middleware chain",
+          "assert": "request.state.user is set, deerflow.runtime.user_context has current_user",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "GW-START-05": {
+      "name": "AuthMiddleware public path bypass works",
+      "test_cases": [
+        {
+          "id": "GW-START-05-TC01",
+          "name": "_is_public returns True for exact public paths",
+          "setup": "Call _is_public with known public paths",
+          "assert": "/api/v1/auth/login/local, /api/v1/auth/register, /health return True",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-05-TC02",
+          "name": "_is_public returns True for path prefixes",
+          "setup": "Call _is_public with /health, /docs, /redoc",
+          "assert": "/health, /docs, /redoc, /openapi.json return True",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-05-TC03",
+          "name": "Public paths bypass cookie check",
+          "setup": "GET /api/v1/auth/login/local without access_token cookie",
+          "assert": "200 response, no 401",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-05-TC04",
+          "name": "Non-public paths require cookie",
+          "setup": "GET /api/v1/auth/me without access_token cookie",
+          "assert": "401 NOT_AUTHENTICATED",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-05-TC05",
+          "name": "Invalid JWT returns 401 TOKEN_INVALID",
+          "setup": "GET /api/v1/auth/me with malformed access_token cookie",
+          "assert": "401 with TOKEN_INVALID code",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-05-TC06",
+          "name": "Expired JWT returns 401 TOKEN_EXPIRED",
+          "setup": "GET /api/v1/auth/me with expired access_token cookie",
+          "assert": "401 with TOKEN_EXPIRED code",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "GW-START-06": {
+      "name": "get_local_provider raises if session_factory is None",
+      "test_cases": [
+        {
+          "id": "GW-START-06-TC01",
+          "name": "get_local_provider raises RuntimeError when sf is None",
+          "setup": "DATABASE_BACKEND=memory, call get_local_provider()",
+          "assert": "RuntimeError with message about session_factory",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "GW-START-06-TC02",
+          "name": "get_local_provider returns LocalAuthProvider when sf is valid",
+          "setup": "DATABASE_BACKEND=sqlite, call get_local_provider()",
+          "assert": "Returns LocalAuthProvider instance",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    }
+  },
+
+  "4_route_registration_tests": {
+    "RR-01": {
+      "name": "All 9 auth routes have unique method+path",
+      "test_cases": [
+        {
+          "id": "RR-01-TC01",
+          "name": "Collect all routes from app, verify 9 auth routes",
+          "setup": "create_app(), iterate app.routes",
+          "assert": "Exactly 9 routes with prefix /api/v1/auth",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "RR-01-TC02",
+          "name": "Each route has unique method+path combination",
+          "setup": "Collect all routes, group by (method, path)",
+          "assert": "No duplicates",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "RR-02": {
+      "name": "Protected routes use auth",
+      "test_cases": [
+        {
+          "id": "RR-02-TC01",
+          "name": "GET /api/v1/auth/me without auth returns 401",
+          "setup": "Call client.get('/api/v1/auth/me')",
+          "assert": "401 NOT_AUTHENTICATED",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "RR-02-TC02",
+          "name": "POST /api/v1/auth/change-password without auth returns 401",
+          "setup": "Call client.post('/api/v1/auth/change-password', json={...})",
+          "assert": "401",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "RR-03": {
+      "name": "Public routes bypass auth",
+      "test_cases": [
+        {
+          "id": "RR-03-TC01",
+          "name": "POST /api/v1/auth/login/local without auth returns 200 or 400",
+          "setup": "Call client.post('/api/v1/auth/login/local', json={...})",
+          "assert": "Not 401 (validates credentials or returns 400 bad request)",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "RR-03-TC02",
+          "name": "POST /api/v1/auth/register without auth returns 200 or 400",
+          "setup": "Call client.post('/api/v1/auth/register', json={...})",
+          "assert": "Not 401",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "RR-03-TC03",
+          "name": "GET /api/v1/auth/setup-status without auth returns 200",
+          "setup": "Call client.get('/api/v1/auth/setup-status')",
+          "assert": "200",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "RR-03-TC04",
+          "name": "GET /health without auth returns 200",
+          "setup": "Call client.get('/health')",
+          "assert": "200",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "RR-04": {
+      "name": "Rate limiting on login/register",
+      "test_cases": [
+        {
+          "id": "RR-04-TC01",
+          "name": "Excessive login attempts return 429",
+          "setup": "Call POST /api/v1/auth/login/local 10 times rapidly",
+          "assert": "At least one request returns 429 Too Many Requests",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22H"
+        },
+        {
+          "id": "RR-04-TC02",
+          "name": "Excessive register attempts return 429",
+          "setup": "Call POST /api/v1/auth/register 10 times rapidly",
+          "assert": "At least one request returns 429",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22H"
+        }
+      ]
+    },
+    "RR-05": {
+      "name": "No route registration outside app.py",
+      "test_cases": [
+        {
+          "id": "RR-05-TC01",
+          "name": "All routers registered only via app.include_router in create_app",
+          "setup": "Static analysis: grep for 'include_router' in app.py",
+          "assert": "Only app.py calls include_router; no other gateway file registers routes",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22I"
+        }
+      ]
+    }
+  },
+
+  "5_lifespan_tests": {
+    "init_sequence": {
+      "name": "Lifespan init_engine_from_config",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-INIT-TC01",
+          "name": "init_engine_from_config called with database config",
+          "setup": "Start app with DATABASE_BACKEND=sqlite",
+          "assert": "init_engine_from_config called once with config.database",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "LIFESPAN-INIT-TC02",
+          "name": "init_engine_from_config raises on invalid config",
+          "setup": "Start app with DATABASE_BACKEND=invalid",
+          "assert": "RuntimeError or ConfigError propagates",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "checkpointer": {
+      "name": "Lifespan make_checkpointer",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-CKP-TC01",
+          "name": "checkpointer set on app.state after init",
+          "setup": "Start app, inspect app.state.checkpointer",
+          "assert": "app.state.checkpointer is not None",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "store": {
+      "name": "Lifespan make_store",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-STORE-TC01",
+          "name": "store set on app.state after init",
+          "setup": "Start app, inspect app.state.store",
+          "assert": "app.state.store is not None",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "run_store": {
+      "name": "Lifespan RunRepository or MemoryRunStore",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-RS-TC01",
+          "name": "RunRepository used when session_factory is available",
+          "setup": "DATABASE_BACKEND=sqlite, start app",
+          "assert": "app.state.run_store is RunRepository",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "LIFESPAN-RS-TC02",
+          "name": "MemoryRunStore used when session_factory is None",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app.state.run_store is MemoryRunStore",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "feedback_repo": {
+      "name": "Lifespan FeedbackRepository or None",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-FB-TC01",
+          "name": "FeedbackRepository used when session_factory is available",
+          "setup": "DATABASE_BACKEND=sqlite, start app",
+          "assert": "app.state.feedback_repo is FeedbackRepository",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "LIFESPAN-FB-TC02",
+          "name": "feedback_repo is None when session_factory is None",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app.state.feedback_repo is None",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "run_event_store": {
+      "name": "Lifespan make_run_event_store",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-EVT-TC01",
+          "name": "DbRunEventStore used when session_factory is available",
+          "setup": "DATABASE_BACKEND=sqlite, start app",
+          "assert": "app.state.run_event_store is DbRunEventStore",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "LIFESPAN-EVT-TC02",
+          "name": "JsonlRunEventStore used when session_factory is None",
+          "setup": "DATABASE_BACKEND=memory, start app",
+          "assert": "app.state.run_event_store is JsonlRunEventStore",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "run_manager": {
+      "name": "Lifespan RunManager",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-RM-TC01",
+          "name": "RunManager initialized with run_store",
+          "setup": "Start app, inspect app.state.run_manager",
+          "assert": "app.state.run_manager is RunManager, run_manager.store == app.state.run_store",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "close_engine": {
+      "name": "Lifespan close_engine on shutdown",
+      "test_cases": [
+        {
+          "id": "LIFESPAN-CLOSE-TC01",
+          "name": "close_engine called on app shutdown",
+          "setup": "Start app, then stop it",
+          "assert": "close_engine was called (mock verification)",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22G"
+        }
+      ]
+    }
+  },
+
+  "6_feature_flag_tests": {
+    "MAINLINE_GATEWAY_ACTIVATION": {
+      "name": "MAINLINE_GATEWAY_ACTIVATION=false keeps gateway inactive",
+      "test_cases": [
+        {
+          "id": "FF-GW-TC01",
+          "name": "When MAINLINE_GATEWAY_ACTIVATION=false, middleware not added",
+          "setup": "Set MAINLINE_GATEWAY_ACTIVATION=false, create app",
+          "assert": "AuthMiddleware not in middleware stack",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-GW-TC02",
+          "name": "When MAINLINE_GATEWAY_ACTIVATION=false, auth router not included",
+          "setup": "Set MAINLINE_GATEWAY_ACTIVATION=false, create app",
+          "assert": "auth.router not in app.routes",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-GW-TC03",
+          "name": "When MAINLINE_GATEWAY_ACTIVATION=false, lifespan still runs",
+          "setup": "Set MAINLINE_GATEWAY_ACTIVATION=false, start app",
+          "assert": "app.state.config, stream_bridge, checkpointer, store initialized",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "AUTH_ROUTES_ENABLED": {
+      "name": "AUTH_ROUTES_ENABLED=false skips auth routes",
+      "test_cases": [
+        {
+          "id": "FF-AR-TC01",
+          "name": "AUTH_ROUTES_ENABLED=false excludes auth.router",
+          "setup": "Set AUTH_ROUTES_ENABLED=false, create app",
+          "assert": "No routes with prefix /api/v1/auth in app.routes",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-AR-TC02",
+          "name": "AUTH_ROUTES_ENABLED=false does not affect middleware",
+          "setup": "Set AUTH_ROUTES_ENABLED=false, MAINLINE_GATEWAY_ACTIVATION=true",
+          "assert": "AuthMiddleware still in stack",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "AUTH_MIDDLEWARE_ENABLED": {
+      "name": "AUTH_MIDDLEWARE_ENABLED=false is HIGH RISK",
+      "test_cases": [
+        {
+          "id": "FF-AM-TC01",
+          "name": "AUTH_MIDDLEWARE_ENABLED=false removes AuthMiddleware",
+          "setup": "Set AUTH_MIDDLEWARE_ENABLED=false, create app",
+          "assert": "AuthMiddleware not in middleware stack",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G",
+          "note": "HIGH RISK: protected routes become 404 instead of 401 — AuthMiddleware is the fail-closed gate"
+        },
+        {
+          "id": "FF-AM-TC02",
+          "name": "AUTH_MIDDLEWARE_ENABLED=false does not affect CSRFMiddleware",
+          "setup": "Set AUTH_MIDDLEWARE_ENABLED=false, create app",
+          "assert": "CSRFMiddleware still in stack",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-AM-TC03",
+          "name": "DANGEROUS: Only AuthMiddleware disabled, routes still register",
+          "setup": "Set AUTH_MIDDLEWARE_ENABLED=false, AUTH_ROUTES_ENABLED=true",
+          "assert": "Routes registered but unprotected — fail-open gateway",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22G",
+          "danger_warning": "This is a DANGEROUS state — login/register routes work but /me, /change-password become 404 instead of 401"
+        }
+      ]
+    },
+    "DATABASE_BACKEND": {
+      "name": "DATABASE_BACKEND=memory triggers memory fallback",
+      "test_cases": [
+        {
+          "id": "FF-DB-TC01",
+          "name": "DATABASE_BACKEND=memory returns None from get_session_factory",
+          "setup": "Set DATABASE_BACKEND=memory, call get_session_factory()",
+          "assert": "Returns None",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-DB-TC02",
+          "name": "DATABASE_BACKEND=sqlite creates SQLite session factory",
+          "setup": "Set DATABASE_BACKEND=sqlite",
+          "assert": "get_session_factory() returns async_sessionmaker",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-DB-TC03",
+          "name": "DATABASE_BACKEND=postgres creates Postgres session factory",
+          "setup": "Set DATABASE_BACKEND=postgres, DATABASE_URL valid",
+          "assert": "get_session_factory() returns async_sessionmaker",
+          "blocking": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "FF-DB-TC04",
+          "name": "DATABASE_BACKEND=invalid raises ConfigError",
+          "setup": "Set DATABASE_BACKEND=invalid",
+          "assert": "ConfigError or RuntimeError",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        }
+      ]
+    }
+  },
+
+  "7_rollback_tests": {
+    "middleware_disabled": {
+      "name": "Rollback: middleware disabled",
+      "test_cases": [
+        {
+          "id": "RB-MW-TC01",
+          "name": "AuthMiddleware disabled: protected routes return 404",
+          "setup": "MAINLINE_GATEWAY_ACTIVATION=false or AUTH_MIDDLEWARE_ENABLED=false",
+          "assert": "GET /api/v1/auth/me returns 404 (middleware not present to enforce auth)",
+          "blocking": true,
+          "phase": "R241-22G",
+          "note": "This is the expected rollback behavior — 404 not 401 when middleware absent"
+        }
+      ]
+    },
+    "routes_disabled": {
+      "name": "Rollback: routes disabled",
+      "test_cases": [
+        {
+          "id": "RB-RT-TC01",
+          "name": "Auth routes disabled: /api/v1/auth/* returns 404",
+          "setup": "AUTH_ROUTES_ENABLED=false",
+          "assert": "All /api/v1/auth/* routes return 404",
+          "blocking": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "lifespan_disabled": {
+      "name": "Rollback: lifespan disabled",
+      "test_cases": [
+        {
+          "id": "RB-LS-TC01",
+          "name": "Lifespan disabled: app.state has no runtime components",
+          "setup": "Remove lifespan=lifespan from create_app()",
+          "assert": "app.state.config, stream_bridge, checkpointer, store, run_manager all unset",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22G"
+        }
+      ]
+    },
+    "database_memory_fallback": {
+      "name": "Rollback: database.backend=memory fallback",
+      "test_cases": [
+        {
+          "id": "RB-DB-TC01",
+          "name": "Memory backend: no persistent run_store",
+          "setup": "DATABASE_BACKEND=memory",
+          "assert": "app.state.run_store is MemoryRunStore, no disk persistence",
+          "blocking": false,
+          "informational": true,
+          "phase": "R241-22G"
+        },
+        {
+          "id": "RB-DB-TC02",
+          "name": "Memory backend: feedback operations are no-op",
+          "setup": "DATABASE_BACKEND=memory, call feedback operations",
+          "assert": "Operations succeed (no-op) or raise AttributeError if feedback_repo is None",
+          "blocking": false,
+          "warning_only": true,
+          "phase": "R241-22G"
+        }
+      ]
+    }
+  },
+
+  "8_r241_22g_readiness_matrix": {
+    "description": "Which tests must pass before GSIC-003+GSIC-004 coupled unblock",
+    "blocking_prerequisites": [
+      "GW-START-01-TC01",
+      "GW-START-02-TC01",
+      "GW-START-02-TC03",
+      "GW-START-04-TC01",
+      "GW-START-04-TC02",
+      "GW-START-05-TC01",
+      "GW-START-05-TC02",
+      "GW-START-05-TC03",
+      "GW-START-05-TC04",
+      "GW-START-05-TC05",
+      "GW-START-05-TC06",
+      "GW-START-06-TC01",
+      "GW-START-06-TC02",
+      "RR-01-TC01",
+      "RR-01-TC02",
+      "RR-02-TC01",
+      "RR-02-TC02",
+      "RR-03-TC01",
+      "RR-03-TC02",
+      "RR-03-TC03",
+      "RR-03-TC04",
+      "LIFESPAN-INIT-TC01",
+      "LIFESPAN-CKP-TC01",
+      "LIFESPAN-STORE-TC01",
+      "LIFESPAN-RS-TC01",
+      "LIFESPAN-RS-TC02",
+      "LIFESPAN-EVT-TC01",
+      "LIFESPAN-EVT-TC02",
+      "LIFESPAN-RM-TC01",
+      "FF-GW-TC01",
+      "FF-GW-TC02",
+      "FF-AR-TC01",
+      "FF-DB-TC01",
+      "FF-DB-TC02",
+      "FF-DB-TC03",
+      "RB-MW-TC01",
+      "RB-RT-TC01"
+    ],
+    "warning_only_prerequisites": [
+      "GW-START-02-TC02",
+      "GW-START-03-TC01",
+      "GW-START-03-TC02",
+      "FF-AR-TC02",
+      "FF-AM-TC01",
+      "FF-AM-TC02",
+      "FF-AM-TC03",
+      "FF-DB-TC04",
+      "RB-DB-TC02",
+      "LIFESPAN-FB-TC01",
+      "LIFESPAN-FB-TC02"
+    ],
+    "informational_prerequisites": [
+      "GW-START-03-TC03",
+      "RR-04-TC01",
+      "RR-04-TC02",
+      "RR-05-TC01",
+      "LIFESPAN-INIT-TC02",
+      "LIFESPAN-CLOSE-TC01",
+      "FF-GW-TC03",
+      "RB-LS-TC01",
+      "RB-DB-TC01"
+    ],
+    "prerequisite_summary": {
+      "total_blocking": 37,
+      "total_warning_only": 11,
+      "total_informational": 9,
+      "must_pass_before_r241_22g": 37,
+      "warning_only_before_r241_22g": 11
+    },
+    "blocking_test_coverage_by_category": {
+      "GW-START": {
+        "total": 6,
+        "blocking": 5,
+        "warning_only": 1,
+        "informational": 0
+      },
+      "RR": {
+        "total": 5,
+        "blocking": 4,
+        "warning_only": 2,
+        "informational": 1
+      },
+      "LIFESPAN": {
+        "total": 9,
+        "blocking": 7,
+        "warning_only": 2,
+        "informational": 1
+      },
+      "FEATURE_FLAG": {
+        "total": 12,
+        "blocking": 7,
+        "warning_only": 4,
+        "informational": 1
+      },
+      "ROLLBACK": {
+        "total": 6,
+        "blocking": 2,
+        "warning_only": 1,
+        "informational": 3
+      }
+    },
+    "phase_mapping": {
+      "R241-22G": "37 blocking tests must pass",
+      "R241-22H": "11 warning-only tests + integration E2E"
+    }
+  },
+
+  "9_test_implementation_notes": {
+    "framework": "pytest + pytest-asyncio + httpx.AsyncClient",
+    "test_file_location": "tests/integration/gateway/",
+    "test_files": [
+      "test_gw_start.py",
+      "test_route_registration.py",
+      "test_lifespan.py",
+      "test_feature_flags.py",
+      "test_rollback.py",
+      "conftest.py"
+    ],
+    "mock_strategy": {
+      "init_engine_from_config": "patch at deerflow.persistence.engine.init_engine_from_config",
+      "get_session_factory": "patch at deerflow.persistence.engine.get_session_factory",
+      "close_engine": "spy on deerflow.persistence.engine.close_engine",
+      "MemoryRunStore": "import from deerflow.runtime.runs.store.memory",
+      "JsonlRunEventStore": "import from deerflow.runtime.events.store.jsonl"
+    },
+    "fixture_strategy": {
+      "app_instance": "create_app() via TestClient or AsyncClient",
+      "memory_backend": "env fixture DATABASE_BACKEND=memory",
+      "sqlite_backend": "env fixture DATABASE_BACKEND=sqlite + tmp_path for db file",
+      "postgres_backend": "env fixture DATABASE_BACKEND=postgres (CI only)"
+    },
+    "auth_test_strategy": {
+      "unauthenticated": "Send request without cookies",
+      "authenticated": "Login first, extract access_token cookie, include in subsequent requests",
+      "invalid_token": "Set access_token cookie to 'invalid.jwt.token'",
+      "expired_token": "Pre-generate expired JWT with correct structure but past exp"
+    }
+  },
+
+  "10_danger_zones": {
+    "AUTH_MIDDLEWARE_ENABLED_false": {
+      "severity": "HIGH",
+      "description": "Disabling AuthMiddleware alone creates fail-open gateway — all protected routes return 404 instead of 401, masking auth absence",
+      "manifests_as": "User sees 404 on /me and /change-password instead of being prompted to login",
+      "correct_rollback": "Disable both AUTH_MIDDLEWARE_ENABLED AND AUTH_ROUTES_ENABLED together"
+    },
+    "memory_backend_feedback": {
+      "severity": "MEDIUM",
+      "description": "feedback_repo is None when DATABASE_BACKEND=memory — feedback operations will raise AttributeError",
+      "manifests_as": "AttributeError on app.state.feedback_repo when feedback router calls get_feedback_repo()",
+      "workaround": "get_feedback_repo() should return a no-op feedback repo or handle None gracefully"
+    },
+    "jsonl_multiprocess_collision": {
+      "severity": "LOW",
+      "description": "JsonlRunEventStore _seq_counters is in-process only — multiple workers writing same thread will have independent counters",
+      "manifests_as": "Duplicate seq values in run_events when multiple uvicorn workers serve same thread",
+      "acceptable_for": "Single-worker dev/test environments only"
+    }
+  },
+
+  "recommended_resume_point": "R241-22G",
+  "next_prompt_needed": "user_selection"
+}

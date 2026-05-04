@@ -1,0 +1,673 @@
+{
+  "report_id": "R241-22E_GSIC003_GSIC004_UNBLOCK_SEQUENCE_DESIGN_REVIEW",
+  "phase": "phase_22e_gsic003_gsic004_unblock_sequence_design_review",
+  "status": "passed_with_warnings",
+  "decision": "gsic003_gsic004_sequence_design_completed_coupled_unblock_required",
+  "source": "R241-22D_PERSISTENCE_REPOSITORIES_IMPLEMENTATION_PLAN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "pr_2645_status": {
+    "checked": true,
+    "result": "PR_NOT_FOUND_OR_NOT_ACCESSIBLE",
+    "note": "gh pr view 2645 returned no results; no conflict check possible",
+    "implication": "Assumed clean — no PR conflict risk"
+  },
+
+  "gsic003_blocking_gateway_main_path": {
+    "blocker_id": "GSIC-003",
+    "description": "blocking_gateway_main_path",
+    "status": "BLOCKED",
+    "gateway_main_path_files": [
+      "backend/app/gateway/app.py",
+      "backend/app/gateway/deps.py",
+      "backend/app/gateway/auth_middleware.py",
+      "backend/app/gateway/csrf_middleware.py"
+    ]
+  },
+
+  "gsic004_blocking_fastapi_route_registration": {
+    "blocker_id": "GSIC-004",
+    "description": "blocking_fastapi_route_registration",
+    "status": "BLOCKED",
+    "route_files": [
+      "backend/app/gateway/routers/auth.py"
+    ]
+  },
+
+  "app_py_gateway_main_path_analysis": {
+    "file": "backend/app/gateway/app.py",
+    "lines_estimate": "~300",
+    "upstream_verified": true,
+
+    "gsic003_modifications": [
+      {
+        "line_pattern": "app.add_middleware(AuthMiddleware)",
+        "purpose": "Add AuthMiddleware to FastAPI middleware chain",
+        "impact": "Modifies gateway main path",
+        "dependency": "auth_middleware.py (CAND-005, Sub-Bundle C)"
+      },
+      {
+        "line_pattern": "app.add_middleware(CSRFMiddleware)",
+        "purpose": "Add CSRFMiddleware to FastAPI middleware chain",
+        "impact": "Modifies gateway main path",
+        "dependency": "csrf_middleware.py"
+      },
+      {
+        "line_pattern": "app.include_router(auth.router)",
+        "purpose": "Register auth routes at /api/v1/auth/*",
+        "impact": "FastAPI route registration",
+        "dependency": "routers/auth.py (GSIC-004)"
+      },
+      {
+        "line_pattern": "lifespan=lifespan",
+        "purpose": "Application lifespan hook for startup/shutdown",
+        "impact": "Startup hooks for _ensure_admin_user, langgraph_runtime",
+        "dependency": "deps.py langgraph_runtime()"
+      }
+    ],
+
+    "middleware_chain_order": [
+      "1. CORSMiddleware (FastAPI built-in)",
+      "2. CSRFMiddleware (custom, Sub-Bundle C)",
+      "3. AuthMiddleware (custom, Sub-Bundle C)"
+    ],
+
+    "router_registration_order": [
+      "models", "mcp", "memory", "skills", "artifacts", "uploads",
+      "threads", "agents", "suggestions", "channels", "assistants_compat",
+      "auth", "feedback", "thread_runs", "runs"
+    ],
+
+    "lifespan_sequence": [
+      "1. _ensure_admin_user (startup hook, runs BEFORE yield)",
+      "2. langgraph_runtime() — AsyncExitStack enter context",
+      "   2a. init_engine_from_config(config.database)",
+      "   2b. make_checkpointer",
+      "   2c. make_store",
+      "   2d. Initialize repos (RunRepository or MemoryRunStore)",
+      "   2e. make_thread_store",
+      "   2f. make_run_event_store",
+      "   2g. RunManager",
+      "   yield",
+      "3. close_engine() in langgraph_runtime finally block"
+    ],
+
+    "_ensure_admin_user_prerequisites": [
+      "get_local_provider() — requires session_factory (CAND-009)",
+      "get_session_factory() — returns None if backend=memory",
+      "UserRow model — requires persistence/models/__init__.py imported",
+      "provider.count_admin_users() — SQLiteUserRepository needs session_factory"
+    ]
+  },
+
+  "deps_py_langgraph_runtime_analysis": {
+    "file": "backend/app/gateway/deps.py",
+    "lines": "~200",
+    "upstream_verified": true,
+
+    "init_engine_sequence": [
+      "await init_engine_from_config(config.database) — CAND-009",
+      "sf = get_session_factory()",
+      "if sf is not None: RunRepository(sf), FeedbackRepository(sf)",
+      "else: MemoryRunStore(), feedback_repo=None"
+    ],
+
+    "run_events_config_selection": [
+      "run_events_config = getattr(config, 'run_events', None)",
+      "app.state.run_event_store = make_run_event_store(run_events_config)",
+      "Note: make_run_event_store is config-driven; selects JsonlRunEventStore or DbRunEventStore"
+    ],
+
+    "get_local_provider_prerequisites": [
+      "get_session_factory() must not be None",
+      "SQLiteUserRepository(session_factory)",
+      "LocalAuthProvider(repository)"
+    ],
+
+    "get_current_user_from_request_prerequisites": [
+      "decode_token(access_token) — from app.gateway.auth",
+      "get_local_provider() — needs session_factory",
+      "provider.get_user(payload.sub) — DB query"
+    ]
+  },
+
+  "routers_auth_nine_routes": {
+    "file": "backend/app/gateway/routers/auth.py",
+    "lines_estimate": "~400",
+    "upstream_verified": true,
+
+    "prefix": "/api/v1/auth",
+
+    "routes": [
+      {
+        "method": "POST",
+        "path": "/login/local",
+        "function": "login_local",
+        "auth_required": False,
+        "rate_limited": true,
+        "public_path": true
+      },
+      {
+        "method": "POST",
+        "path": "/register",
+        "function": "register",
+        "auth_required": False,
+        "rate_limited": true,
+        "public_path": true
+      },
+      {
+        "method": "POST",
+        "path": "/logout",
+        "function": "logout",
+        "auth_required": False,
+        "public_path": true
+      },
+      {
+        "method": "POST",
+        "path": "/change-password",
+        "function": "change_password",
+        "auth_required": True,
+        "uses": "get_current_user_from_request"
+      },
+      {
+        "method": "GET",
+        "path": "/me",
+        "function": "get_me",
+        "auth_required": True,
+        "uses": "get_current_user_from_request"
+      },
+      {
+        "method": "GET",
+        "path": "/setup-status",
+        "function": "setup_status",
+        "auth_required": False,
+        "public_path": true
+      },
+      {
+        "method": "POST",
+        "path": "/initialize",
+        "function": "initialize_admin",
+        "auth_required": False,
+        "public_path": true,
+        "note": "Only works when no admin exists"
+      },
+      {
+        "method": "GET",
+        "path": "/oauth/{provider}",
+        "function": "oauth_login",
+        "auth_required": False,
+        "public_path": true
+      },
+      {
+        "method": "GET",
+        "path": "/callback/{provider}",
+        "function": "oauth_callback",
+        "auth_required": False,
+        "public_path": true
+      }
+    ],
+
+    "total_routes": 9,
+
+    "auth_dependencies": [
+      "from app.gateway.deps import get_current_user_from_request, get_local_provider",
+      "from app.gateway.auth import create_access_token, UserResponse",
+      "from app.gateway.auth.errors import AuthErrorCode, AuthErrorResponse",
+      "from app.gateway.auth.local_provider import LocalAuthProvider"
+    ],
+
+    "public_routes_count": 7,
+    "protected_routes_count": 2
+  },
+
+  "surface010_gsic_dependency_order": {
+    "description": "SURFACE-010 must be unblocked BEFORE GSIC-003/004 can be unblocked",
+
+    "surface010_triggers": [
+      {
+        "trigger": "DT-001",
+        "file": "deerflow/runtime/user_context.py",
+        "used_by": "auth_middleware.py sets/resets CurrentUser ContextVar"
+      },
+      {
+        "trigger": "DT-002",
+        "file": "deerflow/persistence/engine.py",
+        "used_by": "deps.py calls init_engine_from_config()"
+      }
+    ],
+
+    "gsic003_prerequisites": [
+      "user_context.py (SURFACE-010 DT-001)",
+      "auth_middleware.py (Sub-Bundle C, depends on user_context)",
+      "authz.py (Sub-Bundle C, no runtime dependency)",
+      "internal_auth.py (Sub-Bundle C, no runtime dependency)",
+      "persistence/engine.py (SURFACE-010 DT-002) — for deps.py get_session_factory"
+    ],
+
+    "gsic004_prerequisites": [
+      "routers/auth.py — GSIC-004 direct",
+      "authz.py — decorators used in auth routes",
+      "deps.py get_local_provider() — used by auth routes",
+      "get_current_user_from_request — deps.py function",
+      "LocalAuthProvider — needs session_factory (SURFACE-010)"
+    ],
+
+    "coupling_analysis": {
+      "gsic003_and_gsic004_coupled": true,
+      "reason": "app.py adds BOTH middleware AND includes auth router — both in same file",
+      "risk": "Unblocking only one creates inconsistent gateway state",
+      "recommendation": "Unblock both GSIC-003 AND GSIC-004 together in single phase"
+    }
+  },
+
+  "auth_bundle_persistence_bundle_dependency": {
+    "description": "Auth bundle and Persistence bundle are both required before gateway",
+
+    "auth_bundle_completion_sequence": [
+      "R241-22B: Auth Sub-Bundle C (user_context, authz, internal_auth, auth_middleware)",
+      "R241-22F: Auth Sub-Bundle D (reset_admin.py) — if needed"
+    ],
+
+    "persistence_bundle_completion_sequence": [
+      "R241-22C: Persistence Stage 3 (engine.py, UserRow)",
+      "R241-22D: Persistence Repositories (FeedbackRepository, RunRepository, DbRunEventStore, JsonlRunEventStore)"
+    ],
+
+    "gateway_bundle_requirements": [
+      "Auth middleware chain (Sub-Bundle C) — GSIC-003",
+      "Auth routes (routers/auth.py) — GSIC-004",
+      "deps.py langgraph_runtime() needs session_factory from engine",
+      "deps.py get_local_provider() needs session_factory from engine"
+    ],
+
+    "critical_path": "Both bundles must be complete before gateway can activate",
+    "parallel_potential": "Auth bundle and Persistence bundle can be developed in parallel (independent)"
+  },
+
+  "gsic003_unblock_sequence": {
+    "sequence_id": "GSIC-003-UNBLOCK-SEQ",
+
+    "gate_1_preconditions": {
+      "name": "SURFACE-010 unblocked",
+      "verification": "All CV-ISO, MEM-LEAK, POOL, SDB gates passed",
+      "evidence_required": ["CV-ISO-01 through CV-ISO-10", "MEM-LEAK-01 through MEM-LEAK-04", "POOL-01 through POOL-05", "SDB-01 through SDB-09"]
+    },
+
+    "gate_2_preconditions": {
+      "name": "Auth Sub-Bundle C implemented",
+      "verification": "user_context.py, authz.py, internal_auth.py, auth_middleware.py all exist",
+      "evidence_required": ["user_context.py module exists", "auth_middleware.py class exists", "authz.py decorators defined"]
+    },
+
+    "gate_3_preconditions": {
+      "name": "Persistence Stage 3 implemented",
+      "verification": "engine.py, persistence/__init__.py exist and functional",
+      "evidence_required": ["engine.py init_engine() callable", "get_session_factory() returns factory or None"]
+    },
+
+    "gate_4_preconditions": {
+      "name": "Persistence Repositories partially implemented",
+      "verification": "RunRepository or MemoryRunStore available for deps.py",
+      "evidence_required": ["MemoryRunStore exists at runtime/runs/store/memory.py", "deps.py can handle sf=None path"]
+    },
+
+    "gateway_main_path_activation_steps": [
+      {
+        "step": 1,
+        "action": "Import AuthMiddleware in app.py",
+        "file": "backend/app/gateway/app.py",
+        "code": "from app.gateway.auth_middleware import AuthMiddleware",
+        "gsic003_step": true
+      },
+      {
+        "step": 2,
+        "action": "Import CSRFMiddleware in app.py",
+        "file": "backend/app/gateway/app.py",
+        "code": "from app.gateway.csrf_middleware import CSRFMiddleware",
+        "gsic003_step": true
+      },
+      {
+        "step": 3,
+        "action": "Add AuthMiddleware to app",
+        "file": "backend/app/gateway/app.py",
+        "code": "app.add_middleware(AuthMiddleware)",
+        "gsic003_step": true
+      },
+      {
+        "step": 4,
+        "action": "Add CSRFMiddleware to app",
+        "file": "backend/app/gateway/app.py",
+        "code": "app.add_middleware(CSRFMiddleware)",
+        "gsic003_step": true
+      },
+      {
+        "step": 5,
+        "action": "Wire lifespan=lifespan in FastAPI",
+        "file": "backend/app/gateway/app.py",
+        "code": "app = FastAPI(lifespan=lifespan)",
+        "gsic003_step": true
+      },
+      {
+        "step": 6,
+        "action": "Register auth router (auth routes are GSIC-004)",
+        "file": "backend/app/gateway/app.py",
+        "code": "app.include_router(auth.router)",
+        "gsic003_step": true
+      }
+    ],
+
+    "rollback_procedure": [
+      "1. Remove app.add_middleware(AuthMiddleware) from app.py",
+      "2. Remove app.add_middleware(CSRFMiddleware) from app.py",
+      "3. Remove lifespan=lifespan (set to None or remove)",
+      "4. Remove app.include_router(auth.router)",
+      "5. Result: Gateway starts without auth (fail-open risk)"
+    ]
+  },
+
+  "gsic004_unblock_sequence": {
+    "sequence_id": "GSIC-004-UNBLOCK-SEQ",
+
+    "gate_1_preconditions": {
+      "name": "GSIC-003 must be unblocked first OR simultaneously",
+      "reason": "app.py modification couples both; partial activation creates inconsistent state"
+    },
+
+    "gate_2_preconditions": {
+      "name": "Auth Sub-Bundle C implemented",
+      "verification": "authz.py decorators, get_current_user_from_request available",
+      "evidence_required": ["authz.py @require_auth, @require_permission exist", "deps.py get_current_user_from_request functional"]
+    },
+
+    "gate_3_preconditions": {
+      "name": "Persistence Stage 3 implemented",
+      "verification": "get_local_provider() works (needs session_factory)",
+      "evidence_required": ["engine.py init_engine() called", "session_factory not None for non-memory backend"]
+    },
+
+    "route_registration_activation_steps": [
+      {
+        "step": 1,
+        "action": "Ensure router exists",
+        "file": "backend/app/gateway/routers/auth.py",
+        "verification": "File exists with 9 route definitions",
+        "gsic004_step": true
+      },
+      {
+        "step": 2,
+        "action": "Ensure router is imported in app.py",
+        "file": "backend/app/gateway/app.py",
+        "code": "from app.gateway.routers import auth",
+        "gsic004_step": true
+      },
+      {
+        "step": 3,
+        "action": "Include auth router",
+        "file": "backend/app/gateway/app.py",
+        "code": "app.include_router(auth.router, prefix='/api/v1/auth')",
+        "gsic004_step": true
+      }
+    ],
+
+    "route_disable_strategy": [
+      {
+        "method": "Comment out include_router line",
+        "risk": "Code comments are fragile",
+        "recommended": false
+      },
+      {
+        "method": "Feature flag: AUTH_ROUTES_ENABLED env var",
+        "approach": "if os.getenv('AUTH_ROUTES_ENABLED', 'true').lower() == 'true': app.include_router(auth.router)",
+        "risk": "Env var checked at import time, not runtime",
+        "recommended": true
+      },
+      {
+        "method": "Conditional import",
+        "approach": "if config.auth_enabled: from app.gateway.routers import auth; app.include_router(auth.router)",
+        "risk": "Requires config.auth_enabled field",
+        "recommended": true
+      }
+    ],
+
+    "rollback_procedure": [
+      "1. Comment out app.include_router(auth.router) in app.py",
+      "2. Auth routes no longer accessible (404)",
+      "3. Middleware still active — 401 for protected paths still works",
+      "4. Result: Auth system visible but routes disabled"
+    ]
+  },
+
+  "coupled_unblock_recommendation": {
+    "decision": "COUPLED_UNBLOCK_GSIC003_AND_GSIC004",
+    "rationale": [
+      "Both GSIC-003 and GSIC-004 are in the SAME file (app.py)",
+      "app.py adds middleware (GSIC-003) and registers routes (GSIC-004) together",
+      "Unblocking only GSIC-003 without GSIC-004 leaves auth middleware active but no login route",
+      "Unblocking only GSIC-004 without GSIC-003 leaves routes registered but no auth enforcement",
+      "Either partial activation creates user-facing inconsistencies"
+    ],
+    "recommended_phase": "Single phase R241-22G that unblocks BOTH GSIC-003 and GSIC-004 together",
+    "alternative": "If forced to separate, GSIC-003 first (middleware) then GSIC-004 (routes)"
+  },
+
+  "gateway_startup_safety_gates": {
+    "gates": [
+      {
+        "gate_id": "GW-START-01",
+        "name": "Persistence engine initialized before middleware",
+        "verification": "init_engine_from_config() called in lifespan BEFORE middleware processes requests",
+        "order_critical": true
+      },
+      {
+        "gate_id": "GW-START-02",
+        "name": "Memory backend fallback when session_factory is None",
+        "verification": "deps.py handles sf=None: MemoryRunStore(), JsonlRunEventStore()",
+        "order_critical": false
+      },
+      {
+        "gate_id": "GW-START-03",
+        "name": "Admin bootstrap graceful when auth not ready",
+        "verification": "_ensure_admin_user catches RuntimeError from get_local_provider()",
+        "order_critical": false
+      },
+      {
+        "gate_id": "GW-START-04",
+        "name": "Middleware chain order correct",
+        "verification": "CORSMiddleware → CSRFMiddleware → AuthMiddleware",
+        "order_critical": true
+      },
+      {
+        "gate_id": "GW-START-05",
+        "name": "AuthMiddleware public path bypass works",
+        "verification": "_is_public() returns True for /health, /docs, /api/v1/auth/login/*, etc.",
+        "order_critical": false
+      },
+      {
+        "gate_id": "GW-START-06",
+        "name": "get_local_provider() raises if session_factory is None",
+        "verification": "RuntimeError when called before init_engine_from_config()",
+        "order_critical": true
+      }
+    ]
+  },
+
+  "route_registration_safety_gates": [
+    {
+      "gate_id": "RR-01",
+      "name": "All 9 auth routes have unique method+path",
+      "verification": "No duplicate route definitions"
+    },
+    {
+      "gate_id": "RR-02",
+      "name": "Protected routes use @require_auth or get_current_user_from_request",
+      "verification": "/me and /change-password are the only protected routes"
+    },
+    {
+      "gate_id": "RR-03",
+      "name": "Public routes do NOT require authentication",
+      "verification": "login, register, logout, setup-status, initialize, oauth/* are all public"
+    },
+    {
+      "gate_id": "RR-04",
+      "name": "Rate limiting on login/register",
+      "verification": "_check_rate_limit() called in login_local and register"
+    },
+    {
+      "gate_id": "RR-05",
+      "name": "No route registration outside app.py",
+      "verification": "routers/auth.py defines router but does NOT call app.include_router"
+    }
+  ],
+
+  "rollback_feature_flag_strategy": {
+    "gateway_activation_flag": {
+      "env_var": "MAINLINE_GATEWAY_ACTIVATION",
+      "current_value": "false",
+      "unlock_condition": "All SURFACE-010 gates passed + GSIC-003 + GSIC-004 unblocked",
+      "check_location": "app.py lifespan or startup hook"
+    },
+
+    "auth_routes_flag": {
+      "env_var": "AUTH_ROUTES_ENABLED",
+      "default": "true",
+      "disable_effect": "app.include_router(auth.router) skipped",
+      "risk_level": "LOW — can disable routes while keeping middleware"
+    },
+
+    "auth_middleware_flag": {
+      "env_var": "AUTH_MIDDLEWARE_ENABLED",
+      "default": "true",
+      "disable_effect": "app.add_middleware(AuthMiddleware) skipped",
+      "risk_level": "HIGH — gateway becomes fail-open without auth middleware"
+    },
+
+    "persistence_engine_flag": {
+      "env_var": "DATABASE_BACKEND",
+      "values": ["memory", "sqlite", "postgres"],
+      "memory_fallback": "No engine created, get_session_factory() returns None",
+      "rollback_use_case": "Set to 'memory' if DB initialization fails"
+    }
+  },
+
+  "final_gsic_unblock_sequence": [
+    {
+      "phase": "R241-22E (current)",
+      "action": "Design review only — no activation"
+    },
+    {
+      "phase": "R241-22F",
+      "action": "Gateway Deps (deps.py) + App (CAND-018) implementation plan"
+    },
+    {
+      "phase": "R241-22G",
+      "action": "COUPLED unblock of GSIC-003 + GSIC-004 (single phase, both together)",
+      "gates": ["SURFACE-010 unblocked", "Auth Sub-Bundle C complete", "Persistence Stage 3+4 complete"]
+    },
+    {
+      "phase": "R241-22H",
+      "action": "Gateway activation validation + integration tests"
+    }
+  ],
+
+  "recommended_continuation_sequence": [
+    {
+      "phase": "R241-22F",
+      "name": "Gateway Deps + App Implementation Plan",
+      "candidates": "CAND-018 (app.py), deps.py, routers/auth.py",
+      "depends_on": "R241-22D",
+      "note": "Plans the gateway main path modification (GSIC-003/004 activation)"
+    },
+    {
+      "phase": "R241-22G",
+      "name": "GSIC-003 + GSIC-004 Coupled Unblock",
+      "candidates": "app.py middleware chain + route registration",
+      "depends_on": "R241-22F + SURFACE-010 unblocked",
+      "note": "Single phase unblocks BOTH GSIC-003 AND GSIC-004 together"
+    },
+    {
+      "phase": "R241-22H",
+      "name": "Gateway Integration + Startup Validation",
+      "candidates": "End-to-end integration tests",
+      "depends_on": "R241-22G"
+    }
+  ],
+
+  "classification_results": {
+    "gsic003_sequence_completed": true,
+    "gsic004_sequence_completed": true,
+    "surface010_dependency_confirmed": true,
+    "gateway_startup_gate_completed": true,
+    "route_registration_gate_completed": true,
+    "rollback_strategy_completed": true,
+    "implementation_allowed": false,
+    "route_registration_allowed": false,
+    "gateway_activation_allowed": false,
+    "coupled_unblock_required": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "gateway_app_modified": false,
+    "deps_py_modified": false,
+    "auth_router_modified": false,
+    "middleware_added": false,
+    "route_registered": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "gsic003_gsic004_sequence_design_completed_coupled_unblock_required",
+    "gsic003_sequence_completed": true,
+    "gsic004_sequence_completed": true,
+    "surface010_dependency_confirmed": true,
+    "gateway_startup_gate_completed": true,
+    "route_registration_gate_completed": true,
+    "rollback_strategy_completed": true,
+    "coupled_unblock_recommended": true,
+    "implementation_allowed": false,
+    "route_registration_allowed": false,
+    "gateway_activation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22F",
+    "next_prompt_needed": "user_selection"
+  }
+}

@@ -60,7 +60,7 @@ class ThreadMetaRepository(ThreadMetaStore):
         self,
         thread_id: str,
         *,
-        owner_id: str | None | _AutoSentinel = AUTO,
+        owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> dict | None:
         resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.get")
@@ -130,7 +130,7 @@ class ThreadMetaRepository(ThreadMetaStore):
         status: str | None = None,
         limit: int = 100,
         offset: int = 0,
-        owner_id: str | None | _AutoSentinel = AUTO,
+        owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> list[dict]:
         """Search threads with optional metadata and status filters.

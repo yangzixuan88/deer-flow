@@ -1,0 +1,19 @@
+{
+  "hard_constraints": [
+    "优先走最小闭环再扩展",
+    "必须保留人工质检位",
+    "所有关键结论要有证据台账支撑"
+  ],
+  "soft_preferences": [
+    "优先真实可落地方案",
+    "允许返会，不要假完成",
+    "会议要保留完整档案"
+  ],
+  "latest_user_intervention": {
+    "type": "direction_change",
+    "content": "先做最小闭环样片，再讨论如何扩大自动化覆盖率"
+  },
+  "acceptance_adjustments": [
+    "如果样片看起来不稳定，就不能算通过"
+  ]
+}

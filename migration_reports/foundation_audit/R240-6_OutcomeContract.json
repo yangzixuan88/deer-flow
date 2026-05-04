@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-6_OutcomeContract.json",
+  "title": "OutcomeContract",
+  "description": "Mapping of existing governance outcome_type values to TruthEvent/StateEvent schema. Documents current field semantics and recommended truth_type/truth_track classification.",
+  "outcome_mappings": [
+    {
+      "outcome_type": "sandbox_execution_result",
+      "current_fields": {
+        "actual": "1.0 if verify_exit_code==0 else 0.0 (binary truth)",
+        "predicted": "from task.predicted (U6 TieredCandidate.predicted_value, R227-fix)",
+        "context.candidate_id": "string",
+        "context.execution_status": "success|failed|failed_no_rollback (STATE)",
+        "context.verify_exit_code": "ACTUAL TRUTH: 0=pass, non-zero=fail",
+        "context.rollback_invoked": "STATE: boolean",
+        "context.rollback_exit_code": "ACTUAL TRUTH (conditional): 0=rollback success",
+        "context.filter_result": "STATE: U2 pool origin",
+        "context.execution_stage": "STATE: queued_for_experiment",
+        "context.tier": "STATE: T0/T1/T2/T3",
+        "context.ltv": "STATE: long_term_value score"
+      },
+      "current_semantic_issues": [
+        "actual field name is float (1.0/0.0) but called 'actual_result' parameter name",
+        "execution_status is a derived STATE but named like an outcome",
+        "predicted comes from task metadata, not from governance predicted field directly"
+      ],
+      "truth_type": "actual_outcome",
+      "truth_track": "execution_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": true,
+      "recommended_mapping": {
+        "actual_value": "context.verify_exit_code == 0 ? 1.0 : 0.0",
+        "predicted_value": "context.predicted (from task.predicted, R227-fix)",
+        "confidence": null,
+        "truth_event_id": "NEW uuid per outcome",
+        "governance_trace_id": "extract from context.context_envelope (CURRENT GAP: not propagated)"
+      }
+    },
+    {
+      "outcome_type": "tool_execution",
+      "current_fields": {
+        "actual": "1.0 or 0.0",
+        "predicted": "0.9 or 0.3 (hardcoded in learning_middleware)",
+        "context.tool_name": "string",
+        "context.success": "bool",
+        "context.duration_ms": "float"
+      },
+      "current_semantic_issues": [
+        "predicted is hardcoded, not from actual model prediction",
+        "no governance_trace_id propagation"
+      ],
+      "truth_type": "actual_outcome",
+      "truth_track": "execution_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": true,
+      "recommended_mapping": {
+        "actual_value": "context.success ? 1.0 : 0.0",
+        "predicted_value": "context.predicted (0.9/0.3 hardcoded -- preserve)",
+        "confidence": null
+      }
+    },
+    {
+      "outcome_type": "tool_execution_uef",
+      "current_fields": {
+        "actual": "0.95 if success else 0.2 (result_quality, NOT binary truth)",
+        "predicted": "from metadata",
+        "context.result_quality": "0.95/0.2 (quality signal, not binary)",
+        "context.total_tokens": "int",
+        "context.total_duration_ms": "int"
+      },
+      "current_semantic_issues": [
+        "actual is quality signal (0.95/0.2), NOT binary 1.0/0.0 -- this is a MODEL OUTPUT QUALITY signal, not execution truth",
+        "semantic confusion: governance uses same 'actual' field for binary truth and quality signal"
+      ],
+      "truth_type": "actual_outcome",
+      "truth_track": "execution_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "context.result_quality (0.95 or 0.2 -- preserve as quality signal, NOT binary)",
+        "predicted_value": "null (no prediction in metadata)",
+        "confidence": null,
+        "note": "Keep 0.95/0.2 as-is -- this is quality signal, not binary. Binary truth for tool_execution_uef should be derived from context.success separately."
+      }
+    },
+    {
+      "outcome_type": "asset_promotion",
+      "current_fields": {
+        "actual": "1.0 (hardcoded after bind_platform success)",
+        "predicted": "0.9 (hardcoded before bind_platform)",
+        "context.asset_id": "string",
+        "context.asset_category": "string",
+        "context.risk_level": "high|medium",
+        "context.source": "m07_bind_platform"
+      },
+      "current_semantic_issues": [
+        "actual=1.0 hardcoded -- binding success IS the truth, but no verification",
+        "no governance_trace_id propagation"
+      ],
+      "truth_type": "actual_outcome",
+      "truth_track": "asset_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": true,
+      "recommended_mapping": {
+        "actual_value": "1.0 (bind_platform succeeded -- preserve)",
+        "predicted_value": "0.9 (preserve)",
+        "confidence": null
+      }
+    },
+    {
+      "outcome_type": "nightly_evolution",
+      "current_fields": {
+        "actual": "1.0 (HARDCODED -- no actual measurement taken)",
+        "predicted": "0.9 (HARDCODED -- no prediction made)",
+        "context.evolution_summary.action": "nightly_evolution_completed"
+      },
+      "current_semantic_issues": [
+        "CRITICAL: actual=1.0 and predicted=0.9 are BOTH hardcoded -- no actual measurement",
+        "This outcome is an OBSERVATION that the nightly process ran, NOT a truth claim",
+        "Cannot compute success_rate because there is no actual measurement"
+      ],
+      "truth_type": "observation_signal",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": false,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "null (remove hardcoded 1.0 -- it means nothing)",
+        "predicted_value": "null (remove hardcoded 0.9)",
+        "confidence": null,
+        "note": "Mark as observation_signal. Phase 2: remove actual/predicted hardcoded values."
+      }
+    },
+    {
+      "outcome_type": "doctrine_drift_detected",
+      "current_fields": {
+        "actual": "1.0 (HARDCODED)",
+        "predicted": "0.5 (HARDCODED)",
+        "context.drift_signals": "list of detected drifts"
+      },
+      "current_semantic_issues": [
+        "actual=1.0 hardcoded -- drift detection ran, but the drift MAGNITUDE is not measured",
+        "This is an anomaly OBSERVATION, not a truth claim"
+      ],
+      "truth_type": "observation_signal",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": false,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "null",
+        "predicted_value": "null",
+        "confidence": "null"
+      }
+    },
+    {
+      "outcome_type": "upgrade_center_execution",
+      "current_fields": {
+        "actual": "null (NOT written)",
+        "predicted": "null (NOT written)",
+        "context.demands_scanned": "int",
+        "context.success": "bool (from UC runner)"
+      },
+      "current_semantic_issues": [
+        "CRITICAL: actual and predicted are both null -- no prediction or measurement",
+        "This is a PROCESS OBSERVATION (UC ran), not a truth claim about any candidate",
+        "context.success exists but not propagated to actual field"
+      ],
+      "truth_type": "observation_signal",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": false,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "null",
+        "predicted_value": "null",
+        "confidence": null,
+        "note": "Mark as observation_signal. Phase 2: consider adding process_health signal type."
+      }
+    },
+    {
+      "outcome_type": "upgrade_center_summary",
+      "current_fields": {
+        "actual": "null (NOT written)",
+        "predicted": "null (NOT written)",
+        "context.experiment_pool_size": "int",
+        "context.observation_pool_size": "int",
+        "context.pending_approvals": "int",
+        "context.top_candidates_for_approval[].predicted_value": "number (present in context but not in top-level predicted)"
+      },
+      "current_semantic_issues": [
+        "CRITICAL: top-level actual/predicted are null",
+        "predicted_value EXISTS in context.top_candidates_for_approval but not propagated to top-level",
+        "This is an aggregate observation, not a per-candidate truth"
+      ],
+      "truth_type": "observation_signal",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": false,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "null",
+        "predicted_value": "null",
+        "confidence": null,
+        "note": "Individual candidates with predicted_value should map to sandbox_execution_result or upgrade_center_approval_result separately."
+      }
+    },
+    {
+      "outcome_type": "upgrade_queue_snapshot",
+      "current_fields": {
+        "actual": "in context (not top-level)",
+        "predicted": "in context (not top-level)",
+        "context.candidates[].status": "pending|running|completed|failed (queue STATE)"
+      },
+      "current_semantic_issues": [
+        "actual/predicted buried in context, not top-level",
+        "status is queue STATE, not outcome truth"
+      ],
+      "truth_type": "state_snapshot",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": false,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "null",
+        "predicted_value": "null",
+        "confidence": null,
+        "note": "This should be a StateEvent, not a TruthEvent. Phase 2: add state_snapshot truth_type."
+      }
+    },
+    {
+      "outcome_type": "upgrade_center_approval",
+      "current_fields": {
+        "actual": "1.0 (HARDCODED -- meaningless, should be null)",
+        "predicted": "from candidate.predicted_value",
+        "context.filter_result": "experiment_pool|observation_pool|deep_analysis",
+        "context.can_proceed_to_experiment": "bool"
+      },
+      "current_semantic_issues": [
+        "CRITICAL: actual=1.0 hardcoded -- this is a PREDICTION, not an actual outcome",
+        "The actual outcome is upgrade_center_approval_result (human decision)",
+        "This outcome represents the GOVERNANCE PREDICTION that a candidate should be approved"
+      ],
+      "truth_type": "predicted_outcome",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": true,
+      "recommended_mapping": {
+        "actual_value": "null (remove hardcoded 1.0 -- it's a prediction, not actual)",
+        "predicted_value": "context.predicted_value (from TieredCandidate)",
+        "confidence": "context.filter_result == 'experiment_pool' ? 0.9 : (context.filter_result == 'observation_pool' ? 0.6 : 0.3)"
+      }
+    },
+    {
+      "outcome_type": "upgrade_center_approval_result",
+      "current_fields": {
+        "actual": "1.0 (approved) or 0.0 (rejected) -- human decision",
+        "predicted": "0.9 (hardcoded before human decision)",
+        "context.candidate_id": "string",
+        "context.result": "approved|rejected|observe",
+        "context.approver_open_id": "string"
+      },
+      "current_semantic_issues": [
+        "predicted=0.9 hardcoded (not actual prediction)",
+        "result is the actual decision (in context), not in actual field directly"
+      ],
+      "truth_type": "approval_decision",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": true,
+      "recommended_mapping": {
+        "actual_value": "context.result == 'approved' ? 1.0 : (context.result == 'rejected' ? 0.0 : 0.5)",
+        "predicted_value": "0.9 (preserve -- governance predicted approval before human decision)",
+        "confidence": null
+      }
+    },
+    {
+      "outcome_type": "upgrade_center_execution_result",
+      "current_fields": {
+        "actual": "in context.success (bool, not top-level actual)",
+        "predicted": "from candidate.predicted_value",
+        "context.success": "bool",
+        "context.filter_result": "deep_analysis_pool|observation_pool|null"
+      },
+      "current_semantic_issues": [
+        "actual is buried in context.success, not top-level actual field",
+        "predicted_value from TieredCandidate is not propagated to top-level",
+        "Two different things: context.success (UC execution) and actual approval (upgrade_center_approval_result)"
+      ],
+      "truth_type": "actual_outcome",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": true,
+      "has_predicted": true,
+      "recommended_mapping": {
+        "actual_value": "context.success ? 1.0 : 0.0",
+        "predicted_value": "context.predicted_value (propagate from TieredCandidate)",
+        "confidence": null
+      }
+    },
+    {
+      "outcome_type": "queue_health_signal",
+      "current_fields": {
+        "actual": "1.0 (HARDCODED)",
+        "predicted": "0.9 (HARDCODED)",
+        "context.status": "empty|stale|backlog|healthy (STATE)"
+      },
+      "current_semantic_issues": [
+        "actual=1.0 hardcoded -- queue health is a STATE observation, not binary truth",
+        "This should be a StateEvent, not a TruthEvent"
+      ],
+      "truth_type": "observation_signal",
+      "truth_track": "governance_truth",
+      "can_compute_success_rate": false,
+      "has_predicted": false,
+      "recommended_mapping": {
+        "actual_value": "null",
+        "predicted_value": "null",
+        "confidence": null,
+        "note": "queue_health_signal should be a StateEvent with state_domain=watchdog_health. Phase 2: migrate to StateEvent."
+      }
+    }
+  ],
+  "same_name_field_conflicts": [
+    {
+      "field_name": "actual",
+      "used_in": ["sandbox_execution_result", "tool_execution", "tool_execution_uef", "nightly_evolution", "upgrade_center_approval", "upgrade_center_approval_result", "upgrade_center_execution_result", "queue_health_signal"],
+      "semantic_variants": [
+        {"outcome_types": ["sandbox_execution_result", "tool_execution"], "meaning": "binary truth: 1.0=success, 0.0=failure"},
+        {"outcome_types": ["tool_execution_uef"], "meaning": "quality signal: 0.95=high quality, 0.2=low quality (NOT binary truth)"},
+        {"outcome_types": ["nightly_evolution", "upgrade_center_approval", "queue_health_signal"], "meaning": "HARDCODED 1.0 -- meaningless"},
+        {"outcome_types": ["upgrade_center_approval_result", "upgrade_center_execution_result"], "meaning": "bool-to-float in context, not top-level"}
+      ],
+      "resolution": "TruthEvent.actual_value: distinguish binary truth (1.0/0.0) from quality signal (0.95/0.2). Use truth_type to disambiguate."
+    },
+    {
+      "field_name": "status",
+      "used_in": ["sandbox_execution_result.context.execution_status", "upgrade_center_approval.context.status", "queue_health_signal.context.status"],
+      "semantic_variants": [
+        {"context": "sandbox_execution_result", "meaning": "execution truth: success|failed|failed_no_rollback"},
+        {"context": "upgrade_center_approval", "meaning": "UC candidate status: pending"},
+        {"context": "queue_health_signal", "meaning": "watchdog health: empty|stale|backlog|healthy"}
+      ],
+      "resolution": "StateEvent with state_domain disambiguation. execution_status -> state_domain=sandbox_execution; context.status in UC -> state_domain=experiment_queue_task; queue_health_signal.status -> state_domain=watchdog_health."
+    },
+    {
+      "field_name": "execution_stage",
+      "used_in": ["sandbox_execution_result.context.execution_stage", "upgrade_center_execution_result.context.execution_stage"],
+      "semantic_variants": [
+        {"context": "sandbox_execution_result", "meaning": "pipeline provenance node: queued_for_experiment"},
+        {"context": "upgrade_center_execution_result", "meaning": "approval routing: awaiting_approval|approved_for_experiment|bypass_to_experiment"}
+      ],
+      "resolution": "Keep as StateEvent metadata field. Different state_domain values."
+    }
+  ]
+}

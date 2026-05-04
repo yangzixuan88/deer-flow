@@ -1,0 +1,2 @@
+{"timestamp":"2026-04-19T03:12:00Z","project_id":"proj_ai_manju_20260419_001","issue_id":"issue_001","event_type":"issue_created","actor_id":"rtcm-chair-agent","payload":{"message":"创建议题 issue_001：AI漫剧的爆款感主要由什么决定"}}
+{"timestamp":"2026-04-19T05:26:00Z","project_id":"proj_ai_manju_20260419_001","issue_id":"issue_002","event_type":"issue_reopened","actor_id":"rtcm-chair-agent","payload":{"reason":"quality_below_threshold","target":"solution_generation"}}

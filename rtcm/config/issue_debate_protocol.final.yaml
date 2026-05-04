@@ -1,0 +1,204 @@
+protocol_version: "1.1"
+protocol_id: "idp_final"
+protocol_name: "Issue Debate Protocol"
+mode_id: "rtcm_v2"
+
+design_principles:
+  - "an_issue_is_the_minimum_unit_of_serious_deliberation"
+  - "all_8_members_must_participate_in_every_issue_round"
+  - "discussion_must_move_from_theory_to_execution"
+  - "discussion_must_move_from_surface_to_depth"
+  - "discussion_must_move_from_web_claims_to_local_reality"
+  - "unverified_consensus_is_not_resolution"
+  - "all_final_decisions_must_preserve_dissent_and_uncertainty"
+
+issue_lifecycle:
+  states:
+    - "created"
+    - "problem_defined"
+    - "hypotheses_built"
+    - "evidence_collected"
+    - "solutions_generated"
+    - "challenged"
+    - "responses_recorded"
+    - "gaps_exposed"
+    - "validation_designed"
+    - "validation_executed"
+    - "verdict_emitted"
+    - "resolved"
+    - "reopened"
+    - "aborted"
+
+mandatory_steps:
+  - step_id: "problem_statement"
+    name: "问题提出"
+    required_outputs:
+      - "issue_title"
+      - "problem_statement"
+      - "why_it_matters"
+      - "relationship_to_project_goal"
+      - "blocking_risk_if_unsolved"
+
+  - step_id: "hypothesis_building"
+    name: "初始假设"
+    minimum_requirements:
+      min_hypotheses: 2
+      each_hypothesis_must_have:
+        - "why_it_may_hold"
+        - "what_would_falsify_it"
+
+  - step_id: "evidence_search"
+    name: "外部证据搜索"
+    evidence_collection_mode: "parallel_pods"
+    required_pods:
+      - "surface_pod"
+      - "deep_pod"
+      - "reality_pod"
+    required_outputs:
+      - "evidence_summary"
+      - "source_index"
+      - "reality_constraints"
+      - "evidence_ledger_entries"
+
+  - step_id: "solution_generation"
+    name: "候选方案生成"
+    minimum_requirements:
+      min_solutions: 2
+      preferred_solutions: 3
+    solution_types:
+      - "minimum_viable_path"
+      - "quality_first_path"
+      - "automation_first_path"
+
+  - step_id: "counterargument"
+    name: "反方质疑"
+
+  - step_id: "response"
+    name: "正方回应"
+
+  - step_id: "gap_exposure"
+    name: "暴露方案问题"
+
+  - step_id: "minimum_validation_design"
+    name: "最小验证设计"
+
+  - step_id: "validation_execution"
+    name: "执行验证"
+
+  - step_id: "verdict"
+    name: "验证裁决"
+    allowed_verdicts:
+      - "hypothesis_confirmed"
+      - "partially_confirmed"
+      - "solution_feasible_but_quality_insufficient"
+      - "solution_not_feasible"
+      - "evidence_insufficient"
+    required_outputs:
+      - "verdict"
+      - "reasoning"
+      - "next_action"
+      - "confidence_interval"
+      - "dissent_summary"
+      - "unresolved_uncertainties"
+      - "what_would_change_my_mind"
+      - "conditions_to_reopen"
+
+  - step_id: "issue_card"
+    name: "议题收官"
+
+gates:
+  definition_gate:
+    pass_conditions:
+      - "problem_statement_exists"
+      - "issue_scope_is_clear"
+
+  evidence_gate:
+    pass_conditions:
+      - "surface_pod_complete"
+      - "deep_pod_complete"
+      - "reality_pod_complete"
+
+  challenge_gate:
+    pass_conditions:
+      - "counterargument_completed"
+      - "response_summary_exists"
+
+  validation_gate:
+    pass_conditions:
+      - "validation_plan_exists"
+      - "acceptance_thresholds_exist"
+      - "safe_stop_or_rollback_defined"
+
+return_reasons:
+  hypothesis_wrong:
+    reopen_target: "hypothesis_building"
+  evidence_insufficient:
+    reopen_target: "evidence_search"
+  solution_problem:
+    reopen_target: "solution_generation"
+  execution_failed:
+    reopen_target: "validation_execution"
+  quality_below_threshold:
+    reopen_target: "solution_generation"
+  user_not_satisfied:
+    reopen_target: "gap_exposure"
+
+user_intervention_policy:
+  accepted_types:
+    - "opinion"
+    - "constraint"
+    - "direction_change"
+    - "acceptance_adjustment"
+
+dissent_policy:
+  enabled: true
+  required_before_issue_resolution: true
+  required_fields:
+    - "strongest_dissent"
+    - "why_not_selected"
+    - "what_evidence_could_reverse_this_decision"
+
+uncertainty_policy:
+  enabled: true
+  required_before_issue_resolution: true
+  required_fields:
+    - "confidence_interval"
+    - "unresolved_uncertainties"
+    - "conditions_to_reopen"
+
+issue_card_schema:
+  required_fields:
+    - "issue_id"
+    - "issue_title"
+    - "problem_statement"
+    - "candidate_hypotheses"
+    - "evidence_summary"
+    - "challenge_log"
+    - "response_summary"
+    - "known_gaps"
+    - "validation_plan_or_result"
+    - "verdict"
+    - "next_action"
+    - "strongest_dissent"
+    - "confidence_interval"
+    - "unresolved_uncertainties"
+    - "conditions_to_reopen"
+    - "evidence_ledger_refs"
+
+metrics:
+  issue_level:
+    - "round_count"
+    - "challenge_density"
+    - "validation_pass_rate"
+    - "reopen_count"
+    - "user_acceptance_after_resolution"
+    - "dissent_capture_rate"
+    - "critical_claim_evidence_coverage"
+    - "empty_debate_ratio"
+
+archival:
+  required_artifacts:
+    - "issue_card"
+    - "challenge_log"
+    - "validation_run_record"
+    - "verdict_record"

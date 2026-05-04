@@ -1,0 +1,552 @@
+{
+  "review": {
+    "review_id": "R241-16D_pr_blocking_enablement_review",
+    "generated_at": "2026-04-25T23:53:43.186809+00:00",
+    "status": "ready_for_manual_confirmation",
+    "scope": "fast_and_safety",
+    "fast_ready": true,
+    "safety_ready": true,
+    "existing_workflows": [
+      {
+        "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+        "exists": true,
+        "parsed": true,
+        "trigger_summary": {
+          "pull_request": true,
+          "push": true,
+          "schedule": false,
+          "workflow_dispatch": false
+        },
+        "job_count": 6,
+        "runs_pytest": true,
+        "touches_foundation_or_audit": false,
+        "likely_overlap_with_foundation_ci": true,
+        "conflict_level": "medium",
+        "conflict_reasons": [
+          "existing_pr_backend_test_overlap",
+          "existing_push_trigger_present"
+        ],
+        "recommended_action": "review_overlap_before_enablement",
+        "warnings": [
+          "yaml_text_heuristic_analysis_used"
+        ],
+        "errors": []
+      },
+      {
+        "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml",
+        "exists": true,
+        "parsed": true,
+        "trigger_summary": {
+          "pull_request": true,
+          "push": true,
+          "schedule": false,
+          "workflow_dispatch": false
+        },
+        "job_count": 5,
+        "runs_pytest": false,
+        "touches_foundation_or_audit": false,
+        "likely_overlap_with_foundation_ci": false,
+        "conflict_level": "low",
+        "conflict_reasons": [
+          "existing_push_trigger_present",
+          "existing_workflow_secret_reference_or_literal"
+        ],
+        "recommended_action": "no_blocking_conflict_detected",
+        "warnings": [
+          "yaml_text_heuristic_analysis_used"
+        ],
+        "errors": []
+      }
+    ],
+    "workflow_discovery": {
+      "workflows": [
+        "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+        "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml"
+      ],
+      "workflow_count": 2,
+      "warnings": [],
+      "errors": []
+    },
+    "enablement_checks": {
+      "checks": [
+        {
+          "check_id": "check_disabled_draft_valid",
+          "check_type": "disabled_workflow_draft_valid",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "low",
+          "description": "R241-16C disabled draft validation is valid.",
+          "evidence_refs": [
+            "R241-16C_DISABLED_WORKFLOW_DRAFT_PLAN.json"
+          ],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_local_ci_plan_only",
+          "check_type": "local_ci_plan_only_valid",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "low",
+          "description": "R241-16B local CI plan-only is available.",
+          "evidence_refs": [
+            "scripts/ci_foundation_check.py"
+          ],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_optional_safety_execute",
+          "check_type": "optional_safety_execute_smoke_passed",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "low",
+          "description": "Latest R241-16B optional safety execute smoke passed.",
+          "evidence_refs": [
+            "R241-16B_LOCAL_CI_DRYRUN_REPORT.md"
+          ],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_fast_threshold",
+          "check_type": "fast_stage_runtime_under_threshold",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "low",
+          "description": "R241-15F fast baseline is under threshold.",
+          "evidence_refs": [
+            "R241-15F_CI_MATRIX_REPORT.md"
+          ],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_safety_threshold",
+          "check_type": "safety_stage_runtime_under_threshold",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "low",
+          "description": "R241-15F safety baseline is under threshold.",
+          "evidence_refs": [
+            "R241-15F_CI_MATRIX_REPORT.md"
+          ],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_secret",
+          "check_type": "no_secret_refs",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Workflow draft forbids secret refs.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_network",
+          "check_type": "no_network_or_webhook",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Workflow draft forbids network/webhook calls.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_runtime_write",
+          "check_type": "no_runtime_write",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Workflow draft forbids runtime writes.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_audit_jsonl_write",
+          "check_type": "no_audit_jsonl_write",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Artifact policy excludes audit_trail JSONL.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_action_queue_write",
+          "check_type": "no_action_queue_write",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Workflow draft forbids action queue writes.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_auto_fix",
+          "check_type": "no_auto_fix",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Workflow draft forbids auto-fix.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_artifact_policy",
+          "check_type": "artifact_policy_excludes_sensitive_paths",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Artifact policy excludes secrets/runtime/action queue/audit_trail JSONL.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_path_compatibility",
+          "check_type": "path_compatibility_report_only_or_accepted",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "medium",
+          "description": "Path inconsistency is report-only and requires explicit acceptance before enablement.",
+          "evidence_refs": [
+            "R241-16A_CI_IMPLEMENTATION_REPORT.md"
+          ],
+          "required_before_enablement": [
+            "Accept collect-both temporary path strategy."
+          ],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_existing_workflows",
+          "check_type": "existing_workflow_compatibility_reviewed",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "medium",
+          "description": "Existing workflows are reviewed for overlap before enablement.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_rollback",
+          "check_type": "rollback_plan_exists",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Rollback plan exists.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_manual_confirmation",
+          "check_type": "manual_confirmation_phrase_required",
+          "status": "passed",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Manual confirmation phrase is required before enablement.",
+          "evidence_refs": [],
+          "required_before_enablement": [],
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        }
+      ],
+      "check_count": 16,
+      "warnings": [],
+      "errors": []
+    },
+    "artifact_policy_check": {
+      "artifact_specs": [
+        {
+          "artifact_spec_id": "art_spec_foundation_reports",
+          "artifact_type": "foundation_audit_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit",
+            "backend\\migration_reports\\foundation_audit"
+          ],
+          "destination_name": "foundation_audit_reports",
+          "include_patterns": [
+            "*.json",
+            "*.md"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/*.jsonl",
+            "**/runtime/**",
+            "**/action_queue/**",
+            "**/.secret/**",
+            "**/webhook_url*",
+            "**/*token*",
+            "**/*secret*"
+          ],
+          "retention_days": 30,
+          "path_inconsistency_handling": "collect_both_report_warning",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "primary path: migration_reports\\foundation_audit",
+            "secondary path: backend\\migration_reports\\foundation_audit",
+            "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_ci_matrix",
+          "artifact_type": "ci_matrix_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit"
+          ],
+          "destination_name": "ci_matrix_reports",
+          "include_patterns": [
+            "R241-15*",
+            "R241-16*"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 90,
+          "path_inconsistency_handling": "primary_only",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_pytest_logs",
+          "artifact_type": "pytest_log",
+          "source_paths": [],
+          "destination_name": "pytest_logs",
+          "include_patterns": [
+            "**/pytest.log",
+            "**/.pytest_cache/**",
+            "**/tmp/**/pytest*.log"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/**"
+          ],
+          "retention_days": 7,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "pytest logs are temp — only collect if explicitly enabled"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_junit_xml",
+          "artifact_type": "junit_xml",
+          "source_paths": [],
+          "destination_name": "junit_reports",
+          "include_patterns": [
+            "**/junit*.xml",
+            "**/test-results/**/*.xml"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 14,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "junit xml is optional — requires --junit-xml flag in pytest command"
+          ],
+          "errors": []
+        }
+      ],
+      "spec_count": 4,
+      "primary_report_path": "migration_reports\\foundation_audit",
+      "secondary_report_path": "backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "path_inconsistency_action": "report_only_no_migration_no_deletion"
+    },
+    "path_compatibility_check": {
+      "path_compatibility_policy_id": "R241-16A_path_compatibility",
+      "generated_at": "2026-04-25T23:53:43.186757+00:00",
+      "primary_report_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+      "secondary_report_path": "E:\\OpenClaw-Base\\deerflow\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "action_now": "report_only",
+      "future_options": [
+        "unify_report_root_under_migration_reports_only",
+        "add_compatibility_note_in_ci_config",
+        "migrate_old_backend_reports_in_phase_6",
+        "ci_collect_both_paths_temporarily"
+      ],
+      "migration_allowed_now": false,
+      "deletion_allowed_now": false,
+      "rewriting_allowed_now": false,
+      "warnings": [
+        "No migration, deletion, or rewriting in this phase",
+        "CI should collect from both paths when both exist",
+        "Future Phase 6 will address path cleanup"
+      ],
+      "errors": []
+    },
+    "threshold_policy_check": {
+      "threshold_policy_id": "R241-16A_threshold_policy",
+      "generated_at": "2026-04-25T23:53:43.186777+00:00",
+      "foundation_fast_warning_threshold_seconds": 30,
+      "foundation_fast_blocker_threshold_seconds": 60,
+      "audit_fast_warning_threshold_seconds": 15,
+      "audit_fast_blocker_threshold_seconds": 30,
+      "slow_suite_warning_threshold_seconds": 60,
+      "slow_suite_blocker_threshold_seconds": 120,
+      "safety_suite_warning_threshold_seconds": 10,
+      "safety_suite_blocker_threshold_seconds": 20,
+      "collect_only_warning_threshold_seconds": 10,
+      "collect_only_blocker_threshold_seconds": 20,
+      "failure_handling": {
+        "smoke_failure": "pr_warning_only",
+        "fast_failure": "pr_block",
+        "safety_failure": "pr_block",
+        "slow_failure": "create_stabilization_ticket_warning",
+        "full_failure": "manual_review_required"
+      },
+      "warning_handling": {
+        "fast_warning": "log_and_warn_pr_comment",
+        "slow_warning": "log_and_create_stabilization_ticket",
+        "safety_warning": "log_and_notify_channel"
+      },
+      "warn_does_not_block_pr_unless_configured": true,
+      "blocker_blocks_pr_for_pr_blocking_stages": true,
+      "slow_warning_creates_stabilization_ticket_not_auto_fix": true,
+      "warnings": [],
+      "errors": []
+    },
+    "rollback_plan": {
+      "rollback_plan_id": "R241-16D_rollback_plan",
+      "rollback_modes": [
+        "disable_workflow",
+        "revert_workflow_file",
+        "remove_pr_trigger",
+        "manual_revert_only"
+      ],
+      "rollback_steps": [
+        "Disable workflow trigger or set jobs to if: ${{ false }}.",
+        "Remove pull_request trigger if it was added.",
+        "Revert workflow file to disabled draft state.",
+        "Use scripts/ci_foundation_check.py as local fallback.",
+        "Validate rollback with local plan-only smoke and workflow trigger scan."
+      ],
+      "owner_action_required": true,
+      "expected_recovery_time": "< 30 minutes",
+      "rollback_risks": [
+        "branch protection may cache required checks until GitHub settings are updated"
+      ],
+      "validation_after_rollback": [
+        "No pull_request/push/schedule trigger remains enabled.",
+        "Fast and safety local dry-run remains available.",
+        "No runtime rollback required because workflow must not write runtime."
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "manual_confirmation_requirements": {
+      "confirmation_phrase": "CONFIRM_ENABLE_FOUNDATION_FAST_SAFETY_CI",
+      "requirements": [
+        "fast + safety will become PR blocking",
+        "slow remains non-blocking for PR",
+        "full remains manual-only",
+        "no secrets",
+        "no network",
+        "no runtime writes",
+        "no auto-fix",
+        "artifact collection excludes sensitive paths",
+        "path inconsistency strategy accepted"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "implementation_options": [
+      {
+        "option_id": "option_a",
+        "name": "Keep Disabled Draft Only",
+        "description": "Do not enable workflow; keep report-only draft.",
+        "scope": "unknown",
+        "risk_level": "low"
+      },
+      {
+        "option_id": "option_b",
+        "name": "Manual Dispatch Dry-run",
+        "description": "Create or enable manual-only workflow with guarded jobs, no PR blocking.",
+        "scope": "smoke_warning_only",
+        "risk_level": "medium"
+      },
+      {
+        "option_id": "option_c",
+        "name": "PR Blocking Fast + Safety",
+        "description": "Enable pull_request trigger for fast + safety only; slow/full remain non-blocking.",
+        "scope": "fast_and_safety",
+        "risk_level": "high"
+      },
+      {
+        "option_id": "option_d",
+        "name": "Two-step Rollout",
+        "description": "First manual dispatch dry-run, then PR blocking fast+safety after confirmation.",
+        "scope": "fast_and_safety",
+        "risk_level": "medium"
+      }
+    ],
+    "recommended_option": "option_d",
+    "recommendation_reason": "conservative two-step rollout",
+    "network_recommended": false,
+    "runtime_write_recommended": false,
+    "secret_read_recommended": false,
+    "auto_fix_recommended": false,
+    "workflow_created": false,
+    "trigger_enabled": false,
+    "warnings": [
+      "path_inconsistency_requires_explicit_acceptance"
+    ],
+    "errors": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-25T23:53:43.186820+00:00"
+  },
+  "generated_at": "2026-04-25T23:53:43.186823+00:00"
+}

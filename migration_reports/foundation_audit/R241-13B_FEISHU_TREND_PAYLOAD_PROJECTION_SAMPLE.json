@@ -1,0 +1,279 @@
+{
+  "feishu_trend_payload_projection": {
+    "payload_id": "feishu_trend_payload_0f2bedb72270",
+    "generated_at": "2026-04-25T05:53:32.586808+00:00",
+    "status": "projection_only",
+    "title": "Nightly Trend Summary Dry-run",
+    "template": "blue",
+    "source_trend_report_id": "nightly_trend_report_302e762409c9",
+    "source_window": "all_available",
+    "source_record_count": 18,
+    "regression_count": 2,
+    "by_severity": {
+      "medium": 2
+    },
+    "sections": [
+      {
+        "section_id": "feishu_trend_section_5aa48b96d926",
+        "section_type": "headline",
+        "title": "Nightly Trend Summary",
+        "content": "Nightly Trend Dry-run [all_available] status=ok records=18",
+        "severity": null,
+        "items": [],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_db2434e17457",
+        "section_type": "trend_overview",
+        "title": "Trend Overview",
+        "content": "Window=all_available, 18 records, 12 series, 2 regressions",
+        "severity": null,
+        "items": [
+          {
+            "label": "window",
+            "value": "all_available"
+          },
+          {
+            "label": "records_analyzed",
+            "value": "18"
+          },
+          {
+            "label": "series_count",
+            "value": "12"
+          },
+          {
+            "label": "regression_signals",
+            "value": "2"
+          },
+          {
+            "label": "by_severity",
+            "value": "medium=2"
+          }
+        ],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_42d245c4431c",
+        "section_type": "regression_summary",
+        "title": "Regression Signals (2)",
+        "content": "2 regression signals require operator attention",
+        "severity": null,
+        "items": [
+          {
+            "label": "[MEDIUM] queue_missing_warning_count",
+            "value": "current_value=8.0 action=diagnostic_only"
+          },
+          {
+            "label": "[MEDIUM] unknown_taxonomy_count",
+            "value": "current_value=46.0 action=refine_taxonomy"
+          }
+        ],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_9d7215d0ae5e",
+        "section_type": "guard_summary",
+        "title": "Safety Guard Summary",
+        "content": "Dry-run safety guard results (all checks passed)",
+        "severity": null,
+        "items": [
+          {
+            "label": "audit_jsonl_unchanged",
+            "value": "true"
+          },
+          {
+            "label": "sensitive_output_detected",
+            "value": "false"
+          },
+          {
+            "label": "network_call_detected",
+            "value": "false"
+          },
+          {
+            "label": "auto_fix_detected",
+            "value": "false"
+          },
+          {
+            "label": "runtime_write_detected",
+            "value": "false"
+          }
+        ],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_755ae9ee0a36",
+        "section_type": "artifact_links",
+        "title": "Report Artifacts",
+        "content": "No artifact bundle provided",
+        "severity": null,
+        "items": [],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_c833ae5f112c",
+        "section_type": "warnings",
+        "title": "Warnings (2)",
+        "content": "2 warnings need operator review",
+        "severity": null,
+        "items": [
+          {
+            "label": "audit_jsonl_missing:tool_runtime_projections.jsonl",
+            "value": ""
+          },
+          {
+            "label": "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+            "value": ""
+          }
+        ],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_2678080f31e4",
+        "section_type": "next_step",
+        "title": "Recommended Next Steps",
+        "content": "1. Review regression signals above\n2. Run diagnostic commands for affected components\n3. No auto-fix will be applied automatically",
+        "severity": null,
+        "items": [],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "feishu_trend_section_d65f696234cb",
+        "section_type": "safety_notice",
+        "title": "Safety Notice — Projection Only",
+        "content": "This payload is generated by a dry-run projection. send_allowed=false, no webhook call, no runtime write, no auto-fix. No Feishu message will be sent automatically.",
+        "severity": "info",
+        "items": [],
+        "source_metric_names": [],
+        "source_regression_ids": [],
+        "warnings": []
+      }
+    ],
+    "card_json": {
+      "config": {
+        "wide_screen_mode": true
+      },
+      "header": {
+        "title": {
+          "tag": "plain_text",
+          "content": "Nightly Trend Summary Dry-run"
+        },
+        "template": "blue"
+      },
+      "elements": [
+        {
+          "tag": "markdown",
+          "content": "**Nightly Trend Summary**\nNightly Trend Dry-run [all_available] status=ok records=18"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Trend Overview**\n- window: `all_available`\n- records_analyzed: `18`\n- series_count: `12`\n- regression_signals: `2`\n- by_severity: `medium=2`"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Regression Signals (2)**\n- [MEDIUM] queue_missing_warning_count: `current_value=8.0 action=diagnostic_only`\n- [MEDIUM] unknown_taxonomy_count: `current_value=46.0 action=refine_taxonomy`"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Safety Guard Summary**\n- ✅ audit_jsonl_unchanged: `true`\n- ⚠️ sensitive_output_detected: `false`\n- ⚠️ network_call_detected: `false`\n- ⚠️ auto_fix_detected: `false`\n- ⚠️ runtime_write_detected: `false`"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Report Artifacts**\n_No artifacts available_"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Warnings (2)**\n- audit_jsonl_missing:tool_runtime_projections.jsonl\n- audit_jsonl_missing:mode_callgraph_projections.jsonl"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Recommended Next Steps**\n1. Review regression signals above\n2. Run diagnostic commands for affected components\n3. No auto-fix will be applied automatically"
+        },
+        {
+          "tag": "markdown",
+          "content": "🛡️ **Safety Notice — Projection Only**\nThis payload is generated by a dry-run projection. send_allowed=false, no webhook call, no runtime write, no auto-fix. No Feishu message will be sent automatically."
+        }
+      ],
+      "_safety": {
+        "projection_only": true,
+        "send_allowed": false,
+        "no_network_call": true,
+        "no_runtime_write": true,
+        "no_action_queue_write": true,
+        "no_auto_fix": true
+      }
+    },
+    "send_permission": "projection_only",
+    "send_allowed": false,
+    "webhook_required": true,
+    "no_webhook_call": true,
+    "no_runtime_write": true,
+    "no_action_queue_write": true,
+    "no_auto_fix": true,
+    "warnings": [
+      "artifact_bundle_not_provided",
+      "audit_jsonl_missing:tool_runtime_projections.jsonl",
+      "audit_jsonl_missing:mode_callgraph_projections.jsonl"
+    ],
+    "errors": [],
+    "validation": {
+      "validation_id": "feishu_trend_validation_e19268de1398",
+      "valid": true,
+      "status": "projection_only",
+      "send_allowed_is_false": true,
+      "no_webhook_call_is_true": true,
+      "no_runtime_write_is_true": true,
+      "no_action_queue_write_is_true": true,
+      "no_auto_fix_is_true": true,
+      "sensitive_content_detected": false,
+      "line_count_changed": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": [],
+      "validated_at": "2026-04-25T05:53:32.587383+00:00"
+    }
+  },
+  "validation": {
+    "validation_id": "feishu_trend_validation_e19268de1398",
+    "valid": true,
+    "status": "projection_only",
+    "send_allowed_is_false": true,
+    "no_webhook_call_is_true": true,
+    "no_runtime_write_is_true": true,
+    "no_action_queue_write_is_true": true,
+    "no_auto_fix_is_true": true,
+    "sensitive_content_detected": false,
+    "line_count_changed": false,
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-25T05:53:32.587383+00:00"
+  },
+  "source_trend_summary": {},
+  "guard_summary": {
+    "audit_jsonl_unchanged": true,
+    "sensitive_output_detected": false,
+    "network_call_detected": false,
+    "auto_fix_detected": false,
+    "runtime_write_detected": false
+  },
+  "generated_at": "2026-04-25T05:53:32.587423+00:00",
+  "warnings": [
+    "artifact_bundle_not_provided",
+    "audit_jsonl_missing:tool_runtime_projections.jsonl",
+    "audit_jsonl_missing:mode_callgraph_projections.jsonl"
+  ]
+}

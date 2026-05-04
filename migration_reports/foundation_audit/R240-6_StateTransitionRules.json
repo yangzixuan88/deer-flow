@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-6_StateTransitionRules.json",
+  "title": "StateTransitionRules",
+  "description": "Rules for which state values are terminal, intermediate, neutral, or error. Defines which states enter governance and nightly review.",
+  "state_systems": [
+    {
+      "state_system": "gateway_run",
+      "state_domain": "gateway_run",
+      "status_enum": "RunStatus",
+      "values": [
+        {"value": "pending", "category": "pending", "terminal": false, "enters_governance": false, "enters_nightly_review": false, "note": "Initial state on run creation"},
+        {"value": "running", "category": "intermediate", "terminal": false, "enters_governance": false, "enters_nightly_review": false, "note": "Agent actively executing"},
+        {"value": "success", "category": "terminal", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Run completed normally. Not equivalent to task success in M04."},
+        {"value": "error", "category": "error", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Run failed with exception. Tool failures may flow through LearningMiddleware separately."},
+        {"value": "timeout", "category": "error", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Run exceeded recursion limit or timeout."},
+        {"value": "interrupted", "category": "neutral", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Client disconnected with cancel-on-disconnect policy."}
+      ],
+      "terminal_states": ["success", "error", "timeout", "interrupted"],
+      "error_states": ["error", "timeout"],
+      "neutral_states": ["interrupted"],
+      "key_rule": "RunStatus is internal to Gateway/DeerFlow. It does NOT automatically write governance outcomes. Tool failures within the run flow through LearningMiddleware separately."
+    },
+    {
+      "state_system": "m04_task",
+      "state_domain": "m04_task",
+      "status_enum": "TaskStatus",
+      "values": [
+        {"value": "pending", "category": "pending", "terminal": false, "enters_governance": false, "enters_nightly_review": false},
+        {"value": "in_progress", "category": "intermediate", "terminal": false, "enters_governance": false, "enters_nightly_review": false},
+        {"value": "completed", "category": "terminal", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "All DAG nodes succeeded. Not equivalent to RunStatus.success."},
+        {"value": "failed", "category": "error", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Node failed after exhausting retries. Tool failures may flow through LearningMiddleware."},
+        {"value": "cancelled", "category": "neutral", "terminal": true, "enters_governance": false, "enters_nightly_review": false}
+      ],
+      "terminal_states": ["completed", "failed", "cancelled"],
+      "error_states": ["failed"],
+      "neutral_states": ["cancelled"],
+      "key_rule": "TaskStatus is orthogonal to RunStatus. M04 task failure does NOT directly write governance. Tool call failures inside DAG nodes flow through LearningMiddleware."
+    },
+    {
+      "state_system": "m04_node",
+      "state_domain": "m04_node",
+      "status_enum": "NodeExecutionStatus",
+      "values": [
+        {"value": "pending", "category": "pending", "terminal": false, "enters_governance": false},
+        {"value": "queued", "category": "intermediate", "terminal": false, "enters_governance": false},
+        {"value": "running", "category": "intermediate", "terminal": false, "enters_governance": false},
+        {"value": "completed", "category": "terminal", "terminal": true, "enters_governance": false},
+        {"value": "failed", "category": "error", "terminal": true, "enters_governance": false, "note": "Node failed -- may trigger retry up to 3 times."},
+        {"value": "skipped", "category": "neutral", "terminal": true, "enters_governance": false, "note": "Node skipped due to conditional logic."},
+        {"value": "timeout", "category": "error", "terminal": true, "enters_governance": false}
+      ],
+      "terminal_states": ["completed", "failed", "skipped", "timeout"],
+      "error_states": ["failed", "timeout"],
+      "neutral_states": ["skipped"]
+    },
+    {
+      "state_system": "sandbox_queue_task",
+      "state_domain": "experiment_queue_task",
+      "status_enum": "ExperimentTask.status",
+      "values": [
+        {"value": "pending", "category": "pending", "terminal": false, "enters_governance": false, "enters_nightly_review": false},
+        {"value": "running", "category": "intermediate", "terminal": false, "enters_governance": false, "enters_nightly_review": false},
+        {"value": "completed", "category": "terminal", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Verify script exited with code 0. Does NOT mean execution_status=success."},
+        {"value": "failed", "category": "error", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "Verify script exited non-zero. Maps to execution_status=failed or failed_no_rollback."}
+      ],
+      "terminal_states": ["completed", "failed"],
+      "error_states": ["failed"],
+      "key_rule": "CRITICAL: task.status=completed is NOT the same as execution_status=success. task.status=completed means verify script exited 0. execution_status is derived separately and is the TRUE truth signal.",
+      "critical_gap": "The queue task status is purely operational. Truth backflow happens separately via sandbox_execution_result."
+    },
+    {
+      "state_system": "sandbox_execution",
+      "state_domain": "sandbox_execution",
+      "status_enum": "sandbox_execution_result.context.execution_status",
+      "values": [
+        {"value": "success", "category": "terminal", "terminal": true, "enters_governance": true, "truth_type": "actual_outcome", "enters_nightly_review": true, "note": "verify_exit_code==0 AND rollback not invoked. Binary actual=1.0."},
+        {"value": "failed", "category": "error", "terminal": true, "enters_governance": true, "truth_type": "actual_outcome", "enters_nightly_review": true, "note": "verify_exit_code!=0 AND rollback invoked. Binary actual=0.0."},
+        {"value": "failed_no_rollback", "category": "error", "terminal": true, "enters_governance": true, "truth_type": "actual_outcome", "enters_nightly_review": true, "note": "verify_exit_code!=0 AND no rollback script. actual=0.0. Highest risk signal."}
+      ],
+      "terminal_states": ["success", "failed", "failed_no_rollback"],
+      "error_states": ["failed", "failed_no_rollback"],
+      "key_rule": "execution_status is the AUTHORITATIVE truth signal for sandbox. It is derived from verify_exit_code and rollback_invoked. queue task.status is purely operational."
+    },
+    {
+      "state_system": "rtcm_project",
+      "state_domain": "rtcm_project",
+      "status_enum": "ProjectStatus",
+      "values": [
+        {"value": "ACTIVE", "category": "intermediate", "terminal": false, "enters_governance": false, "enters_nightly_review": false, "note": "Council deliberating. ModeRouter must be aware."},
+        {"value": "PAUSED", "category": "neutral", "terminal": false, "enters_governance": false, "enters_nightly_review": false, "note": "Explicit pause. WAITING_FOR_USER is different."},
+        {"value": "WAITING_FOR_USER", "category": "pending", "terminal": false, "enters_governance": false, "enters_nightly_review": false, "note": "Council reached verdict, awaiting user acceptance. NOT terminal. DO NOT confuse with PAUSED."},
+        {"value": "ARCHIVED", "category": "terminal", "terminal": true, "enters_governance": false, "enters_nightly_review": true, "note": "Session complete. Dossier persisted."},
+        {"value": "FAILED_RECOVERABLE", "category": "error", "terminal": false, "enters_governance": false, "enters_nightly_review": false, "note": "Retry possible."},
+        {"value": "FAILED_TERMINAL", "category": "error", "terminal": true, "enters_governance": false, "enters_nightly_review": true}
+      ],
+      "terminal_states": ["ARCHIVED", "FAILED_TERMINAL"],
+      "error_states": ["FAILED_RECOVERABLE", "FAILED_TERMINAL"],
+      "neutral_states": ["PAUSED"],
+      "pending_states": ["WAITING_FOR_USER"],
+      "key_rule": "WAITING_FOR_USER is NOT terminal. It means the system needs an external human decision. This is distinct from PAUSED."
+    },
+    {
+      "state_system": "rtcm_session",
+      "state_domain": "rtcm_session",
+      "status_enum": "SessionStatus",
+      "values": [
+        {"value": "init", "category": "pending", "terminal": false},
+        {"value": "issue_definition", "category": "intermediate", "terminal": false},
+        {"value": "debate", "category": "intermediate", "terminal": false},
+        {"value": "solution_convergence", "category": "intermediate", "terminal": false},
+        {"value": "execution", "category": "intermediate", "terminal": false},
+        {"value": "validation", "category": "intermediate", "terminal": false},
+        {"value": "archived", "category": "terminal", "terminal": true},
+        {"value": "reopen", "category": "pending", "terminal": false}
+      ],
+      "terminal_states": ["archived"],
+      "key_rule": "Per-round session state. Multiple rounds can happen within one project."
+    },
+    {
+      "state_system": "watchdog_health",
+      "state_domain": "watchdog_health",
+      "status_enum": "queue_health_signal.context.status",
+      "values": [
+        {"value": "healthy", "category": "neutral", "terminal": false, "enters_governance": false, "enters_nightly_review": true},
+        {"value": "backlog", "category": "neutral", "terminal": false, "enters_governance": false, "enters_nightly_review": true},
+        {"value": "empty", "category": "neutral", "terminal": false, "enters_governance": false, "enters_nightly_review": true},
+        {"value": "stale", "category": "error", "terminal": false, "enters_governance": false, "enters_nightly_review": true, "note": "Pending tasks older than threshold. Alert signal."}
+      ],
+      "terminal_states": [],
+      "error_states": ["stale"],
+      "key_rule": "queue_health_signal is an observation STATE, not a truth event. Does not enter governance success_rate. Enters nightly_review."
+    },
+    {
+      "state_system": "governance_decision",
+      "state_domain": "governance_decision",
+      "status_enum": "GovernanceDecisionRecord.layer",
+      "values": [
+        {"value": "meta_governance", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "epistemic", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "stakeholder", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "foresight", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "reputation", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "norm", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "doctrine", "category": "neutral", "terminal": false, "enters_governance": true},
+        {"value": "outcome_record", "category": "neutral", "terminal": false, "enters_governance": true, "note": "This is an outcome OBSERVATION, not a governance decision. Layer name is misleading."}
+      ],
+      "terminal_states": [],
+      "key_rule": "All governance layers are append-only. No terminal states. outcome_record layer is misnamed -- it's not a decision, it's a learning signal observation."
+    },
+    {
+      "state_system": "memory_update",
+      "state_domain": "memory_update",
+      "status_enum": "none (implicit)",
+      "values": [
+        {"value": "success", "category": "neutral", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "MemoryUpdater.save() returned True. Not a truth event."},
+        {"value": "failure", "category": "error", "terminal": true, "enters_governance": false, "enters_nightly_review": false, "note": "MemoryUpdater.save() failed. Not written to governance."}
+      ],
+      "terminal_states": ["success", "failure"],
+      "key_rule": "Memory updates are pure STATE operations, not truth events. No governance outcome_type for memory updates."
+    }
+  ],
+  "terminal_state_definition": {
+    "description": "States marked terminal cannot transition to any other state. They are the final recorded state.",
+    "terminal_criteria": [
+      "RunStatus: success/error/timeout/interrupted",
+      "TaskStatus: completed/failed/cancelled",
+      "NodeExecutionStatus: completed/failed/skipped/timeout",
+      "ExperimentTask.status: completed/failed",
+      "sandbox execution_status: success/failed/failed_no_rollback",
+      "RTCM ProjectStatus: ARCHIVED/FAILED_TERMINAL",
+      "RTCM SessionStatus: archived"
+    ]
+  },
+  "error_state_definition": {
+    "description": "Error states indicate something went wrong. They enter nightly_review for analysis.",
+    "error_criteria": [
+      "RunStatus: error, timeout",
+      "TaskStatus: failed",
+      "NodeExecutionStatus: failed, timeout",
+      "ExperimentTask.status: failed",
+      "sandbox execution_status: failed, failed_no_rollback",
+      "RTCM ProjectStatus: FAILED_RECOVERABLE, FAILED_TERMINAL",
+      "queue_health_signal.status: stale"
+    ]
+  },
+  "truth_entrance_rules": {
+    "description": "Which states produce governance TruthEvents. Only actual_outcome and approval_decision truth_types enter governance success_rate computation.",
+    "governance_truth_producers": [
+      {"source": "sandbox_execution_result", "truth_type": "actual_outcome", "trigger": "execution_status assigned"},
+      {"source": "tool_execution", "truth_type": "actual_outcome", "trigger": "tool call completed"},
+      {"source": "tool_execution_uef", "truth_type": "actual_outcome", "trigger": "UEF hook called"},
+      {"source": "asset_promotion", "truth_type": "actual_outcome", "trigger": "bind_platform succeeded"},
+      {"source": "upgrade_center_approval_result", "truth_type": "approval_decision", "trigger": "human approved/rejected"},
+      {"source": "upgrade_center_execution_result", "truth_type": "actual_outcome", "trigger": "UC execution completed"}
+    ],
+    "NOT_enter_governance": [
+      "RunStatus (internal only)",
+      "TaskStatus (tool failures flow through LearningMiddleware separately)",
+      "NodeExecutionStatus",
+      "ExperimentTask.status (operational queue state)",
+      "queue_health_signal (observation, not truth)",
+      "nightly_evolution (observation, hardcoded actual/predicted)",
+      "doctrine_drift_detected (observation)"
+    ]
+  },
+  "nightly_review_eligible": {
+    "description": "States and events that enter nightly_review for systemic analysis.",
+    "eligible": [
+      "ALL terminal states (success, error, completed, failed, archived)",
+      "observation_signal outcomes (nightly_evolution, doctrine_drift_detected)",
+      "queue_health_signal (any status)",
+      "sandbox_execution_result (all execution_status values)",
+      "rtcm_dossier (archived projects only)",
+      "memory_storage (all agent memories)"
+    ]
+  }
+}

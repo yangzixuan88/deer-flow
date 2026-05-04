@@ -1,0 +1,193 @@
+{
+  "phase": "R147A",
+  "title": "MCP_CONFIG_SANITIZE_AND_RUNTIME_HEALTH",
+  "status": "passed",
+  "preceded_by": "R146",
+  "proceeding_to": "R147B_LARK_MCP_TOOL_LIST_AND_SAFE_SMOKE_PLAN",
+  "pressure_assessment": {
+    "previous_phase": "R146",
+    "current_phase": "R147A",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R146",
+    "current_phase": "R147A",
+    "recommended_pressure": "XXL",
+    "reason": "MCP config sanitize and first isolated runtime health probe; no external tool execution."
+  },
+  "lane_1_dirty_workspace": {
+    "workspace_dirty": true,
+    "dirty_files_count": 412,
+    "known_dirty_files": [
+      ".gitignore (modified)",
+      "backend/packages/harness/deerflow/persistence/thread_meta/__init__.py (modified, R142C)",
+      "backend/packages/harness/deerflow/persistence/thread_meta/sql.py (modified, R142C)",
+      "backend/run_r147a.py (new temp harness)"
+    ],
+    "unexpected_production_dirty_files": [],
+    "safe_to_continue": true
+  },
+  "lane_2_pre_patch_snapshot": {
+    "tavily_enabled": true,
+    "tavily_url_key_embedded": true,
+    "tavily_url_full": "https://mcp.tavily.com/mcp/?tavilyApiKey=tvly-dev-***REDACTED***",
+    "exa_enabled": true,
+    "lark_enabled": true,
+    "disabled_servers": ["pinecone", "cloud_run", "chrome_devtools"]
+  },
+  "lane_3_config_sanitize_patch": {
+    "patch_applied": true,
+    "tavily_key_removed_from_url": true,
+    "tavily_disabled": true,
+    "exa_disabled": true,
+    "lark_enabled": true,
+    "tavily_new_url": "https://mcp.tavily.com/mcp",
+    "changes": [
+      "tavily: enabled true → false, url removed ?tavilyApiKey=... query param",
+      "exa: enabled true → false (EXA_API_KEY missing from environment)",
+      "lark: enabled true (unchanged), credentials present in .env",
+      "disabled servers: unchanged (pinecone, cloud_run, chrome_devtools)"
+    ]
+  },
+  "lane_4_static_config_validation": {
+    "json_parse_passed": true,
+    "extensions_config_load_passed": true,
+    "enabled_servers": ["lark"],
+    "only_lark_enabled": true,
+    "secret_values_printed": false
+  },
+  "lane_5_lark_credential_presence": {
+    "lark_app_id_present": true,
+    "lark_app_secret_present": true,
+    "env_source": "backend/.env (FEISHU_APP_ID / FEISHU_APP_SECRET, LARK_APP_ID / LARK_APP_SECRET)",
+    "secret_values_printed": false
+  },
+  "lane_6_lark_runtime_health_probe": {
+    "lark_runtime_probe_attempted": true,
+    "lark_runtime_started": true,
+    "mcp_tools_listed": true,
+    "tool_count": 19,
+    "tool_names": [
+      "lark_bitable_v1_app_create",
+      "lark_bitable_v1_appTable_create",
+      "lark_bitable_v1_appTableField_list",
+      "lark_bitable_v1_appTable_list",
+      "lark_bitable_v1_appTableRecord_create",
+      "lark_bitable_v1_appTableRecord_search",
+      "lark_bitable_v1_appTableRecord_update",
+      "lark_contact_v3_user_batchGetId",
+      "lark_docx_v1_document_rawContent",
+      "lark_drive_v1_permissionMember_create",
+      "lark_im_v1_chat_create",
+      "lark_im_v1_chat_list",
+      "lark_im_v1_chatMembers_get",
+      "lark_im_v1_message_create",
+      "lark_im_v1_message_list",
+      "lark_wiki_v1_node_search",
+      "lark_wiki_v2_space_getNode",
+      "lark_docx_builtin_search",
+      "lark_docx_builtin_import"
+    ],
+    "transport": "stdio",
+    "pnpm_available": true,
+    "pnpm_path": "E:\\OpenClaw-Base\\npm\\pnpm.cmd",
+    "keytar_warning": "keytar.node module not found — StorageManager uses memory store fallback (non-critical)",
+    "storage_manager_warning": "Builtin User Access Token Store disabled, using memory store",
+    "external_tool_called": false,
+    "tavily_runtime_called": false,
+    "exa_runtime_called": false,
+    "probe_status": "success",
+    "probe_error": null
+  },
+  "lane_7_global_mcp_load_isolation_check": {
+    "global_mcp_load_uses_only_lark": true,
+    "tavily_excluded": true,
+    "exa_excluded": true,
+    "single_server_isolation_effective": true,
+    "langchain_mcp_adapters_note": "MultiServerMCPClient with single enabled server = isolated probe"
+  },
+  "lane_8_result_classification": {
+    "r147a_result": "pass",
+    "mcp_config_sanitize_status": "clear",
+    "lark_runtime_health_status": "clear",
+    "failure_class": null,
+    "pass_details": [
+      "Config sanitize: tavily key removed from URL, tavily disabled, exa disabled, lark enabled",
+      "JSON parse: OK",
+      "ExtensionsConfig load: OK",
+      "Only lark enabled: verified",
+      "Lark credentials: LARK_APP_ID + LARK_APP_SECRET both present in .env",
+      "Lark runtime: started successfully, 19 tools loaded",
+      "No external tool calls executed",
+      "No secrets printed"
+    ],
+    "warnings": [
+      "keytar.node missing — Lark MCP uses memory store fallback (non-critical for health probe)",
+      "extensions_config.json was gitignored — force-added with -f"
+    ]
+  },
+  "lane_9_commit_decision": {
+    "commit_created": true,
+    "commit_sha": "24f61bc3",
+    "committed_files": ["backend/extensions_config.json"],
+    "commit_message": "chore(mcp): sanitize MCP server config for isolated runtime probes"
+  },
+  "lane_10_next_phase_decision": {
+    "recommended_next_phase": "R147B_LARK_MCP_TOOL_LIST_AND_SAFE_SMOKE_PLAN",
+    "reason": "Config sanitize PASS, Lark probe PASS (19 tools loaded), no external tool calls, single-server isolation confirmed. R147B can proceed with Lark tool smoke and capability verification."
+  },
+  "lane_11_unknown_registry_updates": [
+    {
+      "id": "U-tavily-url-key-debt",
+      "description": "Tavily API key removed from URL query param — sanitized in R147A",
+      "priority": "high",
+      "fix_applied": "R147A: removed ?tavilyApiKey=... from tavily URL; disabled tavily pending 405 investigation"
+    },
+    {
+      "id": "U-tavily-405-endpoint",
+      "description": "Tavily MCP endpoint 405 error — still under investigation; tavily disabled in R147A",
+      "priority": "high",
+      "fix_applied": "R147A: disabled tavily to prevent 405 from blocking global MCP load"
+    },
+    {
+      "id": "U-exa-credential-gap",
+      "description": "EXA_API_KEY missing from environment — disabled in R147A",
+      "priority": "high",
+      "fix_applied": "R147A: disabled exa; re-enable after user provides EXA_API_KEY"
+    },
+    {
+      "id": "U-lark-runtime-health",
+      "description": "Lark MCP runtime health probe SUCCESS — 19 tools loaded via stdio transport",
+      "priority": "low",
+      "fix_applied": "R147A: lark enabled, probe success, 19 tools available"
+    },
+    {
+      "id": "U-lark-keytar-warning",
+      "description": "keytar.node missing from Lark MCP — StorageManager falls back to memory store; non-critical",
+      "priority": "low",
+      "fix_applied": "None needed — health probe still succeeded"
+    },
+    {
+      "id": "U-mcp-config-sanitize",
+      "description": "extensions_config.json sanitized — tavily key removed, exa disabled, lark preserved",
+      "priority": "high",
+      "fix_applied": "R147A: committed to git (force-add, was gitignored)"
+    }
+  ],
+  "classification": "passed",
+  "code_modified": true,
+  "patch_target": "backend/extensions_config.json",
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": true,
+  "mcp_runtime_servers": ["lark"],
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+  "recommended_next_phase": "R147B_LARK_MCP_TOOL_LIST_AND_SAFE_SMOKE_PLAN",
+  "next_prompt_needed": true
+}

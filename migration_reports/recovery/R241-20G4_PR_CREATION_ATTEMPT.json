@@ -1,0 +1,91 @@
+{
+  "report_id": "R241-20G4_PR_CREATION_ATTEMPT",
+  "phase": "phase_20g4_pr_creation_attempt",
+  "status": "failed_pr_creation_token_insufficient",
+  "decision": "pr_creation_requires_manual_user_action",
+  "source": "R241-20G3_ISOLATED_BRANCH_PUSH_EXECUTION",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "pr_creation_attempt": {
+    "source_branch": "r241/cand017-lead-agent-summarization",
+    "target_branch": "main",
+    "title": "R241-20G3: apply CAND-017 lead agent summarization config",
+    "body_written": true,
+    "gh_pr_create_command_executed": true,
+    "gh_error": "GraphQL: Resource not accessible by personal access token (createPullRequest)",
+    "pr_created": false,
+    "pr_url": null
+  },
+  "manual_pr_creation_required": {
+    "required": true,
+    "url": "https://github.com/yangzixuan88/deer-flow/pull/new/r241/cand017-lead-agent-summarization",
+    "instructions": [
+      "1. Open the URL above",
+      "2. Select target branch: main",
+      "3. Title will auto-fill: R241-20G3: apply CAND-017 lead agent summarization config",
+      "4. Use the PR body from R241-20G4_PR_CREATION_ATTEMPT.md"
+    ]
+  },
+  "execution_results": {
+    "pr_created": false,
+    "pr_url": null,
+    "source_branch": "r241/cand017-lead-agent-summarization",
+    "target_branch": "main",
+    "merge_executed": false,
+    "main_modified": false,
+    "branch_pushed_successfully": true,
+    "branch_url": "https://github.com/yangzixuan88/deer-flow/tree/r241/cand017-lead-agent-summarization"
+  },
+  "hard_prohibitions_check": {
+    "no_merge_executed": true,
+    "no_squash_merge": true,
+    "no_rebase": true,
+    "no_force_push": true,
+    "no_push_main": true,
+    "no_pr_branch_modification": true,
+    "no_dependency_install": true,
+    "no_runtime_activation": true,
+    "no_blocker_override": true,
+    "no_worktree_cleanup": true
+  },
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "main_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "failed_pr_creation_token_insufficient",
+    "decision": "pr_creation_requires_manual_user_action",
+    "pr_created": false,
+    "pr_url": null,
+    "branch_pushed": true,
+    "branch_url": "https://github.com/yangzixuan88/deer-flow/tree/r241/cand017-lead-agent-summarization",
+    "merge_executed": false,
+    "main_modified": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-20G4",
+    "next_prompt_needed": "manual_pr_creation_by_user"
+  }
+}

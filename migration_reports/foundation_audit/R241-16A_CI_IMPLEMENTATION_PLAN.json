@@ -1,0 +1,590 @@
+{
+  "plan_id": "R241-16A_CI_IMPLEMENTATION_PLAN",
+  "generated_at": "2026-04-26T17:03:16.779023+00:00",
+  "status": "design_only",
+  "provider_targets": [
+    "github_actions",
+    "local_script",
+    "generic_ci"
+  ],
+  "stage_specs": {
+    "specs": [
+      {
+        "stage_id": "impl_stage_smoke",
+        "stage_type": "smoke",
+        "name": "Smoke",
+        "description": "Minimal health checks: import, registry, marker, root guard.",
+        "command": "python -m pytest -m smoke -v",
+        "provider_target": "github_actions",
+        "gating_policy": "pr_warning",
+        "expected_runtime_seconds": 60,
+        "warning_threshold_seconds": 45,
+        "blocker_threshold_seconds": null,
+        "required_on_pr": false,
+        "required_on_nightly": false,
+        "produces_artifacts": true,
+        "artifact_types": [
+          "pytest_log"
+        ],
+        "environment_requirements": [],
+        "forbidden_actions": [
+          "network_call",
+          "webhook_call",
+          "runtime_write",
+          "action_queue_write",
+          "auto_fix",
+          "feishu_send",
+          "secret_read",
+          "audit_jsonl_write",
+          "audit_jsonl_delete"
+        ],
+        "marker_expression": "smoke",
+        "warnings": [
+          "smoke stage is pr_warning only — does not block merge"
+        ],
+        "errors": []
+      },
+      {
+        "stage_id": "impl_stage_fast",
+        "stage_type": "fast",
+        "name": "Fast Unit + Fast Integration",
+        "description": "Default local developer regression excluding slow tests. PR blocking.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"not slow\" -v",
+        "provider_target": "github_actions",
+        "gating_policy": "pr_blocking",
+        "expected_runtime_seconds": 30,
+        "warning_threshold_seconds": 30,
+        "blocker_threshold_seconds": 60,
+        "required_on_pr": true,
+        "required_on_nightly": true,
+        "produces_artifacts": true,
+        "artifact_types": [
+          "pytest_log",
+          "coverage_report"
+        ],
+        "environment_requirements": [],
+        "forbidden_actions": [
+          "network_call",
+          "webhook_call",
+          "runtime_write",
+          "action_queue_write",
+          "auto_fix",
+          "feishu_send",
+          "secret_read",
+          "audit_jsonl_write",
+          "audit_jsonl_delete"
+        ],
+        "marker_expression": "not slow",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "stage_id": "impl_stage_safety",
+        "stage_type": "safety",
+        "name": "Safety Boundaries",
+        "description": "Run no_network / no_runtime_write / no_secret boundaries independently. PR blocking.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v",
+        "provider_target": "github_actions",
+        "gating_policy": "pr_blocking",
+        "expected_runtime_seconds": 10,
+        "warning_threshold_seconds": 10,
+        "blocker_threshold_seconds": 20,
+        "required_on_pr": true,
+        "required_on_nightly": true,
+        "produces_artifacts": true,
+        "artifact_types": [
+          "pytest_log"
+        ],
+        "environment_requirements": [],
+        "forbidden_actions": [
+          "network_call",
+          "webhook_call",
+          "runtime_write",
+          "action_queue_write",
+          "auto_fix",
+          "feishu_send",
+          "secret_read",
+          "audit_jsonl_write",
+          "audit_jsonl_delete"
+        ],
+        "marker_expression": "no_network or no_runtime_write or no_secret",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "stage_id": "impl_stage_slow",
+        "stage_type": "slow",
+        "name": "Slow Integration",
+        "description": "Real boundary, real repo scan, aggregate diagnostic, append/query/trend/Feishu preview smoke. Nightly required, not direct PR block.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+        "provider_target": "github_actions",
+        "gating_policy": "nightly_required",
+        "expected_runtime_seconds": 60,
+        "warning_threshold_seconds": 60,
+        "blocker_threshold_seconds": 120,
+        "required_on_pr": false,
+        "required_on_nightly": true,
+        "produces_artifacts": true,
+        "artifact_types": [
+          "pytest_log",
+          "foundation_audit_report"
+        ],
+        "environment_requirements": [],
+        "forbidden_actions": [
+          "network_call",
+          "webhook_call",
+          "runtime_write",
+          "action_queue_write",
+          "auto_fix",
+          "feishu_send",
+          "secret_read",
+          "audit_jsonl_write",
+          "audit_jsonl_delete"
+        ],
+        "marker_expression": "slow",
+        "warnings": [
+          "slow stage is nightly_required — creates stabilization ticket on warning but does not block PR"
+        ],
+        "errors": []
+      },
+      {
+        "stage_id": "impl_stage_full",
+        "stage_type": "full",
+        "name": "Full Regression",
+        "description": "Pre-release or large-change regression across all foundation surfaces. Manual only.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+        "provider_target": "github_actions",
+        "gating_policy": "manual_only",
+        "expected_runtime_seconds": null,
+        "warning_threshold_seconds": 300,
+        "blocker_threshold_seconds": null,
+        "required_on_pr": false,
+        "required_on_nightly": false,
+        "produces_artifacts": true,
+        "artifact_types": [
+          "pytest_log",
+          "foundation_audit_report",
+          "coverage_report"
+        ],
+        "environment_requirements": [],
+        "forbidden_actions": [
+          "network_call",
+          "webhook_call",
+          "runtime_write",
+          "action_queue_write",
+          "auto_fix",
+          "feishu_send",
+          "secret_read",
+          "audit_jsonl_write",
+          "audit_jsonl_delete"
+        ],
+        "marker_expression": null,
+        "warnings": [
+          "full stage is manual_only — not required on PR or nightly"
+        ],
+        "errors": []
+      },
+      {
+        "stage_id": "impl_stage_collect_only",
+        "stage_type": "collect_only",
+        "name": "Collection Check",
+        "description": "Verify pytest can collect all tests without running them. PR warning.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit --collect-only -q",
+        "provider_target": "github_actions",
+        "gating_policy": "pr_warning",
+        "expected_runtime_seconds": 10,
+        "warning_threshold_seconds": 10,
+        "blocker_threshold_seconds": 20,
+        "required_on_pr": false,
+        "required_on_nightly": false,
+        "produces_artifacts": true,
+        "artifact_types": [
+          "pytest_log"
+        ],
+        "environment_requirements": [],
+        "forbidden_actions": [
+          "network_call",
+          "webhook_call",
+          "runtime_write",
+          "action_queue_write",
+          "auto_fix",
+          "feishu_send",
+          "secret_read",
+          "audit_jsonl_write",
+          "audit_jsonl_delete"
+        ],
+        "marker_expression": null,
+        "warnings": [
+          "collect-only stage is pr_warning only — catches collection errors without running tests"
+        ],
+        "errors": []
+      }
+    ],
+    "stage_count": 6,
+    "fast_pr_blocking": true,
+    "safety_pr_blocking": true,
+    "slow_pr_blocking": false,
+    "full_pr_blocking": false
+  },
+  "artifact_collection_specs": {
+    "artifact_specs": [
+      {
+        "artifact_spec_id": "art_spec_foundation_reports",
+        "artifact_type": "foundation_audit_report",
+        "source_paths": [
+          null,
+          null
+        ],
+        "destination_name": "foundation_audit_reports",
+        "include_patterns": [
+          "*.json",
+          "*.md"
+        ],
+        "exclude_patterns": [
+          "**/audit_trail/*.jsonl",
+          "**/runtime/**",
+          "**/action_queue/**",
+          "**/.secret/**",
+          "**/webhook_url*",
+          "**/*token*",
+          "**/*secret*"
+        ],
+        "retention_days": 30,
+        "path_inconsistency_handling": "collect_both_report_warning",
+        "secrets_allowed": false,
+        "runtime_files_allowed": false,
+        "warnings": [
+          "primary path: not found",
+          "secondary path: not found",
+          "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+        ],
+        "errors": []
+      },
+      {
+        "artifact_spec_id": "art_spec_ci_matrix",
+        "artifact_type": "ci_matrix_report",
+        "source_paths": [
+          null
+        ],
+        "destination_name": "ci_matrix_reports",
+        "include_patterns": [
+          "R241-15*",
+          "R241-16*"
+        ],
+        "exclude_patterns": [],
+        "retention_days": 90,
+        "path_inconsistency_handling": "primary_only",
+        "secrets_allowed": false,
+        "runtime_files_allowed": false,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "artifact_spec_id": "art_spec_pytest_logs",
+        "artifact_type": "pytest_log",
+        "source_paths": [],
+        "destination_name": "pytest_logs",
+        "include_patterns": [
+          "**/pytest.log",
+          "**/.pytest_cache/**",
+          "**/tmp/**/pytest*.log"
+        ],
+        "exclude_patterns": [
+          "**/audit_trail/**"
+        ],
+        "retention_days": 7,
+        "path_inconsistency_handling": "none",
+        "secrets_allowed": false,
+        "runtime_files_allowed": false,
+        "warnings": [
+          "pytest logs are temp — only collect if explicitly enabled"
+        ],
+        "errors": []
+      },
+      {
+        "artifact_spec_id": "art_spec_junit_xml",
+        "artifact_type": "junit_xml",
+        "source_paths": [],
+        "destination_name": "junit_reports",
+        "include_patterns": [
+          "**/junit*.xml",
+          "**/test-results/**/*.xml"
+        ],
+        "exclude_patterns": [],
+        "retention_days": 14,
+        "path_inconsistency_handling": "none",
+        "secrets_allowed": false,
+        "runtime_files_allowed": false,
+        "warnings": [
+          "junit xml is optional — requires --junit-xml flag in pytest command"
+        ],
+        "errors": []
+      }
+    ],
+    "spec_count": 4,
+    "primary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_plan_dry_run_doe0\\migration_reports\\foundation_audit",
+    "secondary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_plan_dry_run_doe0\\backend\\migration_reports\\foundation_audit",
+    "primary_exists": false,
+    "secondary_exists": false,
+    "path_inconsistency": false,
+    "path_inconsistency_action": "report_only_no_migration_no_deletion"
+  },
+  "threshold_policy": {
+    "threshold_policy_id": "R241-16A_threshold_policy",
+    "generated_at": "2026-04-26T17:03:16.779183+00:00",
+    "foundation_fast_warning_threshold_seconds": 30,
+    "foundation_fast_blocker_threshold_seconds": 60,
+    "audit_fast_warning_threshold_seconds": 15,
+    "audit_fast_blocker_threshold_seconds": 30,
+    "slow_suite_warning_threshold_seconds": 60,
+    "slow_suite_blocker_threshold_seconds": 120,
+    "safety_suite_warning_threshold_seconds": 10,
+    "safety_suite_blocker_threshold_seconds": 20,
+    "collect_only_warning_threshold_seconds": 10,
+    "collect_only_blocker_threshold_seconds": 20,
+    "failure_handling": {
+      "smoke_failure": "pr_warning_only",
+      "fast_failure": "pr_block",
+      "safety_failure": "pr_block",
+      "slow_failure": "create_stabilization_ticket_warning",
+      "full_failure": "manual_review_required"
+    },
+    "warning_handling": {
+      "fast_warning": "log_and_warn_pr_comment",
+      "slow_warning": "log_and_create_stabilization_ticket",
+      "safety_warning": "log_and_notify_channel"
+    },
+    "warn_does_not_block_pr_unless_configured": true,
+    "blocker_blocks_pr_for_pr_blocking_stages": true,
+    "slow_warning_creates_stabilization_ticket_not_auto_fix": true,
+    "warnings": [],
+    "errors": []
+  },
+  "path_compatibility_policy": {
+    "path_compatibility_policy_id": "R241-16A_path_compatibility",
+    "generated_at": "2026-04-26T17:03:16.779282+00:00",
+    "primary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_plan_dry_run_doe0\\migration_reports\\foundation_audit",
+    "secondary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_generate_plan_dry_run_doe0\\backend\\migration_reports\\foundation_audit",
+    "primary_exists": false,
+    "secondary_exists": false,
+    "path_inconsistency": false,
+    "action_now": "report_only",
+    "future_options": [
+      "unify_report_root_under_migration_reports_only",
+      "add_compatibility_note_in_ci_config",
+      "migrate_old_backend_reports_in_phase_6",
+      "ci_collect_both_paths_temporarily"
+    ],
+    "migration_allowed_now": false,
+    "deletion_allowed_now": false,
+    "rewriting_allowed_now": false,
+    "warnings": [
+      "No migration, deletion, or rewriting in this phase",
+      "CI should collect from both paths when both exist",
+      "Future Phase 6 will address path cleanup"
+    ],
+    "errors": []
+  },
+  "implementation_phases": {
+    "phases": [
+      {
+        "phase_id": "phase_1",
+        "phase_name": "Design-only Plan",
+        "phase_goal": "Generate CI implementation plan, validate structure, document gating/phases.",
+        "duration_estimate": "Current (R241-16A)",
+        "deliverable": "ci_implementation_plan.py + R241-16A report",
+        "blocks_real_ci": true,
+        "creates_workflow": false,
+        "requires_review": false,
+        "risks": [],
+        "status": "design_only"
+      },
+      {
+        "phase_id": "phase_2",
+        "phase_name": "Local Script Dry-run",
+        "phase_goal": "Create scripts/ci_foundation_check.py local script to mimic CI stages locally.",
+        "duration_estimate": "1 week",
+        "deliverable": "scripts/ci_foundation_check.py",
+        "blocks_real_ci": false,
+        "creates_workflow": false,
+        "requires_review": true,
+        "risks": [
+          "local script may drift from real CI syntax"
+        ],
+        "status": "blocked_needs_confirmation"
+      },
+      {
+        "phase_id": "phase_3",
+        "phase_name": "CI Workflow Draft (disabled)",
+        "phase_goal": "Generate .github/workflows/foundation-check.yml draft, default disabled, no active enforcement.",
+        "duration_estimate": "1 week",
+        "deliverable": ".github/workflows/foundation-check.yml (disabled)",
+        "blocks_real_ci": false,
+        "creates_workflow": true,
+        "requires_review": true,
+        "risks": [
+          "draft workflow may accidentally trigger if not properly disabled"
+        ],
+        "status": "blocked_needs_confirmation"
+      },
+      {
+        "phase_id": "phase_4",
+        "phase_name": "PR Blocking Fast + Safety",
+        "phase_goal": "Enable fast + safety stages as pr_blocking. Smoke + collect-only as pr_warning.",
+        "duration_estimate": "2 days after phase 3",
+        "deliverable": "Workflow with fast/safety enforced",
+        "blocks_real_ci": true,
+        "creates_workflow": true,
+        "requires_review": true,
+        "risks": [
+          "fast threshold may need tuning after baseline stabilizes"
+        ],
+        "status": "blocked_needs_confirmation"
+      },
+      {
+        "phase_id": "phase_5",
+        "phase_name": "Nightly Slow + Full",
+        "phase_goal": "slow/full enter nightly schedule. Not blocking PR.",
+        "duration_estimate": "1 week after phase 4",
+        "deliverable": "Nightly workflow trigger",
+        "blocks_real_ci": true,
+        "creates_workflow": true,
+        "requires_review": true,
+        "risks": [
+          "slow suite runtime may exceed threshold on large changes"
+        ],
+        "status": "blocked_needs_confirmation"
+      },
+      {
+        "phase_id": "phase_6",
+        "phase_name": "Artifact Retention / Report Publishing",
+        "phase_goal": "Implement unified artifact collection, retention policy, report publishing.",
+        "duration_estimate": "1 week",
+        "deliverable": "Artifact retention config + publishing script",
+        "blocks_real_ci": false,
+        "creates_workflow": false,
+        "requires_review": true,
+        "risks": [
+          "path inconsistency may cause duplicate artifact collection"
+        ],
+        "status": "blocked_needs_confirmation"
+      },
+      {
+        "phase_id": "phase_7",
+        "phase_name": "Future Sidecar / Gateway Integration Review",
+        "phase_goal": "Independent review of Feishu sidecar and Gateway CI integration path.",
+        "duration_estimate": "TBD",
+        "deliverable": "Review document only",
+        "blocks_real_ci": false,
+        "creates_workflow": false,
+        "requires_review": true,
+        "risks": [
+          "sidecar integration may require separate CI runner"
+        ],
+        "status": "blocked_needs_confirmation"
+      }
+    ],
+    "phase_count": 7,
+    "current_phase": "phase_1",
+    "next_blocked_phase": "phase_2",
+    "blocking_reason": "Phase 1 is design-only — next phase (phase_2) requires explicit user confirmation to proceed"
+  },
+  "blocked_actions": {
+    "blocked_actions": [
+      {
+        "action": "enabling_real_feishu_send",
+        "blocked": true,
+        "reason": "Feishu send requires explicit opt-in per R241-15F policy",
+        "alternative": "Use dry-run / projection-only mode"
+      },
+      {
+        "action": "network_call",
+        "blocked": true,
+        "reason": "CI stages must not call external services",
+        "alternative": "Use monkeypatched / synthetic fixtures"
+      },
+      {
+        "action": "webhook_call",
+        "blocked": true,
+        "reason": "Webhook calls are forbidden in CI environment",
+        "alternative": "Validate webhook URLs statically without calling"
+      },
+      {
+        "action": "reading_real_secrets",
+        "blocked": true,
+        "reason": "CI should not read real tokens/secrets from environment",
+        "alternative": "Use placeholder values in test fixtures"
+      },
+      {
+        "action": "runtime_write",
+        "blocked": true,
+        "reason": "Runtime state writes are forbidden in CI",
+        "alternative": "Use tmp_path fixture for any file operations"
+      },
+      {
+        "action": "action_queue_write",
+        "blocked": true,
+        "reason": "Action queue writes are forbidden in CI",
+        "alternative": "Validate queue structure without writing"
+      },
+      {
+        "action": "auto_fix",
+        "blocked": true,
+        "reason": "Auto-fix is never executed in CI environment",
+        "alternative": "Detect auto-fix availability but do not execute"
+      },
+      {
+        "action": "gateway_mutation",
+        "blocked": true,
+        "reason": "Gateway state mutations are forbidden in CI",
+        "alternative": "Use read-only diagnostics only"
+      },
+      {
+        "action": "audit_jsonl_overwrite_truncate_delete",
+        "blocked": true,
+        "reason": "Audit JSONL must never be modified by CI stages",
+        "alternative": "Read-only scan is allowed; append is audit-only"
+      },
+      {
+        "action": "deleting_tests",
+        "blocked": true,
+        "reason": "CI must not delete existing tests",
+        "alternative": "Use skip/xfail with explicit justification"
+      },
+      {
+        "action": "skipping_safety_tests",
+        "blocked": true,
+        "reason": "Safety tests (no_network/no_runtime_write/no_secret) must not be skipped",
+        "alternative": "Fix safety test failures rather than skip them"
+      },
+      {
+        "action": "reducing_security_coverage",
+        "blocked": true,
+        "reason": "CI must maintain current security coverage level",
+        "alternative": "Improve coverage through new tests, not reduction"
+      }
+    ],
+    "blocked_count": 12,
+    "warnings": [],
+    "errors": []
+  },
+  "network_call_recommended": false,
+  "runtime_write_recommended": false,
+  "auto_fix_recommended": false,
+  "delete_tests_recommended": false,
+  "skip_safety_tests_recommended": false,
+  "creates_real_workflow": false,
+  "warnings": [],
+  "errors": [],
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [
+      "Artifact spec art_spec_foundation_reports should exclude secret files",
+      "Artifact spec art_spec_ci_matrix should exclude secret files",
+      "Artifact spec art_spec_pytest_logs should exclude secret files",
+      "Artifact spec art_spec_junit_xml should exclude secret files"
+    ],
+    "validated_at": "2026-04-26T17:03:16.779313+00:00"
+  }
+}

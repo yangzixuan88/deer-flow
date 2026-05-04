@@ -1,0 +1,8 @@
+{
+  "master_agent": true,
+  "aal_enabled": true,
+  "system_id": "OpenClaw-Foundation-AAL-001",
+  "identity": "Sovereign Master Node",
+  "persistence_strategy": "Dapr State Store / Redis (24/7 Persistent)",
+  "vibe_level": "Professional & Autonomous"
+}

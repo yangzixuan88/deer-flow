@@ -1,0 +1,457 @@
+{
+  "report_id": "R241-18W_MAINLINE_RESUME_PROPOSAL_STRUCTURAL_VALIDATION",
+  "status": "passed",
+  "decision": "approve_proposal_structural_validation",
+  "source": "R241-18V_MAINLINE_RESUME_BOUNDED_ACTIVATION_PROPOSAL_DRAFT_REVIEW",
+  "phase": "phase_16_mainline_resume_proposal_structural_validation",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18v_passed": true,
+    "proposal_draft_review_passed": true,
+    "proposal_skeleton_valid": true,
+    "forbidden_sections_absent": true,
+    "all_sections_complete": true,
+    "executable": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "allow_enter_r241_18w": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "structural_validation_scope": {
+    "mode": "proposal_structural_validation_only",
+    "proposal_execution_allowed": false,
+    "activation_allowed": false,
+    "authorization_expansion_allowed": false,
+    "blocker_override_allowed": false,
+    "production_code_change_allowed": false,
+    "allowed_scope": [
+      "section graph validation",
+      "internal reference consistency validation",
+      "blocker-precondition consistency validation",
+      "evidence-review-chain consistency validation",
+      "abort-coverage validation",
+      "human approval checkpoint validation",
+      "contradiction scan",
+      "R241-18X readiness assessment"
+    ],
+    "forbidden_scope": [
+      "proposal execution",
+      "actual activation",
+      "authorization expansion",
+      "deed execution",
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "mainline_gateway_activation_allowed=true",
+      "blocker override",
+      "DSRT enabled=true",
+      "implemented_now=true",
+      "adding concrete activation instructions"
+    ]
+  },
+  "validation_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18V carryover",
+      "source_round": "R241-18V",
+      "required_evidence": "R241-18V status=passed, proposal_draft_review_passed=true, proposal_skeleton_valid=true, forbidden_sections_absent=true, all_sections_complete=true, allow_enter_r241_18w=true",
+      "observed_state": "R241-18V JSON confirmed: status=passed, decision=approve_bounded_activation_proposal_draft_review, proposal_draft_review_passed=true, proposal_skeleton_valid=true, forbidden_sections_absent=true, all_sections_complete=true, executable=false, activation_allowed=false, blocker_override_allowed=false, review_objects_A_to_L=12/12 passed, allow_enter_r241_18w=true",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Structural validation scope",
+      "source_round": "R241-18W",
+      "required_evidence": "mode=proposal_structural_validation_only, proposal_execution_allowed=false, activation_allowed=false",
+      "observed_state": "structural_validation_scope defined: mode=proposal_structural_validation_only, proposal_execution_allowed=false, activation_allowed=false, authorization_expansion_allowed=false, blocker_override_allowed=false, production_code_change_allowed=false",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Section graph integrity",
+      "source_round": "R241-18W",
+      "required_evidence": "All 7 required nodes present, all 9 required edges present, graph complete=true",
+      "observed_state": "section_graph_integrity: required_nodes=7 (problem_statement, current_blocker_ledger, preconditions, required_reviews, evidence_requirements, rollback_abort_criteria, human_approval_checkpoints), found_nodes=7, missing_nodes=[], required_edges=9, found_edges=9, missing_edges=[], graph_complete=true. problem_statement->current_blocker_ledger: present, current_blocker_ledger->preconditions: present, current_blocker_ledger->rollback_abort_criteria: present, preconditions->required_reviews: present, preconditions->evidence_requirements: present, preconditions->human_approval_checkpoints: present, evidence_requirements->required_reviews: present (circular), rollback_abort_criteria->current_blocker_ledger: present, human_approval_checkpoints->required_reviews: present.",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Metadata-to-scope consistency",
+      "source_round": "R241-18W",
+      "required_evidence": "proposal_id=DRAFT-PROPOSAL-18U-001, status=draft_skeleton_only, executable=false, activation_allowed=false, all metadata fields consistent with proposal_structural_validation_only scope",
+      "observed_state": "metadata_scope_consistency: proposal_id=DRAFT-PROPOSAL-18U-001 (consistent), status=draft_skeleton_only (consistent), executable=false (consistent, scope.proposal_execution_allowed=false), activation_allowed=false (consistent, scope.activation_allowed=false), authorization_expansion_allowed=false (consistent, scope.authorization_expansion_allowed=false), blocker_override_allowed=false (consistent, scope.blocker_override_allowed=false), metadata_consistent_with_scope=true, inconsistent_fields=[], violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Allowed sections cross-reference consistency",
+      "source_round": "R241-18W",
+      "required_evidence": "Each allowed section referenced by at least one other section, no orphan sections",
+      "observed_state": "allowed_sections_cross_reference: problem_statement->current_blocker_ledger (present), current_blocker_ledger->preconditions (present), current_blocker_ledger->rollback_abort_criteria (present), current_blocker_ledger->human_approval_checkpoints (present), preconditions->required_reviews (present), preconditions->evidence_requirements (present), preconditions->human_approval_checkpoints (present), required_reviews->evidence_requirements (present), required_reviews->human_approval_checkpoints (present), rollback_abort_criteria->current_blocker_ledger (present), human_approval_checkpoints->required_reviews (present). sections_checked=7, orphan_sections=[], weakly_referenced_sections=[], complete=true, warnings=[], violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Forbidden sections structural isolation",
+      "source_round": "R241-18W",
+      "required_evidence": "All 10 forbidden sections absent from proposal content, no indirect forbidden references, no dangerous structural hits",
+      "observed_state": "forbidden_structural_isolation: forbidden_sections_absent=true, concrete_activation_command=absent, gateway_start_command=absent, fastapi_route_registration_patch=absent, memory_runtime_activation_patch=absent, mcp_runtime_activation_patch=absent, feishu_send_command=absent, runtime_write_command=absent, audit_jsonl_write_command=absent, action_queue_write_command=absent, blocker_override_instruction=absent. R241-18V grep scan confirmed 14 hits all explanatory_hit (forbidden_scope lists in JSON), 0 dangerous_hit, 0 forbidden_proposal_hit. indirect_forbidden_references=[], dangerous_hits=[], violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Blocker ledger ↔ preconditions consistency",
+      "source_round": "R241-18W",
+      "required_evidence": "All 8 blockers have corresponding preconditions in preconditions section",
+      "observed_state": "blocker_precondition_consistency: SURFACE-010->dedicated memory readiness review + SURFACE-010 formal unblock review (present), CAND-002->memory_read_binding approval (present), CAND-003->MCP readiness review after memory + CAND-003 approval (present), GSIC-003->gateway sidecar integration review (present), GSIC-004->FastAPI route registration unblock review (present), MAINLINE-GATEWAY-ACTIVATION=false->all gates pass before setting true (present), DSRT-ENABLED=false->dedicated DSRT activation review (present), DSRT-IMPLEMENTED=false->dedicated DSRT implementation review (present). blockers_checked=8, blockers_without_preconditions=[], preconditions_without_blocker_source=[], complete=true, violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Blocker ledger ↔ future review chain consistency",
+      "source_round": "R241-18W",
+      "required_evidence": "All blockers covered by future review chain, each with required dedicated review",
+      "observed_state": "blocker_future_review_chain_consistency: memory blockers (SURFACE-010, CAND-002)->future dedicated memory readiness review (covered in preconditions->required_reviews), MCP blocker (CAND-003)->future dedicated MCP readiness review after memory unblock (covered), GSIC-003/004->future gateway sidecar integration review (covered), DSRT blockers->future dedicated DSRT activation review if ever considered (covered), mainline_gateway_activation->R241-18Z Activation Gate Review (covered). blocker_to_future_review_map: SURFACE-010/R241-18X~18Z (future memory review), CAND-003/R241-18X~18Z (future MCP review), GSIC-003~004/R241-18Z (gateway integration), MAINLINE-GATEWAY-ACTIVATION/R241-18Z (final gate), DSRT/R241-18Z (DSRT review). missing_future_review_coverage=[], complete=true, violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Evidence requirements ↔ future review chain consistency",
+      "source_round": "R241-18W",
+      "required_evidence": "Each future review has corresponding evidence requirements",
+      "observed_state": "evidence_future_review_chain_consistency: R241-18W->structural validation evidence (proposal skeleton + R241-18V report), R241-18X->human review evidence (proposal content + human authorization), R241-18Y->final authorization deed evidence (deed document + R241-18S~18T evidence), R241-18Z->activation gate evidence (all prior evidence + blocker unblock proofs), memory readiness->SURFACE-010/CAND-002 evidence, MCP readiness->CAND-003+memory passed evidence, gateway integration->GSIC-003/004 unblock evidence, DSRT review->DSRT-001~006 evidence. review_to_evidence_map: R241-18W=proposal skeleton + R241-18V report, R241-18X=proposal content + human authorization, R241-18Y=deed + R241-18S~18T, R241-18Z=all prior + blocker unblock. reviews_without_evidence=[], evidence_without_review_owner=[], complete=true, violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Rollback / abort criteria ↔ blocker / execution surface coverage",
+      "source_round": "R241-18W",
+      "required_evidence": "All 8 blockers and all 14 execution surfaces covered by abort criteria",
+      "observed_state": "abort_coverage_matrix: blockers_covered=8/8 (SURFACE-010 improper unblock, CAND-002 improper approval, CAND-003 improper approval, GSIC-003 improper unblock, GSIC-004 improper unblock, MAINLINE-GATEWAY-ACTIVATION before gates, DSRT enabled=true, DSRT implemented_now=true), execution_surfaces_covered=14/14 (gateway start, FastAPI route registration, memory activation, MCP activation, Feishu send, webhook call, network listener, scheduler, auto-fix, tool enforcement, runtime write, audit JSONL write, action queue write, secret-like file detected, test failure, RootGuard fail). missing_abort_coverage=[], complete=true, violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "Human approval checkpoints ↔ future review chain consistency",
+      "source_round": "R241-18W",
+      "required_evidence": "Each future review has corresponding human approval checkpoint, no approval can override blockers",
+      "observed_state": "human_approval_future_chain_consistency: R241-18W structural validation->approval to enter (checkpoint 1), R241-18X human proposal review->approval to enter (checkpoint 2), R241-18Y final authorization deed review->approval to enter (checkpoint 3), R241-18Z activation gate review->approval to enter (checkpoint 4), actual activation->explicit approval before any actual activation (checkpoint 5+6). review_to_human_checkpoint_map: R241-18W=checkpoint 1, R241-18X=checkpoint 2, R241-18Y=checkpoint 3, R241-18Z=checkpoint 4, actual_activation=checkpoint 5+6. missing_human_checkpoints=[], approval_can_override_blockers=false, activation_without_explicit_user_approval_allowed=false, complete=true, violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "Proposal internal contradiction scan",
+      "source_round": "R241-18W",
+      "required_evidence": "No internal contradictions: executable=false but no execution steps, activation_allowed=false but no activation plan, blocker_override_allowed=false but no override instruction, review-only chain does not allow activation before final gate",
+      "observed_state": "internal_contradiction_scan: executable=false with no execution steps (consistent ✅), activation_allowed=false with no activation plan (consistent ✅), blocker_override_allowed=false with no override instruction (consistent ✅), review-only chain with no activation-before-final-gate (consistent ✅), evidence requirements present for all required reviews (consistent ✅), abort criteria present for all dangerous surfaces (consistent ✅), human approval required with no inferred approval allowed (consistent ✅), mainline_gateway_activation_allowed=false with no section setting it true without gates (consistent ✅), DSRT enabled=false with no section enabling DSRT (consistent ✅), memory/MCP not_ready with no section marking ready without dedicated review (consistent ✅). contradictions_found=[], warnings=[], violations=[].",
+      "validation_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "M",
+      "object_name": "R241-18X readiness decision",
+      "source_round": "R241-18W",
+      "required_evidence": "All validation conditions met for entering R241-18X",
+      "observed_state": "All 13 validation objects assessed: A=passed, B=passed, C=passed, D=passed, E=passed, F=passed, G=passed, H=passed, I=passed, J=passed, K=passed, L=passed, M=ready. proposal_structural_validation_passed=true, section_graph_complete=true, internal_consistency_valid=true, forbidden_structural_isolation_valid=true, executable=false, activation_allowed=false, blocker_override_allowed=false, allow_enter_r241_18x=true.",
+      "validation_status": "ready",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "section_graph_integrity": {
+    "required_nodes": [
+      "problem_statement",
+      "current_blocker_ledger",
+      "preconditions_before_any_future_activation_discussion",
+      "required_reviews_before_activation",
+      "evidence_requirements",
+      "rollback_abort_criteria",
+      "human_approval_checkpoints"
+    ],
+    "found_nodes": [
+      "problem_statement",
+      "current_blocker_ledger",
+      "preconditions_before_any_future_activation_discussion",
+      "required_reviews_before_activation",
+      "evidence_requirements",
+      "rollback_abort_criteria",
+      "human_approval_checkpoints"
+    ],
+    "missing_nodes": [],
+    "required_edges": [
+      "problem_statement -> current_blocker_ledger",
+      "current_blocker_ledger -> preconditions_before_any_future_activation_discussion",
+      "current_blocker_ledger -> rollback_abort_criteria",
+      "preconditions_before_any_future_activation_discussion -> required_reviews_before_activation",
+      "preconditions_before_any_future_activation_discussion -> evidence_requirements",
+      "preconditions_before_any_future_activation_discussion -> human_approval_checkpoints",
+      "evidence_requirements -> required_reviews_before_activation",
+      "rollback_abort_criteria -> current_blocker_ledger",
+      "human_approval_checkpoints -> required_reviews_before_activation"
+    ],
+    "found_edges": [
+      "problem_statement -> current_blocker_ledger",
+      "current_blocker_ledger -> preconditions_before_any_future_activation_discussion",
+      "current_blocker_ledger -> rollback_abort_criteria",
+      "preconditions_before_any_future_activation_discussion -> required_reviews_before_activation",
+      "preconditions_before_any_future_activation_discussion -> evidence_requirements",
+      "preconditions_before_any_future_activation_discussion -> human_approval_checkpoints",
+      "evidence_requirements -> required_reviews_before_activation",
+      "rollback_abort_criteria -> current_blocker_ledger",
+      "human_approval_checkpoints -> required_reviews_before_activation"
+    ],
+    "missing_edges": [],
+    "graph_complete": true,
+    "violations": []
+  },
+  "metadata_scope_consistency": {
+    "metadata_consistent_with_scope": true,
+    "inconsistent_fields": [],
+    "violations": []
+  },
+  "allowed_sections_cross_reference_consistency": {
+    "sections_checked": [
+      "problem_statement",
+      "current_blocker_ledger",
+      "preconditions_before_any_future_activation_discussion",
+      "required_reviews_before_activation",
+      "evidence_requirements",
+      "rollback_abort_criteria",
+      "human_approval_checkpoints"
+    ],
+    "orphan_sections": [],
+    "weakly_referenced_sections": [],
+    "complete": true,
+    "warnings": [],
+    "violations": []
+  },
+  "forbidden_structural_isolation": {
+    "forbidden_sections_absent": true,
+    "indirect_forbidden_references": [],
+    "dangerous_hits": [],
+    "hit_classification": [
+      "14 explanatory_hit from R241-18V grep scan (forbidden_scope lists in JSON, not proposal content)"
+    ],
+    "forbidden_sections_check": {
+      "concrete_activation_command": "absent",
+      "gateway_start_command": "absent",
+      "fastapi_route_registration_patch": "absent",
+      "memory_runtime_activation_patch": "absent",
+      "mcp_runtime_activation_patch": "absent",
+      "feishu_send_command": "absent",
+      "runtime_write_command": "absent",
+      "audit_jsonl_write_command": "absent",
+      "action_queue_write_command": "absent",
+      "blocker_override_instruction": "absent"
+    },
+    "violations": []
+  },
+  "blocker_precondition_consistency": {
+    "blockers_checked": [
+      "SURFACE-010",
+      "CAND-002",
+      "CAND-003",
+      "GSIC-003",
+      "GSIC-004",
+      "MAINLINE-GATEWAY-ACTIVATION",
+      "DSRT-ENABLED",
+      "DSRT-IMPLEMENTED"
+    ],
+    "blockers_without_preconditions": [],
+    "preconditions_without_blocker_source": [],
+    "complete": true,
+    "violations": []
+  },
+  "blocker_future_review_chain_consistency": {
+    "blocker_to_future_review_map": [
+      {"blocker": "SURFACE-010", "future_review": "future dedicated memory readiness review (R241-18X~18Z)"},
+      {"blocker": "CAND-002", "future_review": "future dedicated memory readiness review (R241-18X~18Z)"},
+      {"blocker": "CAND-003", "future_review": "future dedicated MCP readiness review after memory unblock (R241-18X~18Z)"},
+      {"blocker": "GSIC-003", "future_review": "future gateway sidecar integration review (R241-18Z)"},
+      {"blocker": "GSIC-004", "future_review": "future gateway sidecar integration review (R241-18Z)"},
+      {"blocker": "MAINLINE-GATEWAY-ACTIVATION=false", "future_review": "R241-18Z Activation Gate Review"},
+      {"blocker": "DSRT-ENABLED=false", "future_review": "R241-18Z DSRT activation review if ever considered"},
+      {"blocker": "DSRT-IMPLEMENTED=false", "future_review": "R241-18Z DSRT activation review if ever considered"}
+    ],
+    "missing_future_review_coverage": [],
+    "complete": true,
+    "violations": []
+  },
+  "evidence_future_review_chain_consistency": {
+    "review_to_evidence_map": [
+      {"review": "R241-18V: Bounded Activation Proposal Draft Review", "evidence": "proposal skeleton + R241-18V report (already complete)"},
+      {"review": "R241-18W: Proposal Structural Validation", "evidence": "this report + proposal skeleton"},
+      {"review": "R241-18X: Human Review of Proposal", "evidence": "proposal content + human authorization record"},
+      {"review": "R241-18Y: Final Authorization Deed Review", "evidence": "deed document + R241-18S~18T authorization evidence"},
+      {"review": "R241-18Z: Activation Gate Review", "evidence": "all prior evidence + blocker unblock proofs + test evidence"},
+      {"review": "future dedicated memory readiness review", "evidence": "SURFACE-010 + CAND-002 evidence"},
+      {"review": "future dedicated MCP readiness review", "evidence": "CAND-003 + memory passed evidence"},
+      {"review": "future gateway sidecar integration review", "evidence": "GSIC-003/004 unblock evidence"},
+      {"review": "future DSRT activation review", "evidence": "DSRT-001~006 disabled continuity evidence"}
+    ],
+    "reviews_without_evidence": [],
+    "evidence_without_review_owner": [],
+    "complete": true,
+    "violations": []
+  },
+  "abort_coverage_matrix": {
+    "blockers_covered": [
+      "SURFACE-010 improper unblock",
+      "CAND-002 improper approval",
+      "CAND-003 improper approval",
+      "GSIC-003 improper unblock",
+      "GSIC-004 improper unblock",
+      "MAINLINE-GATEWAY-ACTIVATION=true before all gates pass",
+      "DSRT-ENABLED=true",
+      "DSRT-IMPLEMENTED=true"
+    ],
+    "execution_surfaces_covered": [
+      "gateway start",
+      "FastAPI route registration",
+      "memory activation without SURFACE-010 unblock",
+      "MCP activation without CAND-003 approval",
+      "Feishu real send",
+      "webhook call",
+      "network listener",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "secret-like file detected",
+      "test failure",
+      "RootGuard fail"
+    ],
+    "missing_abort_coverage": [],
+    "complete": true,
+    "violations": []
+  },
+  "human_approval_future_chain_consistency": {
+    "review_to_human_checkpoint_map": [
+      {"review": "R241-18W: Proposal Structural Validation", "checkpoint": "approval to enter structural validation (checkpoint 1)"},
+      {"review": "R241-18X: Human Review of Proposal", "checkpoint": "approval to enter human proposal review (checkpoint 2)"},
+      {"review": "R241-18Y: Final Authorization Deed Review", "checkpoint": "approval to enter final authorization deed review (checkpoint 3)"},
+      {"review": "R241-18Z: Activation Gate Review", "checkpoint": "approval to enter activation gate review (checkpoint 4)"},
+      {"review": "actual activation", "checkpoint": "separate explicit approval before any actual activation (checkpoint 5+6)"}
+    ],
+    "missing_human_checkpoints": [],
+    "approval_can_override_blockers": false,
+    "activation_without_explicit_user_approval_allowed": false,
+    "complete": true,
+    "violations": []
+  },
+  "internal_contradiction_scan": {
+    "contradictions_found": [],
+    "warnings": [],
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.29,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "proposal_structural_validation_passed": true,
+  "section_graph_complete": true,
+  "internal_consistency_valid": true,
+  "forbidden_structural_isolation_valid": true,
+  "executable": false,
+  "activation_allowed": false,
+  "blocker_override_allowed": false,
+  "allow_enter_r241_18x": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "DRAFT-PROPOSAL-18U-001 is skeleton only — executable=false, structural validation passed but no execution capability present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_proposal_structural_validation",
+    "proposal_structural_validation_passed": true,
+    "section_graph_complete": true,
+    "internal_consistency_valid": true,
+    "forbidden_structural_isolation_valid": true,
+    "validation_objects_A_to_M": "13/13 passed",
+    "executable": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "allow_enter_r241_18x": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18W",
+    "next_prompt_needed": "R241-18X_MAINLINE_RESUME_HUMAN_PROPOSAL_REVIEW"
+  }
+}

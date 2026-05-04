@@ -1,0 +1,63 @@
+{
+  "phase": "R144",
+  "title": "INTERNAL_TOOL_CALL_OBSERVABILITY_SMOKE",
+  "status": "passed",
+  "preceded_by": "R143",
+  "proceeding_to": "R145",
+  "pressure_assessment": {
+    "previous_phase": "R143",
+    "current_phase": "R144",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_preflight": {
+    "workspace_clean": false,
+    "dirty_files_count": 43,
+    "r142c_commit_confirmed": true,
+    "minimax_api_key_present": true,
+    "preflight_passed": true
+  },
+  "lane_2_echo_tool": {
+    "name": "echo",
+    "type": "StructuredTool.from_function",
+    "args_schema": "EchoToolInput",
+    "deterministic": true
+  },
+  "lane_5_agent_build": {
+    "path": "create_deerflow_agent(tools=[echo_tool])",
+    "bypasses_get_available_tools": true,
+    "mcp_triggered": false,
+    "agent_tools": [
+      "echo"
+    ]
+  },
+  "lane_7_tool_call_detection": {
+    "tool_calls_detected": true,
+    "tool_call_names": [
+      "echo",
+      "unknown"
+    ],
+    "tool_messages_detected": true,
+    "model_call_count": 2,
+    "elapsed_seconds": 16.269525051116943
+  },
+  "lane_8_result_verification": {
+    "record_result_non_null": true,
+    "result_keys": [
+      "messages",
+      "thread_data"
+    ],
+    "messages_count": 4
+  },
+  "lane_9_store_verification": {
+    "store_has_result": false,
+    "store_result_keys": null
+  },
+  "lane_10_classification": {
+    "classification": "passed",
+    "passed": true,
+    "echo_tool_called": true,
+    "result_has_messages": true
+  },
+  "unknown_registry": [],
+  "recommended_next_phase": "R145"
+}

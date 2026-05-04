@@ -1,0 +1,483 @@
+{
+  "result_id": "R241-16U-result-20260426103305",
+  "generated_at": "2026-04-26T10:33:05.291563+00:00",
+  "status": "finalized_with_warnings",
+  "decision": "approve_handoff_with_warnings",
+  "source_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+  "source_changed_files": [
+    ".github/workflows/foundation-manual-dispatch.yml"
+  ],
+  "verified_bundle_state": {
+    "loaded": true,
+    "valid": true,
+    "status": "verified_with_warnings",
+    "decision": "approve_delivery_artifacts",
+    "patch_safe": true,
+    "bundle_safe": true,
+    "source_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+    "source_changed_files": [
+      ".github/workflows/foundation-manual-dispatch.yml"
+    ],
+    "warnings": [
+      "patch_already_applied_locally: source commit 94908556 is in tree and target workflow file exists"
+    ],
+    "blocked_reasons": []
+  },
+  "artifacts": {
+    "artifacts": [
+      {
+        "artifact_id": "patch",
+        "role": "patch",
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch",
+        "exists": true,
+        "size_bytes": 3277,
+        "sha256": "3f9d456c201e4155787595ba18c45a06425264b6e1b6342289a3d4599c7f6fa8",
+        "required": true,
+        "safe_to_share": true,
+        "source_stage": "R241-16S",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "artifact_id": "bundle",
+        "role": "bundle",
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+        "exists": true,
+        "size_bytes": 1314,
+        "sha256": "99198cd2a9ae1c93d7302dafa0906dbf97746de515ab775fecb62996988092a6",
+        "required": true,
+        "safe_to_share": true,
+        "source_stage": "R241-16S",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "artifact_id": "manifest",
+        "role": "manifest",
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_MANIFEST.json",
+        "exists": true,
+        "size_bytes": 2530,
+        "sha256": "2d0f4df82448f7367a282914c3e8e2821e1377372eba831f678d60282fb47d16",
+        "required": true,
+        "safe_to_share": false,
+        "source_stage": "R241-16S",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "artifact_id": "verification_result",
+        "role": "verification_report",
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16T_PATCH_BUNDLE_VERIFICATION_RESULT.json",
+        "exists": true,
+        "size_bytes": 29333,
+        "sha256": "490af52c4d985a3717fde811d0c5f846512d299e73b0a8e6a26c8875ee4ae470",
+        "required": true,
+        "safe_to_share": true,
+        "source_stage": "R241-16T",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "artifact_id": "delivery_note",
+        "role": "delivery_note",
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16T_PATCH_DELIVERY_NOTE.md",
+        "exists": true,
+        "size_bytes": 2160,
+        "sha256": "4261a8cb9bb898e2b8345525db2cd42fce632fa9b4db92d189d19e33337e2195",
+        "required": true,
+        "safe_to_share": true,
+        "source_stage": "R241-16T",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "artifact_id": "generation_result",
+        "role": "generation_result",
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_GENERATION_RESULT.json",
+        "exists": true,
+        "size_bytes": 33283,
+        "sha256": "334d407a56640588cab3aba5c700ded7dba235e9fd62ac952564910232974233",
+        "required": false,
+        "safe_to_share": false,
+        "source_stage": "R241-16S",
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "blocked_reasons": [],
+    "warnings": []
+  },
+  "integrity": {
+    "valid": true,
+    "checks": [
+      {
+        "check_id": "required_artifacts_exist",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "All required delivery artifacts must exist",
+        "observed_value": "all_required_exist",
+        "expected_value": "all_required_exist"
+      },
+      {
+        "check_id": "patch_sha256_matches_reference",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Patch SHA256 must match verified reference",
+        "observed_value": "3f9d456c201e4155...",
+        "expected_value": "N/A"
+      },
+      {
+        "check_id": "bundle_sha256_matches_reference",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Bundle SHA256 must match verified reference",
+        "observed_value": "99198cd2a9ae1c93...",
+        "expected_value": "N/A"
+      },
+      {
+        "check_id": "source_commit_hash_consistent",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Source commit hash must be consistent across artifacts",
+        "observed_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "expected_value": "94908556cc2ca66c219d361f424954945eee9e67"
+      },
+      {
+        "check_id": "changed_files_exactly_target_workflow",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Changed files must be exactly the target workflow",
+        "observed_value": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "expected_value": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ]
+      },
+      {
+        "check_id": "all_artifact_paths_within_audit_dir",
+        "passed": true,
+        "risk_level": "high",
+        "description": "All artifact paths must be within migration_reports/foundation_audit",
+        "observed_value": "all_within_audit_dir",
+        "expected_value": "all_within_audit_dir"
+      }
+    ],
+    "blocked_reasons": [],
+    "warnings": []
+  },
+  "checklist": {
+    "items": [
+      {
+        "item_id": "patch_exists",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Patch file exists",
+        "evidence_ref": "patch_inspection.patch_exists",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "patch_safe_to_share",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Patch is safe to share (no secrets/webhooks/auto-fix)",
+        "evidence_ref": "patch_inspection.safe_to_share",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "bundle_exists",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Bundle file exists",
+        "evidence_ref": "bundle_inspection.bundle_exists",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "bundle_verify_passed",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Bundle git bundle verify passed",
+        "evidence_ref": "bundle_inspection.bundle_verify_passed",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "manifest_exists",
+        "passed": true,
+        "risk_level": "medium",
+        "description": "Manifest file exists",
+        "evidence_ref": "MANIFEST_PATH",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "delivery_note_exists",
+        "passed": true,
+        "risk_level": "medium",
+        "description": "Delivery note exists",
+        "evidence_ref": "DELIVERY_NOTE_PATH",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "source_commit_hash_recorded",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Source commit hash is recorded in verification result",
+        "evidence_ref": "verification_data.source_commit_hash",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "changed_files_target_only",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Changed files are exactly the target workflow",
+        "evidence_ref": "verification_data.source_changed_files",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "workflow_dispatch_only",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Workflow uses workflow_dispatch trigger only (no PR/push/schedule)",
+        "evidence_ref": "patch_inspection.patch_no_PR_push_schedule_triggers",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "no_secrets_webhooks",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Patch contains no secrets, tokens, or webhook URLs",
+        "evidence_ref": "patch_inspection.patch_no_secrets",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "no_auto_fix",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Patch does not enable auto-fix",
+        "evidence_ref": "patch_inspection.patch_no_auto_fix",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "no_runtime_audit_write",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No runtime/audit/action queue writes in verification stage",
+        "evidence_ref": "mutation_guard.all_passed",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "no_git_push_in_verification",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No git push was executed during R241-16T verification",
+        "evidence_ref": "verification_data.no_push",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "no_gh_workflow_run",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No gh workflow run was executed in verification stage",
+        "evidence_ref": "verification_data.no_gh_workflow",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "receiver_reviews_patch_before_apply",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Receiver must review patch content before applying",
+        "evidence_ref": "handoff_instructions",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "receiver_not_run_until_remote_visible",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Receiver must not run workflow until it is visible on origin/main",
+        "evidence_ref": "handoff_instructions",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "apply_instructions_included",
+        "passed": true,
+        "risk_level": "medium",
+        "description": "Apply instructions are included in delivery note",
+        "evidence_ref": "delivery_note.apply_instructions",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "verification_instructions_included",
+        "passed": true,
+        "risk_level": "medium",
+        "description": "Verification instructions are included",
+        "evidence_ref": "delivery_note.verification_instructions",
+        "required_before_handoff": true,
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "item_id": "known_warning_apply_check_already_exists",
+        "passed": true,
+        "risk_level": "low",
+        "description": "Known warning: local git apply --check may fail because commit already exists in local tree",
+        "evidence_ref": "verification_data.warnings",
+        "required_before_handoff": false,
+        "warnings": [
+          "Known warning: git apply --check may show 'already exists' because source commit 94908556 is already in local tree"
+        ],
+        "errors": []
+      }
+    ],
+    "all_passed": true,
+    "critical_passed": true,
+    "blocked_reasons": [],
+    "warnings": [
+      "Known warning: git apply --check may show 'already exists' because source commit 94908556 is already in local tree"
+    ]
+  },
+  "index_result": {
+    "index_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_DELIVERY_PACKAGE_INDEX.json",
+    "md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_DELIVERY_PACKAGE_INDEX.md"
+  },
+  "checklist_result": {
+    "checklist_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_DELIVERY_FINAL_CHECKLIST.md"
+  },
+  "summary_result": {
+    "summary_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_HANDOFF_SUMMARY.md"
+  },
+  "mutation_guard": {
+    "all_passed": true,
+    "baseline": {
+      "captured_at": "2026-04-26T10:33:05.156048+00:00",
+      "head_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+      "branch": "main",
+      "staged_files": [],
+      "git_status_short": " M .dockerignore\n M .gitignore\n M backend/AGENTS.md\n M backend/Dockerfile\n M backend/app/channels/discord.py\n M backend/app/channels/feishu.py\n M backend/app/channels/manager.py\n M backend/app/channels/service.py\n M backend/app/channels/slack.py\n M backend/app/channels/telegram.py\n M backend/app/gateway/__init__.py\n M backend/app/gateway/app.py\n M backend/app/gateway/config.py\n M backend/app/gateway/routers/__init__.py\n M backend/app/gateway/routers/agents.py\n M backend/app/gateway/routers/mcp.py\n M backend/app/gateway/services.py\n M backend/packages/harness/deerflow/agents/factory.py\n M backend/packages/harness/deerflow/agents/lead_agent/__init__.py\n M backend/packages/harness/deerflow/agents/lead_agent/agent.py\n M backend/packages/harness/deerflow/agents/lead_agent/prompt.py\n M backend/packages/harness/deerflow/agents/memory/prompt.py\n M backend/packages/harness/deerflow/agents/memory/storage.py\n M backend/packages/harness/deerflow/agents/memory/updater.py\n M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\n M backend/packages/harness/deerflow/agents/thread_state.py\n M backend/packages/harness/deerflow/config/agents_config.py\n M backend/packages/harness/deerflow/config/app_config.py\n M backend/packages/harness/deerflow/config/extensions_config.py\n M backend/packages/harness/deerflow/config/memory_config.py\n M backend/packages/harness/deerflow/config/paths.py\n M backend/packages/harness/deerflow/mcp/client.py\n M backend/packages/harness/deerflow/mcp/oauth.py\n M backend/packages/harness/deerflow/mcp/tools.py\n M backend/packages/harness/deerflow/models/factory.py\n M backend/packages/harness/deerflow/models/patched_minimax.py\n M backend/packages/harness/deerflow/runtime/runs/worker.py\n M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py\n M backend/packages/harness/deerflow/tools/builtins/__init__.py\n M backend/packages/harness/deerflow/tools/builtins/task_tool.py\n M backend/packages/harness/deerflow/tools/tools.py\n M backend/packages/harness/pyproject.toml\n M backend/pyproject.toml\n M backend/tests/test_channels.py\n M backend/uv.lock\n M docker/provisioner/app.py\n M frontend/.env.example\n M frontend/CLAUDE.md\n M frontend/README.md\n M frontend/next.config.js\n M frontend/package.json\n M frontend/src/core/mcp/api.ts\n M frontend/src/core/models/api.ts\n M frontend/src/core/skills/api.ts\n M frontend/src/server/better-auth/config.ts\n?? .openclaw/\n?? .serena/\n?? DECISIONS.md\n?? OpenClaw-DeerFlow.code-workspace\n?? R241-16M.json\n?? R241-16N.json\n?? UPGRADE_CENTER.md\n?? assets/\n?? backend/.lark-cli/\n?? backend/MEMORY.md\n?? backend/app/asset/\n?? backend/app/audit/\n?? backend/app/foundation/\n?? backend/app/gateway/context.py\n?? backend/app/gateway/mode_instrumentation.py\n?? backend/app/gateway/mode_router.py\n?? backend/app/gateway/test_context_envelope_smoke.py\n?? backend/app/gateway/test_mode_instrumentation_smoke.py\n?? backend/app/m03/\n?? backend/app/m04/\n?? backend/app/m05/\n?? backend/app/m07/\n?? backend/app/m08/\n?? backend/app/m09/\n?? backend/app/m10/\n?? backend/app/m11/\n?? backend/app/m12/\n?? backend/app/memory/\n?? backend/app/mode/\n?? backend/app/nightly/\n?? backend/app/perception/\n?? backend/app/prompt/\n?? backend/app/rtcm/\n?? backend/app/runtime_paths.py\n?? backend/app/scripts/\n?? backend/app/tool_runtime/\n?? backend/apply_slow_markers.py\n?? backend/audit_r205_align.py\n?? backend/boulder.json\n?? backend/check_fi.py\n?? backend/check_missing_plus.py\n?? backend/data/\n?? backend/docker-compose.yaml\n?? backend/external/\n?? backend/find_broken.py\n?? backend/fix_concat.py\n?? backend/fix_rollback_v8.py\n?? backend/fix_sandbox.py\n?? backend/fix_sandbox_v2.py\n?? backend/fix_sandbox_v3.py\n?? backend/fix_sandbox_v4.py\n?? backend/fix_sandbox_v5.py\n?? backend/fix_sandbox_v6.py\n?? backend/fix_sandbox_v7.py\n?? backend/fix_verify_section.py\n?? backend/generate_r241_14c_report.py\n?? backend/migration_reports/\n?? backend/n8n_data/\n?? backend/packages/harness/deerflow/agents/evaluator/\n?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py\n?? backend/packages/harness/deerflow/agents/memory/vector_storage.py\n?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py\n?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py\n?? backend/packages/harness/deerflow/assets/\n?? backend/packages/harness/deerflow/harness_server.py\n?? backend/packages/harness/deerflow/scratch/\n?? backend/packages/harness/deerflow/skills/system/\n?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py\n?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py\n?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py\n?? backend/packages/harness/deerflow/tools/minimax_multimodal.py\n?? backend/packages/harness/scratch/\n?? backend/packages/workspace/\n?? backend/probe2.py\n?? backend/probe_channelmgr.py\n?? backend/probe_errors.py\n?? backend/probe_final.py\n?? backend/probe_lg.py\n?? backend/probe_m01_bridge.py\n?? backend/probe_m01_entry.py\n?? backend/probe_readfile.py\n?? backend/probe_readfile2.py\n?? backend/qdrant_storage/\n?? backend/rewrite_rollback.py\n?? backend/rewrite_verify.py\n?? backend/scratch/\n?? backend/scripts/\n?? backend/server_lark.log\n?? backend/server_output.log\n?? backend/src/\n?? backend/start_server.py\n?? backend/test_api.py\n?? backend/test_env.py\n?? backend/test_escape.txt\n?? backend/test_fr_script.ts\n?? backend/test_gov_engine.py\n?? backend/test_gov_import.py\n?? backend/test_governance_import.cjs\n?? backend/test_minimal.py\n?? backend/test_r187_diag.py\n?? backend/test_r187_dpbs_runtime.py\n?? backend/test_r188_roi_verification.ts\n?? backend/test_r189_roi_rollback.ts\n?? backend/test_r190_real_verification.ts\n?? backend/test_r191_real_rollback.ts\n?? backend/test_r194_uc_approval_outcome.py\n?? backend/test_r198_feishu_cards.cjs\n?? backend/test_r198_feishu_cards.ts\n?? backend/test_r199_approval_result.ts\n?? backend/test_r201_integration.ts\n?? backend/test_r202_idempotency.ts\n?? backend/test_r203_roi_freshness.ts\n?? backend/test_r204_scoring_accuracy.ts\n?? backend/test_record_outcome.cjs\n?? backend/test_record_outcome.py\n?? backend/test_spawn_compare.cjs\n?? backend/test_spawn_env.cjs\n?? backend/test_spawn_env.js\n?? backend/tests/foundation/\n?? backend/tmp_uc_backflow.json\n?? backend/tmp_uc_backflow.py\n?? baseline.md\n?? boulder.json\n?? crontabs.yaml\n?? docker-compose.yaml\n?? docs/LARK_CLI_INTEGRATION_REPORT.md\n?? docs/testing/\n?? evolution_seams.md\n?? frontend/package-lock.json\n?? gw_scan.py\n?? jest.config.cjs\n?? mcp-bridge.js\n?? memory/\n?? migration_reports/\n?? mission/\n?? openclaw_project/\n?? package-lock.json\n?? package.json\n?? pytest.ini\n?? rtcm/\n?? runbook.md\n?? scratch/\n?? scripts/ci_foundation_check.py\n?? scripts/foundation_diagnose.py\n?? scripts/root_guard.ps1\n?? scripts/root_guard.py\n?? start_deerflow.bat\n?? start_server.mjs\n?? tsconfig.json\n?? vitest.config.ts\n",
+      "audit_jsonl_line_count": 14,
+      "runtime_dir_exists": false
+    },
+    "after_state": {
+      "captured_at": "2026-04-26T10:33:05.276478+00:00",
+      "head_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+      "branch": "main",
+      "staged_files": [],
+      "git_status_short": " M .dockerignore\n M .gitignore\n M backend/AGENTS.md\n M backend/Dockerfile\n M backend/app/channels/discord.py\n M backend/app/channels/feishu.py\n M backend/app/channels/manager.py\n M backend/app/channels/service.py\n M backend/app/channels/slack.py\n M backend/app/channels/telegram.py\n M backend/app/gateway/__init__.py\n M backend/app/gateway/app.py\n M backend/app/gateway/config.py\n M backend/app/gateway/routers/__init__.py\n M backend/app/gateway/routers/agents.py\n M backend/app/gateway/routers/mcp.py\n M backend/app/gateway/services.py\n M backend/packages/harness/deerflow/agents/factory.py\n M backend/packages/harness/deerflow/agents/lead_agent/__init__.py\n M backend/packages/harness/deerflow/agents/lead_agent/agent.py\n M backend/packages/harness/deerflow/agents/lead_agent/prompt.py\n M backend/packages/harness/deerflow/agents/memory/prompt.py\n M backend/packages/harness/deerflow/agents/memory/storage.py\n M backend/packages/harness/deerflow/agents/memory/updater.py\n M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\n M backend/packages/harness/deerflow/agents/thread_state.py\n M backend/packages/harness/deerflow/config/agents_config.py\n M backend/packages/harness/deerflow/config/app_config.py\n M backend/packages/harness/deerflow/config/extensions_config.py\n M backend/packages/harness/deerflow/config/memory_config.py\n M backend/packages/harness/deerflow/config/paths.py\n M backend/packages/harness/deerflow/mcp/client.py\n M backend/packages/harness/deerflow/mcp/oauth.py\n M backend/packages/harness/deerflow/mcp/tools.py\n M backend/packages/harness/deerflow/models/factory.py\n M backend/packages/harness/deerflow/models/patched_minimax.py\n M backend/packages/harness/deerflow/runtime/runs/worker.py\n M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py\n M backend/packages/harness/deerflow/tools/builtins/__init__.py\n M backend/packages/harness/deerflow/tools/builtins/task_tool.py\n M backend/packages/harness/deerflow/tools/tools.py\n M backend/packages/harness/pyproject.toml\n M backend/pyproject.toml\n M backend/tests/test_channels.py\n M backend/uv.lock\n M docker/provisioner/app.py\n M frontend/.env.example\n M frontend/CLAUDE.md\n M frontend/README.md\n M frontend/next.config.js\n M frontend/package.json\n M frontend/src/core/mcp/api.ts\n M frontend/src/core/models/api.ts\n M frontend/src/core/skills/api.ts\n M frontend/src/server/better-auth/config.ts\n?? .openclaw/\n?? .serena/\n?? DECISIONS.md\n?? OpenClaw-DeerFlow.code-workspace\n?? R241-16M.json\n?? R241-16N.json\n?? UPGRADE_CENTER.md\n?? assets/\n?? backend/.lark-cli/\n?? backend/MEMORY.md\n?? backend/app/asset/\n?? backend/app/audit/\n?? backend/app/foundation/\n?? backend/app/gateway/context.py\n?? backend/app/gateway/mode_instrumentation.py\n?? backend/app/gateway/mode_router.py\n?? backend/app/gateway/test_context_envelope_smoke.py\n?? backend/app/gateway/test_mode_instrumentation_smoke.py\n?? backend/app/m03/\n?? backend/app/m04/\n?? backend/app/m05/\n?? backend/app/m07/\n?? backend/app/m08/\n?? backend/app/m09/\n?? backend/app/m10/\n?? backend/app/m11/\n?? backend/app/m12/\n?? backend/app/memory/\n?? backend/app/mode/\n?? backend/app/nightly/\n?? backend/app/perception/\n?? backend/app/prompt/\n?? backend/app/rtcm/\n?? backend/app/runtime_paths.py\n?? backend/app/scripts/\n?? backend/app/tool_runtime/\n?? backend/apply_slow_markers.py\n?? backend/audit_r205_align.py\n?? backend/boulder.json\n?? backend/check_fi.py\n?? backend/check_missing_plus.py\n?? backend/data/\n?? backend/docker-compose.yaml\n?? backend/external/\n?? backend/find_broken.py\n?? backend/fix_concat.py\n?? backend/fix_rollback_v8.py\n?? backend/fix_sandbox.py\n?? backend/fix_sandbox_v2.py\n?? backend/fix_sandbox_v3.py\n?? backend/fix_sandbox_v4.py\n?? backend/fix_sandbox_v5.py\n?? backend/fix_sandbox_v6.py\n?? backend/fix_sandbox_v7.py\n?? backend/fix_verify_section.py\n?? backend/generate_r241_14c_report.py\n?? backend/migration_reports/\n?? backend/n8n_data/\n?? backend/packages/harness/deerflow/agents/evaluator/\n?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py\n?? backend/packages/harness/deerflow/agents/memory/vector_storage.py\n?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py\n?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py\n?? backend/packages/harness/deerflow/assets/\n?? backend/packages/harness/deerflow/harness_server.py\n?? backend/packages/harness/deerflow/scratch/\n?? backend/packages/harness/deerflow/skills/system/\n?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py\n?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py\n?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py\n?? backend/packages/harness/deerflow/tools/minimax_multimodal.py\n?? backend/packages/harness/scratch/\n?? backend/packages/workspace/\n?? backend/probe2.py\n?? backend/probe_channelmgr.py\n?? backend/probe_errors.py\n?? backend/probe_final.py\n?? backend/probe_lg.py\n?? backend/probe_m01_bridge.py\n?? backend/probe_m01_entry.py\n?? backend/probe_readfile.py\n?? backend/probe_readfile2.py\n?? backend/qdrant_storage/\n?? backend/rewrite_rollback.py\n?? backend/rewrite_verify.py\n?? backend/scratch/\n?? backend/scripts/\n?? backend/server_lark.log\n?? backend/server_output.log\n?? backend/src/\n?? backend/start_server.py\n?? backend/test_api.py\n?? backend/test_env.py\n?? backend/test_escape.txt\n?? backend/test_fr_script.ts\n?? backend/test_gov_engine.py\n?? backend/test_gov_import.py\n?? backend/test_governance_import.cjs\n?? backend/test_minimal.py\n?? backend/test_r187_diag.py\n?? backend/test_r187_dpbs_runtime.py\n?? backend/test_r188_roi_verification.ts\n?? backend/test_r189_roi_rollback.ts\n?? backend/test_r190_real_verification.ts\n?? backend/test_r191_real_rollback.ts\n?? backend/test_r194_uc_approval_outcome.py\n?? backend/test_r198_feishu_cards.cjs\n?? backend/test_r198_feishu_cards.ts\n?? backend/test_r199_approval_result.ts\n?? backend/test_r201_integration.ts\n?? backend/test_r202_idempotency.ts\n?? backend/test_r203_roi_freshness.ts\n?? backend/test_r204_scoring_accuracy.ts\n?? backend/test_record_outcome.cjs\n?? backend/test_record_outcome.py\n?? backend/test_spawn_compare.cjs\n?? backend/test_spawn_env.cjs\n?? backend/test_spawn_env.js\n?? backend/tests/foundation/\n?? backend/tmp_uc_backflow.json\n?? backend/tmp_uc_backflow.py\n?? baseline.md\n?? boulder.json\n?? crontabs.yaml\n?? docker-compose.yaml\n?? docs/LARK_CLI_INTEGRATION_REPORT.md\n?? docs/testing/\n?? evolution_seams.md\n?? frontend/package-lock.json\n?? gw_scan.py\n?? jest.config.cjs\n?? mcp-bridge.js\n?? memory/\n?? migration_reports/\n?? mission/\n?? openclaw_project/\n?? package-lock.json\n?? package.json\n?? pytest.ini\n?? rtcm/\n?? runbook.md\n?? scratch/\n?? scripts/ci_foundation_check.py\n?? scripts/foundation_diagnose.py\n?? scripts/root_guard.ps1\n?? scripts/root_guard.py\n?? start_deerflow.bat\n?? start_server.mjs\n?? tsconfig.json\n?? vitest.config.ts\n",
+      "audit_jsonl_line_count": 14,
+      "runtime_dir_exists": false
+    },
+    "checks": [
+      {
+        "check_id": "head_unchanged",
+        "check_type": "head_stable",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "HEAD hash must not change during finalization",
+        "observed_value": "94908556cc2ca66c219d361f424954945eee9e67",
+        "expected_value": "94908556cc2ca66c219d361f424954945eee9e67"
+      },
+      {
+        "check_id": "branch_unchanged",
+        "check_type": "branch_stable",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Current branch must not change",
+        "observed_value": "main",
+        "expected_value": "main"
+      },
+      {
+        "check_id": "staged_area_unchanged",
+        "check_type": "staged_area",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Staged area must not change during finalization",
+        "observed_value": [],
+        "expected_value": []
+      },
+      {
+        "check_id": "workflow_files_unchanged",
+        "check_type": "workflow_integrity",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Workflow files must not be modified during finalization",
+        "observed_value": "not_checked_content",
+        "expected_value": "unchanged"
+      },
+      {
+        "check_id": "runtime_dir_unchanged",
+        "check_type": "runtime_integrity",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Runtime directory must not be created during finalization",
+        "observed_value": false,
+        "expected_value": false
+      },
+      {
+        "check_id": "audit_jsonl_unchanged",
+        "check_type": "audit_jsonl",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Audit JSONL line count must not change",
+        "observed_value": 14,
+        "expected_value": 14
+      },
+      {
+        "check_id": "no_unexpected_artifacts",
+        "check_type": "artifact_naming",
+        "passed": true,
+        "risk_level": "low",
+        "description": "Only R241-16U/R241-16S/R241-16T artifacts should be new",
+        "observed_value": "none",
+        "expected_value": "none"
+      }
+    ],
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "baseline_captured": true,
+  "validation": {
+    "valid": true,
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "warnings": [
+    "patch_already_applied_locally: source commit 94908556 is in tree and target workflow file exists",
+    "Known warning: git apply --check may show 'already exists' because source commit 94908556 is already in local tree"
+  ],
+  "errors": [],
+  "blocked_reasons": []
+}

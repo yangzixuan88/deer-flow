@@ -1,0 +1,149 @@
+{
+  "phase": "R134A",
+  "title": "LOCAL_REALITY_CROSS_VALIDATION_ROUND_1",
+  "status": "completed",
+  "preceded_by": "R133H2",
+  "proceeding_to": "R134B",
+  "pressure_assessment": {
+    "previous_phase": "R133H2",
+    "previous_status": "passed",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Read-only cross-validation after scope-expanded repair; deep local reality audit before any further fixes."
+  },
+  "workspace_audit": {
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "550b541f",
+    "workspace_dirty": false,
+    "dirty_files": [],
+    "r133h_modifications_committed": true,
+    "unexpected_modifications": [],
+    "safe_to_continue_readonly": true
+  },
+  "r133h_diff_forensics": {
+    "auth_middleware_py": {
+      "change": "+2 lines: } and ) closing JSONResponse content dict and return call",
+      "semantic_impact": "syntax only, no behavior change",
+      "auth_activation_changed": false,
+      "auth_flags_changed": false,
+      "db_changed": false,
+      "minimal": true,
+      "reverting_would_break_import": true
+    },
+    "authz_py": {
+      "change": "-1 line: removed orphan split docstring line",
+      "semantic_impact": "syntax only, no behavior change",
+      "auth_activation_changed": false,
+      "auth_flags_changed": false,
+      "db_changed": false,
+      "minimal": true,
+      "reverting_would_break_import": true
+    },
+    "app_py": {
+      "change": "-2 lines: removed shadowing local import of AuthMiddleware",
+      "semantic_impact": "import resolution only, no behavior change",
+      "auth_activation_changed": false,
+      "auth_flags_changed": false,
+      "db_changed": false,
+      "minimal": true,
+      "reverting_would_break_import": true
+    }
+  },
+  "cherry_pick_damage_scan": {
+    "directories_scanned": ["app/gateway", "packages/harness/deerflow/agents"],
+    "total_files_scanned": 83,
+    "syntax_failures": 0,
+    "merge_conflict_markers": 0,
+    "duplicate_docstring_candidates": 0,
+    "local_import_shadowing_remaining": 0,
+    "cherry_pick_damage_candidates": [],
+    "confidence": "high",
+    "scope_exception_required": false
+  },
+  "import_matrix": {
+    "level0_auth_submodules": {
+      "app.gateway.auth_middleware": "PASS",
+      "app.gateway.authz": "PASS",
+      "app.gateway.deps": "PASS"
+    },
+    "level1_gateway_app": {
+      "app.gateway.app": "PASS"
+    },
+    "level2_testclient": {
+      "TestClient(app)": "PASS",
+      "GET /health": "200 OK"
+    },
+    "level3_stream_post": {
+      "status": "BLOCKED_CSRF",
+      "reason": "POST /stream requires CSRF token; no bypass without code change",
+      "GET_only": "functional"
+    }
+  },
+  "gateway_blockers": {
+    "config_placeholder_bug": {
+      "location": "packages/harness/deerflow/config/app_config.py:250",
+      "exact_issue": "os.getenv(config[1:]) only strips $ from $VAR, not {VAR} from ${VAR}",
+      "blocks_gateway_import": false,
+      "blocks_normal_config_load": true,
+      "gateway_config_path": "uses GatewayConfig (Pydantic), not AppConfig.from_file()",
+      "bypass_exists": "minimal temp YAML without mounts section"
+    },
+    "runtime_context_direct_path_bug": {
+      "location": "packages/harness/deerflow/agents/middlewares/thread_data_middleware.py:110",
+      "exact_issue": "runtime.context.get('run_id') — runtime.context can be None in direct Python invocation",
+      "blocks_gateway_path": false,
+      "blocks_direct_python_path": true,
+      "gateway_provides_runtime": true,
+      "worker_injects_runtime": true
+    },
+    "csrf_stream_blocker": {
+      "location": "app/gateway/csrf_middleware.py:306 unconditional app.add_middleware(CSRFMiddleware)",
+      "blocks_POST_stream": true,
+      "blocks_GET_health": false,
+      "no_feature_flag_bypass": true,
+      "testclient_token_handling": "not automatic"
+    }
+  },
+  "path_b_status": {
+    "model_layer": "CLEAR",
+    "model_detail": "BP-01 Level 2 passed — MiniMax ping 7087ms, R131B-C1",
+    "gateway_import_layer": "CLEAR",
+    "gateway_import_detail": "R133H committed 550b541f — all cherry-pick damage repaired",
+    "config_layer": "BYPASS_POSSIBLE",
+    "config_detail": "bug exists but does not block gateway app import",
+    "csrf_layer": "BLOCKED",
+    "csrf_detail": "POST /stream blocked by CSRF middleware in TestClient; GET /health functional",
+    "runtime_context_layer": "BLOCKED_DIRECT_ONLY",
+    "runtime_context_detail": "thread_data_middleware.py:110 blocks direct Python path only",
+    "stream_layer": "UNTRIED",
+    "stream_detail": "Cannot test POST without CSRF bypass; CSRF is test artifact not runtime blocker"
+  },
+  "current_true_blocker_order": [
+    "1. CSRF middleware — no TestClient bypass without code change (test artifact, not runtime)",
+    "2. thread_data_middleware.py:110 — runtime.context None blocks direct agent.astream() (not gateway)",
+    "3. config ${VAR} bug — latent blocker for AppConfig.from_file() with YAML ${VAR} patterns",
+    "4. BP-02 MCP credentials MISSING — R131B-C1 confirmed, deferred to R132"
+  ],
+  "key_insight": "All three 'gateway blocked' reports conflated three distinct blocker types: import-layer syntax (FIXED), CSRF test-layer (test artifact, not runtime), and runtime-context direct-path (gateway-immune). After import unblock, only CSRF and runtime-context remain — both now precisely bounded.",
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R134A_LOCAL_REALITY_CROSS_VALIDATION_ROUND_1.md",
+    "migration_reports/recovery/R134A_LOCAL_REALITY_CROSS_VALIDATION_ROUND_1.json"
+  ],
+  "recommended_next_phase": "R134B_MAIN_CHAIN_ENTRYPOINT_AND_BRANCH_BOUNDARY_CROSS_VALIDATION",
+  "repair_allowed": false,
+  "next_prompt_needed": "R134B_MAIN_CHAIN_ENTRYPOINT_AND_BRANCH_BOUNDARY_CROSS_VALIDATION"
+}

@@ -1,0 +1,112 @@
+# Alertmanager Configuration
+# ============================================
+# Phase 18: 部署上线 - 告警通知配置
+# ============================================
+
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: 'smtp.example.com:587'
+  smtp_from: 'alerts@openclaw.example.com'
+  smtp_auth_username: 'alerts@openclaw.example.com'
+  smtp_auth_password: '${SMTP_PASSWORD}'
+
+# ============================================
+# 告警路由树
+# ============================================
+
+route:
+  group_by: ['alertname', 'service', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: 'default-receiver'
+  routes:
+    # Critical 告警立即通知
+    - match:
+        severity: critical
+      receiver: 'critical-receiver'
+      group_wait: 0s
+      repeat_interval: 1h
+
+    # Warning 告警按服务分组
+    - match:
+        severity: warning
+      receiver: 'warning-receiver'
+      routes:
+        - match:
+            service: openclaw
+          receiver: 'openclaw-team'
+        - match:
+            service: redis
+          receiver: 'infra-team'
+
+# ============================================
+# 接收者定义
+# ============================================
+
+receivers:
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'oncall@openclaw.example.com'
+        send_resolved: true
+
+  - name: 'critical-receiver'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#critical-alerts'
+        send_resolved: true
+        title: '🚨 Critical Alert: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Labels.alertname }}
+          *Severity:* {{ .Labels.severity }}
+          *Description:* {{ .Annotations.description }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+
+  - name: 'warning-receiver'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#warnings'
+        send_resolved: true
+        title: '⚠️ Warning: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Labels.alertname }}
+          *Service:* {{ .Labels.service }}
+          *Description:* {{ .Annotations.description }}
+          {{ end }}
+
+  - name: 'openclaw-team'
+    email_configs:
+      - to: 'openclaw-team@openclaw.example.com'
+        send_resolved: true
+
+  - name: 'infra-team'
+    email_configs:
+      - to: 'infra-team@openclaw.example.com'
+        send_resolved: true
+
+# ============================================
+# 告警抑制规则
+# ============================================
+
+inhibit_rules:
+  # 当实例 down 时，抑制该实例的所有其他告警
+  - source_match:
+      severity: 'critical'
+    source_labels: [alertname]
+    target_match_re:
+      severity: 'warning|critical'
+    target_labels:
+      service: '@same'
+      instance: '@same'
+
+  # Redis down 时，抑制依赖 Redis 的服务告警
+  - source_match:
+      alertname: 'RedisDown'
+    target_match_re:
+      severity: 'warning'
+    target_labels:
+      service: 'openclaw'

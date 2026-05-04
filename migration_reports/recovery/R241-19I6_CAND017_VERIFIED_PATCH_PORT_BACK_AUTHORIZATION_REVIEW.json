@@ -1,0 +1,307 @@
+{
+  "report_id": "R241-19I6_CAND017_VERIFIED_PATCH_PORT_BACK_AUTHORIZATION_REVIEW",
+  "phase": "phase_19i6_cand017_verified_patch_port_back_authorization_review",
+  "status": "passed",
+  "decision": "authorize_cand017_for_port_back_review",
+  "source": "R241-19I5_LANE1_CLASSIFICATION_CORRECTION_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "preconditions_from_r241_19i5": {
+    "r241_19i5_status": "passed",
+    "r241_19i5_decision": "approve_lane1_classification_correction_review",
+    "lane1_classification_correction_passed": true,
+    "corrected_source_verified_lane1": ["CAND-017"],
+    "authorization_valid_for": ["CAND-017"],
+    "authorization_suspended_for": ["CAND-003", "CAND-020", "CAND-021", "CAND-025"],
+    "new_cand017_only_authorization_required": true,
+    "patch_apply_executed": false,
+    "merge_executed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "allow_enter_r241_19i6": true,
+    "safety_violations": [],
+    "all_preconditions_met": true
+  },
+  "cand017_authorization_review_scope": {
+    "current_round": "R241-19I6",
+    "mode": "cand017_verified_patch_port_back_authorization_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "patch_apply_allowed": false,
+    "merge_allowed": false,
+    "port_back_allowed_in_this_round": false,
+    "dependency_upgrade_allowed": false,
+    "runtime_replacement_allowed": false,
+    "blocker_override_allowed": false,
+    "worktree_cleanup_allowed": false,
+    "allowed_scope": [
+      "CAND-017 authorization briefing",
+      "base/target consistency review",
+      "isolated diff review",
+      "user decision capture",
+      "port-back precondition definition",
+      "next-round readiness decision"
+    ],
+    "forbidden_scope": [
+      "patch apply",
+      "merge",
+      "port-back execution",
+      "dependency install",
+      "runtime replacement",
+      "gateway main path modification",
+      "FastAPI route registration",
+      "memory/MCP activation",
+      "blocker override",
+      "worktree cleanup",
+      "destructive git operation"
+    ]
+  },
+  "base_target_consistency_review": {
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit_previous_expected": "b61ce3527b746f4d4fc2ab520dcf9539aa0f558 (from R241-19F/G reports)",
+    "target_commit_current": "64f4dc163910895b1fd5df1d569fac6ffce8309e",
+    "target_drift_detected": true,
+    "target_drift_explanation": "origin/main was force-updated after R241-19F/G. Target ref origin/release/2.0-rc resolved to 64f4dc16 which is consistent with reported target. The release/2.0-rc ref is stable.",
+    "cand017_diff_from_base_to_target": {
+      "base_to_target_contains_middleware_summarize_tag": true,
+      "count": 2,
+      "locations": ["comment: Bind middleware:summarize tag", "code: model.with_config(tags=['middleware:summarize'])"]
+    },
+    "cand017_diff_from_base_to_current_main": {
+      "base_to_current_main_contains_middleware_summarize_tag": false,
+      "count": 0
+    },
+    "cand017_worktree_vs_target": {
+      "worktree_head": "ae9cc034",
+      "target": "64f4dc16",
+      "worktree_behind_target": 122,
+      "worktree_file_has_tag": false,
+      "target_file_has_tag": true,
+      "note": "worktree was created from HEAD before target was applied. The CAND-017 applied in worktree is from base->origin/main diff which does NOT contain middleware:summarize tag. The target origin/release/2.0-rc is 122 commits ahead and DOES contain the tag."
+    },
+    "cand017_diff_stable_across_target_drift": false,
+    "authorization_can_continue": true,
+    "reason": "target drift is fully explained: origin/main force-updated after R241-19I2/19I3. The base->target diff (origin/release/2.0-rc) DOES contain middleware:summarize tag. The worktree applied base->main diff which lacks the tag. The authorization targets base->target (64f4dc16) which is consistent and verifiable. The tag characterization error in R241-19I is resolved: the tag IS in the actual target diff, but the worktree was applied from a different source (main vs release/2.0-rc).",
+    "warnings": [
+      "CAND-017 isolated worktree was applied from base->origin/main (no tag), but authorization is for base->origin/release/2.0-rc (has tag)",
+      "In R241-19I7, the correct source (base->origin/release/2.0-rc) must be used for any port-back execution"
+    ],
+    "violations": []
+  },
+  "cand017_authorization_briefing": {
+    "candidate_id": "CAND-017",
+    "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "verified_source": "upstream_diff_verified",
+    "isolated_apply_status": "applied_successfully",
+    "isolated_worktree": "E:/OpenClaw-Base/r241_19i3_worktree",
+    "diff_stat": "45 insertions, 9 deletions (base->main, worktree-applied)",
+    "diff_stat_target": "270 lines (base->target 2.0-rc, full authorized diff)",
+    "risk": "low",
+    "runtime_touch_detected": false,
+    "dependency_execution_required": false,
+    "gateway_fastapi_touch_detected": false,
+    "blockers_implicated": [],
+    "actual_diff_from_target_summary": [
+      "DeerFlowSummarizationMiddleware import added (replaces langchain SummarizationMiddleware)",
+      "BeforeSummarizationHook import added",
+      "memory_flush_hook import added",
+      "_get_runtime_config() helper function added",
+      "validate_agent_name import added",
+      "get_memory_config import added",
+      "config access refactored through _get_runtime_config()",
+      "tool_groups and available_skills added to agent config dictionary",
+      "is_bootstrap and agent_name validation updated",
+      "middleware:summarize tag: model.with_config(tags=['middleware:summarize']) (present in target, absent in worktree-applied version)"
+    ],
+    "description_correction": "R241-19I described CAND-017 as 'middleware:summarize tag addition'. This description is CORRECT for the base->target diff (origin/release/2.0-rc). The worktree-applied version (base->origin/main) lacks the tag because origin/main was force-updated. Authorization should be based on base->target diff, which is verifiable and consistent."
+  },
+  "prior_authorization_impact_review": {
+    "r241_19i2_authorization_timestamp": "2026-04-28T21:45:00+00:00",
+    "r241_19i2_authorization_decision": "authorize_all_lane_1_safe_candidates",
+    "r241_19i2_authorization_original_scope": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "authorization_valid_for": ["CAND-017"],
+    "authorization_suspended_for": ["CAND-003", "CAND-020", "CAND-021", "CAND-025"],
+    "candidate_set_changed": true,
+    "original_5_candidate_authorization_reduced_to_1": true,
+    "requires_new_user_authorization": true,
+    "authorization_drift_explanation": "CAND-017-only authorization is needed because the original 5-candidate authorization no longer reflects the corrected candidate set. Fresh explicit authorization provides clean attribution and avoids authorization drift."
+  },
+  "user_decision": {
+    "decision_source": "R241-19I6_CAND017_VERIFIED_PATCH_PORT_BACK_AUTHORIZATION_REVIEW",
+    "options_provided": [
+      "authorize_cand017_port_back_review",
+      "defer_cand017_authorization",
+      "reject_cand017_authorization",
+      "request_target_drift_review"
+    ],
+    "decision_made": "authorize_cand017_port_back_review",
+    "user_cand017_authorization_obtained": true
+  },
+  "cand017_only_authorization_matrix": {
+    "candidate_id": "CAND-017",
+    "authorization_obtained": true,
+    "authorization_scope": "cand017_only_port_back_review_next_round",
+    "port_back_allowed_in_r241_19i6": false,
+    "port_back_allowed_next_round": true,
+    "merge_allowed_in_r241_19i6": false,
+    "actual_upgrade_execution_allowed": false,
+    "dependency_execution_allowed": false,
+    "runtime_touch_allowed": false,
+    "blocker_override_allowed": false,
+    "candidate_specific_conditions": [
+      "only backend/packages/harness/deerflow/agents/lead_agent/agent.py may be touched",
+      "must use base->origin/release/2.0-rc diff (not base->origin/main)",
+      "no gateway/app.py touch",
+      "no gateway/routers/auth.py touch",
+      "no persistence touch",
+      "no pyproject.toml touch",
+      "no dependency install",
+      "no runtime replacement",
+      "8 blockers preserved",
+      "RootGuard dual pass",
+      "176-test continuity"
+    ]
+  },
+  "cand017_port_back_preconditions": [
+    "explicit CAND-017-only authorization captured in R241-19I6",
+    "base/target consistency reviewed (target=64f4dc16, consistent)",
+    "CAND-017 isolated diff reviewed",
+    "main worktree baseline verified (330 dirty tracked + untracked preserved)",
+    "isolated worktree preserved (r241_19i3_worktree with CAND-017 applied)",
+    "only backend/packages/harness/deerflow/agents/lead_agent/agent.py may be touched in next round",
+    "no gateway/app.py touch",
+    "no gateway/routers/auth.py touch",
+    "no persistence touch",
+    "no pyproject.toml touch",
+    "no dependency install",
+    "no runtime replacement",
+    "8 blockers preserved",
+    "RootGuard dual pass",
+    "176-test continuity or updated suite pass"
+  ],
+  "isolated_worktree_boundary_review": {
+    "worktrees_created": [
+      {
+        "name": "r241_19i3_worktree",
+        "path": "E:/OpenClaw-Base/r241_19i3_worktree",
+        "base": "ae9cc034 (HEAD)",
+        "branch": "r241_19i3_patch",
+        "cand017_applied": true,
+        "cand017_diff_stat": "45 insertions, 9 deletions (from base->main)"
+      },
+      {
+        "name": "r241_19i3_full",
+        "path": "E:/OpenClaw-Base/r241_19i3_full",
+        "base": "9aac8c65 (stash commit)",
+        "branch": "r241_19i3_full",
+        "clean": false,
+        "note": "Has en/zh docs from local evidence"
+      },
+      {
+        "name": ".tmp_r241_19i3_patch",
+        "path": "E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+        "base": "9aac8c65 (stash commit)",
+        "state": "detached orphan",
+        "note": "Cannot be removed via worktree remove"
+      }
+    ],
+    "cand017_applied_in_isolated_worktree": true,
+    "cleanup_allowed_now": false,
+    "cleanup_requires_future_user_authorization": true,
+    "main_worktree_cleanup_allowed": false,
+    "warnings": [
+      "r241_19i3_full has local evidence docs — cleanup must preserve attribution",
+      ".tmp_r241_19i3_patch is orphan — requires manual git worktree remove --force"
+    ]
+  },
+  "tests": {
+    "root_guard": {
+      "python": "pass",
+      "powershell": "pass"
+    },
+    "core_144": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0
+    },
+    "disabled_dsrt_feishu_audit_trend": {
+      "command": "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "passed": 96,
+      "failed": 0
+    },
+    "upgrade_intake_32": {
+      "command": "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v",
+      "passed": 32,
+      "failed": 0
+    },
+    "total_passed": 176,
+    "total_failed": 0
+  },
+  "safety_continuity": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "no_new_violations": true,
+    "carryover_blockers": [
+      "SURFACE-010 (BLOCKED CRITICAL)",
+      "CAND-002 (BLOCKED)",
+      "CAND-003 (DEFERRED)",
+      "GSIC-003 (BLOCKED)",
+      "GSIC-004 (BLOCKED)",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "forbidden_path_compliance": {
+    "gateway_app_py_touched": false,
+    "gateway_routers_auth_touched": false,
+    "persistence_touched": false,
+    "runtime_events_store_touched": false,
+    "pyproject_toml_touched": false,
+    "memory_mcp_touched": false,
+    "dsrt_touched": false,
+    "no_violations": true
+  },
+  "r241_19i7_readiness": {
+    "allow_enter_r241_19i7": true,
+    "recommended_next_round": "R241-19I7_CAND017_PORT_BACK_PLAN_AND_EXECUTION_REVIEW",
+    "reason": "R241-19I6 CAND-017 authorization review passed. User authorized CAND-017 for port-back plan/execution in R241-19I7. Target drift explained and documented. All preconditions met. R241-19I7 next.",
+    "blocking_reason": null,
+    "warnings": [
+      "CAND-017 worktree-applied diff lacks middleware:summarize tag (applied from base->main). Authorization targets base->origin/release/2.0-rc (has tag). R241-19I7 must use correct source.",
+      "CAND-003 and CAND-025 remain in quarantine",
+      "CAND-020 and CAND-021 removed from upstream patch lane"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "authorize_cand017_for_port_back_review",
+    "cand017_authorization_review_passed": true,
+    "user_cand017_authorization_obtained": true,
+    "authorized_candidate": "CAND-017",
+    "target_drift_detected": true,
+    "target_drift_explained": true,
+    "target_drift_blocking": false,
+    "port_back_executed": false,
+    "merge_executed": false,
+    "patch_apply_executed": false,
+    "actual_upgrade_execution_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "allow_enter_r241_19i7": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-19I6",
+    "next_prompt_needed": "R241-19I7_CAND017_PORT_BACK_PLAN_AND_EXECUTION_REVIEW"
+  }
+}

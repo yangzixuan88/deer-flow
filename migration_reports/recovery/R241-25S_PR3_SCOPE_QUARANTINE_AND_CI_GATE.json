@@ -1,0 +1,146 @@
+{
+  "phase": "R241-25S",
+  "title": "PR3_SCOPE_QUARANTINE_AND_CI_GATE",
+  "status": "blocked",
+  "preceded_by": "R241-25R",
+  "proceeding_to": "R241-25T",
+  "pressure_assessment": {
+    "previous_phase": "R241-25R",
+    "previous_status": "passed",
+    "previous_pressure": "XL++",
+    "current_recommended_pressure": "XL++",
+    "reason": "PR scope quarantine + CI gate only. No code modification. BLOCKED — reset_admin.py present in PR #3 diff scope."
+  },
+  "scope_gate": {
+    "pr_number": 3,
+    "pr_url": "https://github.com/yangzixuan88/deer-flow/pull/3",
+    "pr_state": "open",
+    "head_branch": "r241/auth-disabled-wiring-v2",
+    "head_sha": "4225979748d5101222670d6388a1b82bb0613136",
+    "base": "main",
+    "mergeable": true,
+    "mergeable_state": "unstable",
+    "changed_files_count": 430,
+    "additions": 37650,
+    "deletions": 4426
+  },
+  "diff_scope": {
+    "bootstrap_chain_files": {
+      "credential_file_py": {"status": "added", "additions": 48, "in_diff": true},
+      "local_provider_py": {"status": "modified", "additions": 33, "in_diff": true},
+      "repositories_sqlite_py": {"status": "modified", "additions": 13, "in_diff": true},
+      "errors_py": {"status": "modified", "additions": 1, "in_diff": true},
+      "routers_auth_py": {"status": "not_listed_separately", "note": "routers/auth.py present in remote branch but not listed separately in PR #3 file list — likely committed directly to branch without separate GitHub diff entry"}
+    },
+    "reset_admin_py": {
+      "status": "added",
+      "additions": 91,
+      "deletions": 0,
+      "in_diff": true,
+      "filename": "backend/app/gateway/auth/reset_admin.py"
+    },
+    "app_py": {
+      "status": "modified",
+      "additions": 172,
+      "deletions": 6,
+      "in_diff": true,
+      "note": "app.py modified — appears in upstream main merge"
+    },
+    "unexpected_files_in_diff": [
+      "reset_admin.py (+91 lines, HIGH risk)"
+    ]
+  },
+  "scope_compliance": {
+    "compliant": false,
+    "violation_files": ["backend/app/gateway/auth/reset_admin.py"],
+    "allowed_files_present": {
+      "credential_file_py": true,
+      "local_provider_py": true,
+      "repositories_sqlite_py": true,
+      "routers_auth_py": "present in branch but not separate PR diff entry",
+      "errors_py": true
+    },
+    "forbidden_files_present": {
+      "reset_admin_py": true
+    },
+    "reason": "reset_admin.py (+91 lines) is in PR #3 diff but was explicitly forbidden by R241-25I"
+  },
+  "reset_admin_risk": {
+    "file": "backend/app/gateway/auth/reset_admin.py",
+    "additions": 91,
+    "risk_level": "HIGH",
+    "deferred_from": "R241-25I",
+    "calls_init_engine_from_config": true,
+    "writes_db": true,
+    "imports_sqlite_user_repository": true,
+    "cli_only": true,
+    "activation_gate_required": false,
+    "defer_confirmed": true
+  },
+  "ci_gate": {
+    "head_sha": "4225979748d5101222670d6388a1b82bb0613136",
+    "check_runs_count": 5,
+    "checks_passed": ["e2e-tests", "frontend-unit-tests", "lint-frontend"],
+    "checks_failed": ["backend-unit-tests", "lint"],
+    "checks_pending": [],
+    "overall_status": "failure",
+    "lint_failure": true,
+    "backend_unit_tests_failure": true,
+    "note": "2 CI checks failed even before scope quarantine issue"
+  },
+  "merge_readiness": {
+    "merge_ready": false,
+    "blocking_items": [
+      "reset_admin.py (+91 lines) in PR #3 diff — HIGH risk, forbidden by R241-25I",
+      "lint CI check failed",
+      "backend-unit-tests CI check failed",
+      "mergeable_state=unstable"
+    ]
+  },
+  "quarantine_plan": {
+    "ready": true,
+    "option_a_recommended": true,
+    "option_a": {
+      "action": "Remove reset_admin.py from PR #3 via corrective commit",
+      "steps": [
+        "git checkout r241/auth-disabled-wiring-v2",
+        "git rm backend/app/gateway/auth/reset_admin.py",
+        "git commit -m 'chore: remove reset_admin.py from PR #3 diff scope (R241-25S quarantine)'",
+        "git push private r241/auth-disabled-wiring-v2"
+      ],
+      "preserves_bootstrap_chain": true,
+      "clears_scope_violation": true,
+      "risk": "LOW — only removes forbidden file",
+      "requires_authorization": true
+    },
+    "option_b": {
+      "action": "Split future operational tooling into separate PR",
+      "steps": [
+        "Keep reset_admin.py out of PR #3",
+        "Create separate R241 operational tooling review",
+        "Requires separate production DB authorization"
+      ],
+      "preserves_bootstrap_chain": true,
+      "clears_scope_violation": true,
+      "requires_authorization": true,
+      "note": "Would require separate review and authorization"
+    }
+  },
+  "pr_2645": {
+    "found_in_yangzixuan88": false,
+    "note": "PR #2645 not found in yangzixuan88/deer-flow — may exist in upstream bytedance/deer-flow"
+  },
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "next_phase": "R241-25T_RESET_ADMIN_QUARANTINE_FIX_OR_CI_GATE",
+  "recommended_action": "remove_reset_admin_from_pr"
+}

@@ -1,0 +1,109 @@
+{
+  "phase": "R139",
+  "title": "EXPLICIT_EMPTY_INTERRUPT_ONE_MODEL_SMOKE",
+  "status": "partial",
+  "preceded_by": "R138",
+  "proceeding_to": "R139B_GRAPH_MIDDLEWARE_CHECKPOINTER_INTERRUPT_DIAGNOSTIC",
+  "pressure_assessment": {
+    "previous_phase": "R138",
+    "current_phase": "R139",
+    "recommended_pressure": "XXL",
+    "reason": "Characterize R137 interrupted state by explicitly passing empty interrupt lists; one model call allowed."
+  },
+  "preflight": {
+    "preflight_passed": true,
+    "minimax_api_key_present": true,
+    "workspace_clean": true,
+    "health_200": true,
+    "mcp_enabled_for_test": false,
+    "tool_call_allowed": false,
+    "production_db_write_risk": "none",
+    "app_config_from_file_used": false,
+    "model_call_limit": 1
+  },
+  "harness_setup": {
+    "harness_ready": true,
+    "all_nine_deps_injected": true,
+    "minimal_config_ready": true,
+    "chat_model_count": 1,
+    "tools_bound_count": 0,
+    "mcp_enabled_for_test": false
+  },
+  "model_config_injected": {
+    "name": "minimax-m2.7",
+    "use": "packages.harness.deerflow.models.patched_minimax:PatchedChatMiniMax",
+    "model": "MiniMax-M2.7",
+    "base_url": "https://api.minimaxi.com/v1",
+    "api_key_redacted": "sk-c..."
+  },
+  "thread_baseline": {
+    "post_threads_status": 200,
+    "thread_id": "ddcd2a5b-08e6-41e5-9f7a-0e314be808f8",
+    "get_thread_status": 200,
+    "thread_baseline_passed": true
+  },
+  "post_runs_smoke": {
+    "post_runs_status": 200,
+    "run_id": "76714536-0b45-4a57-8592-40356b095db8",
+    "worker_started": true,
+    "interrupt_before_sent": [],
+    "interrupt_after_sent": [],
+    "initial_run_status": "pending"
+  },
+  "run_status_polling": {
+    "final_run_status": "interrupted",
+    "run_completed": true,
+    "run_error": null,
+    "run_error_type": null,
+    "poll_elapsed_seconds": 3,
+    "poll_timeout": 90
+  },
+  "event_inspection": {
+    "run_event_count": 3,
+    "stream_event_count": 2,
+    "stream_bridge_stream_created": true,
+    "model_response_detected": true,
+    "model_response_length": 103,
+    "tool_call_detected": false,
+    "mcp_runtime_called": false
+  },
+  "lane_7_result_classification": {
+    "r139_result": "partial",
+    "outcome": "Outcome B2 — still interrupted (WITH model call)",
+    "interrupt_persisted": true,
+    "model_boundary_crossed": false,
+    "failure_class": "interrupt_persists_despites_model_call"
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": true,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "unknown_registry": [
+    {
+      "id": "U-explicit-empty-interrupt-effect",
+      "description": "interrupt_before=[] and interrupt_after=[] passed — interrupt PERSISTS",
+      "priority": "critical"
+    },
+    {
+      "id": "U-interrupt-source-still-unknown",
+      "description": "Interrupt source STILL_UNCLEAR",
+      "priority": "critical"
+    },
+    {
+      "id": "U-model-boundary-crossed",
+      "description": "Model API NOT_CALLED",
+      "priority": "high"
+    }
+  ],
+  "recommended_next_phase": "R139B_GRAPH_MIDDLEWARE_CHECKPOINTER_INTERRUPT_DIAGNOSTIC",
+  "next_prompt_needed": "R139B_GRAPH_MIDDLEWARE_CHECKPOINTER_INTERRUPT_DIAGNOSTIC_execution_authorization"
+}

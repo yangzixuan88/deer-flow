@@ -1,0 +1,458 @@
+{
+  "review_id": "rv-publish-b000c1f14a0e",
+  "generated_at": "2026-04-26T03:52:39.436030+00:00",
+  "status": "unknown",
+  "decision": "unknown",
+  "local_workflow_exists": false,
+  "remote_workflow_exists": false,
+  "workflow_diff_summary": {
+    "local_workflow_exists": false,
+    "git_status_includes_workflow": false,
+    "diff_only_target_workflow": false,
+    "diff_files": [],
+    "workflow_content_safe": false,
+    "has_pr_trigger": false,
+    "has_push_trigger": false,
+    "has_schedule_trigger": false,
+    "has_secrets": false,
+    "has_webhook_network": false,
+    "has_auto_fix": false,
+    "has_runtime_write": false,
+    "workflow_dispatch_only": false,
+    "passed": false,
+    "blocked_reasons": [
+      "Local workflow not found at E:\\OpenClaw-Base\\deerflow\\backend\\.github\\workflows\\foundation-manual-dispatch.yml"
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "existing_workflows_unchanged": true,
+  "publish_options": [
+    {
+      "option_id": "option_a_keep_local_only",
+      "label": "A: Keep Local Only",
+      "description": "Do not publish. Workflow remains local only.",
+      "risk_level": "low",
+      "recommended": false
+    },
+    {
+      "option_id": "option_b_commit_to_review_branch",
+      "label": "B: Commit to Review Branch",
+      "description": "Commit to a local review branch (foundation-manual-dispatch-review). No remote push.",
+      "risk_level": "low",
+      "recommended": false
+    },
+    {
+      "option_id": "option_c_push_to_default_branch_after_confirmation",
+      "label": "C: Push to Default Branch",
+      "description": "Push directly to origin/main. Workflow immediately visible on GitHub Actions.",
+      "risk_level": "medium",
+      "recommended": false
+    },
+    {
+      "option_id": "option_d_open_pr_after_confirmation",
+      "label": "D: Open PR After Confirmation",
+      "description": "Push to review branch and open PR for review before merging to main.",
+      "risk_level": "low",
+      "recommended": false
+    }
+  ],
+  "recommended_option": "option_a_keep_local_only",
+  "publish_command_blueprints": [
+    {
+      "command_id": "option_a_keep_local_only",
+      "command_type": "none",
+      "argv": [],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "",
+      "description": "Keep workflow local only. No git operations.",
+      "warnings": [
+        "Workflow will not be visible on GitHub Actions until manually pushed."
+      ],
+      "errors": []
+    },
+    {
+      "command_id": "option_b_commit_to_review_branch",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "checkout",
+        "-b",
+        "foundation-manual-dispatch-review"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Create a review branch and commit the workflow.",
+      "warnings": [
+        "Creates a local branch but does NOT push to remote.",
+        "Workflow still not visible on GitHub Actions until branch is pushed."
+      ],
+      "errors": []
+    },
+    {
+      "command_id": "option_b_commit_step",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "add",
+        ".github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Stage the workflow file for commit.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_b_finalize",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "Add manual foundation CI workflow\n\nCo-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Commit the workflow to the review branch.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_c_add",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "add",
+        ".github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Stage the workflow file for commit.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_c_commit",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "Add manual foundation CI workflow\n\nCo-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Commit workflow to default branch (local only).",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_c_push",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "push",
+        "origin",
+        "main"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": true,
+      "would_trigger_workflow": true,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Push to origin/main — makes workflow visible on GitHub Actions.",
+      "warnings": [
+        "This WILL make the workflow visible on GitHub Actions.",
+        "After push, workflow is accessible via gh workflow list.",
+        "workflow_dispatch trigger allows manual runs without code access."
+      ],
+      "errors": []
+    },
+    {
+      "command_id": "option_d_branch",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "checkout",
+        "-b",
+        "foundation-manual-dispatch-review"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Create review branch.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_d_add",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "add",
+        ".github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Stage the workflow file.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_d_commit",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "Add manual foundation CI workflow\n\nCo-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Commit to review branch.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_d_push",
+      "command_type": "git",
+      "argv": [
+        "git",
+        "push",
+        "origin",
+        "foundation-manual-dispatch-review"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": true,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Push review branch to origin.",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "command_id": "option_d_pr",
+      "command_type": "manual",
+      "argv": [
+        "gh",
+        "pr",
+        "create",
+        "--repo",
+        "bytedance/deer-flow",
+        "--title",
+        "Add manual foundation CI workflow",
+        "--body",
+        "This PR adds the foundation-manual-dispatch.yml workflow.\n\nConfirmation phrase: CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": false,
+      "would_trigger_workflow": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+      "description": "Open PR (manual step after push).",
+      "warnings": [
+        "PR creation is a GitHub API write operation — must be done manually",
+        "or via gh pr create with explicit confirmation."
+      ],
+      "errors": []
+    }
+  ],
+  "rollback_plan": {
+    "if_only_local_uncommitted": {
+      "description": "Workflow is local only (uncommitted).",
+      "rollback_action": "No action required. File remains local.",
+      "commands": [],
+      "confirmation_required": true
+    },
+    "if_committed_not_pushed": {
+      "description": "Workflow committed to local branch but not pushed.",
+      "rollback_action": "git reset --soft HEAD~1 to uncommit, then git checkout -- .github/workflows/foundation-manual-dispatch.yml to discard.",
+      "commands": [
+        "git reset --soft HEAD~1",
+        "git checkout -- .github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "confirmation_required": true,
+      "warnings": [
+        "This undoes the commit but file content may still be in staging."
+      ]
+    },
+    "if_pushed_to_review_branch": {
+      "description": "Workflow pushed to a review branch (e.g., foundation-manual-dispatch-review).",
+      "rollback_action": "Revert the commit via gh or close the PR.",
+      "commands": [
+        "gh api repos/bytedance/deer-flow/git/refs/heads/foundation-manual-dispatch-review -X DELETE",
+        "# OR: git revert <commit-sha> && git push origin foundation-manual-dispatch-review"
+      ],
+      "confirmation_required": true,
+      "warnings": [
+        "Deleting the branch removes the workflow from GitHub Actions.",
+        "If a PR is open, close it instead of deleting the branch."
+      ]
+    },
+    "if_pushed_to_default_branch": {
+      "description": "Workflow pushed directly to origin/main.",
+      "rollback_action": "Revert the commit or disable the workflow in GitHub Actions settings.",
+      "commands": [
+        "git revert <commit-sha> && git push origin main",
+        "# OR: Disable workflow in GitHub > Actions > select workflow > '...' menu > Disable"
+      ],
+      "confirmation_required": true,
+      "warnings": [
+        "Revert commit on main branch is a write operation.",
+        "GitHub Actions UI disable is irreversible and visible to repo admins.",
+        "Once disabled, the workflow cannot be re-enabled without a new commit."
+      ]
+    },
+    "no_auto_rollback": true,
+    "no_delete_existing_workflows": true
+  },
+  "confirmation_requirements": {
+    "explicit_phrase_required": true,
+    "confirmation_phrase": "CONFIRM_PUBLISH_FOUNDATION_MANUAL_WORKFLOW",
+    "requirements": [
+      "Confirm target option (review branch / default branch / PR / local only)",
+      "Confirm no PR/push/schedule triggers in workflow_dispatch only",
+      "Confirm no secrets / webhook / network direct calls",
+      "Confirm no runtime/audit/action queue write",
+      "Confirm no auto-fix execution",
+      "Confirm existing workflows unchanged (backend-unit-tests.yml, lint-check.yml)",
+      "Confirm rollback plan is acceptable for selected option",
+      "Confirm target is review branch or default branch",
+      "Confirm gh CLI is available for verification after push (or accept gh unavailable on this machine)"
+    ],
+    "must_not_be_auto_executed": true,
+    "human_in_the_loop_required": true
+  },
+  "checks": [
+    {
+      "check_id": "check_r241_16m_loaded",
+      "check_type": "r241_16m_loaded",
+      "passed": false,
+      "risk_level": "critical",
+      "description": "Load R241-16M corrected visibility review",
+      "command_blueprint": {},
+      "command_executed": {},
+      "observed_value": {
+        "r241_16m_loaded": false,
+        "git_exact_path_present": null,
+        "local_workflow_exists": null
+      },
+      "expected_value": {
+        "git_exact_path_present": false,
+        "local_workflow_exists": true
+      },
+      "evidence_refs": [],
+      "blocked_reasons": [
+        "R241-16M report not loaded or conditions not met"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_local_workflow_diff",
+      "check_type": "local_workflow_diff",
+      "passed": false,
+      "risk_level": "critical",
+      "description": "Inspect local workflow diff for safety and scope",
+      "command_blueprint": {},
+      "command_executed": {},
+      "observed_value": {
+        "local_workflow_exists": false,
+        "git_status_includes_workflow": false,
+        "diff_only_target_workflow": false,
+        "diff_files": [],
+        "workflow_content_safe": false,
+        "has_pr_trigger": false,
+        "has_push_trigger": false,
+        "has_schedule_trigger": false,
+        "has_secrets": false,
+        "has_webhook_network": false,
+        "has_auto_fix": false,
+        "has_runtime_write": false,
+        "workflow_dispatch_only": false,
+        "passed": false,
+        "blocked_reasons": [
+          "Local workflow not found at E:\\OpenClaw-Base\\deerflow\\backend\\.github\\workflows\\foundation-manual-dispatch.yml"
+        ],
+        "warnings": [],
+        "errors": []
+      },
+      "expected_value": {
+        "local_workflow_exists": true,
+        "diff_only_target_workflow": true,
+        "workflow_content_safe": true
+      },
+      "evidence_refs": [],
+      "blocked_reasons": [
+        "Local workflow not found at E:\\OpenClaw-Base\\deerflow\\backend\\.github\\workflows\\foundation-manual-dispatch.yml"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_existing_workflows_unchanged",
+      "check_type": "existing_workflows_unchanged",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Verify existing workflow files are not modified",
+      "command_blueprint": {},
+      "command_executed": {},
+      "observed_value": {
+        "backend_unit_tests_unchanged": true,
+        "lint_check_unchanged": true,
+        "passed": true
+      },
+      "expected_value": {
+        "backend_unit_tests_unchanged": true,
+        "lint_check_unchanged": true
+      },
+      "evidence_refs": [],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "safety_summary": {
+    "no_git_commit_executed": true,
+    "no_git_push_executed": true,
+    "no_gh_workflow_run_executed": true,
+    "no_workflow_modified": true,
+    "no_secrets_read": true,
+    "no_runtime_write": true,
+    "no_audit_jsonl_write": true,
+    "no_action_queue_write": true,
+    "no_auto_fix_executed": true,
+    "confirmation_phrase_defined": true,
+    "rollback_plan_defined": true
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,47 @@
+{
+  "report_id": "R241-19B_ROOTGUARD_CONTINUITY_EVIDENCE",
+  "phase": "phase_19b_foundation_repair_execution_batch1",
+  "generated_at": "2026-04-28T06:50:00+00:00",
+  "root_guard_execution": {
+    "python_guard": {
+      "script": "scripts/root_guard.py",
+      "engine": "python",
+      "result": "pass",
+      "output": "ROOT_OK",
+      "cwd": "e:\\OpenClaw-Base\\deerflow"
+    },
+    "powershell_guard": {
+      "script": "scripts/root_guard.ps1",
+      "engine": "powershell",
+      "result": "pass",
+      "output": "ROOT_OK",
+      "cwd": "e:\\OpenClaw-Base\\deerflow"
+    }
+  },
+  "chain_of_custody": {
+    "r241_19b_rootguard_confirms": {
+      "pre_r241_19a_rootguard": {
+        "phase": "R241-19A",
+        "python": "ROOT_OK",
+        "powershell": "ROOT_OK"
+      },
+      "pre_r241_19b_dirty_baseline": {
+        "phase": "R241-19B_DIRTY_WORKTREE_BASELINE_MANIFEST",
+        "git_head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+        "dirty_file_count": 59,
+        "worktree_classification": "evidence_only_untracked"
+      },
+      "r241_19b_execution_rootguard": {
+        "phase": "R241-19B",
+        "python": "ROOT_OK",
+        "powershell": "ROOT_OK"
+      }
+    }
+  },
+  "continuity_verdict": {
+    "rootguard_chain_intact": true,
+    "no_root_violation_detected": true,
+    "worktree_unchanged_since_baseline": true,
+    "all_engines_pass": true
+  }
+}

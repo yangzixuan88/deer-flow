@@ -1,0 +1,274 @@
+{
+  "description": "R241-11D Audit Query Engine Sample — 2026-04-25",
+  "sample_query_filtered": {
+    "query_id": "q_58e7929987e14622",
+    "status": "ok",
+    "generated_at": "2026-04-25T03:09:44.603157+00:00",
+    "root": ".",
+    "filters": {
+      "event_type": null,
+      "source_command": null,
+      "status": "partial_warning",
+      "write_mode": null,
+      "sensitivity_level": null,
+      "payload_hash": null,
+      "audit_record_id": null,
+      "start_time": null,
+      "end_time": null,
+      "limit": 2,
+      "offset": 0,
+      "order": "asc",
+      "warnings": []
+    },
+    "total_scanned": 18,
+    "total_matched": 18,
+    "returned_count": 2,
+    "records": [
+      {
+        "audit_record_id": "audit_7906735512",
+        "event_type": "diagnostic_domain_result",
+        "write_mode": "design_only",
+        "source_system": "foundation_diagnostics_cli",
+        "source_command": "truth-state",
+        "status": "partial_warning",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "generated_at": "2026-04-25T02:21:55.921586+00:00",
+        "observed_at": "2026-04-25T02:21:55.954826+00:00",
+        "context_id": null,
+        "request_id": null,
+        "mode_session_id": null,
+        "mode_invocation_id": null,
+        "tool_execution_id": null,
+        "review_id": null,
+        "payload_ref": null,
+        "payload_hash": "6601e1b57451b084c015c4608ec2ad43",
+        "summary": {
+          "truth_events_count": 103,
+          "state_events_count": 32,
+          "execution_success_candidates_count": 17,
+          "ineligible_count": 86,
+          "excluded_governance_or_observation_count": 76
+        },
+        "warnings": [
+          "not_execution_success_rate:approval_decision",
+          "not_execution_success_rate:observation_signal",
+          "unknown_mapping:upgrade_center_execution",
+          "unknown_mapping:upgrade_center_summary"
+        ],
+        "errors": [],
+        "sensitivity_level": "public_metadata",
+        "retention_class": "medium_term_operational",
+        "redaction_applied": false,
+        "redaction_warnings": [
+          "no_sensitive_keys_detected_defaulting_to_public_metadata"
+        ],
+        "append_only_target": null,
+        "schema_version": "1.0"
+      },
+      {
+        "audit_record_id": "audit_6267874062",
+        "event_type": "diagnostic_domain_result",
+        "write_mode": "design_only",
+        "source_system": "foundation_diagnostics_cli",
+        "source_command": "queue-sandbox",
+        "status": "partial_warning",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "generated_at": "2026-04-25T02:21:59.939051+00:00",
+        "observed_at": "2026-04-25T02:21:59.952489+00:00",
+        "context_id": null,
+        "request_id": null,
+        "mode_session_id": null,
+        "mode_invocation_id": null,
+        "tool_execution_id": null,
+        "review_id": null,
+        "payload_ref": null,
+        "payload_hash": "55f2f0862c70b72826fd52da378c04fa",
+        "summary": {
+          "queue_snapshot": {
+            "exists": false,
+            "task_count": 0,
+            "status_counts": {},
+            "with_verify_script_count": 0
+          },
+          "sandbox_records_count": 17,
+          "actual_pass_count": 5,
+          "actual_fail_count": 12,
+          "simple_success_rate": 0.29411764705882354,
+          "correlation_warnings": [
+            "queue_missing:C:\\Users\\win\\.deerflow\\upgrade-center\\state\\experiment_queue.json",
+            "sandbox_truth_without_queue_task:17"
+          ],
+          "queue_path_mismatch_warning": "queue_missing:C:\\Users\\win\\.deerflow\\upgrade-center\\state\\experiment_queue.json"
+        },
+        "warnings": [
+          "queue_missing:C:\\Users\\win\\.deerflow\\upgrade-center\\state\\experiment_queue.json",
+          "not_execution_success_rate:approval_decision",
+          "not_execution_success_rate:observation_signal",
+          "unknown_mapping:upgrade_center_execution",
+          "unknown_mapping:upgrade_center_summary",
+          "sandbox_truth_without_queue_task:17"
+        ],
+        "errors": [],
+        "sensitivity_level": "public_metadata",
+        "retention_class": "medium_term_operational",
+        "redaction_applied": false,
+        "redaction_warnings": [
+          "no_sensitive_keys_detected_defaulting_to_public_metadata"
+        ],
+        "append_only_target": null,
+        "schema_version": "1.0"
+      }
+    ],
+    "file_summaries": [
+      {
+        "target_id": "feishu_summary_dryruns",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\feishu_summary_dryruns.jsonl",
+        "exists": true,
+        "line_count": 2,
+        "valid_record_count": 2,
+        "invalid_line_count": 0,
+        "first_record_at": "2026-04-25T02:22:33.507679+00:00",
+        "last_record_at": "2026-04-25T02:23:26.006945+00:00",
+        "event_types": ["feishu_summary_dry_run"],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "foundation_diagnostic_runs",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\foundation_diagnostic_runs.jsonl",
+        "exists": true,
+        "line_count": 14,
+        "valid_record_count": 14,
+        "invalid_line_count": 0,
+        "first_record_at": "2026-04-25T02:21:55.921586+00:00",
+        "last_record_at": "2026-04-25T02:23:26.007482+00:00",
+        "event_types": ["diagnostic_cli_run", "diagnostic_domain_result"],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "mode_callgraph_projections",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\mode_callgraph_projections.jsonl",
+        "exists": false,
+        "line_count": 0,
+        "valid_record_count": 0,
+        "invalid_line_count": 0,
+        "first_record_at": null,
+        "last_record_at": null,
+        "event_types": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "nightly_health_reviews",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\nightly_health_reviews.jsonl",
+        "exists": true,
+        "line_count": 2,
+        "valid_record_count": 2,
+        "invalid_line_count": 0,
+        "first_record_at": "2026-04-25T02:22:20.979857+00:00",
+        "last_record_at": "2026-04-25T02:23:13.797251+00:00",
+        "event_types": ["nightly_health_review"],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "tool_runtime_projections",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\tool_runtime_projections.jsonl",
+        "exists": false,
+        "line_count": 0,
+        "valid_record_count": 0,
+        "invalid_line_count": 0,
+        "first_record_at": null,
+        "last_record_at": null,
+        "event_types": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "sample_scan_all": {
+    "file_summaries": [
+      {
+        "target_id": "feishu_summary_dryruns",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\feishu_summary_dryruns.jsonl",
+        "exists": true,
+        "line_count": 2,
+        "valid_record_count": 2,
+        "invalid_line_count": 0,
+        "first_record_at": "2026-04-25T02:22:33.507679+00:00",
+        "last_record_at": "2026-04-25T02:23:26.006945+00:00",
+        "event_types": ["feishu_summary_dry_run"],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "foundation_diagnostic_runs",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\foundation_diagnostic_runs.jsonl",
+        "exists": true,
+        "line_count": 14,
+        "valid_record_count": 14,
+        "invalid_line_count": 0,
+        "first_record_at": "2026-04-25T02:21:55.921586+00:00",
+        "last_record_at": "2026-04-25T02:23:26.007482+00:00",
+        "event_types": ["diagnostic_cli_run", "diagnostic_domain_result"],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "mode_callgraph_projections",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\mode_callgraph_projections.jsonl",
+        "exists": false,
+        "line_count": 0,
+        "valid_record_count": 0,
+        "invalid_line_count": 0,
+        "first_record_at": null,
+        "last_record_at": null,
+        "event_types": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "nightly_health_reviews",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\nightly_health_reviews.jsonl",
+        "exists": true,
+        "line_count": 2,
+        "valid_record_count": 2,
+        "invalid_line_count": 0,
+        "first_record_at": "2026-04-25T02:22:20.979857+00:00",
+        "last_record_at": "2026-04-25T02:23:13.797251+00:00",
+        "event_types": ["nightly_health_review"],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "target_id": "tool_runtime_projections",
+        "path": "migration_reports\\foundation_audit\\audit_trail\\tool_runtime_projections.jsonl",
+        "exists": false,
+        "line_count": 0,
+        "valid_record_count": 0,
+        "invalid_line_count": 0,
+        "first_record_at": null,
+        "last_record_at": null,
+        "event_types": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "total_files": 5,
+    "existing_files": 3,
+    "total_lines": 18,
+    "total_valid_records": 18,
+    "total_invalid_lines": 0,
+    "by_event_type": {
+      "feishu_summary_dry_run": 2,
+      "diagnostic_cli_run": 2,
+      "diagnostic_domain_result": 12,
+      "nightly_health_review": 2
+    },
+    "warnings": [],
+    "errors": []
+  }
+}

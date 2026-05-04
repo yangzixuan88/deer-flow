@@ -1,0 +1,79 @@
+{
+  "phase": "R241-24A",
+  "status": "IN_PROGRESS",
+  "generated": "2026-04-29",
+  "description": "Combined Handoff + PR #2645 Status Gate",
+  "pr_2_auth_disabled_wiring": {
+    "status": "MERGED",
+    "squash_sha": "8f69ffce0bb156c83f4caccb25042d67fb5a1d44",
+    "merge_method": "squash_via_web_ui",
+    "branch": "private/r241/auth-disabled-wiring-v2",
+    "auth_flags": {
+      "AUTH_MIDDLEWARE_ENABLED": "false",
+      "AUTH_ROUTES_ENABLED": "false"
+    },
+    "auth_wiring_non_fatal": true
+  },
+  "safety_invariants": {
+    "auth_flags_disabled": true,
+    "no_gateway_activation": true,
+    "no_db_writes": true,
+    "no_jsonl_writes": true,
+    "dsrt_compliant": true,
+    "mcp_blockers_preserved": true,
+    "production_sqlite_postgres_blockers_preserved": true
+  },
+  "completed_phases": [
+    {"phase": "R241-18F", "description": "Batch 3 Query/Report Entry Normalization", "status": "MERGED", "commit": "ae9cc034"},
+    {"phase": "R241-18E", "description": "Batch 2 CLI Binding Reuse", "status": "MERGED", "commit": "bec43c46"},
+    {"phase": "R241-18D", "description": "Batch 1 Internal Helper Contract Bindings", "status": "MERGED", "commit": "5528473b"},
+    {"phase": "R241-18C", "description": "Implementation Plan", "status": "MERGED", "commit": "95199fbb"},
+    {"phase": "R241-18B", "description": "Read-only Runtime Entry Design", "status": "MERGED", "commit": "174c371a"},
+    {"phase": "R241-23Q3", "description": "Lint Fixes (UP037/F821/F401)", "status": "MERGED", "pr": 2},
+    {"phase": "R241-23Q4", "description": "Format-only Fixes (8 files)", "status": "MERGED", "pr": 2},
+    {"phase": "R241-23Q5", "description": "Merge Readiness Gate", "status": "PASSED"},
+    {"phase": "R241-23Q6", "description": "Squash Merge PR #2", "status": "DONE_VIA_WEB_UI"},
+    {"phase": "R241-23Q7", "description": "Post-merge Validation", "status": "PASSED"},
+    {"phase": "R241-23Q7_Q8_24A", "description": "Combined Closeout", "status": "DONE"}
+  ],
+  "closed_blockers": [
+    {"blocker": "Lint errors (UP037/F821/F401) in 4 files", "resolution": "Fixed via ruff --fix + ruff format"},
+    {"blocker": "8 CI-reported format failures", "resolution": "Fixed via ruff format"},
+    {"blocker": "gh token lacking pull_requests:write scope", "resolution": "User executed merge via GitHub web UI"},
+    {"blocker": "monkeypatch fixture misconception", "resolution": "Fixed: import pytest not needed"},
+    {"blocker": "Windows CRLF vs Unix LF discrepancy", "resolution": "Confirmed Linux CI is authoritative"}
+  ],
+  "retained_blockers": [
+    {"blocker": "Production SQLite/Postgres writes", "status": "ACTIVE", "mitigation": "Auth flags disabled; no DB writes"},
+    {"blocker": "DSRT compliance", "status": "ACTIVE", "mitigation": "Not violated"},
+    {"blocker": "MCP server issues", "status": "ACTIVE", "mitigation": "Preserved"},
+    {"blocker": "email-validator missing", "status": "ACTIVE", "mitigation": "7 tests fail in test environment only"},
+    {"blocker": "gh token scope pull_requests:write missing", "status": "ACTIVE", "mitigation": "Web UI merge workaround"},
+    {"blocker": "PR #2645 CAND-017 MCP binding", "status": "UNKNOWN", "mitigation": "Needs investigation"}
+  ],
+  "test_results": {
+    "total": 48,
+    "passed": 41,
+    "failed": 7,
+    "skipped": 0,
+    "note": "7 failures are pre-existing email-validator issue, unrelated to PR #2"
+  },
+  "next_recommended": [
+    {"option": "A", "phase": "R241-24B", "description": "Production SQLite Authorization Review"},
+    {"option": "B", "phase": "R241-24C", "description": "Auth Activation Gate Review"},
+    {"option": "C", "phase": "R241-24D", "description": "PR #2645 Status and Merge Gate"},
+    {"option": "D", "phase": "R241-24F", "description": "Post-Merge Cleanup"},
+    {"option": "E", "phase": "R241-24G", "description": "Next Low-Risk Additive Batch"},
+    {"option": "F", "phase": "R241-24H", "description": "Full Handoff Summary"}
+  ],
+  "capacity_metrics": {
+    "total_phases_completed": 11,
+    "commits_merged_to_main": 6,
+    "prs_merged": 2,
+    "test_files_modified": 4,
+    "non_test_files_modified": 1,
+    "safety_invariants_maintained": "7/7",
+    "blockers_resolved": 5,
+    "blockers_preserved": 6
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "review_id": "staged-area-consistency-20260426054819",
+  "generated_at": "2026-04-26T05:48:19.330385+00:00",
+  "status": "parser_false_positive_fixed",
+  "decision": "allow_recovery_gate",
+  "r241_16q_status": "reviewed_push_permission_denied",
+  "r241_16q_decision": "keep_local_commit",
+  "r241_16q_validation_valid": true,
+  "r241_16q_mutation_guard_valid": false,
+  "current_staged_files": [],
+  "staged_area_empty": true,
+  "staged_publish_target_present": false,
+  "staged_non_publish_files": [],
+  "parser_false_positive_detected": true,
+  "parser_false_positive_root_cause": "git_status_short_m10_misparse",
+  "parser_false_positive_description": "R241-16Q used git status --short to detect staged files, but git status --short shows ALL modified working tree files (M prefix), not truly staged files. The /app/m10/ path is a container workdir path that was mistakenly parsed from the git status output. The correct command is git diff --cached --name-only.",
+  "local_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+  "local_commit_only_target_workflow": true,
+  "remote_workflow_present": false,
+  "existing_workflows_unchanged": true,
+  "checks": [
+    {
+      "check_id": "check_r241_16q_loaded",
+      "check_type": "r241_16q_loaded",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "R241-16Q push failure review loaded successfully",
+      "evidence_refs": [
+        "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16Q_PUBLISH_PUSH_FAILURE_REVIEW.json"
+      ],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_current_staged_area",
+      "check_type": "current_staged_area",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Current staged area inspected via git diff --cached --name-only",
+      "observed_value": {
+        "staged_files": [],
+        "staged_area_empty": true,
+        "staged_publish_target_present": false
+      },
+      "expected_value": "read_only_staged_area_inspection",
+      "evidence_refs": [
+        "git diff --cached --name-only"
+      ],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_parser_false_positive",
+      "check_type": "parser_false_positive_detection",
+      "passed": false,
+      "risk_level": "high",
+      "description": "Detect whether R241-16Q staged file detection was a false positive",
+      "observed_value": {
+        "false_positive_detected": true,
+        "root_cause": "git_status_short_m10_misparse",
+        "m10_in_r241_16q": true,
+        "m10_in_current": false
+      },
+      "expected_value": "no_false_positive_or_explained",
+      "evidence_refs": [],
+      "blocked_reasons": [
+        "parser_false_positive_r241_16q_m10"
+      ],
+      "warnings": [
+        "R241-16Q staged file detection was a false positive. /app/m10/ was misparsed from git status --short output."
+      ],
+      "errors": []
+    },
+    {
+      "check_id": "check_local_commit_scope",
+      "check_type": "local_commit_scope",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Local HEAD commit contains only target workflow",
+      "observed_value": [
+        ".github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "expected_value": [
+        ".github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "evidence_refs": [
+        "git diff-tree --no-commit-id --name-only -r 94908556cc2ca66c219d361f424954945eee9e67"
+      ],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_remote_workflow_missing",
+      "check_type": "remote_workflow_missing",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Remote origin/main still does not have target workflow",
+      "observed_value": false,
+      "expected_value": false,
+      "evidence_refs": [
+        "git ls-tree -r origin/main -- .github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_existing_workflows_unchanged",
+      "check_type": "existing_workflows_unchanged",
+      "passed": true,
+      "risk_level": "high",
+      "description": "backend-unit-tests.yml and lint-check.yml unchanged on origin/main",
+      "observed_value": true,
+      "expected_value": true,
+      "evidence_refs": [
+        "git diff origin/main -- .github/workflows/backend-unit-tests.yml .github/workflows/lint-check.yml"
+      ],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "recommended_next_phase": "R241-16R_recovery_path_confirmation_gate",
+  "validation": {
+    "valid": true,
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "warnings": [],
+  "errors": []
+}

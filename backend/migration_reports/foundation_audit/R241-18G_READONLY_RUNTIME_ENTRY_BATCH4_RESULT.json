@@ -1,0 +1,1063 @@
+{
+  "batch_id": "R241-18G-BATCH4",
+  "generated_at": "2026-04-28T02:06:16.666824+00:00",
+  "status": "partial",
+  "decision": "approve_binding_with_warnings",
+  "source_plan_ref": "R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN",
+  "source_batch1_ref": "R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_RESULT",
+  "source_batch2_ref": "R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_RESULT",
+  "source_batch3_ref": "R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_RESULT",
+  "implemented_steps": [
+    "STEP-004"
+  ],
+  "binding_results": [
+    {
+      "binding_id": "FPRS-E2D7578E",
+      "binding_type": "feishu_presend_validate_helper",
+      "surface_id": "SPEC-005",
+      "command": "audit-trend-feishu-presend",
+      "window": "all_available",
+      "output_format": "json",
+      "status": "blocked",
+      "decision": "block_batch4_binding",
+      "result_payload": {
+        "cli_result_id": "presend_cli_833e45dc39fb",
+        "generated_at": "2026-04-28T02:06:16.546996+00:00",
+        "command": "audit-trend-feishu-presend",
+        "mode": "preview_and_validate",
+        "status": "blocked",
+        "valid": false,
+        "window": "all_available",
+        "output_format": "json",
+        "confirmation_phrase_provided": false,
+        "webhook_ref_provided": false,
+        "payload_id": "feishu_trend_payload_116320c7e151",
+        "source_trend_report_id": null,
+        "presend_validation": {
+          "validation_id": "presend_validation_a1de73337b8b",
+          "generated_at": "2026-04-28T02:06:16.587810+00:00",
+          "status": "blocked",
+          "valid": false,
+          "payload_id": "feishu_trend_payload_27c0373d8d22",
+          "source_trend_report_id": null,
+          "confirmation_phrase_provided": false,
+          "confirmation_phrase_valid": false,
+          "webhook_reference_valid": true,
+          "payload_validation_valid": true,
+          "output_safety_valid": true,
+          "guard_valid": true,
+          "audit_precondition_valid": true,
+          "payload_age_valid": true,
+          "checks": [
+            {
+              "check_type": "policy_design",
+              "check_result": {
+                "passed": true,
+                "policy_valid": true,
+                "evidence_refs": [
+                  "policy_design_id=feishu_manual_send_policy_design_f4762df98f04"
+                ]
+              }
+            },
+            {
+              "check_type": "payload_projection",
+              "check_result": {
+                "check_id": "presend_check_3108d68b9169",
+                "check_type": "payload_projection",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Payload projection is valid for pre-send review",
+                "evidence_refs": [
+                  "payload_id=feishu_trend_payload_27c0373d8d22",
+                  "validation_valid=True"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.587543+00:00"
+              }
+            },
+            {
+              "check_type": "confirmation_phrase",
+              "check_result": {
+                "check_id": "presend_check_605707e60486",
+                "check_type": "confirmation_phrase",
+                "status": "blocked",
+                "passed": false,
+                "risk_level": "critical",
+                "message": "Confirmation phrase not provided",
+                "evidence_refs": [],
+                "blocked_reasons": [
+                  "confirmation_phrase_missing"
+                ],
+                "warnings": [],
+                "errors": [
+                  "confirmation_phrase_required"
+                ],
+                "checked_at": "2026-04-28T02:06:16.587587+00:00"
+              }
+            },
+            {
+              "check_type": "webhook_reference",
+              "check_result": {
+                "check_id": "presend_check_ae2e67437a2f",
+                "check_type": "webhook_reference",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "No webhook reference provided (dry-run design validation mode)",
+                "evidence_refs": [],
+                "blocked_reasons": [],
+                "warnings": [
+                  "no_webhook_ref_dry_run_mode"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.587624+00:00"
+              }
+            },
+            {
+              "check_type": "output_safety",
+              "check_result": {
+                "check_id": "presend_check_0dedae260ae6",
+                "check_type": "output_safety",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "No preview output to validate (dry-run design validation)",
+                "evidence_refs": [],
+                "blocked_reasons": [],
+                "warnings": [
+                  "no_preview_output_provided"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.587642+00:00"
+              }
+            },
+            {
+              "check_type": "guard_state",
+              "check_result": {
+                "check_id": "presend_check_9041115f5327",
+                "check_type": "guard_state",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Guard state is valid for pre-send review",
+                "evidence_refs": [
+                  "audit_jsonl_unchanged=True",
+                  "sensitive_output_detected=False",
+                  "network_call_detected=False",
+                  "runtime_write_detected=False",
+                  "auto_fix_detected=False"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.587661+00:00"
+              }
+            },
+            {
+              "check_type": "audit_requirement",
+              "check_result": {
+                "check_id": "presend_check_4f508beb0e06",
+                "check_type": "audit_requirement",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+                "evidence_refs": [
+                  "payload_hash=da7987535eefe794",
+                  "event_type=feishu_trend_manual_send_attempt",
+                  "audit_projection_generated_design_only",
+                  "no_audit_jsonl_written"
+                ],
+                "blocked_reasons": [],
+                "warnings": [
+                  "audit_projection_design_only_no_jsonl_written"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.587759+00:00"
+              }
+            },
+            {
+              "check_type": "payload_age",
+              "check_result": {
+                "check_id": "presend_check_c9f2b1ceb03e",
+                "check_type": "payload_age",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Payload age valid (0.0 min < 60 min)",
+                "evidence_refs": [
+                  "generated_at=2026-04-28T02:06:16.585379+00:00",
+                  "age_minutes=0.0",
+                  "max_age_minutes=60"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.587792+00:00"
+              }
+            }
+          ],
+          "blocked_reasons": [
+            "confirmation_phrase_missing"
+          ],
+          "warnings": [
+            "no_webhook_ref_dry_run_mode",
+            "no_preview_output_provided",
+            "audit_projection_design_only_no_jsonl_written"
+          ],
+          "errors": [
+            "confirmation_phrase_required"
+          ]
+        },
+        "payload_projection_summary": null,
+        "preview_summary": {
+          "preview_format": "json",
+          "preview_length": 4956,
+          "preview_available": true,
+          "payload_id": "feishu_trend_payload_116320c7e151"
+        },
+        "blocked_reasons": [
+          "confirmation_phrase_missing"
+        ],
+        "warnings": [
+          "artifact_bundle_not_provided",
+          "audit_jsonl_missing:tool_runtime_projections.jsonl",
+          "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+          "payload_projection_fallback_to_design_only",
+          "no_webhook_ref_dry_run_mode",
+          "no_preview_output_provided",
+          "audit_projection_design_only_no_jsonl_written"
+        ],
+        "errors": [
+          "confirmation_phrase_required"
+        ]
+      },
+      "normalized_output_preview": "status=blocked\nvalid=False\nblocked_reasons_count=1\nwarnings_count=3",
+      "validation": {
+        "valid": true,
+        "binding_id": "FPRS-E2D7578E",
+        "issues": [],
+        "warnings": []
+      },
+      "writes_runtime": false,
+      "writes_audit_jsonl": false,
+      "writes_report_artifact": false,
+      "opened_jsonl_write_handle": false,
+      "network_used": false,
+      "feishu_send_attempted": false,
+      "webhook_called": false,
+      "webhook_value_read": false,
+      "secret_read": false,
+      "scheduler_triggered": false,
+      "gateway_main_path_touched": false,
+      "send_allowed": false,
+      "confirmation_phrase_provided": false,
+      "webhook_ref_provided": false,
+      "warnings": [
+        "artifact_bundle_not_provided",
+        "audit_jsonl_missing:tool_runtime_projections.jsonl",
+        "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+        "payload_projection_fallback_to_design_only",
+        "no_webhook_ref_dry_run_mode",
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": [
+        "validation:confirmation_phrase_required"
+      ]
+    },
+    {
+      "binding_id": "FPRS-B356078C",
+      "binding_type": "feishu_presend_validate_helper",
+      "surface_id": "SPEC-005",
+      "command": "audit-trend-feishu-presend",
+      "window": "last_7d",
+      "output_format": "text",
+      "status": "partial_warning",
+      "decision": "approve_binding_with_warnings",
+      "result_payload": {
+        "cli_result_id": "presend_cli_62b9b6ac5fb5",
+        "generated_at": "2026-04-28T02:06:16.587994+00:00",
+        "command": "audit-trend-feishu-presend",
+        "mode": "preview_and_validate",
+        "status": "partial_warning",
+        "valid": true,
+        "window": "last_7d",
+        "output_format": "text",
+        "confirmation_phrase_provided": true,
+        "webhook_ref_provided": false,
+        "payload_id": "feishu_trend_payload_6c5e61061d65",
+        "source_trend_report_id": null,
+        "presend_validation": {
+          "validation_id": "presend_validation_bafb7f9c63c2",
+          "generated_at": "2026-04-28T02:06:16.630833+00:00",
+          "status": "partial_warning",
+          "valid": true,
+          "payload_id": "feishu_trend_payload_98804b3f6b54",
+          "source_trend_report_id": null,
+          "confirmation_phrase_provided": true,
+          "confirmation_phrase_valid": true,
+          "webhook_reference_valid": true,
+          "payload_validation_valid": true,
+          "output_safety_valid": true,
+          "guard_valid": true,
+          "audit_precondition_valid": true,
+          "payload_age_valid": true,
+          "checks": [
+            {
+              "check_type": "policy_design",
+              "check_result": {
+                "passed": true,
+                "policy_valid": true,
+                "evidence_refs": [
+                  "policy_design_id=feishu_manual_send_policy_design_71a975c24e8c"
+                ]
+              }
+            },
+            {
+              "check_type": "payload_projection",
+              "check_result": {
+                "check_id": "presend_check_6573e525d25c",
+                "check_type": "payload_projection",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Payload projection is valid for pre-send review",
+                "evidence_refs": [
+                  "payload_id=feishu_trend_payload_98804b3f6b54",
+                  "validation_valid=True"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630586+00:00"
+              }
+            },
+            {
+              "check_type": "confirmation_phrase",
+              "check_result": {
+                "check_id": "presend_check_294eb0d6236b",
+                "check_type": "confirmation_phrase",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Confirmation phrase valid",
+                "evidence_refs": [
+                  "confirmation_phrase_matches"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630627+00:00"
+              }
+            },
+            {
+              "check_type": "webhook_reference",
+              "check_result": {
+                "check_id": "presend_check_a208d1d67246",
+                "check_type": "webhook_reference",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "No webhook reference provided (dry-run design validation mode)",
+                "evidence_refs": [],
+                "blocked_reasons": [],
+                "warnings": [
+                  "no_webhook_ref_dry_run_mode"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630669+00:00"
+              }
+            },
+            {
+              "check_type": "output_safety",
+              "check_result": {
+                "check_id": "presend_check_5edb75b0805e",
+                "check_type": "output_safety",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "No preview output to validate (dry-run design validation)",
+                "evidence_refs": [],
+                "blocked_reasons": [],
+                "warnings": [
+                  "no_preview_output_provided"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630687+00:00"
+              }
+            },
+            {
+              "check_type": "guard_state",
+              "check_result": {
+                "check_id": "presend_check_a22489455cc0",
+                "check_type": "guard_state",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Guard state is valid for pre-send review",
+                "evidence_refs": [
+                  "audit_jsonl_unchanged=True",
+                  "sensitive_output_detected=False",
+                  "network_call_detected=False",
+                  "runtime_write_detected=False",
+                  "auto_fix_detected=False"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630706+00:00"
+              }
+            },
+            {
+              "check_type": "audit_requirement",
+              "check_result": {
+                "check_id": "presend_check_a1a5193fcd7f",
+                "check_type": "audit_requirement",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+                "evidence_refs": [
+                  "payload_hash=d8012873a7ed86c1",
+                  "event_type=feishu_trend_manual_send_attempt",
+                  "audit_projection_generated_design_only",
+                  "no_audit_jsonl_written"
+                ],
+                "blocked_reasons": [],
+                "warnings": [
+                  "audit_projection_design_only_no_jsonl_written"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630778+00:00"
+              }
+            },
+            {
+              "check_type": "payload_age",
+              "check_result": {
+                "check_id": "presend_check_ff7078bb9bf0",
+                "check_type": "payload_age",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Payload age valid (0.0 min < 60 min)",
+                "evidence_refs": [
+                  "generated_at=2026-04-28T02:06:16.628605+00:00",
+                  "age_minutes=0.0",
+                  "max_age_minutes=60"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.630809+00:00"
+              }
+            }
+          ],
+          "blocked_reasons": [],
+          "warnings": [
+            "no_webhook_ref_dry_run_mode",
+            "no_preview_output_provided",
+            "audit_projection_design_only_no_jsonl_written"
+          ],
+          "errors": []
+        },
+        "payload_projection_summary": null,
+        "preview_summary": {
+          "preview_format": "json",
+          "preview_length": 4932,
+          "preview_available": true,
+          "payload_id": "feishu_trend_payload_6c5e61061d65"
+        },
+        "blocked_reasons": [],
+        "warnings": [
+          "artifact_bundle_not_provided",
+          "audit_jsonl_missing:tool_runtime_projections.jsonl",
+          "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+          "payload_projection_fallback_to_design_only",
+          "no_webhook_ref_dry_run_mode",
+          "no_preview_output_provided",
+          "audit_projection_design_only_no_jsonl_written"
+        ],
+        "errors": []
+      },
+      "normalized_output_preview": "status=partial_warning\nvalid=True\nblocked_reasons_count=0\nwarnings_count=3",
+      "validation": {
+        "valid": true,
+        "binding_id": "FPRS-B356078C",
+        "issues": [],
+        "warnings": []
+      },
+      "writes_runtime": false,
+      "writes_audit_jsonl": false,
+      "writes_report_artifact": false,
+      "opened_jsonl_write_handle": false,
+      "network_used": false,
+      "feishu_send_attempted": false,
+      "webhook_called": false,
+      "webhook_value_read": false,
+      "secret_read": false,
+      "scheduler_triggered": false,
+      "gateway_main_path_touched": false,
+      "send_allowed": false,
+      "confirmation_phrase_provided": true,
+      "webhook_ref_provided": false,
+      "warnings": [
+        "artifact_bundle_not_provided",
+        "audit_jsonl_missing:tool_runtime_projections.jsonl",
+        "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+        "payload_projection_fallback_to_design_only",
+        "no_webhook_ref_dry_run_mode",
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": []
+    },
+    {
+      "binding_id": "FPRS-798670BE",
+      "binding_type": "feishu_presend_validate_helper",
+      "surface_id": "SPEC-005",
+      "command": "audit-trend-feishu-presend",
+      "window": "last_24h",
+      "output_format": "markdown",
+      "status": "blocked",
+      "decision": "block_batch4_binding",
+      "result_payload": {
+        "cli_result_id": "presend_cli_33b295ad5748",
+        "generated_at": "2026-04-28T02:06:16.631014+00:00",
+        "command": "audit-trend-feishu-presend",
+        "mode": "preview_and_validate",
+        "status": "blocked",
+        "valid": false,
+        "window": "last_24h",
+        "output_format": "markdown",
+        "confirmation_phrase_provided": false,
+        "webhook_ref_provided": true,
+        "payload_id": "feishu_trend_payload_f321c4ed3d21",
+        "source_trend_report_id": null,
+        "presend_validation": {
+          "validation_id": "presend_validation_50739fe42653",
+          "generated_at": "2026-04-28T02:06:16.666477+00:00",
+          "status": "blocked",
+          "valid": false,
+          "payload_id": "feishu_trend_payload_a57dc39d2573",
+          "source_trend_report_id": null,
+          "confirmation_phrase_provided": false,
+          "confirmation_phrase_valid": false,
+          "webhook_reference_valid": true,
+          "payload_validation_valid": true,
+          "output_safety_valid": true,
+          "guard_valid": true,
+          "audit_precondition_valid": true,
+          "payload_age_valid": true,
+          "checks": [
+            {
+              "check_type": "policy_design",
+              "check_result": {
+                "passed": true,
+                "policy_valid": true,
+                "evidence_refs": [
+                  "policy_design_id=feishu_manual_send_policy_design_1dc64f0df67e"
+                ]
+              }
+            },
+            {
+              "check_type": "payload_projection",
+              "check_result": {
+                "check_id": "presend_check_1389887d993a",
+                "check_type": "payload_projection",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Payload projection is valid for pre-send review",
+                "evidence_refs": [
+                  "payload_id=feishu_trend_payload_a57dc39d2573",
+                  "validation_valid=True"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.666259+00:00"
+              }
+            },
+            {
+              "check_type": "confirmation_phrase",
+              "check_result": {
+                "check_id": "presend_check_31f0d58ccf1b",
+                "check_type": "confirmation_phrase",
+                "status": "blocked",
+                "passed": false,
+                "risk_level": "critical",
+                "message": "Confirmation phrase not provided",
+                "evidence_refs": [],
+                "blocked_reasons": [
+                  "confirmation_phrase_missing"
+                ],
+                "warnings": [],
+                "errors": [
+                  "confirmation_phrase_required"
+                ],
+                "checked_at": "2026-04-28T02:06:16.666293+00:00"
+              }
+            },
+            {
+              "check_type": "webhook_reference",
+              "check_result": {
+                "check_id": "presend_check_4dbdd6a86c9a",
+                "check_type": "webhook_reference",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Webhook reference format valid",
+                "evidence_refs": [
+                  "type=environment_variable_reference",
+                  "name=FEISHU_WEBHOOK_URL",
+                  "ref=env:FEISHU_WEBHOOK_URL"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.666328+00:00"
+              }
+            },
+            {
+              "check_type": "output_safety",
+              "check_result": {
+                "check_id": "presend_check_c9c7c6322e97",
+                "check_type": "output_safety",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "No preview output to validate (dry-run design validation)",
+                "evidence_refs": [],
+                "blocked_reasons": [],
+                "warnings": [
+                  "no_preview_output_provided"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.666346+00:00"
+              }
+            },
+            {
+              "check_type": "guard_state",
+              "check_result": {
+                "check_id": "presend_check_a84580189b07",
+                "check_type": "guard_state",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Guard state is valid for pre-send review",
+                "evidence_refs": [
+                  "audit_jsonl_unchanged=True",
+                  "sensitive_output_detected=False",
+                  "network_call_detected=False",
+                  "runtime_write_detected=False",
+                  "auto_fix_detected=False"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.666363+00:00"
+              }
+            },
+            {
+              "check_type": "audit_requirement",
+              "check_result": {
+                "check_id": "presend_check_641389de0b72",
+                "check_type": "audit_requirement",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+                "evidence_refs": [
+                  "payload_hash=a77a545c84d6ae66",
+                  "event_type=feishu_trend_manual_send_attempt",
+                  "audit_projection_generated_design_only",
+                  "no_audit_jsonl_written"
+                ],
+                "blocked_reasons": [],
+                "warnings": [
+                  "audit_projection_design_only_no_jsonl_written"
+                ],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.666433+00:00"
+              }
+            },
+            {
+              "check_type": "payload_age",
+              "check_result": {
+                "check_id": "presend_check_810dc058ebc3",
+                "check_type": "payload_age",
+                "status": "valid",
+                "passed": true,
+                "risk_level": "low",
+                "message": "Payload age valid (0.0 min < 60 min)",
+                "evidence_refs": [
+                  "generated_at=2026-04-28T02:06:16.664550+00:00",
+                  "age_minutes=0.0",
+                  "max_age_minutes=60"
+                ],
+                "blocked_reasons": [],
+                "warnings": [],
+                "errors": [],
+                "checked_at": "2026-04-28T02:06:16.666461+00:00"
+              }
+            }
+          ],
+          "blocked_reasons": [
+            "confirmation_phrase_missing"
+          ],
+          "warnings": [
+            "no_preview_output_provided",
+            "audit_projection_design_only_no_jsonl_written"
+          ],
+          "errors": [
+            "confirmation_phrase_required"
+          ]
+        },
+        "payload_projection_summary": null,
+        "preview_summary": {
+          "preview_format": "json",
+          "preview_length": 4986,
+          "preview_available": true,
+          "payload_id": "feishu_trend_payload_f321c4ed3d21"
+        },
+        "blocked_reasons": [
+          "confirmation_phrase_missing"
+        ],
+        "warnings": [
+          "artifact_bundle_not_provided",
+          "audit_jsonl_missing:tool_runtime_projections.jsonl",
+          "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+          "insufficient_audit_records_for_trend",
+          "payload_projection_fallback_to_design_only",
+          "no_preview_output_provided",
+          "audit_projection_design_only_no_jsonl_written"
+        ],
+        "errors": [
+          "confirmation_phrase_required"
+        ]
+      },
+      "normalized_output_preview": "status=blocked\nvalid=False\nblocked_reasons_count=1\nwarnings_count=2",
+      "validation": {
+        "valid": true,
+        "binding_id": "FPRS-798670BE",
+        "issues": [],
+        "warnings": []
+      },
+      "writes_runtime": false,
+      "writes_audit_jsonl": false,
+      "writes_report_artifact": false,
+      "opened_jsonl_write_handle": false,
+      "network_used": false,
+      "feishu_send_attempted": false,
+      "webhook_called": false,
+      "webhook_value_read": false,
+      "secret_read": false,
+      "scheduler_triggered": false,
+      "gateway_main_path_touched": false,
+      "send_allowed": false,
+      "confirmation_phrase_provided": false,
+      "webhook_ref_provided": true,
+      "warnings": [
+        "artifact_bundle_not_provided",
+        "audit_jsonl_missing:tool_runtime_projections.jsonl",
+        "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+        "insufficient_audit_records_for_trend",
+        "payload_projection_fallback_to_design_only",
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": [
+        "validation:confirmation_phrase_required"
+      ]
+    }
+  ],
+  "safety_checks": [
+    {
+      "check_id": "no_runtime_write",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No binding result writes to runtime state",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_audit_jsonl_write",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result writes to audit JSONL files",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_report_artifact_write",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result writes report artifacts by default",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_jsonl_write_handle",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result opens write handle to JSONL files",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_network",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result makes network calls",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_secret",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result reads secrets or tokens",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_webhook_call",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result calls webhooks",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_feishu_send",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No binding result attempts Feishu send",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_scheduler",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "No binding result triggers scheduler or cron",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_gateway_main_path",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No binding result touches Gateway main router",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_webhook_value_read",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No binding result reads webhook values",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "send_allowed_false",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Feishu pre-send validation must have send_allowed=False",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "confirmation_phrase_checked",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "Confirmation phrase field is recorded in result",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "webhook_ref_metadata_only",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Webhook reference is metadata only, not a real webhook URL",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_raw_secret_in_output",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Normalized output does not contain raw secret/token strings",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "structured_errors_only",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "All error messages are structured (prefixed), not raw exceptions",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "output_schema_valid",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "All binding results have valid output schema",
+      "observed_value": 1.0,
+      "expected_value": 1.0,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "batch1_dependency_satisfied",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-18D (STEP-001) result is implemented and approved",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "batch2_dependency_satisfied",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-18E (STEP-002) result is implemented and approved",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "batch3_dependency_satisfied",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-18F (STEP-003) result is implemented and approved",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "plan_scope_limited_to_step_004",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Batch 4 only implements STEP-004 (no STEP-005..006 code)",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch4": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "approved_binding_count": 1,
+  "blocked_binding_count": 2,
+  "validation_result": {
+    "valid": true,
+    "implemented_steps": [
+      "STEP-004"
+    ],
+    "binding_count": 3,
+    "safety_check_count": 21,
+    "failed_safety_checks": 0,
+    "issues": [],
+    "warnings": []
+  },
+  "push_deviation": {
+    "head_hash": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "origin_main_hash": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "ahead_count": 0,
+    "push_deviation_recorded": true,
+    "push_deviation_git_push_executed": true,
+    "process_deviation_git_push_executed": true,
+    "gh_workflow_available": false,
+    "gh_workflow_status_code": null,
+    "unexpected_workflow_run": false,
+    "deviation_description": "R241-18F was pushed to origin/main (ae9cc034) as an unintended process deviation. The workflow file (.github/workflows/backend-foundation-audit.yml) was not found on the default branch. gh CLI returned 404 for the workflow.",
+    "recorded_at": "2026-04-28T02:06:14.918013+00:00"
+  },
+  "warnings": [
+    "STEP-005 surfaces defined in plan (will be implemented in later batches)",
+    "STEP-006 surfaces defined in plan (will be implemented in later batches)"
+  ],
+  "errors": []
+}

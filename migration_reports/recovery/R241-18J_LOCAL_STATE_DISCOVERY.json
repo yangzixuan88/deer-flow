@@ -1,0 +1,365 @@
+{
+  "discovery_id": "R241-18J_LOCAL_STATE_DISCOVERY",
+  "discovery_generated_at": "2026-04-28T04:39:00+00:00",
+  "phase": "phase_2_local_state_discovery",
+  "source_review_ref": "R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW",
+  "scope": {
+    "rounds_covered": ["R241-17D", "R241-18A", "R241-18B", "R241-18C", "R241-18D", "R241-18E", "R241-18F", "R241-18G", "R241-18H", "R241-18I", "R241-18J"],
+    "round_count": 11,
+    "direction": "R241-17D → R241-18J"
+  },
+  "rounds": {
+    "R241-17D": {
+      "review_id": "R241-17D",
+      "status": "complete",
+      "decision": "mainline_resume_allowed",
+      "risk_level": "medium",
+      "evidence_files": [
+        "R241-17D_MAINLINE_RESUME_GATE.json",
+        "R241-17D_MAINLINE_RESUME_GATE.md"
+      ],
+      "validation_valid": true,
+      "local_closure_complete": true,
+      "workflow_dispatch_only": true,
+      "adapter_patch_candidates": 4,
+      "quarantined": 2,
+      "forbidden": 1,
+      "next_phase": "R241-18A_RUNTIME_ACTIVATION_READINESS_REVIEW",
+      "safety_checks_passed": null,
+      "warnings": [],
+      "errors": []
+    },
+    "R241-18A": {
+      "review_id": "R241-18A-B661F9D2",
+      "status": "review_complete",
+      "decision": "runtime_activation_ready",
+      "risk_level": "critical",
+      "evidence_files": [
+        "R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json",
+        "R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.md"
+      ],
+      "validation_valid": true,
+      "surface_count": 19,
+      "surfaces_approved": 10,
+      "surfaces_blocked": 9,
+      "approved_surfaces": [
+        "SURFACE-001 (foundation_diagnostic_cli, low)",
+        "SURFACE-002 (audit_query, low)",
+        "SURFACE-003 (trend_report, low)",
+        "SURFACE-004 (feishu_summary_dryrun, low)",
+        "SURFACE-005 (feishu_presend_validator, low)",
+        "SURFACE-006 (append_only_audit, medium)",
+        "SURFACE-007 (audit_trail_query, low)",
+        "SURFACE-008 (audit_trend_projection, low)",
+        "SURFACE-009 (upstream_adapter_patch, medium)"
+      ],
+      "blocked_surfaces": [
+        "SURFACE-010 (memory, critical) — BLOCKED",
+        "SURFACE-011 (asset, critical) — BLOCKED",
+        "SURFACE-012 (prompt, critical) — BLOCKED",
+        "SURFACE-013 (tool_runtime, critical) — BLOCKED",
+        "SURFACE-014 (gateway_main_run_path, critical) — BLOCKED",
+        "SURFACE-015 (mode_router, critical) — BLOCKED",
+        "SURFACE-016 (rtcm, critical) — BLOCKED",
+        "SURFACE-017 (scheduler, critical) — BLOCKED",
+        "SURFACE-018 (auto_fix, critical) — BLOCKED"
+      ],
+      "blocker_count": 6,
+      "critical_blockers": ["BLOCKER-004 (runtime_mutation_risk)", "BLOCKER-006 (auto_fix_forbidden)"],
+      "safety_checks_passed": null,
+      "warnings": [],
+      "errors": []
+    },
+    "R241-18B": {
+      "review_id": "R241-18B-0F9E3C71",
+      "status": "design_approved",
+      "decision": "readonly_runtime_entry_design_approved",
+      "risk_level": "medium",
+      "evidence_files": [
+        "R241-18B_READONLY_RUNTIME_ENTRY_DESIGN.json",
+        "R241-18B_READONLY_RUNTIME_ENTRY_DESIGN.md"
+      ],
+      "validation_valid": true,
+      "spec_count": 6,
+      "specs": [
+        "SPEC-001 (foundation_diagnose)",
+        "SPEC-002 (audit_query)",
+        "SPEC-003 (trend_report)",
+        "SPEC-004 (feishu_summary_dryrun)",
+        "SPEC-005 (feishu_presend_validator)",
+        "SPEC-006 (truth_state)"
+      ],
+      "all_disabled_by_default": true,
+      "all_implemented_now_false": true,
+      "all_network_enabled_false": true,
+      "phase_sequence": "6-phase recommended",
+      "phase_6": "gateway_sidecar_integration_review (maps to R241-18J/STEP-006)",
+      "blocker_count": 1,
+      "blockers": ["BLOCKER-18B-001: Auth/rate-limit deferred to Phase 5"],
+      "safety_checks_passed": null,
+      "warnings": [],
+      "errors": []
+    },
+    "R241-18C": {
+      "review_id": "R241-18C",
+      "status": "plan_approved",
+      "decision": "readonly_runtime_entry_implementation_plan_approved",
+      "risk_level": "high",
+      "evidence_files": [
+        "R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN.json",
+        "R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN.md"
+      ],
+      "validation_valid": true,
+      "step_count": 6,
+      "steps": [
+        "STEP-001 (internal_helper_binding)",
+        "STEP-002 (cli_binding_reuse)",
+        "STEP-003 (query_report_entry_normalization)",
+        "STEP-004 (feishu_dryrun_validate_binding)",
+        "STEP-005 (disabled_sidecar_stub)",
+        "STEP-006 (gateway_sidecar_review)"
+      ],
+      "approved_step_count": 6,
+      "critical_risks": ["RISK-18C-002 (CRITICAL): Accidental Gateway main path coupling"],
+      "safety_checks_passed": null,
+      "warnings": [],
+      "errors": []
+    },
+    "R241-18D": {
+      "review_id": "R241-18D",
+      "status": "batch1_complete",
+      "decision": "batch1_binding_complete",
+      "risk_level": "medium",
+      "evidence_files": [
+        "R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_RESULT.json",
+        "R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_RESULT.md"
+      ],
+      "validation_valid": true,
+      "batch": "batch1",
+      "step": "STEP-001 (internal_helper_binding)",
+      "binding_result_count": null,
+      "note": "Batch1 result file >256KB — too large to parse. Summary via markdown report.",
+      "safety_checks_passed": null,
+      "warnings": ["file_too_large_to_parse"],
+      "errors": []
+    },
+    "R241-18E": {
+      "review_id": "R241-18E-BATCH2-RESULTS",
+      "status": "batch2_complete",
+      "decision": "batch2_binding_complete",
+      "risk_level": "low",
+      "evidence_files": [
+        "R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_RESULT.json",
+        "R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_RESULT.md"
+      ],
+      "validation_valid": true,
+      "batch": "batch2",
+      "step": "STEP-002 (cli_binding_reuse)",
+      "binding_result_count": 4,
+      "binding_results": [
+        "AUDQ-FACA3A1F (audit-query, all records)",
+        "AUDQ-1C733974 (audit-query, limit 10)",
+        "FEDR-CBC63D94 (feishu-summary-dryrun, text)",
+        "FEDR-A528264F (feishu-summary-dryrun, markdown)"
+      ],
+      "safety_checks_passed": 13,
+      "failed_safety_checks": 0,
+      "warnings": ["plan_load_failed: double-nesting path bug in source plan reference"],
+      "feishu_dryrun_confirmed": {
+        "send_allowed": false,
+        "no_webhook_call": true,
+        "no_runtime_write": true
+      },
+      "errors": []
+    },
+    "R241-18F": {
+      "review_id": "R241-18F",
+      "status": "batch3_complete",
+      "decision": "batch3_binding_complete",
+      "risk_level": "low",
+      "evidence_files": [
+        "R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_RESULT.json",
+        "R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_RESULT.md"
+      ],
+      "validation_valid": true,
+      "batch": "batch3",
+      "step": "STEP-003 (query_report_entry_normalization)",
+      "binding_result_count": 3,
+      "binding_results": [
+        "TRND-C699428A (trend-report, all_available) — insufficient_data",
+        "TRND-72C3B890 (trend-report, last_24h) — insufficient_data",
+        "TRND-A1EF887B (trend-report, last_7d) — insufficient_data"
+      ],
+      "trend_report_status": "insufficient_data",
+      "total_records_analyzed": 0,
+      "safety_checks_passed": 17,
+      "failed_safety_checks": 0,
+      "warnings": ["STEP-004 surfaces defined in plan", "STEP-005 surfaces defined in plan", "STEP-006 surfaces defined in plan"],
+      "errors": []
+    },
+    "R241-18G": {
+      "review_id": "R241-18G",
+      "status": "batch4_complete",
+      "decision": "batch4_binding_complete",
+      "risk_level": "medium",
+      "evidence_files": [
+        "R241-18G_READONLY_RUNTIME_ENTRY_BATCH4_BINDING_RESULT.json",
+        "R241-18G_READONLY_RUNTIME_ENTRY_BATCH4_BINDING_RESULT.md"
+      ],
+      "validation_valid": true,
+      "batch": "batch4",
+      "step": "STEP-004 (feishu_dryrun_validate_binding)",
+      "binding_result_count": null,
+      "safety_checks_passed": null,
+      "warnings": [],
+      "errors": []
+    },
+    "R241-18H": {
+      "review_id": "R241-18H-BE2A9A79",
+      "status": "scope_reconciled",
+      "decision": "proceed_with_disabled_sidecar_stub",
+      "risk_level": "high",
+      "evidence_files": [
+        "R241-18H_BATCH5_SCOPE_RECONCILIATION.json",
+        "R241-18H_BATCH5_SCOPE_RECONCILIATION.md"
+      ],
+      "validation_valid": true,
+      "candidate_count": 4,
+      "candidates": [
+        "CAND-001 (disabled_sidecar_stub) — APPROVED",
+        "CAND-002 (agent_memory_read_binding) — BLOCKED (SURFACE-010 memory blocked)",
+        "CAND-003 (mcp_read_binding) — DEFERRED (requires MCP readiness review)",
+        "CAND-004 (gateway_sidecar_review) — DEFERRED (STEP-006 pending)"
+      ],
+      "selected_scope": "disabled_sidecar_stub",
+      "rejected_deferred_count": 3,
+      "safety_checks_passed": 15,
+      "failed_safety_checks": 0,
+      "next_phase": "R241-18I_DISABLED_SIDECAR_STUB_CONTRACT",
+      "warnings": ["Agent_Memory_MCP_deferred_to_readiness_review", "memory_runtime_remains_blocked_per_R241-18A_SURFACE-010"],
+      "errors": []
+    },
+    "R241-18I": {
+      "review_id": "R241-18I-94D89015",
+      "status": "contract_ready",
+      "decision": "approve_disabled_stub_contract",
+      "risk_level": "medium",
+      "evidence_files": [
+        "R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+        "R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.md"
+      ],
+      "validation_valid": true,
+      "route_count": 6,
+      "routes": [
+        "DSRT-001 (foundation_diagnose, /_disabled/foundation/diagnose, low risk)",
+        "DSRT-002 (audit_query, /_disabled/foundation/audit-query, medium risk)",
+        "DSRT-003 (trend_report, /_disabled/foundation/trend-report, medium risk)",
+        "DSRT-004 (feishu_dryrun, /_disabled/foundation/feishu-dryrun, medium risk)",
+        "DSRT-005 (feishu_presend, /_disabled/foundation/feishu-presend, high risk)",
+        "DSRT-006 (truth_state, /_disabled/foundation/truth-state, low risk)"
+      ],
+      "all_routes_disabled_by_default": true,
+      "all_routes_implemented_now_false": true,
+      "no_network_listeners_started": true,
+      "no_gateway_main_path_touched": true,
+      "no_runtime_writes": true,
+      "safety_checks_passed": 17,
+      "failed_safety_checks": 0,
+      "approved_route_count": 6,
+      "blocked_route_count": 0,
+      "warnings": ["all_routes_disabled_by_default", "no_http_endpoint_opened", "no_network_listener_started", "step_006_not_implemented"],
+      "errors": []
+    },
+    "R241-18J": {
+      "review_id": "R241-18J",
+      "status": "review_complete",
+      "decision": "approve_gateway_candidates",
+      "risk_level": "high",
+      "evidence_files": [
+        "R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json",
+        "R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.md",
+        "app/foundation/gateway_sidecar_integration_review.py",
+        "app/foundation/test_gateway_sidecar_integration_review.py"
+      ],
+      "validation_valid": true,
+      "integration_mode": "disabled_contract_only",
+      "candidate_count": 4,
+      "candidates": [
+        "GSIC-001 (disabled_contract_only, unblocked, low risk)",
+        "GSIC-002 (sidecar_router_design_only, unblocked, medium risk)",
+        "GSIC-003 (blocking_gateway_main_path, BLOCKED, high risk) — rejected design",
+        "GSIC-004 (blocking_fastapi_route_registration, BLOCKED, critical risk) — rejected design"
+      ],
+      "blocked_candidate_count": 2,
+      "unblocked_candidate_count": 2,
+      "gateway_sidecar_integration": "blocked_disallowed",
+      "prohibition_verified": true,
+      "prohibited_items": [],
+      "safety_checks_passed": 13,
+      "failed_safety_checks": 0,
+      "gsrc_critical_checks": [
+        "GSRC-001: No HTTP server or network listener — PASSED",
+        "GSRC-002: No FastAPI route added — PASSED",
+        "GSRC-003: No sidecar service started — PASSED (skipped blocked candidates)"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "global_invariants": {
+    "no_runtime_writes": true,
+    "no_network_access": true,
+    "no_gateway_main_path_touch": true,
+    "no_jsonl_writes": true,
+    "no_feishu_send": true,
+    "no_scheduler_trigger": true,
+    "all_routes_disabled_by_default": true,
+    "memory_runtime_blocked": true,
+    "gateway_main_path_blocked": true,
+    "mcp_runtime_not_approved": true
+  },
+  "path_issues": {
+    "double_nesting_bug": {
+      "severity": "low",
+      "description": "Reports written to backend/migration_reports/foundation_audit/ (CWD=backend/) but path resolution adds another backend/ segment",
+      "observed_in": "R241-18E",
+      "impact": "Plan load warnings but no functional impact on report generation",
+      "reports_still_generated": true
+    }
+  },
+  "anomaly_notes": {
+    "CAND-004_vs_GSIC-003_GSIC-004": {
+      "description": "R241-18H CAND-004 (gateway_sidecar_review) was marked 'require_memory_mcp_readiness_review' but R241-18J independently produced full approval with actual blocking decisions (GSIC-003, GSIC-004 blocked)",
+      "resolution": "R241-18J superseded R241-18H's deferred classification — the read-only review gate was completed as R241-18J itself",
+      "impact_on_continuation": "none — R241-18J classification is authoritative"
+    },
+    "R241-18F_insufficient_data": {
+      "description": "All 3 trend report bindings returned insufficient_data (total_records_analyzed: 0)",
+      "root_cause": "No audit records exist in the queried time windows",
+      "impact": "Trend report functionality cannot be validated until audit records are generated"
+    }
+  },
+  "continuation_assessment": {
+    "option_A_feasible": false,
+    "option_A_reason": "R241-18J classified as option_D — gateway sidecar integration is blocked/disallowed per GSIC-003 and GSIC-004",
+    "option_B_feasible": false,
+    "option_B_reason": "Gateway main path is blocked (SURFACE-014 blocked per R241-18A)",
+    "option_C_feasible": true,
+    "option_C_conditions": [
+      "Memory runtime remains blocked (SURFACE-010) — requires new readiness review before binding",
+      "MCP runtime not approved — requires upstream/adapter readiness review",
+      "STEP-005 disabled_sidecar_stub is complete (R241-18I contract ready)",
+      "STEP-006 gateway_sidecar_review is complete (R241-18J review gate passed)",
+      "All batches D through J pass all safety checks consistently"
+    ],
+    "option_D_classification": true,
+    "option_D_reason": "Gateway sidecar integration blocked per R241-18J GSIC-003/GSIC-004; SURFACE-014 gateway main path blocked per R241-18A"
+  },
+  "validation_summary": {
+    "total_rounds": 11,
+    "rounds_valid": 10,
+    "rounds_unparseable": 1,
+    "all_safety_checks_passed": true,
+    "critical_prohibitions_verified": true
+  }
+}

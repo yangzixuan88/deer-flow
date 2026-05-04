@@ -1,0 +1,207 @@
+{
+  "phase": "R241-25I",
+  "status": "COMPLETE",
+  "generated": "2026-04-29",
+  "description": "Auth Activation Review — credential_file.py bootstrap gap analysis",
+  "preceded_by": "R241-25F",
+  "proceeded_by": "R241-25J",
+  "laneware": {
+    "lane_1_scope_gate": "PASS",
+    "lane_2_credential_file_review": "PASS",
+    "lane_3_bootstrap_gap_review": "PASS",
+    "lane_4_reset_admin_deferral": "PASS",
+    "lane_5_integration_strategy": "PASS",
+    "lane_6_authorization_package": "PASS",
+    "lane_7_pr2645": "PASS",
+    "lane_8_report": "PASS"
+  },
+  "scope_gate": {
+    "passed": true,
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "29f8ed8a",
+    "tracked_modifications_detected": false,
+    "read_only_mode": true,
+    "r241_25f_cleanup_verified": true
+  },
+  "credential_file_review": {
+    "file": "backend/app/gateway/auth/credential_file.py",
+    "origin_sha": "100ca3b04234e2518589dcaf991f5b01d61f8339",
+    "exists_on_private": false,
+    "safe_to_port": true,
+    "risk": "low",
+    "security_analysis": {
+      "imports": ["os", "pathlib.Path", "deerflow.config.paths.get_paths"],
+      "db_calls": "NONE",
+      "init_engine_calls": "NONE",
+      "file_write_target": "{base_dir}/admin_initial_credentials.txt",
+      "file_permission": "0600 (owner-only read/write)",
+      "atomic_write": "YES — os.open with O_CREAT|O_WRONLY|O_TRUNC",
+      "secret_handling": "password written to file only, never to stdout/stderr",
+      "logging_behavior": "NONE — caller logs the path (not the password)",
+      "codeql_finding": "Addresses py/clear-text-logging-sensitive-data"
+    },
+    "function_signature": "write_initial_credentials(email: str, password: str, *, label: str = 'initial') -> Path",
+    "labels": "initial (first boot) | reset (password reset)",
+    "side_effects": "file write only, no DB, no network, no init_engine",
+    "secret_leak_risk": "none (0600 + operator picks up from file)",
+    "dependencies": ["deerflow.config.paths.get_paths"],
+    "port_complexity": "minimal"
+  },
+  "private_main_bootstrap_gap": {
+    "credential_file_on_private": false,
+    "auth_router_on_private": false,
+    "initialize_admin_on_private": false,
+    "count_admin_users_on_private": false,
+    "private_local_auth_router": "EXISTS (untracked, working dir) — has /register but no /initialize-admin",
+    "private_local_register": "creates system_role='user' only, not admin",
+    "private_setup_status": "checks count_users() == 0 (all users, not admin-specific)",
+    "origin_setup_status": "checks count_admin_users() == 0 (admin-specific)",
+    "local_working_directory_auth": {
+      "has_register": true,
+      "has_setup_status": true,
+      "has_initialize_admin": false,
+      "has_credential_file": false,
+      "has_count_admin_users": false
+    },
+    "bootstrap_chain_analysis": {
+      "origin_main_flow": "credential_file.py writes creds → operator reads file → calls POST /initialize-admin → create_user(admin)",
+      "private_main_flow": "NO PATH — credential_file.py absent, /initialize-admin absent",
+      "local_working_dir_flow": "/register creates user (not admin) — no admin creation path"
+    },
+    "gap_confirmed": true,
+    "activation_blocking": true,
+    "gap_severity": "BLOCKING"
+  },
+  "reset_admin_deferral": {
+    "file": "backend/app/gateway/auth/reset_admin.py",
+    "exists_on_origin": true,
+    "exists_on_private": false,
+    "defer_confirmed": true,
+    "reason": "production_db_surface — calls init_engine_from_config(config.database), direct DB user manipulation. CLI operational tool, NOT part of auth activation gate. Defer to future operational tooling phase.",
+    "blocking_for_activation": false,
+    "safe_to_defer": true
+  },
+  "integration_strategy": {
+    "strategy_a": {
+      "name": "Port credential_file.py as isolated low-risk file",
+      "credential_file_risk": "low",
+      "scope": "Add credential_file.py only",
+      "completes_bootstrap": false,
+      "reason": "credential_file.py alone cannot complete bootstrap — needs /initialize-admin endpoint and count_admin_users() method",
+      "execution_allowed_now": false,
+      "files_needed": ["credential_file.py"]
+    },
+    "strategy_b": {
+      "name": "Port credential_file.py + initialize_admin endpoint + count_admin_users",
+      "scope": "Add credential_file.py, add /initialize-admin router, add count_admin_users to LocalAuthProvider",
+      "completes_bootstrap": true,
+      "risk": "medium",
+      "reason": "Full bootstrap chain. Requires engine initialization to work (production_DB constraint). Safe for controlled activation path.",
+      "files_needed": [
+        "credential_file.py",
+        "routers/auth.py (add initialize-admin endpoint)",
+        "auth/local_provider.py (add count_admin_users method)"
+      ]
+    },
+    "strategy_c": {
+      "name": "Defer credential bootstrap until production SQLite review",
+      "scope": "None",
+      "completes_bootstrap": false,
+      "risk": "none",
+      "reason": "Preserves blockers but leaves BLOCKING gap open"
+    },
+    "recommended_strategy": "strategy_b",
+    "recommended_strategy_name": "Full bootstrap port (credential_file + initialize_admin + count_admin_users)",
+    "reason": "Strategy A only solves half the problem. Strategy B completes the bootstrap chain properly. credential_file.py is confirmed LOW risk (no DB, no init_engine). The /initialize-admin endpoint and count_admin_users() require engine initialization which is already blocked by production SQLite/Postgres blockers.",
+    "execution_allowed_now": false,
+    "risk": "medium",
+    "files_needed": [
+      "credential_file.py",
+      "routers/auth.py (initialize-admin endpoint addition)",
+      "auth/local_provider.py (count_admin_users addition)"
+    ],
+    "conditional_note": "Strategy B execution requires explicit authorization per-file. R241-25J authorization package scopes per-file."
+  },
+  "r241_25j_authorization_package": {
+    "phase": "R241-25J_CREDENTIAL_BOOTSTRAP_PORT_AUTHORIZATION",
+    "allowed_operations": [
+      "Add backend/app/gateway/auth/credential_file.py (from origin/main SHA 100ca3b0)",
+      "AST validation of credential_file.py",
+      "Import validation of credential_file.py",
+      "Add count_admin_users() method to LocalAuthProvider (backend/app/gateway/auth/local_provider.py)",
+      "Add /initialize-admin endpoint to routers/auth.py",
+      "No write_initial_credentials execution",
+      "No DB writes",
+      "No init_engine calls",
+      "No gateway activation"
+    ],
+    "forbidden_operations": [
+      "reset_admin.py",
+      "init_engine or init_engine_from_config",
+      "production DB writes",
+      "app.py modification",
+      "AUTH flags modification",
+      "writing actual credential file",
+      "gateway activation"
+    ],
+    "files_in_scope": [
+      "credential_file.py",
+      "local_provider.py (count_admin_users only)",
+      "routers/auth.py (initialize-admin only)"
+    ],
+    "authorization_ready": true
+  },
+  "pr2645_recheck": {
+    "rechecked": true,
+    "state": "open",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "ci_missing": true
+  },
+  "candidate_outcomes": {
+    "SRC-004": "divergence_requires_decision",
+    "SRC-005": "safe_to_defer"
+  },
+  "blockers_preserved": [
+    "Production SQLite binding — BLOCKED",
+    "Production Postgres binding — BLOCKED",
+    "CAND-003 MCP binding — BLOCKED",
+    "DSRT — DISABLED",
+    "Actual gateway activation — BLOCKED",
+    "MAINLINE_GATEWAY_ACTIVATION=false",
+    "AUTH_MIDDLEWARE_ENABLED=false",
+    "AUTH_ROUTES_ENABLED=false"
+  ],
+  "hard_prohibitions": [
+    "no_code_modification",
+    "no_deletion_of_untracked_files",
+    "no_git_clean_or_git_add",
+    "no_reset_or_stash",
+    "no_AUTH_flags_enablement",
+    "no_production_init_engine",
+    "no_DB_writes",
+    "no_JSONL_writes",
+    "no_gateway_activation",
+    "no_dependency_installation",
+    "no_pyproject_modification",
+    "no_push_to_main",
+    "no_merge_PR_2645",
+    "no_blocker_override"
+  ],
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R241-25I_AUTH_ACTIVATION_REVIEW.md",
+    "migration_reports/recovery/R241-25I_AUTH_ACTIVATION_REVIEW.json"
+  ],
+  "next_prompt": "Enter R241-25J_CREDENTIAL_BOOTSTRAP_PORT. R241-25I complete. credential_file.py confirmed LOW risk (no DB, no init_engine). Full bootstrap requires 3 components: credential_file.py + initialize-admin endpoint + count_admin_users(). Strategy B recommended (full port). R241-25J authorization package ready. Requires explicit user authorization per-file before execution. All blockers preserved."
+}

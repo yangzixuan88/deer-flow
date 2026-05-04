@@ -1,0 +1,451 @@
+{
+  "review_id": "R241-18H-BE2A9A79",
+  "generated_at": "2026-04-28T02:59:35.004085+00:00",
+  "status": "scope_reconciled",
+  "decision": "proceed_with_disabled_sidecar_stub",
+  "source_plan_ref": "R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN",
+  "source_batch4_ref": "R241-18G_READONLY_RUNTIME_ENTRY_BATCH4_BINDING_RESULT",
+  "candidates": [
+    {
+      "candidate_id": "CAND-001",
+      "candidate_type": "disabled_sidecar_stub",
+      "proposed_source": "R241-18C_STEP-005",
+      "matches_r241_18c_plan": true,
+      "step_id": "STEP-005",
+      "batch": "disabled_sidecar_stub",
+      "description": "Design disabled-by-default sidecar API stub contracts for all 6 surfaces. Each stub has disabled_by_default=True, implemented_now=False, network_enabled=False. Schemas defined but no HTTP server started, no port bound, no Gateway route registered.",
+      "surface_ids": [
+        "SPEC-001",
+        "SPEC-002",
+        "SPEC-003",
+        "SPEC-004",
+        "SPEC-005",
+        "SPEC-006"
+      ],
+      "requires_new_readiness_review": false,
+      "touches_memory_runtime": false,
+      "touches_mcp_runtime": false,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": false,
+      "writes_runtime": false,
+      "implemented_now": false,
+      "disabled_by_default": true,
+      "risk_level": "low",
+      "decision": "proceed_with_disabled_sidecar_stub",
+      "blocked_reasons": [],
+      "warnings": [
+        "disabled_sidecar_stub_confirmed_proceed"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "CAND-002",
+      "candidate_type": "agent_memory_read_binding",
+      "proposed_source": "R241-18G_next_step_annotation",
+      "matches_r241_18c_plan": false,
+      "step_id": null,
+      "description": "Agent Memory + MCP Read Binding (from R241-18G next-step annotation). SURFACE-010 memory runtime is BLOCKED (critical). Requires new readiness review before any binding.",
+      "surface_ids": [
+        "SURFACE-010"
+      ],
+      "requires_new_readiness_review": true,
+      "touches_memory_runtime": true,
+      "touches_mcp_runtime": false,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": false,
+      "writes_runtime": true,
+      "implemented_now": false,
+      "disabled_by_default": false,
+      "risk_level": "critical",
+      "decision": "require_memory_mcp_readiness_review",
+      "blocked_reasons": [
+        "SURFACE-010_memory_runtime_blocked_per_R241-18A",
+        "memory_runtime_mutations_forbidden",
+        "memory_runtime_blocked_per_R241-18A_SURFACE-010",
+        "touches_memory_runtime_blocked"
+      ],
+      "warnings": [
+        "memory_runtime_blocked_cannot_implement_without_readiness_review",
+        "R241-18C_STEP-005_does_not_specify_memory_binding"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "CAND-003",
+      "candidate_type": "mcp_read_binding",
+      "proposed_source": "inference_from_R241-18G_annotations",
+      "matches_r241_18c_plan": false,
+      "step_id": null,
+      "description": "MCP Read Binding — requires upstream/adapter readiness review, MCP credentials policy, network isolation, no secret read, no server connection.",
+      "surface_ids": [],
+      "requires_new_readiness_review": true,
+      "touches_memory_runtime": false,
+      "touches_mcp_runtime": true,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": true,
+      "writes_runtime": false,
+      "implemented_now": false,
+      "disabled_by_default": true,
+      "risk_level": "medium",
+      "decision": "require_memory_mcp_readiness_review",
+      "blocked_reasons": [
+        "MCP_runtime_not_approved",
+        "requires_upstream_adapter_readiness_review",
+        "MCP_runtime_not_approved_requires_readiness_review"
+      ],
+      "warnings": [
+        "MCP_credentials_policy_not_defined",
+        "network_isolation_not_verified"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "CAND-004",
+      "candidate_type": "gateway_sidecar_review",
+      "proposed_source": "R241-18C_STEP-006",
+      "matches_r241_18c_plan": true,
+      "step_id": "STEP-006",
+      "batch": "gateway_sidecar_review",
+      "description": "Review gate: confirm that no sidecar stub touches Gateway main path, no router mutation occurs, no main path replacement. All sidecar stubs remain disabled. Review is read-only analysis of router code.",
+      "surface_ids": [
+        "SPEC-001",
+        "SPEC-002",
+        "SPEC-003",
+        "SPEC-004",
+        "SPEC-005",
+        "SPEC-006"
+      ],
+      "requires_new_readiness_review": false,
+      "touches_memory_runtime": false,
+      "touches_mcp_runtime": false,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": false,
+      "writes_runtime": false,
+      "implemented_now": false,
+      "disabled_by_default": true,
+      "risk_level": "high",
+      "decision": "require_memory_mcp_readiness_review",
+      "blocked_reasons": [],
+      "warnings": [
+        "STEP-006_depends_on_STEP-005",
+        "review_only_no_implementation",
+        "gateway_sidecar_review_is_read_only_review_gate"
+      ],
+      "errors": []
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "r241_18a_validation_valid",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-18A readiness matrix has valid=true",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "memory_runtime_blocked",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "SURFACE-010 Memory Runtime remains blocked per R241-18A",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "mcp_runtime_not_approved",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "MCP runtime has no affirmative approval in R241-18A readiness matrix",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "gateway_main_path_blocked",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "SURFACE-014 Gateway Main Run Path blocked per R241-18A",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "r241_18c_validation_valid",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-18C implementation plan has valid=true",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "step_005_exists",
+      "passed": true,
+      "risk_level": "high",
+      "description": "STEP-005 exists in R241-18C plan",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "step_005_disabled_sidecar_stub",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "STEP-005 batch is 'disabled_sidecar_stub' per R241-18C plan",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "r241_18g_validation_valid",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-18G batch 4 result has valid=true",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "step_004_completed",
+      "passed": true,
+      "risk_level": "high",
+      "description": "STEP-004 completed in R241-18G",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "disabled_sidecar_no_http_endpoint",
+      "passed": true,
+      "risk_level": "high",
+      "description": "disabled_sidecar_stub opens no HTTP endpoint",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "disabled_sidecar_no_network",
+      "passed": true,
+      "risk_level": "high",
+      "description": "disabled_sidecar_stub has network_allowed=False",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "disabled_sidecar_no_gateway_touch",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "disabled_sidecar_stub does not touch Gateway main path",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "disabled_sidecar_no_runtime_write",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "disabled_sidecar_stub writes_runtime=False",
+      "observed_value": false,
+      "expected_value": false,
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "memory_binding_blocked",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Agent Memory candidate is blocked (memory runtime blocked per R241-18A)",
+      "observed_value": "require_memory_mcp_readiness_review",
+      "expected_value": "require_memory_mcp_readiness_review",
+      "required_for_batch5": true,
+      "blocked_reasons": [
+        "SURFACE-010_memory_runtime_blocked_per_R241-18A",
+        "memory_runtime_mutations_forbidden",
+        "memory_runtime_blocked_per_R241-18A_SURFACE-010",
+        "touches_memory_runtime_blocked"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "mcp_binding_blocked",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "MCP Read candidate requires readiness review",
+      "observed_value": "require_memory_mcp_readiness_review",
+      "expected_value": "require_memory_mcp_readiness_review",
+      "required_for_batch5": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "selected_batch5_scope": "disabled_sidecar_stub",
+  "rejected_or_deferred_candidates": [
+    {
+      "candidate_id": "CAND-002",
+      "candidate_type": "agent_memory_read_binding",
+      "proposed_source": "R241-18G_next_step_annotation",
+      "matches_r241_18c_plan": false,
+      "step_id": null,
+      "description": "Agent Memory + MCP Read Binding (from R241-18G next-step annotation). SURFACE-010 memory runtime is BLOCKED (critical). Requires new readiness review before any binding.",
+      "surface_ids": [
+        "SURFACE-010"
+      ],
+      "requires_new_readiness_review": true,
+      "touches_memory_runtime": true,
+      "touches_mcp_runtime": false,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": false,
+      "writes_runtime": true,
+      "implemented_now": false,
+      "disabled_by_default": false,
+      "risk_level": "critical",
+      "decision": "require_memory_mcp_readiness_review",
+      "blocked_reasons": [
+        "SURFACE-010_memory_runtime_blocked_per_R241-18A",
+        "memory_runtime_mutations_forbidden",
+        "memory_runtime_blocked_per_R241-18A_SURFACE-010",
+        "touches_memory_runtime_blocked"
+      ],
+      "warnings": [
+        "memory_runtime_blocked_cannot_implement_without_readiness_review",
+        "R241-18C_STEP-005_does_not_specify_memory_binding"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "CAND-003",
+      "candidate_type": "mcp_read_binding",
+      "proposed_source": "inference_from_R241-18G_annotations",
+      "matches_r241_18c_plan": false,
+      "step_id": null,
+      "description": "MCP Read Binding — requires upstream/adapter readiness review, MCP credentials policy, network isolation, no secret read, no server connection.",
+      "surface_ids": [],
+      "requires_new_readiness_review": true,
+      "touches_memory_runtime": false,
+      "touches_mcp_runtime": true,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": true,
+      "writes_runtime": false,
+      "implemented_now": false,
+      "disabled_by_default": true,
+      "risk_level": "medium",
+      "decision": "require_memory_mcp_readiness_review",
+      "blocked_reasons": [
+        "MCP_runtime_not_approved",
+        "requires_upstream_adapter_readiness_review",
+        "MCP_runtime_not_approved_requires_readiness_review"
+      ],
+      "warnings": [
+        "MCP_credentials_policy_not_defined",
+        "network_isolation_not_verified"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "CAND-004",
+      "candidate_type": "gateway_sidecar_review",
+      "proposed_source": "R241-18C_STEP-006",
+      "matches_r241_18c_plan": true,
+      "step_id": "STEP-006",
+      "batch": "gateway_sidecar_review",
+      "description": "Review gate: confirm that no sidecar stub touches Gateway main path, no router mutation occurs, no main path replacement. All sidecar stubs remain disabled. Review is read-only analysis of router code.",
+      "surface_ids": [
+        "SPEC-001",
+        "SPEC-002",
+        "SPEC-003",
+        "SPEC-004",
+        "SPEC-005",
+        "SPEC-006"
+      ],
+      "requires_new_readiness_review": false,
+      "touches_memory_runtime": false,
+      "touches_mcp_runtime": false,
+      "opens_http_endpoint": false,
+      "touches_gateway_main_path": false,
+      "network_allowed": false,
+      "secret_required": false,
+      "writes_runtime": false,
+      "implemented_now": false,
+      "disabled_by_default": true,
+      "risk_level": "high",
+      "decision": "require_memory_mcp_readiness_review",
+      "blocked_reasons": [],
+      "warnings": [
+        "STEP-006_depends_on_STEP-005",
+        "review_only_no_implementation",
+        "gateway_sidecar_review_is_read_only_review_gate"
+      ],
+      "errors": []
+    }
+  ],
+  "next_phase": "R241-18I_DISABLED_SIDECAR_STUB_CONTRACT",
+  "validation_result": {
+    "valid": true,
+    "issues": [],
+    "warnings": [],
+    "selected_scope": "disabled_sidecar_stub",
+    "candidates_count": 4
+  },
+  "warnings": [
+    "Agent_Memory_MCP_deferred_to_readiness_review",
+    "R241-18C_STEP-005_is_disabled_sidecar_stub_not_memory_binding",
+    "memory_runtime_remains_blocked_per_R241-18A_SURFACE-010",
+    "STEP-005_is_design_only_no_implementation"
+  ],
+  "errors": []
+}

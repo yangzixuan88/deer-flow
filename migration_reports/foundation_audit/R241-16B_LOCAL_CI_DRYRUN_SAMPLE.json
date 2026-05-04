@@ -1,0 +1,635 @@
+{
+  "plan_only_all_pr": {
+    "run_id": "local_ci_1777160052",
+    "generated_at": "2026-04-25T23:34:12.321225+00:00",
+    "mode": "plan_only",
+    "selected_stages": [
+      "smoke",
+      "fast",
+      "safety",
+      "collect_only"
+    ],
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "stage_results": [
+      {
+        "stage_id": "impl_stage_smoke",
+        "stage_type": "smoke",
+        "name": "Smoke",
+        "command": "python -m pytest -m smoke -v",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_warning",
+        "threshold_warning_seconds": 45,
+        "threshold_blocker_seconds": null,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321130+00:00",
+        "finished_at": "2026-04-25T23:34:12.321130+00:00"
+      },
+      {
+        "stage_id": "impl_stage_fast",
+        "stage_type": "fast",
+        "name": "Fast Unit + Fast Integration",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"not slow\" -v",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_blocking",
+        "threshold_warning_seconds": 30,
+        "threshold_blocker_seconds": 60,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log",
+          "coverage_report"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321157+00:00",
+        "finished_at": "2026-04-25T23:34:12.321157+00:00"
+      },
+      {
+        "stage_id": "impl_stage_safety",
+        "stage_type": "safety",
+        "name": "Safety Boundaries",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_blocking",
+        "threshold_warning_seconds": 10,
+        "threshold_blocker_seconds": 20,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321174+00:00",
+        "finished_at": "2026-04-25T23:34:12.321174+00:00"
+      },
+      {
+        "stage_id": "impl_stage_collect_only",
+        "stage_type": "collect_only",
+        "name": "Collection Check",
+        "command": "python -m pytest backend/app/foundation backend/app/audit --collect-only -q",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_warning",
+        "threshold_warning_seconds": 10,
+        "threshold_blocker_seconds": 20,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321187+00:00",
+        "finished_at": "2026-04-25T23:34:12.321187+00:00"
+      },
+      {
+        "stage_id": "impl_stage_slow",
+        "stage_type": "slow",
+        "name": "Slow Integration",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+        "selected": false,
+        "status": "skipped_by_selection",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "nightly_required",
+        "threshold_warning_seconds": 60,
+        "threshold_blocker_seconds": 120,
+        "threshold_status": "not_evaluated",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log",
+          "foundation_audit_report"
+        ],
+        "warnings": [],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321193+00:00",
+        "finished_at": "2026-04-25T23:34:12.321193+00:00"
+      },
+      {
+        "stage_id": "impl_stage_full",
+        "stage_type": "full",
+        "name": "Full Regression",
+        "command": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+        "selected": false,
+        "status": "skipped_by_selection",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "manual_only",
+        "threshold_warning_seconds": 300,
+        "threshold_blocker_seconds": null,
+        "threshold_status": "not_evaluated",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log",
+          "foundation_audit_report",
+          "coverage_report"
+        ],
+        "warnings": [],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321198+00:00",
+        "finished_at": "2026-04-25T23:34:12.321198+00:00"
+      }
+    ],
+    "overall_status": "pending",
+    "pr_blocking_failed": false,
+    "warning_count": 4,
+    "error_count": 0,
+    "runtime_total_seconds": 0.0,
+    "threshold_summary": {
+      "passed": 0,
+      "warning": 0,
+      "blocker": 0,
+      "failed": 0,
+      "not_run": 4
+    },
+    "artifact_collection_plan": {
+      "artifact_specs": [
+        {
+          "artifact_spec_id": "art_spec_foundation_reports",
+          "artifact_type": "foundation_audit_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit",
+            "backend\\migration_reports\\foundation_audit"
+          ],
+          "destination_name": "foundation_audit_reports",
+          "include_patterns": [
+            "*.json",
+            "*.md"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/*.jsonl",
+            "**/runtime/**",
+            "**/action_queue/**",
+            "**/.secret/**",
+            "**/webhook_url*",
+            "**/*token*",
+            "**/*secret*"
+          ],
+          "retention_days": 30,
+          "path_inconsistency_handling": "collect_both_report_warning",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "primary path: migration_reports\\foundation_audit",
+            "secondary path: backend\\migration_reports\\foundation_audit",
+            "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_ci_matrix",
+          "artifact_type": "ci_matrix_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit"
+          ],
+          "destination_name": "ci_matrix_reports",
+          "include_patterns": [
+            "R241-15*",
+            "R241-16*"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 90,
+          "path_inconsistency_handling": "primary_only",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_pytest_logs",
+          "artifact_type": "pytest_log",
+          "source_paths": [],
+          "destination_name": "pytest_logs",
+          "include_patterns": [
+            "**/pytest.log",
+            "**/.pytest_cache/**",
+            "**/tmp/**/pytest*.log"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/**"
+          ],
+          "retention_days": 7,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "pytest logs are temp — only collect if explicitly enabled"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_junit_xml",
+          "artifact_type": "junit_xml",
+          "source_paths": [],
+          "destination_name": "junit_reports",
+          "include_patterns": [
+            "**/junit*.xml",
+            "**/test-results/**/*.xml"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 14,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "junit xml is optional — requires --junit-xml flag in pytest command"
+          ],
+          "errors": []
+        }
+      ],
+      "spec_count": 4,
+      "primary_report_path": "migration_reports\\foundation_audit",
+      "secondary_report_path": "backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "path_inconsistency_action": "report_only_no_migration_no_deletion"
+    },
+    "path_compatibility_summary": {
+      "path_compatibility_policy_id": "R241-16A_path_compatibility",
+      "generated_at": "2026-04-25T23:34:12.321082+00:00",
+      "primary_report_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+      "secondary_report_path": "E:\\OpenClaw-Base\\deerflow\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "action_now": "report_only",
+      "future_options": [
+        "unify_report_root_under_migration_reports_only",
+        "add_compatibility_note_in_ci_config",
+        "migrate_old_backend_reports_in_phase_6",
+        "ci_collect_both_paths_temporarily"
+      ],
+      "migration_allowed_now": false,
+      "deletion_allowed_now": false,
+      "rewriting_allowed_now": false,
+      "warnings": [
+        "No migration, deletion, or rewriting in this phase",
+        "CI should collect from both paths when both exist",
+        "Future Phase 6 will address path cleanup"
+      ],
+      "errors": []
+    },
+    "blocked_actions_verified": {
+      "no_workflow_created": true,
+      "no_network_call": true,
+      "no_webhook_call": true,
+      "no_runtime_write": true,
+      "no_audit_jsonl_write": true,
+      "no_action_queue_write": true,
+      "no_secret_read": true,
+      "no_auto_fix": true
+    },
+    "warnings": [],
+    "errors": []
+  },
+  "execute_false_all_nightly": {
+    "run_id": "local_ci_1777160052",
+    "generated_at": "2026-04-25T23:34:12.321842+00:00",
+    "mode": "plan_only",
+    "selected_stages": [
+      "fast",
+      "safety",
+      "slow"
+    ],
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "stage_results": [
+      {
+        "stage_id": "impl_stage_fast",
+        "stage_type": "fast",
+        "name": "Fast Unit + Fast Integration",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"not slow\" -v",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_blocking",
+        "threshold_warning_seconds": 30,
+        "threshold_blocker_seconds": 60,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log",
+          "coverage_report"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321774+00:00",
+        "finished_at": "2026-04-25T23:34:12.321774+00:00"
+      },
+      {
+        "stage_id": "impl_stage_safety",
+        "stage_type": "safety",
+        "name": "Safety Boundaries",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_blocking",
+        "threshold_warning_seconds": 10,
+        "threshold_blocker_seconds": 20,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321790+00:00",
+        "finished_at": "2026-04-25T23:34:12.321790+00:00"
+      },
+      {
+        "stage_id": "impl_stage_slow",
+        "stage_type": "slow",
+        "name": "Slow Integration",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+        "selected": true,
+        "status": "pending",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "nightly_required",
+        "threshold_warning_seconds": 60,
+        "threshold_blocker_seconds": 120,
+        "threshold_status": "not_run",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log",
+          "foundation_audit_report"
+        ],
+        "warnings": [
+          "execute_false_plan_only_no_pytest_run"
+        ],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321803+00:00",
+        "finished_at": "2026-04-25T23:34:12.321803+00:00"
+      },
+      {
+        "stage_id": "impl_stage_smoke",
+        "stage_type": "smoke",
+        "name": "Smoke",
+        "command": "python -m pytest -m smoke -v",
+        "selected": false,
+        "status": "skipped_by_selection",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_warning",
+        "threshold_warning_seconds": 45,
+        "threshold_blocker_seconds": null,
+        "threshold_status": "not_evaluated",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log"
+        ],
+        "warnings": [],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321808+00:00",
+        "finished_at": "2026-04-25T23:34:12.321808+00:00"
+      },
+      {
+        "stage_id": "impl_stage_full",
+        "stage_type": "full",
+        "name": "Full Regression",
+        "command": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+        "selected": false,
+        "status": "skipped_by_selection",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "manual_only",
+        "threshold_warning_seconds": 300,
+        "threshold_blocker_seconds": null,
+        "threshold_status": "not_evaluated",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log",
+          "foundation_audit_report",
+          "coverage_report"
+        ],
+        "warnings": [],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321812+00:00",
+        "finished_at": "2026-04-25T23:34:12.321812+00:00"
+      },
+      {
+        "stage_id": "impl_stage_collect_only",
+        "stage_type": "collect_only",
+        "name": "Collection Check",
+        "command": "python -m pytest backend/app/foundation backend/app/audit --collect-only -q",
+        "selected": false,
+        "status": "skipped_by_selection",
+        "exit_code": null,
+        "runtime_seconds": 0.0,
+        "gating_policy": "pr_warning",
+        "threshold_warning_seconds": 10,
+        "threshold_blocker_seconds": 20,
+        "threshold_status": "not_evaluated",
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "artifacts_planned": [
+          "pytest_log"
+        ],
+        "warnings": [],
+        "errors": [],
+        "started_at": "2026-04-25T23:34:12.321816+00:00",
+        "finished_at": "2026-04-25T23:34:12.321816+00:00"
+      }
+    ],
+    "overall_status": "pending",
+    "pr_blocking_failed": false,
+    "warning_count": 3,
+    "error_count": 0,
+    "runtime_total_seconds": 0.0,
+    "threshold_summary": {
+      "passed": 0,
+      "warning": 0,
+      "blocker": 0,
+      "failed": 0,
+      "not_run": 3
+    },
+    "artifact_collection_plan": {
+      "artifact_specs": [
+        {
+          "artifact_spec_id": "art_spec_foundation_reports",
+          "artifact_type": "foundation_audit_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit",
+            "backend\\migration_reports\\foundation_audit"
+          ],
+          "destination_name": "foundation_audit_reports",
+          "include_patterns": [
+            "*.json",
+            "*.md"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/*.jsonl",
+            "**/runtime/**",
+            "**/action_queue/**",
+            "**/.secret/**",
+            "**/webhook_url*",
+            "**/*token*",
+            "**/*secret*"
+          ],
+          "retention_days": 30,
+          "path_inconsistency_handling": "collect_both_report_warning",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "primary path: migration_reports\\foundation_audit",
+            "secondary path: backend\\migration_reports\\foundation_audit",
+            "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_ci_matrix",
+          "artifact_type": "ci_matrix_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit"
+          ],
+          "destination_name": "ci_matrix_reports",
+          "include_patterns": [
+            "R241-15*",
+            "R241-16*"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 90,
+          "path_inconsistency_handling": "primary_only",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_pytest_logs",
+          "artifact_type": "pytest_log",
+          "source_paths": [],
+          "destination_name": "pytest_logs",
+          "include_patterns": [
+            "**/pytest.log",
+            "**/.pytest_cache/**",
+            "**/tmp/**/pytest*.log"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/**"
+          ],
+          "retention_days": 7,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "pytest logs are temp — only collect if explicitly enabled"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_junit_xml",
+          "artifact_type": "junit_xml",
+          "source_paths": [],
+          "destination_name": "junit_reports",
+          "include_patterns": [
+            "**/junit*.xml",
+            "**/test-results/**/*.xml"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 14,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "junit xml is optional — requires --junit-xml flag in pytest command"
+          ],
+          "errors": []
+        }
+      ],
+      "spec_count": 4,
+      "primary_report_path": "migration_reports\\foundation_audit",
+      "secondary_report_path": "backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "path_inconsistency_action": "report_only_no_migration_no_deletion"
+    },
+    "path_compatibility_summary": {
+      "path_compatibility_policy_id": "R241-16A_path_compatibility",
+      "generated_at": "2026-04-25T23:34:12.321734+00:00",
+      "primary_report_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+      "secondary_report_path": "E:\\OpenClaw-Base\\deerflow\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "action_now": "report_only",
+      "future_options": [
+        "unify_report_root_under_migration_reports_only",
+        "add_compatibility_note_in_ci_config",
+        "migrate_old_backend_reports_in_phase_6",
+        "ci_collect_both_paths_temporarily"
+      ],
+      "migration_allowed_now": false,
+      "deletion_allowed_now": false,
+      "rewriting_allowed_now": false,
+      "warnings": [
+        "No migration, deletion, or rewriting in this phase",
+        "CI should collect from both paths when both exist",
+        "Future Phase 6 will address path cleanup"
+      ],
+      "errors": []
+    },
+    "blocked_actions_verified": {
+      "no_workflow_created": true,
+      "no_network_call": true,
+      "no_webhook_call": true,
+      "no_runtime_write": true,
+      "no_audit_jsonl_write": true,
+      "no_action_queue_write": true,
+      "no_secret_read": true,
+      "no_auto_fix": true
+    },
+    "warnings": [],
+    "errors": []
+  },
+  "formatted_markdown_preview": "# Local CI Dry-run Result\n\n- Overall status: `pending`\n- Selected stages: `smoke, fast, safety, collect_only`\n- PR blocking failed: `False`\n- Runtime total seconds: `0.0`\n\n| Stage | Selected | Status | Exit | Runtime | Threshold |\n|---|---:|---|---:|---:|---|\n| smoke | True | pending | None | 0.0 | not_run |\n| fast | True | pending | None | 0.0 | not_run |\n| safety | True | pending | None | 0.0 | not_run |\n| collect_only | True | pending | None | 0.0 | not_run |\n| slow | False | skipped_by_selection | None | 0.0 | not_evaluated |\n| full | False | skipped_by_selection | None | 0.0 | not_evaluated |\n\nThreshold summary: `{'passed': 0, 'warning': 0, 'blocker': 0, 'failed': 0, 'not_run': 4}`\nArtifact collection plan count: `4`\nPath compatibility warning: `True`\n\nSafety notice: no network, no webhook, no runtime write, no audit JSONL write, no secret read, no auto-fix.",
+  "formatted_text_preview": "Local CI Dry-run Result\nOverall status: pending\nSelected stages: fast, safety, slow\nPR blocking failed: False\nStages:\nfast: selected=True status=pending exit=None runtime=0.0\nsafety: selected=True status=pending exit=None runtime=0.0\nslow: selected=True status=pending exit=None runtime=0.0\nsmoke: selected=False status=skipped_by_selection exit=None runtime=0.0\nfull: selected=False status=skipped_by_selection exit=None runtime=0.0\ncollect_only: selected=False status=skipped_by_selection exit=None runtime=0.0\nThreshold summary: {'passed': 0, 'warning': 0, 'blocker': 0, 'failed': 0, 'not_run': 3}\nPath compatibility warning: True\nSafety notice: no network, no webhook, no runtime write, no audit JSONL write, no secret read, no auto-fix.",
+  "generated_at": "2026-04-25T23:34:12.321888+00:00",
+  "warnings": []
+}

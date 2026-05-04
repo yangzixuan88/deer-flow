@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-3_ContextEnvelope.schema.json",
+  "title": "ContextEnvelope",
+  "description": "统一上下文包 — 跨 M01/M04/RTCM/Gateway/DeerFlow/Governance 的上下文传递载体",
+  "type": "object",
+  "required": [
+    "context_id",
+    "request_id",
+    "created_at",
+    "source_system"
+  ],
+  "properties": {
+    "context_id": {
+      "type": "string",
+      "description": "此 ContextEnvelope 的唯一标识符（UUID）",
+      "format": "uuid"
+    },
+    "request_id": {
+      "type": "string",
+      "description": "业务请求级唯一标识 — 用于追溯整个请求生命周期。所有入口（M01/Gateway/Channel）都必须生成或传递此 ID",
+      "format": "uuid"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Gateway LangGraph thread_id — 对应 checkpointer configurable.thread_id",
+      "format": "uuid"
+    },
+    "run_id": {
+      "type": "string",
+      "description": "Gateway RunManager run_id — per-run 生命周期，内存态",
+      "format": "uuid"
+    },
+    "task_id": {
+      "type": "string",
+      "description": "M04 registry task_id 或 DeerFlow task_tool task_id — 需通过 task_origin 区分来源",
+      "format": "uuid"
+    },
+    "workflow_id": {
+      "type": "string",
+      "description": "M04 workflow_id — 工作流级上下文标识",
+      "format": "uuid"
+    },
+    "dag_id": {
+      "type": "string",
+      "description": "M01 DAG plan ID — 编排计划级上下文标识",
+      "format": "uuid"
+    },
+    "rtcm_session_id": {
+      "type": "string",
+      "description": "RTCM SessionManager session_id（格式：rtcm-proj-XXX）— 若无 RTCM 上下文则为空",
+      "pattern": "^rtcm-proj-.*"
+    },
+    "rtcm_project_id": {
+      "type": "string",
+      "description": "RTCM project_id — 若无 RTCM 上下文则为空",
+      "pattern": "^proj-.*"
+    },
+    "governance_trace_id": {
+      "type": "string",
+      "description": "Governance decision trace ID — 用于追溯 governance 决策链",
+      "format": "uuid"
+    },
+    "governance_decision_id": {
+      "type": "string",
+      "description": "Governance decision record ID — governance 层决策标识",
+      "format": "uuid"
+    },
+    "candidate_id": {
+      "type": "string",
+      "description": "Doctrine/Asset/Norm candidate ID — governance 和 asset 共享",
+      "format": "uuid"
+    },
+    "asset_id": {
+      "type": "string",
+      "description": "M07 DPBS asset ID — 若无 asset 上下文则为空",
+      "format": "uuid"
+    },
+    "checkpoint_id": {
+      "type": "string",
+      "description": "LangGraph checkpointer checkpoint_id — 用于 state history 分页",
+      "format": "uuid"
+    },
+    "parent_checkpoint_id": {
+      "type": "string",
+      "description": "父 checkpoint ID — 用于历史追溯",
+      "format": "uuid"
+    },
+    "memory_scope": {
+      "type": "string",
+      "enum": ["user", "session", "task", "workflow", "rtcm", "governance", "global"],
+      "description": "记忆作用域 — 决定此上下文关联的长期记忆范围"
+    },
+    "runtime_artifact_root": {
+      "type": "string",
+      "description": "运行时产物根路径 — 通常为 ~/.deerflow/",
+      "format": "uri"
+    },
+    "parent_context_id": {
+      "type": "string",
+      "description": "父 ContextEnvelope ID — 用于嵌套上下文的父子追溯",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "上下文创建时间（ISO 8601）",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "上下文最后更新时间（ISO 8601）",
+      "format": "date-time"
+    },
+    "source_system": {
+      "type": "string",
+      "enum": ["m01", "m04", "gateway", "deerflow", "rtcm", "governance", "channel", "frontend"],
+      "description": "上下文生成来源系统"
+    },
+    "owner_system": {
+      "type": "string",
+      "enum": ["m01", "m04", "gateway", "deerflow", "rtcm", "governance", "channel", "frontend"],
+      "description": "上下文主权系统 — 有权修改此上下文的空间"
+    },
+    "task_origin": {
+      "type": "string",
+      "enum": ["m04_registry", "deerflow_task_tool", "dag_node", "unknown"],
+      "description": "task_id 的来源标识 — 用于区分 M04 registry task 和 DeerFlow task_tool task"
+    },
+    "truth_scope": {
+      "type": "string",
+      "enum": ["sandbox", "production", "governance", "memory", "unknown"],
+      "description": "真值来源标识 — 区分执行结果来自沙盒、生产、治理还是记忆"
+    },
+    "state_scope": {
+      "type": "string",
+      "enum": ["idle", "running", "interrupted", "completed", "failed", "cancelled"],
+      "description": "执行状态范围"
+    },
+    "execution_permissions": {
+      "type": "object",
+      "description": "此上下文允许的执行权限",
+      "properties": {
+        "can_write_memory": {
+          "type": "boolean"
+        },
+        "can_write_asset": {
+          "type": "boolean"
+        },
+        "can_write_governance": {
+          "type": "boolean"
+        },
+        "can_execute_sandbox": {
+          "type": "boolean"
+        },
+        "can_trigger_rtcm": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

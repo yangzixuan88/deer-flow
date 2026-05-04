@@ -1,0 +1,983 @@
+{
+  "loaded_review_summary": {
+    "exists": true,
+    "source_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_SAMPLE.json",
+    "review_id": "nightly_review_5539144633",
+    "total_signals": 26,
+    "action_candidate_count": 26
+  },
+  "user_summary": {
+    "summary_id": "nightly_summary_4694052909",
+    "generated_at": "2026-04-24T23:13:28.150929+00:00",
+    "audience": "user_brief",
+    "title": "Nightly Foundation Health Review Summary",
+    "headline": "Nightly Foundation Health Review: critical=2, high=10, actions=26, blocked=2. 本摘要为 projection，不会自动修复。",
+    "severity_counts": {
+      "medium": 13,
+      "info": 1,
+      "high": 10,
+      "critical": 2
+    },
+    "critical_count": 2,
+    "high_count": 10,
+    "action_candidate_count": 26,
+    "requires_confirmation_count": 6,
+    "blocked_high_risk_count": 2,
+    "sections": [
+      {
+        "section_id": "summary_section_8329179543",
+        "section_type": "headline",
+        "title": "总体结论",
+        "severity": "critical",
+        "content": "Nightly Foundation Health Review: critical=2, high=10, actions=26, blocked=2. 本摘要为 projection，不会自动修复。",
+        "items": [],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "summary_section_7551948456",
+        "section_type": "severity_overview",
+        "title": "风险分级",
+        "severity": null,
+        "content": "critical=2, high=10, counts={'medium': 13, 'info': 1, 'high': 10, 'critical': 2}",
+        "items": [
+          {
+            "severity": "medium",
+            "count": 13
+          },
+          {
+            "severity": "info",
+            "count": 1
+          },
+          {
+            "severity": "high",
+            "count": 10
+          },
+          {
+            "severity": "critical",
+            "count": 2
+          }
+        ],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "summary_section_2966572511",
+        "section_type": "critical_actions",
+        "title": "Critical Signals",
+        "severity": null,
+        "content": "最高风险信号必须人工审查，不会自动执行。",
+        "items": [
+          {
+            "signal_id": "health_signal_5172507634",
+            "domain": "prompt",
+            "severity": "critical",
+            "signal_type": "critical_prompt_without_rollback",
+            "message": "critical_prompt_without_rollback: 1",
+            "recommended_action_type": "add_rollback"
+          },
+          {
+            "signal_id": "health_signal_0013314431",
+            "domain": "prompt",
+            "severity": "critical",
+            "signal_type": "dspy_gepa_direct_replace_forbidden",
+            "message": "dspy_gepa_direct_replace_forbidden: 5",
+            "recommended_action_type": "requires_user_confirmation"
+          }
+        ],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "summary_section_3861457078",
+        "section_type": "high_priority_actions",
+        "title": "High Signals",
+        "severity": null,
+        "content": "高风险信号需要备份、回滚或确认策略。",
+        "items": [
+          {
+            "signal_id": "health_signal_8278684260",
+            "domain": "tool_runtime",
+            "severity": "high",
+            "signal_type": "high_risk_tool_without_mode_context",
+            "message": "high_risk_tool_without_mode_context: 2",
+            "recommended_action_type": "review_tool_policy"
+          },
+          {
+            "signal_id": "health_signal_4833787697",
+            "domain": "tool_runtime",
+            "severity": "high",
+            "signal_type": "level_2_missing_backup",
+            "message": "level_2_missing_backup: 1",
+            "recommended_action_type": "add_backup"
+          },
+          {
+            "signal_id": "health_signal_8148353448",
+            "domain": "tool_runtime",
+            "severity": "high",
+            "signal_type": "level_2_missing_rollback",
+            "message": "level_2_missing_rollback: 1",
+            "recommended_action_type": "add_rollback"
+          },
+          {
+            "signal_id": "health_signal_7104380200",
+            "domain": "tool_runtime",
+            "severity": "high",
+            "signal_type": "level_3_requires_confirmation",
+            "message": "level_3_requires_confirmation: 1",
+            "recommended_action_type": "review_tool_policy"
+          },
+          {
+            "signal_id": "health_signal_0386272953",
+            "domain": "tool_runtime",
+            "severity": "high",
+            "signal_type": "root_guard_required_but_missing",
+            "message": "root_guard_required_but_missing: 2",
+            "recommended_action_type": "review_tool_policy"
+          }
+        ],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "summary_section_5382125369",
+        "section_type": "blocked_actions",
+        "title": "Blocked Actions",
+        "severity": null,
+        "content": "forbidden_auto action candidates 仅提示，不会执行。",
+        "items": [
+          {
+            "action_candidate_id": "action_candidate_7717194366",
+            "domain": "prompt",
+            "severity": "critical",
+            "permission": "forbidden_auto",
+            "title": "prompt: critical_prompt_without_rollback",
+            "action_type": "add_rollback",
+            "auto_executable": false,
+            "requires_user_confirmation": true,
+            "blocked_reason": "high_risk_or_runtime_mutation_forbidden_auto"
+          },
+          {
+            "action_candidate_id": "action_candidate_4046942290",
+            "domain": "prompt",
+            "severity": "critical",
+            "permission": "forbidden_auto",
+            "title": "prompt: dspy_gepa_direct_replace_forbidden",
+            "action_type": "requires_user_confirmation",
+            "auto_executable": false,
+            "requires_user_confirmation": true,
+            "blocked_reason": "high_risk_or_runtime_mutation_forbidden_auto"
+          }
+        ],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [
+          "action_candidate_7717194366",
+          "action_candidate_4046942290"
+        ],
+        "warnings": []
+      },
+      {
+        "section_id": "summary_section_3213408566",
+        "section_type": "domain_summary",
+        "title": "Domain Summary",
+        "severity": null,
+        "content": "按 domain 聚合的 signal 与 action 状态。",
+        "items": [
+          {
+            "domain": "truth_state",
+            "signal_count": 1,
+            "critical_count": 0,
+            "high_count": 0,
+            "medium_count": 1,
+            "top_signal_types": [
+              {
+                "name": "raw_execution_success_rate_low",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "diagnostic_only",
+                "count": 1
+              }
+            ],
+            "blocked_count": 0,
+            "requires_confirmation_count": 0
+          },
+          {
+            "domain": "queue_sandbox",
+            "signal_count": 3,
+            "critical_count": 0,
+            "high_count": 0,
+            "medium_count": 3,
+            "top_signal_types": [
+              {
+                "name": "queue_missing",
+                "count": 1
+              },
+              {
+                "name": "queue_sandbox_mismatch",
+                "count": 1
+              },
+              {
+                "name": "sandbox_truth_without_queue_task",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "diagnostic_only",
+                "count": 3
+              }
+            ],
+            "blocked_count": 0,
+            "requires_confirmation_count": 0
+          },
+          {
+            "domain": "memory",
+            "signal_count": 5,
+            "critical_count": 0,
+            "high_count": 0,
+            "medium_count": 5,
+            "top_signal_types": [
+              {
+                "name": "checkpoint_not_long_term_memory",
+                "count": 1
+              },
+              {
+                "name": "council_log_not_long_term_memory",
+                "count": 1
+              },
+              {
+                "name": "max_files_reached",
+                "count": 1
+              },
+              {
+                "name": "possible_raw_governance_memory",
+                "count": 1
+              },
+              {
+                "name": "unknown_memory_artifact",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "review_memory_candidate",
+                "count": 4
+              },
+              {
+                "name": "refine_taxonomy",
+                "count": 1
+              }
+            ],
+            "blocked_count": 0,
+            "requires_confirmation_count": 0
+          },
+          {
+            "domain": "asset",
+            "signal_count": 0,
+            "critical_count": 0,
+            "high_count": 0,
+            "medium_count": 0,
+            "top_signal_types": [],
+            "recommended_action_types": [],
+            "blocked_count": 0,
+            "requires_confirmation_count": 0
+          },
+          {
+            "domain": "mode",
+            "signal_count": 2,
+            "critical_count": 0,
+            "high_count": 0,
+            "medium_count": 1,
+            "top_signal_types": [
+              {
+                "name": "mode_instrumentation_standalone",
+                "count": 1
+              },
+              {
+                "name": "mode_callgraph_not_runtime_integrated",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "diagnostic_only",
+                "count": 1
+              },
+              {
+                "name": "add_context_link",
+                "count": 1
+              }
+            ],
+            "blocked_count": 0,
+            "requires_confirmation_count": 0
+          },
+          {
+            "domain": "tool_runtime",
+            "signal_count": 5,
+            "critical_count": 0,
+            "high_count": 5,
+            "medium_count": 0,
+            "top_signal_types": [
+              {
+                "name": "high_risk_tool_without_mode_context",
+                "count": 1
+              },
+              {
+                "name": "level_2_missing_backup",
+                "count": 1
+              },
+              {
+                "name": "level_2_missing_rollback",
+                "count": 1
+              },
+              {
+                "name": "level_3_requires_confirmation",
+                "count": 1
+              },
+              {
+                "name": "root_guard_required_but_missing",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "review_tool_policy",
+                "count": 3
+              },
+              {
+                "name": "add_backup",
+                "count": 1
+              },
+              {
+                "name": "add_rollback",
+                "count": 1
+              }
+            ],
+            "blocked_count": 0,
+            "requires_confirmation_count": 3
+          },
+          {
+            "domain": "prompt",
+            "signal_count": 9,
+            "critical_count": 2,
+            "high_count": 5,
+            "medium_count": 2,
+            "top_signal_types": [
+              {
+                "name": "backup_missing",
+                "count": 1
+              },
+              {
+                "name": "critical_prompt_without_rollback",
+                "count": 1
+              },
+              {
+                "name": "dspy_gepa_direct_replace_forbidden",
+                "count": 1
+              },
+              {
+                "name": "generated_prompt_candidate_without_test",
+                "count": 1
+              },
+              {
+                "name": "rollback_missing",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "review_prompt",
+                "count": 4
+              },
+              {
+                "name": "refine_taxonomy",
+                "count": 2
+              },
+              {
+                "name": "add_rollback",
+                "count": 1
+              },
+              {
+                "name": "requires_user_confirmation",
+                "count": 1
+              },
+              {
+                "name": "add_test",
+                "count": 1
+              }
+            ],
+            "blocked_count": 2,
+            "requires_confirmation_count": 5
+          },
+          {
+            "domain": "rtcm",
+            "signal_count": 1,
+            "critical_count": 0,
+            "high_count": 0,
+            "medium_count": 1,
+            "top_signal_types": [
+              {
+                "name": "unknown_rtcm_runtime_surface",
+                "count": 1
+              }
+            ],
+            "recommended_action_types": [
+              {
+                "name": "refine_taxonomy",
+                "count": 1
+              }
+            ],
+            "blocked_count": 0,
+            "requires_confirmation_count": 0
+          }
+        ],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [],
+        "warnings": []
+      },
+      {
+        "section_id": "summary_section_3661486906",
+        "section_type": "next_step",
+        "title": "下一步建议",
+        "severity": null,
+        "content": "进入 R241-9A Foundation Integration Readiness Review，审查哪些 wrapper 可进入只读集成准备。",
+        "items": [],
+        "source_signal_ids": [],
+        "source_action_candidate_ids": [],
+        "warnings": []
+      }
+    ],
+    "warnings": [],
+    "top_action_candidates": {
+      "selected_count": 8,
+      "actions": [
+        {
+          "action_candidate_id": "action_candidate_7717194366",
+          "domain": "prompt",
+          "severity": "critical",
+          "permission": "forbidden_auto",
+          "title": "prompt: critical_prompt_without_rollback",
+          "action_type": "add_rollback",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": "high_risk_or_runtime_mutation_forbidden_auto"
+        },
+        {
+          "action_candidate_id": "action_candidate_4046942290",
+          "domain": "prompt",
+          "severity": "critical",
+          "permission": "forbidden_auto",
+          "title": "prompt: dspy_gepa_direct_replace_forbidden",
+          "action_type": "requires_user_confirmation",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": "high_risk_or_runtime_mutation_forbidden_auto"
+        },
+        {
+          "action_candidate_id": "action_candidate_4078047139",
+          "domain": "prompt",
+          "severity": "high",
+          "permission": "requires_user_confirmation",
+          "title": "prompt: generated_prompt_candidate_without_test",
+          "action_type": "add_test",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": null
+        },
+        {
+          "action_candidate_id": "action_candidate_5932296528",
+          "domain": "prompt",
+          "severity": "high",
+          "permission": "requires_user_confirmation",
+          "title": "prompt: runtime_context_prompt_leakage_review_required",
+          "action_type": "review_prompt",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": null
+        },
+        {
+          "action_candidate_id": "action_candidate_5322561760",
+          "domain": "prompt",
+          "severity": "high",
+          "permission": "requires_user_confirmation",
+          "title": "prompt: soul_replacement_requires_user_confirmation",
+          "action_type": "review_prompt",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": null
+        },
+        {
+          "action_candidate_id": "action_candidate_9673939829",
+          "domain": "tool_runtime",
+          "severity": "high",
+          "permission": "requires_user_confirmation",
+          "title": "tool_runtime: high_risk_tool_without_mode_context",
+          "action_type": "review_tool_policy",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": null
+        },
+        {
+          "action_candidate_id": "action_candidate_1050976164",
+          "domain": "tool_runtime",
+          "severity": "high",
+          "permission": "requires_user_confirmation",
+          "title": "tool_runtime: level_3_requires_confirmation",
+          "action_type": "review_tool_policy",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": null
+        },
+        {
+          "action_candidate_id": "action_candidate_0350194833",
+          "domain": "tool_runtime",
+          "severity": "high",
+          "permission": "requires_user_confirmation",
+          "title": "tool_runtime: root_guard_required_but_missing",
+          "action_type": "review_tool_policy",
+          "auto_executable": false,
+          "requires_user_confirmation": true,
+          "blocked_reason": null
+        }
+      ],
+      "warnings": []
+    }
+  },
+  "domain_summary": {
+    "domains": [
+      {
+        "domain": "truth_state",
+        "signal_count": 1,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 1,
+        "top_signal_types": [
+          {
+            "name": "raw_execution_success_rate_low",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "diagnostic_only",
+            "count": 1
+          }
+        ],
+        "blocked_count": 0,
+        "requires_confirmation_count": 0
+      },
+      {
+        "domain": "queue_sandbox",
+        "signal_count": 3,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 3,
+        "top_signal_types": [
+          {
+            "name": "queue_missing",
+            "count": 1
+          },
+          {
+            "name": "queue_sandbox_mismatch",
+            "count": 1
+          },
+          {
+            "name": "sandbox_truth_without_queue_task",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "diagnostic_only",
+            "count": 3
+          }
+        ],
+        "blocked_count": 0,
+        "requires_confirmation_count": 0
+      },
+      {
+        "domain": "memory",
+        "signal_count": 5,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 5,
+        "top_signal_types": [
+          {
+            "name": "checkpoint_not_long_term_memory",
+            "count": 1
+          },
+          {
+            "name": "council_log_not_long_term_memory",
+            "count": 1
+          },
+          {
+            "name": "max_files_reached",
+            "count": 1
+          },
+          {
+            "name": "possible_raw_governance_memory",
+            "count": 1
+          },
+          {
+            "name": "unknown_memory_artifact",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "review_memory_candidate",
+            "count": 4
+          },
+          {
+            "name": "refine_taxonomy",
+            "count": 1
+          }
+        ],
+        "blocked_count": 0,
+        "requires_confirmation_count": 0
+      },
+      {
+        "domain": "asset",
+        "signal_count": 0,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 0,
+        "top_signal_types": [],
+        "recommended_action_types": [],
+        "blocked_count": 0,
+        "requires_confirmation_count": 0
+      },
+      {
+        "domain": "mode",
+        "signal_count": 2,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 1,
+        "top_signal_types": [
+          {
+            "name": "mode_instrumentation_standalone",
+            "count": 1
+          },
+          {
+            "name": "mode_callgraph_not_runtime_integrated",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "diagnostic_only",
+            "count": 1
+          },
+          {
+            "name": "add_context_link",
+            "count": 1
+          }
+        ],
+        "blocked_count": 0,
+        "requires_confirmation_count": 0
+      },
+      {
+        "domain": "tool_runtime",
+        "signal_count": 5,
+        "critical_count": 0,
+        "high_count": 5,
+        "medium_count": 0,
+        "top_signal_types": [
+          {
+            "name": "high_risk_tool_without_mode_context",
+            "count": 1
+          },
+          {
+            "name": "level_2_missing_backup",
+            "count": 1
+          },
+          {
+            "name": "level_2_missing_rollback",
+            "count": 1
+          },
+          {
+            "name": "level_3_requires_confirmation",
+            "count": 1
+          },
+          {
+            "name": "root_guard_required_but_missing",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "review_tool_policy",
+            "count": 3
+          },
+          {
+            "name": "add_backup",
+            "count": 1
+          },
+          {
+            "name": "add_rollback",
+            "count": 1
+          }
+        ],
+        "blocked_count": 0,
+        "requires_confirmation_count": 3
+      },
+      {
+        "domain": "prompt",
+        "signal_count": 9,
+        "critical_count": 2,
+        "high_count": 5,
+        "medium_count": 2,
+        "top_signal_types": [
+          {
+            "name": "backup_missing",
+            "count": 1
+          },
+          {
+            "name": "critical_prompt_without_rollback",
+            "count": 1
+          },
+          {
+            "name": "dspy_gepa_direct_replace_forbidden",
+            "count": 1
+          },
+          {
+            "name": "generated_prompt_candidate_without_test",
+            "count": 1
+          },
+          {
+            "name": "rollback_missing",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "review_prompt",
+            "count": 4
+          },
+          {
+            "name": "refine_taxonomy",
+            "count": 2
+          },
+          {
+            "name": "add_rollback",
+            "count": 1
+          },
+          {
+            "name": "requires_user_confirmation",
+            "count": 1
+          },
+          {
+            "name": "add_test",
+            "count": 1
+          }
+        ],
+        "blocked_count": 2,
+        "requires_confirmation_count": 5
+      },
+      {
+        "domain": "rtcm",
+        "signal_count": 1,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 1,
+        "top_signal_types": [
+          {
+            "name": "unknown_rtcm_runtime_surface",
+            "count": 1
+          }
+        ],
+        "recommended_action_types": [
+          {
+            "name": "refine_taxonomy",
+            "count": 1
+          }
+        ],
+        "blocked_count": 0,
+        "requires_confirmation_count": 0
+      }
+    ],
+    "warnings": []
+  },
+  "top_action_candidates": {
+    "selected_count": 10,
+    "actions": [
+      {
+        "action_candidate_id": "action_candidate_7717194366",
+        "domain": "prompt",
+        "severity": "critical",
+        "permission": "forbidden_auto",
+        "title": "prompt: critical_prompt_without_rollback",
+        "action_type": "add_rollback",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": "high_risk_or_runtime_mutation_forbidden_auto"
+      },
+      {
+        "action_candidate_id": "action_candidate_4046942290",
+        "domain": "prompt",
+        "severity": "critical",
+        "permission": "forbidden_auto",
+        "title": "prompt: dspy_gepa_direct_replace_forbidden",
+        "action_type": "requires_user_confirmation",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": "high_risk_or_runtime_mutation_forbidden_auto"
+      },
+      {
+        "action_candidate_id": "action_candidate_4078047139",
+        "domain": "prompt",
+        "severity": "high",
+        "permission": "requires_user_confirmation",
+        "title": "prompt: generated_prompt_candidate_without_test",
+        "action_type": "add_test",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_5932296528",
+        "domain": "prompt",
+        "severity": "high",
+        "permission": "requires_user_confirmation",
+        "title": "prompt: runtime_context_prompt_leakage_review_required",
+        "action_type": "review_prompt",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_5322561760",
+        "domain": "prompt",
+        "severity": "high",
+        "permission": "requires_user_confirmation",
+        "title": "prompt: soul_replacement_requires_user_confirmation",
+        "action_type": "review_prompt",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_9673939829",
+        "domain": "tool_runtime",
+        "severity": "high",
+        "permission": "requires_user_confirmation",
+        "title": "tool_runtime: high_risk_tool_without_mode_context",
+        "action_type": "review_tool_policy",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_1050976164",
+        "domain": "tool_runtime",
+        "severity": "high",
+        "permission": "requires_user_confirmation",
+        "title": "tool_runtime: level_3_requires_confirmation",
+        "action_type": "review_tool_policy",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_0350194833",
+        "domain": "tool_runtime",
+        "severity": "high",
+        "permission": "requires_user_confirmation",
+        "title": "tool_runtime: root_guard_required_but_missing",
+        "action_type": "review_tool_policy",
+        "auto_executable": false,
+        "requires_user_confirmation": true,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_3943300542",
+        "domain": "prompt",
+        "severity": "high",
+        "permission": "requires_rollback",
+        "title": "prompt: rollback_missing",
+        "action_type": "review_prompt",
+        "auto_executable": false,
+        "requires_user_confirmation": false,
+        "blocked_reason": null
+      },
+      {
+        "action_candidate_id": "action_candidate_7115137103",
+        "domain": "tool_runtime",
+        "severity": "high",
+        "permission": "requires_rollback",
+        "title": "tool_runtime: level_2_missing_rollback",
+        "action_type": "add_rollback",
+        "auto_executable": false,
+        "requires_user_confirmation": false,
+        "blocked_reason": null
+      }
+    ],
+    "warnings": []
+  },
+  "feishu_payload_projection": {
+    "payload_id": "feishu_payload_5385584213",
+    "generated_at": "2026-04-24T23:13:28.151462+00:00",
+    "status": "projection_only",
+    "title": "Nightly Foundation Health Review Projection",
+    "template": "foundation_health_review",
+    "card_json": {
+      "config": {
+        "wide_screen_mode": true
+      },
+      "header": {
+        "title": {
+          "tag": "plain_text",
+          "content": "Nightly Foundation Health Review Projection"
+        },
+        "template": "red"
+      },
+      "elements": [
+        {
+          "tag": "markdown",
+          "content": "**总体状态**\\nNightly Foundation Health Review: critical=2, high=10, actions=26, blocked=2. 本摘要为 projection，不会自动修复。"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Severity Counts**\\n{'medium': 13, 'info': 1, 'high': 10, 'critical': 2}"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Blocked High Risk**: 2"
+        },
+        {
+          "tag": "markdown",
+          "content": "**Top Action Candidates**\\n- critical / forbidden_auto: prompt: critical_prompt_without_rollback\\n- critical / forbidden_auto: prompt: dspy_gepa_direct_replace_forbidden\\n- high / requires_user_confirmation: prompt: generated_prompt_candidate_without_test\\n- high / requires_user_confirmation: prompt: runtime_context_prompt_leakage_review_required\\n- high / requires_user_confirmation: prompt: soul_replacement_requires_user_confirmation"
+        },
+        {
+          "tag": "markdown",
+          "content": "**提示**：本消息为 projection，不会自动修复，不会写 action queue。"
+        }
+      ]
+    },
+    "source_review_id": "nightly_review_5539144633",
+    "send_allowed": false,
+    "send_blocked_reason": "projection_only_no_webhook_call",
+    "webhook_required": true,
+    "warnings": [],
+    "no_webhook_call": true,
+    "no_runtime_write": true
+  },
+  "plaintext_summary": {
+    "text": "Nightly Foundation Health Review 摘要\\nNightly Foundation Health Review: critical=2, high=10, actions=26, blocked=2. 本摘要为 projection，不会自动修复。\\n\\n风险分布：{'medium': 13, 'info': 1, 'high': 10, 'critical': 2}\\nAction candidates：26，需要确认：6，禁止自动执行：2\\n\\n重点 Domain：\\n- truth_state: signals=1, critical=0, high=0, medium=1\\n- queue_sandbox: signals=3, critical=0, high=0, medium=3\\n- memory: signals=5, critical=0, high=0, medium=5\\n- mode: signals=2, critical=0, high=0, medium=1\\n- tool_runtime: signals=5, critical=0, high=5, medium=0\\n- prompt: signals=9, critical=2, high=5, medium=2\\n- rtcm: signals=1, critical=0, high=0, medium=1\\n\\nTop Actions：\\n- critical / forbidden_auto: prompt: critical_prompt_without_rollback\\n- critical / forbidden_auto: prompt: dspy_gepa_direct_replace_forbidden\\n- high / requires_user_confirmation: prompt: generated_prompt_candidate_without_test\\n- high / requires_user_confirmation: prompt: runtime_context_prompt_leakage_review_required\\n- high / requires_user_confirmation: prompt: soul_replacement_requires_user_confirmation\\n\\n本摘要为只读 projection：不会推送 Feishu，不会写 action queue，不会执行自动修复。\\n下一步建议：进入 R241-9A Foundation Integration Readiness Review。",
+    "warnings": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "blocked_reasons": []
+  },
+  "generated_at": "2026-04-24T23:13:28.152138+00:00",
+  "warnings": []
+}

@@ -1,0 +1,187 @@
+{
+  "phase": "R134C",
+  "title": "GATEWAY_HTTP_PATH_CSRF_AND_DEERFLOWCLIENT_SMOKE_CROSS_VALIDATION",
+  "status": "completed",
+  "preceded_by": "R134B",
+  "proceeding_to": "R134D",
+  "pressure_assessment": {
+    "previous_phase": "R134B",
+    "previous_status": "passed",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Read-only CSRF and DeerFlowClient HTTP path cross-validation; no runtime execution."
+  },
+  "csrf_mechanism": {
+    "pattern": "Double Submit Cookie",
+    "cookie_name": "csrf_token",
+    "header_name": "X-CSRF-Token",
+    "token_source": "secrets.token_urlsafe(64) — 64 bytes URL-safe base64",
+    "token_length_bytes": 64,
+    "cookie_attributes": {
+      "httponly": false,
+      "secure": "is_https (TrueDetect)",
+      "samesite": "strict"
+    },
+    "validation": "secrets.compare_digest (constant-time)",
+    "exempt_paths": [
+      "/api/v1/auth/login/local",
+      "/api/v1/auth/logout",
+      "/api/v1/auth/register",
+      "/api/v1/auth/initialize"
+    ],
+    "safe_methods": ["GET", "HEAD", "OPTIONS", "TRACE"],
+    "unsafe_methods": ["POST", "PUT", "DELETE", "PATCH"],
+    "middleware_enabled": "unconditional",
+    "feature_flag_exists": false,
+    "test_bypass_exists": false,
+    "token_acquisition_requires_auth": true,
+    "no_csrf_token_endpoint": true
+  },
+  "testclient_csrf_analysis": {
+    "feasible": false,
+    "reason": "No /csrf-token endpoint; cannot generate valid token without credentials",
+    "token_acquisition_path": "none_without_credentials_or_code_change",
+    "requires_code_change": true,
+    "bypass_via_deerflow_test_bypass_auth": false,
+    "bypass_via_deerflow_test_bypass_auth_detail": "Only bypasses auth (authz.py:185, 278), NOT CSRF middleware dispatch"
+  },
+  "thread_run_http_sequence": {
+    "create_thread": {
+      "method": "POST",
+      "path": "/api/threads",
+      "handler": "create_thread (threads.py:224)",
+      "auth": "none (no @require_permission decorator; relies on global AuthMiddleware)",
+      "csrf": "POST checked (not in exempt list)",
+      "schema": {
+        "thread_id": "str | None (auto-generated)",
+        "assistant_id": "str | None",
+        "metadata": "dict[str, Any]"
+      },
+      "behavior": "Idempotent — returns existing if thread_id present"
+    },
+    "create_run": {
+      "method": "POST",
+      "path": "/api/threads/{thread_id}/runs",
+      "handler": "create_run (thread_runs.py:97)",
+      "auth": "require_permission('runs', 'create', owner_check=True, require_existing=True)",
+      "csrf": "POST checked",
+      "schema": {
+        "input": "dict[str, Any] | None",
+        "config": "dict[str, Any] | None",
+        "metadata": "dict[str, Any] | None",
+        "context": "dict[str, Any] | None",
+        "assistant_id": "str | None",
+        "if_not_exists": "reject | create (default: create)"
+      },
+      "behavior": "Returns RunResponse immediately; run executes async"
+    },
+    "get_run": {
+      "method": "GET",
+      "path": "/api/threads/{thread_id}/runs/{run_id}",
+      "handler": "get_run (thread_runs.py:168)",
+      "auth": "require_permission('runs', 'read', owner_check=True)",
+      "csrf": "GET exempt",
+      "schema": "RunResponse"
+    },
+    "get_thread_status": {
+      "method": "GET",
+      "path": "/api/threads/{thread_id}",
+      "handler": "get_thread (threads.py:349)",
+      "auth": "require_permission('threads', 'read', owner_check=True)",
+      "csrf": "GET exempt",
+      "schema": "ThreadResponse { thread_id, status, created_at, updated_at }"
+    },
+    "require_existing_constraints": [
+      "create_run: require_existing=True — threads_meta row must exist before run can be created",
+      "create_thread: idempotent — creates thread_meta row if not exists"
+    ]
+  },
+  "deerflow_client_sequence": [
+    "createThread() → POST /api/threads body={} → { thread_id }",
+    "runTask(threadId, dagPlan, meta) → POST /api/threads/{threadId}/runs body={ input: { messages: [...] }, metadata: {...}, config: { recursion_limit: 100 } } → { run_id, status, thread_id }",
+    "getThreadStatus(threadId) → GET /api/threads/{threadId} → { thread_id, status } (polls every 2000ms, timeout 300000ms)",
+    "deleteThread(threadId) → DELETE /api/threads/{threadId}"
+  ],
+  "deerflow_client_gateway_schema_alignment": {
+    "matches": true,
+    "input_structure": "input.messages correctly structured for normalize_input()",
+    "csrf_compliant": false,
+    "csrf_compliant_detail": "DeerFlowClient does not handle csrf_token cookie or X-CSRF-Token header"
+  },
+  "no_model_http_smoke_analysis": {
+    "possible": false,
+    "reason": "Auth middleware blocks all non-public paths without session cookie; no credential-free auth path exists",
+    "candidates_tested": {
+      "GET_thread_status": "BLOCKED by auth",
+      "POST_create_thread": "BLOCKED by auth + CSRF",
+      "import_gateway_only": "BLOCKED by greenlet import error"
+    }
+  },
+  "one_model_gateway_smoke_analysis": {
+    "possible": false,
+    "required_preconditions": [
+      "CSRF bypass feature flag in app.py or csrf_middleware.py",
+      "Valid test credentials for auth endpoint that sets csrf_token cookie",
+      "Auth bypass mechanism accessible via TestClient (currently not)"
+    ],
+    "risks": [
+      "No credential-free auth path exists for POST",
+      "CSRF blocks all state-changing requests without token",
+      "_deerflow_test_bypass_auth not accessible via TestClient"
+    ]
+  },
+  "updated_blocker_classification": {
+    "csrf_middleware": {
+      "type": "Config Gap",
+      "is_test_artifact": false,
+      "is_correctly_implemented": true,
+      "gateway_path": "BLOCKED",
+      "has_feature_flag": false,
+      "has_test_bypass": false,
+      "resolution_requires": "Code change (feature flag or test credentials)"
+    },
+    "auth_middleware": {
+      "type": "Config Gap",
+      "public_paths": ["/health", "/docs", "/redoc", "/openapi.json", "/api/v1/auth/*"],
+      "blocked_paths": ["/api/threads/*", "/api/threads/{id}/runs/*"],
+      "gateway_path": "BLOCKED",
+      "has_test_bypass": "_deerflow_test_bypass_auth exists but not accessible via TestClient",
+      "resolution_requires": "Test credentials or TestClient auth fixture"
+    },
+    "require_existing_thread": {
+      "type": "Auth constraint",
+      "gateway_path": "BLOCKED",
+      "detail": "create_run requires threads_meta row; thread must be created first via POST /api/threads",
+      "resolution_requires": "POST /api/threads before POST /api/threads/{id}/runs"
+    },
+    "bp02_mcp_credentials": {
+      "type": "Missing Credentials",
+      "gateway_path": "BLOCKED",
+      "detail": "EXA_API_KEY, LARK_APP_ID, LARK_APP_SECRET MISSING (deferred from R131B-C1)",
+      "resolution_requires": "Credential provision"
+    }
+  },
+  "csrf_classification": "config_gap_not_test_artifact",
+  "gateway_http_path_status": "blocked_by_csrf_and_auth",
+  "default_decision": "R134D_CSRF_TEST_HARNESS_PLAN_AND_AUTH_BYPASS_STRATEGY",
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R134C_GATEWAY_HTTP_PATH_CSRF_AND_DEERFLOWCLIENT_SMOKE_CROSS_VALIDATION.md",
+    "migration_reports/recovery/R134C_GATEWAY_HTTP_PATH_CSRF_AND_DEERFLOWCLIENT_SMOKE_CROSS_VALIDATION.json"
+  ],
+  "recommended_next_phase": "R134D_CSRF_TEST_HARNESS_PLAN_AND_AUTH_BYPASS_STRATEGY",
+  "next_prompt_needed": "R134D_CSRF_TEST_HARNESS_PLAN_AND_AUTH_BYPASS_STRATEGY"
+}

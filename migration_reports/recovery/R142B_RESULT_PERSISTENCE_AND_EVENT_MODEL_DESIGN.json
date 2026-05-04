@@ -1,0 +1,261 @@
+{
+  "phase": "R142B",
+  "title": "RESULT_PERSISTENCE_AND_EVENT_MODEL_DESIGN",
+  "status": "passed",
+  "preceded_by": "R142_RUN_STATUS_RESULT_CLOSURE",
+  "proceeding_to": "R142C_RESULT_PERSISTENCE_PATCH",
+  "pressure_assessment": {
+    "previous_phase": "R142",
+    "current_phase": "R142B",
+    "recommended_pressure": "XXL",
+    "reason": "Run succeeds but result surface is partial; design result persistence before patching"
+  },
+  "lane_0_pressure_assessment": {
+    "previous_phase": "R142",
+    "current_phase": "R142B",
+    "recommended_pressure": "XXL",
+    "pressure_check": "PASS"
+  },
+  "lane_1_r142_evidence_reconciliation": {
+    "status": "complete",
+    "r142_reconciled_facts": {
+      "final_run_status": "success",
+      "model_api_called": true,
+      "model_api_call_count": 1,
+      "http_get_run_has_result": false,
+      "runstore_has_result": false,
+      "run_event_count": 13,
+      "stream_event_count": 5,
+      "tool_call_detected": false,
+      "mcp_runtime_called": false
+    },
+    "correction_note": "R142 JSON had model_api_called=false in lane_4 but model_api_called=true in safety_constraints. Reconciled to model_api_called=true based on logs showing 2 MiniMax API calls."
+  },
+  "lane_2_runstore_model": {
+    "status": "complete",
+    "record_fields": [
+      "run_id", "thread_id", "assistant_id", "status", "on_disconnect",
+      "multitask_strategy", "metadata", "kwargs", "created_at", "updated_at",
+      "task", "abort_event", "abort_action", "error"
+    ],
+    "has_result_field": false,
+    "has_output_field": false,
+    "has_messages_field": false,
+    "has_metadata": true,
+    "update_result_method_exists": false,
+    "storage_backends": ["MemoryRunStore", "RunStore interface (pluggable)"],
+    "update_run_completion_method_exists": true,
+    "note": "update_run_completion(token_counts, last_ai_message, first_human_message, error) exists — but only stores token usage, not full result",
+    "patch_surface": "RunRecord dataclass — add result/output/messages fields; worker.py — capture final channel_values and write to record"
+  },
+  "lane_3_http_run_response_model": {
+    "status": "complete",
+    "response_fields": ["run_id", "thread_id", "assistant_id", "status", "metadata", "kwargs", "multitask_strategy", "created_at", "updated_at"],
+    "has_result": false,
+    "has_output": false,
+    "has_messages": false,
+    "serializer_location": "thread_runs.py _record_to_response()",
+    "get_runs_only_returns_metadata": true,
+    "result_accessible_via_wait_endpoint": true,
+    "wait_endpoint_location": "thread_runs.py POST /{thread_id}/runs/wait",
+    "wait_endpoint_reads_from": "checkpointer latest checkpoint channel_values",
+    "messages_accessible_via": "GET /{thread_id}/runs/{run_id}/messages endpoint",
+    "patch_surface": "RunResponse model + _record_to_response() — add result field; wait_run endpoint or get_run endpoint to surface stored result"
+  },
+  "lane_4_runevent_model": {
+    "status": "complete",
+    "event_store_fields": ["thread_id", "run_id", "event_type", "category", "content", "metadata", "seq", "created_at"],
+    "event_count_from_R142": 13,
+    "event_types_detectable": true,
+    "raw_dict_problem": true,
+    "model_response_event_type": "llm.ai.response",
+    "model_response_content": "AIMessage.model_dump() dict",
+    "canonical_log_candidate": true,
+    "patch_surface": "RunEventStore is already canonical log; no model change needed — existing events can be projected for final result"
+  },
+  "lane_5_streambridge_model": {
+    "status": "complete",
+    "stream_event_fields": ["id", "event", "data"],
+    "stream_modes": ["values", "messages", "metadata", "end", "error", "custom"],
+    "values_mode_data": "serialize_channel_values(channel_values) — dict with messages, title, artifacts, todos",
+    "messages_mode_data": "serialize_messages_tuple — [message_chunk_dict, metadata_dict] per delta",
+    "false_negative_reason": "R142 inspection used isinstance(ev_data, str) — but data is a dict (serialized channel_values), not a string. model_response_detected was false negative.",
+    "persistence_candidate": "limited — StreamBridge contains full channel_values in values mode, but events are only available during active stream",
+    "patch_surface": "StreamBridge not suitable as primary result store — ephemeral per-run"
+  },
+  "lane_6_worker_capture_points": {
+    "status": "complete",
+    "capture_points": [
+      {
+        "location": "worker.py:262-281 (post-loop before set_status)",
+        "available_data": "checkpointer has final channel_values; but worker doesn't read from checkpointer here",
+        "can_extract_final_message": true,
+        "risk": "medium — requires checkpointer read at end of worker",
+        "recommended": false,
+        "reason": "checkpointer read in worker adds coupling"
+      },
+      {
+        "location": "worker.py:316-353 (finally block — journal.flush() + get_completion_data())",
+        "available_data": "journal has buffered events; get_completion_data() returns token counts + last_ai_message",
+        "can_extract_final_message": true,
+        "risk": "low — journal already writes to RunEventStore; minimal extension",
+        "recommended": true,
+        "reason": "journal already captures final AI message; just need to also capture full result dict"
+      },
+      {
+        "location": "worker.py:139-154 (journal.get_completion_data())",
+        "available_data": "last_ai_message, first_human_message, token counts, message_count",
+        "can_extract_final_message": true,
+        "risk": "low — extension of existing update_run_completion call",
+        "recommended": true,
+        "reason": "update_run_completion already called with similar data; just expand fields captured"
+      },
+      {
+        "location": "POST /runs/wait — checkpointer read after run completes",
+        "available_data": "full channel_values from checkpointer",
+        "can_extract_final_message": true,
+        "risk": "low — no code change needed in worker",
+        "recommended": false,
+        "reason": "wait endpoint already reads checkpointer successfully"
+      }
+    ],
+    "recommended_capture_point": "worker.py finally block — journal.get_completion_data() → update_run_completion() — expand to capture serialize_channel_values(final_channel_values) as result"
+  },
+  "lane_7_caller_expectations": {
+    "status": "complete",
+    "deerflow_client_reads_result": false,
+    "client_stream_mechanism": "stream() generator yields StreamEvent(type, data) until end events",
+    "client_chat_mechanism": "chat() accumulates delta chunks, returns last AI message text",
+    "frontend_expects": "useStream hook receives state.values (channel_values dict) via onFinish callback",
+    "frontend_result_access": "via SSE stream onFinish, not via GET /runs/{run_id}",
+    "current_gap": "No persistent result accessible via GET /runs/{run_id} — only metadata; result only available via SSE stream or POST /runs/wait",
+    "ts_dependency": "@langchain/langgraph-sdk/react — useStream hook"
+  },
+  "lane_8_design_options": {
+    "status": "complete",
+    "design_options": [
+      {
+        "option": "A — RunStore Snapshot",
+        "implementation_cost": "medium",
+        "correctness": "high",
+        "backwards_compatibility": "medium — RunResponse gains new field",
+        "frontend_usefulness": "high — GET /runs/{run_id} returns result immediately",
+        "storage_compatibility": "high — RunStore already has record",
+        "event_replay_value": "low",
+        "risk": "medium",
+        "testing_complexity": "medium",
+        "description": "Add result/output/messages fields to RunRecord dataclass. Worker captures final channel_values and writes to record via update_run_completion-like mechanism."
+      },
+      {
+        "option": "B — RunEventStore Canonical + Projection",
+        "implementation_cost": "low",
+        "correctness": "high",
+        "backwards_compatibility": "high — no new fields, just new query",
+        "frontend_usefulness": "medium — requires GET /runs/{run_id}/events or new endpoint",
+        "storage_compatibility": "high — already canonical log",
+        "event_replay_value": "high — full event history preserved",
+        "risk": "low",
+        "testing_complexity": "low",
+        "description": "Use existing RunEventStore as canonical log. GET /runs/{run_id} projects final result from stored events (llm.ai.response events). No new storage needed."
+      },
+      {
+        "option": "C — StreamBridge Only",
+        "implementation_cost": "low",
+        "correctness": "medium",
+        "backwards_compatibility": "high",
+        "frontend_usefulness": "low — no persistent result",
+        "storage_compatibility": "high",
+        "event_replay_value": "none",
+        "risk": "low",
+        "testing_complexity": "low",
+        "description": "No result persistence. HTTP GET returns metadata only. Caller must use SSE stream or POST /wait. Not acceptable for caller UX."
+      },
+      {
+        "option": "D — Hybrid (RunEventStore canonical + RunStore latest_result summary)",
+        "implementation_cost": "medium",
+        "correctness": "high",
+        "backwards_compatibility": "high",
+        "frontend_usefulness": "high — GET /runs/{run_id} returns latest_result; full history in events",
+        "storage_compatibility": "high",
+        "event_replay_value": "high",
+        "risk": "medium",
+        "testing_complexity": "medium",
+        "description": "RunEventStore keeps full event log. RunStore record gains latest_result summary (last AI message text, message count). GET /runs/{run_id} returns latest_result snapshot."
+      }
+    ],
+    "recommended_design": "Option A (RunStore Snapshot) — simplest path to giving GET /runs/{run_id} a result field. Expand update_run_completion to capture serialize_channel_values final state as result field on RunRecord.",
+    "reason": "Option A directly addresses the R142 finding (RunStore record has no result field). minimal changes to worker (capture final state in finally block via journal or checkpointer read). GET /runs/{run_id} immediately becomes more useful. Option D is better long-term but Option A is sufficient for now."
+  },
+  "lane_9_patch_authorization": {
+    "status": "complete",
+    "r142c_patch_authorization_required": true,
+    "r142c_patch_package": {
+      "recommended_phase": "R142C_RESULT_PERSISTENCE_PATCH",
+      "files_allowed": [
+        "packages/harness/deerflow/runtime/runs/worker.py",
+        "packages/harness/deerflow/runtime/runs/manager.py (RunRecord dataclass)",
+        "app/gateway/routers/thread_runs.py (RunResponse model + _record_to_response)",
+        "packages/harness/deerflow/runtime/serialization.py (serialize_channel_values already exists)"
+      ],
+      "files_forbidden": [
+        "app/gateway/app.py",
+        "app/gateway/auth_middleware.py",
+        "app/gateway/csrf_middleware.py",
+        "packages/harness/deerflow/persistence/**/*.py",
+        "config.yaml",
+        ".env"
+      ],
+      "expected_diff_summary": "1. RunRecord.add result field (dict); 2. update_run_completion gains result dict param; 3. worker.py finally block calls update_run_completion with serialize_channel_values final state; 4. RunResponse.add result field; 5. _record_to_response copies record.result to response",
+      "validation_plan": [
+        "py_compile all modified files",
+        "static ast.parse check",
+        "R142C inline smoke test: GET /runs/{run_id} has result field with non-empty messages"
+      ],
+      "rollback_plan": "Revert RunRecord result field addition; revert update_run_completion change; revert RunResponse change — all are additive only"
+    }
+  },
+  "lane_10_unknown_registry": {
+    "status": "complete",
+    "updates": [
+      {
+        "id": "U-result-persistence-design",
+        "description": "Option A recommended — RunRecord gains result field, worker captures final state via journal.get_completion_data() + serialize_channel_values",
+        "priority": "high"
+      },
+      {
+        "id": "U-final-output-capture-point",
+        "description": "Recommended: worker.py finally block — journal.get_completion_data() already called; expand to capture serialize_channel_values(final_state) as result",
+        "priority": "high"
+      },
+      {
+        "id": "U-runeventstore-canonical-log",
+        "description": "RunEventStore already stores llm.ai.response events with full AIMessage content as dict — already a canonical log",
+        "priority": "medium"
+      },
+      {
+        "id": "U-deerflowclient-result-expectation",
+        "description": "DeerFlowClient uses stream, not result polling. Frontend uses useStream hook onFinish(state.values). Result not read from GET /runs/{run_id} currently.",
+        "priority": "medium"
+      },
+      {
+        "id": "U-streambridge-false-negative",
+        "description": "R142 model_response_detected=False was false negative — StreamEvent.data is a dict (serialize_channel_values output), not a string. Detection worked but isinstance check was wrong.",
+        "priority": "low"
+      }
+    ]
+  },
+  "safety_constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "recommended_next_phase": "R142C_RESULT_PERSISTENCE_PATCH"
+}

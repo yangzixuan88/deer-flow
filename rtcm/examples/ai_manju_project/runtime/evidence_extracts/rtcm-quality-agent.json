@@ -1,0 +1,5 @@
+{
+  "selected_evidence_items": ["ev_002","ev_004","ev_006"],
+  "relevant_constraints": ["样片质量必须达到最低可接受阈值"],
+  "conflicting_evidence_if_any": ["ev_001"]
+}

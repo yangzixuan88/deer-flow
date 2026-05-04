@@ -1,0 +1,135 @@
+{
+  "payload": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Fix the failing test and search for evidence first."
+      }
+    ],
+    "active_modes": [
+      "task",
+      "search"
+    ]
+  },
+  "context_envelope": {
+    "context_id": "ctx-r241-4b-sample",
+    "request_id": "req-r241-4b-sample",
+    "thread_id": "thread-r241-4b-sample",
+    "source_system": "gateway"
+  },
+  "inferred_primary_mode": {
+    "primary_mode": "search",
+    "confidence": 0.78,
+    "evidence": [
+      "keyword:search",
+      "keyword:evidence"
+    ],
+    "warnings": []
+  },
+  "mode_instrumentation": {
+    "context_id": "ctx-r241-4b-sample",
+    "request_id": "req-r241-4b-sample",
+    "thread_id": "thread-r241-4b-sample",
+    "mode_session": {
+      "mode_session_id": "modesess_c95929dbc26443bebe3bfcfde3c5a48c",
+      "primary_mode": "search",
+      "active_modes": [
+        "search",
+        "task"
+      ],
+      "status": "started",
+      "owner_system": "gateway_mode_instrumentation",
+      "created_at": "2026-04-24T13:22:35.243021+00:00",
+      "updated_at": "2026-04-24T13:22:35.243021+00:00",
+      "warnings": [],
+      "context_id": "ctx-r241-4b-sample",
+      "request_id": "req-r241-4b-sample",
+      "thread_id": "thread-r241-4b-sample"
+    },
+    "primary_mode": "search",
+    "active_modes": [
+      "search",
+      "task"
+    ],
+    "instrumentation_only": true,
+    "warnings": [],
+    "mode_call_graph": null,
+    "selected_mode_hint": null
+  },
+  "attached_context_copy": {
+    "context_id": "ctx-r241-4b-sample",
+    "request_id": "req-r241-4b-sample",
+    "thread_id": "thread-r241-4b-sample",
+    "source_system": "gateway",
+    "mode_session_id": "modesess_c95929dbc26443bebe3bfcfde3c5a48c",
+    "primary_mode": "search",
+    "active_modes": [
+      "search",
+      "task"
+    ],
+    "mode_metadata": {
+      "context_id": "ctx-r241-4b-sample",
+      "request_id": "req-r241-4b-sample",
+      "thread_id": "thread-r241-4b-sample",
+      "mode_session": {
+        "mode_session_id": "modesess_c95929dbc26443bebe3bfcfde3c5a48c",
+        "primary_mode": "search",
+        "active_modes": [
+          "search",
+          "task"
+        ],
+        "status": "started",
+        "owner_system": "gateway_mode_instrumentation",
+        "created_at": "2026-04-24T13:22:35.243021+00:00",
+        "updated_at": "2026-04-24T13:22:35.243021+00:00",
+        "warnings": [],
+        "context_id": "ctx-r241-4b-sample",
+        "request_id": "req-r241-4b-sample",
+        "thread_id": "thread-r241-4b-sample"
+      },
+      "primary_mode": "search",
+      "active_modes": [
+        "search",
+        "task"
+      ],
+      "instrumentation_only": true,
+      "warnings": [],
+      "mode_call_graph": null,
+      "selected_mode_hint": null
+    },
+    "mode_instrumentation_ref": "modesess_c95929dbc26443bebe3bfcfde3c5a48c"
+  },
+  "mode_call_graph_projection": {
+    "mode_session_id": "modesess_c95929dbc26443bebe3bfcfde3c5a48c",
+    "primary_mode": "search",
+    "nodes": [
+      {
+        "mode": "search",
+        "is_primary": true,
+        "is_active": true
+      }
+    ],
+    "edges": [],
+    "invocations": [],
+    "results": [],
+    "created_at": "2026-04-24T13:22:35.243021+00:00",
+    "updated_at": "2026-04-24T13:22:35.243163+00:00",
+    "warnings": []
+  },
+  "summary": {
+    "mode_session_id": "modesess_c95929dbc26443bebe3bfcfde3c5a48c",
+    "primary_mode": "search",
+    "active_modes": [
+      "search"
+    ],
+    "node_count": 1,
+    "edge_count": 0,
+    "by_from_mode": {},
+    "by_to_mode": {},
+    "roundtable_invocation_count": 0,
+    "autonomous_agent_invocation_count": 0,
+    "warnings": []
+  },
+  "warnings": [],
+  "generated_at": "2026-04-24T13:22:35.243241+00:00"
+}

@@ -1,0 +1,1842 @@
+{
+  "source_matrix_summary": {
+    "matrix_id": "integration_matrix_0163306302",
+    "read_only_ready_count": 16,
+    "append_only_ready_count": 1,
+    "report_only_count": 0,
+    "blocked_count": 9,
+    "by_readiness_level": {
+      "read_only_ready": 16,
+      "append_only_ready": 1,
+      "blocked": 9
+    }
+  },
+  "plan": {
+    "plan_id": "readonly_integration_plan_2101790501",
+    "generated_at": "2026-04-24T23:33:44.746949+00:00",
+    "source_matrix_ref": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-9A_FOUNDATION_INTEGRATION_READINESS_MATRIX.json",
+    "approved_surfaces": [
+      {
+        "surface_id": "truth_state_contract",
+        "surface_type": "truth_state_projection",
+        "module_path": "backend/app/m11/truth_state_contract.py",
+        "owner_domain": "truth_state",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/m11/test_truth_state_contract.py"
+        ],
+        "sample_refs": [],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1A_TRUTH_STATE_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507003+00:00"
+      },
+      {
+        "surface_id": "governance_readonly_projection",
+        "surface_type": "governance_projection",
+        "module_path": "backend/app/m11/governance_bridge.py",
+        "owner_domain": "truth_state",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/m11/test_governance_truth_projection.py"
+        ],
+        "sample_refs": [],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1B_GOVERNANCE_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "truth_state_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507057+00:00"
+      },
+      {
+        "surface_id": "queue_sandbox_truth_projection",
+        "surface_type": "queue_sandbox_projection",
+        "module_path": "backend/app/m11/queue_sandbox_truth_projection.py",
+        "owner_domain": "queue_sandbox",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/m11/test_queue_sandbox_truth_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-1C_QUEUE_SANDBOX_TRUTH_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1C_QUEUE_SANDBOX_TRUTH_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "governance_readonly_projection"
+        ],
+        "blockers": [],
+        "recommended_next_step": "read_only_diagnostics_allowed_queue_mismatch_remains_warning",
+        "warnings": [
+          "queue_path_mismatch_unresolved"
+        ],
+        "reviewed_at": "2026-04-24T23:24:43.507084+00:00"
+      },
+      {
+        "surface_id": "memory_layer_contract",
+        "surface_type": "memory_projection",
+        "module_path": "backend/app/memory/memory_layer_contract.py",
+        "owner_domain": "memory",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/memory/test_memory_layer_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-2A_MEMORY_LAYER_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-2A_MEMORY_LAYER_CONTRACT_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507106+00:00"
+      },
+      {
+        "surface_id": "memory_readonly_projection",
+        "surface_type": "memory_projection",
+        "module_path": "backend/app/memory/memory_projection.py",
+        "owner_domain": "memory",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/memory/test_memory_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-2B_MEMORY_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-2B_MEMORY_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "memory_layer_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507125+00:00"
+      },
+      {
+        "surface_id": "asset_lifecycle_contract",
+        "surface_type": "asset_projection",
+        "module_path": "backend/app/asset/asset_lifecycle_contract.py",
+        "owner_domain": "asset",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/asset/test_asset_lifecycle_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-3A_ASSET_LIFECYCLE_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-3A_ASSET_LIFECYCLE_CONTRACT_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507144+00:00"
+      },
+      {
+        "surface_id": "asset_readonly_projection",
+        "surface_type": "asset_projection",
+        "module_path": "backend/app/asset/asset_projection.py",
+        "owner_domain": "asset",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/asset/test_asset_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-3B_ASSET_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-3B_ASSET_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "asset_lifecycle_contract",
+          "memory_readonly_projection"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507162+00:00"
+      },
+      {
+        "surface_id": "gateway_mode_instrumentation",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "backend/app/gateway/mode_instrumentation.py",
+        "owner_domain": "gateway",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/gateway/test_mode_instrumentation_smoke.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-4B_GATEWAY_MODE_INSTRUMENTATION_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-4B_GATEWAY_CONTEXT_MODE_INSTRUMENTATION_REPORT.md"
+        ],
+        "dependencies": [
+          "mode_orchestration_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "keep_as_optional_metadata_projection_no_run_path_change",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507195+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_contract",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "backend/app/tool_runtime/tool_runtime_contract.py",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": true,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/tool_runtime/test_tool_runtime_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-5A_TOOL_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-5A_TOOL_RUNTIME_INSTRUMENTATION_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507211+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_gateway_mode_projection",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "backend/app/tool_runtime/tool_runtime_projection.py",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": true,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/tool_runtime/test_tool_runtime_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-5B_TOOL_RUNTIME_GATEWAY_MODE_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-5B_TOOL_RUNTIME_GATEWAY_MODE_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "tool_runtime_contract",
+          "mode_orchestration_contract",
+          "gateway_mode_instrumentation"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507226+00:00"
+      },
+      {
+        "surface_id": "prompt_governance_contract",
+        "surface_type": "prompt_projection",
+        "module_path": "backend/app/prompt/prompt_governance_contract.py",
+        "owner_domain": "prompt",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/prompt/test_prompt_governance_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-6A_PROMPT_GOVERNANCE_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-6A_PROMPT_GOVERNANCE_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507244+00:00"
+      },
+      {
+        "surface_id": "prompt_readonly_projection",
+        "surface_type": "prompt_projection",
+        "module_path": "backend/app/prompt/prompt_projection.py",
+        "owner_domain": "prompt",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/prompt/test_prompt_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-6B_PROMPT_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-6B_PROMPT_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "prompt_governance_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507260+00:00"
+      },
+      {
+        "surface_id": "rtcm_integration_contract",
+        "surface_type": "rtcm_projection",
+        "module_path": "backend/app/rtcm/rtcm_integration_contract.py",
+        "owner_domain": "rtcm",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_integration_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-7A_RTCM_ROUNDTABLE_INTEGRATION_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-7A_RTCM_ROUNDTABLE_INTEGRATION_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507277+00:00"
+      },
+      {
+        "surface_id": "rtcm_runtime_projection",
+        "surface_type": "rtcm_projection",
+        "module_path": "backend/app/rtcm/rtcm_runtime_projection.py",
+        "owner_domain": "rtcm",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_runtime_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-7B_RTCM_RUNTIME_PROJECTION_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-7B_RTCM_RUNTIME_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "rtcm_integration_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507292+00:00"
+      },
+      {
+        "surface_id": "nightly_foundation_health_review",
+        "surface_type": "nightly_review_projection",
+        "module_path": "backend/app/nightly/foundation_health_review.py",
+        "owner_domain": "nightly",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_review.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507306+00:00"
+      },
+      {
+        "surface_id": "nightly_feishu_summary_projection",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "backend/app/nightly/foundation_health_summary.py",
+        "owner_domain": "nightly",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_summary.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-8B_NIGHTLY_FEISHU_SUMMARY_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-8B_NIGHTLY_FEISHU_SUMMARY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "nightly_foundation_health_review"
+        ],
+        "blockers": [],
+        "recommended_next_step": "allow_dry_run_payload_projection_only_no_push",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507321+00:00"
+      }
+    ],
+    "excluded_surfaces": [
+      {
+        "surface_id": "mode_orchestration_contract",
+        "surface_type": "mode_instrumentation",
+        "module_path": "backend/app/mode/mode_orchestration_contract.py",
+        "owner_domain": "mode",
+        "readiness_level": "append_only_ready",
+        "decision": "approve_append_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/mode/test_mode_orchestration_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-4A_MODE_CALLGRAPH_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-4A_MODE_INVOCATION_INSTRUMENTATION_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "append_only_callgraph_artifact_allowed_after_review",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507181+00:00"
+      },
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "surface_type": "memory_projection",
+        "module_path": "",
+        "owner_domain": "memory",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "memory cleanup without quarantine"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507343+00:00"
+      },
+      {
+        "surface_id": "asset_promotion_elimination",
+        "surface_type": "asset_projection",
+        "module_path": "",
+        "owner_domain": "asset",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "asset promotion without verification"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507363+00:00"
+      },
+      {
+        "surface_id": "prompt_replacement_gepa_dspy_activation",
+        "surface_type": "prompt_projection",
+        "module_path": "",
+        "owner_domain": "prompt",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "prompt replacement without backup"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507381+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_enforcement",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "tool enforcement without dry-run"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507401+00:00"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "gateway",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "gateway routing mutation"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507422+00:00"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "surface_type": "mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "mode",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "mode router replacement"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507439+00:00"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "surface_type": "rtcm_projection",
+        "module_path": "",
+        "owner_domain": "rtcm",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "rtcm state mutation"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507462+00:00"
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "feishu push without webhook policy"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507483+00:00"
+      },
+      {
+        "surface_id": "real_scheduler_watchdog_integration",
+        "surface_type": "nightly_review_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "scheduler policy missing"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507502+00:00"
+      }
+    ],
+    "cli_command_specs": [
+      {
+        "command_id": "cli_1155015080",
+        "surface": "truth_state",
+        "command_name": "foundation diagnose truth-state",
+        "description": "输出 Truth/State projection summary，检查 execution/governance/observation truth 分离。",
+        "module_ref": "backend/app/m11/truth_state_contract.py; backend/app/m11/governance_bridge.py",
+        "function_ref": "summarize_outcome_contract; project_recent_outcomes; get_success_rate_candidates",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticTruthStateOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "low",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/m11/test_truth_state_contract.py",
+          "backend/app/m11/test_governance_truth_projection.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_4963991820",
+        "surface": "queue_sandbox",
+        "command_name": "foundation diagnose queue-sandbox",
+        "description": "输出 queue snapshot、sandbox truth、queue correlation，并保留 queue_path_mismatch warning。",
+        "module_ref": "backend/app/m11/queue_sandbox_truth_projection.py",
+        "function_ref": "load_experiment_queue_snapshot; project_sandbox_outcomes; correlate_queue_with_sandbox_truth",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--limit",
+            "type": "int",
+            "required": false,
+            "default": 200
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticQueueSandboxOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_root_guard": true,
+        "expected_warnings": [
+          "queue_path_mismatch_unresolved"
+        ],
+        "test_refs": [
+          "backend/app/m11/test_queue_sandbox_truth_projection.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_0667490210",
+        "surface": "memory",
+        "command_name": "foundation diagnose memory",
+        "description": "输出 memory projection、long-term candidates、asset candidates、risk signals。",
+        "module_ref": "backend/app/memory/memory_projection.py",
+        "function_ref": "project_memory_roots; get_long_term_memory_candidates; get_memory_asset_candidates; detect_memory_risk_signals",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--max-files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticMemoryOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "low",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/memory/test_memory_projection.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_6777065914",
+        "surface": "asset",
+        "command_name": "foundation diagnose asset",
+        "description": "输出 asset registry、binding、governance、memory candidate aggregate projection。",
+        "module_ref": "backend/app/asset/asset_projection.py",
+        "function_ref": "aggregate_asset_projection; detect_asset_projection_risks",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--limit",
+            "type": "int",
+            "required": false,
+            "default": 200
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticAssetOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "low",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/asset/test_asset_projection.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_7506505315",
+        "surface": "prompt",
+        "command_name": "foundation diagnose prompt",
+        "description": "输出 prompt source projection、replacement risk、A7 candidates。",
+        "module_ref": "backend/app/prompt/prompt_projection.py",
+        "function_ref": "aggregate_prompt_projection; detect_prompt_governance_risks",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--max-files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticPromptOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/prompt/test_prompt_projection.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_1780988578",
+        "surface": "rtcm",
+        "command_name": "foundation diagnose rtcm",
+        "description": "输出 RTCM runtime projection、session projection、context link warning、unknown taxonomy。",
+        "module_ref": "backend/app/rtcm/rtcm_runtime_projection.py",
+        "function_ref": "scan_rtcm_runtime_projection; detect_rtcm_runtime_projection_risks; generate_rtcm_runtime_projection_report",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--max-files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticRtcmOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_runtime_projection.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_5334093408",
+        "surface": "nightly",
+        "command_name": "foundation diagnose nightly",
+        "description": "输出 Nightly Foundation Health Review summary。",
+        "module_ref": "backend/app/nightly/foundation_health_review.py",
+        "function_ref": "aggregate_nightly_foundation_health; generate_nightly_foundation_health_review",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--max-files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticNightlyOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_review.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_9594289914",
+        "surface": "feishu_summary",
+        "command_name": "foundation diagnose feishu-summary",
+        "description": "输出 Feishu/Lark payload projection；send_allowed=false；no webhook call。",
+        "module_ref": "backend/app/nightly/foundation_health_summary.py",
+        "function_ref": "generate_nightly_summary_projection_report; build_feishu_card_payload_projection",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--dry-run",
+            "type": "bool",
+            "required": false,
+            "default": true
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticFeishuSummaryOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "dry_run_only",
+        "risk_level": "medium",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_summary.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "command_id": "cli_7007999700",
+        "surface": "all",
+        "command_name": "foundation diagnose all",
+        "description": "聚合全部 read-only diagnostics；不执行修复；不写 runtime；可写 report 到 migration_reports/foundation_audit。",
+        "module_ref": "backend/app/nightly/foundation_health_review.py; backend/app/nightly/foundation_health_summary.py",
+        "function_ref": "aggregate_nightly_foundation_health; generate_nightly_summary_projection_report",
+        "input_args": [
+          {
+            "name": "--format",
+            "type": "enum",
+            "values": [
+              "json",
+              "markdown",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "--max-files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "output_schema_ref": "ReadOnlyDiagnosticAllOutput",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": true,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_root_guard": true,
+        "expected_warnings": [],
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_review.py",
+          "backend/app/nightly/test_foundation_health_summary.py"
+        ],
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      }
+    ],
+    "api_endpoint_specs": [
+      {
+        "endpoint_id": "endpoint_9485592682",
+        "surface": "truth_state",
+        "method": "GET",
+        "path": "/foundation/diagnostics/truth-state",
+        "description": "输出 Truth/State projection summary，检查 execution/governance/observation truth 分离。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/m11/truth_state_contract.py; backend/app/m11/governance_bridge.py",
+        "function_ref": "summarize_outcome_contract; project_recent_outcomes; get_success_rate_candidates",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticTruthStateResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "low",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_8325828160",
+        "surface": "queue_sandbox",
+        "method": "GET",
+        "path": "/foundation/diagnostics/queue-sandbox",
+        "description": "输出 queue snapshot、sandbox truth、queue correlation，并保留 queue_path_mismatch warning。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/m11/queue_sandbox_truth_projection.py",
+        "function_ref": "load_experiment_queue_snapshot; project_sandbox_outcomes; correlate_queue_with_sandbox_truth",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "int",
+            "required": false,
+            "default": 200
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticQueueSandboxResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_4151207172",
+        "surface": "memory",
+        "method": "GET",
+        "path": "/foundation/diagnostics/memory",
+        "description": "输出 memory projection、long-term candidates、asset candidates、risk signals。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/memory/memory_projection.py",
+        "function_ref": "project_memory_roots; get_long_term_memory_candidates; get_memory_asset_candidates; detect_memory_risk_signals",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "max_files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticMemoryResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "low",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_3393534109",
+        "surface": "asset",
+        "method": "GET",
+        "path": "/foundation/diagnostics/asset",
+        "description": "输出 asset registry、binding、governance、memory candidate aggregate projection。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/asset/asset_projection.py",
+        "function_ref": "aggregate_asset_projection; detect_asset_projection_risks",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "int",
+            "required": false,
+            "default": 200
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticAssetResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "low",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_3342842836",
+        "surface": "prompt",
+        "method": "GET",
+        "path": "/foundation/diagnostics/prompt",
+        "description": "输出 prompt source projection、replacement risk、A7 candidates。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/prompt/prompt_projection.py",
+        "function_ref": "aggregate_prompt_projection; detect_prompt_governance_risks",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "max_files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticPromptResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_1584451700",
+        "surface": "rtcm",
+        "method": "GET",
+        "path": "/foundation/diagnostics/rtcm",
+        "description": "输出 RTCM runtime projection、session projection、context link warning、unknown taxonomy。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/rtcm/rtcm_runtime_projection.py",
+        "function_ref": "scan_rtcm_runtime_projection; detect_rtcm_runtime_projection_risks; generate_rtcm_runtime_projection_report",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "max_files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticRtcmResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_4210673136",
+        "surface": "nightly",
+        "method": "GET",
+        "path": "/foundation/diagnostics/nightly",
+        "description": "输出 Nightly Foundation Health Review summary。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/nightly/foundation_health_review.py",
+        "function_ref": "aggregate_nightly_foundation_health; generate_nightly_foundation_health_review",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "max_files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticNightlyResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_4235585486",
+        "surface": "feishu_summary",
+        "method": "GET",
+        "path": "/foundation/diagnostics/feishu-summary",
+        "description": "输出 Feishu/Lark payload projection；send_allowed=false；no webhook call。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/nightly/foundation_health_summary.py",
+        "function_ref": "generate_nightly_summary_projection_report; build_feishu_card_payload_projection",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "dry_run",
+            "type": "bool",
+            "required": false,
+            "default": true
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticFeishuSummaryResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": false,
+        "permission": "dry_run_only",
+        "risk_level": "medium",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      },
+      {
+        "endpoint_id": "endpoint_0790864224",
+        "surface": "all",
+        "method": "GET",
+        "path": "/foundation/diagnostics/all",
+        "description": "聚合全部 read-only diagnostics；不执行修复；不写 runtime；可写 report 到 migration_reports/foundation_audit。 No action execution. No auto-fix.",
+        "module_ref": "backend/app/nightly/foundation_health_review.py; backend/app/nightly/foundation_health_summary.py",
+        "function_ref": "aggregate_nightly_foundation_health; generate_nightly_summary_projection_report",
+        "query_params": [
+          {
+            "name": "format",
+            "type": "enum",
+            "values": [
+              "json",
+              "text"
+            ],
+            "required": false
+          },
+          {
+            "name": "max_files",
+            "type": "int",
+            "required": false,
+            "default": 500
+          }
+        ],
+        "response_schema_ref": "ReadOnlyDiagnosticAllResponse",
+        "reads_runtime": true,
+        "writes_runtime": false,
+        "writes_report_only": true,
+        "permission": "read_only_allowed",
+        "risk_level": "medium",
+        "requires_auth_later": true,
+        "requires_rate_limit_later": true,
+        "disabled_by_default": true,
+        "blockers": [],
+        "recommended_implementation_phase": "Phase A"
+      }
+    ],
+    "implementation_sequence": [
+      {
+        "order": 1,
+        "step": "CLI internal helpers only",
+        "implementation_allowed_next": true
+      },
+      {
+        "order": 2,
+        "step": "CLI report output to migration_reports",
+        "implementation_allowed_next": true
+      },
+      {
+        "order": 3,
+        "step": "API endpoint stubs disabled by default",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 4,
+        "step": "API auth/rate-limit policy",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 5,
+        "step": "Gateway sidecar router / not main run path",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 6,
+        "step": "Feishu dry-run preview",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 7,
+        "step": "Append-only audit later",
+        "implementation_allowed_next": false
+      }
+    ],
+    "safety_constraints": [
+      "read_only_only",
+      "no_runtime_write",
+      "no_action_queue",
+      "no_auto_fix",
+      "no_real_cli_binding",
+      "no_real_api_endpoint",
+      "no_gateway_main_path_change",
+      "no_feishu_webhook_call"
+    ],
+    "expected_warnings": [
+      "queue_path_mismatch_unresolved"
+    ],
+    "blockers": [
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "surface_type": "memory_projection",
+        "module_path": "",
+        "owner_domain": "memory",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "memory cleanup without quarantine"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507343+00:00"
+      },
+      {
+        "surface_id": "asset_promotion_elimination",
+        "surface_type": "asset_projection",
+        "module_path": "",
+        "owner_domain": "asset",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "asset promotion without verification"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507363+00:00"
+      },
+      {
+        "surface_id": "prompt_replacement_gepa_dspy_activation",
+        "surface_type": "prompt_projection",
+        "module_path": "",
+        "owner_domain": "prompt",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "prompt replacement without backup"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507381+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_enforcement",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "tool enforcement without dry-run"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507401+00:00"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "gateway",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "gateway routing mutation"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507422+00:00"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "surface_type": "mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "mode",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "mode router replacement"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507439+00:00"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "surface_type": "rtcm_projection",
+        "module_path": "",
+        "owner_domain": "rtcm",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "rtcm state mutation"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507462+00:00"
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "feishu push without webhook policy"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507483+00:00"
+      },
+      {
+        "surface_id": "real_scheduler_watchdog_integration",
+        "surface_type": "nightly_review_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "scheduler policy missing"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507502+00:00"
+      }
+    ],
+    "next_phase_recommendation": "R241-10A Read-only Diagnostic CLI 内部实现",
+    "warnings": [
+      "queue_path_mismatch_unresolved"
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [
+      "queue_path_mismatch_unresolved"
+    ],
+    "errors": []
+  },
+  "implementation_sequence": {
+    "sequence": [
+      {
+        "order": 1,
+        "step": "CLI internal helpers only",
+        "implementation_allowed_next": true
+      },
+      {
+        "order": 2,
+        "step": "CLI report output to migration_reports",
+        "implementation_allowed_next": true
+      },
+      {
+        "order": 3,
+        "step": "API endpoint stubs disabled by default",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 4,
+        "step": "API auth/rate-limit policy",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 5,
+        "step": "Gateway sidecar router / not main run path",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 6,
+        "step": "Feishu dry-run preview",
+        "implementation_allowed_next": false
+      },
+      {
+        "order": 7,
+        "step": "Append-only audit later",
+        "implementation_allowed_next": false
+      }
+    ],
+    "warnings": []
+  },
+  "generated_at": "2026-04-24T23:33:44.747377+00:00",
+  "warnings": [
+    "queue_path_mismatch_unresolved"
+  ]
+}

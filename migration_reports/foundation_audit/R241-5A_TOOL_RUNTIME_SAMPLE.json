@@ -1,0 +1,505 @@
+{
+  "events": [
+    {
+      "tool_execution_id": "toolexec_5b9602449de041f48aa7fc793d35cbcc",
+      "caller_system": "sample",
+      "tool_id": "fs.read",
+      "tool_type": "file_system",
+      "operation_type": "read_file",
+      "risk_level": "level_0_free_readonly",
+      "root_guard_required": false,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "read_file",
+        "risk_level": "level_0_free_readonly",
+        "auto_allowed": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": false,
+        "requires_nightly_review": false,
+        "required_followups": [],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "README.md"
+    },
+    {
+      "tool_execution_id": "toolexec_8f830753afa2430e91d5926f0dcd059a",
+      "caller_system": "sample",
+      "tool_id": "fs.edit",
+      "tool_type": "file_system",
+      "operation_type": "edit_code",
+      "risk_level": "level_1_standard_auto",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": true,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "edit_code",
+        "risk_level": "level_1_standard_auto",
+        "auto_allowed": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": false,
+        "required_followups": [],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "backend/app/foo.py"
+    },
+    {
+      "tool_execution_id": "toolexec_3c07e5ce9a484c0ca64ad5bcde5d41c3",
+      "caller_system": "sample",
+      "tool_id": "fs.config",
+      "tool_type": "file_system",
+      "operation_type": "modify_config",
+      "risk_level": "level_2_protected_auto",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [
+        "backup/package.json.bak"
+      ],
+      "rollback_refs": [
+        "rollback/package-json.patch"
+      ],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": true,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "modify_config",
+        "risk_level": "level_2_protected_auto",
+        "auto_allowed": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "backup_required",
+          "rollback_ref_required",
+          "audit_required"
+        ],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "package.json"
+    },
+    {
+      "tool_execution_id": "toolexec_6f3420d00272425caceac80eef3f6549",
+      "caller_system": "sample",
+      "tool_id": "fs.delete",
+      "tool_type": "file_system",
+      "operation_type": "delete_file",
+      "risk_level": "level_3_confirm_or_archive",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "delete_should_archive"
+      ],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "delete_file",
+        "risk_level": "level_3_confirm_or_archive",
+        "auto_allowed": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": true,
+        "should_archive_instead_of_delete": true,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "confirmation_or_archive_required",
+          "backup_required",
+          "rollback_ref_required"
+        ],
+        "warnings": [
+          "delete_should_archive"
+        ]
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "important.md"
+    },
+    {
+      "tool_execution_id": "toolexec_987e4cd220c94f2f8976ff92bd118da5",
+      "caller_system": "sample",
+      "tool_id": "prompt.replace",
+      "tool_type": "file_system",
+      "operation_type": "prompt_replace",
+      "risk_level": "level_3_confirm_or_archive",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "prompt_replace",
+        "risk_level": "level_3_confirm_or_archive",
+        "auto_allowed": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": true,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "confirmation_or_archive_required",
+          "backup_required",
+          "rollback_ref_required",
+          "prompt_rollback_required"
+        ],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "prompts/SOUL.md"
+    },
+    {
+      "tool_execution_id": "toolexec_2de17697eb414168a558d1ce7bd9c4a0",
+      "caller_system": "sample",
+      "tool_id": "memory.cleanup",
+      "tool_type": "python",
+      "operation_type": "memory_cleanup",
+      "risk_level": "level_3_confirm_or_archive",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [
+        "memory_cleanup_requires_quarantine"
+      ],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": null,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "memory_cleanup",
+        "risk_level": "level_3_confirm_or_archive",
+        "auto_allowed": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_confirmation": true,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": true,
+        "required_followups": [
+          "confirmation_or_archive_required",
+          "backup_required",
+          "rollback_ref_required",
+          "quarantine_or_observation_required"
+        ],
+        "warnings": [
+          "memory_cleanup_requires_quarantine"
+        ]
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": "backend/.deer-flow/.openclaw/memory.json"
+    },
+    {
+      "tool_execution_id": "toolexec_40b43bc1ed8a4dfcbe414d66562bbef3",
+      "caller_system": "sample",
+      "tool_id": "claude.code",
+      "tool_type": "claude_code",
+      "operation_type": "claude_code_call",
+      "risk_level": "level_1_standard_auto",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": "modeinv_sample",
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": true,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "claude_code_call",
+        "risk_level": "level_1_standard_auto",
+        "auto_allowed": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": false,
+        "required_followups": [],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": null
+    },
+    {
+      "tool_execution_id": "toolexec_2452d9eab2b84b20b2a5bbd5a2dde2e0",
+      "caller_system": "sample",
+      "tool_id": "sandbox.verify",
+      "tool_type": "sandbox",
+      "operation_type": "sandbox_verify",
+      "risk_level": "level_1_standard_auto",
+      "root_guard_required": true,
+      "status": "planned",
+      "backup_refs": [],
+      "rollback_refs": [
+        "rollback/sample.ps1"
+      ],
+      "modified_files": [],
+      "artifact_refs": [],
+      "truth_event_refs": [],
+      "state_event_refs": [],
+      "asset_candidate_refs": [],
+      "warnings": [],
+      "context_id": null,
+      "request_id": null,
+      "mode_session_id": null,
+      "mode_invocation_id": null,
+      "caller_mode": null,
+      "cwd": null,
+      "root_guard_passed": true,
+      "success": null,
+      "started_at": null,
+      "finished_at": null,
+      "policy_decision": {
+        "operation_type": "sandbox_verify",
+        "risk_level": "level_1_standard_auto",
+        "auto_allowed": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_confirmation": false,
+        "should_archive_instead_of_delete": false,
+        "requires_root_guard": true,
+        "requires_nightly_review": false,
+        "required_followups": [],
+        "warnings": []
+      },
+      "confirmation_provided": false,
+      "archive_strategy": false,
+      "target_path": null
+    }
+  ],
+  "validations": [
+    {
+      "policy_ok": true,
+      "warnings": [],
+      "required_followups": []
+    },
+    {
+      "policy_ok": true,
+      "warnings": [],
+      "required_followups": []
+    },
+    {
+      "policy_ok": true,
+      "warnings": [],
+      "required_followups": []
+    },
+    {
+      "policy_ok": false,
+      "warnings": [
+        "delete_should_archive",
+        "root_guard_required_but_missing",
+        "level_3_requires_confirmation"
+      ],
+      "required_followups": [
+        "run_root_guard_before_execution",
+        "obtain_confirmation_or_archive_strategy",
+        "archive_instead_of_delete"
+      ]
+    },
+    {
+      "policy_ok": false,
+      "warnings": [
+        "root_guard_required_but_missing",
+        "level_3_requires_confirmation",
+        "prompt_replace_missing_rollback"
+      ],
+      "required_followups": [
+        "run_root_guard_before_execution",
+        "obtain_confirmation_or_archive_strategy",
+        "provide_prompt_rollback_ref"
+      ]
+    },
+    {
+      "policy_ok": false,
+      "warnings": [
+        "memory_cleanup_requires_quarantine",
+        "root_guard_required_but_missing",
+        "level_3_requires_confirmation"
+      ],
+      "required_followups": [
+        "run_root_guard_before_execution",
+        "obtain_confirmation_or_archive_strategy",
+        "quarantine_or_observation_before_cleanup"
+      ]
+    },
+    {
+      "policy_ok": true,
+      "warnings": [],
+      "required_followups": []
+    },
+    {
+      "policy_ok": true,
+      "warnings": [],
+      "required_followups": []
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "by_tool_id": {
+      "fs.read": 1,
+      "fs.edit": 1,
+      "fs.config": 1,
+      "fs.delete": 1,
+      "prompt.replace": 1,
+      "memory.cleanup": 1,
+      "claude.code": 1,
+      "sandbox.verify": 1
+    },
+    "by_tool_type": {
+      "file_system": 5,
+      "python": 1,
+      "claude_code": 1,
+      "sandbox": 1
+    },
+    "by_operation_type": {
+      "read_file": 1,
+      "edit_code": 1,
+      "modify_config": 1,
+      "delete_file": 1,
+      "prompt_replace": 1,
+      "memory_cleanup": 1,
+      "claude_code_call": 1,
+      "sandbox_verify": 1
+    },
+    "by_risk_level": {
+      "level_0_free_readonly": 1,
+      "level_1_standard_auto": 3,
+      "level_2_protected_auto": 1,
+      "level_3_confirm_or_archive": 3
+    },
+    "by_status": {
+      "planned": 8
+    },
+    "high_risk_count": 4,
+    "missing_backup_count": 0,
+    "missing_rollback_count": 0,
+    "root_guard_required_count": 7,
+    "warnings": {
+      "delete_should_archive": 1,
+      "memory_cleanup_requires_quarantine": 1
+    }
+  },
+  "generated_at": "2026-04-24T22:02:11.237075+00:00",
+  "notes": [
+    "sample_only_no_tool_execution",
+    "high_autonomy_controlled_by_backup_rollback_audit_review"
+  ]
+}

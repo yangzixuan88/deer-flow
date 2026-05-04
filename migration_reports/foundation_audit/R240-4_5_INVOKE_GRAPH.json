@@ -1,0 +1,334 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-4_5_INVOKE_GRAPH.json",
+  "title": "Invoke Graph",
+  "description": "All import/call/subprocess/HTTP/file-artifact relationships between systems",
+  "call_relationships": [
+    {
+      "from": "Frontend",
+      "to": "Gateway HTTP API",
+      "type": "HTTP",
+      "call": "LangGraphClient.thread.submit()",
+      "path": "frontend/src/core/threads/hooks.ts:463",
+      "notes": "Frontend -> LangGraph SDK -> POST /api/threads/{thread_id}/runs"
+    },
+    {
+      "from": "Frontend",
+      "to": "MCP API Server",
+      "type": "HTTP",
+      "call": "fetch /api/v1/orchestrate",
+      "path": "backend/src/infrastructure/server/mcp_api_server.ts:934",
+      "notes": "Only MCP endpoint, rarely used by frontend"
+    },
+    {
+      "from": "ChannelService",
+      "to": "MessageBus",
+      "type": "direct_call",
+      "call": "bus.publish_inbound()",
+      "path": "backend/app/channels/message_bus.py",
+      "notes": "All channels publish to MessageBus"
+    },
+    {
+      "from": "MessageBus",
+      "to": "ChannelManager",
+      "type": "direct_call",
+      "call": "bus.get_inbound()",
+      "path": "backend/app/channels/manager.py:509",
+      "notes": "ChannelManager._dispatch_loop() consumes from bus"
+    },
+    {
+      "from": "ChannelManager",
+      "to": "DeerFlow (LangGraph Server)",
+      "type": "HTTP",
+      "call": "client.runs.wait() / client.runs.stream()",
+      "path": "backend/app/channels/manager.py",
+      "notes": "Streaming channels use runs.stream() with stream_mode=['messages-tuple', 'values']"
+    },
+    {
+      "from": "ChannelManager",
+      "to": "Gateway Router",
+      "type": "HTTP",
+      "call": "client.runs.wait() -> Gateway HTTP",
+      "path": "backend/app/gateway/routers/thread_runs.py",
+      "notes": "Non-streaming channels call runs.wait() which goes through Gateway"
+    },
+    {
+      "from": "MCP API Server",
+      "to": "M01 Orchestrator",
+      "type": "direct_call",
+      "call": "orchestrator.execute(request)",
+      "path": "backend/src/infrastructure/server/mcp_api_server.ts:934",
+      "notes": "Only path that connects MCP to M01"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "M04 Coordinator",
+      "type": "direct_call",
+      "call": "coordinator.execute(context)",
+      "path": "backend/src/domain/m01/orchestrator.ts",
+      "notes": "ORCHESTRATION route -- calls coordinator for DAG execution"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "DeerFlow (Python Gateway)",
+      "type": "HTTP",
+      "call": "deerflowClient.runTask() / createThread()",
+      "path": "backend/src/domain/m01/deerflow_client.ts",
+      "notes": "ORCHESTRATION route -- creates DeerFlow thread and runs task"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "RTCM",
+      "type": "direct_call",
+      "call": "mainAgentHandoff.activateRTCM()",
+      "path": "backend/src/domain/m01/orchestrator.ts:379",
+      "notes": "handleRTCMTrigger() -- keyword-based activation"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "Feishu API",
+      "type": "HTTP",
+      "call": "feishuApiAdapter.sendCardMessage()",
+      "path": "backend/src/rtcm/rtcm_feishu_api_adapter.ts",
+      "notes": "RTCM activation sends launch card via Feishu"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "M11 (OperationClassifier)",
+      "type": "import_only",
+      "call": "import { classifyOperation }",
+      "path": "backend/src/domain/m01/intent_classifier.ts",
+      "notes": "Used to detect WEB_BROWSER/DESKTOP_APP/CLI_TOOL operations"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "M11 ExecutorAdapter",
+      "type": "direct_call",
+      "call": "executorAdapter.submit() / execute()",
+      "path": "backend/src/domain/m04/coordinator.ts:294",
+      "notes": "CLAUDE_CODE, GStack, DESKTOP_APP system types use ExecutorAdapter"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "SearchAdapter",
+      "type": "direct_call",
+      "call": "searchAdapter.search()",
+      "path": "backend/src/domain/m04/adapters/search_adapter.ts",
+      "notes": "SEARCH system type"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "N8N Workflow",
+      "type": "HTTP",
+      "call": "n8nClient.trigger()",
+      "path": "backend/src/domain/m04/coordinator.ts:242",
+      "notes": "WORKFLOW system type via N8N"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "Dify Workflow",
+      "type": "HTTP",
+      "call": "difyClient.run()",
+      "path": "backend/src/domain/m04/coordinator.ts:254",
+      "notes": "WORKFLOW system type via Dify"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "LarkCLIAdapter",
+      "type": "direct_call",
+      "call": "larkCLIAdapter.execute()",
+      "path": "backend/src/domain/m04/coordinator.ts:394",
+      "notes": "LARKSUITE_CLI system type"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "DeerFlow (Python Gateway)",
+      "type": "HTTP",
+      "call": "deerflowClient.runTask()",
+      "path": "backend/src/domain/m04/coordinator.ts",
+      "notes": "DeerFlow used as TASK system type"
+    },
+    {
+      "from": "M11 ExecutorAdapter",
+      "to": "Claude Code",
+      "type": "subprocess",
+      "call": "subprocess.Popen / claude --print",
+      "path": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "notes": "CLAUDE_CODE executor type -- spawns Claude Code CLI"
+    },
+    {
+      "from": "M11 ExecutorAdapter",
+      "to": "MCP Server",
+      "type": "subprocess",
+      "call": "spawn mcp__xxx server",
+      "path": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "notes": "MCP executor types spawn external MCP server processes"
+    },
+    {
+      "from": "M11 ExecutorAdapter",
+      "to": "Midscene",
+      "type": "subprocess",
+      "call": "spawn midscene process",
+      "path": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "notes": "MIDSCENE executor type for UI automation"
+    },
+    {
+      "from": "M11 ExecutorAdapter",
+      "to": "UI-TARS",
+      "type": "subprocess",
+      "call": "spawn ui-tars process",
+      "path": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "notes": "UI_TARS executor type"
+    },
+    {
+      "from": "Gateway",
+      "to": "DeerFlow (Python runtime)",
+      "type": "direct_call",
+      "call": "run_agent()",
+      "path": "backend/packages/harness/deerflow/runtime/runs/worker.py:126",
+      "notes": "services.start_run() creates Task running run_agent(bridge, run_mgr, record, ...)"
+    },
+    {
+      "from": "DeerFlow runtime",
+      "to": "MemoryMiddleware",
+      "type": "direct_call",
+      "call": "memory_middleware.before_agent() / after_agent()",
+      "path": "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py",
+      "notes": "Memory injected before agent, queued for update after agent"
+    },
+    {
+      "from": "DeerFlow runtime",
+      "to": "GovernanceBridge",
+      "type": "HTTP",
+      "call": "governance_bridge.record_outcome()",
+      "path": "backend/app/m11/governance_bridge.py:431",
+      "notes": "Called by queue_consumer.py and directly by upgrade_center_runner.ts"
+    },
+    {
+      "from": "QueueConsumer",
+      "to": "GovernanceBridge",
+      "type": "direct_call",
+      "call": "bridge.record_outcome(outcome_type='sandbox_execution_result')",
+      "path": "backend/app/m11/queue_consumer.py:147",
+      "notes": "Writes execution truth back from sandbox verification"
+    },
+    {
+      "from": "Watchdog",
+      "to": "GovernanceBridge",
+      "type": "direct_call",
+      "call": "governance_bridge.record_outcome()",
+      "path": "backend/src/infrastructure/watchdog.py:52",
+      "notes": "nightly_evolution, doctrine_drift_detected, upgrade_center_* outcomes"
+    },
+    {
+      "from": "Watchdog",
+      "to": "UpgradeCenter",
+      "type": "subprocess",
+      "call": "subprocess.run(['npx', 'tsx', 'upgrade_center_runner.ts'])",
+      "path": "backend/src/infrastructure/watchdog.py:535",
+      "notes": "03:00 AM nightly trigger -- spawns TypeScript UC subprocess"
+    },
+    {
+      "from": "UpgradeCenter",
+      "to": "GovernanceBridge",
+      "type": "HTTP",
+      "call": "governance_bridge.record_outcome()",
+      "path": "backend/src/upgrade_center/upgrade_center_runner.ts",
+      "notes": "UC backflows outcomes: upgrade_center_execution, upgrade_queue_snapshot, etc."
+    },
+    {
+      "from": "UpgradeCenter",
+      "to": "QueueConsumer",
+      "type": "file_artifact",
+      "call": "QueueManager.saveQueue() -> experiment_queue.json",
+      "path": "backend/src/upgrade_center/index.ts",
+      "notes": "UC writes experiment_queue.json -> queue_consumer reads and executes"
+    },
+    {
+      "from": "DPBS (M07)",
+      "to": "GovernanceBridge",
+      "type": "direct_call",
+      "call": "governance_bridge.record_outcome(outcome_type='asset_promotion')",
+      "path": "backend/app/m07/asset_system.py:353",
+      "notes": "asset_promotion outcome recorded when platform is bound"
+    },
+    {
+      "from": "DPBS (M07)",
+      "to": "GovernanceBridge (read)",
+      "type": "direct_call",
+      "call": "governance_bridge.get_outcome_records()",
+      "path": "backend/app/m07/asset_system.py:165",
+      "notes": "DPBS reads governance_state outcome_records to find new tool candidates"
+    },
+    {
+      "from": "RTCM",
+      "to": "Feishu API",
+      "type": "HTTP",
+      "call": "feishuApiAdapter.sendCardMessage()",
+      "path": "backend/src/rtcm/rtcm_feishu_api_adapter.ts",
+      "notes": "RTCM sends issue cards, follow-up notifications via Feishu"
+    },
+    {
+      "from": "RTCM",
+      "to": "DossierWriter",
+      "type": "direct_call",
+      "call": "dossierWriter.writeDossier()",
+      "path": "backend/src/rtcm/dossier_writer.ts",
+      "notes": "Writes dossier files to ~/.deerflow/rtcm/dossiers/{project}/"
+    },
+    {
+      "from": "MemoryMiddleware",
+      "to": "MemoryUpdater",
+      "type": "direct_call",
+      "call": "MemoryUpdateQueue.add() -> MemoryUpdater.update_memory()",
+      "path": "backend/packages/harness/deerflow/agents/memory/queue.py",
+      "notes": "after_agent queues conversation for LLM-based memory update"
+    },
+    {
+      "from": "MemoryUpdater",
+      "to": "MemoryStorage",
+      "type": "direct_call",
+      "call": "get_memory_storage().save()",
+      "path": "backend/packages/harness/deerflow/agents/memory/storage.py",
+      "notes": "Saves to FileMemoryStorage (JSON) + syncs to Qdrant vector DB"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "M01 IntentClassifier",
+      "type": "direct_call",
+      "call": "intentClassifier.classify() / needsRTCM()",
+      "path": "backend/src/domain/m01/intent_classifier.ts",
+      "notes": "classify() determines IntentRoute; needsRTCM() checks for trigger conditions"
+    },
+    {
+      "from": "M01 Orchestrator",
+      "to": "M01 DAGPlanner",
+      "type": "direct_call",
+      "call": "dagPlanner.plan()",
+      "path": "backend/src/domain/m01/dag_planner.ts",
+      "notes": "ORCHESTRATION route builds DAG from user input"
+    },
+    {
+      "from": "M04 Coordinator",
+      "to": "M04 DAGExecutor",
+      "type": "direct_call",
+      "call": "executeDAG()",
+      "path": "backend/src/domain/m04/coordinator.ts",
+      "notes": "Executes DAG nodes in topology order"
+    }
+  ],
+  "call_type_summary": {
+    "direct_call": 22,
+    "HTTP": 8,
+    "subprocess": 4,
+    "file_artifact": 2,
+    "import_only": 1
+  },
+  "critical_chains": {
+    "frontend_to_deerflow": ["Frontend -> Gateway HTTP API -> DeerFlow run_agent()"],
+    "channel_to_deerflow": ["Channel -> MessageBus -> ChannelManager -> DeerFlow"],
+    "mcp_to_deerflow": ["MCP API -> M01 Orchestrator -> M04 Coordinator -> M11 ExecutorAdapter -> Claude Code subprocess"],
+    "watchdog_governance_chain": ["Watchdog -> GovernanceBridge -> governance_state.json -> DPBS discovery -> asset_promotion"],
+    "upgrade_center_pipeline": ["Watchdog -> UC subprocess -> experiment_queue.json -> QueueConsumer -> GovernanceBridge"]
+  }
+}

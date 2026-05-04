@@ -1,0 +1,252 @@
+{
+  "generated_at": "2026-04-24T13:13:35.927389+00:00",
+  "content_policy": "sample instrumentation only; not production runtime state",
+  "session": {
+    "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+    "primary_mode": "task",
+    "active_modes": [
+      "task",
+      "search",
+      "roundtable",
+      "workflow",
+      "autonomous_agent"
+    ],
+    "status": "started",
+    "owner_system": "mode_instrumentation",
+    "created_at": "2026-04-24T13:13:35.927073+00:00",
+    "updated_at": "2026-04-24T13:13:35.927073+00:00",
+    "warnings": [],
+    "context_id": null,
+    "request_id": null,
+    "thread_id": null
+  },
+  "graph": {
+    "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+    "primary_mode": "task",
+    "nodes": [
+      {
+        "mode": "autonomous_agent",
+        "is_primary": false,
+        "is_active": true
+      },
+      {
+        "mode": "roundtable",
+        "is_primary": false,
+        "is_active": true
+      },
+      {
+        "mode": "search",
+        "is_primary": false,
+        "is_active": true
+      },
+      {
+        "mode": "task",
+        "is_primary": true,
+        "is_active": true
+      },
+      {
+        "mode": "workflow",
+        "is_primary": false,
+        "is_active": true
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "edge_modeinv_427e55b368084a5499b535a9893aac2a",
+        "from_mode": "task",
+        "to_mode": "search",
+        "mode_invocation_id": "modeinv_427e55b368084a5499b535a9893aac2a",
+        "return_policy": "return_to_parent",
+        "executor": null,
+        "status": "completed"
+      },
+      {
+        "edge_id": "edge_modeinv_c6a984f6d8f74d00aba0481ac35fd54d",
+        "from_mode": "task",
+        "to_mode": "roundtable",
+        "mode_invocation_id": "modeinv_c6a984f6d8f74d00aba0481ac35fd54d",
+        "return_policy": "return_to_parent",
+        "executor": "rtcm",
+        "status": "completed"
+      },
+      {
+        "edge_id": "edge_modeinv_ab517d079f99424a80491bf48b3c7d23",
+        "from_mode": "roundtable",
+        "to_mode": "search",
+        "mode_invocation_id": "modeinv_ab517d079f99424a80491bf48b3c7d23",
+        "return_policy": "return_to_parent",
+        "executor": null,
+        "status": "planned"
+      },
+      {
+        "edge_id": "edge_modeinv_23d8f15b2ebf4b09b4388de92b84a6dc",
+        "from_mode": "roundtable",
+        "to_mode": "task",
+        "mode_invocation_id": "modeinv_23d8f15b2ebf4b09b4388de92b84a6dc",
+        "return_policy": "return_to_parent",
+        "executor": null,
+        "status": "planned"
+      },
+      {
+        "edge_id": "edge_modeinv_00e595ffa2bf4cb3b9fac61010a6f18b",
+        "from_mode": "workflow",
+        "to_mode": "autonomous_agent",
+        "mode_invocation_id": "modeinv_00e595ffa2bf4cb3b9fac61010a6f18b",
+        "return_policy": "return_to_parent",
+        "executor": null,
+        "status": "planned"
+      }
+    ],
+    "invocations": [
+      {
+        "mode_invocation_id": "modeinv_427e55b368084a5499b535a9893aac2a",
+        "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+        "from_mode": "task",
+        "to_mode": "search",
+        "reason": "collect evidence",
+        "return_policy": "return_to_parent",
+        "requires_user_confirmation": false,
+        "status": "completed",
+        "warnings": [],
+        "parent_context_id": null,
+        "child_context_id": null,
+        "started_at": null,
+        "finished_at": "2026-04-24T13:13:35.927221+00:00",
+        "result_ref": "moderes_55b459501b384e8988bb76acfe8edd8a",
+        "executor": null
+      },
+      {
+        "mode_invocation_id": "modeinv_c6a984f6d8f74d00aba0481ac35fd54d",
+        "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+        "from_mode": "task",
+        "to_mode": "roundtable",
+        "reason": "multi-party review",
+        "return_policy": "return_to_parent",
+        "requires_user_confirmation": false,
+        "status": "completed",
+        "warnings": [],
+        "parent_context_id": null,
+        "child_context_id": null,
+        "started_at": null,
+        "finished_at": "2026-04-24T13:13:35.927247+00:00",
+        "result_ref": "moderes_73d9915613464625a9d09a9a51580d31",
+        "executor": "rtcm"
+      },
+      {
+        "mode_invocation_id": "modeinv_ab517d079f99424a80491bf48b3c7d23",
+        "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+        "from_mode": "roundtable",
+        "to_mode": "search",
+        "reason": "verify claims",
+        "return_policy": "return_to_parent",
+        "requires_user_confirmation": false,
+        "status": "planned",
+        "warnings": [],
+        "parent_context_id": null,
+        "child_context_id": null,
+        "started_at": null,
+        "finished_at": null,
+        "result_ref": null,
+        "executor": null
+      },
+      {
+        "mode_invocation_id": "modeinv_23d8f15b2ebf4b09b4388de92b84a6dc",
+        "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+        "from_mode": "roundtable",
+        "to_mode": "task",
+        "reason": "create followup task",
+        "return_policy": "return_to_parent",
+        "requires_user_confirmation": false,
+        "status": "planned",
+        "warnings": [],
+        "parent_context_id": null,
+        "child_context_id": null,
+        "started_at": null,
+        "finished_at": null,
+        "result_ref": null,
+        "executor": null
+      },
+      {
+        "mode_invocation_id": "modeinv_00e595ffa2bf4cb3b9fac61010a6f18b",
+        "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+        "from_mode": "workflow",
+        "to_mode": "autonomous_agent",
+        "reason": "delegate bounded execution",
+        "return_policy": "return_to_parent",
+        "requires_user_confirmation": false,
+        "status": "planned",
+        "warnings": [],
+        "parent_context_id": null,
+        "child_context_id": null,
+        "started_at": null,
+        "finished_at": null,
+        "result_ref": null,
+        "executor": null
+      }
+    ],
+    "results": [
+      {
+        "mode_result_id": "moderes_55b459501b384e8988bb76acfe8edd8a",
+        "mode_invocation_id": "modeinv_427e55b368084a5499b535a9893aac2a",
+        "from_mode": "task",
+        "to_mode": "search",
+        "result_type": "evidence_summary",
+        "output_refs": [
+          "sample://search-evidence"
+        ],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "memory_refs": [],
+        "created_at": "2026-04-24T13:13:35.927221+00:00",
+        "warnings": []
+      },
+      {
+        "mode_result_id": "moderes_73d9915613464625a9d09a9a51580d31",
+        "mode_invocation_id": "modeinv_c6a984f6d8f74d00aba0481ac35fd54d",
+        "from_mode": "task",
+        "to_mode": "roundtable",
+        "result_type": "verdict",
+        "output_refs": [
+          "sample://rtcm-verdict"
+        ],
+        "truth_event_refs": [],
+        "state_event_refs": [],
+        "asset_candidate_refs": [],
+        "memory_refs": [],
+        "created_at": "2026-04-24T13:13:35.927247+00:00",
+        "warnings": []
+      }
+    ],
+    "created_at": "2026-04-24T13:13:35.927073+00:00",
+    "updated_at": "2026-04-24T13:13:35.927290+00:00",
+    "warnings": []
+  },
+  "summary": {
+    "mode_session_id": "modesess_a34cda9d0b6e4af0824edaab1d1e3bcb",
+    "primary_mode": "task",
+    "active_modes": [
+      "autonomous_agent",
+      "roundtable",
+      "search",
+      "task",
+      "workflow"
+    ],
+    "node_count": 5,
+    "edge_count": 5,
+    "by_from_mode": {
+      "task": 2,
+      "roundtable": 2,
+      "workflow": 1
+    },
+    "by_to_mode": {
+      "search": 2,
+      "roundtable": 1,
+      "task": 1,
+      "autonomous_agent": 1
+    },
+    "roundtable_invocation_count": 1,
+    "autonomous_agent_invocation_count": 1,
+    "warnings": []
+  }
+}

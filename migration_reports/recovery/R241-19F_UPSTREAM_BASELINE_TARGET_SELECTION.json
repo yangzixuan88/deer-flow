@@ -1,0 +1,203 @@
+{
+  "report_id": "R241-19F_UPSTREAM_BASELINE_TARGET_SELECTION",
+  "phase": "phase_19f_upstream_baseline_target_selection",
+  "status": "passed",
+  "decision": "approve_upstream_baseline_target_selection",
+  "source": "R241-19E_UPSTREAM_SOURCE_CONFIGURATION_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "origin_main": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "origin_release_2_0_rc": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+    "origin_release_2_0_rc_1": "e75a2ff29a81c452d0cb481fdb1daa6440683d60",
+    "origin_main_1_x": "2ab28765803d4d9582aaa8f2f3355137d154e273",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "local_tags": ["r241-16s-test"],
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19e": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19e_passed_with_warnings": true,
+    "upstream_source_configuration_review_passed": true,
+    "official_upstream_identity_status": "likely_official_but_unconfirmed",
+    "true_upgrade_diff_available": false,
+    "local_customization_rules_ready": true,
+    "core_tests_passed": true,
+    "allow_enter_r241_19f": true,
+    "all_preconditions_met": true
+  },
+  "r241_19f_scope": {
+    "current_round": "R241-19F",
+    "mode": "upstream_baseline_target_selection",
+    "actual_upgrade_execution_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "blocker_override_allowed": false,
+    "git_network_operation_allowed": false,
+    "required_user_decisions": [
+      "official_upstream_identity_confirmation",
+      "local_base_selection",
+      "upstream_target_selection"
+    ]
+  },
+  "user_decisions": {
+    "official_upstream_identity_decision": {
+      "decision": "confirm",
+      "option_selected": "confirm_bytedance_deer_flow_as_official_upstream",
+      "confirmed_url": "https://github.com/bytedance/deer-flow.git",
+      "confirmed_project": "deer-flow (ByteDance OpenClaw base)",
+      "official_upstream_identity_confirmed": true,
+      "timestamp": "2026-04-28T20:15:00+00:00"
+    },
+    "local_base_decision": {
+      "decision": "approve",
+      "option_selected": "approve_origin_main_174c371a_as_local_base",
+      "approved_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+      "local_base_selected": true,
+      "timestamp": "2026-04-28T20:15:00+00:00"
+    },
+    "upstream_target_decision": {
+      "decision": "select",
+      "option_selected": "select_origin_release_2_0_rc",
+      "selected_ref": "origin/release/2.0-rc",
+      "selected_commit": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+      "upstream_target_selected": true,
+      "timestamp": "2026-04-28T20:15:00+00:00"
+    },
+    "all_decisions_received": true,
+    "total_decisions": 3,
+    "decisions_confirmed": 3
+  },
+  "upstream_identity_final": {
+    "official_upstream_url": "https://github.com/bytedance/deer-flow.git",
+    "official_upstream_confirmed": true,
+    "confirmation_source": "user_explicit_decision",
+    "project_name": "deer-flow (ByteDance OpenClaw base)",
+    "confidence": "confirmed"
+  },
+  "local_base_final": {
+    "selected_base": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "base_approved_by_user": true,
+    "approval_source": "user_explicit_decision",
+    "local_commits_ahead_of_base": 4,
+    "local_commits_detail": [
+      {
+        "commit": "ae9cc034",
+        "desc": "R241-18F Batch 3 Query/Report Entry Normalization"
+      },
+      {
+        "commit": "bec43c46",
+        "desc": "R241-18E Batch 2 CLI Binding Reuse"
+      },
+      {
+        "commit": "5528473b",
+        "desc": "R241-18D Batch 1 — Internal Helper Contract Bindings"
+      },
+      {
+        "commit": "95199fbb",
+        "desc": "R241-18B read-only runtime entry design and R241-18C implementation plan"
+      }
+    ]
+  },
+  "upstream_target_final": {
+    "selected_target": "origin/release/2.0-rc",
+    "target_commit": "b61ce3527b7467f4d4fc2ab520dcf9539aa0f558",
+    "target_approved_by_user": true,
+    "approval_source": "user_explicit_decision",
+    "target_description": "OpenClaw 2.0 release candidate branch"
+  },
+  "true_upgrade_diff_analysis": {
+    "true_upgrade_diff_available": true,
+    "local_base": "174c371a",
+    "upstream_target": "b61ce352",
+    "merge_base": "092bf13f",
+    "commits_between_base_and_target": 7,
+    "base_behind_target_by": 7,
+    "upgrade_direction": "forward",
+    "diverged_at": "092bf13f (fix(makefile): route Windows shell-script targets through Git Bash #2060)",
+    "note": "true_upgrade_diff is commits from 174c371a to b61ce352 — real OpenClaw 2.0-rc upgrade content"
+  },
+  "upstream_intake_prerequisite_status": {
+    "official_upstream_identity_confirmed": true,
+    "explicit_local_base_commit_approved": true,
+    "explicit_upstream_target_selected": true,
+    "local_customization_preservation_rules_approved": true,
+    "dirty_baseline_attribution_intact": true,
+    "carryover_blockers_preserved": true,
+    "no_runtime_replacement_during_intake": true,
+    "core_tests_passing_144": true,
+    "ready_for_real_intake": true,
+    "missing_prerequisites": []
+  },
+  "local_customization_preservation_rules": {
+    "protected_paths": [
+      "backend/app/foundation/",
+      "backend/migration_reports/",
+      "scripts/root_guard.py",
+      "scripts/root_guard.ps1",
+      "backend/app/gateway/",
+      "backend/app/channels/"
+    ],
+    "protected_modules": [
+      "read_only_runtime_entry_batch2.py",
+      "read_only_runtime_entry_batch3.py",
+      "read_only_runtime_entry_batch4.py",
+      "read_only_runtime_entry_batch5_scope.py",
+      "read_only_runtime_entry_bindings.py",
+      "read_only_runtime_entry_design.py",
+      "read_only_runtime_entry_plan.py",
+      "read_only_runtime_sidecar_stub_contract.py",
+      "runtime_activation_readiness.py",
+      "gateway_sidecar_integration_review.py",
+      "upstream_upgrade_intake_matrix.py",
+      "read_only_diagnostics_cli.py",
+      "read_only_integration_plan.py",
+      "ci_workflow_trigger_parser.py",
+      "test_ci_workflow_trigger_parser.py"
+    ],
+    "overwrite_forbidden": true,
+    "require_adapter_for_conflicts": true,
+    "require_report_only_quarantine_for_uncertain_changes": true,
+    "require_full_unblock_review_for_runtime_replacement": true,
+    "rules_approved": true
+  },
+  "blockers_remaining": 8,
+  "blocker_list": [
+    {"blocker": "SURFACE-010 (BLOCKED CRITICAL)", "status": "preserved"},
+    {"blocker": "CAND-002 (BLOCKED)", "status": "preserved"},
+    {"blocker": "CAND-003 (DEFERRED)", "status": "preserved"},
+    {"blocker": "GSIC-003 (BLOCKED)", "status": "preserved"},
+    {"blocker": "GSIC-004 (BLOCKED)", "status": "preserved"},
+    {"blocker": "MAINLINE-GATEWAY-ACTIVATION=false", "status": "preserved"},
+    {"blocker": "DSRT-ENABLED=false", "status": "preserved"},
+    {"blocker": "DSRT-IMPLEMENTED=false", "status": "preserved"}
+  ],
+  "r241_19g_readiness": {
+    "allow_enter_r241_19g": true,
+    "blocking_reason": null,
+    "first_real_upgrade_diff_candidate": {
+      "base": "174c371a",
+      "target": "b61ce352",
+      "commits": 7,
+      "upgrade_content": "OpenClaw 2.0-rc upgrade from origin/main to origin/release/2.0-rc"
+    }
+  },
+  "warnings": [
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "recommended_resume_point": "R241-19F",
+  "next_prompt_needed": "R241-19G_VERIFIED_UPSTREAM_DIFF_INTAKE_PLAN",
+  "report_timestamp": "2026-04-28T20:20:00+00:00"
+}

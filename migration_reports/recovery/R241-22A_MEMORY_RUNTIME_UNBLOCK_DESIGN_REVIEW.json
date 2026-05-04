@@ -1,0 +1,693 @@
+{
+  "report_id": "R241-22A_MEMORY_RUNTIME_UNBLOCK_DESIGN_REVIEW",
+  "phase": "phase_22a_memory_runtime_unblock_design_review",
+  "status": "passed_with_warnings",
+  "decision": "surface010_unblock_design_completed_evidence_matrix_defined",
+  "source": "R241-21G_UNIFIED_DEPENDENCY_MATRIX_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "surface010_blocker_definition": {
+    "blocker_id": "SURFACE-010",
+    "description": "memory runtime BLOCKED CRITICAL",
+    "root_cause": "Two direct triggers both use in-memory data structures that require runtime initialization before use",
+    "direct_triggers": [
+      {
+        "trigger_id": "DT-001",
+        "file": "deerflow/runtime/user_context.py",
+        "mechanism": "ContextVar[CurrentUser | None] — per-request user state stored in memory",
+        "write_operation": "set_current_user(user) stores user in ContextVar memory",
+        "read_operation": "require_current_user() reads from ContextVar",
+        "isolation_mechanism": "asyncio task-local — each FastAPI request is a separate task",
+        "memory_lifetime": "per-request (task scope)",
+        "surfaces": ["CAND-005 auth_middleware.py"]
+      },
+      {
+        "trigger_id": "DT-002",
+        "file": "deerflow/persistence/engine.py",
+        "mechanism": "init_engine() performs startup DB writes (CREATE DATABASE, WAL mode, schema create_all)",
+        "write_operations": [
+          "CREATE DATABASE — postgres only, run once at startup",
+          "PRAGMA journal_mode=WAL — sqlite only, per-connection",
+          "PRAGMA synchronous=NORMAL — sqlite only, per-connection",
+          "PRAGMA foreign_keys=ON — sqlite only, per-connection",
+          "Base.metadata.create_all — creates all tables at startup"
+        ],
+        "memory_backend_fallback": "backend=memory → init_engine is no-op, get_session_factory returns None",
+        "surfaces": ["CAND-009 engine.py"]
+      }
+    ],
+    "indirect_dependents": 10,
+    "total_impacted": 12,
+    "why_blocked": "Both triggers involve in-memory state that could leak or cause undefined behavior if not properly initialized before first use"
+  },
+
+  "direct_trigger_analysis": {
+    "DT-001_user_context": {
+      "file": "backend/packages/harness/deerflow/runtime/user_context.py",
+      "lines": 147,
+      "mechanism": "ContextVar[CurrentUser | None] with Token-based reset pattern",
+      "key_functions": [
+        "_current_user: Final[ContextVar[CurrentUser | None]] = ContextVar('deerflow_current_user', default=None)",
+        "set_current_user(user: CurrentUser) -> Token[CurrentUser | None]",
+        "reset_current_user(token: Token[CurrentUser | None]) -> None",
+        "require_current_user() -> CurrentUser (raises RuntimeError if None)",
+        "resolve_user_id(value: str | None | _AutoSentinel, ...) -> str | None"
+      ],
+      "async_task_isolation": {
+        "mechanism": "ContextVar is task-local under asyncio, not thread-local",
+        "guarantee": "Each asyncio.create_task() gets its own copy of the context",
+        "inheritance": "Parent task's context is inherited by child tasks (intended behavior)",
+        "explicit_isolation": "contextvars.copy_context() can create clean copy for background tasks that must not see foreground user"
+      },
+      "memory_risk_model": {
+        "leak_scenario": "If set_current_user() is called but reset_current_user() is NOT called in finally block → contextvar retains reference → potential GC retention",
+        "isolation_breach": "If context is not properly isolated between requests → user A could see user B's data",
+        "task_contamination": "If asyncio.create_task() inherits polluted context → background task operates as wrong user"
+      },
+      "current_implementation_safety": {
+        "has_try_finally": "auth_middleware.py uses token pattern with finally block",
+        "pattern": "token = set_current_user(user); try: ... finally: reset_current_user(token)",
+        "safe": "Current implementation correctly uses token reset pattern"
+      }
+    },
+    "DT-002_persistence_engine": {
+      "file": "backend/packages/harness/deerflow/persistence/engine.py",
+      "lines": 140,
+      "mechanism": "async SQLAlchemy engine with init/shutdown lifecycle",
+      "key_functions": [
+        "init_engine(backend: str, url: str, ...) — creates engine, session_factory, auto-creates tables",
+        "init_engine_from_config(config) — convenience wrapper",
+        "get_session_factory() -> async_sessionmaker | None — returns None if memory",
+        "close_engine() — disposes engine, releases connections"
+      ],
+      "startup_write_sequence": {
+        "step_1_memory_check": "if backend == 'memory': logger.info + return (no-op)",
+        "step_2_postgres_check": "if backend == 'postgres': check asyncpg import",
+        "step_3_sqlite_setup": "if backend == 'sqlite': create directory, create engine, attach WAL listeners",
+        "step_4_postgres_setup": "else if backend == 'postgres': create engine with pool_size",
+        "step_5_session_factory": "_session_factory = async_sessionmaker(_engine, expire_on_commit=False)",
+        "step_6_import_models": "try import deerflow.persistence.models",
+        "step_7_create_tables": "async with _engine.begin(): conn.run_sync(Base.metadata.create_all)",
+        "step_8_postgres_retry": "if postgres + 'does not exist': auto-create DB, retry create_all"
+      },
+      "memory_backend_contract": {
+        "backend_memory": "init_engine is no-op, returns early",
+        "get_session_factory": "Returns None when memory",
+        "repositories_must_check": "RunRepository, FeedbackRepository must check for None and fall back"
+      },
+      "memory_risk_model": {
+        "connection_exhaustion": "Pool size insufficient under high concurrency → 503",
+        "startup_failure": "CREATE DATABASE fails → gateway fails to start",
+        "schema_drift": "Base.metadata.create_all vs alembic migration → schema inconsistency",
+        "sqlite_wal_corruption": "WAL file not properly checkpointed → DB corruption",
+        "engine_leak": "close_engine not called on shutdown → connection leak"
+      }
+    }
+  },
+
+  "memory_runtime_risk_model": {
+    "risks": [
+      {
+        "risk_id": "MEM-001",
+        "name": "ContextVar memory leak",
+        "description": "set_current_user called but token not reset → ContextVar holds reference to user object → GC may not collect",
+        "severity": "MEDIUM",
+        "likelihood": "LOW",
+        "detection": "Memory profiler with tracked object counts",
+        "mitigation": "Always use token pattern with finally block"
+      },
+      {
+        "risk_id": "MEM-002",
+        "name": "Cross-request user contamination",
+        "description": "ContextVar not properly isolated between asyncio tasks → user A sees user B's data",
+        "severity": "CRITICAL",
+        "likelihood": "LOW",
+        "detection": "ContextVar isolation test with concurrent requests",
+        "mitigation": "Each FastAPI request runs in own task; ContextVar is task-local by design"
+      },
+      {
+        "risk_id": "MEM-003",
+        "name": "Background task context pollution",
+        "description": "asyncio.create_task() inherits parent context → background task operates as wrong user",
+        "severity": "CRITICAL",
+        "likelihood": "MEDIUM",
+        "detection": "Unit test with explicit copy_context check",
+        "mitigation": "Use contextvars.copy_context() for background tasks that should not see foreground user"
+      },
+      {
+        "risk_id": "MEM-004",
+        "name": "Persistence engine connection exhaustion",
+        "description": "Connection pool size insufficient → new requests block/wait/timeout",
+        "severity": "HIGH",
+        "likelihood": "MEDIUM",
+        "detection": "Load test with 100+ concurrent requests",
+        "mitigation": "pool_size tuning, pool_pre_ping=True, proper close_engine on shutdown"
+      },
+      {
+        "risk_id": "MEM-005",
+        "name": "Startup DB write failure",
+        "description": "CREATE DATABASE or create_all fails → gateway fails to start",
+        "severity": "HIGH",
+        "likelihood": "LOW",
+        "detection": "Startup test with clean environment",
+        "mitigation": "memory fallback, try/except with graceful degradation"
+      },
+      {
+        "risk_id": "MEM-006",
+        "name": "SQLite WAL corruption",
+        "description": "WAL file not properly checkpointed → DB enters recovery state",
+        "severity": "HIGH",
+        "likelihood": "MEDIUM",
+        "detection": "DB integrity check on startup",
+        "mitigation": "synchronous=NORMAL, periodic checkpoint"
+      }
+    ]
+  },
+
+  "contextvar_isolation_test_design": {
+    "test_name": "ContextVar Isolation Verification",
+    "objective": "Verify that per-request user context is properly isolated between concurrent asyncio tasks",
+    "test_cases": [
+      {
+        "test_id": "CV-ISO-01",
+        "name": "Sequential requests — context preserved within request",
+        "description": "Set user A, verify user A visible, reset, verify cleared",
+        "expected": "set_current_user → get_current_user returns user A → reset_current_user → get_current_user returns None"
+      },
+      {
+        "test_id": "CV-ISO-02",
+        "name": "Concurrent tasks — no cross-contamination",
+        "description": "Task 1 sets user A, Task 2 sets user B, both read their own user",
+        "expected": "Task1 sees user A, Task2 sees user B, neither sees other's user",
+        "parallel": true
+      },
+      {
+        "test_id": "CV-ISO-03",
+        "name": "Background task inheritance",
+        "description": "Parent sets user A, creates child task, child sees user A (inherited)",
+        "expected": "Child task sees user A from parent context",
+        "note": "This is INTENDED behavior per asyncio spec"
+      },
+      {
+        "test_id": "CV-ISO-04",
+        "name": "Background task explicit isolation",
+        "description": "Parent sets user A, creates child with copy_context(), child sees None",
+        "expected": "Child task does NOT see user A (copy_context creates clean slate)",
+        "note": "Code that needs isolation must explicitly use copy_context()"
+      },
+      {
+        "test_id": "CV-ISO-05",
+        "name": "Token reset restores previous state",
+        "description": "Set user A, get token, set user B, reset with token A's token, verify user A",
+        "expected": "After reset, get_current_user returns user A"
+      },
+      {
+        "test_id": "CV-ISO-06",
+        "name": "require_current_user raises when unset",
+        "description": "Without setting any user, call require_current_user()",
+        "expected": "RuntimeError with message 'repository accessed without user context'"
+      },
+      {
+        "test_id": "CV-ISO-07",
+        "name": "resolve_user_id with AUTO sentinel",
+        "description": "Set user A, call resolve_user_id(AUTO) — returns str(user.id)",
+        "expected": "Returns user A's ID string"
+      },
+      {
+        "test_id": "CV-ISO-08",
+        "name": "resolve_user_id with explicit str",
+        "description": "Set user A, call resolve_user_id('explicit-id') — returns 'explicit-id'",
+        "expected": "Returns 'explicit-id', ignores contextvar"
+      },
+      {
+        "test_id": "CV-ISO-09",
+        "name": "resolve_user_id with None",
+        "description": "Set user A, call resolve_user_id(None) — returns None, no user filter",
+        "expected": "Returns None (bypasses user isolation for migrations)"
+      },
+      {
+        "test_id": "CV-ISO-10",
+        "name": "DEFAULT_USER_ID fallback",
+        "description": "Without setting any user, call get_effective_user_id()",
+        "expected": "Returns 'default' (not None)"
+      }
+    ],
+    "pass_criteria": "All 10 test cases pass with no cross-contamination detected",
+    "test_framework": "pytest + pytest-asyncio",
+    "estimated_duration": "5 seconds"
+  },
+
+  "memory_leak_test_design": {
+    "test_name": "Memory Leak Test Under Sustained Load",
+    "objective": "Verify no memory growth over 10,000 sustained requests with user context churn",
+    "test_cases": [
+      {
+        "test_id": "MEM-LEAK-01",
+        "name": "10k sequential set/reset cycles",
+        "description": "Loop 10k times: set_current_user(user) → get_current_user() → reset_current_user(token)",
+        "metric": "Memory before vs after, delta should be < 5MB",
+        "pass_threshold": "< 5MB growth"
+      },
+      {
+        "test_id": "MEM-LEAK-02",
+        "name": "10k users without reset (leak detection)",
+        "description": "Loop 10k times: set_current_user(different_user) — intentionally NOT resetting",
+        "metric": "Memory growth rate — if growing linearly, leak exists",
+        "pass_threshold": "Memory should plateau (GC working)"
+      },
+      {
+        "test_id": "MEM-LEAK-03",
+        "name": "Concurrent user contexts",
+        "description": "100 concurrent tasks, each setting different user, working for 30 seconds",
+        "metric": "Memory stable at ~baseline + working set",
+        "pass_threshold": "< 10MB growth over 30s"
+      },
+      {
+        "test_id": "MEM-LEAK-04",
+        "name": "require_current_user error path",
+        "description": "Call require_current_user() without context, verify RuntimeError, check no memory leak",
+        "metric": "Error raised, memory stable",
+        "pass_threshold": "Error raised, no memory growth"
+      }
+    ],
+    "pass_criteria": "No memory leak detected, all deltas < threshold",
+    "test_framework": "pytest + memory_profiler or tracemalloc",
+    "estimated_duration": "2 minutes"
+  },
+
+  "connection_pool_stability_test_design": {
+    "test_name": "Connection Pool Stability Test",
+    "objective": "Verify pool does not exhaust under 100 concurrent requests",
+    "test_cases": [
+      {
+        "test_id": "POOL-01",
+        "name": "50 concurrent DB reads",
+        "description": "50 concurrent tasks, each does session.execute(SELECT), pool_size=5",
+        "metric": "All complete, no timeout, no exhaustion",
+        "pass_threshold": "All 50 complete within 30s"
+      },
+      {
+        "test_id": "POOL-02",
+        "name": "100 concurrent DB operations",
+        "description": "100 concurrent tasks, each does session.execute + commit",
+        "metric": "Pool queue, wait time, success rate",
+        "pass_threshold": "All 100 complete, max wait < 5s"
+      },
+      {
+        "test_id": "POOL-03",
+        "name": "Pool exhaustion recovery",
+        "description": "Deliberately exhaust pool, verify graceful rejection (not hang)",
+        "metric": "503 or timeout after pool_exhausted",
+        "pass_threshold": "Graceful degradation"
+      },
+      {
+        "test_id": "POOL-04",
+        "name": "Pool recycle on error",
+        "description": "Force connection error, verify pool recycles properly",
+        "metric": "pool_pre_ping recovers stale connections",
+        "pass_threshold": "Subsequent requests succeed"
+      },
+      {
+        "test_id": "POOL-05",
+        "name": "close_engine releases all",
+        "description": "After pool load test, call close_engine(), verify connections released",
+        "metric": "No lingering connections",
+        "pass_threshold": "Engine disposed, connections = 0"
+      }
+    ],
+    "pass_criteria": "Pool exhaustion < 1% of requests, all recover gracefully",
+    "test_framework": "pytest + sqlalchemy async",
+    "estimated_duration": "1 minute"
+  },
+
+  "startup_db_write_safety_gate": {
+    "gate_name": "Startup DB Write Safety Gate",
+    "description": "Verify persistence engine startup writes are safe and reversible",
+    "checks": [
+      {
+        "check_id": "SDB-01",
+        "name": "memory backend no-op",
+        "description": "backend=memory → init_engine returns immediately, get_session_factory returns None",
+        "verification": "Assert engine=None, factory=None, no DB operations"
+      },
+      {
+        "check_id": "SDB-02",
+        "name": "sqlite directory creation",
+        "description": "sqlite backend → sqlite_dir created if not exists",
+        "verification": "Path exists after init_engine"
+      },
+      {
+        "check_id": "SDB-03",
+        "name": "sqlite WAL mode enabled",
+        "description": "PRAGMA journal_mode=WAL set per-connection",
+        "verification": "Query PRAGMA journal_mode returns 'wal'"
+      },
+      {
+        "check_id": "SDB-04",
+        "name": "sqlite synchronous NORMAL",
+        "description": "PRAGMA synchronous=NORMAL set per-connection",
+        "verification": "Query PRAGMA synchronous returns 'normal'"
+      },
+      {
+        "check_id": "SDB-05",
+        "name": "sqlite foreign keys ON",
+        "description": "PRAGMA foreign_keys=ON set per-connection",
+        "verification": "Query PRAGMA foreign_keys returns 'on'"
+      },
+      {
+        "check_id": "SDB-06",
+        "name": "postgres database auto-create",
+        "description": "postgres backend with non-existent DB → CREATE DATABASE runs",
+        "verification": "DB exists after init_engine, create_all succeeds"
+      },
+      {
+        "check_id": "SDB-07",
+        "name": "schema create_all runs",
+        "description": "Base.metadata.create_all executes on all registered models",
+        "verification": "All tables exist (users, threads_meta, runs, run_events, feedback)"
+      },
+      {
+        "check_id": "SDB-08",
+        "name": "close_engine cleanup",
+        "description": "After init, close_engine() disposes engine, releases connections",
+        "verification": "Engine disposed, no lingering connections"
+      },
+      {
+        "check_id": "SDB-09",
+        "name": "graceful degradation on failure",
+        "description": "If create_all fails, error is logged but not catastrophic",
+        "verification": "Engine still returns usable factory (or None if memory)"
+      }
+    ],
+    "pass_threshold": "All 9 checks pass",
+    "precondition": "Database backup verified before any write"
+  },
+
+  "database_backend_memory_fallback_contract": {
+    "contract_id": "MEMORY_FALLBACK",
+    "description": "When database.backend=memory, persistence layer must gracefully degrade",
+    "engine_behavior": {
+      "init_engine": "Returns immediately, logs 'Persistence backend=memory -- ORM engine not initialized'",
+      "get_session_factory": "Returns None",
+      "get_engine": "Returns None",
+      "close_engine": "No-op (already no engine)"
+    },
+    "repository_behavior": {
+      "RunRepository": "Must check session_factory is not None, fall back to in-memory if None",
+      "FeedbackRepository": "Must check session_factory is not None, fall back to no-op if None",
+      "ThreadMetaStore": "Must check session_factory is not None, fall back to in-memory if None"
+    },
+    "gateway_behavior": {
+      "app_state_run_store": "MemoryRunStore() instance",
+      "app_state_feedback_repo": "None",
+      "_ensure_admin_user": "Skips if provider not ready (catches RuntimeError)"
+    },
+    "test_contract": [
+      "backend=memory → init_engine returns early",
+      "backend=memory → get_session_factory returns None",
+      "backend=memory → get_engine returns None",
+      "Repositories correctly check for None and fall back"
+    ]
+  },
+
+  "rollback_disable_switch_design": {
+    "switch_name": "DATABASE_BACKEND_FALLBACK",
+    "description": "Config-based switch to disable persistence and revert to memory-only mode",
+    "config_location": "config.yaml or environment variable",
+    "config_key": "database.backend",
+    "valid_values": ["memory", "sqlite", "postgres"],
+    "runtime_switch": "Not hot-swap — requires restart",
+    "rollback_procedure": [
+      "1. Set database.backend=memory in config.yaml",
+      "2. Restart gateway",
+      "3. init_engine is no-op → get_session_factory=None",
+      "4. Repositories fall back to memory implementations",
+      "5. No data loss — SQLite/Postgres data still on disk"
+    ],
+    "recovery_procedure": [
+      "1. Fix root cause (memory leak, pool exhaustion, etc.)",
+      "2. Set database.backend=sqlite or postgres",
+      "3. Restart gateway",
+      "4. init_engine recreates engine, repos use disk-backed stores",
+      "5. Existing data accessible again"
+    ],
+    "safety": "memory fallback is always available — no permanent data loss path"
+  },
+
+  "evidence_required_before_unblock": {
+    "surface010_unblock_checklist": [
+      {
+        "evidence_id": "E-01",
+        "name": "ContextVar isolation test (CV-ISO-01 through CV-ISO-10)",
+        "status": "NOT_STARTED",
+        "required_for": "SURFACE-010 unblock",
+        "pass_criteria": "All 10 test cases pass"
+      },
+      {
+        "evidence_id": "E-02",
+        "name": "Memory leak test (MEM-LEAK-01 through MEM-LEAK-04)",
+        "status": "NOT_STARTED",
+        "required_for": "SURFACE-010 unblock",
+        "pass_criteria": "Delta < 5MB, no linear growth"
+      },
+      {
+        "evidence_id": "E-03",
+        "name": "Connection pool stability test (POOL-01 through POOL-05)",
+        "status": "NOT_STARTED",
+        "required_for": "SURFACE-010 unblock",
+        "pass_criteria": "Exhaustion < 1%, graceful recovery"
+      },
+      {
+        "evidence_id": "E-04",
+        "name": "Startup DB write safety gate (SDB-01 through SDB-09)",
+        "status": "NOT_STARTED",
+        "required_for": "SURFACE-010 unblock",
+        "pass_criteria": "All 9 checks pass"
+      },
+      {
+        "evidence_id": "E-05",
+        "name": "memory backend fallback contract test",
+        "status": "NOT_STARTED",
+        "required_for": "SURFACE-010 unblock",
+        "pass_criteria": "memory mode returns None for factory/engine"
+      },
+      {
+        "evidence_id": "E-06",
+        "name": "Database backup verified",
+        "status": "NOT_STARTED",
+        "required_for": "SURFACE-010 unblock",
+        "pass_criteria": "pg_dump / sqlite copy successful"
+      }
+    ]
+  },
+
+  "unblock_decision_gates": {
+    "gate_1": {
+      "name": "ContextVar Isolation Gate",
+      "gate_id": "GATE-CV-ISO",
+      "pass_threshold": "CV-ISO-01 through CV-ISO-10 all pass",
+      "blocking": true,
+      "can_proceed_if": "NOT_PASSED — SURFACE-010 remains blocked"
+    },
+    "gate_2": {
+      "name": "Memory Leak Gate",
+      "gate_id": "GATE-MEM-LEAK",
+      "pass_threshold": "MEM-LEAK-01 through MEM-LEAK-04 all pass, delta < 5MB",
+      "blocking": true,
+      "can_proceed_if": "NOT_PASSED — SURFACE-010 remains blocked"
+    },
+    "gate_3": {
+      "name": "Connection Pool Gate",
+      "gate_id": "GATE-POOL",
+      "pass_threshold": "POOL-01 through POOL-05 all pass",
+      "blocking": true,
+      "can_proceed_if": "NOT_PASSED — SURFACE-010 remains blocked"
+    },
+    "gate_4": {
+      "name": "Startup DB Write Gate",
+      "gate_id": "GATE-SDB",
+      "pass_threshold": "SDB-01 through SDB-09 all pass",
+      "blocking": true,
+      "can_proceed_if": "NOT_PASSED — SURFACE-010 remains blocked"
+    },
+    "gate_5": {
+      "name": "Rollback Disable Switch Gate",
+      "gate_id": "GATE-ROLLBACK",
+      "pass_threshold": "memory fallback verified working",
+      "blocking": false,
+      "can_proceed_if": "NOT_PASSED — warning only, memory fallback available"
+    },
+    "final_gate": {
+      "name": "SURFACE-010 Unblock Gate",
+      "gate_id": "GATE-SURFACE-010-UNBLOCK",
+      "pass_threshold": "All GATE-CV-ISO + GATE-MEM-LEAK + GATE-POOL + GATE-SDB passed",
+      "blocking": true,
+      "enables": "All downstream candidates (12 total)"
+    }
+  },
+
+  "downstream_unlock_map": {
+    "surface010_unblock_enables": {
+      "auth_bundle": {
+        "sub_bundle_C": [
+          {
+            "candidate": "CAND-005",
+            "path": "auth_middleware.py",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "user_context.py becomes safe to use"
+          }
+        ],
+        "sub_bundle_D": [
+          {
+            "candidate": "CAND-004",
+            "path": "reset_admin.py",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "persistence.engine now safe to use"
+          }
+        ]
+      },
+      "persistence_bundle": {
+        "layer_3_engine": [
+          {
+            "candidate": "CAND-009",
+            "path": "persistence/engine.py",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "init_engine startup writes verified safe"
+          },
+          {
+            "candidate": "CAND-024",
+            "path": "persistence/user/model.py",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "UserRow ORM now safe to use with session_factory"
+          }
+        ],
+        "layer_4_repositories": [
+          {
+            "candidates": ["CAND-010", "CAND-011", "CAND-012", "CAND-013"],
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "session_factory available from engine.py"
+          }
+        ],
+        "layer_5_entry": [
+          {
+            "candidate": "CAND-008",
+            "path": "persistence/__init__.py",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "init_engine safe to call at startup"
+          }
+        ]
+      },
+      "gateway_bundle": {
+        "layer_6_deps": [
+          {
+            "candidate": "deps.py (implicit)",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "langgraph_runtime can initialize persistence"
+          }
+        ],
+        "layer_7_app": [
+          {
+            "candidate": "CAND-018",
+            "path": "app.py",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "SURFACE-010 unblocked + GSIC-003 still blocks"
+          }
+        ],
+        "layer_8_routes": [
+          {
+            "candidate": "CAND-007",
+            "status": "BLOCKED → UNBLOCKED",
+            "reason": "SURFACE-010 unblocked, GSIC-003 + GSIC-004 still block"
+          }
+        ]
+      }
+    },
+    "total_unblocked": 12,
+    "still_blocked_after_unblock": ["GSIC-003", "GSIC-004", "CAND-002_memory_read_binding"]
+  },
+
+  "recommended_sequence_22B_22C_22D": {
+    "after_surface010_unblock": {
+      "R241-22B": {
+        "name": "Auth Bundle Sub-Bundle C Implementation",
+        "candidates": ["CAND-005 auth_middleware.py"],
+        "reason": "auth_middleware is now safe — user_context memory verified",
+        "depends_on": ["SURFACE-010 UNBLOCK"]
+      },
+      "R241-22C": {
+        "name": "Persistence Bundle Stage 3",
+        "candidates": ["CAND-009 engine.py", "CAND-024 UserRow"],
+        "reason": "init_engine verified safe by startup DB write gate",
+        "depends_on": ["SURFACE-010 UNBLOCK"]
+      },
+      "R241-22D": {
+        "name": "Persistence Bundle Repositories",
+        "candidates": ["CAND-010", "CAND-011", "CAND-012", "CAND-013"],
+        "reason": "session_factory available from engine.py",
+        "depends_on": ["R241-22C"]
+      }
+    }
+  },
+
+  "classification_results": {
+    "surface010_unblock_design_completed": true,
+    "evidence_matrix_completed": true,
+    "test_plan_completed": true,
+    "rollback_plan_completed": true,
+    "downstream_unlock_map_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "user_context_created": false,
+    "engine_created": false,
+    "db_written": false,
+    "memory_activated": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "surface010_unblock_design_completed_evidence_matrix_defined",
+    "surface010_unblock_design_completed": true,
+    "surface010_unblocked": false,
+    "direct_triggers": ["user_context.py (DT-001)", "persistence/engine.py (DT-002)"],
+    "evidence_matrix_completed": true,
+    "test_plan_completed": true,
+    "rollback_plan_completed": true,
+    "downstream_unlock_map_completed": true,
+    "implementation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22B",
+    "next_prompt_needed": "user_selection"
+  }
+}

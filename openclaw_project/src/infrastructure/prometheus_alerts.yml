@@ -1,0 +1,184 @@
+groups:
+  - name: openclaw_alerts
+    interval: 30s
+    rules:
+      # ============================================
+      # High Priority Alerts
+      # ============================================
+
+      - alert: OpenClawInstanceDown
+        expr: up{job="openclaw"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: openclaw
+        annotations:
+          summary: "OpenClaw instance is down"
+          description: "OpenClaw instance on {{ $labels.instance }} has been down for more than 1 minute."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/instance-down"
+
+      - alert: OpenClawHighMemoryUsage
+        expr: openclaw_memory_usage_bytes{type="heap"} / openclaw_memory_usage_bytes{type="heap_total"} > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          service: openclaw
+        annotations:
+          summary: "OpenClaw memory usage is high"
+          description: "Memory usage is above 90% for more than 5 minutes. Current: {{ $value | humanizePercentage }}"
+          runbook_url: "https://docs.openclaw.example.com/runbooks/high-memory"
+
+      - alert: OpenClawCriticalMemoryUsage
+        expr: openclaw_memory_usage_bytes{type="heap"} / openclaw_memory_usage_bytes{type="heap_total"} > 0.95
+        for: 1m
+        labels:
+          severity: critical
+          service: openclaw
+        annotations:
+          summary: "OpenClaw memory usage is critical"
+          description: "Memory usage is above 95% for more than 1 minute. Immediate action required."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/critical-memory"
+
+      # ============================================
+      # Task Queue Alerts
+      # ============================================
+
+      - alert: OpenClawTaskQueueBacklog
+        expr: openclaw_tasks_queued > 100
+        for: 10m
+        labels:
+          severity: warning
+          service: openclaw
+        annotations:
+          summary: "OpenClaw task queue has a backlog"
+          description: "Task queue backlog is {{ $value }} tasks, above threshold of 100 for 10 minutes."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/task-backlog"
+
+      - alert: OpenClawTaskQueueCritical
+        expr: openclaw_tasks_queued > 500
+        for: 5m
+        labels:
+          severity: critical
+          service: openclaw
+        annotations:
+          summary: "OpenClaw task queue is critically backlogged"
+          description: "Task queue backlog is {{ $value }} tasks. Immediate scaling required."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/task-backlog-critical"
+
+      - alert: OpenClawNoActiveTasks
+        expr: openclaw_tasks_active == 0
+        for: 30m
+        labels:
+          severity: info
+          service: openclaw
+        annotations:
+          summary: "OpenClaw has no active tasks"
+          description: "No active tasks for 30 minutes. System may be idle."
+
+      # ============================================
+      # Request/Performance Alerts
+      # ============================================
+
+      - alert: OpenClawHighErrorRate
+        expr: |
+          sum(rate(openclaw_requests_total{status="error"}[5m]))
+          /
+          sum(rate(openclaw_requests_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          service: openclaw
+        annotations:
+          summary: "OpenClaw error rate is high"
+          description: "Error rate is above 5% for 5 minutes. Current: {{ $value | humanizePercentage }}"
+          runbook_url: "https://docs.openclaw.example.com/runbooks/high-error-rate"
+
+      - alert: OpenClawHighLatency
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(openclaw_request_duration_seconds_bucket[5m])) by (le)
+          ) > 5
+        for: 10m
+        labels:
+          severity: warning
+          service: openclaw
+        annotations:
+          summary: "OpenClaw latency is high"
+          description: "95th percentile latency is above 5 seconds for 10 minutes."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/high-latency"
+
+      - alert: OpenClawCriticalLatency
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(openclaw_request_duration_seconds_bucket[5m])) by (le)
+          ) > 10
+        for: 5m
+        labels:
+          severity: critical
+          service: openclaw
+        annotations:
+          summary: "OpenClaw latency is critical"
+          description: "99th percentile latency is above 10 seconds. Immediate investigation required."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/critical-latency"
+
+  - name: redis_alerts
+    interval: 30s
+    rules:
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Redis is down"
+          description: "Redis instance has been down for more than 1 minute."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/redis-down"
+
+      - alert: RedisHighMemoryUsage
+        expr: |
+          redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "Redis memory usage is high"
+          description: "Redis memory usage is above 90%. Current: {{ $value | humanizePercentage }}"
+
+  - name: n8n_alerts
+    interval: 30s
+    rules:
+      - alert: N8NDown
+        expr: up{job="n8n"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          service: n8n
+        annotations:
+          summary: "N8N workflow engine is down"
+          description: "N8N instance has been down for more than 1 minute."
+          runbook_url: "https://docs.openclaw.example.com/runbooks/n8n-down"
+
+  - name: infrastructure_alerts
+    interval: 60s
+    rules:
+      - alert: PrometheusTargetMissing
+        expr: |
+          sum by (job) (up == 0)
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus target missing"
+          description: "Prometheus cannot scrape {{ $labels.job }} for more than 5 minutes."
+
+      - alert: DeploymentReplicasMismatch
+        expr: |
+          kube_deployment_spec_replicas != kube_deployment_status_replicas_available
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Deployment replicas mismatch"
+          description: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has {{ $value }} available replicas but desired is {{ $labels.replicas }}."

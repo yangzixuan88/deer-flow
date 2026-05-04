@@ -1,0 +1,37 @@
+{
+  "project_id": "proj_ai_manju_20260419_001",
+  "project_name": "AI漫剧项目",
+  "project_slug": "ai_manju_project",
+  "mode": "rtcm_v2",
+  "status": "validating",
+  "created_at": "2026-04-19T03:10:00Z",
+  "updated_at": "2026-04-19T05:30:00Z",
+  "created_by": "user",
+  "chair_agent_id": "rtcm-chair-agent",
+  "member_agent_ids": [
+    "rtcm-trend-agent",
+    "rtcm-value-agent",
+    "rtcm-architecture-agent",
+    "rtcm-automation-agent",
+    "rtcm-quality-agent",
+    "rtcm-efficiency-agent",
+    "rtcm-challenger-agent",
+    "rtcm-validator-agent"
+  ],
+  "user_goal": "实现AI漫剧自动化全流程，并持续改进直到我验收通过",
+  "constraints": [
+    "优先走最小闭环再扩展",
+    "必须保留人工质检位",
+    "所有关键结论要有证据台账支撑"
+  ],
+  "success_criteria": [
+    "能产出 30-60 秒 AI 漫剧样片",
+    "链路可复用成 SOP",
+    "质量与自动化之间有明确权衡说明"
+  ],
+  "acceptance_status": "pending",
+  "current_round": 3,
+  "current_issue_id": "issue_002",
+  "resume_candidates": [],
+  "summary": "当前已完成爆款感分析，正在验证自动化最小闭环。"
+}

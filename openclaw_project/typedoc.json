@@ -1,0 +1,28 @@
+{
+  "entryPoints": [
+    "src/domain/m04/types.ts",
+    "src/domain/m04/coordinator.ts",
+    "src/domain/asset_manager.ts",
+    "src/domain/nightly_distiller.ts",
+    "src/domain/ice_engine.ts",
+    "src/domain/watchdog.ts",
+    "src/domain/memory/types.ts",
+    "src/domain/memory/layer1/working_memory.ts",
+    "src/domain/memory/layer2/session_memory.ts",
+    "src/domain/m11/sandbox.ts",
+    "src/domain/optimizer.ts",
+    "src/domain/roi_engine.ts",
+    "src/domain/decision_engine.ts",
+    "src/domain/shadow_tester.ts",
+    "src/domain/oracle_rules.ts",
+    "src/domain/hooks.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "docs/api",
+  "name": "OpenClaw API Documentation",
+  "includeVersion": true,
+  "excludeInternal": true,
+  "skipErrorChecking": true,
+  "theme": "default",
+  "readme": "none"
+}

@@ -1,0 +1,585 @@
+{
+  "generated_at": "2026-04-25T10:41:30.578372+00:00",
+  "expected_slow_candidates": [
+    "test_read_only_diagnostics_cli",
+    "test_run_all_diagnostics",
+    "test_cli_audit_trend",
+    "test_audit_trend",
+    "test_write_trend_report",
+    "test_generate_trend_report",
+    "test_sample_generator",
+    "generate_feishu_presend_validate_only_cli_sample",
+    "generate_trend_report_artifact_bundle",
+    "test_discover_foundation_surfaces",
+    "test_scan_append_only_audit_trail",
+    "test_query_audit_trail",
+    "test_load_audit_jsonl_records",
+    "run_all_diagnostics",
+    "run_feishu_trend_preview_diagnostic",
+    "run_guarded_audit_trend_cli_projection",
+    "test_generate_audit_query_engine_sample",
+    "test_generate_dryrun_nightly_trend_report"
+  ],
+  "resolved_slow_tests": [
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_scan_returns_file_summaries",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_scan_counts_lines",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_scan_counts_valid_records",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_scan_detects_malformed_lines",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_scan_does_not_crash_on_malformed",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_scan_aggregates_by_event_type",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trail_query.py",
+      "test_name": "test_query_returns_result_structure",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_capture_line_counts_missing_dir_does_not_create_directory",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_capture_line_counts_counts_tmp_jsonl",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_guarded_write_report_false_does_not_write_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_guarded_write_report_true_only_writes_r241_12d_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_guarded_line_count_unchanged",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_generate_completion_sample_only_writes_tmp_path_sample",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_no_audit_jsonl_write_runtime_network_or_autofix",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+      "test_name": "test_no_secret_token_body_in_safe_output",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+      "test_name": "test_sample_generator_writes_only_tmp_path",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+      "test_name": "test_sample_generator_no_webhook_network",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_diagnostic_returns_success_status",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_diagnostic_returns_payload_id",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_diagnostic_returns_validation",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_diagnostic_json_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_diagnostic_markdown_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_diagnostic_text_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_sample_writes_tmp_path",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_sample_json_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_sample_markdown_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_sample_diagnostic_status",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_cli_audit_trend_feishu_text_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_cli_audit_trend_feishu_json_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_cli_audit_trend_feishu_markdown_format",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_cli_audit_trend_feishu_window_arg",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_cli_registry_includes_audit_trend_feishu",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+      "test_name": "test_cli_diagnostic_commands_includes_audit_trend_feishu",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+      "test_name": "test_audit_trend_does_not_write_jsonl",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+      "test_name": "test_audit_trend_does_not_modify_line_count",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+      "test_name": "test_no_runtime_action_queue_network_or_autofix",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+      "test_name": "test_no_secret_token_full_body_in_formatted_output",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_validate_accepts_json_under_foundation_audit",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_validate_accepts_markdown_and_text_under_foundation_audit",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_validate_rejects_audit_trail_jsonl",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_validate_rejects_parent_traversal",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_validate_rejects_runtime_path",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_validate_rejects_invalid_suffix",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_write_result_contains_required_fields",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_bundle_contains_required_fields",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_render_json_is_serializable",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_render_markdown_contains_no_auto_fix_notice",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_render_text_contains_regression_summary",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_render_does_not_expand_source_refs_or_sensitive_body",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_write_dry_run_true_does_not_write_file",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_write_dry_run_false_writes_tmp_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_write_rejects_invalid_path",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_bundle_dry_run_true_does_not_write_artifacts",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_bundle_all_generates_three_artifact_results",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_generate_sample_writes_only_tmp_path_sample",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_no_audit_jsonl_write_or_line_count_change",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_no_runtime_action_queue_network_or_autofix",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+      "test_name": "test_no_secret_token_full_body_in_written_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_generate_writes_tmp_path",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_generate_matrix_valid_json",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_generate_review_validates_deviation_false",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_generate_review_no_runtime_write",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_generate_review_no_gateway_mutation",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_discover_does_not_write_audit_jsonl",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_deviation_check_does_not_write_runtime",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+      "test_name": "test_generate_review_no_network_call",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_all_diagnostics_contains_phase_c_commands",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_all_diagnostics_disabled_commands_empty",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_all_diagnostics_single_failure_is_partial_warning",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_all_diagnostics_write_report_false_no_file",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_all_diagnostics_write_report_true_writes_tmp_path",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_sample_generator_phase_c_does_not_leak",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_json_exit_0",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_text_exit_0",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_markdown_exit_0",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_does_not_trigger_append",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_write_trend_report_param_exists",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_write_trend_report_only_writes_trend_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_write_trend_report_does_not_trigger_append_audit",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_report_format_all_generates_bundle_summary",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_cli_audit_trend_write_report_does_not_write_audit_jsonl_or_modify_line_count",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_custom_window_args_exist",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_output_prefix_arg_exists",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_output_contains_guard_summary",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_write_report_false_does_not_write_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_write_report_true_only_allowed_artifact",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_does_not_write_jsonl_or_modify_line_count_guarded",
+      "marker": "slow",
+      "status": "marked"
+    },
+    {
+      "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+      "test_name": "test_audit_trend_no_network_or_autofix",
+      "marker": "slow",
+      "status": "marked"
+    }
+  ],
+  "unresolved_slow_candidates": [],
+  "marked_test_files": [
+    "backend\\app\\audit\\test_audit_trail_query.py",
+    "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+    "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+    "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+    "backend\\app\\audit\\test_audit_trend_projection.py",
+    "backend\\app\\audit\\test_audit_trend_report_artifact.py",
+    "backend\\app\\foundation\\test_observability_closure_review.py",
+    "backend\\app\\foundation\\test_read_only_diagnostics_cli.py"
+  ],
+  "safety_marker_preserved": true,
+  "summary": {
+    "total_expected": 18,
+    "total_resolved": 18,
+    "total_unresolved": 0,
+    "total_slow_methods_found": 88,
+    "total_slow_classes_found": 0,
+    "files_marked": 8
+  },
+  "warnings": [],
+  "errors": [],
+  "validation": {
+    "valid": true,
+    "validated_at": "2026-04-25T10:41:30.578435+00:00",
+    "expected": 18,
+    "resolved": 18,
+    "unresolved": 0,
+    "safety_preserved": true,
+    "has_not_slow_command": true,
+    "has_slow_only_command": true
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "phase": "R241-25N",
+  "title": "BOOTSTRAP_INTEGRATION_REVIEW_AND_PUSH_GATE",
+  "status": "COMPLETE",
+  "preceded_by": "R241-25M",
+  "proceeding_to": "R241-25O",
+  "pressure_assessment": {
+    "previous_phase": "R241-25M",
+    "previous_pressure": "XL+",
+    "current_recommended_pressure": "XL++",
+    "reason": "Delivery gate — push authorization and PR draft. 加压加速. R241-25M passed with full evidence. No new code. No execution risk. Focus on authorization and PR readiness."
+  },
+  "scope_gate": {
+    "branch": "r241/auth-disabled-wiring-v2",
+    "remote": "private (yangzixuan88/deer-flow)",
+    "head_commit": "3c07e939",
+    "bootstrap_commits": ["edbddc6e", "3c07e939"],
+    "ancestry_confirmed": true,
+    "no_unexpected_tracked_modifications": true
+  },
+  "branch_strategy": {
+    "recommended_delivery_branch": "r241/auth-disabled-wiring-v2",
+    "reuse_current_branch": true,
+    "reason": "Branch already carries full auth-disabled wiring in private/main. Bootstrap chain is a logical extension. Creating a separate branch (r241/credential-bootstrap-chain) would require separate integration review and delay delivery.",
+    "alternative_branch": "r241/credential-bootstrap-chain (not recommended for now)",
+    "remote": "private"
+  },
+  "diff_scope": {
+    "changed_files": ["credential_file.py", "errors.py", "local_provider.py", "repositories/sqlite.py"],
+    "total_additions": 67,
+    "total_deletions": 0,
+    "app_py_modified": false,
+    "pyproject_modified": false,
+    "production_db_config_modified": false,
+    "reset_admin_added": false,
+    "auth_flags_enabled": false,
+    "valid": true
+  },
+  "bootstrap_chain_evidence": {
+    "credential_file_py": "atomic os.open mode 0600, no DB imports, no init_engine",
+    "local_provider_count_admin_users": "hasattr dispatch with repo-level fallback",
+    "sqlite_repo_count_admin_users": "SELECT count(*) WHERE system_role='admin'",
+    "initialize_admin_endpoint": "POST /api/v1/auth/initialize-admin, 409 guard, 9 routes total",
+    "system_already_initialized": "AuthErrorCode.SYSTEM_ALREADY_INITIALIZED",
+    "tmp_sqlite_test": "first call=201, second call=409, admin count=1, login/me pass, cleanup complete",
+    "guard_closes_on_second_call": true,
+    "evidence_complete": true
+  },
+  "pr_body_draft": {
+    "title": "feat(auth): add credential bootstrap chain behind disabled auth flow",
+    "summary": "Port credential bootstrap chain from upstream (SHA 100ca3b0) with single-admin guard enforcement. All auth endpoints are behind disabled wiring with AUTH_ROUTES_ENABLED=false. No gateway activation. No production DB writes.",
+    "files_changed": [
+      "backend/app/gateway/auth/credential_file.py (NEW)",
+      "backend/app/gateway/auth/errors.py (+SYSTEM_ALREADY_INITIALIZED)",
+      "backend/app/gateway/auth/local_provider.py (+count_admin_users)",
+      "backend/app/gateway/auth/repositories/sqlite.py (+count_admin_users)"
+    ],
+    "safety_boundaries": [
+      "AUTH_ROUTES_ENABLED=false — endpoints non-functional in production",
+      "No production init_engine calls in bootstrap chain",
+      "No gateway activation",
+      "credential_file.py uses atomic os.open mode 0600 — no clear-text logging",
+      "count_admin_users() uses hasattr fallback — graceful degradation",
+      "All testing done in tmp SQLite TemporaryDirectory only"
+    ],
+    "controlled_test_evidence": [
+      "tmp SQLite: first /initialize-admin → 201 Created",
+      "tmp SQLite: second /initialize-admin → 409 SYSTEM_ALREADY_INITIALIZED",
+      "tmp SQLite: admin count remains 1 after second call",
+      "tmp SQLite: login/local → 200 + session cookie",
+      "tmp SQLite: /me with cookie → 200 + admin system_role",
+      "tmp SQLite: credential_file NOT written to tmpdir",
+      "Engine cleanup: get_engine()=None after close",
+      "tmpdir cleanup: DB/WAL/SHM fully removed"
+    ],
+    "blockers_preserved": [
+      "Production SQLite binding — BLOCKED",
+      "Production Postgres binding — BLOCKED",
+      "CAND-003 MCP binding — BLOCKED",
+      "AUTH_ROUTES_ENABLED=false — CONFIRMED",
+      "AUTH_MIDDLEWARE_ENABLED=false — CONFIRMED",
+      "MAINLINE_GATEWAY_ACTIVATION=false — CONFIRMED"
+    ],
+    "rollback_plan": "git revert 3c07e939 (guard fix) or git revert edbddc6e (full port) — no DB migration needed, no state to clean",
+    "activation_not_requested": true,
+    "merge_ready": false,
+    "reason": "Bootstrap chain ported and tested. Full activation requires separate authorization with auth flag review."
+  },
+  "push_authorization": {
+    "required": true,
+    "not_yet_authorized": true,
+    "command_needed": "git push private r241/auth-disabled-wiring-v2",
+    "scope": "push branch to private remote only — no main, no force push"
+  },
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "pr_2645": {
+    "state": "OPEN",
+    "mergeable": "MERGEABLE",
+    "mergeStateStatus": "BLOCKED",
+    "ci_missing": true
+  },
+  "next_phase": "R241-25O_PR_CREATION_OR_FINALIZE"
+}

@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-4_5_RUNTIME_ARTIFACT_GRAPH.json",
+  "title": "Runtime Artifact Graph",
+  "description": "All runtime artifacts -- producers, consumers, storage paths, and lifecycles",
+  "artifacts": [
+    {
+      "id": "governance_state_json",
+      "producer": "GovernanceBridge._add_decision(), record_outcome()",
+      "consumer": "DPBS (discovery), M08 learning_system, UpgradeCenter (demand sampling), GovernanceBridge (_load_state)",
+      "storage_root": "backend/app/m11/governance_state.json",
+      "lifecycle": "Persistent, append-only (last 100 decisions + last 100 outcomes)",
+      "id_fields": ["decision_id", "outcome_id", "governance_trace_id (optional)"],
+      "enters_nightly_review": false,
+      "safe_isolation": "backend/app/ -- within project, not ~/.deerflow"
+    },
+    {
+      "id": "experiment_queue_json",
+      "producer": "UpgradeCenter QueueManager (TypeScript)",
+      "consumer": "QueueConsumer (Python)",
+      "storage_root": "~/.deerflow/upgrade-center/state/experiment_queue.json",
+      "lifecycle": "Persistent across UC runs; overwritten in-place by QueueManager.saveQueue()",
+      "id_fields": ["candidate_id (demand-{timestamp}-{project})", "verify_script_path", "rollback_script_path"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/ -- user home, appropriate for experiment data"
+    },
+    {
+      "id": "cooldown_registry_json",
+      "producer": "UpgradeCenter QueueManager",
+      "consumer": "UpgradeCenter U8 (QueueManager blocks cooldowns)",
+      "storage_root": "~/.deerflow/upgrade-center/state/cooldown_registry.json",
+      "lifecycle": "Persistent; 7-day TTL per entry",
+      "id_fields": ["candidate_id", "rejected_at"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/"
+    },
+    {
+      "id": "verify_scripts",
+      "producer": "UpgradeCenter SandboxPlanner (U5)",
+      "consumer": "QueueConsumer (sandbox execution)",
+      "storage_root": "~/.deerflow/upgrade-center/sandbox/verify_scripts/{candidate_id}_verify.sh",
+      "lifecycle": "Per experiment; created before UC completes, consumed by queue_consumer",
+      "id_fields": ["candidate_id"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/sandbox/"
+    },
+    {
+      "id": "rollback_templates",
+      "producer": "UpgradeCenter SandboxPlanner (U5)",
+      "consumer": "QueueConsumer (on verify failure)",
+      "storage_root": "~/.deerflow/upgrade-center/sandbox/rollback_templates/{candidate_id}_rollback.sh",
+      "lifecycle": "Per experiment; only executed if verify fails",
+      "id_fields": ["candidate_id"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/sandbox/"
+    },
+    {
+      "id": "rtcm_dossier",
+      "producer": "RTCM DossierWriter",
+      "consumer": "RTCM SessionManager, RTCM Feishu adapter (for follow-up)",
+      "storage_root": "~/.deerflow/rtcm/dossiers/{project}/",
+      "files": ["brief_report.json/md", "council_log.json/jsonl", "evidence_ledger.json", "final_report.json/md", "issue_cards/issue-*.json", "manifest.json"],
+      "lifecycle": "Per RTCM project session; archived on PAUSED/FAILED state",
+      "id_fields": ["projectId", "rtcm_session_id", "issueId"],
+      "enters_nightly_review": true,
+      "safe_isolation": "~/.deerflow/rtcm/"
+    },
+    {
+      "id": "rtcm_budget",
+      "producer": "RTCM budget manager",
+      "consumer": "RTCM runtime (budget enforcement)",
+      "storage_root": "~/.deerflow/rtcm/budget/session-budget-{sessionId}_{alerts|config|state}.json",
+      "lifecycle": "Per RTCM session",
+      "id_fields": ["rtcm_session_id"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/rtcm/"
+    },
+    {
+      "id": "rtcm_checkpoint",
+      "producer": "RTCM checkpoint manager",
+      "consumer": "RTCM recovery",
+      "storage_root": "~/.deerflow/rtcm/checkpoints/checkpoint-{timestamp}-{hash}.json",
+      "lifecycle": "Per RTCM session checkpoint",
+      "id_fields": ["timestamp", "hash"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/rtcm/"
+    },
+    {
+      "id": "deerflow_checkpoints",
+      "producer": "DeerFlow runtime (LangGraph checkpointer)",
+      "consumer": "DeerFlow runtime (recovery), Gateway (_sync_thread_title_after_run)",
+      "storage_root": "~/.deerflow/checkpoints/round{N}_{type}_{timestamp}.json",
+      "lifecycle": "Per run node execution; round{N} indicates DAG round",
+      "id_fields": ["checkpoint_id", "parent_checkpoint_id", "thread_id"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/"
+    },
+    {
+      "id": "memory_storage",
+      "producer": "MemoryUpdater (save())",
+      "consumer": "MemoryMiddleware (abefore_agent -- load/search)",
+      "storage_root": "~/.deerflow/memory/{agent_name}.json (FileMemoryStorage) + Qdrant vector DB",
+      "lifecycle": "Persistent; Qdrant synced on every save()",
+      "id_fields": ["fact_id (hash-based)", "agent_name (path scope)"],
+      "enters_nightly_review": true,
+      "safe_isolation": "~/.deerflow/memory/"
+    },
+    {
+      "id": "asset_registry",
+      "producer": "DPBS bind_platform()",
+      "consumer": "DPBS discovery engine",
+      "storage_root": "~/.deerflow/operation_assets/asset_registry.json",
+      "lifecycle": "Persistent; updated on asset_promotion",
+      "id_fields": ["asset_id"],
+      "enters_nightly_review": true,
+      "safe_isolation": "~/.deerflow/"
+    },
+    {
+      "id": "dpbs_binding_report",
+      "producer": "DPBS",
+      "consumer": "DPBS recovery (on restart)",
+      "storage_root": ".openclaw/data/dpbs/latest_binding_report.json",
+      "lifecycle": "Persistent checkpoint; updated on bind/unbind",
+      "id_fields": ["asset_id", "score", "auto_bound"],
+      "enters_nightly_review": false,
+      "safe_isolation": ".openclaw/data/ -- project data dir"
+    },
+    {
+      "id": "boulder_json",
+      "producer": "Watchdog",
+      "consumer": "Watchdog (read on every tick), NightlyDistiller (reads needs_attention)",
+      "storage_root": "backend/src/infrastructure/boulder.json",
+      "lifecycle": "Persistent; 24/7 sentinel",
+      "id_fields": ["mode (DAY/NIGHT)", "last_sync", "nightly_upgrade_pending", "last_nightly_review", "last_full_run"],
+      "enters_nightly_review": false,
+      "safe_isolation": "backend/src/infrastructure/ -- project dir, appropriate for sentinel state"
+    },
+    {
+      "id": "upgrade_center_result",
+      "producer": "UpgradeCenter runner (TypeScript)",
+      "consumer": "Watchdog (_record_upgrade_outcome)",
+      "storage_root": "backend/src/infrastructure/upgrade_center_result.json",
+      "lifecycle": "Written after each UC run; read by watchdog to backflow results",
+      "id_fields": ["run_id (UC run)"],
+      "enters_nightly_review": false,
+      "safe_isolation": "backend/src/infrastructure/"
+    },
+    {
+      "id": "context_links_jsonl",
+      "producer": "Gateway start_run() (append_context_link)",
+      "consumer": "Future tracing/debugging (currently write-only)",
+      "storage_root": "~/.deerflow/context/context_links.jsonl",
+      "lifecycle": "Append-only; no consumer yet",
+      "id_fields": ["link_id", "from_context_id", "to_context_id", "relation_type"],
+      "enters_nightly_review": false,
+      "safe_isolation": "~/.deerflow/context/"
+    },
+    {
+      "id": "feishu_card_send_result",
+      "producer": "FeishuApiAdapter.sendCardMessage()",
+      "consumer": "M01 orchestrator (RTCM activation)",
+      "storage_root": "rtcm/test_artifacts/real_feishu_send.json",
+      "lifecycle": "Ephemeral test artifact; only in dev/test",
+      "id_fields": ["messageId", "sessionId", "threadId"],
+      "enters_nightly_review": false,
+      "safe_isolation": "rtcm/test_artifacts/ -- clearly test artifact"
+    }
+  ],
+  "artifacts_without_producer_consumer": [
+    {
+      "id": "context_links_jsonl",
+      "issue": "Written by Gateway start_run() but no consumer reads it yet",
+      "risk": "Low -- non-blocking, diagnostic artifact"
+    }
+  ],
+  "upgrade_center_pipeline_artifact_chain": {
+    "description": "Complete artifact chain for UC -> QC -> Governance",
+    "chain": [
+      "governance_state.json (demands) -> UC reads",
+      "UC U1-U8 -> observation_pool.json, experiment_pool.json, approval_backlog.json",
+      "UC U8 QueueManager -> experiment_queue.json",
+      "QueueConsumer reads experiment_queue.json",
+      "QueueConsumer -> sandbox_execution_result -> governance_bridge.record_outcome()",
+      "Watchdog reads upgrade_center_result.json -> governance_bridge.record_outcome() (upgrade_center_execution)"
+    ]
+  }
+}

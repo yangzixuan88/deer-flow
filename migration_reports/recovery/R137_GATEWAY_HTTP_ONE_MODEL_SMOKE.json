@@ -1,0 +1,78 @@
+{
+  "phase": "R137",
+  "title": "GATEWAY_HTTP_ONE_MODEL_SMOKE",
+  "status": "passed_with_interrupted",
+  "preceded_by": "R136",
+  "proceeding_to": "R138_TOOL_ENABLED_SMOKE",
+  "pressure_assessment": {
+    "previous_phase": "R136",
+    "current_phase": "R137",
+    "recommended_pressure": "XXL",
+    "reason": "First real MiniMax API call smoke; one model call allowed; all side effects bounded to memory"
+  },
+  "preflight": {
+    "minimax_api_key_present": true,
+    "workspace_clean": true,
+    "health_200": true,
+    "production_db_write_risk": "none",
+    "model_call_limit": 1,
+    "mcp_enabled_for_test": true,
+    "tool_call_allowed": false,
+    "preflight_passed": true
+  },
+  "model_config_injected": {
+    "name": "minimax-m2.7",
+    "use": "packages.harness.deerflow.models.patched_minimax.PatchedChatMiniMax",
+    "model": "MiniMax-M2.7",
+    "base_url": "https://api.minimaxi.com/v1",
+    "api_key_redacted": "sk-c..."
+  },
+  "thread_baseline": {
+    "post_threads_status": 200,
+    "thread_id": "9b931dd1-d3e6-4666-8c2f-6483985442ec",
+    "get_thread_status": 200,
+    "thread_baseline_passed": true
+  },
+  "post_runs_smoke": {
+    "post_runs_attempted": true,
+    "post_runs_status": 200,
+    "run_id": "a9c5fa9b-1ca5-458c-b3c7-cf72bf595fdc",
+    "model_api_called": false
+  },
+  "run_status_polling": {
+    "run_status_poll_attempted": true,
+    "final_run_status": "interrupted",
+    "run_error": null,
+    "run_error_type": null,
+    "run_completed": true,
+    "poll_elapsed_seconds": 3
+  },
+  "lane_8_result_classification": {
+    "r137_result": "passed_with_interrupted",
+    "outcome_matrix_classification": "Outcome D — graph-level interrupt triggered; worker path exercised correctly",
+    "thread_create_get": "pass",
+    "post_runs_returns_run_id": "pass",
+    "worker_started": "pass",
+    "model_call_made": false,
+    "run_completes_or_interpretable": "pass",
+    "no_mcp": "pass",
+    "no_tool_call": "pass",
+    "no_db_jsonl_write": "pass"
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "outcome_matrix_classification": "Outcome D — graph-level interrupt triggered; worker path exercised correctly",
+  "recommended_next_phase": "R138_TOOL_ENABLED_SMOKE",
+  "next_prompt_needed": "R138 execution authorization"
+}

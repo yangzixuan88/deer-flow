@@ -1,0 +1,218 @@
+{
+  "report_id": "R241-21D_AUTH_BUNDLE_PORT_BACK_DESIGN_REVIEW",
+  "phase": "phase_21d_auth_bundle_port_back_design_review",
+  "status": "passed_with_warnings",
+  "decision": "auth_bundle_design_review_completed_interface_stub_viable",
+  "source": "R241-21C_CAND001_CAND005_PATH_AND_STRUCTURE_VERIFICATION",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "bundle_analysis": {
+    "total_candidates": 6,
+    "total_required_files": 13,
+    "total_loc": "~635",
+
+    "sub_bundles": {
+      "A_pure_interface_stub": {
+        "files": ["config.py", "errors.py", "jwt.py", "password.py", "models.py", "providers.py", "repositories/base.py"],
+        "file_count": 7,
+        "loc": "~388",
+        "runtime_activation": "none",
+        "surface_010_impact": false,
+        "privileged": false,
+        "can_implement_now": "design_only"
+      },
+      "B_concrete_auth": {
+        "files": ["local_provider.py", "auth/__init__.py"],
+        "file_count": 2,
+        "loc": "~122",
+        "runtime_activation": "none",
+        "depends_on": "Sub-Bundle A",
+        "can_implement_now": "design_only"
+      },
+      "C_auth_middleware": {
+        "files": ["auth_middleware.py", "authz.py", "internal_auth.py", "user_context.py"],
+        "file_count": 4,
+        "loc": "~385",
+        "runtime_activation": "user_context contextvar",
+        "surface_010_impact": true,
+        "can_implement_now": false
+      },
+      "D_privileged_auth": {
+        "files": ["reset_admin.py"],
+        "file_count": 1,
+        "loc": "~80",
+        "runtime_activation": "persistence.engine",
+        "surface_010_impact": true,
+        "privileged": true,
+        "can_implement_now": false
+      },
+      "E_langgraph_auth": {
+        "files": ["langgraph_auth.py"],
+        "file_count": 1,
+        "loc": "~100",
+        "runtime_activation": "none",
+        "depends_on": "Sub-Bundle A + B",
+        "can_implement_now": false
+      }
+    }
+  },
+
+  "required_files_inventory": {
+    "core_auth_submodules": [
+      {"file": "auth/__init__.py", "loc": 34, "runtime_impact": "none"},
+      {"file": "auth/config.py", "loc": 60, "runtime_impact": "none"},
+      {"file": "auth/errors.py", "loc": 44, "runtime_impact": "none"},
+      {"file": "auth/jwt.py", "loc": 53, "runtime_impact": "none"},
+      {"file": "auth/password.py", "loc": 75, "runtime_impact": "none"},
+      {"file": "auth/models.py", "loc": 42, "runtime_impact": "none"},
+      {"file": "auth/providers.py", "loc": 22, "runtime_impact": "none"},
+      {"file": "auth/repositories/base.py", "loc": 92, "runtime_impact": "none"},
+      {"file": "auth/local_provider.py", "loc": 88, "runtime_impact": "none"}
+    ],
+    "middleware_and_authz": [
+      {"file": "auth_middleware.py", "loc": 120, "runtime_impact": "user_context", "surface_010": true},
+      {"file": "authz.py", "loc": 120, "runtime_impact": "none"},
+      {"file": "internal_auth.py", "loc": 25, "runtime_impact": "user_context", "surface_010": true}
+    ],
+    "runtime_dependency": [
+      {"file": "user_context.py", "loc": 120, "runtime_impact": "MEMORY CONTEXTVAR", "surface_010": true}
+    ],
+    "privileged_tools": [
+      {"file": "reset_admin.py", "loc": 80, "runtime_impact": "persistence.engine", "privileged": true}
+    ],
+    "langgraph_auth": [
+      {"file": "langgraph_auth.py", "loc": 100, "runtime_impact": "none", "depends_on": "jwt.py"}
+    ]
+  },
+
+  "privileged_auth_risk_matrix": [
+    {
+      "file": "reset_admin.py",
+      "risk": "HIGH",
+      "privilege": "Admin password reset CLI",
+      "auth_review_required": true,
+      "persistence_dependency": true
+    },
+    {
+      "file": "local_provider.py",
+      "risk": "MEDIUM",
+      "privilege": "User auth provider",
+      "auth_review_required": false,
+      "persistence_dependency": "indirect"
+    }
+  ],
+
+  "surface_010_analysis": {
+    "implicated": true,
+    "root_cause": "user_context.py defines ContextVar for per-request user state",
+    "implicated_files": ["user_context.py", "auth_middleware.py", "internal_auth.py"],
+    "reset_admin_also_implicated": true,
+    "unblock_prerequisite": "SURFACE-010 memory runtime must be unblocked first"
+  },
+
+  "gsic_analysis": {
+    "implicated": false,
+    "reason": "auth bundle itself does not register FastAPI routes; auth_middleware adds to app but doesn't register routes"
+  },
+
+  "interface_stub_viability": {
+    "stub_viable": true,
+    "safe_files": ["config.py", "errors.py", "jwt.py", "password.py", "models.py", "providers.py", "repositories/base.py", "local_provider.py"],
+    "constraint": "Cannot create auth directory or files per current authorization",
+    "implementation_allowed": false
+  },
+
+  "fastapi_gateway_impact": {
+    "route_registration": false,
+    "gateway_modification": false,
+    "auth_middleware_addition": "Would modify app.py (GSIC-003 implicated)",
+    "note": "CAND-007 auth/routers/auth.py is different candidate with routes"
+  },
+
+  "dependency_chain": {
+    "auth_init_aggregate": ["config", "errors", "jwt", "password", "models", "providers", "repositories", "local_provider"],
+    "jwt_depends_on": ["config", "errors"],
+    "local_provider_depends_on": ["providers", "models", "password", "repositories"],
+    "langgraph_auth_depends_on": ["jwt"],
+    "auth_middleware_depends_on": ["errors", "authz", "internal_auth", "user_context"],
+    "reset_admin_depends_on": ["persistence.engine"]
+  },
+
+  "implementation_timeline": {
+    "phase_1_now": {
+      "description": "Design only — Sub-Bundle A + B interface stub",
+      "blockers": "SURFACE-010 blocks runtime activation",
+      "can_implement": false
+    },
+    "phase_2_after_surface010": {
+      "description": "Implement user_context.py + auth_middleware.py",
+      "blockers": "SURFACE-010 must be resolved",
+      "can_implement": false
+    },
+    "phase_3_after_gsic": {
+      "description": "Register routes in gateway/routers/auth.py",
+      "blockers": "GSIC-003, GSIC-004 must be resolved",
+      "can_implement": false
+    }
+  },
+
+  "classification_results": {
+    "safe_design_subset": ["config.py", "errors.py", "jwt.py", "password.py", "models.py", "providers.py", "repositories/base.py", "local_provider.py"],
+    "blocked_runtime_subset": ["auth_middleware.py", "user_context.py", "internal_auth.py", "reset_admin.py"],
+    "privileged_auth_subset": ["reset_admin.py"],
+    "no_action_needed": []
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "auth_dir_created": false,
+    "auth_file_created": false,
+    "gateway_modified": false,
+    "route_registered": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "auth_bundle_design_review_completed_interface_stub_viable",
+    "auth_bundle_design_completed": true,
+    "bundle_candidates": ["CAND-001", "CAND-002", "CAND-004", "CAND-005", "CAND-006", "CAND-023"],
+    "required_files": 13,
+    "safe_design_subset": ["config.py", "errors.py", "jwt.py", "password.py", "models.py", "providers.py", "repositories/base.py", "local_provider.py"],
+    "blocked_runtime_subset": ["auth_middleware.py", "user_context.py", "internal_auth.py", "reset_admin.py"],
+    "privileged_auth_subset": ["reset_admin.py"],
+    "surface_010_implicated": true,
+    "gsic_implicated": false,
+    "implementation_allowed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-21D",
+    "next_prompt_needed": "user_selection"
+  }
+}

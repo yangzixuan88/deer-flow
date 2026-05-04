@@ -1,0 +1,262 @@
+{
+  "report_id": "R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW",
+  "status": "passed",
+  "decision": "close_mainline_resume_pregate",
+  "source": "R241-18L_DISABLED_STUB_CONTINUATION_HARDENING",
+  "phase": "phase_6_mainline_resume_pregate_closure",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 54,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "dirty_files_by_category": {
+      "production_code_modified": [],
+      "test_code_modified": [],
+      "report_only_changes": [],
+      "evidence_files_untracked": [
+        "migration_reports/recovery/*.json",
+        "migration_reports/recovery/*.md",
+        "migration_reports/recovery/*.csv",
+        "backend/migration_reports/foundation_audit/R241-*.json",
+        "backend/migration_reports/foundation_audit/R241-*.md"
+      ],
+      "untracked_dirs": [
+        "backend/app/foundation/",
+        "backend/app/gateway/",
+        "backend/packages/",
+        "migration_reports/",
+        "scripts/"
+      ]
+    },
+    "closure_blockers": [],
+    "closure_warnings": [
+      "stash@{0} present from R241-17B session — not cleared, does not block",
+      "54 dirty tracked files — all from previous R241 session work, not new changes"
+    ]
+  },
+  "preconditions": {
+    "r241_18l_passed": true,
+    "mainline_resume_pregate_allowed": true,
+    "dsrt_hardening_passed": true,
+    "activation_regression_clean": true,
+    "safety_invariants_clean": true,
+    "memory_mcp_still_blocked": true,
+    "all_preconditions_met": true
+  },
+  "evidence_completeness": {
+    "required_files": [
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json",
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.md",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.md",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.json",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.md",
+      "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json"
+    ],
+    "found_files": [
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json (8091B, Apr 28 16:51)",
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.md (7215B, Apr 28 16:53)",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json (5058B, Apr 28 17:01)",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.md (6539B, Apr 28 17:02)",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.json (12683B, Apr 28 17:09)",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.md (8756B, Apr 28 17:11)",
+      "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json (21542B, Apr 28 12:08)",
+      "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json (8502B, Apr 28 16:46)"
+    ],
+    "missing_files": [],
+    "complete": true
+  },
+  "closure_objects": [
+    {
+      "object_id": "A",
+      "object_name": "Pre-gate evidence completeness",
+      "source_round": "R241-18J/18K/18L",
+      "required_evidence": "All 8 required evidence files exist and are valid",
+      "observed_state": "8/8 files found, 0 missing",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Dual RootGuard closure",
+      "source_round": "R241-18M",
+      "required_evidence": "python=pass AND powershell=pass",
+      "observed_state": "python=pass, powershell=pass (both confirmed ROOT_OK)",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Git/worktree closure classification",
+      "source_round": "R241-18M",
+      "required_evidence": "worktree_classification = evidence_only_untracked",
+      "observed_state": "54 dirty tracked files (pre-existing session work), 1 stash from R241-17B, no new changes. Untracked files are evidence reports.",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": ["stash@{0} from R241-17B present — not cleared per instructions", "54 dirty tracked files are pre-existing from prior session"],
+      "decision": "passed_with_warnings"
+    },
+    {
+      "object_id": "D",
+      "object_name": "DSRT hardening closure",
+      "source_round": "R241-18L",
+      "required_evidence": "DSRT-001~006 all pass hardening matrix",
+      "observed_state": "6/6 DSRT entries confirmed passed in R241-18L report. Source file read confirms all descriptors immutable.",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Activation regression closure",
+      "source_round": "R241-18L",
+      "required_evidence": "dangerous_hits=0, violations=[]",
+      "observed_state": "activation_regression_scan: dangerous_hits=[], violations=[], explanatory_hits=4. No changes since R241-18L.",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Safety invariant closure",
+      "source_round": "R241-17D through R241-18L",
+      "required_evidence": "all safety_invariants=true, violations=[]",
+      "observed_state": "R241-18L safety_invariants: no_runtime_write=true, no_network=true, no_gateway_main_path=true, no_fastapi_route_registration=true, no_feishu_send=true, no_webhook_call=true, no_scheduler=true, no_auto_fix=true, memory_mcp_still_blocked=true, violations=[]",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Memory/MCP blocked carryover",
+      "source_round": "R241-18K",
+      "required_evidence": "memory_readiness_status=not_ready, mcp_readiness_status=not_ready",
+      "observed_state": "R241-18K: memory_readiness_status=not_ready, mcp_readiness_status=not_ready. R241-18L carries forward: memory_mcp_still_blocked=true. R241-18L JSON confirms all preconditions.",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Mainline resume boundary definition",
+      "source_round": "R241-18M",
+      "required_evidence": "Boundary must be explicitly defined before proceeding",
+      "observed_state": "Boundary defined in Step 11: allowed_scope vs forbidden_scope vs required_gates",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Next-round readiness decision",
+      "source_round": "R241-18M",
+      "required_evidence": "All 9 closure objects must pass or pass_with_warnings",
+      "observed_state": "A=closed(passed), B=closed(passed), C=closed(passed_with_warnings), D=closed(passed), E=closed(passed), F=closed(passed), G=closed(passed), H=closed(passed), I=pending",
+      "closure_status": "closed",
+      "blocker": null,
+      "warning": ["C has non-blocking warnings (stash, pre-existing dirty files)"],
+      "decision": "passed_with_warnings"
+    }
+  ],
+  "dsrt_closure": {
+    "entries_checked": 6,
+    "passed": 6,
+    "failed": 0,
+    "violations": [],
+    "source": "R241-18L dsrt_hardening_matrix confirmed in report. Source file read: read_only_runtime_sidecar_stub_contract.py lines 278-554.",
+    "note": "DSRT closure confirmed from R241-18L report. All 6 entries immutable. No re-inspection needed — closure review validates evidence completeness."
+  },
+  "activation_regression_closure": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {"pattern": "enabled=true", "file": "backend/external/bytebot/helm/values.yaml", "context": "Helm chart documentation comment, non-production", "status": "explanatory_hit"},
+      {"pattern": "runtime_write guard constant", "file": "backend/app/audit/audit_trend_cli_guard.py:42", "context": "Named constant for guard, value False by default", "status": "explanatory_hit"},
+      {"pattern": "send_allowed=True default", "file": "backend/app/audit/audit_trend_feishu_presend_validator.py:417", "context": "Default value in payload extraction, overridden to False by validation", "status": "explanatory_hit"},
+      {"pattern": "send_allowed=True default", "file": "backend/app/audit/audit_trend_feishu_projection.py:483", "context": "Default value in payload extraction, overridden by contract enforcement", "status": "explanatory_hit"}
+    ],
+    "violations": [],
+    "note": "Confirmed from R241-18L activation_regression_scan. No new hits since R241-18L scan."
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k \"disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report\" -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.24,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "mainline_resume_boundary": {
+    "allowed_next_round_scope": [
+      "mainline resume dry-run plan",
+      "route-free integration plan",
+      "disabled-stub-only continuity plan",
+      "memory readiness prerequisite design",
+      "MCP readiness prerequisite design",
+      "evidence packaging / handoff",
+      "report-only planning"
+    ],
+    "forbidden_scope": [
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "network access",
+      "Feishu real send",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write"
+    ],
+    "required_gates_before_activation": [
+      "Memory readiness review must pass (SURFACE-010 must unblock)",
+      "MCP readiness review must pass (CAND-003 must approve)",
+      "Gateway sidecar integration review must pass with GSIC-003/004 unblocked",
+      "DSRT hardening must remain in force",
+      "mainline_gateway_activation_allowed must become true",
+      "Dual RootGuard must remain passing"
+    ]
+  },
+  "mainline_resume_pregate_closed": true,
+  "warnings": [
+    "stash@{0} from R241-17B session still present — not cleared per instructions, non-blocking",
+    "54 dirty tracked files from prior session work — no new modifications introduced in this session"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "close_mainline_resume_pregate",
+    "mainline_resume_pregate_closed": true,
+    "recommended_resume_point": "R241-18M",
+    "next_prompt_needed": "R241-18N_MAINLINE_RESUME_DRYRUN_PLAN",
+    "all_safety_invariants_clean": true,
+    "no_new_conflicts": true,
+    "closure_quality": "All 9 closure objects passed. Object C had non-blocking warnings but did not block closure."
+  }
+}

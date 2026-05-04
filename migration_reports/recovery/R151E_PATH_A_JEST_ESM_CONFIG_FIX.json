@@ -1,0 +1,113 @@
+{
+  "phase": "R151E",
+  "title": "PATH_A_JEST_ESM_CONFIG_FIX",
+  "status": "partial_with_new_ts_blockers",
+  "preceded_by": "R151D",
+  "proceeding_to": "R151E2_JEST_ESM_DEEP_FIX",
+  "lane_0_pressure": "H",
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "m01_m04_m11_untracked_preserved": true,
+    "no_git_clean_performed": true,
+    "no_git_reset_performed": true,
+    "safe_to_continue": true
+  },
+  "lane_2_config_fixes_applied": [
+    {
+      "file": "tsconfig.jest.json",
+      "action": "created",
+      "key_settings": {
+        "module": "ES2022",
+        "target": "ESNext",
+        "moduleResolution": "node",
+        "lib": ["ES2022"],
+        "isolatedModules": true,
+        "standalone": true,
+        "no_extends": true
+      }
+    },
+    {
+      "file": "jest.config.cjs",
+      "action": "modified transform tsconfig",
+      "key_settings": {
+        "useESM": true,
+        "tsconfig": "tsconfig.jest.json",
+        "isolatedModules": false (removed, deprecated warning)
+      }
+    }
+  ],
+  "lane_3_targeted_smoke_results": [
+    {
+      "command": "node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+      "ts1343_status": "fixed",
+      "ts2345_status": "not_regressed",
+      "tests_actually_run": false,
+      "exit_code": 1,
+      "new_errors": [
+        {
+          "file": "backend/src/domain/m04/coordinator.ts",
+          "line": 443,
+          "code": "TS2304",
+          "msg": "Cannot find name 'classifyOperation'"
+        },
+        {
+          "file": "backend/src/domain/m04/coordinator.ts",
+          "line": 508,
+          "code": "TS2551",
+          "msg": "Property 'claude_code' does not exist on type 'typeof ExecutorType'. Did you mean 'CLAUDE_CODE'?"
+        },
+        {
+          "file": "backend/src/domain/m04/coordinator.ts",
+          "line": 911,
+          "code": "TS18048",
+          "msg": "'node.operator_context' is possibly 'undefined'"
+        }
+      ],
+      "error_count": "6+ errors in coordinator.ts"
+    }
+  ],
+  "lane_4_error_classification": {
+    "ts1343_fixed": true,
+    "ts2345_regression": false,
+    "ts1343_method": "ESM module flag via NODE_OPTIONS='--experimental-vm-modules' + isolatedModules=false",
+    "new_blockers_found": true,
+    "new_blocker_file": "backend/src/domain/m04/coordinator.ts",
+    "new_blocker_category": "pre_existing_type_errors",
+    "new_blocker_count": 6,
+    "is_infrastructure_error": false,
+    "is_business_code_error": true
+  },
+  "lane_5_key_discovery": {
+    "ts1343_root_cause": "ts-jest diagnostics engine needed NODE_OPTIONS='--experimental-vm-modules' to properly resolve import.meta.url in ESM context. Without this flag, ts-jest's type-checking fails at import.meta before applying the module setting from tsconfig.",
+    "tsconfig_jest_json_standalone": "Created standalone tsconfig.jest.json without 'extends' to avoid inheriting problematic settings from root tsconfig.json",
+    "isolated_modules_effect": "Enabled isolatedModules:true caused ts-jest to skip full type-checking and emit raw JS, triggering SyntaxError: __filename already declared. ts-jest diagnostics were suppressed, bypassing type checks entirely."
+  },
+  "lane_6_safety_boundary": {
+    "dependency_installed": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "safety_violations": [],
+    "m01_m04_m11_untracked_preserved": true
+  },
+  "lane_7_next_phase": {
+    "recommended_next_phase": "R151E2_JEST_ESM_DEEP_FIX",
+    "reason": "TS1343 resolved with NODE_OPTIONS flag; coordinator.ts has pre-existing type errors (TS2304, TS18048) that were masked by TS1343. R151E2 must fix coordinator.ts type errors before tests can run."
+  },
+  "lane_8_report_generation": {
+    "reports_written": true,
+    "md_report": "R151E_PATH_A_JEST_ESM_CONFIG_FIX.md",
+    "json_report": "R151E_PATH_A_JEST_ESM_CONFIG_FIX.json"
+  },
+  "classification": "partial_with_new_ts_blockers",
+  "files_modified": ["jest.config.cjs", "tsconfig.jest.json"],
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": true,
+  "note": "NODE_OPTIONS='--experimental-vm-modules' was needed but not set persistently — only passed inline per smoke run",
+  "recommended_next_phase": "R151E2_JEST_ESM_DEEP_FIX"
+}

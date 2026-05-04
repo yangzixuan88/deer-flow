@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openclaw.local/contracts/ModeRequest.schema.json",
+  "title": "ModeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "session_id",
+    "channel",
+    "raw_input",
+    "created_at"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "user_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "frontend_chat",
+        "frontend_agent_chat",
+        "feishu",
+        "slack",
+        "telegram",
+        "discord",
+        "wechat",
+        "wecom",
+        "api",
+        "mcp",
+        "cli",
+        "system"
+      ]
+    },
+    "raw_input": {
+      "type": "string"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/input_attachment"
+      },
+      "default": []
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/input_file"
+      },
+      "default": []
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "default": []
+    },
+    "current_context_ref": {
+      "$ref": "#/$defs/context_ref"
+    },
+    "memory_scope": {
+      "type": "string",
+      "enum": [
+        "none",
+        "session",
+        "user",
+        "project",
+        "global"
+      ],
+      "default": "session"
+    },
+    "requested_mode_hint": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "search",
+        "task",
+        "workflow",
+        "autonomous_agent",
+        "roundtable",
+        "direct_answer",
+        "clarification",
+        "governance_review",
+        "mixed_mode",
+        null
+      ],
+      "default": null
+    },
+    "safety_constraints": {
+      "$ref": "#/$defs/safety_constraints"
+    },
+    "execution_permissions": {
+      "$ref": "#/$defs/execution_permissions"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "context_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "thread_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "task_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workflow_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rtcm_session_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "governance_trace_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "project_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "default": {}
+    },
+    "safety_constraints": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "default": "low"
+        },
+        "require_confirmation": {
+          "type": "boolean",
+          "default": false
+        },
+        "max_runtime_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "forbid_destructive_actions": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "default": {}
+    },
+    "execution_permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allow_network": {
+          "type": "boolean",
+          "default": false
+        },
+        "allow_filesystem_write": {
+          "type": "boolean",
+          "default": false
+        },
+        "allow_process_spawn": {
+          "type": "boolean",
+          "default": false
+        },
+        "allow_external_tools": {
+          "type": "boolean",
+          "default": false
+        },
+        "allow_human_message": {
+          "type": "boolean",
+          "default": true
+        },
+        "allowed_tool_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      },
+      "default": {}
+    },
+    "input_attachment": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "mime_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "input_file": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "virtual_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "mime_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

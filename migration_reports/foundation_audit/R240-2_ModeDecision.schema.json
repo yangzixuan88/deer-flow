@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openclaw.local/contracts/ModeDecision.schema.json",
+  "title": "ModeDecision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "selected_mode",
+    "candidate_modes",
+    "confidence",
+    "decision_reason",
+    "priority_rule_applied",
+    "needs_clarification",
+    "delegated_to",
+    "fallback_mode",
+    "allowed_tools",
+    "denied_tools",
+    "state_scope",
+    "result_sink"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_mode": {
+      "$ref": "#/$defs/selected_mode"
+    },
+    "candidate_modes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate_mode"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "decision_reason": {
+      "type": "string"
+    },
+    "priority_rule_applied": {
+      "type": "string"
+    },
+    "needs_clarification": {
+      "type": "boolean"
+    },
+    "delegated_to": {
+      "type": "string",
+      "enum": [
+        "m01_orchestrator",
+        "m04_coordinator",
+        "deerflow_harness",
+        "python_gateway",
+        "rtcm_main_agent_handoff",
+        "governance_bridge",
+        "frontend_only",
+        "channel_manager",
+        "none"
+      ]
+    },
+    "fallback_mode": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/selected_mode"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "denied_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state_scope": {
+      "$ref": "#/$defs/state_scope"
+    },
+    "result_sink": {
+      "$ref": "#/$defs/result_sink"
+    }
+  },
+  "$defs": {
+    "selected_mode": {
+      "type": "string",
+      "enum": [
+        "search",
+        "task",
+        "workflow",
+        "autonomous_agent",
+        "roundtable",
+        "direct_answer",
+        "clarification",
+        "governance_review",
+        "mixed_mode"
+      ]
+    },
+    "candidate_mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "confidence",
+        "reason"
+      ],
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/selected_mode"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "state_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "thread_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "session_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "task_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workflow_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rtcm_session_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "governance_trace_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "memory_scope": {
+          "type": "string",
+          "enum": [
+            "none",
+            "session",
+            "user",
+            "project",
+            "global"
+          ]
+        }
+      },
+      "default": {}
+    },
+    "result_sink": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "frontend_thread": {
+          "type": "boolean",
+          "default": true
+        },
+        "memory": {
+          "type": "boolean",
+          "default": false
+        },
+        "asset": {
+          "type": "boolean",
+          "default": false
+        },
+        "governance": {
+          "type": "boolean",
+          "default": false
+        },
+        "runtime_artifact": {
+          "type": "boolean",
+          "default": true
+        },
+        "nightly_review": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "default": {}
+    }
+  }
+}

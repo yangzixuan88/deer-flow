@@ -1,0 +1,183 @@
+{
+  "phase": "R241-25E",
+  "status": "COMPLETE",
+  "generated": "2026-04-29",
+  "description": "Branch Divergence Analysis — credential_file.py and reset_admin.py",
+  "preceded_by": "R241-25D",
+  "proceeded_by": "R241-25F",
+  "laneware": {
+    "lane_1_scope_gate": "PASS",
+    "lane_2_src004": "PASS",
+    "lane_3_src005": "PASS",
+    "lane_4_activation_review": "PASS",
+    "lane_5_pr2645": "PASS",
+    "lane_6_outcome_classification": "PASS",
+    "lane_7_report": "PASS"
+  },
+  "scope_gate": {
+    "passed": true,
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "29f8ed8a",
+    "origin_main_sha": "4a9f1d547b252a0a89e7fb66224f71269f1ded02",
+    "private_main_sha": "8f69ffce0bb156c83f4caccb25042d67fb5a1d44",
+    "tracked_modifications_detected": false,
+    "read_only_mode": true,
+    "git_fetch_executed": true
+  },
+  "src_004": {
+    "candidate": "SRC-004",
+    "file": "backend/app/gateway/auth/credential_file.py",
+    "exists_on_origin": true,
+    "exists_on_private": false,
+    "origin_sha": "100ca3b04234e2518589dcaf991f5b01d61f8339",
+    "private_sha": null,
+    "diff_type": "private_ahead_origin",
+    "divergence_type": "file_missing_on_private",
+    "content_summary": "write_initial_credentials() — writes admin email+password to {base_dir}/admin_initial_credentials.txt with mode 0600 atomically. No DB calls. Pure file I/O for credential bootstrap.",
+    "calls_init_engine": false,
+    "calls_db_write": false,
+    "writes_to_disk": true,
+    "file_write_path": "{base_dir}/admin_initial_credentials.txt",
+    "activation_impact": "bootstrap_only",
+    "risk": "low",
+    "risk_rationale": "credential_file.py writes credentials to disk but does NOT call init_engine or DB. Mode 0600 is secure. If auth activation proceeds, this file must exist.",
+    "recommended_action": "Decide: (A) Import credential_file.py into private/main auth flow, or (B) Implement alternative bootstrap mechanism. File is safe to add without DB changes.",
+    "outcome": "divergence_requires_decision"
+  },
+  "src_005": {
+    "candidate": "SRC-005",
+    "file": "backend/app/gateway/auth/reset_admin.py",
+    "exists_on_origin": true,
+    "exists_on_private": false,
+    "origin_sha": "7b7da74d0c139aa889e8b3fa42f215dfcff8bbc7",
+    "private_sha": null,
+    "diff_type": "private_ahead_origin",
+    "divergence_type": "file_missing_on_private",
+    "content_summary": "CLI tool to reset admin password. Calls init_engine_from_config(config.database) — PRODUCTION_DB_BLOCKER surface. Modifies DB directly. Also calls write_initial_credentials().",
+    "calls_init_engine": true,
+    "calls_db_write": true,
+    "writes_to_disk": true,
+    "db_imports": ["deerflow.persistence.engine.init_engine_from_config", "deerflow.persistence.engine.close_engine", "deerflow.persistence.engine.get_session_factory", "app.gateway.auth.repositories.sqlite.SQLiteUserRepository", "deerflow.persistence.user.model.UserRow"],
+    "activation_impact": "non_bootstrap_cli",
+    "risk": "high",
+    "risk_rationale": "reset_admin.py is a CLI tool that calls production DB init. It is NOT called during auth activation. It is a separate operational tool. However, it reveals that the auth system has a DB-backed user store that requires init_engine.",
+    "recommended_action": "Do NOT add reset_admin.py to private/main without explicit production_DB authorization. It is a CLI tool for operational use, not part of the activation gate.",
+    "outcome": "safe_to_defer"
+  },
+  "full_auth_divergence": {
+    "description": "Complete diff of backend/app/gateway/auth/ between origin/main and private/main",
+    "files_only_on_origin": [
+      "credential_file.py",
+      "reset_admin.py"
+    ],
+    "files_modified_between_branches": [
+      "config.py",
+      "errors.py",
+      "local_provider.py",
+      "password.py",
+      "providers.py",
+      "repositories/__init__.py",
+      "repositories/base.py",
+      "repositories/sqlite.py"
+    ],
+    "csrf_middleware": {
+      "status": "only_on_origin",
+      "exists_on_origin": true,
+      "exists_on_private": false
+    }
+  },
+  "activation_impact_review": {
+    "credential_bootstrap_impact": {
+      "gap": "credential_bootstrap",
+      "status_from_r241_24l": "BLOCKING",
+      "credential_file_exists_on_private": false,
+      "bootstrap_mechanism_on_private": "Unknown — setup_status / register endpoint handles first-user creation?",
+      "bootstrap_available_on_private": "NEEDS_INVESTIGATION",
+      "blocking_for_activation": true
+    },
+    "reset_admin_impact": {
+      "gap": "reset_admin_password",
+      "status_from_r241_24l": "NON_BLOCKING",
+      "reset_admin_exists_on_private": false,
+      "reset_mechanism_on_private": "None identified",
+      "blocking_for_activation": false,
+      "note": "reset_admin is a CLI tool, not part of auth activation flow"
+    },
+    "csrf_middleware_impact": {
+      "status": "non_blocking",
+      "exists_on_private": false,
+      "blocking_for_activation": false,
+      "note": "CSRF protection is a hardening feature, not required for basic auth activation"
+    },
+    "activation_blocking_gap": true,
+    "blocking_gap_description": "credential_file.py is needed for credential bootstrap but does not exist on private/main. This directly corresponds to the 'credential_bootstrap' gap identified as BLOCKING in R241-24L.",
+    "production_risk": "medium",
+    "production_risk_description": "Without credential_file.py (or equivalent), there is no secure path to create initial admin credentials during auth activation."
+  },
+  "src_006_007_hygiene": {
+    "scratch_dir_exists": true,
+    "debug_files_exist": true,
+    "cleanup_safe": "conditionally — requires user authorization"
+  },
+  "pr2645_passive_recheck": {
+    "candidate": "SRC-009",
+    "rechecked": true,
+    "state": "open",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "ci_missing": true,
+    "ci_triggered": "license/cla success only; all other checks not triggered"
+  },
+  "candidate_outcomes": {
+    "SRC-004": "divergence_requires_decision",
+    "SRC-005": "safe_to_defer"
+  },
+  "lane_7_recommendation": {
+    "recommended_next": "R241-25F_HYGIENE_CLEANUP_AUTHORIZATION",
+    "reason": "Both SRC-004 and SRC-005 are on origin/main only, not on private/main. SRC-004 (credential_file) is a genuine auth activation gap but requires user decision to import. SRC-005 (reset_admin) is high-risk CLI with DB access. SRC-006/SRC-007 (scratch/debug cleanup) are low-risk hygiene items that should be authorized separately.",
+    "requires_user_authorization_for_next": "R241-25F requires authorization for file deletion in scratch/ and _debug*.py",
+    "alternative_next": "R241-25I — auth activation review (if user wants to address credential_file gap immediately)"
+  },
+  "blockers_preserved": [
+    "Production SQLite binding — BLOCKED",
+    "Production Postgres binding — BLOCKED",
+    "CAND-003 MCP binding — BLOCKED",
+    "DSRT — DISABLED",
+    "Actual gateway activation — BLOCKED",
+    "MAINLINE_GATEWAY_ACTIVATION=false",
+    "AUTH_MIDDLEWARE_ENABLED=false",
+    "AUTH_ROUTES_ENABLED=false"
+  ],
+  "hard_prohibitions": [
+    "no_code_modification",
+    "no_deletion_of_untracked_files",
+    "no_git_clean_or_git_add",
+    "no_reset_or_stash",
+    "no_AUTH_flags_enablement",
+    "no_production_init_engine",
+    "no_DB_writes",
+    "no_JSONL_writes",
+    "no_gateway_activation",
+    "no_dependency_installation",
+    "no_pyproject_modification",
+    "no_push_to_main",
+    "no_merge_PR_2645",
+    "no_blocker_override"
+  ],
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R241-25E_BRANCH_DIVERGENCE_ANALYSIS.md",
+    "migration_reports/recovery/R241-25E_BRANCH_DIVERGENCE_ANALYSIS.json"
+  ],
+  "next_prompt": "Enter R241-25F_HYGIENE_CLEANUP_AUTHORIZATION. R241-25E complete. credential_file.py and reset_admin.py: both exist only on origin/main (missing on private/main). credential_file.py: LOW risk (file write only, no DB). reset_admin.py: HIGH risk (calls init_engine — do NOT import). SRC-006/007 scratch+debug cleanup: low-risk hygiene, needs authorization. R241-25F requires explicit file deletion authorization from user."
+}

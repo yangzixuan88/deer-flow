@@ -1,0 +1,210 @@
+{
+  "phase": "R241-25C",
+  "status": "COMPLETE_PLAN_ONLY",
+  "generated": "2026-04-29",
+  "description": "System Repair Candidate Prioritization — LANE 8 report",
+  "preceded_by": "R241-25B",
+  "proceeded_by": "R241-25D",
+  "plan_scope": {
+    "total_candidates": 10,
+    "src_range": "SRC-001 through SRC-010",
+    "execution_mode": "PLAN ONLY — no code execution"
+  },
+  "prioritization_methodology": {
+    "dimensions": ["risk_level", "blocker_impact", "execution_authorization_required", "prerequisite_dependencies", "cleanup_category"],
+    "risk_order": "unknown > medium > low > none",
+    "execution_order": "no_auth_required first, then auth_required",
+    "grouping": "parallel_execution where no dependencies, sequential where prerequisites exist"
+  },
+  "prerequisite_analysis": {
+    "src_004_blocked_by": "requires origin/main read access for diff analysis",
+    "src_005_blocked_by": "requires origin/main read access for diff analysis",
+    "src_003_no_prerequisites": true,
+    "src_002_no_prerequisites": true,
+    "src_001_no_prerequisites": true,
+    "parallel_execution_group_1": ["SRC-001", "SRC-002", "SRC-003"],
+    "parallel_execution_group_2": ["SRC-004", "SRC-005"],
+    "sequential_after_auth": ["SRC-010"]
+  },
+  "authorization_matrix": {
+    "no_new_authorization_needed": [
+      {
+        "src": "SRC-001",
+        "reason": "Read-only inspection of test file; no modification unless inspection reveals broken imports",
+        "execution_mode": "PLAN_THEN_INSPECT"
+      },
+      {
+        "src": "SRC-002",
+        "reason": "Static inventory only; no modification; inspect only",
+        "execution_mode": "PLAN_THEN_INSPECT"
+      },
+      {
+        "src": "SRC-003",
+        "reason": "Read-only directory listing; no modification",
+        "execution_mode": "PLAN_THEN_INSPECT"
+      }
+    ],
+    "authorization_conditional": [
+      {
+        "src": "SRC-004",
+        "reason": "Read-only git diff analysis; no branch modification",
+        "authorization_scope": "git read-only for origin/main",
+        "execution_mode": "conditional_on_authorization"
+      },
+      {
+        "src": "SRC-005",
+        "reason": "Read-only git diff analysis; no branch modification",
+        "authorization_scope": "git read-only for origin/main",
+        "execution_mode": "conditional_on_authorization"
+      }
+    ],
+    "authorization_required": [
+      {
+        "src": "SRC-006",
+        "reason": "Deletes scratch/temp files in scratch/",
+        "authorization_scope": "file deletion in scratch/ directory",
+        "execution_mode": "requires_explicit_authorization"
+      },
+      {
+        "src": "SRC-007",
+        "reason": "Deletes 5 debug files (_debug*.py)",
+        "authorization_scope": "file deletion of debug artifacts",
+        "execution_mode": "requires_explicit_authorization"
+      },
+      {
+        "src": "SRC-008",
+        "reason": "Deletes migration_reports/recovery/ files",
+        "authorization_scope": "report file deletion",
+        "execution_mode": "requires_explicit_authorization"
+      },
+      {
+        "src": "SRC-009",
+        "reason": "External PR monitoring; no execution risk",
+        "authorization_scope": "none — passive monitoring",
+        "execution_mode": "passive"
+      },
+      {
+        "src": "SRC-010",
+        "reason": "Auth activation gate review; evaluates credential_file.py + reset_admin.py",
+        "authorization_scope": "auth activation review (no activation)",
+        "execution_mode": "requires_explicit_authorization"
+      }
+    ]
+  },
+  "phase_assignment": {
+    "R241-25D": {
+      "candidates": ["SRC-001", "SRC-002", "SRC-003"],
+      "execution_mode": "PLAN_THEN_INSPECT",
+      "authorization_required": false,
+      "description": "Static inventory + optional dependency guard inspection"
+    },
+    "R241-25E": {
+      "candidates": ["SRC-004", "SRC-005"],
+      "execution_mode": "READ_ONLY_ANALYSIS",
+      "authorization_required": "conditional (git read-only)",
+      "description": "Branch divergence analysis via origin/main diff"
+    },
+    "R241-25F": {
+      "candidates": ["SRC-006", "SRC-007"],
+      "execution_mode": "CLEANUP_REQUIRES_AUTH",
+      "authorization_required": true,
+      "description": "Hygiene cleanup of scratch dirs and debug artifacts"
+    },
+    "R241-25G": {
+      "candidates": ["SRC-008"],
+      "execution_mode": "CLEANUP_REQUIRES_AUTH",
+      "authorization_required": true,
+      "description": "Migration report pruning"
+    },
+    "R241-25H": {
+      "candidates": ["SRC-009"],
+      "execution_mode": "PASSIVE_MONITORING",
+      "authorization_required": false,
+      "description": "PR #2645 CI monitoring"
+    },
+    "R241-25I": {
+      "candidates": ["SRC-010"],
+      "execution_mode": "AUTH_ACTIVATION_REVIEW",
+      "authorization_required": true,
+      "description": "Auth activation gate review for upstream auth features"
+    }
+  },
+  "execution_sequence": {
+    "can_execute_now": ["R241-25D (inspection only, no auth)", "R241-25H (passive monitoring)"],
+    "requires_user_authorization": ["R241-25E", "R241-25F", "R241-25G", "R241-25I"]
+  },
+  "top_priority": {
+    "phase": "R241-25D",
+    "candidates": ["SRC-001", "SRC-002", "SRC-003"],
+    "reason": "All read-only inspection; no code modification; no new authorization required",
+    "estimated_safe_to_execute": true
+  },
+  "critical_decision_points": [
+    {
+      "decision": "R241-25E git diff analysis",
+      "question": "Should SRC-004/SRC-005 proceed? These require git read access to origin/main to compare credential_file.py and reset_admin.py",
+      "risk": "none — read-only git diff",
+      "recommendation": "Authorize read-only git diff analysis"
+    },
+    {
+      "decision": "R241-25F hygiene cleanup",
+      "question": "Should SRC-006/007 proceed? These delete files in scratch/ and _debug*.py",
+      "risk": "low — deleting local debug artifacts only",
+      "recommendation": "User should explicitly authorize file deletion"
+    },
+    {
+      "decision": "R241-25G report pruning",
+      "question": "Should SRC-008 delete migration reports?",
+      "risk": "none — reports are local artifacts",
+      "recommendation": "User should explicitly authorize report deletion"
+    },
+    {
+      "decision": "R241-25I auth activation review",
+      "question": "Should SRC-010 evaluate credential_file.py and reset_admin.py impact on auth activation gate?",
+      "risk": "medium — evaluates auth features without activating",
+      "recommendation": "User should explicitly authorize auth activation review"
+    }
+  ],
+  "blockers_preserved": [
+    "Production SQLite binding — BLOCKED",
+    "Production Postgres binding — BLOCKED",
+    "CAND-003 MCP binding — BLOCKED",
+    "DSRT — DISABLED",
+    "Actual gateway activation — BLOCKED",
+    "MAINLINE_GATEWAY_ACTIVATION=false",
+    "AUTH_MIDDLEWARE_ENABLED=false",
+    "AUTH_ROUTES_ENABLED=false"
+  ],
+  "hard_prohibitions": [
+    "no_code_modification",
+    "no_deletion_of_untracked_files",
+    "no_git_clean_or_git_add",
+    "no_reset_or_stash",
+    "no_AUTH_flags_enablement",
+    "no_production_init_engine",
+    "no_DB_writes",
+    "no_JSONL_writes",
+    "no_gateway_activation",
+    "no_dependency_installation",
+    "no_pyproject_modification",
+    "no_push_to_main",
+    "no_merge_PR_2645",
+    "no_blocker_override"
+  ],
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R241-25C_SYSTEM_REPAIR_CANDIDATE_PRIORITIZATION_PLAN.md",
+    "migration_reports/recovery/R241-25C_SYSTEM_REPAIR_CANDIDATE_PRIORITIZATION_PLAN.json"
+  ],
+  "next_prompt": "Enter R241-25D_SYSTEM_REPAIR_CANDIDATE_EXECUTION. R241-25C complete. Prioritization finalized. Top priority: R241-25D (SRC-001, SRC-002, SRC-003) — read-only inspection, no authorization needed. R241-25E (SRC-004, SRC-005) — git read-only, conditional. R241-25F/G/I require explicit user authorization. R241-25H passive. All blockers preserved."
+}

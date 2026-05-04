@@ -1,0 +1,288 @@
+{
+  "report_id": "R241-19I5_LANE1_CLASSIFICATION_CORRECTION_REVIEW",
+  "phase": "phase_19i5_lane1_classification_correction_review",
+  "status": "passed",
+  "decision": "approve_lane1_classification_correction_review",
+  "source": "R241-19I4_CONFIRM_CANDIDATE_SOURCE_CLASSIFICATION",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "HEAD": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "64f4dc163910895b1fd5df1d569fac6ffce8309e",
+    "dirty_file_count": 330,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "main_worktree_untouched_since_r241_19i4": true,
+    "isolated_worktrees_preserved": true,
+    "no_cleanup_occurred": true,
+    "branch_ahead_origin_main": 5,
+    "branch_behind_origin_main": 84
+  },
+  "preconditions_from_r241_19i4": {
+    "r241_19i4_status": "passed_with_corrections",
+    "r241_19i4_decision": "confirm_candidate_source_classification_with_lane1_corrections",
+    "source_classification_confirmed": true,
+    "revised_source_verified_lane_1": ["CAND-017"],
+    "quarantined_due_to_source_gap": ["CAND-003", "CAND-025"],
+    "removed_no_upstream_delta": ["CAND-020", "CAND-021"],
+    "authorization_valid_for": ["CAND-017"],
+    "authorization_suspended_for": ["CAND-003", "CAND-020", "CAND-021", "CAND-025"],
+    "main_worktree_untouched": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "allow_enter_r241_19i5": true,
+    "safety_violations": [],
+    "all_preconditions_met": true
+  },
+  "lane1_correction_review_scope": {
+    "current_round": "R241-19I5",
+    "mode": "lane1_classification_correction_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "patch_apply_allowed": false,
+    "merge_allowed": false,
+    "port_back_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "runtime_replacement_allowed": false,
+    "blocker_override_allowed": false,
+    "worktree_cleanup_allowed": false,
+    "allowed_scope": [
+      "classification correction review",
+      "corrected Lane 1 inventory confirmation",
+      "suspended candidate disposition",
+      "CAND-017 verified patch review carryover",
+      "authorization impact review",
+      "next-round authorization readiness"
+    ],
+    "forbidden_scope": [
+      "patch apply",
+      "merge",
+      "port-back",
+      "dependency install",
+      "runtime replacement",
+      "gateway main path modification",
+      "FastAPI route registration",
+      "memory/MCP activation",
+      "blocker override",
+      "worktree cleanup",
+      "destructive git operation"
+    ]
+  },
+  "corrected_lane1_canonical_inventory": {
+    "original_lane1_candidates_from_r241_19i": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "corrected_source_verified_lane1_candidates": ["CAND-017"],
+    "source_verified_count": 1,
+    "correction_reason": "R241-19I4 source verification confirmed only CAND-017 has upstream diff. CAND-003 and CAND-025 source patches not found in any accessible commit. CAND-020 and CAND-021 have no upstream delta (upstream has zero frontend/src/content changes).",
+    "classification_status": "corrected_and_confirmed",
+    "original_5_candidate_lane_reduced_to_1": true
+  },
+  "suspended_candidate_disposition_matrix": [
+    {
+      "candidate_id": "CAND-003",
+      "previous_classification": "safe_direct_update",
+      "corrected_classification": "source_not_found_quarantine",
+      "authorization_status": "suspended",
+      "future_path": "requires_source_provided_before_reclassification",
+      "apply_allowed": false,
+      "notes": "backend/app/gateway/auth/credential_file.py does not exist in HEAD, upstream diff (174c371a..origin/main), or base commit. Quarantine until source is provided."
+    },
+    {
+      "candidate_id": "CAND-025",
+      "previous_classification": "safe_direct_update",
+      "corrected_classification": "source_not_found_quarantine",
+      "authorization_status": "suspended",
+      "future_path": "requires_source_provided_before_reclassification",
+      "apply_allowed": false,
+      "notes": "backend/tests/test_auth.py does not exist in any accessible commit. openclaw_project/test_auth.mjs is unrelated (different path/extension). Quarantine until source is provided."
+    },
+    {
+      "candidate_id": "CAND-020",
+      "previous_classification": "safe_direct_update",
+      "corrected_classification": "local_evidence_no_upstream_delta",
+      "authorization_status": "suspended",
+      "future_path": "remove_from_upstream_patch_lane_or_handle_in_local_evidence_workflow",
+      "apply_allowed": false,
+      "notes": "Upstream (bytedance/deer-flow) has zero frontend/src/content/en changes. 39 en docs files exist in stash but are identical to base. Not an upstream patch."
+    },
+    {
+      "candidate_id": "CAND-021",
+      "previous_classification": "safe_direct_update",
+      "corrected_classification": "local_evidence_no_upstream_delta",
+      "authorization_status": "suspended",
+      "future_path": "remove_from_upstream_patch_lane_or_handle_in_local_evidence_workflow",
+      "apply_allowed": false,
+      "notes": "Upstream has zero frontend/src/content/zh changes. 5 zh docs files exist in stash but are identical to base. Not an upstream patch."
+    }
+  ],
+  "cand017_verified_patch_carryover": {
+    "candidate_id": "CAND-017",
+    "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "verified_source": "upstream_diff_verified",
+    "isolated_apply_status": "applied_successfully",
+    "isolated_worktree": "r241_19i3_worktree",
+    "diff_lines": "45 insertions, 9 deletions",
+    "actual_diff_summary": [
+      "DeerFlowSummarizationMiddleware import added",
+      "BeforeSummarizationHook import added",
+      "memory_flush_hook import added",
+      "_get_runtime_config() helper function added",
+      "validate_agent_name import added",
+      "get_memory_config import added",
+      "config access refactored through _get_runtime_config()",
+      "tool_groups and available_skills added to agent config dictionary",
+      "is_bootstrap and agent_name validation updated"
+    ],
+    "description_correction_from_r241_19i": "R241-19I described CAND-017 as 'model.with_config(tags=[\"middleware:summarize\"])' tag addition. Actual upstream diff does not contain this tag. The tag description was a characterization error in R241-19I.",
+    "runtime_touch_detected": false,
+    "dependency_execution_required": false,
+    "gateway_fastapi_touch_detected": false,
+    "blockers_implicated": [],
+    "remains_safe_lane1_candidate": true,
+    "recommendation": "retain as sole source-verified Lane 1 candidate for R241-19I6 authorization"
+  },
+  "prior_authorization_impact_review": {
+    "r241_19i2_authorization_timestamp": "2026-04-28T21:45:00+00:00",
+    "r241_19i2_authorization_decision": "authorize_all_lane_1_safe_candidates",
+    "r241_19i2_authorization_original_scope": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "authorization_valid_for": ["CAND-017"],
+    "authorization_suspended_for": ["CAND-003", "CAND-020", "CAND-021", "CAND-025"],
+    "candidate_set_changed": true,
+    "original_5_candidate_authorization_reduced_to_1": true,
+    "new_user_authorization_recommended": true,
+    "reason": "authorization object changed from five-candidate lane to single source-verified CAND-017. While CAND-017 is still covered by original authorization, the candidate set has fundamentally changed. Fresh explicit CAND-017-only authorization avoids authorization drift and provides clean attribution."
+  },
+  "cand017_only_authorization_requirement": {
+    "requires_new_user_authorization": true,
+    "recommended_next_round": "R241-19I6_CAND017_VERIFIED_PATCH_PORT_BACK_AUTHORIZATION_REVIEW",
+    "authorization_scope": "CAND-017 only",
+    "patch_apply_allowed_in_r241_19i5": false,
+    "merge_allowed_in_r241_19i5": false,
+    "port_back_allowed_in_r241_19i5": false,
+    "reason": "corrected lane inventory requires fresh explicit user approval for CAND-017-only patch plan"
+  },
+  "isolated_worktree_boundary_review": {
+    "worktrees_created": [
+      {
+        "name": "r241_19i3_worktree",
+        "path": "E:/OpenClaw-Base/r241_19i3_worktree",
+        "base": "ae9cc034 (HEAD)",
+        "branch": "r241_19i3_patch",
+        "cand017_applied": true,
+        "cand017_diff_stat": "45 insertions, 9 deletions"
+      },
+      {
+        "name": "r241_19i3_full",
+        "path": "E:/OpenClaw-Base/r241_19i3_full",
+        "base": "9aac8c65 (stash commit)",
+        "branch": "r241_19i3_full",
+        "clean": false,
+        "note": "Has en/zh docs from local evidence"
+      },
+      {
+        "name": ".tmp_r241_19i3_patch",
+        "path": "E:/OpenClaw-Base/.tmp_r241_19i3_patch",
+        "base": "9aac8c65 (stash commit)",
+        "state": "detached orphan",
+        "note": "Cannot be removed via worktree remove"
+      }
+    ],
+    "cand017_applied_in_isolated_worktree": true,
+    "cleanup_allowed_now": false,
+    "cleanup_requires_future_user_authorization": true,
+    "main_worktree_cleanup_allowed": false,
+    "warnings": [
+      "r241_19i3_full has local evidence docs — cleanup must preserve attribution",
+      ".tmp_r241_19i3_patch is orphan — requires manual git worktree remove --force"
+    ]
+  },
+  "tests": {
+    "root_guard": {
+      "python": "pass",
+      "powershell": "pass"
+    },
+    "core_144": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0
+    },
+    "disabled_dsrt_feishu_audit_trend": {
+      "command": "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "passed": 96,
+      "failed": 0
+    },
+    "upgrade_intake_32": {
+      "command": "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v",
+      "passed": 32,
+      "failed": 0
+    },
+    "total_passed": 176,
+    "total_failed": 0
+  },
+  "safety_continuity": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "no_new_violations": true,
+    "carryover_blockers": [
+      "SURFACE-010 (BLOCKED CRITICAL)",
+      "CAND-002 (BLOCKED)",
+      "CAND-003 (DEFERRED)",
+      "GSIC-003 (BLOCKED)",
+      "GSIC-004 (BLOCKED)",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "forbidden_path_compliance": {
+    "gateway_app_py_touched": false,
+    "gateway_routers_auth_touched": false,
+    "persistence_touched": false,
+    "runtime_events_store_touched": false,
+    "pyproject_toml_touched": false,
+    "memory_mcp_touched": false,
+    "dsrt_touched": false,
+    "no_violations": true
+  },
+  "r241_19i6_readiness": {
+    "allow_enter_r241_19i6": true,
+    "recommended_next_round": "R241-19I6_CAND017_VERIFIED_PATCH_PORT_BACK_AUTHORIZATION_REVIEW",
+    "reason": "R241-19I5 classification correction review passed. Corrected Lane 1 canonical inventory confirmed. CAND-017 is sole source-verified Lane 1 candidate. CAND-017 verified patch carryover reviewed. Authorization impact reviewed. New CAND-017-only user authorization recommended. R241-19I6 next.",
+    "blocking_reason": null,
+    "warnings": [
+      "CAND-017 actual diff does not contain middleware:summarize tag described in R241-19I",
+      "CAND-003 and CAND-025 remain in quarantine",
+      "CAND-020 and CAND-021 removed from upstream patch lane"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "approve_lane1_classification_correction_review",
+    "lane1_classification_correction_passed": true,
+    "corrected_source_verified_lane1": ["CAND-017"],
+    "authorization_valid_for": ["CAND-017"],
+    "authorization_suspended_for": ["CAND-003", "CAND-020", "CAND-021", "CAND-025"],
+    "new_cand017_only_authorization_required": true,
+    "patch_apply_executed": false,
+    "merge_executed": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "allow_enter_r241_19i6": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-19I5",
+    "next_prompt_needed": "R241-19I6_CAND017_VERIFIED_PATCH_PORT_BACK_AUTHORIZATION_REVIEW"
+  }
+}

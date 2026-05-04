@@ -1,0 +1,197 @@
+{
+  "report_id": "R241-19D_PATCH_CANDIDATE_CLASSIFICATION_REVIEW",
+  "phase": "phase_19d_patch_candidate_classification_review",
+  "status": "passed_with_warnings",
+  "decision": "approve_patch_candidate_classification_review_with_upstream_limitations",
+  "source": "R241-19C_OFFICIAL_OPENCLAW_UPGRADE_INTAKE_BATCH1",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19b": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19c_passed": true,
+    "track_b_intake_batch1_passed": true,
+    "classification_matrix_ready": true,
+    "forbidden_runtime_candidates_quarantined": true,
+    "core_tests_passed": true,
+    "allow_enter_r241_19d": true,
+    "all_preconditions_met": true
+  },
+  "patch_classification_review_scope": {
+    "current_round": "R241-19D",
+    "mode": "patch_candidate_classification_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "dependency_upgrade_allowed": false,
+    "blocker_override_allowed": false,
+    "allowed_scope": [
+      "classification matrix review",
+      "zero-candidate validation",
+      "local diff exclusion review",
+      "upstream source limitation review",
+      "local customization preservation review",
+      "forbidden runtime replacement audit review",
+      "test impact review",
+      "rollback / abort review",
+      "next-round readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual upgrade execution",
+      "patch apply",
+      "code overwrite",
+      "whole-directory replacement",
+      "dependency upgrade execution",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu / webhook migration",
+      "scheduler activation",
+      "production service start",
+      "secret/token/webhook migration",
+      "blocker override",
+      "dirty worktree cleanup",
+      "stash pop/apply",
+      "git fetch/pull/merge/rebase"
+    ]
+  },
+  "zero_candidate_matrix_validation": {
+    "counts_by_class": {
+      "safe_direct_update": 0,
+      "adapter_only": 0,
+      "report_only_quarantine": 0,
+      "forbidden_runtime_replacement": 0
+    },
+    "zero_candidate_matrix_valid": true,
+    "reason": "22 local diff files are all pre-existing R241 read-only diagnostic/helper modules and foundation audit reports — not upstream OpenClaw upgrade candidates. No real upstream upgrade diff available.",
+    "warnings": [],
+    "violations": []
+  },
+  "local_diff_file_exclusion_review": {
+    "files_reviewed": [
+      {"path": "backend/app/foundation/read_only_runtime_entry_batch2.py", "category": "read_only_runtime_entry_module", "eligible": false},
+      {"path": "backend/app/foundation/read_only_runtime_entry_batch3.py", "category": "read_only_runtime_entry_module", "eligible": false},
+      {"path": "backend/app/foundation/read_only_runtime_entry_bindings.py", "category": "read_only_runtime_entry_module", "eligible": false},
+      {"path": "backend/app/foundation/read_only_runtime_entry_design.py", "category": "read_only_runtime_entry_module", "eligible": false},
+      {"path": "backend/app/foundation/read_only_runtime_entry_plan.py", "category": "read_only_runtime_entry_module", "eligible": false},
+      {"path": "backend/app/foundation/test_read_only_runtime_entry_batch2.py", "category": "read_only_runtime_entry_test", "eligible": false},
+      {"path": "backend/app/foundation/test_read_only_runtime_entry_batch3.py", "category": "read_only_runtime_entry_test", "eligible": false},
+      {"path": "backend/app/foundation/test_read_only_runtime_entry_bindings.py", "category": "read_only_runtime_entry_test", "eligible": false},
+      {"path": "backend/app/foundation/test_read_only_runtime_entry_design.py", "category": "read_only_runtime_entry_test", "eligible": false},
+      {"path": "backend/app/foundation/test_read_only_runtime_entry_plan.py", "category": "read_only_runtime_entry_test", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18A_RUNTIME_ACTIVATION_READINESS_REVIEW.md", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18B_READONLY_RUNTIME_ENTRY_DESIGN.json", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18B_READONLY_RUNTIME_ENTRY_DESIGN.md", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN.json", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN.md", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_REPORT.md", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_RESULT.json", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_REPORT.md", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_RESULT.json", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_REPORT.md", "category": "foundation_audit_report", "eligible": false},
+      {"path": "backend/migration_reports/foundation_audit/R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_RESULT.json", "category": "foundation_audit_report", "eligible": false}
+    ],
+    "excluded_from_patch_candidates": true,
+    "unknown_files": [],
+    "violations": []
+  },
+  "upstream_source_limitation_review": {
+    "upstream_remote_present": true,
+    "upstream_source_status": "local_upstream_fetched",
+    "true_upgrade_diff_available": false,
+    "limitation": "local_origin_diff_only_no_remote_fetch_performed",
+    "action_required_before_real_upgrade_intake": [
+      "verify official OpenClaw upstream baseline tag/commit",
+      "explicit local base vs upstream target alignment",
+      "explicit local customization preservation rules for verified upstream",
+      "no runtime replacement without unblock reviews"
+    ],
+    "warning": "Current upstream diff is local HEAD vs origin/main (bytedance/deer-flow) — 4 local commits are all R241 read-only evidence, no real OpenClaw version upgrade candidate available"
+  },
+  "local_customization_preservation_review": {
+    "protected_paths_complete": true,
+    "protected_modules_complete": true,
+    "missing_protected_assets": [],
+    "preservation_required": true,
+    "violations": []
+  },
+  "forbidden_runtime_replacement_audit_review": {
+    "audit_clean": true,
+    "forbidden_hits": [],
+    "candidate_misclassifications": [],
+    "all_forbidden_candidates_quarantined": true,
+    "violations": []
+  },
+  "test_impact_review": {
+    "tests_passed": 176,
+    "tests_failed": 0,
+    "core_144_passed": true,
+    "upgrade_intake_tests_passed": 32,
+    "pre_existing_failure_carried": true,
+    "new_failures": [],
+    "test_impact_review_passed": true
+  },
+  "rollback_abort_review": {
+    "abort_conditions_complete": true,
+    "missing_conditions": [],
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true,
+    "violations": []
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {
+        "pattern": "app.include_router (13 hits)",
+        "location": "backend/app/gateway/app.py lines 260-296",
+        "classification": "explanatory_only_pre-existing_gateway_route_registrations",
+        "blocked_by": "GSIC-004 (blocking_fastapi_route_registration)"
+      }
+    ],
+    "forbidden_candidate_hits": [],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "r241_19e_readiness": {
+    "allow_enter_r241_19e": true,
+    "recommended_next_round": "R241-19E_UPSTREAM_SOURCE_CONFIGURATION_REVIEW",
+    "reason": "No real upstream upgrade candidate available — must configure verified upstream baseline before real upgrade intake can proceed",
+    "alternative_next_round": "R241-19E_TRACK_A_FOUNDATION_REPAIR_BATCH2_PLAN",
+    "alternative_reason": "Could return to Track A to address pre-existing test failure and other foundation issues if upstream configuration is deferred",
+    "blockers": [],
+    "warnings": [
+      "true_upgrade_diff_available=false — upstream source not configured for real OpenClaw upgrade intake",
+      "pre_existing_failure_test_runtime_activation_readiness_still_present"
+    ]
+  },
+  "patch_classification_review_passed": true,
+  "zero_candidate_matrix_valid": true,
+  "true_upgrade_diff_available": false,
+  "forbidden_runtime_audit_clean": true,
+  "core_tests_passed": true,
+  "allow_enter_r241_19e": true,
+  "warnings": [
+    "upstream_source_limitation_no_remote_fetch_performed",
+    "true_upgrade_diff_available_is_false_local_diff_only",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "blockers_remaining": 8,
+  "recommended_resume_point": "R241-19D",
+  "next_prompt_needed": "R241-19E_UPSTREAM_SOURCE_CONFIGURATION_REVIEW"
+}

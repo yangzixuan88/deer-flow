@@ -1,0 +1,866 @@
+{
+  "review": {
+    "review_id": "R241-16F_manual_dispatch_implementation_review",
+    "generated_at": "2026-04-26T17:03:17.210202+00:00",
+    "status": "ready_for_manual_confirmation",
+    "recommended_decision": "option_b",
+    "blueprint": {
+      "blueprint_id": "R241-16F_manual_dispatch_workflow_blueprint",
+      "generated_at": "2026-04-26T17:03:17.209865+00:00",
+      "status": "ready_for_manual_confirmation",
+      "workflow_filename_proposed": "foundation-manual-dispatch.yml",
+      "write_target_allowed": false,
+      "report_only_blueprint_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16F_MANUAL_DISPATCH_WORKFLOW_BLUEPRINT.yml.txt",
+      "trigger_policy": {
+        "workflow_dispatch_enabled": true,
+        "pull_request_enabled": false,
+        "push_enabled": false,
+        "schedule_enabled": false,
+        "forbidden_triggers": [
+          "pull_request",
+          "push",
+          "schedule"
+        ]
+      },
+      "workflow_dispatch_inputs": [
+        {
+          "input_id": "confirm_manual_dispatch",
+          "name": "confirm_manual_dispatch",
+          "required": true,
+          "default": null,
+          "expected_value": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+          "description": "Must match confirmation phrase exactly.",
+          "secret_allowed": false
+        },
+        {
+          "input_id": "stage_selection",
+          "name": "stage_selection",
+          "required": false,
+          "default": "all_pr",
+          "allowed_values": [
+            "all_pr",
+            "fast",
+            "safety",
+            "collect_only",
+            "all_nightly"
+          ],
+          "forbidden_values": [
+            "full",
+            "real_send",
+            "auto_fix",
+            "webhook",
+            "secret"
+          ],
+          "secret_allowed": false
+        },
+        {
+          "input_id": "execute_mode",
+          "name": "execute_mode",
+          "required": false,
+          "default": "plan_only",
+          "allowed_values": [
+            "plan_only",
+            "execute_selected"
+          ],
+          "secret_allowed": false
+        }
+      ],
+      "allowed_stage_selections": [
+        "all_pr",
+        "fast",
+        "safety",
+        "collect_only",
+        "all_nightly"
+      ],
+      "forbidden_stage_selections": [
+        "full",
+        "real_send",
+        "auto_fix",
+        "webhook",
+        "secret"
+      ],
+      "default_execute_mode": "plan_only",
+      "job_blueprints": [
+        {
+          "job_id": "job_smoke",
+          "job_type": "smoke",
+          "command": "python scripts/ci_foundation_check.py --selection smoke --format text",
+          "enabled_by_default": false,
+          "guard_expression": "${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' }}",
+          "allowed_stage_selections": [
+            "all_pr",
+            "smoke",
+            "collect_only"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "audit_jsonl_write_allowed": false,
+          "action_queue_write_allowed": false,
+          "auto_fix_allowed": false,
+          "artifact_upload_allowed": false,
+          "timeout_minutes": 1,
+          "warnings": [
+            "smoke is pr_warning — does not block merge"
+          ],
+          "errors": []
+        },
+        {
+          "job_id": "job_fast",
+          "job_type": "fast",
+          "command": "python scripts/ci_foundation_check.py --selection fast --execute --format text",
+          "enabled_by_default": false,
+          "guard_expression": "${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && (inputs.stage_selection == 'fast' || inputs.stage_selection == 'all_pr' || inputs.stage_selection == 'all_nightly') }}",
+          "allowed_stage_selections": [
+            "all_pr",
+            "fast",
+            "all_nightly"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "audit_jsonl_write_allowed": false,
+          "action_queue_write_allowed": false,
+          "auto_fix_allowed": false,
+          "artifact_upload_allowed": false,
+          "timeout_minutes": 1,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "job_id": "job_safety",
+          "job_type": "safety",
+          "command": "python scripts/ci_foundation_check.py --selection safety --execute --format text",
+          "enabled_by_default": false,
+          "guard_expression": "${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && (inputs.stage_selection == 'safety' || inputs.stage_selection == 'all_pr' || inputs.stage_selection == 'all_nightly') }}",
+          "allowed_stage_selections": [
+            "all_pr",
+            "safety",
+            "all_nightly"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "audit_jsonl_write_allowed": false,
+          "action_queue_write_allowed": false,
+          "auto_fix_allowed": false,
+          "artifact_upload_allowed": false,
+          "timeout_minutes": 1,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "job_id": "job_collect_only",
+          "job_type": "collect_only",
+          "command": "python scripts/ci_foundation_check.py --selection collect_only --format text",
+          "enabled_by_default": false,
+          "guard_expression": "${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' }}",
+          "allowed_stage_selections": [
+            "all_pr",
+            "collect_only"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "audit_jsonl_write_allowed": false,
+          "action_queue_write_allowed": false,
+          "auto_fix_allowed": false,
+          "artifact_upload_allowed": false,
+          "timeout_minutes": 5,
+          "warnings": [
+            "collect-only is pr_warning only"
+          ],
+          "errors": []
+        },
+        {
+          "job_id": "job_slow",
+          "job_type": "slow",
+          "command": "python scripts/ci_foundation_check.py --selection slow --execute --format text",
+          "enabled_by_default": false,
+          "guard_expression": "${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && inputs.stage_selection == 'all_nightly' }}",
+          "allowed_stage_selections": [
+            "all_nightly"
+          ],
+          "forbidden_triggers": [
+            "pull_request",
+            "push",
+            "schedule"
+          ],
+          "network_allowed": false,
+          "secret_refs_allowed": false,
+          "runtime_write_allowed": false,
+          "audit_jsonl_write_allowed": false,
+          "action_queue_write_allowed": false,
+          "auto_fix_allowed": false,
+          "artifact_upload_allowed": false,
+          "timeout_minutes": 1,
+          "warnings": [
+            "slow is nightly_required — not in all_pr selection"
+          ],
+          "errors": []
+        }
+      ],
+      "artifact_policy": {
+        "artifact_specs": [
+          {
+            "artifact_spec_id": "art_spec_foundation_reports",
+            "artifact_type": "foundation_audit_report",
+            "source_paths": [
+              null,
+              null
+            ],
+            "destination_name": "foundation_audit_reports",
+            "include_patterns": [
+              "*.json",
+              "*.md"
+            ],
+            "exclude_patterns": [
+              "**/audit_trail/*.jsonl",
+              "**/runtime/**",
+              "**/action_queue/**",
+              "**/.secret/**",
+              "**/webhook_url*",
+              "**/*token*",
+              "**/*secret*"
+            ],
+            "retention_days": 30,
+            "path_inconsistency_handling": "collect_both_report_warning",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [
+              "primary path: not found",
+              "secondary path: not found",
+              "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+            ],
+            "errors": []
+          },
+          {
+            "artifact_spec_id": "art_spec_ci_matrix",
+            "artifact_type": "ci_matrix_report",
+            "source_paths": [
+              null
+            ],
+            "destination_name": "ci_matrix_reports",
+            "include_patterns": [
+              "R241-15*",
+              "R241-16*"
+            ],
+            "exclude_patterns": [],
+            "retention_days": 90,
+            "path_inconsistency_handling": "primary_only",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [],
+            "errors": []
+          },
+          {
+            "artifact_spec_id": "art_spec_pytest_logs",
+            "artifact_type": "pytest_log",
+            "source_paths": [],
+            "destination_name": "pytest_logs",
+            "include_patterns": [
+              "**/pytest.log",
+              "**/.pytest_cache/**",
+              "**/tmp/**/pytest*.log"
+            ],
+            "exclude_patterns": [
+              "**/audit_trail/**"
+            ],
+            "retention_days": 7,
+            "path_inconsistency_handling": "none",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [
+              "pytest logs are temp — only collect if explicitly enabled"
+            ],
+            "errors": []
+          },
+          {
+            "artifact_spec_id": "art_spec_junit_xml",
+            "artifact_type": "junit_xml",
+            "source_paths": [],
+            "destination_name": "junit_reports",
+            "include_patterns": [
+              "**/junit*.xml",
+              "**/test-results/**/*.xml"
+            ],
+            "exclude_patterns": [],
+            "retention_days": 14,
+            "path_inconsistency_handling": "none",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [
+              "junit xml is optional — requires --junit-xml flag in pytest command"
+            ],
+            "errors": []
+          }
+        ],
+        "spec_count": 4,
+        "primary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_validate_blueprint_yml_tx0\\migration_reports\\foundation_audit",
+        "secondary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_validate_blueprint_yml_tx0\\backend\\migration_reports\\foundation_audit",
+        "primary_exists": false,
+        "secondary_exists": false,
+        "path_inconsistency": false,
+        "path_inconsistency_action": "report_only_no_migration_no_deletion"
+      },
+      "path_compatibility_policy": {
+        "path_compatibility_policy_id": "R241-16A_path_compatibility",
+        "generated_at": "2026-04-26T17:03:17.209817+00:00",
+        "primary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_validate_blueprint_yml_tx0\\migration_reports\\foundation_audit",
+        "secondary_report_path": "C:\\Users\\win\\AppData\\Local\\Temp\\pytest-of-win\\pytest-678\\test_validate_blueprint_yml_tx0\\backend\\migration_reports\\foundation_audit",
+        "primary_exists": false,
+        "secondary_exists": false,
+        "path_inconsistency": false,
+        "action_now": "report_only",
+        "future_options": [
+          "unify_report_root_under_migration_reports_only",
+          "add_compatibility_note_in_ci_config",
+          "migrate_old_backend_reports_in_phase_6",
+          "ci_collect_both_paths_temporarily"
+        ],
+        "migration_allowed_now": false,
+        "deletion_allowed_now": false,
+        "rewriting_allowed_now": false,
+        "warnings": [
+          "No migration, deletion, or rewriting in this phase",
+          "CI should collect from both paths when both exist",
+          "Future Phase 6 will address path cleanup"
+        ],
+        "errors": []
+      },
+      "security_policy": {
+        "no_secrets": true,
+        "no_network": true,
+        "no_runtime_write": true,
+        "no_audit_jsonl_write": true,
+        "no_action_queue_write": true,
+        "no_auto_fix": true,
+        "no_feishu_send": true
+      },
+      "rollback_plan": {
+        "rollback_plan_id": "R241-16E_manual_dispatch_rollback",
+        "rollback_modes": [
+          "disable_workflow_file",
+          "remove_workflow_dispatch_inputs",
+          "revert_to_disabled_draft",
+          "manual_revert_only"
+        ],
+        "rollback_steps": [
+          "Set workflow file to if: ${{ false }} or remove workflow_dispatch trigger.",
+          "Remove confirmation input from workflow_dispatch inputs.",
+          "Use scripts/ci_foundation_check.py as local fallback.",
+          "Validate with local plan-only smoke."
+        ],
+        "owner_action_required": true,
+        "expected_recovery_time": "< 15 minutes",
+        "rollback_risks": [],
+        "validation_after_rollback": [
+          "No workflow_dispatch trigger remains enabled.",
+          "Local ci_foundation_check.py plan-only remains available.",
+          "No runtime rollback required."
+        ],
+        "warnings": [],
+        "errors": []
+      },
+      "warnings": [],
+      "errors": [],
+      "yaml_blueprint": "# MANUAL DISPATCH BLUEPRINT ONLY\n# DO NOT COPY TO .github/workflows WITHOUT CONFIRMATION\n# NO PR/PUSH/SCHEDULE TRIGGERS\n# NO SECRETS / NO NETWORK / AUTO_FIX_BLOCKED\n\nname: Foundation Manual Dispatch\non:\n  workflow_dispatch:\n    inputs:\n      confirm_manual_dispatch:\n        description: \"Must be: CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN\"\n        required: true\n        type: string\n      stage_selection:\n        description: \"Stage: all_pr, fast, safety, collect_only, all_nightly\"\n        required: false\n        default: \"all_pr\"\n        type: string\n      execute_mode:\n        description: \"plan_only (default) or execute_selected\"\n        required: false\n        default: \"plan_only\"\n        type: string\n\npermissions:\n  contents: read\n\njobs:\n  job_smoke:\n    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' }}\n    name: smoke\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Run smoke stage\n        run: python scripts/ci_foundation_check.py --selection smoke --format text\n  job_fast:\n    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && (inputs.stage_selection == 'fast' || inputs.stage_selection == 'all_pr' || inputs.stage_selection == 'all_nightly') }}\n    name: fast\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Run fast stage\n        run: python scripts/ci_foundation_check.py --selection fast --execute --format text\n  job_safety:\n    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && (inputs.stage_selection == 'safety' || inputs.stage_selection == 'all_pr' || inputs.stage_selection == 'all_nightly') }}\n    name: safety\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Run safety stage\n        run: python scripts/ci_foundation_check.py --selection safety --execute --format text\n  job_collect_only:\n    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' }}\n    name: collect_only\n    runs-on: ubuntu-latest\n    timeout-minutes: 5\n    steps:\n      - name: Run collect_only stage\n        run: python scripts/ci_foundation_check.py --selection collect_only --format text\n  job_slow:\n    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && inputs.stage_selection == 'all_nightly' }}\n    name: slow\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Run slow stage\n        run: python scripts/ci_foundation_check.py --selection slow --execute --format text\n"
+    },
+    "implementation_checks": {
+      "implementation_checks": [
+        {
+          "check_id": "check_r241_16e_review_valid",
+          "check_type": "r241_16e_review_valid",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "R241-16E manual dispatch review must be valid.",
+          "evidence_refs": [
+            "validate_manual_dispatch_dryrun_review()"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_confirmation_input_present",
+          "check_type": "confirmation_input_present",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "workflow_dispatch must have confirm_manual_dispatch input.",
+          "evidence_refs": [
+            "build_manual_dispatch_workflow_blueprint()"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_execute_mode_defaults_plan_only",
+          "check_type": "execute_mode_defaults_plan_only",
+          "passed": true,
+          "risk_level": "high",
+          "description": "execute_mode must default to plan_only.",
+          "evidence_refs": [
+            "workflow_dispatch_inputs"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_stage_selection_restricted",
+          "check_type": "stage_selection_restricted",
+          "passed": true,
+          "risk_level": "high",
+          "description": "stage_selection must restrict full/real_send/auto_fix/webhook/secret.",
+          "evidence_refs": [
+            "workflow_dispatch_inputs"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_workflow_dispatch_only",
+          "check_type": "workflow_dispatch_only",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Only workflow_dispatch trigger allowed; no PR/push/schedule.",
+          "evidence_refs": [
+            "trigger_policy"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_pr_push_schedule_triggers",
+          "check_type": "no_pr_push_schedule_triggers",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "YAML blueprint must not contain PR/push/schedule triggers.",
+          "evidence_refs": [
+            "render_manual_dispatch_workflow_blueprint_yaml()"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_secrets",
+          "check_type": "no_secrets",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No secret refs in job blueprints.",
+          "evidence_refs": [
+            "job_blueprints.secret_refs_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_network_webhook",
+          "check_type": "no_network_webhook",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No network or webhook calls in job specs.",
+          "evidence_refs": [
+            "job_blueprints.network_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_runtime_write",
+          "check_type": "no_runtime_write",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No runtime writes in job specs.",
+          "evidence_refs": [
+            "job_blueprints.runtime_write_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_audit_jsonl_write",
+          "check_type": "no_audit_jsonl_write",
+          "passed": true,
+          "risk_level": "high",
+          "description": "No audit JSONL writes in job specs.",
+          "evidence_refs": [
+            "job_blueprints.audit_jsonl_write_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_action_queue_write",
+          "check_type": "no_action_queue_write",
+          "passed": true,
+          "risk_level": "high",
+          "description": "No action queue writes in job specs.",
+          "evidence_refs": [
+            "job_blueprints.action_queue_write_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_auto_fix",
+          "check_type": "no_auto_fix",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "No auto-fix in job specs.",
+          "evidence_refs": [
+            "job_blueprints.auto_fix_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_no_feishu_send",
+          "check_type": "no_feishu_send",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Feishu send not in allowed stage selections.",
+          "evidence_refs": [
+            "forbidden_stage_selections"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_artifact_policy_excludes_sensitive",
+          "check_type": "artifact_policy_excludes_sensitive_paths",
+          "passed": true,
+          "risk_level": "high",
+          "description": "Artifact policy excludes audit_trail JSONL, runtime, action_queue, secrets.",
+          "evidence_refs": [
+            "build_ci_artifact_collection_specs()"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_existing_workflow_compatibility_reviewed",
+          "check_type": "existing_workflow_compatibility_reviewed",
+          "passed": true,
+          "risk_level": "medium",
+          "description": "Existing workflows reviewed for conflict.",
+          "evidence_refs": [
+            "ci_enablement_review.discover_existing_workflows()"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_rollback_plan_exists",
+          "check_type": "rollback_plan_exists",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Rollback plan exists with steps.",
+          "evidence_refs": [
+            "build_manual_dispatch_rollback_plan()"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "check_id": "check_github_workflows_write_blocked",
+          "check_type": "github_workflows_write_blocked",
+          "passed": true,
+          "risk_level": "critical",
+          "description": "Workflow file write is blocked — blueprint goes to .yml.txt only.",
+          "evidence_refs": [
+            "write_target_allowed=False"
+          ],
+          "required_before_implementation": true,
+          "blocked_reasons": [],
+          "warnings": [],
+          "errors": []
+        }
+      ],
+      "check_count": 17,
+      "all_passed": true,
+      "warnings": [],
+      "errors": []
+    },
+    "existing_workflow_compatibility": [],
+    "r241_16e_report_gap_note": {
+      "identified_gap": "Section 15 of R241-16E markdown report shows 'To be populated from verification command output'",
+      "action_taken": "R241-16F report now includes R241-16E verification summary",
+      "old_report_modified": false,
+      "note": "Old R241-16E report not modified; R241-16E verification summary captured in this review"
+    },
+    "r241_16e_verification_summary": {
+      "r241_16e_validation_valid": true,
+      "r241_16e_validation_errors": [],
+      "r241_16e_status": "ready_for_implementation_review",
+      "recommended_option": "option_c",
+      "confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN"
+    },
+    "manual_confirmation_requirements": {
+      "confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+      "requirements": [
+        "workflow_dispatch trigger only",
+        "no pull_request / push / schedule triggers",
+        "no secrets",
+        "no network / webhook calls",
+        "no runtime writes",
+        "no audit JSONL writes",
+        "no action queue writes",
+        "no auto-fix",
+        "no Feishu send",
+        "plan_only as default execute_mode"
+      ]
+    },
+    "rollback_plan": {
+      "rollback_plan_id": "R241-16E_manual_dispatch_rollback",
+      "rollback_modes": [
+        "disable_workflow_file",
+        "remove_workflow_dispatch_inputs",
+        "revert_to_disabled_draft",
+        "manual_revert_only"
+      ],
+      "rollback_steps": [
+        "Set workflow file to if: ${{ false }} or remove workflow_dispatch trigger.",
+        "Remove confirmation input from workflow_dispatch inputs.",
+        "Use scripts/ci_foundation_check.py as local fallback.",
+        "Validate with local plan-only smoke."
+      ],
+      "owner_action_required": true,
+      "expected_recovery_time": "< 15 minutes",
+      "rollback_risks": [],
+      "validation_after_rollback": [
+        "No workflow_dispatch trigger remains enabled.",
+        "Local ci_foundation_check.py plan-only remains available.",
+        "No runtime rollback required."
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "validation_plan": {
+      "validation_plan_id": "R241-16F_validation_plan",
+      "pre_implementation_validation": [
+        {
+          "step_id": "pre_root_guard",
+          "name": "RootGuard Python",
+          "command": "python scripts/root_guard.py",
+          "expected": "ROOT_OK",
+          "blocking": true
+        },
+        {
+          "step_id": "pre_root_guard_ps",
+          "name": "RootGuard PowerShell",
+          "command": "powershell -ExecutionPolicy Bypass -File scripts/root_guard.ps1",
+          "expected": "ROOT_OK",
+          "blocking": true
+        },
+        {
+          "step_id": "pre_unit_tests",
+          "name": "Unit tests for new module",
+          "command": "python -m pytest backend/app/foundation/test_ci_manual_dispatch_implementation_review.py -v",
+          "expected": "all passed",
+          "blocking": true
+        },
+        {
+          "step_id": "pre_regression_tests",
+          "name": "Regression tests for all CI modules",
+          "command": "python -m pytest backend/app/foundation/ -v",
+          "expected": "all passed",
+          "blocking": true
+        },
+        {
+          "step_id": "pre_local_ci_plan",
+          "name": "Local CI plan-only all_pr",
+          "command": "python scripts/ci_foundation_check.py --selection all_pr --format json",
+          "expected": "pending or passed",
+          "blocking": false
+        },
+        {
+          "step_id": "pre_yaml_static_validation",
+          "name": "YAML blueprint static validation",
+          "command": "python -c \"from app.foundation import ci_manual_dispatch_implementation_review as impl; b = impl.build_manual_dispatch_workflow_blueprint(); r = impl.render_manual_dispatch_workflow_blueprint_yaml(b); assert not r['errors'], r['errors']\"",
+          "expected": "no forbidden tokens",
+          "blocking": true
+        },
+        {
+          "step_id": "pre_forbidden_trigger_scan",
+          "name": "Forbidden trigger scan in YAML",
+          "command": "grep -c 'pull_request:\\|push:\\|schedule:' migration_reports/foundation_audit/R241-16F_MANUAL_DISPATCH_WORKFLOW_BLUEPRINT.yml.txt || echo 0",
+          "expected": "0",
+          "blocking": true
+        }
+      ],
+      "post_implementation_validation": [
+        {
+          "step_id": "post_no_pr_trigger",
+          "name": "No PR trigger in workflow file",
+          "command": "grep 'pull_request:' .github/workflows/foundation-manual-dispatch.yml || echo NOT_FOUND",
+          "expected": "NOT_FOUND",
+          "blocking": true
+        },
+        {
+          "step_id": "post_no_push_trigger",
+          "name": "No push trigger in workflow file",
+          "command": "grep 'push:' .github/workflows/foundation-manual-dispatch.yml || echo NOT_FOUND",
+          "expected": "NOT_FOUND",
+          "blocking": true
+        },
+        {
+          "step_id": "post_no_schedule_trigger",
+          "name": "No schedule trigger in workflow file",
+          "command": "grep 'schedule:' .github/workflows/foundation-manual-dispatch.yml || echo NOT_FOUND",
+          "expected": "NOT_FOUND",
+          "blocking": true
+        },
+        {
+          "step_id": "post_no_secret_refs",
+          "name": "No secret refs in workflow file",
+          "command": "grep 'secrets\\.' .github/workflows/foundation-manual-dispatch.yml || echo NOT_FOUND",
+          "expected": "NOT_FOUND",
+          "blocking": true
+        },
+        {
+          "step_id": "post_plan_only_first",
+          "name": "Run plan-only mode first",
+          "command": "python scripts/ci_foundation_check.py --selection all_pr --format json",
+          "expected": "pending or passed",
+          "blocking": true
+        },
+        {
+          "step_id": "post_fast_safety_execute",
+          "name": "Run fast+safety execute_selected smoke",
+          "command": "python scripts/ci_foundation_check.py --selection fast --execute --format text && python scripts/ci_foundation_check.py --selection safety --execute --format text",
+          "expected": "passed or failed (no runtime mutation)",
+          "blocking": false
+        },
+        {
+          "step_id": "post_artifact_collection",
+          "name": "Verify artifact collection",
+          "command": "ls migration_reports/foundation_audit/*.json migration_reports/foundation_audit/*.md 2>/dev/null | head -5",
+          "expected": "report files present",
+          "blocking": false
+        }
+      ],
+      "rollback_test": [
+        {
+          "step_id": "rollback_disable",
+          "name": "Rollback — set if: ${{ false }} on workflow",
+          "command": "sed -i 's/if:.*/if: ${{ false }}/' .github/workflows/foundation-manual-dispatch.yml",
+          "expected": "workflow disabled",
+          "blocking": false
+        },
+        {
+          "step_id": "rollback_verify_disabled",
+          "name": "Verify workflow disabled",
+          "command": "grep 'if: ${{ false }}' .github/workflows/foundation-manual-dispatch.yml",
+          "expected": "if: ${{ false }}",
+          "blocking": false
+        }
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "next_phase_options": [
+      {
+        "option_id": "option_a",
+        "name": "Keep Review-only",
+        "description": "Keep current state — review and blueprint only. No workflow creation.",
+        "scope": "none",
+        "risk_level": "low",
+        "requires_confirmation": false
+      },
+      {
+        "option_id": "option_b",
+        "name": "Generate Blueprint Only",
+        "description": "Generate and publish .yml.txt blueprint. No .github/workflows creation.",
+        "scope": "blueprint_only",
+        "risk_level": "low",
+        "requires_confirmation": false
+      },
+      {
+        "option_id": "option_c",
+        "name": "Create Manual-only Workflow After Confirmation",
+        "description": "Create .github/workflows/foundation-manual-dispatch.yml with workflow_dispatch only, plan_only default. Requires explicit CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN.",
+        "scope": "workflow_dispatch_only_plan",
+        "risk_level": "medium",
+        "requires_confirmation": true
+      },
+      {
+        "option_id": "option_d",
+        "name": "Create Manual-only Fast+Safety Execute Workflow After Confirmation",
+        "description": "Create workflow with workflow_dispatch, fast+safety execute_selected allowed. Requires explicit CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN.",
+        "scope": "workflow_dispatch_with_execute",
+        "risk_level": "medium",
+        "requires_confirmation": true
+      }
+    ],
+    "recommended_next_phase": "option_b",
+    "recommendation_reason": "no_confirmation_phrase_keep_conservative",
+    "workflow_created": false,
+    "trigger_enabled": false,
+    "network_recommended": false,
+    "runtime_write_recommended": false,
+    "secret_read_recommended": false,
+    "auto_fix_recommended": false,
+    "warnings": [
+      "workflow_directory_missing"
+    ],
+    "errors": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-26T17:03:17.210240+00:00"
+  },
+  "generated_at": "2026-04-26T17:03:17.210243+00:00"
+}

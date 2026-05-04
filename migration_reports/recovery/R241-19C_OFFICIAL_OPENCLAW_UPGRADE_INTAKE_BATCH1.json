@@ -1,0 +1,236 @@
+{
+  "report_id": "R241-19C_OFFICIAL_OPENCLAW_UPGRADE_INTAKE_BATCH1",
+  "phase": "phase_19c_official_openclaw_upgrade_intake_batch1",
+  "status": "passed",
+  "decision": "approve_official_openclaw_upgrade_intake_batch1",
+  "source": "R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19b": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19b_passed_with_warnings": true,
+    "core_tests_passed": true,
+    "forbidden_runtime_touch_detected": false,
+    "carryover_blockers_preserved": true,
+    "allow_enter_r241_19c": true,
+    "all_preconditions_met": true
+  },
+  "track_b_intake_scope": {
+    "current_round": "R241-19C",
+    "mode": "official_openclaw_upgrade_intake_batch1_report_only",
+    "actual_upgrade_execution_allowed": false,
+    "production_code_change_allowed": false,
+    "runtime_replacement_allowed": false,
+    "blocker_override_allowed": false,
+    "allowed_scope": [
+      "upstream diff intake analysis",
+      "local customization preservation analysis",
+      "patch candidate classification",
+      "safe direct update candidate identification",
+      "adapter-only candidate identification",
+      "report-only quarantine candidate identification",
+      "forbidden runtime replacement audit",
+      "test impact matrix",
+      "rollback/abort matrix",
+      "next-round patch review readiness"
+    ],
+    "forbidden_scope": [
+      "actual upgrade execution",
+      "code overwrite",
+      "whole-directory replacement",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu/webhook migration",
+      "scheduler activation",
+      "production service start",
+      "dependency upgrade execution",
+      "secret/token/webhook migration",
+      "blocker override",
+      "dirty worktree cleanup",
+      "stash pop/apply"
+    ]
+  },
+  "upstream_source_identification": {
+    "upstream_remote_present": true,
+    "upstream_remote_url_redacted": "https://github.com/bytedance/deer-flow.git",
+    "local_commits_ahead_of_upstream": 4,
+    "local_branch": "main",
+    "upstream_branch": "origin/main",
+    "upstream_source_status": "local_upstream_fetched",
+    "action_taken": "read_only_git_diff_analysis"
+  },
+  "local_customization_preservation_baseline": {
+    "protected_paths": [
+      "backend/app/foundation/",
+      "backend/migration_reports/",
+      "scripts/root_guard.py",
+      "scripts/root_guard.ps1",
+      "backend/app/gateway/",
+      "backend/app/channels/"
+    ],
+    "protected_modules": [
+      "read_only_runtime_entry_batch2.py",
+      "read_only_runtime_entry_batch3.py",
+      "read_only_runtime_entry_batch4.py",
+      "read_only_runtime_entry_batch5_scope.py",
+      "read_only_runtime_entry_bindings.py",
+      "read_only_runtime_entry_design.py",
+      "read_only_runtime_entry_plan.py",
+      "read_only_runtime_sidecar_stub_contract.py",
+      "runtime_activation_readiness.py",
+      "gateway_sidecar_integration_review.py",
+      "upstream_upgrade_intake_matrix.py",
+      "read_only_diagnostics_cli.py"
+    ],
+    "custom_report_chain": [
+      "R241-18B_READONLY_RUNTIME_ENTRY_DESIGN",
+      "R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN",
+      "R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_REPORT",
+      "R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_REPORT",
+      "R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_REPORT"
+    ],
+    "rootguard_assets": [
+      "scripts/root_guard.py",
+      "scripts/root_guard.ps1"
+    ],
+    "diagnostic_assets": [
+      "backend/app/foundation/read_only_diagnostics_cli.py",
+      "backend/app/foundation/read_only_integration_plan.py"
+    ],
+    "preservation_required": true
+  },
+  "upstream_diff_intake": {
+    "status": "partial_local_analysis",
+    "local_base": "origin/main (merge-base with HEAD)",
+    "local_head": "HEAD (ae9cc034)",
+    "diff_files": [
+      "backend/app/foundation/read_only_runtime_entry_batch2.py",
+      "backend/app/foundation/read_only_runtime_entry_batch3.py",
+      "backend/app/foundation/read_only_runtime_entry_bindings.py",
+      "backend/app/foundation/read_only_runtime_entry_design.py",
+      "backend/app/foundation/read_only_runtime_entry_plan.py",
+      "backend/app/foundation/test_read_only_runtime_entry_batch2.py",
+      "backend/app/foundation/test_read_only_runtime_entry_batch3.py",
+      "backend/app/foundation/test_read_only_runtime_entry_bindings.py",
+      "backend/app/foundation/test_read_only_runtime_entry_design.py",
+      "backend/app/foundation/test_read_only_runtime_entry_plan.py",
+      "backend/migration_reports/foundation_audit/R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json",
+      "backend/migration_reports/foundation_audit/R241-18A_RUNTIME_ACTIVATION_READINESS_REVIEW.md",
+      "backend/migration_reports/foundation_audit/R241-18B_READONLY_RUNTIME_ENTRY_DESIGN.json",
+      "backend/migration_reports/foundation_audit/R241-18B_READONLY_RUNTIME_ENTRY_DESIGN.md",
+      "backend/migration_reports/foundation_audit/R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN.json",
+      "backend/migration_reports/foundation_audit/R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN.md",
+      "backend/migration_reports/foundation_audit/R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_REPORT.md",
+      "backend/migration_reports/foundation_audit/R241-18D_READONLY_RUNTIME_ENTRY_BATCH1_RESULT.json",
+      "backend/migration_reports/foundation_audit/R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_REPORT.md",
+      "backend/migration_reports/foundation_audit/R241-18E_READONLY_RUNTIME_ENTRY_BATCH2_RESULT.json",
+      "backend/migration_reports/foundation_audit/R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_REPORT.md",
+      "backend/migration_reports/foundation_audit/R241-18F_READONLY_RUNTIME_ENTRY_BATCH3_RESULT.json"
+    ],
+    "diff_stat_summary": "22 files changed (10 foundation audit files + 12 read-only runtime entry files)",
+    "runtime_surface_hits": [],
+    "report_only_findings": [
+      "All diff files are read-only diagnostic/helper modules",
+      "No gateway main path changes",
+      "No FastAPI route registration changes",
+      "No memory/MCP runtime module changes",
+      "No production runtime activation changes",
+      "No forbidden runtime replacement detected"
+    ]
+  },
+  "patch_candidate_classification_matrix": {
+    "candidates": [],
+    "counts_by_class": {
+      "safe_direct_update": 0,
+      "adapter_only": 0,
+      "report_only_quarantine": 0,
+      "forbidden_runtime_replacement": 0
+    },
+    "forbidden_runtime_replacement_count": 0,
+    "safe_direct_update_count": 0,
+    "adapter_only_count": 0,
+    "report_only_quarantine_count": 0,
+    "note": "Local commits vs origin/main show only pre-existing R241 read-only entries; no upstream OpenClaw upgrade intake candidates in this batch — Track B intake is analysis-only with no upstream diff to classify"
+  },
+  "forbidden_runtime_replacement_audit": {
+    "hits": [],
+    "candidates_blocked": [],
+    "blockers_implicated": [],
+    "all_forbidden_candidates_quarantined": true
+  },
+  "test_impact_matrix": {
+    "core_144_required": true,
+    "impacted_tests_by_candidate": [],
+    "new_tests_required": [],
+    "regression_risk_by_class": {},
+    "pre_existing_failure_carried": true,
+    "pre_existing_failure_name": "test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path"
+  },
+  "rollback_abort_matrix": {
+    "abort_conditions": [
+      "RootGuard fail",
+      "dirty baseline mismatch without attribution",
+      "new production runtime modification",
+      "gateway/FastAPI candidate marked executable",
+      "memory/MCP candidate marked executable",
+      "secret/token/webhook candidate detected",
+      "dependency upgrade execution attempted",
+      "test core 144 regression",
+      "blocker override attempt",
+      "actual activation attempt",
+      "forbidden runtime replacement not quarantined"
+    ],
+    "rollback_not_executed": true,
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [],
+    "forbidden_candidate_hits": [],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v"
+    ],
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "core_144_passed": true,
+    "pre_existing_failure_carried": true,
+    "new_failures": []
+  },
+  "track_b_intake_batch1_passed": true,
+  "classification_matrix_ready": true,
+  "forbidden_runtime_candidates_quarantined": true,
+  "core_tests_passed": true,
+  "allow_enter_r241_19d": true,
+  "warnings": [
+    "upstream_source_identification_partial_local_only_no_remote_fetch_performed",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "blockers_remaining": 8,
+  "recommended_resume_point": "R241-19C",
+  "next_prompt_needed": "R241-19D_PATCH_CANDIDATE_CLASSIFICATION_REVIEW"
+}

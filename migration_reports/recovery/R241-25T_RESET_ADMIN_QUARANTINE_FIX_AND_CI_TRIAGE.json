@@ -1,0 +1,113 @@
+{
+  "phase": "R241-25T",
+  "title": "RESET_ADMIN_QUARANTINE_FIX_AND_CI_TRIAGE",
+  "status": "blocked",
+  "preceded_by": "R241-25S",
+  "proceeding_to": "R241-25U",
+  "pressure_assessment": {
+    "previous_phase": "R241-25S",
+    "previous_status": "blocked",
+    "previous_pressure": "XL++",
+    "current_recommended_pressure": "XL++",
+    "reason": "Scoped quarantine fix + CI triage; no production activation. BLOCKED — CI still failing after reset_admin removal."
+  },
+  "scope_gate": {
+    "scope_gate_passed": true,
+    "reset_admin_present_before": true,
+    "note": "Local branch was behind remote; performed git reset --hard to remote HEAD first, then removed reset_admin.py"
+  },
+  "quarantine_fix": {
+    "reset_admin_removed": true,
+    "commit_created": true,
+    "commit_sha": "43a0564c698151e5d8fa909ad50e957e93e1b859",
+    "commit_message": "chore(auth): remove reset_admin from bootstrap PR scope",
+    "files_changed": ["backend/app/gateway/auth/reset_admin.py"],
+    "only_reset_admin_removed": true,
+    "bootstrap_files_untouched": true
+  },
+  "push_branch": {
+    "push_executed": true,
+    "remote": "private",
+    "branch": "r241/auth-disabled-wiring-v2",
+    "old_sha": "4225979748d5101222670d6388a1b82bb0613136",
+    "new_sha": "43a0564c698151e5d8fa909ad50e957e93e1b859",
+    "force_push": false
+  },
+  "pr3_diff_recheck": {
+    "pr_number": 3,
+    "reset_admin_in_diff": false,
+    "scope_compliant": true,
+    "bootstrap_chain_verified": {
+      "credential_file_py": "present (+48 lines)",
+      "local_provider_py": "present (+33 lines)",
+      "repositories_sqlite_py": "present (+13 lines)",
+      "errors_py": "present (+1 line)",
+      "routers_auth_py": "present in branch (inherited via upstream merge)"
+    },
+    "note": "reset_admin.py removed from diff — scope now compliant"
+  },
+  "ci_status_after_push": {
+    "new_head_sha": "43a0564c698151e5d8fa909ad50e957e93e1b859",
+    "e2e_tests": {"status": "in_progress", "conclusion": null},
+    "frontend_unit_tests": {"status": "completed", "conclusion": "success"},
+    "backend_unit_tests": {"status": "completed", "conclusion": "failure"},
+    "lint_frontend": {"status": "in_progress", "conclusion": null},
+    "lint": {"status": "completed", "conclusion": "failure"}
+  },
+  "ci_failure_triage": {
+    "lint": {
+      "status": "failed",
+      "conclusion": "failure",
+      "failure_summary": "Process completed with exit code 2. Annotation at path=.github — pre-commit hook failure",
+      "classification": "pre-commit/formatting",
+      "scope_related": false,
+      "reset_admin_related": false,
+      "fix_needed": true
+    },
+    "backend_unit_tests": {
+      "status": "failed",
+      "conclusion": "failure",
+      "failure_summary": "Process completed with exit code 2. Annotation at path=.github — test suite failure",
+      "classification": "test expectation or environment",
+      "scope_related": false,
+      "reset_admin_related": false,
+      "fix_needed": true
+    }
+  },
+  "ci_fix_needed": true,
+  "ci_fix_scope": "non-scope-related baseline failures (lint pre-commit hook + backend unit tests)",
+  "bootstrap_chain_integrity": {
+    "credential_file_py": true,
+    "LocalAuthProvider_count_admin_users": true,
+    "SQLiteUserRepository_count_admin_users": true,
+    "initialize_admin_endpoint": true,
+    "SYSTEM_ALREADY_INITIALIZED": true,
+    "reset_admin_py": false,
+    "all_intact": true
+  },
+  "pr_2645": {
+    "found_in_yangzixuan88": false,
+    "note": "PR #2645 not found in yangzixuan88/deer-flow"
+  },
+  "merge_readiness": {
+    "merge_ready": false,
+    "reason": "CI checks failing (lint + backend-unit-tests)",
+    "blocking_items": [
+      "lint CI check failed — pre-commit/formatting issue",
+      "backend-unit-tests CI check failed — test suite issue"
+    ]
+  },
+  "compliance": {
+    "code_modified": true,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "next_phase": "R241-25U_CI_FIX_OR_MERGE_GATE",
+  "recommended_action": "ci_triage_fix"
+}

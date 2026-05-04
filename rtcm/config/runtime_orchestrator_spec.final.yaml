@@ -1,0 +1,199 @@
+spec_version: "1.1"
+spec_id: "runtime_orchestrator_spec_final"
+mode_id: "rtcm_v2"
+
+system_positioning:
+  host_system: "OpenClaw"
+  orchestration_engine: "DeerFlow"
+  execution_layer:
+    - "Claude Code"
+    - "tool-executor"
+    - "search-agent"
+    - "task-executor"
+  supervision_layer:
+    - "rtcm-supervisor-agent"
+    - "supervisor"
+  learning_layer:
+    - "learning-agent"
+
+runtime_principles:
+  - "full_council_mandatory"
+  - "all_8_members_must_participate_every_round"
+  - "chair_and_supervisor_always_present"
+  - "issue_driven_execution"
+  - "no_execution_without_lease"
+  - "no_issue_close_without_verdict_and_dissent"
+  - "no_project_close_without_user_acceptance"
+  - "every_runtime_step_must_be_archivable"
+
+runtime_state:
+  storage: "runtime/session_state.json"
+  required_fields:
+    - "session_id"
+    - "project_id"
+    - "project_name"
+    - "mode"
+    - "status"
+    - "current_issue_id"
+    - "current_stage"
+    - "current_round"
+    - "active_members"
+    - "lease_state"
+    - "latest_chair_summary"
+    - "latest_supervisor_check"
+    - "user_presence_status"
+    - "pending_user_acceptance"
+    - "reopen_flag"
+
+project_start_flow:
+  steps:
+    - "archive_lookup"
+    - "resume_prompt_if_needed"
+    - "project_manifest_creation"
+    - "initial_issue_generation"
+    - "roundtable_open_announcement"
+
+issue_execution_loop:
+  controller: "rtcm-chair-agent"
+  loop_steps:
+    - "select_current_issue"
+    - "assemble_context_for_all_roles"
+    - "run_round_by_fixed_speaking_order"
+    - "parse_member_outputs"
+    - "build_chair_summary"
+    - "run_supervisor_gate_check"
+    - "decide_next_stage"
+    - "persist_round_artifacts"
+    - "repeat_until_issue_resolved_or_reopened"
+
+fixed_speaking_order:
+  - "rtcm-trend-agent"
+  - "rtcm-value-agent"
+  - "rtcm-architecture-agent"
+  - "rtcm-automation-agent"
+  - "rtcm-quality-agent"
+  - "rtcm-efficiency-agent"
+  - "rtcm-challenger-agent"
+  - "rtcm-validator-agent"
+  - "rtcm-chair-agent"
+  - "rtcm-supervisor-agent"
+
+parallel_evidence_collection:
+  enabled: true
+  pods:
+    surface_pod:
+      delegates: ["search-agent", "rtcm-trend-agent"]
+    deep_pod:
+      delegates: ["search-agent", "rtcm-architecture-agent", "rtcm-automation-agent"]
+    reality_pod:
+      delegates: ["rtcm-efficiency-agent", "rtcm-challenger-agent", "search-agent"]
+
+execution_lease_runtime:
+  enabled: true
+  lease_granted_by: "rtcm-chair-agent"
+  lease_checked_by: "rtcm-supervisor-agent"
+  lease_required_for:
+    - "search_dispatch"
+    - "tool_use"
+    - "workflow_run"
+    - "validation_run"
+    - "code_or_script_action"
+
+supervisor_runtime_checks:
+  before_round_close:
+    - "all_members_present"
+    - "all_outputs_structured"
+    - "critical_claims_have_evidence_refs"
+    - "dissent_present"
+    - "uncertainty_present"
+  before_execution:
+    - "execution_lease_exists"
+    - "no_protocol_violation"
+    - "no_blocking_risk_flag"
+    - "validation_plan_exists_if_required"
+  before_issue_close:
+    - "verdict_exists"
+    - "dissent_recorded"
+    - "unresolved_uncertainties_recorded"
+    - "conditions_to_reopen_recorded"
+  interrupt_actions:
+    - "PAUSE"
+    - "ABORT"
+    - "ROLLBACK"
+    - "ESCALATE"
+
+user_intervention_runtime:
+  accepted_types:
+    - "opinion"
+    - "constraint"
+    - "direction_change"
+    - "acceptance_adjustment"
+
+reopen_runtime:
+  trigger_sources:
+    - "validator_verdict"
+    - "supervisor_block"
+    - "user_not_satisfied"
+    - "execution_failure"
+    - "quality_failure"
+
+artifact_persistence:
+  write_after_each_round:
+    - "runtime/session_state.json"
+    - "runtime/chair_summary_last_round.json"
+    - "project_dossier/council_log.jsonl"
+  write_after_each_issue:
+    - "project_dossier/issue_cards/"
+    - "project_dossier/issue_graph.json"
+    - "project_dossier/validation_runs/"
+  write_after_project_close:
+    - "project_dossier/brief_report.md"
+    - "project_dossier/final_report.md"
+    - "project_dossier/acceptance_log.jsonl"
+
+learning_handoff:
+  on_issue_close:
+    actions:
+      - "emit_issue_flow_signature"
+      - "emit_reopen_pattern_if_any"
+      - "emit_validation_efficiency_score"
+  on_project_close:
+    actions:
+      - "send_to_learning_agent"
+      - "review_for_asset_promotion"
+      - "queue_nightly_optimization_suggestions"
+
+feishu_runtime_hooks:
+  enabled: true
+  events:
+    - "session_opened"
+    - "issue_started"
+    - "execution_started"
+    - "validation_completed"
+    - "issue_reopened"
+    - "project_ready_for_acceptance"
+    - "project_archived"
+
+failure_handling:
+  missing_member_output:
+    action: "request_regeneration_once_then_pause"
+  malformed_structured_output:
+    action: "request_regeneration_once_then_escalate"
+  failed_pod:
+    action: "retry_once_then_mark_evidence_insufficient"
+  missing_lease:
+    action: "hard_block_execution"
+  supervisor_abort:
+    action: "write_abort_record_and_notify_user"
+
+metrics:
+  session_level:
+    - "total_rounds"
+    - "total_reopens"
+    - "total_validation_runs"
+    - "user_acceptance_cycles"
+  issue_level:
+    - "time_to_resolution"
+    - "rounds_per_issue"
+    - "evidence_depth_score"
+    - "challenge_density"

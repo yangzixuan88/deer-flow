@@ -1,0 +1,421 @@
+{
+  "plan_id": "R241-15E_synthetic_fixture_replacement_plan",
+  "generated_at": "2026-04-25T22:56:22.540897+00:00",
+  "duration_baseline_before": {
+    "passed": 106,
+    "deselected": 541,
+    "pytest_runtime_seconds": 423.18,
+    "wall_seconds": 425.410884,
+    "top_duration_tests": [
+      {
+        "nodeid": "test_run_all_diagnostics_disabled_commands_empty",
+        "duration_seconds": 38.69
+      },
+      {
+        "nodeid": "test_format_markdown_returns_string",
+        "duration_seconds": 34.77
+      },
+      {
+        "nodeid": "test_run_all_has_audit_record_event_type_diagnostic_cli_run",
+        "duration_seconds": 34.75
+      },
+      {
+        "nodeid": "test_run_all_diagnostics_write_report_false_no_file",
+        "duration_seconds": 34.71
+      },
+      {
+        "nodeid": "test_format_text_returns_string",
+        "duration_seconds": 34.61
+      },
+      {
+        "nodeid": "test_no_tool_execution",
+        "duration_seconds": 34.6
+      },
+      {
+        "nodeid": "test_format_json_returns_dict",
+        "duration_seconds": 34.53
+      },
+      {
+        "nodeid": "test_audit_record_payload_hash_present",
+        "duration_seconds": 34.52
+      },
+      {
+        "nodeid": "test_run_all_diagnostics_write_report_true_writes_tmp_path",
+        "duration_seconds": 34.47
+      },
+      {
+        "nodeid": "test_run_feishu_summary_diagnostic_send_allowed_false",
+        "duration_seconds": 18.02
+      },
+      {
+        "nodeid": "test_run_feishu_summary_diagnostic_validation_present",
+        "duration_seconds": 13.25
+      },
+      {
+        "nodeid": "test_audit_record_redaction_applied_for_sensitive_payload",
+        "duration_seconds": 13.12
+      },
+      {
+        "nodeid": "test_run_nightly_has_audit_record_event_type_nightly_health_review",
+        "duration_seconds": 13.06
+      },
+      {
+        "nodeid": "test_run_feishu_summary_diagnostic_webhook_required_true",
+        "duration_seconds": 13.04
+      },
+      {
+        "nodeid": "test_run_feishu_summary_diagnostic_no_webhook_call_flag",
+        "duration_seconds": 12.96
+      },
+      {
+        "nodeid": "test_run_feishu_summary_has_audit_record_event_type_feishu_summary_dry_run",
+        "duration_seconds": 12.95
+      },
+      {
+        "nodeid": "test_run_rtcm_has_audit_record",
+        "duration_seconds": 5.09
+      },
+      {
+        "nodeid": "test_run_prompt_has_audit_record",
+        "duration_seconds": 2.82
+      }
+    ]
+  },
+  "remeasure_after": {
+    "slow": {
+      "passed": 106,
+      "deselected": 563,
+      "pytest_runtime_seconds": 6.84,
+      "wall_seconds": 9.0965092
+    },
+    "foundation_fast": {
+      "passed": 204,
+      "deselected": 49,
+      "pytest_runtime_seconds": 11.33,
+      "wall_seconds": 13.6681695
+    },
+    "audit_fast": {
+      "passed": 359,
+      "deselected": 57,
+      "pytest_runtime_seconds": 2.37,
+      "wall_seconds": 4.6760956
+    },
+    "safety": {
+      "passed": 5,
+      "deselected": 664,
+      "pytest_runtime_seconds": 1.07,
+      "wall_seconds": 3.5364314
+    },
+    "collect_only": {
+      "collected": 669,
+      "wall_seconds": 2.8567081
+    }
+  },
+  "performance_delta": {
+    "slow_pytest_delta_seconds": 416.34,
+    "slow_percent_improvement": 98.38,
+    "foundation_fast_pytest_runtime_seconds": 11.33,
+    "audit_fast_pytest_runtime_seconds": 2.37,
+    "safety_pytest_runtime_seconds": 1.07
+  },
+  "synthetic_fixture_schema": {
+    "schema_id": "R241-15E_synthetic_fixture_schema",
+    "generated_at": "2026-04-25T22:56:22.540931+00:00",
+    "fixture_types": [
+      "tmp_path_artifact",
+      "monkeypatch_diagnostic_result",
+      "synthetic_audit_record",
+      "synthetic_scan_summary"
+    ],
+    "required_fields": [
+      "target_test",
+      "original_slow_reason",
+      "replacement_type",
+      "semantic_assertions_preserved",
+      "runtime_write_allowed",
+      "network_allowed"
+    ],
+    "warnings": []
+  },
+  "candidate_classification": {
+    "total_candidates": 18,
+    "replace_with_synthetic_diagnostic": 3,
+    "replace_with_synthetic_projection": 3,
+    "replace_with_tmp_path_artifact": 0,
+    "replace_with_synthetic_scan_fixture": 0,
+    "keep_real_boundary": 12,
+    "classified_candidates": [
+      {
+        "candidate": {
+          "nodeid": "test_run_all_diagnostics_disabled_commands_empty",
+          "duration_seconds": 38.69
+        },
+        "classification": "replace_with_synthetic_diagnostic",
+        "recommended_replacement": "monkeypatch all child diagnostics",
+        "safe_to_replace": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "test_format_markdown_returns_string",
+          "duration_seconds": 34.77
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_all_has_audit_record_event_type_diagnostic_cli_run",
+          "duration_seconds": 34.75
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_all_diagnostics_write_report_false_no_file",
+          "duration_seconds": 34.71
+        },
+        "classification": "replace_with_synthetic_diagnostic",
+        "recommended_replacement": "monkeypatch all child diagnostics",
+        "safe_to_replace": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "test_format_text_returns_string",
+          "duration_seconds": 34.61
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_no_tool_execution",
+          "duration_seconds": 34.6
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_format_json_returns_dict",
+          "duration_seconds": 34.53
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_audit_record_payload_hash_present",
+          "duration_seconds": 34.52
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_all_diagnostics_write_report_true_writes_tmp_path",
+          "duration_seconds": 34.47
+        },
+        "classification": "replace_with_synthetic_diagnostic",
+        "recommended_replacement": "monkeypatch all child diagnostics",
+        "safe_to_replace": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_feishu_summary_diagnostic_send_allowed_false",
+          "duration_seconds": 18.02
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_feishu_summary_diagnostic_validation_present",
+          "duration_seconds": 13.25
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_audit_record_redaction_applied_for_sensitive_payload",
+          "duration_seconds": 13.12
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_nightly_has_audit_record_event_type_nightly_health_review",
+          "duration_seconds": 13.06
+        },
+        "classification": "replace_with_synthetic_projection",
+        "recommended_replacement": "synthetic projection result with audit_record",
+        "safe_to_replace": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_feishu_summary_diagnostic_webhook_required_true",
+          "duration_seconds": 13.04
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_feishu_summary_diagnostic_no_webhook_call_flag",
+          "duration_seconds": 12.96
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_feishu_summary_has_audit_record_event_type_feishu_summary_dry_run",
+          "duration_seconds": 12.95
+        },
+        "classification": "keep_real_boundary",
+        "recommended_replacement": "manual review before replacement",
+        "safe_to_replace": false,
+        "warnings": [
+          "manual_review_required"
+        ]
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_rtcm_has_audit_record",
+          "duration_seconds": 5.09
+        },
+        "classification": "replace_with_synthetic_projection",
+        "recommended_replacement": "synthetic projection result with audit_record",
+        "safe_to_replace": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "test_run_prompt_has_audit_record",
+          "duration_seconds": 2.82
+        },
+        "classification": "replace_with_synthetic_projection",
+        "recommended_replacement": "synthetic projection result with audit_record",
+        "safe_to_replace": true,
+        "warnings": []
+      }
+    ]
+  },
+  "applied_replacements": [
+    {
+      "file": "backend/app/foundation/test_read_only_diagnostics_cli.py",
+      "tests": [
+        "test_run_all_diagnostics_disabled_commands_empty",
+        "test_run_all_diagnostics_write_report_false_no_file",
+        "test_run_all_diagnostics_write_report_true_writes_tmp_path",
+        "test_format_json_returns_dict",
+        "test_format_markdown_returns_string",
+        "test_format_text_returns_string",
+        "test_no_tool_execution",
+        "test_run_memory_has_audit_record",
+        "test_run_asset_has_audit_record",
+        "test_run_prompt_has_audit_record",
+        "test_run_rtcm_has_audit_record",
+        "test_run_nightly_has_audit_record_event_type_nightly_health_review",
+        "test_run_feishu_summary_has_audit_record_event_type_feishu_summary_dry_run",
+        "test_run_all_has_audit_record_event_type_diagnostic_cli_run",
+        "test_audit_record_payload_hash_present",
+        "test_audit_record_redaction_applied_for_sensitive_payload",
+        "test_run_feishu_summary_diagnostic_send_allowed_false",
+        "test_run_feishu_summary_diagnostic_webhook_required_true",
+        "test_run_feishu_summary_diagnostic_no_webhook_call_flag",
+        "test_run_feishu_summary_diagnostic_validation_present"
+      ],
+      "replacement": "monkeypatch synthetic diagnostic results with real audit_record helper",
+      "preserved_semantics": [
+        "command status aggregation",
+        "report_path write to tmp_path",
+        "format json/markdown/text contract",
+        "audit_record event_type and payload_hash assertions",
+        "Feishu projection safety flags"
+      ]
+    }
+  ],
+  "preserved_coverage": [
+    "audit_record generation still uses add_audit_record_to_diagnostic_result",
+    "formatters still operate on DiagnosticRunResult-like structures",
+    "write_report tests still write only tmp_path files",
+    "Feishu safety flags remain asserted",
+    "no_network/no_runtime_write/no_secret safety suite remains unchanged"
+  ],
+  "remeasure_commands": [
+    "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+    "python -m pytest backend/app/foundation -m \"not slow\" -v",
+    "python -m pytest backend/app/audit -m \"not slow\" -v",
+    "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v"
+  ],
+  "safety_constraints": {
+    "delete_tests": false,
+    "skip_safety_tests": false,
+    "xfail_safety_tests": false,
+    "runtime_write": false,
+    "audit_jsonl_write": false,
+    "network_call": false,
+    "webhook_call": false,
+    "auto_fix": false,
+    "safety_coverage_reduced": false
+  },
+  "warnings": [],
+  "errors": [],
+  "validation": {
+    "validated_at": "2026-04-25T22:56:22.540968+00:00",
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  }
+}

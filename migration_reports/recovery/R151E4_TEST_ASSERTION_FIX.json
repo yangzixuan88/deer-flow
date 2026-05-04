@@ -1,0 +1,254 @@
+{
+  "phase": "R151E4",
+  "title": "EXECUTOR_ADAPTER_AND_PROGRESSIVE_ERROR_CHAIN_FIX",
+  "status": "tests_actually_run",
+  "preceded_by": "R151E3",
+  "proceeding_to": "R151F_ASSERTION_FIX",
+  "lane_0_pressure": "H",
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "m01_m04_m11_untracked_preserved": true,
+    "no_git_clean_performed": true,
+    "no_git_reset_performed": true,
+    "safe_to_continue": true
+  },
+  "lane_2_fixes_applied": [
+    {
+      "file": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "action": "Changed dynamic import to require() with try/catch for midscene module",
+      "line": 125
+    },
+    {
+      "file": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "action": "Removed OPENCLI conditional check - simplified to ExecutorType.MIDSCENE directly",
+      "lines": "408,500"
+    },
+    {
+      "file": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "action": "Changed private taskQueue.length access to public getQueueLength() method",
+      "line": 2586
+    },
+    {
+      "file": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "action": "Changed VerificationResult conditional type to 'any' for deskObserved",
+      "line": 2894
+    },
+    {
+      "file": "backend/src/domain/m11/strategy_learner.ts",
+      "action": "Changed selectBestExecutor return type from ExecutorType to ExecutorSuccessStats",
+      "lines": "349-360"
+    },
+    {
+      "file": "backend/src/domain/m11/strategy_learner.ts",
+      "action": "Updated describePreferenceShift parameters from ExecutorType to ExecutorSuccessStats",
+      "lines": "362-369"
+    },
+    {
+      "file": "backend/src/domain/m11/strategy_learner.ts",
+      "action": "Fixed bestExecutor !== defaultExecutor to bestExecutor.executor !== defaultExecutor",
+      "line": 194
+    },
+    {
+      "file": "backend/src/domain/m11/strategy_learner.ts",
+      "action": "Added ?? null to Array.find result for undefined handling",
+      "line": 195
+    },
+    {
+      "file": "backend/src/domain/m11/world_model_round11.ts",
+      "action": "Cast prevEntity[key] and entity[key] with 'as any' for dynamic key access",
+      "lines": "326-327"
+    },
+    {
+      "file": "backend/src/domain/m11/world_model_round11.ts",
+      "action": "Added 'as string' cast to currEntities.has(id)",
+      "line": 338
+    },
+    {
+      "file": "backend/src/domain/m11/world_model_round11.ts",
+      "action": "Added 'as WorldEntity' cast for removed entities",
+      "line": 339
+    },
+    {
+      "file": "backend/src/domain/m11/world_model_round11.ts",
+      "action": "Added ?? '' for e.label in goal_linked_entities map",
+      "line": 346
+    },
+    {
+      "file": "backend/src/domain/m11/world_model_round11.ts",
+      "action": "Added if (!expected) continue guard in expectedIds iteration",
+      "line": 349
+    },
+    {
+      "file": "backend/src/domain/m11/world_model_round11.ts",
+      "action": "Added filter (s): s is string => !!s and as string[] cast for goalGap",
+      "line": 361
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_governance_round12.ts",
+      "action": "Added logTaskFrozen() public method to SovereigntyGovernance",
+      "lines": "584-592"
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_governance_round12.ts",
+      "action": "Changed this.governance.log() to this.governance.logTaskFrozen() in userVeto",
+      "line": 1001
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_runtime_round13.ts",
+      "action": "Same private log fix - changed to logTaskFrozen()",
+      "line": 751
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_durable_round14.ts",
+      "action": "Removed active_shadows from createEmptyState governance/evolution",
+      "lines": "203,293-294"
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_durable_round14.ts",
+      "action": "Used Object.assign with governance/evolution destructuring in save()",
+      "lines": "230-231"
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_durable_round14.ts",
+      "action": "Return this.state as unknown as DurableRuntimeState in getState()",
+      "line": 241
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_durable_round14.ts",
+      "action": "Added ?? 'unknown' for gateResult.reason in logAudit",
+      "line": 512
+    },
+    {
+      "file": "backend/src/domain/m11/autonomous_durable_round14.ts",
+      "action": "Removed explicit DurableRuntimeState type annotation from snapshot",
+      "line": 271
+    },
+    {
+      "file": "backend/src/domain/m11/mission_evaluation_round15.ts",
+      "action": "Restructured log() calls to pass single object parameter",
+      "lines": "814,829,908"
+    },
+    {
+      "file": "backend/src/domain/m11/strategic_management_round16.ts",
+      "action": "Moved TaskPriority import from mission_evaluation_round15 to autonomous_governance_round12",
+      "lines": "8-17"
+    },
+    {
+      "file": "backend/src/domain/m11/strategic_management_round16.ts",
+      "action": "Removed redundant private log call after addMemory",
+      "lines": "1123-1127"
+    },
+    {
+      "file": "backend/src/domain/m11/meta_governance_round17.ts",
+      "action": "Changed action parameter type from string to full union literal type (OutcomeLogger)",
+      "line": 187
+    },
+    {
+      "file": "backend/src/domain/m11/meta_governance_round17.ts",
+      "action": "Changed action parameter type from string to full union literal type (ExecutiveDecisionLogger)",
+      "line": 485
+    },
+    {
+      "file": "backend/src/domain/m11/meta_governance_round17.ts",
+      "action": "Changed action parameter type from string to full union literal type (ConstitutionalRuleLogger)",
+      "line": 898
+    },
+    {
+      "file": "backend/src/domain/m11/cognition_doctrine_round19.ts",
+      "action": "Added getNormById() public method to NormDoctrinePropagationLayer",
+      "lines": "631-633"
+    },
+    {
+      "file": "backend/src/domain/m11/cognition_doctrine_round19.ts",
+      "action": "Changed this.norm.norms.get() to this.norm.getNormById()",
+      "line": 855
+    },
+    {
+      "file": "backend/src/domain/m11/cognition_doctrine_round19.ts",
+      "action": "Added getDoctrineById() public method to LongHorizonDoctrineLayer",
+      "lines": "799-801"
+    },
+    {
+      "file": "backend/src/domain/m11/cognition_doctrine_round19.ts",
+      "action": "Changed this.doctrine.doctrines.values() to getDoctrinesByStatus('active')",
+      "line": 899
+    }
+  ],
+  "lane_3_smoke_result": {
+    "command": "NODE_OPTIONS='--experimental-vm-modules' node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+    "exit_code": 1,
+    "tests_actually_run": true,
+    "test_results": {
+      "M01_IntentClassifier": "5/6 passed",
+      "M01_DAGPlanner": "6/6 passed",
+      "M01_Orchestrator": "2/4 passed"
+    },
+    "remaining_test_failures": [
+      {
+        "test": "should detect search intent",
+        "expected": "search",
+        "received": "visual_web",
+        "type": "assertion_logic"
+      },
+      {
+        "test": "should route simple query to direct answer",
+        "type": "assertion_logic"
+      },
+      {
+        "test": "should route complex task to orchestration",
+        "type": "assertion_logic"
+      }
+    ],
+    "typescript_errors": 0
+  },
+  "lane_4_progressive_error_exposure": {
+    "pattern": "Each fix exposed deeper type errors in dependent modules",
+    "chain": "executor_adapter -> strategy_learner -> world_model -> governance -> runtime -> durable -> mission_evaluation -> strategic_management -> meta_governance -> cognition_doctrine -> TESTS_RUN"
+  },
+  "lane_5_safety_boundary": {
+    "dependency_installed": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "safety_violations": [],
+    "m01_m04_m11_untracked_preserved": true
+  },
+  "lane_6_key_patterns": {
+    "dynamic_import_to_require": "executor_adapter.ts midscene check",
+    "private_to_public_getter": "taskQueue.length -> getQueueLength(), norms.get() -> getNormById()",
+    "as_any_for_dynamic_key_access": "world_model_round11.ts entity key indexing",
+    "union_literal_type_narrowing": "meta_governance_round17.ts logAction parameter types",
+    "private_log_to_public_method": "SovereigntyGovernance.log -> logTaskFrozen()",
+    "class_interface_name_collision": "DurableRuntimeState class vs interface - solved with as unknown as X",
+    "object_param_restructuring": "mission_evaluation_round15.ts log() calls"
+  },
+  "lane_7_next_phase": {
+    "recommended_next_phase": "R151F_ASSERTION_FIX",
+    "reason": "tests_actually_run=true achieved. Remaining 3 failures are assertion logic issues (intent classifier routing, orchestrator routing), not TypeScript compilation errors."
+  },
+  "classification": "tests_actually_run",
+  "files_modified": [
+    "backend/src/domain/m11/adapters/executor_adapter.ts",
+    "backend/src/domain/m11/strategy_learner.ts",
+    "backend/src/domain/m11/world_model_round11.ts",
+    "backend/src/domain/m11/autonomous_governance_round12.ts",
+    "backend/src/domain/m11/autonomous_runtime_round13.ts",
+    "backend/src/domain/m11/autonomous_durable_round14.ts",
+    "backend/src/domain/m11/mission_evaluation_round15.ts",
+    "backend/src/domain/m11/strategic_management_round16.ts",
+    "backend/src/domain/m11/meta_governance_round17.ts",
+    "backend/src/domain/m11/cognition_doctrine_round19.ts"
+  ],
+  "code_modified": true,
+  "dependency_installed": false,
+  "env_modified": false,
+  "tests_actually_run": true,
+  "errors_fixed_this_phase": "22+",
+  "errors_remaining_ts": 0,
+  "errors_remaining_assertion": 3,
+  "recommended_next_phase": "R151F_ASSERTION_FIX"
+}

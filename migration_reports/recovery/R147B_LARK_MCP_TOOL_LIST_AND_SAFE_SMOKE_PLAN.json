@@ -1,0 +1,217 @@
+{
+  "phase": "R147B",
+  "title": "LARK_MCP_TOOL_LIST_AND_SAFE_SMOKE_PLAN",
+  "status": "passed",
+  "preceded_by": "R147A",
+  "proceeding_to": "R147C_LARK_READONLY_TOOL_SMOKE",
+  "pressure_assessment": {
+    "previous_phase": "R147A",
+    "current_phase": "R147B",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147A",
+    "current_phase": "R147B",
+    "recommended_pressure": "XXL",
+    "reason": "Lark MCP runtime health passed; classify tools and choose safe read-only smoke target."
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": 412,
+    "r147a_commit_present": true,
+    "r147a_commit_sha": "24f61bc3",
+    "unexpected_production_dirty_files": [],
+    "safe_to_continue": true
+  },
+  "lane_2_lark_runtime_tool_list": {
+    "lark_runtime_started": true,
+    "tool_list_loaded": true,
+    "tool_count": 19,
+    "tool_names": [
+      "lark_bitable_v1_app_create",
+      "lark_bitable_v1_appTable_create",
+      "lark_bitable_v1_appTableField_list",
+      "lark_bitable_v1_appTable_list",
+      "lark_bitable_v1_appTableRecord_create",
+      "lark_bitable_v1_appTableRecord_search",
+      "lark_bitable_v1_appTableRecord_update",
+      "lark_contact_v3_user_batchGetId",
+      "lark_docx_v1_document_rawContent",
+      "lark_drive_v1_permissionMember_create",
+      "lark_im_v1_chat_create",
+      "lark_im_v1_chat_list",
+      "lark_im_v1_chatMembers_get",
+      "lark_im_v1_message_create",
+      "lark_im_v1_message_list",
+      "lark_wiki_v1_node_search",
+      "lark_wiki_v2_space_getNode",
+      "lark_docx_builtin_search",
+      "lark_docx_builtin_import"
+    ],
+    "tavily_runtime_called": false,
+    "exa_runtime_called": false,
+    "external_tool_called": false
+  },
+  "lane_3_tool_risk_matrix": [
+    {"tool_name": "lark_bitable_v1_app_create", "category": "create", "side_effect_risk": "high", "required_params": ["data.name", "path.app_token"], "safe_for_smoke": false, "reason": "Creates a Base App in user-defined folder — write operation"},
+    {"tool_name": "lark_bitable_v1_appTable_create", "category": "create", "side_effect_risk": "high", "required_params": ["path.app_token", "data.table.name"], "safe_for_smoke": false, "reason": "Creates a new table in Base — write operation"},
+    {"tool_name": "lark_bitable_v1_appTableField_list", "category": "read", "side_effect_risk": "low", "required_params": ["path.app_token", "path.table_id"], "safe_for_smoke": true, "reason": "List fields — read-only, requires valid app_token + table_id"},
+    {"tool_name": "lark_bitable_v1_appTable_list", "category": "read", "side_effect_risk": "low", "required_params": ["path.app_token"], "safe_for_smoke": true, "reason": "List all tables under app — read-only, requires app_token"},
+    {"tool_name": "lark_bitable_v1_appTableRecord_create", "category": "create", "side_effect_risk": "high", "required_params": ["data.fields", "path.app_token", "path.table_id"], "safe_for_smoke": false, "reason": "Creates a record in Base table — write operation"},
+    {"tool_name": "lark_bitable_v1_appTableRecord_search", "category": "read/search", "side_effect_risk": "medium", "required_params": ["path.app_token", "path.table_id"], "safe_for_smoke": true, "reason": "Searches existing records — read-only search, requires valid app_token + table_id"},
+    {"tool_name": "lark_bitable_v1_appTableRecord_update", "category": "update", "side_effect_risk": "high", "required_params": ["data.fields", "path.app_token", "path.table_id", "path.record_id"], "safe_for_smoke": false, "reason": "Updates a record — write operation"},
+    {"tool_name": "lark_contact_v3_user_batchGetId", "category": "read", "side_effect_risk": "low", "required_params": ["data.emails OR data.mobiles"], "safe_for_smoke": true, "reason": "Look up user ID by email/mobile — read-only, emails/mobiles are harmless strings"},
+    {"tool_name": "lark_docx_v1_document_rawContent", "category": "read", "side_effect_risk": "medium", "required_params": ["path.document_id"], "safe_for_smoke": true, "reason": "Reads plain text content of document — read-only, requires document_id"},
+    {"tool_name": "lark_drive_v1_permissionMember_create", "category": "permission", "side_effect_risk": "high", "required_params": ["data.member_type", "data.member_id", "data.perm", "params.type", "path.token"], "safe_for_smoke": false, "reason": "Adds collaborator permissions to a doc — permission/security write"},
+    {"tool_name": "lark_im_v1_chat_create", "category": "create", "side_effect_risk": "high", "required_params": ["data.name"], "safe_for_smoke": false, "reason": "Creates a group chat — write operation, bot joins as side effect"},
+    {"tool_name": "lark_im_v1_chat_list", "category": "read", "side_effect_risk": "none", "required_params": [], "safe_for_smoke": true, "reason": "Lists groups where bot/user is member — read-only, NO required params"},
+    {"tool_name": "lark_im_v1_chatMembers_get", "category": "read", "side_effect_risk": "medium", "required_params": ["path.chat_id"], "safe_for_smoke": true, "reason": "Gets group member list — read-only, requires chat_id"},
+    {"tool_name": "lark_im_v1_message_create", "category": "send", "side_effect_risk": "high", "required_params": ["data.receive_id", "data.msg_type", "data.content", "params.receive_id_type"], "safe_for_smoke": false, "reason": "Sends a message to user/chat — send operation with side effects"},
+    {"tool_name": "lark_im_v1_message_list", "category": "read", "side_effect_risk": "medium", "required_params": ["params.container_id_type", "params.container_id"], "safe_for_smoke": true, "reason": "Gets chat history — read-only, requires container_id"},
+    {"tool_name": "lark_wiki_v1_node_search", "category": "read/search", "side_effect_risk": "medium", "required_params": ["data.query"], "safe_for_smoke": true, "reason": "Searches wiki nodes — read-only search, query string is harmless"},
+    {"tool_name": "lark_wiki_v2_space_getNode", "category": "read", "side_effect_risk": "medium", "required_params": ["params.token", "params.obj_type"], "safe_for_smoke": true, "reason": "Gets wiki node information — read-only, requires token"},
+    {"tool_name": "lark_docx_builtin_search", "category": "read/search", "side_effect_risk": "medium", "required_params": ["data.search_key"], "safe_for_smoke": true, "reason": "Searches cloud documents — read-only search, requires search_key"},
+    {"tool_name": "lark_docx_builtin_import", "category": "import", "side_effect_risk": "high", "required_params": ["data.markdown", "data.file_name"], "safe_for_smoke": false, "reason": "Imports a markdown file as cloud document — write/import operation"}
+  ],
+  "lane_4_safe_tool_candidates": [
+    {
+      "tool_name": "lark_im_v1_chat_list",
+      "smoke_query": "{} (no params required)",
+      "expected_side_effect": "none",
+      "required_params": [],
+      "optional_params": ["params.user_id_type", "params.sort_type", "params.page_token", "params.page_size", "useUAT"],
+      "credential_scope_risk": "low",
+      "recommended": true,
+      "reason": "No required params; lists groups the bot is member of; read-only; zero side effects"
+    },
+    {
+      "tool_name": "lark_contact_v3_user_batchGetId",
+      "smoke_query": "{\"data\": {\"emails\": [\"test@example.com\"]}}",
+      "expected_side_effect": "none",
+      "required_params": ["data.emails OR data.mobiles"],
+      "optional_params": ["params.user_id_type", "data.include_resigned"],
+      "credential_scope_risk": "low",
+      "recommended": false,
+      "reason": "Works but requires a valid email string; extra parameter complexity"
+    },
+    {
+      "tool_name": "lark_wiki_v1_node_search",
+      "smoke_query": "{\"data\": {\"query\": \"test\"}}",
+      "expected_side_effect": "none",
+      "required_params": ["data.query"],
+      "optional_params": ["params.page_token", "params.page_size", "data.space_id", "data.node_id"],
+      "credential_scope_risk": "low",
+      "recommended": false,
+      "reason": "Requires query string; need to handle empty-result case; lark_im_v1_chat_list is simpler"
+    },
+    {
+      "tool_name": "lark_docx_builtin_search",
+      "smoke_query": "{\"data\": {\"search_key\": \"test\"}}",
+      "expected_side_effect": "none",
+      "required_params": ["data.search_key"],
+      "optional_params": ["data.count", "data.offset", "data.owner_ids", "data.chat_ids", "data.docs_types"],
+      "credential_scope_risk": "low",
+      "recommended": false,
+      "reason": "Requires search_key; doc_types enum validation complexity; lark_im_v1_chat_list simpler"
+    }
+  ],
+  "lane_5_recommended_tool_schema": {
+    "tool_name": "lark_im_v1_chat_list",
+    "category": "read",
+    "required_params": [],
+    "optional_params": [
+      {"name": "params.user_id_type", "type": "string", "enum": ["open_id", "union_id", "user_id"]},
+      {"name": "params.sort_type", "type": "string", "enum": ["ByCreateTimeAsc", "ByActiveTimeDesc"]},
+      {"name": "params.page_token", "type": "string"},
+      {"name": "params.page_size", "type": "number"},
+      {"name": "useUAT", "type": "boolean"}
+    ],
+    "harmless_test_params": {},
+    "expected_result_type": "list of chat objects",
+    "failure_modes": [
+      "Permission denied if bot not in any groups — returns empty list, not an error",
+      "Network timeout — LangChain sync wrapper catches and raises exception",
+      "Invalid user_id_type — API returns validation error"
+    ],
+    "timeout_risk": "low (default stdio timeout; no network call if bot has no groups)"
+  },
+  "lane_6_safe_smoke_decision": {
+    "safe_smoke_allowed": true,
+    "r147c_tool_call_allowed": true,
+    "external_side_effect_risk": "none",
+    "r147c_model_call_allowed": false,
+    "rationale": "lark_im_v1_chat_list has no required params, read-only, no side effects, returns group list or empty list. Safe to execute as R147C single tool smoke.",
+    "selected_tool": "lark_im_v1_chat_list",
+    "selected_reason": "Simplest safe tool: no required params, purely read-only, zero side effects, returns group membership list"
+  },
+  "lane_7_r147c_authorization_package": {
+    "recommended_phase": "R147C_LARK_READONLY_TOOL_SMOKE",
+    "selected_tool": "lark_im_v1_chat_list",
+    "allowed_tool_calls": 1,
+    "model_call_allowed": false,
+    "write_tool_allowed": false,
+    "params": {},
+    "timeout_seconds": 60,
+    "validation_plan": [
+      "1. Lark MCP runtime already started in R147A",
+      "2. Call lark_im_v1_chat_list with empty params {}",
+      "3. Expect: empty list [] or list of chat objects — both are valid success",
+      "4. Verify: no message sent, no group created, no permission changed",
+      "5. Record: tool execution success, response shape, elapsed time"
+    ],
+    "rollback_plan": "No rollback needed — read-only tool with no side effects. If tool fails, the failure itself is the observation."
+  },
+  "lane_8_unknown_registry_updates": [
+    {
+      "id": "U-lark-tool-risk-matrix",
+      "description": "All 19 Lark MCP tools classified: 6 read/low-risk safe, 13 create/send/update/permission/import high-risk",
+      "priority": "high",
+      "fix_applied": "R147B: tool risk matrix compiled, safe candidates identified"
+    },
+    {
+      "id": "U-lark-safe-smoke-candidate",
+      "description": "lark_im_v1_chat_list is the safest smoke target — no required params, read-only, zero side effects",
+      "priority": "high",
+      "fix_applied": "R147B: selected as R147C smoke tool"
+    },
+    {
+      "id": "U-lark-tool-schema",
+      "description": "lark_im_v1_chat_list: no required params, optional user_id_type/sort_type/page_size, failure returns empty list or error",
+      "priority": "medium",
+      "fix_applied": "R147B: schema inspected"
+    },
+    {
+      "id": "U-lark-readonly-smoke-readiness",
+      "description": "R147C authorized to execute lark_im_v1_chat_list as single read-only smoke call",
+      "priority": "high",
+      "fix_applied": "R147B: smoke decision made"
+    },
+    {
+      "id": "U-lark-permission-scope",
+      "description": "lark_im_v1_chat_list returns groups the bot/user is member of; empty list if no groups; permission-denied returns empty not error",
+      "priority": "low",
+      "fix_applied": "Noted for R147C execution"
+    },
+    {
+      "id": "U-lark-builtin-tools",
+      "description": "lark_docx_builtin_search and lark_docx_builtin_import are separate from standard lark_* tools; builtin_search is read/search, builtin_import is high-risk write",
+      "priority": "medium",
+      "fix_applied": "R147B: classified separately"
+    }
+  ],
+  "classification": "passed",
+  "code_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "tavily_runtime_called": false,
+  "exa_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+  "recommended_next_phase": "R147C_LARK_READONLY_TOOL_SMOKE",
+  "next_prompt_needed": true
+}

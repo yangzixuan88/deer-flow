@@ -1,0 +1,1034 @@
+{
+  "sample_valid_like_validate_only": {
+    "cli_result_id": "presend_cli_1f13b5594780",
+    "generated_at": "2026-04-25T07:56:40.997931+00:00",
+    "command": "audit-trend-feishu-presend",
+    "mode": "validate_only",
+    "status": "partial_warning",
+    "valid": true,
+    "window": "all_available",
+    "output_format": "json",
+    "confirmation_phrase_provided": true,
+    "webhook_ref_provided": true,
+    "payload_id": null,
+    "source_trend_report_id": null,
+    "presend_validation": {
+      "validation_id": "presend_validation_e863569bf02b",
+      "generated_at": "2026-04-25T07:56:41.017006+00:00",
+      "status": "partial_warning",
+      "valid": true,
+      "payload_id": "feishu_trend_payload_cb77ef1e5323",
+      "source_trend_report_id": null,
+      "confirmation_phrase_provided": true,
+      "confirmation_phrase_valid": true,
+      "webhook_reference_valid": true,
+      "payload_validation_valid": true,
+      "output_safety_valid": true,
+      "guard_valid": true,
+      "audit_precondition_valid": true,
+      "payload_age_valid": true,
+      "checks": [
+        {
+          "check_type": "policy_design",
+          "check_result": {
+            "passed": true,
+            "policy_valid": true,
+            "evidence_refs": [
+              "policy_design_id=feishu_manual_send_policy_design_27552c232db7"
+            ]
+          }
+        },
+        {
+          "check_type": "payload_projection",
+          "check_result": {
+            "check_id": "presend_check_3937410e569b",
+            "check_type": "payload_projection",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload projection is valid for pre-send review",
+            "evidence_refs": [
+              "payload_id=feishu_trend_payload_cb77ef1e5323",
+              "validation_valid=True"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016759+00:00"
+          }
+        },
+        {
+          "check_type": "confirmation_phrase",
+          "check_result": {
+            "check_id": "presend_check_0f395d95c61d",
+            "check_type": "confirmation_phrase",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Confirmation phrase valid",
+            "evidence_refs": [
+              "confirmation_phrase_matches"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016798+00:00"
+          }
+        },
+        {
+          "check_type": "webhook_reference",
+          "check_result": {
+            "check_id": "presend_check_d68dac57cd30",
+            "check_type": "webhook_reference",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Webhook reference format valid",
+            "evidence_refs": [
+              "type=environment_variable_reference",
+              "name=FEISHU_WEBHOOK_URL",
+              "ref=env:FEISHU_WEBHOOK_URL"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016834+00:00"
+          }
+        },
+        {
+          "check_type": "output_safety",
+          "check_result": {
+            "check_id": "presend_check_ad480f9c2152",
+            "check_type": "output_safety",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "No preview output to validate (dry-run design validation)",
+            "evidence_refs": [],
+            "blocked_reasons": [],
+            "warnings": [
+              "no_preview_output_provided"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016851+00:00"
+          }
+        },
+        {
+          "check_type": "guard_state",
+          "check_result": {
+            "check_id": "presend_check_ba0de62349e5",
+            "check_type": "guard_state",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Guard state is valid for pre-send review",
+            "evidence_refs": [
+              "audit_jsonl_unchanged=True",
+              "sensitive_output_detected=False",
+              "network_call_detected=False",
+              "runtime_write_detected=False",
+              "auto_fix_detected=False"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016869+00:00"
+          }
+        },
+        {
+          "check_type": "audit_requirement",
+          "check_result": {
+            "check_id": "presend_check_be687e4f86ed",
+            "check_type": "audit_requirement",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+            "evidence_refs": [
+              "payload_hash=a3286fbdff33da5d",
+              "event_type=feishu_trend_manual_send_attempt",
+              "audit_projection_generated_design_only",
+              "no_audit_jsonl_written"
+            ],
+            "blocked_reasons": [],
+            "warnings": [
+              "audit_projection_design_only_no_jsonl_written"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016959+00:00"
+          }
+        },
+        {
+          "check_type": "payload_age",
+          "check_result": {
+            "check_id": "presend_check_30f95a656c24",
+            "check_type": "payload_age",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload age valid (0.0 min < 60 min)",
+            "evidence_refs": [
+              "generated_at=2026-04-25T07:56:41.014987+00:00",
+              "age_minutes=0.0",
+              "max_age_minutes=60"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.016987+00:00"
+          }
+        }
+      ],
+      "blocked_reasons": [],
+      "warnings": [
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": []
+    },
+    "payload_projection_summary": null,
+    "preview_summary": null,
+    "blocked_reasons": [],
+    "warnings": [
+      "artifact_bundle_not_provided",
+      "audit_jsonl_missing:tool_runtime_projections.jsonl",
+      "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+      "payload_projection_fallback_to_design_only",
+      "no_preview_output_provided",
+      "audit_projection_design_only_no_jsonl_written"
+    ],
+    "errors": []
+  },
+  "sample_missing_confirmation": {
+    "cli_result_id": "presend_cli_c7493edaf52a",
+    "generated_at": "2026-04-25T07:56:41.017075+00:00",
+    "command": "audit-trend-feishu-presend",
+    "mode": "validate_only",
+    "status": "blocked",
+    "valid": false,
+    "window": "all_available",
+    "output_format": "json",
+    "confirmation_phrase_provided": false,
+    "webhook_ref_provided": false,
+    "payload_id": null,
+    "source_trend_report_id": null,
+    "presend_validation": {
+      "validation_id": "presend_validation_bedbb411cac0",
+      "generated_at": "2026-04-25T07:56:41.035576+00:00",
+      "status": "blocked",
+      "valid": false,
+      "payload_id": "feishu_trend_payload_e699f2a84971",
+      "source_trend_report_id": null,
+      "confirmation_phrase_provided": false,
+      "confirmation_phrase_valid": false,
+      "webhook_reference_valid": true,
+      "payload_validation_valid": true,
+      "output_safety_valid": true,
+      "guard_valid": true,
+      "audit_precondition_valid": true,
+      "payload_age_valid": true,
+      "checks": [
+        {
+          "check_type": "policy_design",
+          "check_result": {
+            "passed": true,
+            "policy_valid": true,
+            "evidence_refs": [
+              "policy_design_id=feishu_manual_send_policy_design_0aea0132630b"
+            ]
+          }
+        },
+        {
+          "check_type": "payload_projection",
+          "check_result": {
+            "check_id": "presend_check_d2a4748a05bd",
+            "check_type": "payload_projection",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload projection is valid for pre-send review",
+            "evidence_refs": [
+              "payload_id=feishu_trend_payload_e699f2a84971",
+              "validation_valid=True"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.035354+00:00"
+          }
+        },
+        {
+          "check_type": "confirmation_phrase",
+          "check_result": {
+            "check_id": "presend_check_22e6438e751a",
+            "check_type": "confirmation_phrase",
+            "status": "blocked",
+            "passed": false,
+            "risk_level": "critical",
+            "message": "Confirmation phrase not provided",
+            "evidence_refs": [],
+            "blocked_reasons": [
+              "confirmation_phrase_missing"
+            ],
+            "warnings": [],
+            "errors": [
+              "confirmation_phrase_required"
+            ],
+            "checked_at": "2026-04-25T07:56:41.035392+00:00"
+          }
+        },
+        {
+          "check_type": "webhook_reference",
+          "check_result": {
+            "check_id": "presend_check_0c8cb8a4d640",
+            "check_type": "webhook_reference",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "No webhook reference provided (dry-run design validation mode)",
+            "evidence_refs": [],
+            "blocked_reasons": [],
+            "warnings": [
+              "no_webhook_ref_dry_run_mode"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.035427+00:00"
+          }
+        },
+        {
+          "check_type": "output_safety",
+          "check_result": {
+            "check_id": "presend_check_951c32bc8915",
+            "check_type": "output_safety",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "No preview output to validate (dry-run design validation)",
+            "evidence_refs": [],
+            "blocked_reasons": [],
+            "warnings": [
+              "no_preview_output_provided"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.035443+00:00"
+          }
+        },
+        {
+          "check_type": "guard_state",
+          "check_result": {
+            "check_id": "presend_check_79bf1d3cff9e",
+            "check_type": "guard_state",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Guard state is valid for pre-send review",
+            "evidence_refs": [
+              "audit_jsonl_unchanged=True",
+              "sensitive_output_detected=False",
+              "network_call_detected=False",
+              "runtime_write_detected=False",
+              "auto_fix_detected=False"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.035461+00:00"
+          }
+        },
+        {
+          "check_type": "audit_requirement",
+          "check_result": {
+            "check_id": "presend_check_f54ab861172d",
+            "check_type": "audit_requirement",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+            "evidence_refs": [
+              "payload_hash=a0421dd5e7ecd13c",
+              "event_type=feishu_trend_manual_send_attempt",
+              "audit_projection_generated_design_only",
+              "no_audit_jsonl_written"
+            ],
+            "blocked_reasons": [],
+            "warnings": [
+              "audit_projection_design_only_no_jsonl_written"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.035528+00:00"
+          }
+        },
+        {
+          "check_type": "payload_age",
+          "check_result": {
+            "check_id": "presend_check_3ae62bae3d90",
+            "check_type": "payload_age",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload age valid (0.0 min < 60 min)",
+            "evidence_refs": [
+              "generated_at=2026-04-25T07:56:41.033514+00:00",
+              "age_minutes=0.0",
+              "max_age_minutes=60"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.035556+00:00"
+          }
+        }
+      ],
+      "blocked_reasons": [
+        "confirmation_phrase_missing"
+      ],
+      "warnings": [
+        "no_webhook_ref_dry_run_mode",
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": [
+        "confirmation_phrase_required"
+      ]
+    },
+    "payload_projection_summary": null,
+    "preview_summary": null,
+    "blocked_reasons": [
+      "confirmation_phrase_missing"
+    ],
+    "warnings": [
+      "artifact_bundle_not_provided",
+      "audit_jsonl_missing:tool_runtime_projections.jsonl",
+      "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+      "payload_projection_fallback_to_design_only",
+      "no_webhook_ref_dry_run_mode",
+      "no_preview_output_provided",
+      "audit_projection_design_only_no_jsonl_written"
+    ],
+    "errors": [
+      "confirmation_phrase_required"
+    ]
+  },
+  "sample_inline_webhook_ref_blocked": {
+    "cli_result_id": "presend_cli_ee5371c24331",
+    "generated_at": "2026-04-25T07:56:41.035652+00:00",
+    "command": "audit-trend-feishu-presend",
+    "mode": "validate_only",
+    "status": "blocked",
+    "valid": false,
+    "window": "all_available",
+    "output_format": "json",
+    "confirmation_phrase_provided": true,
+    "webhook_ref_provided": true,
+    "payload_id": null,
+    "source_trend_report_id": null,
+    "presend_validation": {
+      "validation_id": "presend_validation_42befddcf8a0",
+      "generated_at": "2026-04-25T07:56:41.053913+00:00",
+      "status": "blocked",
+      "valid": false,
+      "payload_id": "feishu_trend_payload_4a0599298f80",
+      "source_trend_report_id": null,
+      "confirmation_phrase_provided": true,
+      "confirmation_phrase_valid": true,
+      "webhook_reference_valid": false,
+      "payload_validation_valid": true,
+      "output_safety_valid": true,
+      "guard_valid": true,
+      "audit_precondition_valid": true,
+      "payload_age_valid": true,
+      "checks": [
+        {
+          "check_type": "policy_design",
+          "check_result": {
+            "passed": true,
+            "policy_valid": true,
+            "evidence_refs": [
+              "policy_design_id=feishu_manual_send_policy_design_cc17841256a3"
+            ]
+          }
+        },
+        {
+          "check_type": "payload_projection",
+          "check_result": {
+            "check_id": "presend_check_d0fc2e82aac3",
+            "check_type": "payload_projection",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload projection is valid for pre-send review",
+            "evidence_refs": [
+              "payload_id=feishu_trend_payload_4a0599298f80",
+              "validation_valid=True"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.053704+00:00"
+          }
+        },
+        {
+          "check_type": "confirmation_phrase",
+          "check_result": {
+            "check_id": "presend_check_7c94c3b44d0c",
+            "check_type": "confirmation_phrase",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Confirmation phrase valid",
+            "evidence_refs": [
+              "confirmation_phrase_matches"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.053736+00:00"
+          }
+        },
+        {
+          "check_type": "webhook_reference",
+          "check_result": {
+            "check_id": "presend_check_90610c5ef9a6",
+            "check_type": "webhook_reference",
+            "status": "blocked",
+            "passed": false,
+            "risk_level": "high",
+            "message": "Unknown webhook reference type: forbidden_inline_reference",
+            "evidence_refs": [],
+            "blocked_reasons": [
+              "unknown_webhook_reference_type:forbidden_inline_reference"
+            ],
+            "warnings": [],
+            "errors": [
+              "webhook_reference_type_not_recognized:forbidden_inline_reference"
+            ],
+            "checked_at": "2026-04-25T07:56:41.053769+00:00"
+          }
+        },
+        {
+          "check_type": "output_safety",
+          "check_result": {
+            "check_id": "presend_check_f319da1e6c2c",
+            "check_type": "output_safety",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "No preview output to validate (dry-run design validation)",
+            "evidence_refs": [],
+            "blocked_reasons": [],
+            "warnings": [
+              "no_preview_output_provided"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.053785+00:00"
+          }
+        },
+        {
+          "check_type": "guard_state",
+          "check_result": {
+            "check_id": "presend_check_e1f767a501d6",
+            "check_type": "guard_state",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Guard state is valid for pre-send review",
+            "evidence_refs": [
+              "audit_jsonl_unchanged=True",
+              "sensitive_output_detected=False",
+              "network_call_detected=False",
+              "runtime_write_detected=False",
+              "auto_fix_detected=False"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.053802+00:00"
+          }
+        },
+        {
+          "check_type": "audit_requirement",
+          "check_result": {
+            "check_id": "presend_check_d51fd44cf2e6",
+            "check_type": "audit_requirement",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+            "evidence_refs": [
+              "payload_hash=7817e5e03484e0d0",
+              "event_type=feishu_trend_manual_send_attempt",
+              "audit_projection_generated_design_only",
+              "no_audit_jsonl_written"
+            ],
+            "blocked_reasons": [],
+            "warnings": [
+              "audit_projection_design_only_no_jsonl_written"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.053865+00:00"
+          }
+        },
+        {
+          "check_type": "payload_age",
+          "check_result": {
+            "check_id": "presend_check_d810e478c19b",
+            "check_type": "payload_age",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload age valid (0.0 min < 60 min)",
+            "evidence_refs": [
+              "generated_at=2026-04-25T07:56:41.052048+00:00",
+              "age_minutes=0.0",
+              "max_age_minutes=60"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.053896+00:00"
+          }
+        }
+      ],
+      "blocked_reasons": [
+        "unknown_webhook_reference_type:forbidden_inline_reference"
+      ],
+      "warnings": [
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": [
+        "webhook_reference_type_not_recognized:forbidden_inline_reference"
+      ]
+    },
+    "payload_projection_summary": null,
+    "preview_summary": null,
+    "blocked_reasons": [
+      "unknown_webhook_reference_type:forbidden_inline_reference",
+      "webhook_reference_blocked"
+    ],
+    "warnings": [
+      "inline_webhook_url_blocked",
+      "artifact_bundle_not_provided",
+      "audit_jsonl_missing:tool_runtime_projections.jsonl",
+      "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+      "payload_projection_fallback_to_design_only",
+      "no_preview_output_provided",
+      "audit_projection_design_only_no_jsonl_written"
+    ],
+    "errors": [
+      "webhook_reference_type_not_recognized:forbidden_inline_reference"
+    ]
+  },
+  "sample_env_ref_validate_only": {
+    "cli_result_id": "presend_cli_3d8bbd079c44",
+    "generated_at": "2026-04-25T07:56:41.053982+00:00",
+    "command": "audit-trend-feishu-presend",
+    "mode": "validate_only",
+    "status": "partial_warning",
+    "valid": true,
+    "window": "all_available",
+    "output_format": "json",
+    "confirmation_phrase_provided": true,
+    "webhook_ref_provided": true,
+    "payload_id": null,
+    "source_trend_report_id": null,
+    "presend_validation": {
+      "validation_id": "presend_validation_dc0e46513ec2",
+      "generated_at": "2026-04-25T07:56:41.072160+00:00",
+      "status": "partial_warning",
+      "valid": true,
+      "payload_id": "feishu_trend_payload_2995643b5c91",
+      "source_trend_report_id": null,
+      "confirmation_phrase_provided": true,
+      "confirmation_phrase_valid": true,
+      "webhook_reference_valid": true,
+      "payload_validation_valid": true,
+      "output_safety_valid": true,
+      "guard_valid": true,
+      "audit_precondition_valid": true,
+      "payload_age_valid": true,
+      "checks": [
+        {
+          "check_type": "policy_design",
+          "check_result": {
+            "passed": true,
+            "policy_valid": true,
+            "evidence_refs": [
+              "policy_design_id=feishu_manual_send_policy_design_c452af2ec690"
+            ]
+          }
+        },
+        {
+          "check_type": "payload_projection",
+          "check_result": {
+            "check_id": "presend_check_0d4be8b57d98",
+            "check_type": "payload_projection",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload projection is valid for pre-send review",
+            "evidence_refs": [
+              "payload_id=feishu_trend_payload_2995643b5c91",
+              "validation_valid=True"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.071957+00:00"
+          }
+        },
+        {
+          "check_type": "confirmation_phrase",
+          "check_result": {
+            "check_id": "presend_check_519a48703a65",
+            "check_type": "confirmation_phrase",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Confirmation phrase valid",
+            "evidence_refs": [
+              "confirmation_phrase_matches"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.071990+00:00"
+          }
+        },
+        {
+          "check_type": "webhook_reference",
+          "check_result": {
+            "check_id": "presend_check_224e9d47a015",
+            "check_type": "webhook_reference",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Webhook reference format valid",
+            "evidence_refs": [
+              "type=environment_variable_reference",
+              "name=FEISHU_WEBHOOK_URL",
+              "ref=env:FEISHU_WEBHOOK_URL"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.072024+00:00"
+          }
+        },
+        {
+          "check_type": "output_safety",
+          "check_result": {
+            "check_id": "presend_check_20b58062da5b",
+            "check_type": "output_safety",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "No preview output to validate (dry-run design validation)",
+            "evidence_refs": [],
+            "blocked_reasons": [],
+            "warnings": [
+              "no_preview_output_provided"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.072041+00:00"
+          }
+        },
+        {
+          "check_type": "guard_state",
+          "check_result": {
+            "check_id": "presend_check_78085e15c406",
+            "check_type": "guard_state",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Guard state is valid for pre-send review",
+            "evidence_refs": [
+              "audit_jsonl_unchanged=True",
+              "sensitive_output_detected=False",
+              "network_call_detected=False",
+              "runtime_write_detected=False",
+              "auto_fix_detected=False"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.072057+00:00"
+          }
+        },
+        {
+          "check_type": "audit_requirement",
+          "check_result": {
+            "check_id": "presend_check_5750281145d4",
+            "check_type": "audit_requirement",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+            "evidence_refs": [
+              "payload_hash=f345be490455816a",
+              "event_type=feishu_trend_manual_send_attempt",
+              "audit_projection_generated_design_only",
+              "no_audit_jsonl_written"
+            ],
+            "blocked_reasons": [],
+            "warnings": [
+              "audit_projection_design_only_no_jsonl_written"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.072120+00:00"
+          }
+        },
+        {
+          "check_type": "payload_age",
+          "check_result": {
+            "check_id": "presend_check_ec15e7896b8d",
+            "check_type": "payload_age",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload age valid (0.0 min < 60 min)",
+            "evidence_refs": [
+              "generated_at=2026-04-25T07:56:41.070256+00:00",
+              "age_minutes=0.0",
+              "max_age_minutes=60"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.072146+00:00"
+          }
+        }
+      ],
+      "blocked_reasons": [],
+      "warnings": [
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": []
+    },
+    "payload_projection_summary": null,
+    "preview_summary": null,
+    "blocked_reasons": [],
+    "warnings": [
+      "artifact_bundle_not_provided",
+      "audit_jsonl_missing:tool_runtime_projections.jsonl",
+      "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+      "payload_projection_fallback_to_design_only",
+      "no_preview_output_provided",
+      "audit_projection_design_only_no_jsonl_written"
+    ],
+    "errors": []
+  },
+  "sample_secret_manager_ref_validate_only": {
+    "cli_result_id": "presend_cli_cb0063928c2d",
+    "generated_at": "2026-04-25T07:56:41.072228+00:00",
+    "command": "audit-trend-feishu-presend",
+    "mode": "validate_only",
+    "status": "partial_warning",
+    "valid": true,
+    "window": "all_available",
+    "output_format": "json",
+    "confirmation_phrase_provided": true,
+    "webhook_ref_provided": true,
+    "payload_id": null,
+    "source_trend_report_id": null,
+    "presend_validation": {
+      "validation_id": "presend_validation_092b0fff489d",
+      "generated_at": "2026-04-25T07:56:41.090339+00:00",
+      "status": "partial_warning",
+      "valid": true,
+      "payload_id": "feishu_trend_payload_c6954d596041",
+      "source_trend_report_id": null,
+      "confirmation_phrase_provided": true,
+      "confirmation_phrase_valid": true,
+      "webhook_reference_valid": true,
+      "payload_validation_valid": true,
+      "output_safety_valid": true,
+      "guard_valid": true,
+      "audit_precondition_valid": true,
+      "payload_age_valid": true,
+      "checks": [
+        {
+          "check_type": "policy_design",
+          "check_result": {
+            "passed": true,
+            "policy_valid": true,
+            "evidence_refs": [
+              "policy_design_id=feishu_manual_send_policy_design_60a0a3d3a4e3"
+            ]
+          }
+        },
+        {
+          "check_type": "payload_projection",
+          "check_result": {
+            "check_id": "presend_check_94f9c5b008ad",
+            "check_type": "payload_projection",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload projection is valid for pre-send review",
+            "evidence_refs": [
+              "payload_id=feishu_trend_payload_c6954d596041",
+              "validation_valid=True"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090139+00:00"
+          }
+        },
+        {
+          "check_type": "confirmation_phrase",
+          "check_result": {
+            "check_id": "presend_check_543692f19595",
+            "check_type": "confirmation_phrase",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Confirmation phrase valid",
+            "evidence_refs": [
+              "confirmation_phrase_matches"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090171+00:00"
+          }
+        },
+        {
+          "check_type": "webhook_reference",
+          "check_result": {
+            "check_id": "presend_check_1177efa8f163",
+            "check_type": "webhook_reference",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Webhook reference format valid",
+            "evidence_refs": [
+              "type=secret_manager_reference",
+              "name=",
+              "ref=deerflow/secrets/feishu/webhook_url"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090206+00:00"
+          }
+        },
+        {
+          "check_type": "output_safety",
+          "check_result": {
+            "check_id": "presend_check_048971b5ff85",
+            "check_type": "output_safety",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "No preview output to validate (dry-run design validation)",
+            "evidence_refs": [],
+            "blocked_reasons": [],
+            "warnings": [
+              "no_preview_output_provided"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090224+00:00"
+          }
+        },
+        {
+          "check_type": "guard_state",
+          "check_result": {
+            "check_id": "presend_check_b5db493e86f9",
+            "check_type": "guard_state",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Guard state is valid for pre-send review",
+            "evidence_refs": [
+              "audit_jsonl_unchanged=True",
+              "sensitive_output_detected=False",
+              "network_call_detected=False",
+              "runtime_write_detected=False",
+              "auto_fix_detected=False"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090241+00:00"
+          }
+        },
+        {
+          "check_type": "audit_requirement",
+          "check_result": {
+            "check_id": "presend_check_c3e905051b21",
+            "check_type": "audit_requirement",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Audit preconditions valid — pre-send audit projection generated (design-only)",
+            "evidence_refs": [
+              "payload_hash=f4ed339d18fc181e",
+              "event_type=feishu_trend_manual_send_attempt",
+              "audit_projection_generated_design_only",
+              "no_audit_jsonl_written"
+            ],
+            "blocked_reasons": [],
+            "warnings": [
+              "audit_projection_design_only_no_jsonl_written"
+            ],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090299+00:00"
+          }
+        },
+        {
+          "check_type": "payload_age",
+          "check_result": {
+            "check_id": "presend_check_0823da8ce330",
+            "check_type": "payload_age",
+            "status": "valid",
+            "passed": true,
+            "risk_level": "low",
+            "message": "Payload age valid (0.0 min < 60 min)",
+            "evidence_refs": [
+              "generated_at=2026-04-25T07:56:41.088451+00:00",
+              "age_minutes=0.0",
+              "max_age_minutes=60"
+            ],
+            "blocked_reasons": [],
+            "warnings": [],
+            "errors": [],
+            "checked_at": "2026-04-25T07:56:41.090325+00:00"
+          }
+        }
+      ],
+      "blocked_reasons": [],
+      "warnings": [
+        "no_preview_output_provided",
+        "audit_projection_design_only_no_jsonl_written"
+      ],
+      "errors": []
+    },
+    "payload_projection_summary": null,
+    "preview_summary": null,
+    "blocked_reasons": [],
+    "warnings": [
+      "artifact_bundle_not_provided",
+      "audit_jsonl_missing:tool_runtime_projections.jsonl",
+      "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+      "payload_projection_fallback_to_design_only",
+      "no_preview_output_provided",
+      "audit_projection_design_only_no_jsonl_written"
+    ],
+    "errors": []
+  },
+  "generated_at": "2026-04-25T07:56:41.090411+00:00",
+  "warnings": [
+    "artifact_bundle_not_provided",
+    "audit_jsonl_missing:tool_runtime_projections.jsonl",
+    "audit_jsonl_missing:mode_callgraph_projections.jsonl",
+    "payload_projection_fallback_to_design_only",
+    "no_preview_output_provided",
+    "audit_projection_design_only_no_jsonl_written",
+    "no_webhook_ref_dry_run_mode",
+    "inline_webhook_url_blocked"
+  ],
+  "output_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-14C_FEISHU_PRESEND_VALIDATE_ONLY_CLI_SAMPLE.json"
+}

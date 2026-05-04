@@ -1,0 +1,264 @@
+{
+  "result_id": "R241-16K_remote_dispatch_execution_result",
+  "generated_at": "2026-04-26T02:08:48.875018+00:00",
+  "status": "dispatch_failed",
+  "decision": "block_dispatch",
+  "workflow_file": "foundation-manual-dispatch.yml",
+  "dispatch_attempted": true,
+  "dispatch_succeeded": false,
+  "run_id": null,
+  "run_url": null,
+  "run_status": "unknown",
+  "run_conclusion": null,
+  "remote_inputs": {
+    "confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+    "stage_selection": "all_pr",
+    "execute_mode": "plan_only"
+  },
+  "command": {
+    "command_id": "remote_plan_only_dispatch_command",
+    "workflow_file": "foundation-manual-dispatch.yml",
+    "stage_selection": "all_pr",
+    "execute_mode": "plan_only",
+    "confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+    "argv": [
+      "gh",
+      "workflow",
+      "run",
+      "foundation-manual-dispatch.yml",
+      "-f",
+      "confirm_manual_dispatch=CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+      "-f",
+      "stage_selection=all_pr",
+      "-f",
+      "execute_mode=plan_only"
+    ],
+    "shell_allowed": false,
+    "network_call_expected": true,
+    "secret_output_allowed": false,
+    "execution_allowed": true,
+    "warnings": [],
+    "errors": []
+  },
+  "prechecks": {
+    "all_passed": true,
+    "prechecks": [
+      {
+        "precheck_id": "check_root_guard_passed",
+        "check_type": "root_guard_verification",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "RootGuard already verified at session start",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_r241_16j_gate_passed",
+        "check_type": "gate_validation",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16J confirmation gate must be passed",
+        "evidence_refs": [
+          "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16J_REMOTE_DISPATCH_CONFIRMATION_GATE_RESULT.json"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_r241_16i_runtime_passed",
+        "check_type": "runtime_verification",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16I runtime verification must pass",
+        "evidence_refs": [
+          "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16I_MANUAL_WORKFLOW_RUNTIME_VERIFICATION_RESULT.json"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_workflow_file_exists",
+        "check_type": "workflow_existence",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Workflow file foundation-manual-dispatch.yml must exist",
+        "evidence_refs": [
+          "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_workflow_dispatch_only",
+        "check_type": "trigger_validation",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Workflow must have workflow_dispatch=true and no PR/push/schedule",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_no_secrets_in_workflow",
+        "check_type": "security_check",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Workflow must not reference any secrets",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_no_webhook_network_calls",
+        "check_type": "security_check",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Workflow must not make direct network calls",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_no_runtime_write_markers",
+        "check_type": "mutation_guard",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Workflow must not contain runtime/ or action_queue write markers",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_no_audit_jsonl_write_markers",
+        "check_type": "mutation_guard",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Workflow must not write to audit JSONL",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_no_auto_fix_markers",
+        "check_type": "security_check",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Workflow must not contain auto-fix markers",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_execute_mode_is_plan_only",
+        "check_type": "mode_enforcement",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "execute_mode must be 'plan_only' (execute_selected STRICTLY FORBIDDEN)",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_stage_selection_is_all_pr",
+        "check_type": "stage_enforcement",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "stage_selection must be 'all_pr' (fast/safety/slow/full FORBIDDEN)",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_gh_available",
+        "check_type": "gh_cli_verification",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "gh CLI must be available and authenticated",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "check_existing_workflows_unchanged_before_dispatch",
+        "check_type": "mutation_baseline",
+        "passed": true,
+        "risk_level": "high",
+        "description": "No existing workflows must be modified before dispatch",
+        "evidence_refs": [
+          "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml",
+          "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+          "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "precheck_count": 14,
+    "passed_count": 14,
+    "failed_count": 0,
+    "blocked": false,
+    "errors": []
+  },
+  "post_dispatch_checks": [
+    {
+      "check_id": "post_dispatch_run_observed",
+      "check_type": "run_observation",
+      "passed": false,
+      "risk_level": "high",
+      "observed_value": null,
+      "expected_value": "any_workflow_dispatch_run_id",
+      "evidence_refs": [
+        "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16J_REMOTE_DISPATCH_CONFIRMATION_GATE_RESULT.json"
+      ]
+    },
+    {
+      "check_id": "post_dispatch_run_input_verification",
+      "check_type": "run_input_verification",
+      "passed": false,
+      "risk_level": "high",
+      "observed_value": null,
+      "expected_value": "workflow_dispatch",
+      "evidence_refs": []
+    },
+    {
+      "check_id": "post_dispatch_local_mutation_guard",
+      "check_type": "local_mutation_guard",
+      "passed": true,
+      "risk_level": "critical",
+      "observed_value": [],
+      "expected_value": "[]",
+      "evidence_refs": []
+    }
+  ],
+  "local_mutation_guard": {
+    "no_local_mutation": true,
+    "mutations": [],
+    "workflows_checked": [
+      "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml",
+      "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+      "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml"
+    ],
+    "runtime_dir_created": false,
+    "action_queue_dir_created": false,
+    "audit_jsonl_modified": false
+  },
+  "existing_workflows_unchanged": true,
+  "rollback_or_cancel_result": null,
+  "warnings": [],
+  "errors": []
+}

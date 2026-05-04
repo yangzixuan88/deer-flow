@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-3_ContextScopeRules.json",
+  "title": "ContextScopeRules",
+  "description": "各上下文 Scope 的生命周期、读写权限、归属规则",
+  "scopes": {
+    "request": {
+      "lifecycle": "per request — 从入口到完成或失败",
+      "readable_by": ["m01", "gateway", "channel", "frontend"],
+      "writable_by": ["m01", "gateway", "channel"],
+      "can_enter_longterm_memory": false,
+      "can_enter_governance": false,
+      "can_enter_nightly_review": false,
+      "can_be_used_by_mode_router": true,
+      "notes": "request scope 是最顶层，不能被任何下游 scope 写入"
+    },
+    "session": {
+      "lifecycle": "long-lived — 直到 user explicitly ends session",
+      "readable_by": ["gateway", "deerflow", "frontend", "m01"],
+      "writable_by": ["gateway", "deerflow", "memory_middleware"],
+      "can_enter_longterm_memory": true,
+      "can_enter_governance": false,
+      "can_enter_nightly_review": false,
+      "can_be_used_by_mode_router": true,
+      "notes": "session scope 对应 Gateway thread_id，LangGraph checkpointer 持久化"
+    },
+    "thread": {
+      "lifecycle": "per session — 多个 runs 可以在同一个 thread 中串行",
+      "readable_by": ["gateway", "deerflow", "frontend"],
+      "writable_by": ["gateway", "deerflow"],
+      "can_enter_longterm_memory": true,
+      "can_enter_governance": false,
+      "can_enter_nightly_review": false,
+      "can_be_used_by_mode_router": true,
+      "notes": "thread scope 和 session scope 在当前实现中几乎同义，thread_id = session_id"
+    },
+    "run": {
+      "lifecycle": "per invocation — run 完成或取消后结束",
+      "readable_by": ["gateway", "deerflow", "frontend"],
+      "writable_by": ["gateway", "deerflow"],
+      "can_enter_longterm_memory": false,
+      "can_enter_governance": false,
+      "can_enter_nightly_review": false,
+      "can_be_used_by_mode_router": true,
+      "notes": "run_id 是内存态的 RunManager ID，不持久化到 checkpointer"
+    },
+    "task": {
+      "lifecycle": "per task — 从创建到完成/失败/取消",
+      "readable_by": ["m04", "deerflow", "governance"],
+      "writable_by": ["m04", "deerflow"],
+      "can_enter_longterm_memory": true,
+      "can_enter_governance": true,
+      "can_enter_nightly_review": true,
+      "can_be_used_by_mode_router": true,
+      "notes": "task_origin 字段必须标注是 m04_registry 还是 deerflow_task_tool"
+    },
+    "workflow": {
+      "lifecycle": "per workflow — 比 task 更长，包含多个 tasks",
+      "readable_by": ["m04", "deerflow"],
+      "writable_by": ["m04", "workflow_executor"],
+      "can_enter_longterm_memory": true,
+      "can_enter_governance": true,
+      "can_enter_nightly_review": true,
+      "can_be_used_by_mode_router": true,
+      "notes": "workflow_id 和 task_id 必须通过 ContextLink 关联"
+    },
+    "rtcm": {
+      "lifecycle": "per project — 可跨越多个 user sessions，可暂停/恢复",
+      "readable_by": ["rtcm", "m01"],
+      "writable_by": ["rtcm"],
+      "can_enter_longterm_memory": true,
+      "can_enter_governance": true,
+      "can_enter_nightly_review": true,
+      "can_be_used_by_mode_router": true,
+      "notes": "RTCM session_id/project_id 与 Gateway thread_id 完全独立，必须通过 ContextLink 关联"
+    },
+    "governance": {
+      "lifecycle": "long-lived — decision/outcome 持久化到 governance_state.json",
+      "readable_by": ["governance", "m11"],
+      "writable_by": ["governance_bridge"],
+      "can_enter_longterm_memory": false,
+      "can_enter_governance": true,
+      "can_enter_nightly_review": true,
+      "can_be_used_by_mode_router": true,
+      "notes": "governance scope 的写入必须通过 governance_bridge，不能直接修改 governance_state.json"
+    },
+    "memory": {
+      "lifecycle": "variable — 取决于 memory_scope（session 短，user 长）",
+      "readable_by": ["memory_middleware", "m08", "deerflow"],
+      "writable_by": ["memory_middleware", "memory_updater"],
+      "can_enter_longterm_memory": true,
+      "can_enter_governance": false,
+      "can_enter_nightly_review": true,
+      "can_be_used_by_mode_router": true,
+      "notes": "memory scope 必须与 thread_id/request_id 关联，防止跨请求污染"
+    },
+    "asset": {
+      "lifecycle": "long-lived — asset 持久化，可被多个 requests 复用",
+      "readable_by": ["m07", "governance", "asset_manager"],
+      "writable_by": ["m07"],
+      "can_enter_longterm_memory": false,
+      "can_enter_governance": true,
+      "can_enter_nightly_review": true,
+      "can_be_used_by_mode_router": true,
+      "notes": "asset_id 必须通过 candidate_id 关联到 governance"
+    },
+    "runtime_artifact": {
+      "lifecycle": "per run/task — checkpoint/verify_script/rollback_script",
+      "readable_by": ["checkpointer", "queue_consumer", "watchdog"],
+      "writable_by": ["checkpointer", "sandbox", "queue_consumer"],
+      "can_enter_longterm_memory": false,
+      "can_enter_governance": false,
+      "can_enter_nightly_review": false,
+      "can_be_used_by_mode_router": false,
+      "notes": "runtime artifact 是执行副产品，不应进入 context chain 主链"
+    }
+  }
+}

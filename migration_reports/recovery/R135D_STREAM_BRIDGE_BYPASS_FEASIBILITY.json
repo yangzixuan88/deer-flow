@@ -1,0 +1,102 @@
+cpp.state keys; worker trigger confirmed unconditional"
+  },
+  "lane_results": {
+    "lane_3_constructor_safety": {
+      "MemoryStreamBridge": {"risk": "NONE", "reason": "pure in-memory, no I/O, no side effects"},
+      "MemoryRunStore": {"risk": "NONE", "reason": "pure in-memory dict, no I/O, no side effects"},
+      "RunManager": {"risk": "NONE", "reason": "store param optional, pure in-memory, no I/O"},
+      "MemoryThreadMetaStore": {"risk": "NONE", "reason": "requires InMemoryStore, all methods async, no I/O"},
+      "make_run_event_store": {"risk": "NONE", "reason": "config=None returns MemoryRunEventStore()"},
+      "AppConfig_from_file": {
+        "risk": "MODERATE + BUG",
+        "reason": "updates 6 global singletons; also has bug in resolve_env_variables"
+      }
+    },
+    "lane_4_baseline": {
+      "status": "200",
+      "thread_create": "pass",
+      "thread_get": "pass",
+      "post_runs": "503 Stream bridge not available"
+    },
+    "lane_5_stream_bridge_only": {
+      "status": "503",
+      "detail": "Run manager not available",
+      "conclusion": "stream_bridge monkey-patch successful, next blocker is run_manager"
+    },
+    "lane_6_run_manager_plus": {
+      "status": "503",
+      "detail": "Configuration not available",
+      "conclusion": "run_manager + run_store monkey-patch successful, next blocker is config"
+    },
+    "lane_7a_appconfig_from_file": {
+      "status": "exception",
+      "error": "ValueError: Environment variable {DEER_FLOW_HOST_PATH} not found for config value ${DEER_FLOW_HOST_PATH}",
+      "conclusion": "AppConfig.from_file() fails due to bug in resolve_env_variables"
+    },
+    "lane_7b_minimal_appconfig": {
+      "status": "503",
+      "detail": "Run event store not available",
+      "conclusion": "minimal AppConfig construction works, next blocker is run_event_store"
+    },
+    "lane_7c_all_deps": {
+      "status": "200_worker_triggered",
+      "all_nine_deps_satisfied": true,
+      "worker_trigger_confirmed": true,
+      "safety_stop_executed": true,
+      "stopped_at": "before POST /runs completed — worker would have started"
+    }
+  },
+  "critical_bug_found": {
+    "file": "packages/harness/deerflow/config/app_config.py",
+    "function": "resolve_env_variables",
+    "line": 250,
+    "bug": "config[1:] strips '$' but leaves braces — config='${VAR}' → config[1:]='{VAR}' (wrong)",
+    "expected": "should use regex to extract variable name: re.match(r'^\\$\\{(\\w+)\\}', config).group(1)",
+    "impact": "AppConfig.from_file() fails for any config.yaml with ${VAR} references",
+    "workaround": "construct minimal AppConfig directly: AppConfig(log_level='info', sandbox=SandboxConfig(use='local'), database=DatabaseConfig(backend='memory'))"
+  },
+  "dependency_chain": [
+    {"step": 1, "key": "stream_bridge", "constructor": "MemoryStreamBridge()", "result": "503 Run manager"},
+    {"step": 2, "key": "run_manager + run_store", "constructor": "RunManager(store=MemoryRunStore())", "result": "503 Configuration"},
+    {"step": 3, "key": "config", "constructor": "AppConfig(log_level='info', sandbox=SandboxConfig(use='local'), database=DatabaseConfig(backend='memory'))", "result": "503 Run event store"},
+    {"step": 4, "key": "run_event_store", "constructor": "make_run_event_store(None)", "result": "200 (worker starts)"}
+  ],
+  "worker_trigger_analysis": {
+    "location": "services.py:272",
+    "code": "task = asyncio.create_task(run_agent(...))",
+    "conditional": false,
+    "safety_guard_available": false,
+    "can_post_runs_without_model_call": false,
+    "confirmed": "LANE 7c STOPPED when 200 returned — worker would unconditionally start"
+  },
+  "all_nine_deps": [
+    "stream_bridge",
+    "run_manager",
+    "run_store",
+    "checkpointer",
+    "thread_store",
+    "thread_meta_repo",
+    "config",
+    "store",
+    "run_event_store"
+  ],
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R135D_STREAM_BRIDGE_BYPASS_FEASIBILITY.md",
+    "migration_reports/recovery/R135D_STREAM_BRIDGE_BYPASS_FEASIBILITY.json"
+  ],
+  "recommended_next_phase": "R136_GATEWAY_HTTP_NO_TOOL_SMOKE",
+  "next_prompt_needed": "R136 execution authorization"
+}

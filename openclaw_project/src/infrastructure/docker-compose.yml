@@ -1,0 +1,227 @@
+version: '3.9'
+
+services:
+  # ============================================
+  # Dapr placement service
+  # ============================================
+  dapr-placement:
+    image: "daprio/dapr:1.17.2"
+    command: ["./placement", "-port", "50005"]
+    ports:
+      - "50005:50005"
+    networks:
+      - dapr-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:50005/v1.0/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ============================================
+  # Redis state store and pubsub
+  # ============================================
+  redis:
+    image: "redis:alpine"
+    # SECURITY: Password MUST be set via REDIS_PASSWORD env var - no default
+    command: >
+      redis-server --appendonly yes
+      --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD must be set}
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis-data:/data"
+      - "./redis.conf:/usr/local/etc/redis/redis.conf"
+    networks:
+      - dapr-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:?REDIS_PASSWORD must be set}", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # ============================================
+  # Zipkin for observability
+  # ============================================
+  zipkin:
+    image: "openzipkin/zipkin"
+    ports:
+      - "9411:9411"
+    networks:
+      - dapr-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9411/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # Prometheus for metrics collection
+  # ============================================
+  prometheus:
+    image: "prom/prometheus:latest"
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "prometheus-data:/prometheus"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - dapr-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # Grafana for metrics visualization
+  # ============================================
+  grafana:
+    image: "grafana/grafana:latest"
+    ports:
+      - "3000:3000"
+    environment:
+      # SECURITY: Password MUST be set via GRAFANA_PASSWORD env var - no default
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:?GRAFANA_PASSWORD must be set}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - "grafana-data:/var/lib/grafana"
+      - "./grafana/provisioning:/etc/grafana/provisioning"
+    networks:
+      - dapr-network
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # Dapr Sidecar for the OpenClaw App
+  # ============================================
+  openclaw-app-daprd:
+    image: "daprio/daprd:1.17.2"
+    command: [
+      "./daprd",
+      "-app-id", "openclaw-app",
+      "-app-port", "8080",
+      "-dapr-http-port", "3500",
+      "-dapr-grpc-port", "50001",
+      "-placement-host-address", "dapr-placement:50005",
+      "-components-path", "/components"
+    ]
+    volumes:
+      - "./dapr/components:/components"
+    depends_on:
+      dapr-placement:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - dapr-network
+    restart: on-failure
+
+  # ============================================
+  # OpenClaw Application with Health & Metrics
+  # ============================================
+  openclaw-app:
+    build:
+      context: ../..
+      dockerfile: src/infrastructure/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"  # Health & Metrics server
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      # SECURITY: Password MUST be set - no default
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD must be set}
+      - DAPR_HTTP_PORT=3500
+      - DAPR_GRPC_PORT=50001
+    volumes:
+      - ../..:/app
+      - openclaw-data:/app/data
+    networks:
+      - dapr-network
+    depends_on:
+      redis:
+        condition: service_healthy
+      dapr-placement:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+  # ============================================
+  # Cloudflare Tunnel for Feishu Webhook
+  # ============================================
+  cloudflared:
+    image: "cloudflare/cloudflared:latest"
+    command: "tunnel --no-autoupdate run"
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    restart: unless-stopped
+    networks:
+      - dapr-network
+
+  # ============================================
+  # n8n - Agent-Native Workflow Execution Layer
+  # ============================================
+  n8n:
+    image: "n8nio/n8n:latest"
+    environment:
+      - N8N_HOST=n8n
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_METRICS=true
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - WEBHOOK_URL=${N8N_WEBHOOK_URL}
+      - N8N_API_KEY=${N8N_API_KEY}
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+      - EXECUTIONS_DATA_SAVE_ON_ERROR=all
+      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
+      - EXECUTIONS_DATA_SAVE_ON_TIMEOUT=true
+      - EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=true
+    ports:
+      - "5678:5678"
+    volumes:
+      - "n8n-data:/home/node/.n8n"
+      - "./workflow/custom_nodes:/home/node/.n8n/custom"
+    networks:
+      - dapr-network
+    restart: unless-stopped
+    stop_grace_period: 60s
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  dapr-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  n8n-data:
+  prometheus-data:
+  grafana-data:
+  openclaw-data:

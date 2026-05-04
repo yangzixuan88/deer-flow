@@ -1,0 +1,1546 @@
+{
+  "generated_at": "2026-04-24T13:06:00.770836+00:00",
+  "content_policy": "read-only asset projection; no registry, binding, DPBS, or governance writes",
+  "discovered_paths": {
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "discovered_paths": [
+      "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+      "E:\\OpenClaw-Base\\deerflow\\assets\\asset-index.json",
+      "E:\\OpenClaw-Base\\deerflow\\backend\\app\\m11\\governance_state.json",
+      "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-3A_ASSET_LIFECYCLE_RUNTIME_SAMPLE.json"
+    ],
+    "missing_paths": [
+      "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\latest_binding_report.json"
+    ],
+    "warnings": [
+      "path_missing:E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\latest_binding_report.json"
+    ]
+  },
+  "registry_snapshot_summary": {
+    "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+    "exists": true,
+    "asset_count": 12,
+    "registry_format": "dict.assets",
+    "sample_keys": [
+      "executor_sequence",
+      "id",
+      "instruction_pattern",
+      "metadata",
+      "name",
+      "steps",
+      "task_signature",
+      "task_type",
+      "verification_pattern",
+      "web_target"
+    ],
+    "warnings": []
+  },
+  "binding_snapshot_summary": {
+    "exists": false,
+    "report_count": 0,
+    "record_count": 0,
+    "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\latest_binding_report.json",
+    "warnings": [
+      "binding_report_missing"
+    ]
+  },
+  "registry_projection": {
+    "source_surface": "registry",
+    "projected_count": 12,
+    "by_asset_category": {
+      "A1_tool_capability": 6,
+      "unknown": 6
+    },
+    "by_lifecycle_tier": {
+      "candidate": 12
+    },
+    "projected_assets": [
+      {
+        "asset_ref_id": "assetref_79346c4148ff5cd8ac0224efb9dcaafe",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "tool_capability",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 0.0,
+            "weight": 0.25,
+            "weighted": 0.0
+          },
+          "success_rate": {
+            "value": 0.0,
+            "weight": 0.3,
+            "weighted": 0.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "task",
+          "workflow",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.285365+00:00",
+        "asset_id": "test-asset-github-create",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_f5203504058d5b83bb0e58f63c670a7f",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "tool_capability",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 50.0,
+            "weight": 0.25,
+            "weighted": 12.5
+          },
+          "success_rate": {
+            "value": 80.0,
+            "weight": 0.3,
+            "weighted": 24.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "task",
+          "workflow",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.285524+00:00",
+        "asset_id": "test-asset-github-star",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_720b5771c6315e1f8e44ab51e84e469b",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "unknown",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 50.0,
+            "weight": 0.25,
+            "weighted": 12.5
+          },
+          "success_rate": {
+            "value": 80.0,
+            "weight": 0.3,
+            "weighted": 24.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "unknown_asset_category",
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.285644+00:00",
+        "asset_id": "test-repeated-task-0",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_aca9506425f754af870e1fc22f235ce7",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "unknown",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 60.0,
+            "weight": 0.25,
+            "weighted": 15.0
+          },
+          "success_rate": {
+            "value": 80.0,
+            "weight": 0.3,
+            "weighted": 24.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "unknown_asset_category",
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.285750+00:00",
+        "asset_id": "test-repeated-task-1",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_70f4a87ddc875989b528248f118e9d68",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "unknown",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 70.0,
+            "weight": 0.25,
+            "weighted": 17.5
+          },
+          "success_rate": {
+            "value": 80.0,
+            "weight": 0.3,
+            "weighted": 24.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "unknown_asset_category",
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.285852+00:00",
+        "asset_id": "test-repeated-task-2",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_4b29408230115fe9adf595ab3e4cc984",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "tool_capability",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 0.0,
+            "weight": 0.25,
+            "weighted": 0.0
+          },
+          "success_rate": {
+            "value": 0.0,
+            "weight": 0.3,
+            "weighted": 0.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "task",
+          "workflow",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.285957+00:00",
+        "asset_id": "asset_1776622455539_mhkke",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_0812e23d1f245c78ae67d54a2ff92b75",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "unknown",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 0.0,
+            "weight": 0.25,
+            "weighted": 0.0
+          },
+          "success_rate": {
+            "value": 0.0,
+            "weight": 0.3,
+            "weighted": 0.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "unknown_asset_category",
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.286051+00:00",
+        "asset_id": "debug-asset",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_d877ddd3bedc5dd785cb831bba174a22",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "unknown",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 0.0,
+            "weight": 0.25,
+            "weighted": 0.0
+          },
+          "success_rate": {
+            "value": 0.0,
+            "weight": 0.3,
+            "weighted": 0.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "unknown_asset_category",
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.286141+00:00",
+        "asset_id": "debug-asset-2",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_72b39ca7379a5cecbf0c25254b3cffe2",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "tool_capability",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 0.0,
+            "weight": 0.25,
+            "weighted": 0.0
+          },
+          "success_rate": {
+            "value": 0.0,
+            "weight": 0.3,
+            "weighted": 0.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "task",
+          "workflow",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.286239+00:00",
+        "asset_id": "asset_1776622702281_n1eyw",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_ef40c2c59a4d5400bba300c16368acd4",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "unknown",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 0.0,
+            "weight": 0.25,
+            "weighted": 0.0
+          },
+          "success_rate": {
+            "value": 0.0,
+            "weight": 0.3,
+            "weighted": 0.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "unknown_asset_category",
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.286328+00:00",
+        "asset_id": "debug-test-1",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_3cead5771b73579f8b54230a11611934",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "tool_capability",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 50.0,
+            "weight": 0.25,
+            "weighted": 12.5
+          },
+          "success_rate": {
+            "value": 100.0,
+            "weight": 0.3,
+            "weighted": 30.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "task",
+          "workflow",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.286420+00:00",
+        "asset_id": "test-asset-github-create-s4",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_bbbf2638b59b523d9e91148e4303e9f4",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_system": "asset_registry",
+        "source_type": "tool_capability",
+        "score": null,
+        "score_breakdown": {
+          "frequency": {
+            "value": 30.0,
+            "weight": 0.25,
+            "weighted": 7.5
+          },
+          "success_rate": {
+            "value": 100.0,
+            "weight": 0.3,
+            "weighted": 30.0
+          }
+        },
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "task",
+          "workflow",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:05:56.286526+00:00",
+        "asset_id": "s4-unique-github-create-xyz789",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      }
+    ],
+    "warnings": [
+      "missing_score_components",
+      "unknown_asset_category"
+    ],
+    "projected_assets_total_count": 12
+  },
+  "binding_projection": {
+    "source_surface": "binding",
+    "projected_count": 0,
+    "by_asset_category": {},
+    "by_lifecycle_tier": {},
+    "projected_assets": [],
+    "warnings": [
+      "binding_report_missing"
+    ],
+    "projected_assets_total_count": 0
+  },
+  "governance_asset_projection": {
+    "source_surface": "governance",
+    "projected_count": 7,
+    "by_asset_category": {
+      "A5_cognitive_method": 7
+    },
+    "by_lifecycle_tier": {
+      "candidate": 7
+    },
+    "projected_assets": [
+      {
+        "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "high",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.762803+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown"
+      },
+      {
+        "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "high",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.762925+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown"
+      },
+      {
+        "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "high",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.763016+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": "demand-1776986746972-governance-decision-asset-unknown"
+      },
+      {
+        "asset_ref_id": "assetref_2d5c9610d88f5dbcbb8e593af05f1af2",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "unknown",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.763118+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": null
+      },
+      {
+        "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "high",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.763206+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown"
+      },
+      {
+        "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "high",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.763292+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown"
+      },
+      {
+        "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_system": "governance",
+        "source_type": "cognitive_method",
+        "score": null,
+        "score_breakdown": {},
+        "reusable_value_signal": null,
+        "verification_refs": [],
+        "truth_event_refs": [],
+        "usage_refs": [],
+        "allowed_modes": [
+          "roundtable",
+          "task",
+          "autonomous_agent"
+        ],
+        "risk_level": "high",
+        "promotion_eligible": false,
+        "elimination_eligible": false,
+        "core_protected": false,
+        "warnings": [
+          "missing_score_components"
+        ],
+        "observed_at": "2026-04-24T13:06:00.763374+00:00",
+        "asset_id": null,
+        "source_path": null,
+        "source_record_ref": {
+          "memory_ref_id": null,
+          "source_path": null,
+          "source_system": null
+        },
+        "origin_context_id": null,
+        "governance_trace_id": null,
+        "memory_ref_id": null,
+        "candidate_id": "demand-1776986890049-governance-decision-asset-unknown"
+      }
+    ],
+    "warnings": [
+      "missing_score_components"
+    ],
+    "scanned_count": 100,
+    "asset_related_count": 7,
+    "projected_assets_total_count": 7
+  },
+  "aggregate_projection": {
+    "total_projected": 26,
+    "by_source_surface": {
+      "registry": 12,
+      "binding": 0,
+      "governance": 7,
+      "memory_candidates": 7
+    },
+    "by_asset_category": {
+      "A1_tool_capability": 6,
+      "unknown": 6,
+      "A5_cognitive_method": 12,
+      "A9_domain_knowledge_map": 2
+    },
+    "by_lifecycle_tier": {
+      "candidate": 26
+    },
+    "candidate_count": 26,
+    "formal_asset_count": 12,
+    "risk_summary": {
+      "risk_count": 84,
+      "risk_by_type": {
+        "missing_score_components": 26,
+        "unverified_asset_candidate": 26,
+        "unknown_asset_category": 6,
+        "binding_report_missing": 1,
+        "duplicate_asset_candidate": 6,
+        "formal_asset_without_verification_refs": 12,
+        "memory_candidate_not_registered": 7
+      },
+      "risk_records": [
+        {
+          "asset_ref_id": "assetref_79346c4148ff5cd8ac0224efb9dcaafe",
+          "asset_category": "A1_tool_capability",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_f5203504058d5b83bb0e58f63c670a7f",
+          "asset_category": "A1_tool_capability",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_720b5771c6315e1f8e44ab51e84e469b",
+          "asset_category": "unknown",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "unknown_asset_category",
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_aca9506425f754af870e1fc22f235ce7",
+          "asset_category": "unknown",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "unknown_asset_category",
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_70f4a87ddc875989b528248f118e9d68",
+          "asset_category": "unknown",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "unknown_asset_category",
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_4b29408230115fe9adf595ab3e4cc984",
+          "asset_category": "A1_tool_capability",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_0812e23d1f245c78ae67d54a2ff92b75",
+          "asset_category": "unknown",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "unknown_asset_category",
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_d877ddd3bedc5dd785cb831bba174a22",
+          "asset_category": "unknown",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "unknown_asset_category",
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_72b39ca7379a5cecbf0c25254b3cffe2",
+          "asset_category": "A1_tool_capability",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_ef40c2c59a4d5400bba300c16368acd4",
+          "asset_category": "unknown",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "unknown_asset_category",
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_3cead5771b73579f8b54230a11611934",
+          "asset_category": "A1_tool_capability",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_bbbf2638b59b523d9e91148e4303e9f4",
+          "asset_category": "A1_tool_capability",
+          "lifecycle_tier": "candidate",
+          "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_2d5c9610d88f5dbcbb8e593af05f1af2",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": null,
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_5a4cb621ceba5beba153682427ea2a71",
+          "asset_category": "A9_domain_knowledge_map",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_e9c97d8ce91c508db3903fa012d37438",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_a8f467f18d0356f0a84a77ece712d679",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_f3d14f5ba6b55104918ac21d7e190d98",
+          "asset_category": "A9_domain_knowledge_map",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_f34fb1dc5244571da6b6190c7fbaae52",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_855744c8bac4500dabcaa6175c0e911e",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "asset_ref_id": "assetref_a37e8e2988505bfdae5ea38bfa1cc8a6",
+          "asset_category": "A5_cognitive_method",
+          "lifecycle_tier": "candidate",
+          "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+          "risk_types": [
+            "missing_score_components",
+            "unverified_asset_candidate"
+          ]
+        },
+        {
+          "duplicate_key": "demand-1776986746972-governance-decision-asset-unknown",
+          "risk_types": [
+            "duplicate_asset_candidate"
+          ],
+          "count": 3
+        },
+        {
+          "duplicate_key": "demand-1776986890049-governance-decision-asset-unknown",
+          "risk_types": [
+            "duplicate_asset_candidate"
+          ],
+          "count": 3
+        }
+      ],
+      "warnings": []
+    },
+    "warnings": [
+      "missing_score_components",
+      "unknown_asset_category",
+      "binding_report_missing",
+      "max_files_reached:500",
+      "checkpoint_not_long_term_memory",
+      "council_log_not_long_term_memory",
+      "unknown_memory_artifact",
+      "memory_scope_agent_or_user_not_fully_proven",
+      "unverified_qdrant_point_not_asset",
+      "raw_governance_outcome_not_long_term_memory"
+    ]
+  },
+  "risk_signals": {
+    "risk_count": 84,
+    "risk_by_type": {
+      "missing_score_components": 26,
+      "unverified_asset_candidate": 26,
+      "unknown_asset_category": 6,
+      "binding_report_missing": 1,
+      "duplicate_asset_candidate": 6,
+      "formal_asset_without_verification_refs": 12,
+      "memory_candidate_not_registered": 7
+    },
+    "risk_records": [
+      {
+        "asset_ref_id": "assetref_79346c4148ff5cd8ac0224efb9dcaafe",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_f5203504058d5b83bb0e58f63c670a7f",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_720b5771c6315e1f8e44ab51e84e469b",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "unknown_asset_category",
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_aca9506425f754af870e1fc22f235ce7",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "unknown_asset_category",
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_70f4a87ddc875989b528248f118e9d68",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "unknown_asset_category",
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_4b29408230115fe9adf595ab3e4cc984",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_0812e23d1f245c78ae67d54a2ff92b75",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "unknown_asset_category",
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_d877ddd3bedc5dd785cb831bba174a22",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "unknown_asset_category",
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_72b39ca7379a5cecbf0c25254b3cffe2",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_ef40c2c59a4d5400bba300c16368acd4",
+        "asset_category": "unknown",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "unknown_asset_category",
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_3cead5771b73579f8b54230a11611934",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_bbbf2638b59b523d9e91148e4303e9f4",
+        "asset_category": "A1_tool_capability",
+        "lifecycle_tier": "candidate",
+        "source_path": "E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\asset_registry.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_3a4805748b4e5e15b034672f1e51fc65",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_2d5c9610d88f5dbcbb8e593af05f1af2",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a5534d75e9bb5480956f2c3c428a82a9",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": null,
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_5a4cb621ceba5beba153682427ea2a71",
+        "asset_category": "A9_domain_knowledge_map",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_e9c97d8ce91c508db3903fa012d37438",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a8f467f18d0356f0a84a77ece712d679",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_f3d14f5ba6b55104918ac21d7e190d98",
+        "asset_category": "A9_domain_knowledge_map",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_f34fb1dc5244571da6b6190c7fbaae52",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_855744c8bac4500dabcaa6175c0e911e",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "asset_ref_id": "assetref_a37e8e2988505bfdae5ea38bfa1cc8a6",
+        "asset_category": "A5_cognitive_method",
+        "lifecycle_tier": "candidate",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+        "risk_types": [
+          "missing_score_components",
+          "unverified_asset_candidate"
+        ]
+      },
+      {
+        "duplicate_key": "demand-1776986746972-governance-decision-asset-unknown",
+        "risk_types": [
+          "duplicate_asset_candidate"
+        ],
+        "count": 3
+      },
+      {
+        "duplicate_key": "demand-1776986890049-governance-decision-asset-unknown",
+        "risk_types": [
+          "duplicate_asset_candidate"
+        ],
+        "count": 3
+      }
+    ],
+    "warnings": []
+  },
+  "warnings": [
+    "path_missing:E:\\OpenClaw-Base\\deerflow\\.deerflow\\operation_assets\\latest_binding_report.json",
+    "binding_report_missing",
+    "missing_score_components",
+    "unknown_asset_category",
+    "max_files_reached:500",
+    "checkpoint_not_long_term_memory",
+    "council_log_not_long_term_memory",
+    "unknown_memory_artifact",
+    "memory_scope_agent_or_user_not_fully_proven",
+    "unverified_qdrant_point_not_asset",
+    "raw_governance_outcome_not_long_term_memory"
+  ]
+}

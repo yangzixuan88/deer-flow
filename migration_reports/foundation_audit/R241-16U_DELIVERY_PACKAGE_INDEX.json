@@ -1,0 +1,91 @@
+{
+  "index_id": "R241-16U-index",
+  "generated_at": "2026-04-26T10:33:05.160737+00:00",
+  "source_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+  "source_changed_files": [
+    ".github/workflows/foundation-manual-dispatch.yml"
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "patch",
+      "role": "patch",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch",
+      "exists": true,
+      "size_bytes": 3277,
+      "sha256": "3f9d456c201e4155787595ba18c45a06425264b6e1b6342289a3d4599c7f6fa8",
+      "required": true,
+      "safe_to_share": true,
+      "source_stage": "R241-16S",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "bundle",
+      "role": "bundle",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+      "exists": true,
+      "size_bytes": 1314,
+      "sha256": "99198cd2a9ae1c93d7302dafa0906dbf97746de515ab775fecb62996988092a6",
+      "required": true,
+      "safe_to_share": true,
+      "source_stage": "R241-16S",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "manifest",
+      "role": "manifest",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_MANIFEST.json",
+      "exists": true,
+      "size_bytes": 2530,
+      "sha256": "2d0f4df82448f7367a282914c3e8e2821e1377372eba831f678d60282fb47d16",
+      "required": true,
+      "safe_to_share": false,
+      "source_stage": "R241-16S",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "verification_result",
+      "role": "verification_report",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16T_PATCH_BUNDLE_VERIFICATION_RESULT.json",
+      "exists": true,
+      "size_bytes": 29333,
+      "sha256": "490af52c4d985a3717fde811d0c5f846512d299e73b0a8e6a26c8875ee4ae470",
+      "required": true,
+      "safe_to_share": true,
+      "source_stage": "R241-16T",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "delivery_note",
+      "role": "delivery_note",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16T_PATCH_DELIVERY_NOTE.md",
+      "exists": true,
+      "size_bytes": 2160,
+      "sha256": "4261a8cb9bb898e2b8345525db2cd42fce632fa9b4db92d189d19e33337e2195",
+      "required": true,
+      "safe_to_share": true,
+      "source_stage": "R241-16T",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "artifact_id": "generation_result",
+      "role": "generation_result",
+      "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_GENERATION_RESULT.json",
+      "exists": true,
+      "size_bytes": 33283,
+      "sha256": "334d407a56640588cab3aba5c700ded7dba235e9fd62ac952564910232974233",
+      "required": false,
+      "safe_to_share": false,
+      "source_stage": "R241-16S",
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "allowed_artifact_paths": [
+    "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit"
+  ]
+}

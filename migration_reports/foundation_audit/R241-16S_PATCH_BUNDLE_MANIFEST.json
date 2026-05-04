@@ -1,0 +1,51 @@
+{
+  "manifest_id": "R241-16S-manifest-20260504105938",
+  "generated_at": "2026-05-04T10:59:38.860504+00:00",
+  "source_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+  "source_commit_message": "Add manual foundation CI workflow",
+  "source_changed_files": [
+    ".github/workflows/foundation-manual-dispatch.yml"
+  ],
+  "remote_workflow_present": false,
+  "push_failure_reason": "permission_denied_403",
+  "patch_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch",
+  "patch_exists": true,
+  "patch_sha256": "abc",
+  "patch_size_bytes": 100,
+  "bundle_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+  "bundle_exists": true,
+  "bundle_sha256": "def",
+  "bundle_size_bytes": 200,
+  "apply_instructions": {
+    "description": "Apply the patch using git am",
+    "commands": [
+      "git am < migration_reports/foundation_audit/R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch"
+    ],
+    "dry_run": "git apply --check migration_reports/foundation_audit/R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch"
+  },
+  "verification_instructions": {
+    "description": "Verify the patch applies cleanly",
+    "commands": [
+      "git diff-tree --no-commit-id --name-only -r 94908556cc2ca66c219d361f424954945eee9e67",
+      "git ls-tree -r 94908556cc2ca66c219d361f424954945eee9e67 -- .github/workflows/foundation-manual-workflow.yml",
+      "git ls-tree -r HEAD -- .github/workflows/foundation-manual-workflow.yml"
+    ]
+  },
+  "safety_notes": [
+    "This workflow uses workflow_dispatch trigger only (no PR/push/schedule)",
+    "No secrets, tokens, or webhook URLs are included",
+    "No auto-fix or runtime write operations",
+    "Only applies to .github/workflows/foundation-manual-dispatch.yml",
+    "Safe to share as a code review artifact"
+  ],
+  "bundle_apply_instructions": {
+    "description": "Import bundle using git bundle",
+    "commands": [
+      "git bundle is-supported migration_reports/foundation_audit/R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle || echo 'bundle may need newer git'",
+      "git fetch migration_reports/foundation_audit/R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle HEAD:refs/heads/foundation-workflow-review",
+      "git checkout foundation-workflow-review"
+    ]
+  },
+  "warnings": [],
+  "errors": []
+}

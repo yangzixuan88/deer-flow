@@ -1,0 +1,502 @@
+{
+  "design_id": "feishu_manual_send_policy_design_b4fe5cb303af",
+  "generated_at": "2026-04-25T06:19:39.489630+00:00",
+  "status": "design_only",
+  "webhook_policy": {
+    "policy_id": "feishu_webhook_policy_2b86fa886a12",
+    "policy_type": "forbidden_inline_secret",
+    "webhook_ref_name": null,
+    "webhook_url_allowed_inline": false,
+    "secret_inline_allowed": false,
+    "allowlist_required": true,
+    "allowed_domain_patterns": [
+      "*.open.feishu.cn",
+      "*.larksuite.com"
+    ],
+    "allowed_bot_names": [
+      "DeerFlow-Assistant"
+    ],
+    "environment_variable_names": [
+      "FEISHU_WEBHOOK_URL",
+      "FEISHU_WEBHOOK_SECRET"
+    ],
+    "secret_manager_refs": [
+      "deerflow/secrets/feishu/webhook_url",
+      "deerflow/secrets/feishu/webhook_secret"
+    ],
+    "rotation_required": true,
+    "warnings": [
+      "inline_webhook_url_forbidden",
+      "inline_secret_forbidden",
+      "webhook_url_must_come_from_allowlist_or_secret_manager",
+      "secret_must_come_from_environment_or_secret_manager"
+    ],
+    "errors": []
+  },
+  "confirmation_policy": {
+    "confirmation_policy_id": "feishu_confirmation_policy_18eb3ca53481",
+    "user_confirmation_required": true,
+    "confirmation_phrase_required": true,
+    "required_confirmation_phrase": "CONFIRM_FEISHU_TREND_SEND",
+    "confirm_after_preview_required": true,
+    "confirm_after_validation_required": true,
+    "confirm_after_audit_preview_required": true,
+    "max_payload_age_minutes": 60,
+    "warnings": [
+      "confirmation_required_before_any_send",
+      "payload_age_expiry_requires_new_preview",
+      "phrase_must_be_exact_match"
+    ],
+    "errors": []
+  },
+  "pre_send_validation_policy": {
+    "validation_policy_id": "feishu_pre_send_validation_policy_86027bab186c",
+    "require_projection_validation_valid": true,
+    "require_send_allowed_transition_review": true,
+    "require_no_sensitive_content": true,
+    "require_no_webhook_url_in_payload": true,
+    "require_no_token_secret_api_key": true,
+    "require_no_runtime_write": true,
+    "require_no_action_queue_write": true,
+    "require_no_auto_fix": true,
+    "require_guard_jsonl_unchanged": true,
+    "require_card_json_serializable": true,
+    "require_artifact_links_only_report_artifacts": true,
+    "warnings": [
+      "all_pre_send_checks_required",
+      "payload_must_pass_all_validation_rules",
+      "guard_line_count_must_be_unchanged"
+    ],
+    "errors": []
+  },
+  "send_audit_policy": {
+    "audit_policy_id": "feishu_send_audit_policy_d1dcdb3eb748",
+    "pre_send_audit_required": true,
+    "post_send_audit_required": true,
+    "audit_event_type": "feishu_trend_manual_send_attempt",
+    "audit_result_event_type": "feishu_trend_manual_send_result",
+    "audit_write_mode": "append_only",
+    "append_only_required": true,
+    "payload_hash_required": true,
+    "redaction_required": true,
+    "raw_webhook_never_logged": true,
+    "send_result_metadata_only": true,
+    "warnings": [
+      "pre_send_audit_record_required_before_any_send",
+      "post_send_audit_record_required_after_every_send",
+      "raw_webhook_url_and_response_never_in_audit",
+      "only_metadata_in_audit_not_full_payload"
+    ],
+    "errors": []
+  },
+  "blocked_send_paths": [
+    {
+      "path": "inline_webhook_url",
+      "description": "Inline webhook URL in payload or config",
+      "reason": "webhook_url_allowed_inline=false by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "inline_token_secret_api_key",
+      "description": "Inline token, secret, or API key in payload",
+      "reason": "secret_inline_allowed=false by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "send_without_confirmation",
+      "description": "Send without user typing confirmation phrase",
+      "reason": "user_confirmation_required=true by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "send_without_payload_validation",
+      "description": "Send without passing pre-send validation",
+      "reason": "require_projection_validation_valid=true by policy",
+      "severity": "high",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "send_with_sensitive_payload",
+      "description": "Send when payload contains sensitive content",
+      "reason": "require_no_sensitive_content=true by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "send_with_guard_line_count_changed",
+      "description": "Send when audit JSONL line count has changed",
+      "reason": "require_guard_jsonl_unchanged=true by policy",
+      "severity": "high",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "scheduler_auto_send",
+      "description": "Scheduler-triggered automatic send without review",
+      "reason": "scheduler send requires Phase 6 separate review",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "auto_send_without_review",
+      "description": "Auto-send without human in the loop",
+      "reason": "manual send always requires human confirmation",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "send_plus_auto_fix",
+      "description": "Send combined with auto-fix execution",
+      "reason": "auto_fix always forbidden in manual send flow",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "runtime_write_during_send",
+      "description": "Write to runtime during send operation",
+      "reason": "require_no_runtime_write=true by policy",
+      "severity": "high",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "action_queue_write_during_send",
+      "description": "Write to action queue during send operation",
+      "reason": "require_no_action_queue_write=true by policy",
+      "severity": "high",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "raw_webhook_in_audit",
+      "description": "Log raw webhook URL or response in audit record",
+      "reason": "raw_webhook_never_logged=true by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "full_payload_body_in_audit",
+      "description": "Log full webhook request/response body in audit",
+      "reason": "send_result_metadata_only=true by policy",
+      "severity": "high",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "webhook_call_without_allowlist",
+      "description": "Call webhook not in allowlist",
+      "reason": "allowlist_required=true by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    },
+    {
+      "path": "modify_existing_audit_record",
+      "description": "Modify or delete existing audit record",
+      "reason": "append_only_required=true by policy",
+      "severity": "critical",
+      "blocked_phase": "all"
+    }
+  ],
+  "allowed_future_send_flow": [
+    {
+      "phase": 1,
+      "step": "Generate trend report dry-run",
+      "allowed_now": true,
+      "required_checks": [
+        "run_guarded_audit_trend_cli_projection(write_report=False)"
+      ],
+      "forbidden_actions": [
+        "write_audit_jsonl",
+        "write_runtime",
+        "write_action_queue",
+        "network_call",
+        "webhook_call"
+      ]
+    },
+    {
+      "phase": 2,
+      "step": "Generate Feishu payload projection",
+      "allowed_now": true,
+      "required_checks": [
+        "build_feishu_trend_payload_projection()"
+      ],
+      "forbidden_actions": [
+        "send_allowed=true",
+        "write_audit_jsonl",
+        "webhook_call"
+      ]
+    },
+    {
+      "phase": 3,
+      "step": "Validate payload projection",
+      "allowed_now": true,
+      "required_checks": [
+        "validate_feishu_trend_payload_projection() returns valid=True"
+      ],
+      "forbidden_actions": [
+        "send_allowed=true",
+        "write_audit_jsonl",
+        "webhook_call"
+      ]
+    },
+    {
+      "phase": 4,
+      "step": "Render CLI preview",
+      "allowed_now": true,
+      "required_checks": [
+        "format_feishu_trend_payload_preview()"
+      ],
+      "forbidden_actions": [
+        "send_allowed=true",
+        "write_audit_jsonl",
+        "webhook_call"
+      ]
+    },
+    {
+      "phase": 5,
+      "step": "Validate output safety",
+      "allowed_now": true,
+      "required_checks": [
+        "validate_trend_cli_output_safety()",
+        "no webhook URL in preview",
+        "no sensitive content in preview"
+      ],
+      "forbidden_actions": [
+        "send_allowed=true",
+        "write_audit_jsonl",
+        "webhook_call"
+      ]
+    },
+    {
+      "phase": 6,
+      "step": "Resolve webhook from allowlist / secret manager reference",
+      "allowed_now": true,
+      "required_checks": [
+        "webhook_url_from_allowlist_only",
+        "no inline webhook URL",
+        "FEISHU_WEBHOOK_URL env var or secret manager reference"
+      ],
+      "forbidden_actions": [
+        "inline_webhook_url",
+        "inline_secret",
+        "write_audit_jsonl",
+        "send_allowed=true"
+      ]
+    },
+    {
+      "phase": 7,
+      "step": "Require user confirmation phrase",
+      "allowed_now": false,
+      "required_checks": [
+        "user must type CONFIRM_FEISHU_TREND_SEND",
+        "payload age must be < 60 minutes"
+      ],
+      "forbidden_actions": [
+        "auto_send_without_confirmation",
+        "scheduler_triggered_send",
+        "write_audit_jsonl"
+      ]
+    },
+    {
+      "phase": 8,
+      "step": "Create pre-send audit record projection",
+      "allowed_now": false,
+      "required_checks": [
+        "pre_send_audit_record with feishu_trend_manual_send_attempt",
+        "append_only mode",
+        "payload_hash recorded"
+      ],
+      "forbidden_actions": [
+        "write_audit_jsonl (before audit record)",
+        "raw_webhook_in_audit",
+        "full_payload_body_in_audit"
+      ]
+    },
+    {
+      "phase": 9,
+      "step": "Send manually through dedicated send function",
+      "allowed_now": false,
+      "required_checks": [
+        "Phase 5 implementation complete",
+        "webhook resolver implemented",
+        "confirmation handler implemented"
+      ],
+      "forbidden_actions": [
+        "scheduler_auto_send",
+        "write_runtime",
+        "write_action_queue"
+      ]
+    },
+    {
+      "phase": 10,
+      "step": "Create post-send audit record",
+      "allowed_now": false,
+      "required_checks": [
+        "post_send_audit_record with feishu_trend_manual_send_result",
+        "append_only mode",
+        "only metadata (not raw response)"
+      ],
+      "forbidden_actions": [
+        "raw_webhook_response_in_audit",
+        "modify_existing_audit_record"
+      ]
+    },
+    {
+      "phase": 11,
+      "step": "Never auto-fix",
+      "allowed_now": false,
+      "required_checks": [
+        "auto_fix always forbidden in manual send flow"
+      ],
+      "forbidden_actions": [
+        "auto_fix",
+        "auto_remediation",
+        "auto_correct"
+      ]
+    },
+    {
+      "phase": 12,
+      "step": "Never scheduler-send without separate review",
+      "allowed_now": false,
+      "required_checks": [
+        "scheduler send requires Phase 6 separate review",
+        "no scheduler integration in main send flow"
+      ],
+      "forbidden_actions": [
+        "scheduler_triggered_send",
+        "cron_based_auto_send",
+        "watchdog_triggered_send"
+      ]
+    }
+  ],
+  "implementation_phases": [
+    {
+      "phase": 1,
+      "name": "Manual Send Policy Design",
+      "description": "Define policy/validation/confirmation/audit contract (R241-13D — this phase)",
+      "status": "current",
+      "allowed_now": true,
+      "deliverables": [
+        "FeishuWebhookPolicy contract",
+        "FeishuManualSendConfirmationPolicy contract",
+        "FeishuPayloadPreSendValidationPolicy contract",
+        "FeishuManualSendAuditPolicy contract",
+        "Blocked paths list",
+        "Allowed flow (12 steps)"
+      ],
+      "forbidden": [
+        "real_feishu_send",
+        "webhook_network_call",
+        "audit_jsonl_write",
+        "runtime_write",
+        "scheduler_integration"
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "Pre-send Policy Validator",
+      "description": "Validate payload + confirmation without sending",
+      "status": "future",
+      "allowed_now": false,
+      "deliverables": [
+        "validate_pre_send_payload()",
+        "validate_confirmation_phrase()",
+        "CLI --dry-run --validate-only flag"
+      ],
+      "forbidden": [
+        "real_feishu_send",
+        "webhook_network_call"
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "Manual Send Dry-run Command",
+      "description": "CLI showing 'what would be sent' without sending",
+      "status": "future",
+      "allowed_now": false,
+      "deliverables": [
+        "audit-trend-feishu --dry-run --send preview",
+        "Shows webhook target, payload hash, confirmation required"
+      ],
+      "forbidden": [
+        "actual_webhook_call",
+        "audit_jsonl_write"
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "Webhook Resolver Design",
+      "description": "Define allowlist / secret manager reference resolution",
+      "status": "future",
+      "allowed_now": false,
+      "deliverables": [
+        "resolve_webhook_from_allowlist()",
+        "resolve_secret_from_secret_manager()",
+        "validate_webhook_against_policy()"
+      ],
+      "forbidden": [
+        "reading_inline_webhook_url",
+        "reading_inline_secret",
+        "actual_send"
+      ]
+    },
+    {
+      "phase": 5,
+      "name": "Manual Send Implementation",
+      "description": "Actual Feishu send with full policy enforcement",
+      "status": "future",
+      "allowed_now": false,
+      "deliverables": [
+        "send_feishu_trend_card() with full policy checks",
+        "pre_send_audit_record creation",
+        "post_send_audit_record creation",
+        "confirmation phrase handler"
+      ],
+      "forbidden": [
+        "auto_fix",
+        "scheduler_auto_send",
+        "runtime_write"
+      ]
+    },
+    {
+      "phase": 6,
+      "name": "Scheduler Send Review",
+      "description": "Separate review for scheduler-triggered sends",
+      "status": "future",
+      "allowed_now": false,
+      "deliverables": [
+        "scheduler send requires explicit approval workflow",
+        "separate audit trail for scheduler sends",
+        "no scheduler integration in main send flow"
+      ],
+      "forbidden": [
+        "scheduler_auto_approval",
+        "scheduler_auto_send_without_review"
+      ]
+    }
+  ],
+  "warnings": [
+    "phase_1_is_design_only",
+    "no_real_send_in_phase_1",
+    "webhook_url_must_never_be_inline",
+    "user_confirmation_always_required",
+    "pre_and_post_audit_always_required"
+  ],
+  "errors": [],
+  "validation": {
+    "valid": true,
+    "webhook_url_allowed_inline_is_false": true,
+    "secret_inline_allowed_is_false": true,
+    "user_confirmation_required_is_true": true,
+    "pre_send_audit_required_is_true": true,
+    "post_send_audit_required_is_true": true,
+    "append_only_required_is_true": true,
+    "raw_webhook_never_logged_is_true": true,
+    "scheduler_auto_send_blocked": true,
+    "auto_fix_blocked": true,
+    "implementation_phases_complete": true,
+    "blocked_paths_count": 15,
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-25T06:19:39.490201+00:00"
+  }
+}

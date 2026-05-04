@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-6_StateEvent.schema.json",
+  "title": "StateEvent",
+  "description": "Unified state event schema for state transitions across all DeerFlow state systems.",
+  "type": "object",
+  "required": [
+    "state_event_id",
+    "state_domain",
+    "subject_type",
+    "subject_id",
+    "new_state",
+    "source_system",
+    "created_at"
+  ],
+  "properties": {
+    "state_event_id": {
+      "type": "string",
+      "description": "UUID -- globally unique identifier for this state event"
+    },
+    "context_id": {
+      "type": ["string", "null"],
+      "description": "Associated ContextEnvelope.context_id if this state belongs to a scoped context."
+    },
+    "source_system": {
+      "type": "string",
+      "description": "System that owns this state: gateway, deerflow_runtime, m01, m04, rtcm, watchdog, upgrade_center, memory, ..."
+    },
+    "state_domain": {
+      "type": "string",
+      "enum": [
+        "gateway_run",
+        "deerflow_thread",
+        "m01_request",
+        "m04_task",
+        "m04_workflow",
+        "m04_node",
+        "rtcm_project",
+        "rtcm_session",
+        "rtcm_round",
+        "governance_decision",
+        "experiment_queue_task",
+        "sandbox_execution",
+        "asset_lifecycle",
+        "memory_update",
+        "nightly_review",
+        "watchdog_health"
+      ],
+      "description": "The domain/namespace of this state. Used to disambiguate same_name IDs across systems."
+    },
+    "subject_type": {
+      "type": "string",
+      "enum": [
+        "run",
+        "thread",
+        "request",
+        "task",
+        "workflow",
+        "node",
+        "project",
+        "session",
+        "round",
+        "decision",
+        "queue_task",
+        "execution",
+        "asset",
+        "memory",
+        "review",
+        "health"
+      ],
+      "description": "Type of the state-bearing entity."
+    },
+    "subject_id": {
+      "type": "string",
+      "description": "Identifier of the subject: run_id, thread_id, task_id, project_id, etc. NOTE: same subject_id may have different meanings across state_domains."
+    },
+    "previous_state": {
+      "type": ["string", "null"],
+      "description": "State value before the transition. Null if this is an initial state (first observation)."
+    },
+    "new_state": {
+      "type": "string",
+      "description": "State value after the transition. For terminal states, no further transitions expected."
+    },
+    "state_category": {
+      "type": "string",
+      "enum": ["terminal", "intermediate", "neutral", "error", "pending"],
+      "description": "Category of this state: terminal=cannot transition further; intermediate=normal working state; neutral=completed normally with no success/failure semantic; error=failed state; pending=waiting for external input."
+    },
+    "transition_reason": {
+      "type": ["string", "null"],
+      "description": "Human-readable reason for this state transition."
+    },
+    "actor_system": {
+      "type": ["string", "null"],
+      "description": "System that triggered this state transition (may differ from source_system which owns the state)."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this state event was recorded."
+    },
+    "related_truth_event_id": {
+      "type": ["string", "null"],
+      "description": "Associated TruthEvent.truth_event_id if this state transition was triggered by a truth event (e.g., sandbox_execution_result caused governance state update)."
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "References to artifacts related to this state: checkpoint paths, log files, queue files, etc."
+    }
+  }
+}

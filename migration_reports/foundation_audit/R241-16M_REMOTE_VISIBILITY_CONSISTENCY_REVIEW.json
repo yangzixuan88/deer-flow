@@ -1,0 +1,305 @@
+{
+  "review_id": "rv-consistency-e749b76244e0",
+  "generated_at": "2026-04-26T17:05:45.617767+00:00",
+  "workflow_file": "foundation-manual-dispatch.yml",
+  "local_workflow_exists": true,
+  "git_exact_path_present": true,
+  "git_on_origin_head": true,
+  "gh_workflow_visible": false,
+  "gh_run_observable": false,
+  "gh_cli_state": "binary_unavailable",
+  "gh_available": false,
+  "gh_authenticated": false,
+  "default_branch": "main",
+  "local_branch": "main",
+  "local_head": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+  "checks": [
+    {
+      "check_id": "check_gh_cli_visibility",
+      "check_type": "gh_cli_available",
+      "passed": false,
+      "risk_level": "critical",
+      "description": "Verify gh CLI is available and authenticated",
+      "command_blueprint": {
+        "gh_version_check": {
+          "command_id": "gh_workflow_list",
+          "argv": [
+            "gh",
+            "workflow",
+            "list"
+          ],
+          "read_only": true,
+          "no_secret_output_expected": true,
+          "network_call_expected": true,
+          "shell_allowed": false,
+          "description": "List all workflows visible to gh CLI"
+        },
+        "gh_auth_check": {
+          "command_id": "gh_repo_view",
+          "argv": [
+            "gh",
+            "repo",
+            "view",
+            "--json",
+            "defaultBranchRef,nameWithOwner"
+          ],
+          "read_only": true,
+          "no_secret_output_expected": true,
+          "network_call_expected": true,
+          "shell_allowed": false,
+          "description": "Get repo default branch"
+        }
+      },
+      "command_executed": {
+        "version_command": {
+          "executed": false,
+          "error": "Command not in whitelist: gh",
+          "stdout": "",
+          "stderr": "",
+          "argv": [
+            "gh",
+            "--version"
+          ]
+        },
+        "auth_command": {
+          "executed": false,
+          "error": "Command not in whitelist: gh",
+          "stdout": "",
+          "stderr": "",
+          "argv": [
+            "gh",
+            "auth",
+            "status"
+          ]
+        }
+      },
+      "observed_value": {
+        "gh_available": false,
+        "gh_authenticated": false,
+        "gh_version": ""
+      },
+      "expected_value": {
+        "gh_available": true,
+        "gh_authenticated": true
+      },
+      "evidence_refs": [],
+      "blocked_reasons": [
+        "gh CLI not available: Command not in whitelist: gh"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_remote_workflow_list_visibility",
+      "check_type": "workflow_list_visibility",
+      "passed": false,
+      "risk_level": "high",
+      "description": "Check if foundation-manual-dispatch.yml is visible via gh workflow list",
+      "command_blueprint": {
+        "command_id": "gh_workflow_list",
+        "argv": [
+          "gh",
+          "workflow",
+          "list"
+        ],
+        "read_only": true,
+        "no_secret_output_expected": true,
+        "network_call_expected": true,
+        "shell_allowed": false,
+        "description": "List all workflows visible to gh CLI"
+      },
+      "command_executed": {
+        "list_command": {
+          "executed": true,
+          "returncode": 0,
+          "stdout": "Unit Tests\tactive\t237416140\nPublish Containers\tactive\t171423082\nE2E Tests\tactive\t261528151\nFrontend Unit Tests\tactive\t259627571\nLint Check\tactive\t250498789\nLint Check\tactive\t160900241\nTest Cases Check\tactive\t160900242\nCopilot code review\tactive\t202575687\nCopilot cloud agent\tactive\t207580356\nDependabot Updates\tactive\t168125855\nDependency Graph\tactive\t265639799\nCodeQL\tactive\t164748205\n",
+          "stderr": "",
+          "argv": [
+            "gh",
+            "workflow",
+            "list"
+          ],
+          "timed_out": false
+        },
+        "view_command": {
+          "executed": true,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "HTTP 404: workflow foundation-manual-dispatch.yml not found on the default branch (https://api.github.com/repos/bytedance/deer-flow/actions/workflows/foundation-manual-dispatch.yml)\n",
+          "argv": [
+            "gh",
+            "workflow",
+            "view",
+            "foundation-manual-dispatch.yml"
+          ],
+          "timed_out": false
+        }
+      },
+      "observed_value": {
+        "workflow_found_in_list": false,
+        "list_succeeded": true,
+        "view_succeeded": false,
+        "list_output_length": 386
+      },
+      "expected_value": {
+        "workflow_found_in_list": true
+      },
+      "evidence_refs": [],
+      "blocked_reasons": [
+        "Workflow foundation-manual-dispatch.yml not visible in gh workflow list"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_remote_run_observation_capability",
+      "check_type": "run_list_visibility",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Check if gh run list can observe runs for foundation-manual-dispatch.yml",
+      "command_blueprint": {
+        "command_id": "gh_run_list",
+        "argv": [
+          "gh",
+          "run",
+          "list",
+          "--workflow",
+          "foundation-manual-dispatch.yml",
+          "--limit",
+          "10",
+          "--json",
+          "databaseId,status,conclusion,event,workflowName,displayTitle,url,createdAt"
+        ],
+        "read_only": true,
+        "no_secret_output_expected": true,
+        "network_call_expected": true,
+        "shell_allowed": false,
+        "description": "List recent runs for foundation-manual-dispatch.yml"
+      },
+      "command_executed": {
+        "run_list_command": {
+          "executed": true,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "HTTP 404: workflow foundation-manual-dispatch.yml not found on the default branch (https://api.github.com/repos/bytedance/deer-flow/actions/workflows/foundation-manual-dispatch.yml)\n",
+          "argv": [
+            "gh",
+            "run",
+            "list",
+            "--workflow",
+            "foundation-manual-dispatch.yml",
+            "--limit",
+            "10",
+            "--json",
+            "databaseId,status,conclusion,event,workflowName,displayTitle,url,createdAt"
+          ],
+          "timed_out": false
+        }
+      },
+      "observed_value": {
+        "can_observe": true,
+        "runs_found": false,
+        "run_count": 0,
+        "gh_exit_code": 1
+      },
+      "expected_value": {
+        "can_observe": true
+      },
+      "evidence_refs": [],
+      "blocked_reasons": [
+        "Workflow foundation-manual-dispatch.yml not yet visible on GitHub (not pushed to remote)"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "command_results": {
+    "gh_version": {
+      "executed": false,
+      "error": "Command not in whitelist: gh",
+      "stdout": "",
+      "stderr": "",
+      "argv": [
+        "gh",
+        "--version"
+      ]
+    },
+    "gh_auth": {
+      "executed": false,
+      "error": "Command not in whitelist: gh",
+      "stdout": "",
+      "stderr": "",
+      "argv": [
+        "gh",
+        "auth",
+        "status"
+      ]
+    },
+    "gh_repo_view": {
+      "executed": true,
+      "returncode": 0,
+      "stdout": "{\"defaultBranchRef\":{\"name\":\"main\"},\"nameWithOwner\":\"bytedance/deer-flow\"}\n",
+      "stderr": "",
+      "argv": [
+        "gh",
+        "repo",
+        "view",
+        "--json",
+        "defaultBranchRef,nameWithOwner"
+      ],
+      "timed_out": false
+    },
+    "gh_workflow_list": {
+      "executed": true,
+      "returncode": 0,
+      "stdout": "Unit Tests\tactive\t237416140\nPublish Containers\tactive\t171423082\nE2E Tests\tactive\t261528151\nFrontend Unit Tests\tactive\t259627571\nLint Check\tactive\t250498789\nLint Check\tactive\t160900241\nTest Cases Check\tactive\t160900242\nCopilot code review\tactive\t202575687\nCopilot cloud agent\tactive\t207580356\nDependabot Updates\tactive\t168125855\nDependency Graph\tactive\t265639799\nCodeQL\tactive\t164748205\n",
+      "stderr": "",
+      "argv": [
+        "gh",
+        "workflow",
+        "list"
+      ],
+      "timed_out": false
+    },
+    "gh_workflow_view": {
+      "executed": true,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "HTTP 404: workflow foundation-manual-dispatch.yml not found on the default branch (https://api.github.com/repos/bytedance/deer-flow/actions/workflows/foundation-manual-dispatch.yml)\n",
+      "argv": [
+        "gh",
+        "workflow",
+        "view",
+        "foundation-manual-dispatch.yml"
+      ],
+      "timed_out": false
+    }
+  },
+  "mutation_guard": {
+    "no_local_mutation": true,
+    "mutations": [
+      {
+        "path": ".github\\workflows\\foundation-manual-dispatch.yml",
+        "exists": true,
+        "size": 2533
+      },
+      {
+        "path": ".github\\workflows\\backend-unit-tests.yml",
+        "exists": true,
+        "size": 863
+      },
+      {
+        "path": ".github\\workflows\\lint-check.yml",
+        "exists": true,
+        "size": 1480
+      }
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "previous_r241_16l_inconsistency_detected": false,
+  "corrected_status": "blocked_gh_unavailable",
+  "corrected_decision": "block_need_remote_visibility",
+  "blocking_reason": "gh CLI not available or not in PATH on this system",
+  "recommended_next_phase": "Install gh CLI and retry R241-16M."
+}

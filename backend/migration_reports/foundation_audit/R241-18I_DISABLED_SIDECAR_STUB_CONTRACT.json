@@ -1,0 +1,733 @@
+{
+  "contract_id": "R241-18I-94D89015",
+  "generated_at": "2026-04-28T04:08:48.411124+00:00",
+  "status": "contract_ready",
+  "decision": "approve_disabled_stub_contract",
+  "source_scope_ref": "R241-18H_BATCH5_SCOPE_RECONCILIATION",
+  "source_plan_ref": "R241-18C_READONLY_RUNTIME_ENTRY_IMPLEMENTATION_PLAN",
+  "route_descriptors": [
+    {
+      "route_id": "DSRT-001",
+      "route_type": "foundation_diagnose",
+      "method": "POST",
+      "path": "/_disabled/foundation/diagnose",
+      "entry_surface": "SPEC-001",
+      "handler_ref": "backend.app.foundation.read_only_diagnostics_cli:run_foundation_diagnose",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "enum": [
+              "diagnose",
+              "check",
+              "validate"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "markdown",
+              "text"
+            ]
+          },
+          "surface": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "command",
+          "format"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "diagnostic_results": {
+            "type": "array"
+          },
+          "summary": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_required": true,
+      "rate_limit_required": true,
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "secret_required": false,
+      "webhook_allowed": false,
+      "scheduler_allowed": false,
+      "risk_level": "low",
+      "safety_guards": {
+        "no_runtime_write": true,
+        "no_network_by_default": true,
+        "no_secret_access": true,
+        "no_scheduler_trigger": true,
+        "no_gateway_main_path_touch": true,
+        "no_http_endpoint": true
+      },
+      "activation_requirements": {
+        "explicit_user_confirmation_required": true,
+        "auth_policy_required": true,
+        "rate_limit_policy_required": true,
+        "sidecar_router_review_required": true,
+        "no_main_path_replacement": true,
+        "no_runtime_write_on_activation": true,
+        "no_network_listener_until_activation_review": true
+      },
+      "warnings": [
+        "disabled_by_default_requires_explicit_activation"
+      ],
+      "errors": []
+    },
+    {
+      "route_id": "DSRT-002",
+      "route_type": "audit_query",
+      "method": "POST",
+      "path": "/_disabled/foundation/audit-query",
+      "entry_surface": "SPEC-002",
+      "handler_ref": "backend.app.audit.audit_trail_query:run_audit_query",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "until": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "markdown",
+              "text"
+            ]
+          }
+        },
+        "required": [
+          "query",
+          "format"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "records": {
+            "type": "array"
+          },
+          "total_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "auth_required": true,
+      "rate_limit_required": true,
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "secret_required": false,
+      "webhook_allowed": false,
+      "scheduler_allowed": false,
+      "risk_level": "medium",
+      "safety_guards": {
+        "no_runtime_write": true,
+        "no_network_by_default": true,
+        "no_secret_access": true,
+        "no_scheduler_trigger": true,
+        "no_gateway_main_path_touch": true,
+        "no_http_endpoint": true
+      },
+      "activation_requirements": {
+        "explicit_user_confirmation_required": true,
+        "auth_policy_required": true,
+        "rate_limit_policy_required": true,
+        "sidecar_router_review_required": true,
+        "no_main_path_replacement": true,
+        "no_runtime_write_on_activation": true,
+        "no_network_listener_until_activation_review": true
+      },
+      "warnings": [
+        "disabled_by_default_requires_explicit_activation"
+      ],
+      "errors": []
+    },
+    {
+      "route_id": "DSRT-003",
+      "route_type": "trend_report",
+      "method": "POST",
+      "path": "/_disabled/foundation/trend-report",
+      "entry_surface": "SPEC-003",
+      "handler_ref": "backend.app.audit.audit_trend_projection:run_trend_report",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "period": {
+            "type": "string",
+            "enum": [
+              "24h",
+              "7d",
+              "30d",
+              "all_available"
+            ]
+          },
+          "output_format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "markdown",
+              "text"
+            ]
+          }
+        },
+        "required": [
+          "period",
+          "output_format"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "trend_data": {
+            "type": "object"
+          },
+          "report_text": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_required": true,
+      "rate_limit_required": true,
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "secret_required": false,
+      "webhook_allowed": false,
+      "scheduler_allowed": false,
+      "risk_level": "medium",
+      "safety_guards": {
+        "no_runtime_write": true,
+        "no_network_by_default": true,
+        "no_secret_access": true,
+        "no_scheduler_trigger": true,
+        "no_gateway_main_path_touch": true,
+        "no_http_endpoint": true
+      },
+      "activation_requirements": {
+        "explicit_user_confirmation_required": true,
+        "auth_policy_required": true,
+        "rate_limit_policy_required": true,
+        "sidecar_router_review_required": true,
+        "no_main_path_replacement": true,
+        "no_runtime_write_on_activation": true,
+        "no_network_listener_until_activation_review": true
+      },
+      "warnings": [
+        "disabled_by_default_requires_explicit_activation",
+        "report_output_path_must_be_under_migration_reports_trend"
+      ],
+      "errors": []
+    },
+    {
+      "route_id": "DSRT-004",
+      "route_type": "feishu_dryrun",
+      "method": "POST",
+      "path": "/_disabled/foundation/feishu-dryrun",
+      "entry_surface": "SPEC-004",
+      "handler_ref": "backend.app.audit.audit_trend_feishu_preview:run_feishu_summary_dryrun",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "markdown",
+              "text"
+            ]
+          }
+        },
+        "required": [
+          "content",
+          "format"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "preview": {
+            "type": "string"
+          },
+          "valid": {
+            "type": "boolean"
+          }
+        }
+      },
+      "auth_required": true,
+      "rate_limit_required": true,
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "secret_required": false,
+      "webhook_allowed": false,
+      "scheduler_allowed": false,
+      "risk_level": "medium",
+      "safety_guards": {
+        "no_runtime_write": true,
+        "no_network_by_default": true,
+        "no_secret_access": true,
+        "no_scheduler_trigger": true,
+        "no_gateway_main_path_touch": true,
+        "no_http_endpoint": true
+      },
+      "activation_requirements": {
+        "explicit_user_confirmation_required": true,
+        "auth_policy_required": true,
+        "rate_limit_policy_required": true,
+        "sidecar_router_review_required": true,
+        "no_main_path_replacement": true,
+        "no_runtime_write_on_activation": true,
+        "no_network_listener_until_activation_review": true
+      },
+      "warnings": [
+        "disabled_by_default_requires_explicit_activation",
+        "dryrun_only_no_real_send"
+      ],
+      "errors": []
+    },
+    {
+      "route_id": "DSRT-005",
+      "route_type": "feishu_presend_validate",
+      "method": "POST",
+      "path": "/_disabled/foundation/feishu-presend",
+      "entry_surface": "SPEC-005",
+      "handler_ref": "backend.app.audit.audit_trend_feishu_presend_cli:run_feishu_presend_validate",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "object"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "message",
+          "recipients"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "valid": {
+            "type": "boolean"
+          },
+          "validation_errors": {
+            "type": "array"
+          }
+        }
+      },
+      "auth_required": true,
+      "rate_limit_required": true,
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "secret_required": false,
+      "webhook_allowed": false,
+      "scheduler_allowed": false,
+      "risk_level": "high",
+      "safety_guards": {
+        "no_runtime_write": true,
+        "no_network_by_default": true,
+        "no_secret_access": true,
+        "no_scheduler_trigger": true,
+        "no_gateway_main_path_touch": true,
+        "no_http_endpoint": true
+      },
+      "activation_requirements": {
+        "explicit_user_confirmation_required": true,
+        "auth_policy_required": true,
+        "rate_limit_policy_required": true,
+        "sidecar_router_review_required": true,
+        "no_main_path_replacement": true,
+        "no_runtime_write_on_activation": true,
+        "no_network_listener_until_activation_review": true
+      },
+      "warnings": [
+        "disabled_by_default_requires_explicit_activation",
+        "validate_only_no_real_feishu_send",
+        "no_webhook_token_access"
+      ],
+      "errors": []
+    },
+    {
+      "route_id": "DSRT-006",
+      "route_type": "truth_state",
+      "method": "POST",
+      "path": "/_disabled/foundation/truth-state",
+      "entry_surface": "SPEC-006",
+      "handler_ref": "backend.app.foundation.read_only_diagnostics_cli:run_truth_state",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "delta"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "markdown",
+              "text"
+            ]
+          }
+        },
+        "required": [
+          "mode",
+          "format"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "truth_state": {
+            "type": "object"
+          },
+          "snapshot_time": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_required": true,
+      "rate_limit_required": true,
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "secret_required": false,
+      "webhook_allowed": false,
+      "scheduler_allowed": false,
+      "risk_level": "low",
+      "safety_guards": {
+        "no_runtime_write": true,
+        "no_network_by_default": true,
+        "no_secret_access": true,
+        "no_scheduler_trigger": true,
+        "no_gateway_main_path_touch": true,
+        "no_http_endpoint": true
+      },
+      "activation_requirements": {
+        "explicit_user_confirmation_required": true,
+        "auth_policy_required": true,
+        "rate_limit_policy_required": true,
+        "sidecar_router_review_required": true,
+        "no_main_path_replacement": true,
+        "no_runtime_write_on_activation": true,
+        "no_network_listener_until_activation_review": true
+      },
+      "warnings": [
+        "disabled_by_default_requires_explicit_activation"
+      ],
+      "errors": []
+    }
+  ],
+  "safety_checks": [
+    {
+      "check_id": "route_count_equals_6",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Exactly 6 route descriptors generated (6)",
+      "observed_value": 6,
+      "expected_value": 6,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_enabled_routes",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route has enabled=True (0 enabled)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "all_disabled_by_default",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "All routes have disabled_by_default=True (6/6)",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "none_implemented_now",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route has implemented_now=True (0 implemented)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_network_listener",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route starts network listener (0 listeners)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_gateway_main_path",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route touches Gateway main path (0 touches)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_runtime_write_allowed",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route allows runtime write (0 allow write)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_audit_jsonl_write_allowed",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route allows audit JSONL write (0 allow write)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_secret_required",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No route requires secret (0 require secret)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_webhook_allowed",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No route allows webhook (0 allow webhook)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "no_scheduler_allowed",
+      "passed": true,
+      "risk_level": "high",
+      "description": "No route allows scheduler (0 allow scheduler)",
+      "observed_value": 0,
+      "expected_value": 0,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "auth_required_for_all",
+      "passed": true,
+      "risk_level": "high",
+      "description": "All routes require auth (6/6)",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "rate_limit_required_for_all",
+      "passed": true,
+      "risk_level": "high",
+      "description": "All routes require rate limit (6/6)",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "paths_are_disabled_namespace",
+      "passed": true,
+      "risk_level": "high",
+      "description": "All routes use /_disabled/ namespace (6/6)",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "handlers_are_references_only",
+      "passed": true,
+      "risk_level": "high",
+      "description": "All handler_refs are module:string format, not imported callables",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "memory_mcp_not_included",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "No route includes memory runtime or MCP runtime",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "step_scope_limited_to_step_005",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Contract scope is limited to STEP-005 (disabled_sidecar_stub)",
+      "observed_value": true,
+      "expected_value": true,
+      "required_for_contract": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "approved_route_count": 6,
+  "blocked_route_count": 0,
+  "activation_requirements": {
+    "explicit_user_confirmation_required": true,
+    "auth_policy_required": true,
+    "rate_limit_policy_required": true,
+    "sidecar_router_review_required": true,
+    "no_main_path_replacement": true,
+    "no_runtime_write_on_activation": true,
+    "no_network_listener_until_activation_review": true
+  },
+  "validation_result": {
+    "valid": true,
+    "issues": [],
+    "warnings": [],
+    "route_count": 6,
+    "safety_check_count": 17,
+    "failed_safety_checks": 0
+  },
+  "warnings": [
+    "all_routes_disabled_by_default",
+    "no_http_endpoint_opened",
+    "no_network_listener_started",
+    "no_gateway_main_path_touched",
+    "no_runtime_write",
+    "no_audit_jsonl_write",
+    "no_secret_read",
+    "no_webhook",
+    "no_scheduler",
+    "step_006_not_implemented",
+    "memory_mcp_excluded"
+  ],
+  "errors": []
+}

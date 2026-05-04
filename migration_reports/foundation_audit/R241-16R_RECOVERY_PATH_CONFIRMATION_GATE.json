@@ -1,0 +1,311 @@
+{
+  "decision_id": "recovery-gate-20260426061731",
+  "generated_at": "2026-04-26T06:17:31.236546+00:00",
+  "status": "allowed_for_next_review",
+  "decision": "allow_recovery_implementation_review",
+  "allowed_next_phase": "R241-16S_patch_bundle_generation",
+  "recovery_action_allowed_now": false,
+  "requested_option": "option_d_generate_patch_bundle_after_confirmation",
+  "confirmation_input": {
+    "input_id": "recovery-input-20260426061731",
+    "provided_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+    "expected_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+    "phrase_present": true,
+    "phrase_exact_match": true,
+    "requested_option": "option_d_generate_patch_bundle_after_confirmation",
+    "requested_option_valid": true,
+    "requested_scope": "recovery_path_selection",
+    "provided_at": "2026-04-26T06:17:31.235296+00:00",
+    "warnings": [],
+    "errors": []
+  },
+  "confirmation_checks": [
+    {
+      "check_id": "check_confirmation_phrase",
+      "check_type": "confirmation_phrase",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Validate CONFIRM_PUBLISH_RECOVERY_PATH phrase is present and exact match",
+      "required_before_allow": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_recovery_option",
+      "check_type": "requested_option",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "Validate requested recovery option: option_d_generate_patch_bundle_after_confirmation",
+      "required_before_allow": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_status",
+      "check_type": "r241_16q_status",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "R241-16Q status must be reviewed_push_permission_denied",
+      "observed_value": "reviewed_push_permission_denied",
+      "expected_value": "reviewed_push_permission_denied",
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_local_commit_scope",
+      "check_type": "local_commit_scope",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Local commit must only contain target workflow",
+      "observed_value": "94908556cc2ca66c219d361f424954945eee9e67",
+      "expected_value": ".github/workflows/foundation-manual-dispatch.yml",
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_remote_workflow_missing",
+      "check_type": "remote_workflow_missing",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Remote origin/main must not have target workflow",
+      "observed_value": false,
+      "expected_value": false,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_b_status",
+      "check_type": "r241_16q_b_status",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "R241-16Q-B status must be parser_false_positive_fixed or clean",
+      "observed_value": "parser_false_positive_fixed",
+      "expected_value": "parser_false_positive_fixed or clean",
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_b_decision",
+      "check_type": "r241_16q_b_decision",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "R241-16Q-B decision must be allow_recovery_gate",
+      "observed_value": "allow_recovery_gate",
+      "expected_value": "allow_recovery_gate",
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_b_staged_area",
+      "check_type": "staged_area_clean",
+      "passed": true,
+      "risk_level": "high",
+      "description": "R241-16Q-B current staged area must be empty",
+      "observed_value": [],
+      "expected_value": [],
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_r241_16q_b_existing_workflows",
+      "check_type": "existing_workflows_unchanged",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Existing workflows must be unchanged",
+      "observed_value": true,
+      "expected_value": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "push_failure_review_ref": {
+    "status": "reviewed_push_permission_denied",
+    "decision": "keep_local_commit",
+    "local_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67"
+  },
+  "staged_area_review_ref": {
+    "status": "parser_false_positive_fixed",
+    "decision": "allow_recovery_gate",
+    "staged_area_empty": true
+  },
+  "local_commit_state": {
+    "safe": true,
+    "only_target_workflow": true
+  },
+  "remote_workflow_state": {
+    "present": false
+  },
+  "recovery_options": [
+    {
+      "option_id": "option_a_keep_local_commit_wait_permission",
+      "label": "Keep local commit and wait for upstream permission",
+      "risk_level": "low",
+      "description": "Keep local commit ahead 1 and wait for permission grant."
+    },
+    {
+      "option_id": "option_b_push_to_user_fork_after_confirmation",
+      "label": "Push to user fork after confirmation",
+      "risk_level": "medium",
+      "description": "Push to user fork remote after confirming fork exists."
+    },
+    {
+      "option_id": "option_c_create_review_branch_after_confirmation",
+      "label": "Create review branch after confirmation",
+      "risk_level": "medium",
+      "description": "Create review branch. May still fail without remote permission."
+    },
+    {
+      "option_id": "option_d_generate_patch_bundle_after_confirmation",
+      "label": "Generate patch or bundle after confirmation",
+      "risk_level": "low",
+      "description": "Generate patch or bundle to migration_reports without remote push."
+    },
+    {
+      "option_id": "option_e_rollback_local_commit_after_confirmation",
+      "label": "Rollback local commit after confirmation",
+      "risk_level": "high",
+      "description": "Rollback local commit. This is irreversible and discards the safe commit."
+    }
+  ],
+  "command_blueprints": [
+    {
+      "command_id": "option_a_wait_no_command",
+      "recovery_option": "option_a_keep_local_commit_wait_permission",
+      "argv": [],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "warnings": [
+        "No action taken. Local commit remains ahead of origin/main."
+      ]
+    },
+    {
+      "command_id": "option_b_push_fork",
+      "recovery_option": "option_b_push_to_user_fork_after_confirmation",
+      "argv": [
+        "git",
+        "push",
+        "user-fork",
+        "main"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": true,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "warnings": [
+        "Requires confirmed fork remote. Verify user-fork points to your fork."
+      ]
+    },
+    {
+      "command_id": "option_c_review_branch",
+      "recovery_option": "option_c_create_review_branch_after_confirmation",
+      "argv": [
+        "git",
+        "checkout",
+        "-b",
+        "foundation-manual-workflow-review"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "warnings": [
+        "Creates local branch but does NOT push. May fail on push without permission."
+      ]
+    },
+    {
+      "command_id": "option_d_generate_patch",
+      "recovery_option": "option_d_generate_patch_bundle_after_confirmation",
+      "argv": [
+        "git",
+        "format-patch",
+        "-1",
+        "HEAD",
+        "-o",
+        "migration_reports/foundation_audit"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "warnings": [
+        "Generates .patch file in migration_reports/foundation_audit. No remote push."
+      ]
+    },
+    {
+      "command_id": "option_d_generate_bundle",
+      "recovery_option": "option_d_generate_patch_bundle_after_confirmation",
+      "argv": [
+        "git",
+        "bundle",
+        "create",
+        "migration_reports/foundation_audit/foundation-workflow.bundle",
+        "HEAD"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": false,
+      "would_push_remote": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "warnings": [
+        "Generates .bundle file in migration_reports/foundation_audit. No remote push."
+      ]
+    },
+    {
+      "command_id": "option_e_rollback",
+      "recovery_option": "option_e_rollback_local_commit_after_confirmation",
+      "argv": [
+        "git",
+        "reset",
+        "--soft",
+        "HEAD~1"
+      ],
+      "command_allowed_now": false,
+      "would_modify_git_history": true,
+      "would_push_remote": false,
+      "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "warnings": [
+        "HIGH RISK: This discards the local commit.",
+        "Workflow file content remains in working tree but is no longer committed."
+      ]
+    }
+  ],
+  "rollback_plan": {
+    "if_only_local_uncommitted": {
+      "description": "Workflow is local only (uncommitted).",
+      "rollback_action": "No action required.",
+      "commands": [],
+      "confirmation_required": true
+    },
+    "if_committed_not_pushed": {
+      "description": "Workflow committed locally but not pushed.",
+      "rollback_action": "git reset --soft HEAD~1 to uncommit.",
+      "commands": [
+        "git reset --soft HEAD~1"
+      ],
+      "confirmation_required": true,
+      "warnings": [
+        "This undoes the commit but file content may still be in staging."
+      ]
+    },
+    "no_auto_rollback": true
+  },
+  "validation": {
+    "valid": true,
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "blocked_reasons": [],
+  "warnings": [],
+  "errors": []
+}

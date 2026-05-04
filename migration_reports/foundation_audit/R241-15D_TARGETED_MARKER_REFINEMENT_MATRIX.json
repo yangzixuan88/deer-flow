@@ -1,0 +1,357 @@
+{
+  "plan_id": "R241-15D_targeted_marker_refinement_plan",
+  "generated_at": "2026-04-25T22:36:19.526078+00:00",
+  "durations_baseline_before": {
+    "foundation_fast": {
+      "passed": 181,
+      "deselected": 30,
+      "pytest_runtime_seconds": 315.74,
+      "wall_seconds": 317.7591862
+    },
+    "audit_fast": {
+      "passed": 359,
+      "deselected": 57,
+      "pytest_runtime_seconds": 2.01,
+      "wall_seconds": 4.2894025
+    },
+    "safety": {
+      "passed": 5,
+      "deselected": 622,
+      "pytest_runtime_seconds": 1.01,
+      "wall_seconds": 3.3946805
+    },
+    "collect_only": {
+      "collected": 627,
+      "wall_seconds": 2.8643147
+    }
+  },
+  "remeasure_after": {
+    "foundation_fast": {
+      "passed": 182,
+      "deselected": 49,
+      "pytest_runtime_seconds": 10.42,
+      "wall_seconds": 12.4136879
+    },
+    "audit_fast": {
+      "passed": 359,
+      "deselected": 57,
+      "pytest_runtime_seconds": 1.83,
+      "wall_seconds": 3.824511
+    },
+    "slow": {
+      "passed": 106,
+      "deselected": 541,
+      "pytest_runtime_seconds": 419.35,
+      "wall_seconds": 421.3516101
+    },
+    "safety": {
+      "passed": 5,
+      "deselected": 642,
+      "pytest_runtime_seconds": 0.96,
+      "wall_seconds": 3.1572215
+    },
+    "collect_only": {
+      "collected": 647,
+      "wall_seconds": 2.6397232
+    }
+  },
+  "performance_delta": {
+    "foundation_fast_pytest_delta_seconds": 305.32,
+    "foundation_fast_percent_improvement": 96.7,
+    "audit_fast_pytest_delta_seconds": 0.18,
+    "slow_suite_pytest_delta_seconds": 303.75,
+    "safety_pytest_delta_seconds": 0.05
+  },
+  "duration_measurement_schema": {
+    "schema_id": "R241-15D_duration_measurement_schema",
+    "generated_at": "2026-04-25T22:36:19.526109+00:00",
+    "suites": {
+      "foundation_fast": {
+        "fields": [
+          "command",
+          "runtime_seconds",
+          "passed",
+          "failed",
+          "skipped",
+          "deselected",
+          "top_duration_tests"
+        ]
+      },
+      "audit_fast": {
+        "fields": [
+          "command",
+          "runtime_seconds",
+          "passed",
+          "failed",
+          "skipped",
+          "deselected",
+          "top_duration_tests"
+        ]
+      },
+      "safety": {
+        "fields": [
+          "command",
+          "runtime_seconds",
+          "passed",
+          "failed",
+          "skipped",
+          "deselected",
+          "top_duration_tests"
+        ]
+      }
+    },
+    "duration_test_fields": [
+      "nodeid",
+      "duration_seconds",
+      "phase",
+      "classification",
+      "recommended_marker_change"
+    ],
+    "required_markers": [
+      "smoke",
+      "unit",
+      "integration",
+      "slow",
+      "full",
+      "no_network",
+      "no_runtime_write",
+      "no_secret"
+    ],
+    "remeasure_commands": [
+      "python -m pytest backend/app/foundation -m \"not slow\" -v",
+      "python -m pytest backend/app/audit -m \"not slow\" -v",
+      "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+      "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v"
+    ],
+    "warnings": []
+  },
+  "candidate_confirmation": {
+    "total_candidates_reviewed": 5,
+    "confirmed_slow_marker_needed": 5,
+    "keep_fast_unit": 0,
+    "needs_synthetic_fixture_later": 0,
+    "safety_marker_only": 0,
+    "false_positive": 0,
+    "unresolved_for_manual_review": 0,
+    "classified_candidates": [
+      {
+        "candidate": {
+          "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_format_json_returns_dict",
+          "duration_seconds": 38.9,
+          "reason": "run_all_diagnostics aggregate diagnostic"
+        },
+        "classification": "confirmed_slow_marker_needed",
+        "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+        "recommended_markers": [
+          "slow",
+          "integration"
+        ],
+        "safe_to_mark_slow": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_no_tool_execution",
+          "duration_seconds": 34.64,
+          "reason": "run_all_diagnostics aggregate diagnostic"
+        },
+        "classification": "confirmed_slow_marker_needed",
+        "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+        "recommended_markers": [
+          "slow",
+          "integration"
+        ],
+        "safe_to_mark_slow": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_run_feishu_summary_diagnostic_send_allowed_false",
+          "duration_seconds": 17.22,
+          "reason": "real Feishu summary projection diagnostic"
+        },
+        "classification": "confirmed_slow_marker_needed",
+        "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+        "recommended_markers": [
+          "slow",
+          "integration"
+        ],
+        "safe_to_mark_slow": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_run_rtcm_has_audit_record",
+          "duration_seconds": 5.02,
+          "reason": "real repository scan / aggregate diagnostic"
+        },
+        "classification": "confirmed_slow_marker_needed",
+        "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+        "recommended_markers": [
+          "slow",
+          "integration"
+        ],
+        "safe_to_mark_slow": true,
+        "warnings": []
+      },
+      {
+        "candidate": {
+          "nodeid": "backend/app/foundation/test_runtime_optimization.py::test_generate_runtime_optimization_plan_writes_only_tmp_path",
+          "duration_seconds": 0.12,
+          "reason": "sample generation report artifact"
+        },
+        "classification": "confirmed_slow_marker_needed",
+        "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+        "recommended_markers": [
+          "slow",
+          "integration"
+        ],
+        "safe_to_mark_slow": true,
+        "warnings": []
+      }
+    ]
+  },
+  "proposed_marker_changes": [
+    {
+      "candidate": {
+        "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_format_json_returns_dict",
+        "duration_seconds": 38.9,
+        "reason": "run_all_diagnostics aggregate diagnostic"
+      },
+      "classification": "confirmed_slow_marker_needed",
+      "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+      "recommended_markers": [
+        "slow",
+        "integration"
+      ],
+      "safe_to_mark_slow": true,
+      "warnings": []
+    },
+    {
+      "candidate": {
+        "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_no_tool_execution",
+        "duration_seconds": 34.64,
+        "reason": "run_all_diagnostics aggregate diagnostic"
+      },
+      "classification": "confirmed_slow_marker_needed",
+      "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+      "recommended_markers": [
+        "slow",
+        "integration"
+      ],
+      "safe_to_mark_slow": true,
+      "warnings": []
+    },
+    {
+      "candidate": {
+        "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_run_feishu_summary_diagnostic_send_allowed_false",
+        "duration_seconds": 17.22,
+        "reason": "real Feishu summary projection diagnostic"
+      },
+      "classification": "confirmed_slow_marker_needed",
+      "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+      "recommended_markers": [
+        "slow",
+        "integration"
+      ],
+      "safe_to_mark_slow": true,
+      "warnings": []
+    },
+    {
+      "candidate": {
+        "nodeid": "backend/app/foundation/test_read_only_diagnostics_cli.py::test_run_rtcm_has_audit_record",
+        "duration_seconds": 5.02,
+        "reason": "real repository scan / aggregate diagnostic"
+      },
+      "classification": "confirmed_slow_marker_needed",
+      "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+      "recommended_markers": [
+        "slow",
+        "integration"
+      ],
+      "safe_to_mark_slow": true,
+      "warnings": []
+    },
+    {
+      "candidate": {
+        "nodeid": "backend/app/foundation/test_runtime_optimization.py::test_generate_runtime_optimization_plan_writes_only_tmp_path",
+        "duration_seconds": 0.12,
+        "reason": "sample generation report artifact"
+      },
+      "classification": "confirmed_slow_marker_needed",
+      "reason": "confirmed_cli_aggregate_sample_or_filesystem_path",
+      "recommended_markers": [
+        "slow",
+        "integration"
+      ],
+      "safe_to_mark_slow": true,
+      "warnings": []
+    }
+  ],
+  "applied_marker_changes": [
+    {
+      "file": "backend/app/foundation/test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_feishu_summary_diagnostic_send_allowed_false",
+      "markers_added": [
+        "slow",
+        "integration"
+      ],
+      "reason": "real Feishu summary projection path in foundation fast durations"
+    },
+    {
+      "file": "backend/app/foundation/test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_feishu_summary_diagnostic_webhook_required_true",
+      "markers_added": [
+        "slow",
+        "integration"
+      ],
+      "reason": "real Feishu summary projection path in foundation fast durations"
+    },
+    {
+      "file": "backend/app/foundation/test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_feishu_summary_diagnostic_no_webhook_call_flag",
+      "markers_added": [
+        "slow",
+        "integration"
+      ],
+      "reason": "real Feishu summary projection path in foundation fast durations"
+    },
+    {
+      "file": "backend/app/foundation/test_read_only_diagnostics_cli.py",
+      "test_name": "test_run_feishu_summary_diagnostic_validation_present",
+      "markers_added": [
+        "slow",
+        "integration"
+      ],
+      "reason": "real Feishu summary projection path in foundation fast durations"
+    }
+  ],
+  "keep_fast_tests": [],
+  "unresolved_candidates": [],
+  "safety_marker_updates": [],
+  "synthetic_fixture_later": [],
+  "remeasure_commands": [
+    "python -m pytest backend/app/foundation -m \"not slow\" -v",
+    "python -m pytest backend/app/audit -m \"not slow\" -v",
+    "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+    "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v"
+  ],
+  "safety_constraints": {
+    "delete_tests": false,
+    "skip_safety_tests": false,
+    "xfail_safety_tests": false,
+    "network_call": false,
+    "runtime_write": false,
+    "audit_jsonl_write": false,
+    "auto_fix": false,
+    "safety_coverage_reduced": false
+  },
+  "warnings": [],
+  "errors": [],
+  "validation": {
+    "validated_at": "2026-04-25T22:36:19.526125+00:00",
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  }
+}

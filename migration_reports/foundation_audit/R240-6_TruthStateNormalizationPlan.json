@@ -1,0 +1,245 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "R240-6_TruthStateNormalizationPlan.json",
+  "title": "TruthStateNormalizationPlan",
+  "description": "Phased plan for implementing TruthEvent/StateEvent schema without modifying existing business logic. Each phase is additive -- no existing code changes required until Phase 5.",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Wrapper / Adapter Layer (Read-Only Observation)",
+      "goal": "Add TruthEvent/StateEvent wrappers around existing governance_bridge.record_outcome() without modifying the original function. Create classification layer that existing code does not see.",
+      "read_only": true,
+      "modifies_business_logic": false,
+      "risk": "LOW",
+      "deliverables": [
+        "TruthEventWrapper class in backend/app/m11/truth_event_wrapper.py",
+        "StateEventWrapper class in backend/app/m11/state_event_wrapper.py",
+        "OutcomeContractMapper class in backend/app/m11/outcome_contract_mapper.py",
+        "All 14 outcome_types classified with truth_type/truth_track",
+        "governance_trace_id extraction from context.context_envelope",
+        "actual_value / predicted_value extraction from outcome_record fields"
+      ],
+      "specific_operations": [
+        {
+          "component": "TruthEventWrapper",
+          "file": "backend/app/m11/truth_event_wrapper.py",
+          "description": "Wraps governance_bridge.record_outcome(). Receives raw outcome_type+actual_result+predicted_result+context. Maps to TruthEvent schema. Classifies truth_type/truth_track. Does NOT call original record_outcome -- wraps it.",
+          "does_not_modify": ["governance_bridge.record_outcome()", "governance_state.json format"]
+        },
+        {
+          "component": "StateEventWrapper",
+          "file": "backend/app/m11/state_event_wrapper.py",
+          "description": "Wraps queue/gateway/M04/RTCM state change callbacks. Maps state transitions to StateEvent schema. Links related TruthEvent via related_truth_event_id.",
+          "does_not_modify": ["any queue.py", "any coordinator.py", "any gateway code"]
+        },
+        {
+          "component": "OutcomeContractMapper",
+          "file": "backend/app/m11/outcome_contract_mapper.py",
+          "description": "Handles semantic conflicts: actual field type分歧 (1.0/0.0 vs 0.95/0.2), predicted null handling, field name collisions (status/execution_stage/filter_result)."
+        },
+        {
+          "component": "governance_trace_id propagation",
+          "description": "TruthEventWrapper extracts governance_trace_id from context.context_envelope (R240-4 ContextEnvelope). Populates TruthEvent.governance_trace_id. Currently governance_trace_id is NOT in any outcome_record -- this gap is closed at wrapper layer without modifying governance_bridge."
+        }
+      ],
+      "tests": [
+        "Unit tests for TruthEventWrapper: all 14 outcome_types produce correct truth_type/truth_track",
+        "Unit tests for OutcomeContractMapper: actual field type分歧 resolved correctly",
+        "Integration test: TruthEvent produced for sandbox_execution_result has governance_trace_id populated"
+      ],
+      "unblocks": ["Mode Router can now consume TruthEventWrapper for truth classification"]
+    },
+    {
+      "phase": 2,
+      "name": "Governance Outcome TruthEvent Envelope",
+      "goal": "Add optional truth_type/truth_track/truth_event_id fields to outcome_record structure. Migrate actual/predicted hardcoded values. This is additive -- existing fields remain.",
+      "read_only": false,
+      "modifies_business_logic": false,
+      "risk": "MEDIUM",
+      "prerequisites": ["Phase 1 complete and tested"],
+      "specific_operations": [
+        {
+          "issue": "nightly_evolution actual=1.0 and predicted=0.9 are HARDCODED",
+          "fix": "Add truth_type='observation_signal' to outcome_record. actual/predicted remain as-is for backwards compat. TruthEventWrapper sees the truth_type and ignores hardcoded values.",
+          "file": "backend/app/m11/governance_state.json schema update"
+        },
+        {
+          "issue": "upgrade_center_approval actual=1.0 hardcoded",
+          "fix": "truth_type='predicted_outcome', actual_value=null (not hardcoded 1.0). TruthEventWrapper propagates candidate.predicted_value to predicted_value.",
+          "file": "tmp_uc_backflow.py (UC backflow script)"
+        },
+        {
+          "issue": "upgrade_center_summary has no actual/predicted top-level",
+          "fix": "truth_type='observation_signal'. Individual candidate outcomes come separately via upgrade_center_execution_result.",
+          "file": "backend/src/upgrade_center/upgrade_center_runner.ts"
+        },
+        {
+          "issue": "queue_health_signal is State not Truth",
+          "fix": "truth_type='state_snapshot'. Migrate from TruthEvent to StateEvent. Phase 2 produces both for compatibility.",
+          "file": "backend/src/infrastructure/watchdog.py"
+        }
+      ],
+      "schema_changes": [
+        {
+          "file": "governance_state.json",
+          "change": "outcome_record gains optional fields: truth_type, truth_track, truth_event_id",
+          "backwards_compatible": true,
+          "existing_fields_unchanged": true
+        }
+      ],
+      "tests": [
+        "Verify existing consumers (DPBS, M08, UC) still work with added fields",
+        "TruthEventWrapper tests pass with new truth_type field"
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "UC Sandbox Predicted-Actual Alignment",
+      "goal": "Ensure predicted_value from UC TieredCandidate is explicitly propagated through QueueConsumer to sandbox_execution_result",
+      "read_only": false,
+      "modifies_business_logic": false,
+      "risk": "MEDIUM",
+      "prerequisites": ["Phase 1 complete"],
+      "specific_operations": [
+        {
+          "issue": "sandbox_execution_result predicted comes from task.predicted but source is opaque",
+          "fix": "In QueueManager (TypeScript), ensure ExperimentTask.predicted is populated from TieredCandidate.predicted_value. Document the chain: U6 ApprovalTierClassifier -> TieredCandidate.predicted_value -> ExperimentTask.predicted -> task.predicted -> QueueConsumer task.predicted -> governance predicted",
+          "file": "backend/src/upgrade_center/queue_manager.ts"
+        },
+        {
+          "issue": "UC experiment_pool.json and approval_backlog.json are predicted state without explicit predicted_value field",
+          "fix": "Add truth_event_id to ExperimentTask in experiment_pool.json. This ID tracks the candidate from UC prediction through execution to governance outcome.",
+          "file": "backend/src/upgrade_center/types.ts"
+        },
+        {
+          "issue": "execution_status=success but queue task.status=completed are conflated",
+          "fix": "Phase 3 adds execution_status to StateEvent for sandbox. StateEventWrapper classifies: task.status (queue state) vs execution_status (truth).",
+          "files": ["backend/app/m11/queue_consumer.py", "backend/app/m11/state_event_wrapper.py"]
+        }
+      ],
+      "tests": [
+        "Verify predicted_value from U6 TieredCandidate reaches sandbox_execution_result.predicted",
+        "StateEvent shows task.status (queue) and execution_status (truth) as separate events"
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "RTCM / Asset / Memory / Prompt Integration",
+      "goal": "Add missing truth_type coverage for RTCM verdict, memory update, and prompt optimization",
+      "read_only": false,
+      "modifies_business_logic": true,
+      "risk": "HIGH",
+      "prerequisites": ["Phase 1-3 complete"],
+      "specific_operations": [
+        {
+          "component": "RTCM verdict",
+          "issue": "final_report.acceptance_recommendation is not written to governance",
+          "fix": "New outcome_type: rtcm_verdict, truth_type=approval_decision, truth_track=rtcm_truth. Written when project ARCHIVED.",
+          "files": ["backend/src/rtcm/dossier_writer.ts", "backend/src/domain/m01/rtcm_main_agent_handoff.ts"],
+          "governance_trace_id_required": true,
+          "note": "Requires rtcm_session_id in ContextEnvelope"
+        },
+        {
+          "component": "Asset quality signal",
+          "issue": "NightlyDistiller computes avg_quality but not written as governance outcome",
+          "fix": "New outcome_type: asset_quality_signal, truth_type=asset_quality_signal, truth_track=asset_truth. Written by NightlyDistiller._run_stage4().",
+          "file": "backend/app/m08/learning_system.py"
+        },
+        {
+          "component": "Memory update signal",
+          "issue": "MemoryUpdater does not write governance outcome",
+          "fix": "Optional: New outcome_type: memory_update_signal, truth_type=state_update, truth_track=memory_truth. OR explicitly document Memory as pure state with no truth integration.",
+          "file": "backend/packages/harness/deerflow/agents/memory/updater.py",
+          "decision_required": "Does memory update need governance integration?"
+        },
+        {
+          "component": "Prompt optimization",
+          "issue": "Optimizer.optimize() is stub -- no actual optimization",
+          "fix": "Postpone. Optimizer implementation required before defining truth_type.",
+          "note": "Phase 4 skips prompt_optimization. Re-evaluate Phase 5."
+        }
+      ],
+      "tests": [
+        "RTCM project archival produces rtcm_verdict TruthEvent",
+        "NightlyDistiller produces asset_quality_signal TruthEvent",
+        "Memory update: decision documented (truth integration or pure state)"
+      ]
+    },
+    {
+      "phase": 5,
+      "name": "Mode Router Safe Consumption",
+      "goal": "Mode Router consumes TruthEvent/StateEvent from wrapper layer. Implements mode switching based on truth_state and state_transition rules",
+      "read_only": false,
+      "modifies_business_logic": true,
+      "risk": "HIGH",
+      "prerequisites": ["Phase 1-4 complete", "Memory scope enforcement (R240-7)", "RTCM context integration (R240-8)"],
+      "specific_operations": [
+        {
+          "component": "Mode Router truth consumption",
+          "description": "Mode Router reads from TruthEventWrapper (Phase 1) -- NOT directly from governance_state.json. All truth classification already done.",
+          "consumes": ["TruthEvent with truth_type=actual_outcome", "TruthEvent with truth_type=approval_decision"],
+          "ignores": ["TruthEvent with truth_type=observation_signal", "StateEvent (for truth decisions)"]
+        },
+        {
+          "component": "Memory scope enforcement",
+          "description": "MemoryMiddleware updated to read memory_scope from ContextEnvelope. QdrantStorage updated to filter by ModeStateScope, not just agent_name. Memory scope enforced at storage layer.",
+          "file": "backend/packages/harness/deerflow/agents/memory/middleware.py",
+          "file2": "backend/packages/harness/deerflow/agents/memory/storage.py",
+          "note": "This is R240-7 -- separate from this phase but required before Phase 5"
+        },
+        {
+          "component": "RTCM context integration",
+          "description": "rtcm_session_id added to ContextEnvelope. ModeDecision tracks RTCM state. MainChatMode state visible to Mode Router.",
+          "file": "backend/src/domain/m01/context_envelope.ts",
+          "file2": "backend/app/gateway/mode_router.py",
+          "note": "This is R240-8 -- separate from this phase but required before Phase 5"
+        }
+      ],
+      "success_rate_computation": {
+        "formula": "success_rate = count(truth_type=actual_outcome AND actual_value=1.0) / count(truth_type=actual_outcome AND predicted_value IS NOT NULL)",
+        "excludes": ["observation_signal", "state_snapshot", "tool_execution_uef (quality not binary)"],
+        "denominator_requires": "predicted_value must be non-null"
+      }
+    }
+  ],
+  "blocking_issues_for_immediate_mode_router": [
+    {
+      "issue": "actual field semantic confusion",
+      "description": "sandbox_execution_result.actual=1.0/0.0 (binary truth) vs tool_execution_uef.actual=0.95/0.2 (quality signal) -- same field, different semantics",
+      "blocks": "Mode Router cannot reliably compute binary success/failure"
+    },
+    {
+      "issue": "hardcoded actual values",
+      "description": "nightly_evolution.actual=1.0, upgrade_center_approval.actual=1.0 (hardcoded, meaningless). If Mode Router sees these as truth, success_rate is inflated.",
+      "blocks": "Mode Router success_rate calculation"
+    },
+    {
+      "issue": "governance_trace_id not propagated",
+      "description": "Mode Router cannot trace governance outcome back to original OrchestrationRequest without governance_trace_id",
+      "blocks": "Mode Router lineage tracking"
+    },
+    {
+      "issue": "observation_signal not marked",
+      "description": "nightly_evolution and queue_health_signal enter governance but are not marked as observation. Mode Router might include them in success_rate.",
+      "blocks": "Mode Router success_rate accuracy"
+    },
+    {
+      "issue": "execution_status conflated with task.status",
+      "description": "task.status=completed != execution_status=success. Mode Router might use wrong state for decisions.",
+      "blocks": "Mode Router state tracking"
+    }
+  ],
+  "what_phase_1_unblocks": [
+    "Mode Router can consume TruthEventWrapper and correctly classify all 14 outcome_types",
+    "Mode Router can distinguish actual_outcome from observation_signal",
+    "governance_trace_id becomes available in TruthEvent",
+    "actual_value (1.0/0.0 binary) vs result_quality (0.95/0.2) confusion resolved at wrapper layer",
+    "hardcoded 1.0 actual values are ignored for truth purposes"
+  ],
+  "what_phase_1_does_not_unblock": [
+    "Memory scope enforcement (R240-7)",
+    "RTCM context integration (R240-8)",
+    "UC predicted_value chain transparency (Phase 3)",
+    "Prompt optimization (no stub implementation)"
+  ]
+}

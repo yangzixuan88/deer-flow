@@ -1,0 +1,120 @@
+{
+  "report_id": "R241-20G3_ISOLATED_BRANCH_PUSH_EXECUTION",
+  "phase": "phase_20g3_isolated_branch_push_execution",
+  "status": "passed",
+  "decision": "approve_cand017_isolated_branch_push_executed",
+  "source": "R241-20G2_HEAD_ONLY_PUSH_STRATEGY_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "g3_filelist_gate": {
+    "gate_passed": true,
+    "cand017_confirmed_files": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "file_count": 1,
+    "no_mismatches": true,
+    "file_restored": "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+  },
+  "execution_steps": [
+    {
+      "step": 1,
+      "action": "create_isolated_branch",
+      "command": "git worktree add -b r241/cand017-lead-agent-summarization /e/OpenClaw-Base/.tmp_r241_20g_push origin/main",
+      "result": "branch_created",
+      "new_branch": "r241/cand017-lead-agent-summarization",
+      "base": "origin/main (395c1435)"
+    },
+    {
+      "step": 2,
+      "action": "restore_cand017_file",
+      "command": "git show 0bb97b51:backend/packages/harness/deerflow/agents/lead_agent/agent.py > isolated_worktree_path",
+      "result": "file_restored",
+      "file": "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    },
+    {
+      "step": 3,
+      "action": "commit_to_isolated_branch",
+      "command": "git add + git commit in isolated worktree",
+      "result": "isolated_commit_created",
+      "commit_hash": "579a75f5",
+      "commit_message": "R241-20G3: apply CAND-017 lead agent summarization config"
+    },
+    {
+      "step": 4,
+      "action": "push_to_isolated_branch",
+      "command": "git push -u origin r241/cand017-lead-agent-summarization",
+      "result": "pushed",
+      "pushed_to": "https://github.com/yangzixuan88/deer-flow.git",
+      "branch": "r241/cand017-lead-agent-summarization"
+    }
+  ],
+  "execution_results": {
+    "branch_created": true,
+    "isolated_commit_created": true,
+    "pushed_branch": "r241/cand017-lead-agent-summarization",
+    "pushed_to_main": false,
+    "files_pushed": [
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py"
+    ],
+    "foundation_commits_excluded": true,
+    "main_workspace_unpolluted": true,
+    "original_main_head_preserved": "0bb97b51"
+  },
+  "hard_prohibitions_check": {
+    "no_push_to_main": true,
+    "no_push_6_commits": true,
+    "no_force_push": true,
+    "no_merge_rebase_pull": true,
+    "no_main_workspace_modified": true,
+    "no_dependency_install": true,
+    "no_runtime_activation": true,
+    "no_blocker_override": true,
+    "no_cand003_included": true,
+    "no_cand020_included": true,
+    "no_cand021_included": true,
+    "no_cand025_included": true,
+    "no_adapter_candidates_included": true,
+    "no_dependency_candidates_included": true,
+    "no_forbidden_runtime_included": true
+  },
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "main_worktree_unpolluted": true,
+    "isolated_worktree_clean": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "approve_cand017_isolated_branch_push_executed",
+    "branch_created": true,
+    "isolated_commit_created": true,
+    "pushed_branch": "r241/cand017-lead-agent-summarization",
+    "pushed_to_main": false,
+    "files_pushed": ["backend/packages/harness/deerflow/agents/lead_agent/agent.py"],
+    "foundation_commits_excluded": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-20G3"
+  }
+}

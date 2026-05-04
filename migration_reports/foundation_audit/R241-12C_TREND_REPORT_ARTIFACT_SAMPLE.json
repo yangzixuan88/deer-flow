@@ -1,0 +1,162 @@
+{
+  "dryrun_bundle": {
+    "bundle_id": "trend_artifact_bundle_96287e764c0c",
+    "generated_at": "2026-04-25T04:14:10.010725+00:00",
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "window": "all_available",
+    "source_trend_report_id": "nightly_trend_report_5ce79c178839",
+    "artifacts": [
+      {
+        "artifact_result_id": "trend_artifact_result_1b2be1943ec8",
+        "artifact_type": "trend_report_json",
+        "format": "json",
+        "status": "skipped_dry_run",
+        "output_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-12C_TREND_REPORT_ARTIFACT.json",
+        "bytes_written": 18035,
+        "source_trend_report_id": "nightly_trend_report_5ce79c178839",
+        "source_window": "all_available",
+        "source_record_count": 18,
+        "series_count": 12,
+        "regression_count": 2,
+        "warnings": [],
+        "errors": [],
+        "written_at": null
+      },
+      {
+        "artifact_result_id": "trend_artifact_result_82edbeb15421",
+        "artifact_type": "trend_report_markdown",
+        "format": "markdown",
+        "status": "skipped_dry_run",
+        "output_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-12C_TREND_REPORT_ARTIFACT.md",
+        "bytes_written": 570,
+        "source_trend_report_id": "nightly_trend_report_5ce79c178839",
+        "source_window": "all_available",
+        "source_record_count": 18,
+        "series_count": 12,
+        "regression_count": 2,
+        "warnings": [],
+        "errors": [],
+        "written_at": null
+      },
+      {
+        "artifact_result_id": "trend_artifact_result_1f2bbcc6a100",
+        "artifact_type": "trend_report_text",
+        "format": "text",
+        "status": "skipped_dry_run",
+        "output_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-12C_TREND_REPORT_ARTIFACT.txt",
+        "bytes_written": 383,
+        "source_trend_report_id": "nightly_trend_report_5ce79c178839",
+        "source_window": "all_available",
+        "source_record_count": 18,
+        "series_count": 12,
+        "regression_count": 2,
+        "warnings": [],
+        "errors": [],
+        "written_at": null
+      }
+    ],
+    "summary": {
+      "status": "ok",
+      "window": "all_available",
+      "total_records_analyzed": 18,
+      "series_count": 12,
+      "regression_count": 2,
+      "by_metric_type": {
+        "diagnostic_status_rate": 2,
+        "append_record_count": 1,
+        "critical_count": 1,
+        "high_count": 1,
+        "queue_missing_count": 1,
+        "unknown_taxonomy_count": 1,
+        "rollback_missing_count": 1,
+        "backup_missing_count": 1,
+        "command_run_count": 2,
+        "invalid_line_count": 1
+      },
+      "by_severity": {
+        "medium": 2
+      },
+      "top_regressions": [
+        {
+          "metric_name": "queue_missing_warning_count",
+          "severity": "medium",
+          "current_value": 8.0,
+          "recommended_action": "diagnostic_only",
+          "warnings": [
+            "insufficient_data_for_persistence_window"
+          ]
+        },
+        {
+          "metric_name": "unknown_taxonomy_count",
+          "severity": "medium",
+          "current_value": 46.0,
+          "recommended_action": "refine_taxonomy",
+          "warnings": [
+            "insufficient_data_for_persistence_window"
+          ]
+        }
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "warnings": [],
+    "errors": []
+  },
+  "real_artifact_bundle_summary": {
+    "bundle_id": "trend_artifact_bundle_feecde0b3fd9",
+    "artifact_count": 3,
+    "artifact_statuses": [
+      "written",
+      "written",
+      "written"
+    ],
+    "summary": {
+      "status": "ok",
+      "window": "all_available",
+      "total_records_analyzed": 18,
+      "series_count": 12,
+      "regression_count": 2,
+      "by_metric_type": {
+        "diagnostic_status_rate": 2,
+        "append_record_count": 1,
+        "critical_count": 1,
+        "high_count": 1,
+        "queue_missing_count": 1,
+        "unknown_taxonomy_count": 1,
+        "rollback_missing_count": 1,
+        "backup_missing_count": 1,
+        "command_run_count": 2,
+        "invalid_line_count": 1
+      },
+      "by_severity": {
+        "medium": 2
+      },
+      "top_regressions": [
+        {
+          "metric_name": "queue_missing_warning_count",
+          "severity": "medium",
+          "current_value": 8.0,
+          "recommended_action": "diagnostic_only",
+          "warnings": [
+            "insufficient_data_for_persistence_window"
+          ]
+        },
+        {
+          "metric_name": "unknown_taxonomy_count",
+          "severity": "medium",
+          "current_value": 46.0,
+          "recommended_action": "refine_taxonomy",
+          "warnings": [
+            "insufficient_data_for_persistence_window"
+          ]
+        }
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "warnings": [],
+    "errors": []
+  },
+  "generated_at": "2026-04-25T04:14:10.026792+00:00",
+  "warnings": []
+}

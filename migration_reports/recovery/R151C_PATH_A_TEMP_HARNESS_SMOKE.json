@@ -1,0 +1,116 @@
+{
+  "phase": "R151C",
+  "title": "PATH_A_TEMP_HARNESS_SMOKE",
+  "status": "blocked",
+  "preceded_by": "R151B",
+  "proceeding_to": "R151D_PATH_A_TS_TYPE_ERROR_FIX_PLAN",
+  "lane_0_pressure": {
+    "previous_phase": "R151B",
+    "current_phase": "R151C",
+    "recommended_pressure": "M",
+    "reason": "Root Jest direct smoke; no dependency install, model, MCP, gateway, or DB/JSONL"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked (report artifacts + new modules)",
+    "key_commits_present": true,
+    "f480fec1_r140_inline_fix": true,
+    "bc3c0670_r142c_result_persistence": true,
+    "da4b7565_r147k_tavily_stdio": true,
+    "jest_binary_present": true,
+    "jest_config_present": true,
+    "unexpected_production_dirty_files": [],
+    "safe_to_continue": true
+  },
+  "lane_2_pre_run_command_validation": {
+    "command_selected": "node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+    "network_install_possible": false,
+    "node_options_needed": "unknown"
+  },
+  "lane_3_jest_smoke_execution": {
+    "jest_invoked": true,
+    "retry_with_node_options": false,
+    "exit_code": 1,
+    "test_file_executed": true,
+    "test_suites_total": 1,
+    "test_suites_passed": 0,
+    "test_suites_failed": 1,
+    "tests_total": 0,
+    "tests_passed": 0,
+    "tests_failed": 0,
+    "duration_seconds": 3.668,
+    "note": "Jest ran successfully (test suite discovered), but ts-jest TypeScript transform rejected source code due to TS2345 type error"
+  },
+  "lane_4_failure_classification": {
+    "failure_class": "ts_type_error",
+    "failure_summary": "TS2345 at orchestrator.ts:405 — HandoffRequest.trigger type incompatible (string literal 'trigger' vs union type 'explicit_rtcm_start' | 'rtcm_suggested_and_user_accepted' | 'user_request')",
+    "failure_file": "backend/src/domain/m01/orchestrator.ts",
+    "failure_line": 405,
+    "failure_code": "TS2345",
+    "failure_detail": "Argument of type '{ trigger: string; projectId: string; projectName: string; userMessage: string; }' is not assignable to parameter of type 'HandoffRequest'. Types of property 'trigger' are incompatible. Type 'string' is not assignable to type 'explicit_rtcm_start' | 'rtcm_suggested_and_user_accepted' | 'user_request'.",
+    "is_infrastructure_failure": false,
+    "is_path_a_business_failure": true,
+    "requires_code_repair": true,
+    "infra_components_verified": ["jest binary", "jest.config.cjs", "ts-jest transform", "test suite discovery"],
+    "infra_verdict": "Jest and ts-jest work correctly; the block is a type error in source code"
+  },
+  "lane_5_safety_boundary_verification": {
+    "python_gateway_called": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "external_tool_called": false,
+    "dependency_installed": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "safety_guard_passed": true,
+    "note": "No external calls, no side effects, no forbidden operations. Safety guard PASSED."
+  },
+  "lane_6_path_a_acceptance_classification": {
+    "path_a_smoke_status": "blocked",
+    "path_a_runtime_infra_status": "clear",
+    "path_a_business_status": "failed",
+    "path_a_mainline_ready": false,
+    "blocker_detail": "TypeScript compilation error in orchestrator.ts:405 prevents ts-jest from transforming the source. Not a jest infrastructure issue — jest/ts-jest/config all load correctly. The block is a business logic type error.",
+    "path_a_structure_intact": true,
+    "deerflowEnabled_path_not_reached": true
+  },
+  "lane_7_next_phase_decision": {
+    "recommended_next_phase": "R151D_PATH_A_TS_TYPE_ERROR_FIX_PLAN",
+    "if_blocked_due_to_ts_error": "R151D",
+    "if_blocked_due_to_infra": "R151D_TS_JEST_ESM_FIX_PLAN",
+    "if_passed": "R152",
+    "rationale": "R151C smoke was blocked by TS2345 type error at orchestrator.ts:405. Jest infrastructure (binary, config, ts-jest transform) all work correctly — the block is in source code, not infrastructure. R151D should fix the type annotation at orchestrator.ts:405 (the trigger field needs to be typed as a literal union, not string)."
+  },
+  "lane_8_unknown_registry_update": {
+    "unknowns_found": 1,
+    "unknown_1": {
+      "title": "orchestrator.ts:405 HandoffRequest.trigger type error",
+      "detail": "The trigger field is passed as a string literal 'trigger' but HandoffRequest type expects a union of specific literal values. This is a TypeScript type narrowing issue in the source code — not a test infrastructure issue. The smoke was properly blocked at the type-checking phase.",
+      "blocks_path_a_mainline": true,
+      "blocks_r151c": true,
+      "repair_action": "Change trigger field type annotation or cast to correct union type at orchestrator.ts:405"
+    }
+  },
+  "lane_9_report_generation": {
+    "reports_written": true,
+    "md_report": "R151C_PATH_A_TEMP_HARNESS_SMOKE.md",
+    "json_report": "R151C_PATH_A_TEMP_HARNESS_SMOKE.json"
+  },
+  "classification": "blocked",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R151D_PATH_A_TS_TYPE_ERROR_FIX_PLAN",
+  "next_prompt_needed": "R151D specification"
+}

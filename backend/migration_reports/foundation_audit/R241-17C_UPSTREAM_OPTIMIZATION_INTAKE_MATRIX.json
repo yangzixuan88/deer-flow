@@ -1,0 +1,484 @@
+{
+  "matrix_id": "R241-17C-MATRIX",
+  "generated_at": "2026-04-27T08:56:49.065251+00:00",
+  "upstream_url": "https://github.com/openclaw/openclaw.git",
+  "upstream_head": "74211128983a427543f674785a06631bdfa02218",
+  "upstream_branch": "main",
+  "source_available": true,
+  "candidates": [
+    {
+      "candidate_id": "UPSTREAM-001",
+      "upstream_area": "gateway",
+      "upstream_file_refs": [
+        "scripts\\bench-gateway-startup.ts",
+        "scripts\\check-gateway-watch-regression.mjs",
+        "scripts\\test-live-gateway-models-docker.sh",
+        "test\\gateway.multi.e2e.test.ts"
+      ],
+      "official_change_summary": "Gateway route resolver and API routing",
+      "local_affected_surface": [
+        "gateway"
+      ],
+      "integration_layer": "adapter_patch_integration",
+      "risk_level": "medium",
+      "recommended_action": "accept_adapter_patch",
+      "blocked_reason": null,
+      "test_required": true,
+      "rollback_required": true,
+      "manual_confirmation_required": true,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-002",
+      "upstream_area": "tool_runtime",
+      "upstream_file_refs": [
+        "Dockerfile.sandbox",
+        "Dockerfile.sandbox-browser",
+        "Dockerfile.sandbox-common",
+        "scripts\\check-no-runtime-action-load-config.mjs",
+        "scripts\\generate-runtime-sidecar-paths-baseline.ts",
+        "scripts\\runtime-postbuild-shared.mjs",
+        "scripts\\runtime-postbuild.mjs",
+        "scripts\\sandbox-browser-entrypoint.sh",
+        "scripts\\sandbox-browser-setup.sh",
+        "scripts\\sandbox-common-setup.sh",
+        "scripts\\sandbox-setup.sh",
+        "scripts\\stage-bundled-plugin-runtime-deps.mjs",
+        "scripts\\stage-bundled-plugin-runtime.d.mts",
+        "scripts\\stage-bundled-plugin-runtime.mjs",
+        "scripts\\test-built-bundled-runtime-deps.mjs",
+        "scripts\\tool-display.ts",
+        "src\\runtime.ts",
+        "test\\image-generation.runtime.live.test.ts",
+        "test\\setup-openclaw-runtime.ts"
+      ],
+      "official_change_summary": "Tool execution runtime and sandbox",
+      "local_affected_surface": [
+        "tool_runtime"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-003",
+      "upstream_area": "prompt_governance",
+      "upstream_file_refs": [
+        "AGENTS.md",
+        "tsconfig.core.test.agents.json",
+        "tsconfig.core.test.non-agents.json",
+        "docs\\AGENTS.md",
+        "extensions\\AGENTS.md",
+        "scripts\\AGENTS.md",
+        "scripts\\anthropic-prompt-probe.ts",
+        "src\\ui-app-settings.agents-files-refresh.test.ts",
+        "ui\\AGENTS.md"
+      ],
+      "official_change_summary": "Prompt governance and AGENTS runtime",
+      "local_affected_surface": [
+        "prompt_governance"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-004",
+      "upstream_area": "memory_runtime",
+      "upstream_file_refs": [
+        "scripts\\check-cli-startup-memory.mjs",
+        "scripts\\profile-extension-memory.mjs"
+      ],
+      "official_change_summary": "Memory runtime and persistence",
+      "local_affected_surface": [
+        "memory_runtime"
+      ],
+      "integration_layer": "forbidden_runtime_replacement",
+      "risk_level": "critical",
+      "recommended_action": "reject_runtime_replacement",
+      "blocked_reason": "Direct runtime replacement is forbidden per R241 mandate",
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Runtime replacement could break R241 foundation stability"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-005",
+      "upstream_area": "asset_registry",
+      "upstream_file_refs": [
+        "assets\\avatar-placeholder.svg",
+        "assets\\dmg-background-small.png",
+        "assets\\dmg-background.png"
+      ],
+      "official_change_summary": "Asset registry and management",
+      "local_affected_surface": [
+        "asset_registry"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-006",
+      "upstream_area": "ci_workflow",
+      "upstream_file_refs": [
+        "scripts\\check-workflows.mjs"
+      ],
+      "official_change_summary": "CI/CD GitHub Actions workflows",
+      "local_affected_surface": [
+        "ci_workflow"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-007",
+      "upstream_area": "plugin_registry",
+      "upstream_file_refs": [
+        "tsconfig.plugin-sdk.dts.json",
+        "scripts\\analyze-plugin-sdk-usage.ts",
+        "scripts\\check-extension-plugin-sdk-boundary.mjs",
+        "scripts\\check-no-monolithic-plugin-sdk-entry-imports.ts",
+        "scripts\\check-plugin-extension-import-boundary.mjs",
+        "scripts\\check-plugin-sdk-exports.mjs",
+        "scripts\\check-plugin-sdk-subpath-exports.mjs",
+        "scripts\\copy-bundled-plugin-metadata.d.mts",
+        "scripts\\copy-bundled-plugin-metadata.mjs",
+        "scripts\\copy-plugin-sdk-root-alias.mjs",
+        "scripts\\generate-plugin-sdk-api-baseline.ts",
+        "scripts\\plugin-clawhub-publish.sh",
+        "scripts\\plugin-clawhub-release-check.ts",
+        "scripts\\plugin-clawhub-release-plan.ts",
+        "scripts\\plugin-npm-publish.sh",
+        "scripts\\plugin-npm-release-check.ts",
+        "scripts\\plugin-npm-release-plan.ts",
+        "scripts\\postinstall-bundled-plugins.mjs",
+        "scripts\\stage-bundled-plugin-runtime-deps.mjs",
+        "scripts\\stage-bundled-plugin-runtime.d.mts"
+      ],
+      "official_change_summary": "Plugin registry and cold startup",
+      "local_affected_surface": [
+        "plugin_registry"
+      ],
+      "integration_layer": "adapter_patch_integration",
+      "risk_level": "medium",
+      "recommended_action": "accept_adapter_patch",
+      "blocked_reason": null,
+      "test_required": true,
+      "rollback_required": true,
+      "manual_confirmation_required": true,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-008",
+      "upstream_area": "doctor_health_check",
+      "upstream_file_refs": [
+        "scripts\\check-architecture-smells.mjs",
+        "scripts\\check-changed.mjs",
+        "scripts\\check-channel-agnostic-boundaries.mjs",
+        "scripts\\check-cli-startup-memory.mjs",
+        "scripts\\check-codex-app-server-protocol.ts",
+        "scripts\\check-composite-action-input-interpolation.py",
+        "scripts\\check-docker-e2e-boundaries.mjs",
+        "scripts\\check-docs-i18n-glossary.mjs",
+        "scripts\\check-docs-mdx.mjs",
+        "scripts\\check-dynamic-import-warts.mjs",
+        "scripts\\check-extension-package-tsc-boundary.mjs",
+        "scripts\\check-extension-plugin-sdk-boundary.mjs",
+        "scripts\\check-file-utils.ts",
+        "scripts\\check-gateway-watch-regression.mjs",
+        "scripts\\check-import-cycles.ts",
+        "scripts\\check-ingress-agent-owner-context.mjs",
+        "scripts\\check-live-cache.ts",
+        "scripts\\check-madge-import-cycles.ts",
+        "scripts\\check-no-conflict-markers.mjs",
+        "scripts\\check-no-extension-src-imports.ts"
+      ],
+      "official_change_summary": "Doctor health check and diagnostic",
+      "local_affected_surface": [
+        "doctor_health_check"
+      ],
+      "integration_layer": "adapter_patch_integration",
+      "risk_level": "medium",
+      "recommended_action": "accept_adapter_patch",
+      "blocked_reason": null,
+      "test_required": true,
+      "rollback_required": true,
+      "manual_confirmation_required": true,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-009",
+      "upstream_area": "trace_logging",
+      "upstream_file_refs": [
+        "docs\\logging.md",
+        "scripts\\qa-otel-smoke.ts",
+        "src\\logging.ts"
+      ],
+      "official_change_summary": "Trace, logging, and observability",
+      "local_affected_surface": [
+        "trace_logging"
+      ],
+      "integration_layer": "adapter_patch_integration",
+      "risk_level": "medium",
+      "recommended_action": "accept_adapter_patch",
+      "blocked_reason": null,
+      "test_required": true,
+      "rollback_required": true,
+      "manual_confirmation_required": true,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-010",
+      "upstream_area": "browser_automation",
+      "upstream_file_refs": [
+        "Dockerfile.sandbox-browser",
+        "scripts\\sandbox-browser-entrypoint.sh",
+        "scripts\\sandbox-browser-setup.sh",
+        "src\\browser-lifecycle-cleanup.test.ts",
+        "src\\browser-lifecycle-cleanup.ts"
+      ],
+      "official_change_summary": "Browser automation and Playwright",
+      "local_affected_surface": [
+        "browser_automation"
+      ],
+      "integration_layer": "report_only_quarantine",
+      "risk_level": "high",
+      "recommended_action": "quarantine_report_only",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "High risk — requires manual review before any runtime change"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-011",
+      "upstream_area": "scheduler",
+      "upstream_file_refs": [
+        "scripts\\cron_usage_report.ts"
+      ],
+      "official_change_summary": "Scheduler and cron automation",
+      "local_affected_surface": [
+        "scheduler"
+      ],
+      "integration_layer": "report_only_quarantine",
+      "risk_level": "high",
+      "recommended_action": "quarantine_report_only",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "High risk — requires manual review before any runtime change"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-012",
+      "upstream_area": "ci_workflow",
+      "upstream_file_refs": [
+        ".github/workflows/auto-response.yml",
+        ".github/workflows/ci-build-artifacts-testbox.yml",
+        ".github/workflows/ci-check-testbox.yml",
+        ".github/workflows/ci.yml",
+        ".github/workflows/codeql.yml",
+        ".github/workflows/control-ui-locale-refresh.yml",
+        ".github/workflows/docker-release.yml",
+        ".github/workflows/docs-agent.yml",
+        ".github/workflows/docs-sync-publish.yml",
+        ".github/workflows/docs-translate-trigger-release.yml",
+        ".github/workflows/docs.yml",
+        ".github/workflows/duplicate-after-merge.yml",
+        ".github/workflows/full-release-validation.yml",
+        ".github/workflows/install-smoke.yml",
+        ".github/workflows/labeler.yml",
+        ".github/workflows/macos-release.yml",
+        ".github/workflows/npm-telegram-beta-e2e.yml",
+        ".github/workflows/openclaw-cross-os-release-checks-reusable.yml",
+        ".github/workflows/openclaw-live-and-e2e-checks-reusable.yml",
+        ".github/workflows/openclaw-npm-release.yml",
+        ".github/workflows/openclaw-release-checks.yml",
+        ".github/workflows/openclaw-scheduled-live-checks.yml",
+        ".github/workflows/package-acceptance.yml",
+        ".github/workflows/parity-gate.yml",
+        ".github/workflows/plugin-clawhub-release.yml",
+        ".github/workflows/plugin-npm-release.yml",
+        ".github/workflows/qa-live-transports-convex.yml",
+        ".github/workflows/sandbox-common-smoke.yml",
+        ".github/workflows/stale.yml",
+        ".github/workflows/test-performance-agent.yml",
+        ".github/workflows/workflow-sanity.yml"
+      ],
+      "official_change_summary": "GitHub Actions CI workflow definitions",
+      "local_affected_surface": [
+        "ci_workflow"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-013",
+      "upstream_area": "root_config",
+      "upstream_file_refs": [
+        "package.json",
+        "ui\\package.json"
+      ],
+      "official_change_summary": "Root configuration: package.json",
+      "local_affected_surface": [
+        "ci_workflow"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-014",
+      "upstream_area": "root_config",
+      "upstream_file_refs": [
+        "pnpm-lock.yaml"
+      ],
+      "official_change_summary": "Root configuration: pnpm-lock.yaml",
+      "local_affected_surface": [
+        "ci_workflow"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-015",
+      "upstream_area": "root_config",
+      "upstream_file_refs": [
+        "tsconfig.json",
+        "scripts\\tsconfig.json",
+        "test\\tsconfig.json"
+      ],
+      "official_change_summary": "Root configuration: tsconfig.json",
+      "local_affected_surface": [
+        "ci_workflow"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    },
+    {
+      "candidate_id": "UPSTREAM-016",
+      "upstream_area": "root_config",
+      "upstream_file_refs": [
+        "pyproject.toml"
+      ],
+      "official_change_summary": "Root configuration: pyproject.toml",
+      "local_affected_surface": [
+        "ci_workflow"
+      ],
+      "integration_layer": "needs_manual_review",
+      "risk_level": "unknown",
+      "recommended_action": "needs_manual_review",
+      "blocked_reason": null,
+      "test_required": false,
+      "rollback_required": false,
+      "manual_confirmation_required": false,
+      "warnings": [
+        "Could not auto-classify — needs manual review"
+      ],
+      "errors": []
+    }
+  ],
+  "direct_update_candidates_count": 0,
+  "adapter_patch_candidates_count": 4,
+  "quarantine_candidates_count": 2,
+  "forbidden_candidates_count": 1,
+  "manual_review_candidates_count": 9,
+  "recommended_sequence": [
+    "UPSTREAM-001",
+    "UPSTREAM-007",
+    "UPSTREAM-008",
+    "UPSTREAM-009"
+  ],
+  "safety_summary": {
+    "total_candidates": 16,
+    "safe_direct_update": 0,
+    "adapter_patch_integration": 4,
+    "report_only_quarantine": 2,
+    "forbidden_runtime_replacement": 1,
+    "needs_manual_review": 9
+  },
+  "warnings": [],
+  "errors": []
+}

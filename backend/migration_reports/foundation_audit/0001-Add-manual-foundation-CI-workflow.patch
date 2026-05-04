@@ -1,0 +1,87 @@
+From 94908556cc2ca66c219d361f424954945eee9e67 Mon Sep 17 00:00:00 2001
+From: OpenClaw Foundation CI <openclaw-foundation-ci@example.local>
+Date: Sun, 26 Apr 2026 13:15:07 +0800
+Subject: [PATCH] Add manual foundation CI workflow
+
+---
+ .../workflows/foundation-manual-dispatch.yml  | 68 +++++++++++++++++++
+ 1 file changed, 68 insertions(+)
+ create mode 100644 .github/workflows/foundation-manual-dispatch.yml
+
+diff --git a/.github/workflows/foundation-manual-dispatch.yml b/.github/workflows/foundation-manual-dispatch.yml
+new file mode 100644
+index 00000000..f2074808
+--- /dev/null
++++ b/.github/workflows/foundation-manual-dispatch.yml
+@@ -0,0 +1,68 @@
++# MANUAL DISPATCH BLUEPRINT ONLY
++# DO NOT COPY TO .github/workflows WITHOUT CONFIRMATION
++# NO PR/PUSH/SCHEDULE TRIGGERS
++# NO SECRETS / NO NETWORK / AUTO_FIX_BLOCKED
++
++name: Foundation Manual Dispatch
++on:
++  workflow_dispatch:
++    inputs:
++      confirm_manual_dispatch:
++        description: "Must be: CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN"
++        required: true
++        type: string
++      stage_selection:
++        description: "Stage: all_pr, fast, safety, collect_only, all_nightly"
++        required: false
++        default: "all_pr"
++        type: string
++      execute_mode:
++        description: "plan_only (default) or execute_selected"
++        required: false
++        default: "plan_only"
++        type: string
++
++permissions:
++  contents: read
++
++jobs:
++  job_smoke:
++    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' }}
++    name: smoke
++    runs-on: ubuntu-latest
++    timeout-minutes: 1
++    steps:
++      - name: Run smoke stage
++        run: python scripts/ci_foundation_check.py --selection smoke --format text
++  job_fast:
++    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && (inputs.stage_selection == 'fast' || inputs.stage_selection == 'all_pr' || inputs.stage_selection == 'all_nightly') }}
++    name: fast
++    runs-on: ubuntu-latest
++    timeout-minutes: 1
++    steps:
++      - name: Run fast stage
++        run: python scripts/ci_foundation_check.py --selection fast --execute --format text
++  job_safety:
++    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && (inputs.stage_selection == 'safety' || inputs.stage_selection == 'all_pr' || inputs.stage_selection == 'all_nightly') }}
++    name: safety
++    runs-on: ubuntu-latest
++    timeout-minutes: 1
++    steps:
++      - name: Run safety stage
++        run: python scripts/ci_foundation_check.py --selection safety --execute --format text
++  job_collect_only:
++    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' }}
++    name: collect_only
++    runs-on: ubuntu-latest
++    timeout-minutes: 5
++    steps:
++      - name: Run collect_only stage
++        run: python scripts/ci_foundation_check.py --selection collect_only --format text
++  job_slow:
++    if: ${{ inputs.confirm_manual_dispatch == 'CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN' && inputs.stage_selection == 'all_nightly' }}
++    name: slow
++    runs-on: ubuntu-latest
++    timeout-minutes: 1
++    steps:
++      - name: Run slow stage
++        run: python scripts/ci_foundation_check.py --selection slow --execute --format text
+-- 
+2.53.0.windows.1
+

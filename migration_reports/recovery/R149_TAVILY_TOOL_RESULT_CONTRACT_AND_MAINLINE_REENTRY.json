@@ -1,0 +1,194 @@
+{
+  "phase": "R149",
+  "title": "TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY",
+  "status": "passed",
+  "preceded_by": "R148",
+  "proceeding_to": "R150_MAINLINE_SYSTEM_ACCEPTANCE_MAP",
+  "lane_0_pressure": {
+    "previous_phase": "R148",
+    "current_phase": "R149",
+    "recommended_pressure": "L",
+    "reason": "R148 passed with full validation; R149 is documentation and contract definition phase — no execution risk"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "r148_commit_present": true,
+    "r148_commit_sha": "f480fec1",
+    "r148_report_present": true,
+    "recommended_next_phase_from_r148": "R149_TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY",
+    "safe_to_continue": true
+  },
+  "lane_2_r148_evidence_reconciliation": {
+    "r148_raw_classification": {
+      "model_api_called": true,
+      "model_api_call_count": 2,
+      "mcp_runtime_called": false,
+      "external_tool_called": false,
+      "safety_violations": []
+    },
+    "corrections_applied": {
+      "mcp_runtime_called": true,
+      "mcp_runtime_called_reason": "Tavily stdio MCP server was invoked via tavily_tavily_search tool-call during agent execution",
+      "external_readonly_tool_called": true,
+      "external_readonly_tool_called_reason": "tavily_tavily_search is a read-only search tool; no write/external_write performed",
+      "code_modified": false,
+      "env_modified": false,
+      "db_written": false,
+      "jsonl_written": false
+    },
+    "r148_corrected_classification": {
+      "phase": "R148",
+      "status": "passed",
+      "model_api_called": true,
+      "model_api_call_count": 2,
+      "mcp_runtime_called": true,
+      "external_readonly_tool_called": true,
+      "external_write_performed": false,
+      "code_modified": false,
+      "dependency_installed": false,
+      "env_modified": false,
+      "patch_applied": false,
+      "db_written": false,
+      "jsonl_written": false,
+      "safety_violations": [],
+      "blockers_preserved": true
+    }
+  },
+  "lane_3_tavily_tool_call_contract": {
+    "contract_name": "TavilyReadonlySearchContract",
+    "tool_name": "tavily_tavily_search",
+    "transport": "stdio",
+    "auth_method": "env var (TAVILY_API_KEY)",
+    "call_pattern": "agent.astream() → AIMessage.tool_calls[0] → tool.invoke(input) → ToolMessage.content",
+    "input_schema": {
+      "type": "tavily_tavily_search_input",
+      "properties": {
+        "query": {"type": "string", "description": "Search query string"}
+      },
+      "required": ["query"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {"type": "string"},
+              "title": {"type": "string"},
+              "description": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "contract_validated": true,
+    "contract_validated_by": "R148 (PASSED, 27.22s, 1 call)",
+    "result_format": "list of search result objects with url/title/description"
+  },
+  "lane_4_result_persistence_contract": {
+    "contract_name": "TavilyToolResultPersistenceContract",
+    "what_persists": "ToolMessage.content from tavily_tavily_search call",
+    "where_persists": "run_meta message history (AIMessage.tool_calls + ToolMessage chain)",
+    "persistence_mechanism": "LangGraph InMemorySaver or configured checkpointer",
+    "run_record_fields": {
+      "thread_id": "string (e.g. r148-78728f1c)",
+      "run_id": "string",
+      "tool_calls": "list of AIMessage.tool_calls",
+      "tool_results": "list of ToolMessage.content",
+      "final_answer": "AIMessage.content (final)",
+      "model_call_count": "integer",
+      "tavily_call_count": "integer"
+    },
+    "persistence_ready": true,
+    "persistence_validated_by": "R148 tool_result_detected=true",
+    "db_write_expected": false,
+    "db_write_note": "InMemorySaver used in smoke test; production persistence via configured checkpointer"
+  },
+  "lane_5_mcp_server_status_finalization": {
+    "tavily": {
+      "status": "working",
+      "transport": "stdio",
+      "command": "npx.cmd -y tavily-mcp@latest",
+      "auth": "env var (TAVILY_API_KEY)",
+      "validated": "R147K (smoke), R148 (agent integration)",
+      "next": "mainline production"
+    },
+    "lark": {
+      "status": "paused",
+      "blocker": "SDK token attach bug (99991661)",
+      "fix_required": "SDK patch to attach tenant token in stdio MCP tool calls",
+      "estimated_effort": "unknown (requires Tavily MCP stability confirmation first)"
+    },
+    "exa": {
+      "status": "disabled",
+      "blocker": "EXA_API_KEY missing",
+      "fix_required": "provide EXA_API_KEY env var",
+      "estimated_effort": "low (config only)"
+    }
+  },
+  "lane_6_mainline_reentry_readiness": {
+    "gate_pass": true,
+    "tavily_usable_in_mainline": true,
+    "tavily_integration_route": "create_deerflow_agent(tools=[tavily_tool]) via get_cached_mcp_tools()",
+    "mcp_lazy_init_safe": true,
+    "thread_id_issue_resolved": true,
+    "thread_id_resolution": "__pregel_runtime context injection (pattern from R144/R148)",
+    "result_persistence_defined": true,
+    "safety_guard_defined": true,
+    "lark_blocker_acknowledged": true,
+    "exa_blocker_acknowledged": true,
+    "recommended_action": "authorize R150_MAINLINE_SYSTEM_ACCEPTANCE_MAP"
+  },
+  "lane_7_next_phase_design": {
+    "recommended_next_phase": "R150_MAINLINE_SYSTEM_ACCEPTANCE_MAP",
+    "goal": "Validate Tavily MCP integration in mainline context; map acceptance criteria for full system readiness",
+    "pressure_recommended": "M",
+    "key_checks": [
+      "Tavily MCP works via mainline create_deerflow_agent pipeline",
+      "Result persistence works via mainline checkpointer",
+      "Safety guard passes in mainline context",
+      "Thread_id context properly set via mainline worker infrastructure",
+      "No regression in other MCP servers when re-enabled"
+    ],
+    "acceptance_criteria": [
+      "tavily_tavily_search callable via mainline agent",
+      "Tool result persisted in run_meta",
+      "No ThreadDataMiddleware crash",
+      "Safety guard (no external write) respected",
+      "Model call budget respected (mainline should have its own budget)"
+    ],
+    "forbidden_in_r150": [
+      "no code modification (acceptance mapping only)",
+      "no production DB writes",
+      "no MiniMax API calls beyond smoke level",
+      "no Lark/Exa re-enablement"
+    ]
+  },
+  "lane_8_unknown_registry_update": {
+    "note": "No unknown registry entries identified in R149"
+  },
+  "lane_9_report_generation": {
+    "reports_written": true,
+    "md_report": "R149_TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY.md",
+    "json_report": "R149_TAVILY_TOOL_RESULT_CONTRACT_AND_MAINLINE_REENTRY.json",
+    "r148_classification_correction_logged": true
+  },
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R150_MAINLINE_SYSTEM_ACCEPTANCE_MAP"
+}

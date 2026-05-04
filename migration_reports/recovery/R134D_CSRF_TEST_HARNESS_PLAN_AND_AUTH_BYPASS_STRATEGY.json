@@ -1,0 +1,39 @@
+{
+  "phase": "R134D",
+  "title": "CSRF_TEST_HARNESS_PLAN_AND_AUTH_BYPASS_STRATEGY",
+  "status": "completed",
+  "preceded_by": "R134C",
+  "proceeding_to": "R135",
+  "pressure_assessment": {
+    "previous_phase": "R134C",
+    "previous_status": "passed",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Design legal Auth+CSRF test harness before any Gateway HTTP smoke; no patch this round."
+  },
+  "real_login_path_analysis": {
+    "feasible": true,
+    "requires_test_user": true,
+    "writes_db": true,
+    "blocked_by_constraints": true,
+    "constraint_blocking": "no_db_write",
+    "recommended_for_smoke": false,
+    "recommended_for_final_acceptance": true
+  },
+  "testclient_fixture_option_c": {
+    "feasible": true,
+    "requires_code_change": false,
+    "recommended_for_smoke": true,
+    "recommended_for_final_acceptance": false,
+    "available_in_current_constraints": true
+  },
+  "csrf_bypass_flag_option_b": {
+    "feasible": true,
+    "requires_code_change": true,
+    "blocked_by_constraints": true,
+    "constraint_blocking": "no_code_change"
+  },
+  "recommended_smoke_strategy": "option_C_testclient_fixture",
+  "recommended_final_acceptance_strategy": "option_A_real_login",
+  "patch_authorization_required": false,
+  "next_prompt_needed": "R135_AUTH_CSRF_TEST_HARNESS_IMPLEMENTATION_AUTHORIZATION"
+}

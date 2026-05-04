@@ -1,0 +1,151 @@
+{
+  "executed_at": "2026-04-24T01:42:45.481Z",
+  "success": true,
+  "report": {
+    "date": "2026-04-24",
+    "run_type": "full",
+    "stages_completed": [
+      "U0",
+      "U1",
+      "U2",
+      "U3",
+      "U4",
+      "U5",
+      "U6",
+      "U7"
+    ],
+    "summary": {
+      "demands_scanned": 2,
+      "deep_analysis_pool": 2,
+      "experiment_pool": 0,
+      "observation_pool": 0,
+      "excluded": 5
+    },
+    "candidates_for_approval": [],
+    "experiment_queue_candidates": [
+      {
+        "candidate_id": "demand-external-1776994965467-dspy-001",
+        "project": "external-1776994965467-dspy",
+        "tier": "T1",
+        "requires_approval": false,
+        "approval_type": "none",
+        "risk_level": "medium",
+        "backout_plan": "1. 执行回滚脚本\n2. 验证服务恢复\n3. 检查指标回归",
+        "long_term_value": 14,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "score_breakdown": {
+          "long_term_value": 14,
+          "capability_ceiling": 12,
+          "gap_filling": 5,
+          "engineering_maturity": 8,
+          "architecture_compatibility": 12,
+          "code_quality": 3,
+          "deployment_control": 4,
+          "risk_complexity": 2
+        },
+        "filter_result": "deep_analysis_pool",
+        "predicted_value": 0.9
+      },
+      {
+        "candidate_id": "demand-external-1776994965467-litellm-001",
+        "project": "external-1776994965467-litellm",
+        "tier": "T1",
+        "requires_approval": false,
+        "approval_type": "none",
+        "risk_level": "medium",
+        "backout_plan": "1. 执行回滚脚本\n2. 验证服务恢复\n3. 检查指标回归",
+        "long_term_value": 7,
+        "can_proceed_to_experiment": true,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "score_breakdown": {
+          "long_term_value": 7,
+          "capability_ceiling": 12,
+          "gap_filling": 5,
+          "engineering_maturity": 8,
+          "architecture_compatibility": 12,
+          "code_quality": 3,
+          "deployment_control": 4,
+          "risk_complexity": 2
+        },
+        "filter_result": "deep_analysis_pool",
+        "predicted_value": 0.9
+      }
+    ],
+    "experiment_queue": [
+      "demand-external-1776994965467-dspy-001",
+      "demand-external-1776994965467-litellm-001"
+    ],
+    "observation_pool_candidates": [],
+    "observation_pool": [],
+    "pending_approvals": 0
+  },
+  "upgrade_center_summary": {
+    "demands_scanned": 2,
+    "experiment_pool_size": 0,
+    "observation_pool_size": 0,
+    "pending_approvals": 0,
+    "candidates_for_approval": [],
+    "experiment_queue_candidates": [
+      {
+        "candidate_id": "demand-external-1776994965467-dspy-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "long_term_value": 14,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": true,
+        "predicted_value": 0.9,
+        "filter_result": "deep_analysis_pool"
+      },
+      {
+        "candidate_id": "demand-external-1776994965467-litellm-001",
+        "tier": "T1",
+        "risk_level": "medium",
+        "requires_approval": false,
+        "can_proceed_to_experiment": true,
+        "long_term_value": 7,
+        "experiment_access_via_roi_leniency": true,
+        "roi_leniency_applied": false,
+        "predicted_value": 0.9,
+        "filter_result": "deep_analysis_pool"
+      }
+    ],
+    "observation_pool_candidates": []
+  },
+  "upgrade_queue_snapshot": [
+    {
+      "candidate_id": "demand-1776706840216-bottleneck-------------------4000-0ms-",
+      "status": "pending",
+      "created_at": "2026-04-20T17:40:40.225Z",
+      "type": "sandbox_validation"
+    },
+    {
+      "candidate_id": "demand-external-1776706840217-dspy-001",
+      "status": "pending",
+      "created_at": "2026-04-20T17:40:40.225Z",
+      "type": "sandbox_validation"
+    },
+    {
+      "candidate_id": "demand-external-1776706840217-litellm-001",
+      "status": "pending",
+      "created_at": "2026-04-20T17:40:40.225Z",
+      "type": "sandbox_validation"
+    },
+    {
+      "candidate_id": "demand-external-1776881368893-dspy-001",
+      "status": "pending",
+      "created_at": "2026-04-22T18:09:28.905Z",
+      "type": "sandbox_validation"
+    },
+    {
+      "candidate_id": "demand-external-1776881368893-litellm-001",
+      "status": "pending",
+      "created_at": "2026-04-22T18:09:28.905Z",
+      "type": "sandbox_validation"
+    }
+  ]
+}

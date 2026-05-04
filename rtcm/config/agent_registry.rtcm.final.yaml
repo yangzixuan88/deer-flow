@@ -1,0 +1,376 @@
+registry_version: "1.1"
+patch_id: "rtcm_agent_registry_final"
+target_registry: "openclaw_agent_registry"
+mode_bindings:
+  mode_id: "rtcm_v2"
+  activation_triggers:
+    - "开启圆桌讨论模式"
+    - "开讨论会"
+    - "为这个项目开会"
+    - "不要直接做先讨论"
+    - "roundtable_mode"
+  auto_suggest_conditions:
+    - "complexity_high"
+    - "unknowns_gt_3"
+    - "requires_project_level_deliberation"
+    - "needs_solution_and_execution_and_validation"
+  participation_mode: "full_council_mandatory"
+  dynamic_participation: false
+  all_members_required_each_round: true
+
+session_state_machine:
+  states:
+    - "init"
+    - "archive_lookup"
+    - "issue_definition"
+    - "debate"
+    - "solution_convergence"
+    - "execution"
+    - "validation"
+    - "reopen"
+    - "user_acceptance"
+    - "archived"
+  reopen_routes:
+    hypothesis_wrong: "debate"
+    evidence_insufficient: "debate"
+    solution_problem: "solution_convergence"
+    execution_failed: "execution"
+    quality_below_threshold: "debate"
+    user_not_satisfied: "reopen"
+
+execution_policy:
+  direct_member_execution: false
+  lease_required: true
+  lease_granted_by: "rtcm-chair-agent"
+  execution_delegates:
+    - "task-executor"
+    - "tool-executor"
+    - "search-agent"
+  validation_delegate: "rtcm-validator-agent"
+  supervision_delegate: "rtcm-supervisor-agent"
+
+agents:
+  - id: "rtcm-chair-agent"
+    name: "圆桌主持官"
+    group: "roundtable"
+    category: "strategic"
+    role_ref: "rtcm-chair"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "session_orchestration"
+      - "issue_switching"
+      - "conflict_summarization"
+      - "decision_drafting"
+      - "lease_assignment"
+      - "user_intervention_handling"
+      - "final_report_generation"
+      - "dissent_capture"
+      - "uncertainty_capture"
+      - "issue_graph_update"
+      - "evidence_ledger_coordination"
+    hooks:
+      - "UserPromptSubmit"
+      - "PreToolUse"
+      - "PostToolUse"
+      - "Stop"
+      - "SessionEnd"
+    max_concurrent: 1
+    priority: 1000
+    state_write_targets:
+      - "project_dossier"
+      - "council_log"
+      - "issue_cards"
+
+  - id: "rtcm-supervisor-agent"
+    name: "圆桌监督官"
+    group: "roundtable"
+    category: "analysis"
+    role_ref: "rtcm-supervisor"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "protocol_audit"
+      - "risk_interrupt"
+      - "gate_enforcement"
+      - "rollback_signal"
+      - "escalation_signal"
+      - "all_member_presence_check"
+      - "structured_output_compliance_check"
+      - "critical_claim_evidence_check"
+      - "uncertainty_field_compliance_check"
+    hooks:
+      - "PreToolUse"
+      - "PostToolUse"
+      - "Stop"
+      - "SessionEnd"
+    max_concurrent: 1
+    priority: 990
+    signals:
+      - "PAUSE"
+      - "ROLLBACK"
+      - "ABORT"
+      - "ESCALATE"
+
+  - id: "rtcm-trend-agent"
+    name: "先机议员"
+    group: "roundtable"
+    category: "research"
+    role_ref: "council-trend"
+    model_policy:
+      primary: "claude-haiku"
+      fallback: "claude-sonnet"
+    capabilities:
+      - "trend_scan"
+      - "case_collection"
+      - "opportunity_hypothesis"
+      - "platform_pattern_analysis"
+    hooks:
+      - "UserPromptSubmit"
+      - "PostToolUse"
+    max_concurrent: 1
+    priority: 300
+    tool_access_profile:
+      search_tools: "read_only"
+      execution_tools: "none"
+
+  - id: "rtcm-value-agent"
+    name: "价值议员"
+    group: "roundtable"
+    category: "analysis"
+    role_ref: "council-value"
+    model_policy:
+      primary: "claude-haiku"
+      fallback: "claude-sonnet"
+    capabilities:
+      - "success_criteria_definition"
+      - "user_value_analysis"
+      - "use_case_extraction"
+      - "constraint_integration"
+    hooks:
+      - "UserPromptSubmit"
+      - "SessionCreate"
+    max_concurrent: 1
+    priority: 310
+    tool_access_profile:
+      preference_assets: "read_only"
+      execution_tools: "none"
+
+  - id: "rtcm-architecture-agent"
+    name: "架构议员"
+    group: "roundtable"
+    category: "deep"
+    role_ref: "council-architecture"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "architecture_design"
+      - "module_mapping"
+      - "integration_point_identification"
+      - "local_reality_mapping"
+      - "adapter_replace_patch_path_design"
+    hooks:
+      - "PreToolUse"
+      - "PostToolUse"
+    max_concurrent: 1
+    priority: 320
+    tool_access_profile:
+      repo_read: "allowed"
+      topology_read: "allowed"
+      execution_tools: "lease_only"
+
+  - id: "rtcm-automation-agent"
+    name: "自动化议员"
+    group: "roundtable"
+    category: "code-execution"
+    role_ref: "council-automation"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "workflow_design"
+      - "dag_decomposition"
+      - "mvp_execution_path_design"
+      - "automation_strategy"
+      - "execution_plan_generation"
+    hooks:
+      - "PreToolUse"
+      - "PostToolUse"
+      - "Stop"
+    max_concurrent: 1
+    priority: 330
+    tool_access_profile:
+      execution_tools: "lease_only"
+      workflow_tools: "lease_only"
+
+  - id: "rtcm-quality-agent"
+    name: "质量议员"
+    group: "roundtable"
+    category: "analysis"
+    role_ref: "council-quality"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "quality_bar_definition"
+      - "style_consistency_review"
+      - "output_fidelity_review"
+      - "user_feedback_translation"
+      - "quality_gap_to_issue_mapping"
+    hooks:
+      - "PostToolUse"
+      - "SessionEnd"
+    max_concurrent: 1
+    priority: 340
+    tool_access_profile:
+      result_review: "allowed"
+      execution_tools: "none"
+
+  - id: "rtcm-efficiency-agent"
+    name: "效率议员"
+    group: "roundtable"
+    category: "quick"
+    role_ref: "council-efficiency"
+    model_policy:
+      primary: "claude-haiku"
+      fallback: "claude-sonnet"
+    capabilities:
+      - "cost_estimation"
+      - "complexity_estimation"
+      - "roi_comparison"
+      - "lighter_alternative_proposal"
+      - "cost_constraint_ledger_entry"
+    hooks:
+      - "PostToolUse"
+      - "SessionEnd"
+    max_concurrent: 1
+    priority: 350
+    tool_access_profile:
+      metrics_read: "allowed"
+      execution_tools: "none"
+
+  - id: "rtcm-challenger-agent"
+    name: "质询议员"
+    group: "roundtable"
+    category: "analysis"
+    role_ref: "council-challenger"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "counterargument"
+      - "failure_mode_attack"
+      - "constraint_exposure"
+      - "evidence_quality_attack"
+      - "worst_case_review"
+      - "dissent_statement_authoring"
+      - "counter_evidence_request"
+    hooks:
+      - "PostToolUse"
+      - "Stop"
+    max_concurrent: 1
+    priority: 360
+    tool_access_profile:
+      execution_tools: "none"
+      contradiction_search: "allowed"
+
+  - id: "rtcm-validator-agent"
+    name: "验证议员"
+    group: "roundtable"
+    category: "analysis"
+    role_ref: "council-validator"
+    model_policy:
+      primary: "claude-sonnet"
+      fallback: "claude-haiku"
+    capabilities:
+      - "validation_plan_design"
+      - "benchmark_definition"
+      - "acceptance_checklist"
+      - "verdict_emission"
+      - "reopen_reason_classification"
+      - "issue_card_emission"
+      - "confidence_scoring"
+      - "evidence_ledger_crosscheck"
+    hooks:
+      - "PreToolUse"
+      - "PostToolUse"
+      - "SessionEnd"
+    max_concurrent: 1
+    priority: 370
+    tool_access_profile:
+      execution_tools: "lease_only"
+      validation_tools: "lease_only"
+
+council_round_policy:
+  full_attendance_required: true
+  fixed_member_order:
+    - "rtcm-trend-agent"
+    - "rtcm-value-agent"
+    - "rtcm-architecture-agent"
+    - "rtcm-automation-agent"
+    - "rtcm-quality-agent"
+    - "rtcm-efficiency-agent"
+    - "rtcm-challenger-agent"
+    - "rtcm-validator-agent"
+    - "rtcm-chair-agent"
+    - "rtcm-supervisor-agent"
+  member_skip_allowed: false
+  structured_output_required: true
+  response_budget_enforced: true
+  mandatory_stages:
+    - "problem_statement"
+    - "hypothesis_set"
+    - "evidence_search"
+    - "candidate_solutions"
+    - "counterargument"
+    - "response"
+    - "gap_exposure"
+    - "minimum_validation_design"
+    - "verdict"
+    - "issue_card"
+  crossfire_policy:
+    enabled: true
+    trigger_conditions:
+      - "major_conflict_detected"
+      - "critical_gap_detected"
+      - "evidence_insufficient"
+      - "user_requests_deeper_examination"
+    max_extra_rounds: 2
+
+evidence_collection:
+  mode: "parallel_pods"
+  pods:
+    - pod_id: "surface_pod"
+      delegates: ["search-agent", "rtcm-trend-agent"]
+    - pod_id: "deep_pod"
+      delegates: ["search-agent", "rtcm-architecture-agent", "rtcm-automation-agent"]
+    - pod_id: "reality_pod"
+      delegates: ["rtcm-efficiency-agent", "rtcm-challenger-agent", "search-agent"]
+
+evidence_ledger:
+  enabled: true
+  required_for_critical_claims: true
+  storage_target: "project_dossier/evidence_ledger.json"
+
+uncertainty_capture:
+  enabled: true
+  required_in:
+    - "verdict"
+    - "chair_decision"
+    - "final_report"
+    - "brief_report"
+
+issue_graph:
+  enabled: true
+  storage_target: "project_dossier/issue_graph.json"
+
+nightly_optimization_hooks:
+  enabled: true
+  handoff_to_learning_agent: true
+  write_targets:
+    - "workflow_optimization_suggestions.json"
+    - "debate_efficiency_report.json"
+    - "reopen_pattern_report.json"

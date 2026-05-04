@@ -1,0 +1,284 @@
+{
+  "report_id": "R241-18S_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_HUMAN_REVIEW",
+  "status": "passed",
+  "decision": "human_approved_review_continuation_only",
+  "source": "R241-18R_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_REVIEW",
+  "phase": "phase_12_mainline_resume_first_authorization_deed_human_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18r_passed": true,
+    "deed_structure_valid_proposal_not_executed": true,
+    "deed_executable_false": true,
+    "human_authorization_required": true,
+    "human_authorization_obtained_before_18s": false,
+    "allow_enter_r241_18s": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "human_review_scope": {
+    "current_round": "R241-18S",
+    "mode": "human_review_only",
+    "user_decision_capture_allowed": true,
+    "deed_execution_allowed": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "allowed_scope": [
+      "human review briefing",
+      "deed provision explanation",
+      "deed constraint explanation",
+      "user decision capture",
+      "approval / rejection / deferral recording",
+      "R241-18T readiness assessment"
+    ],
+    "forbidden_scope": [
+      "deed execution",
+      "actual gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "changing mainline_gateway_activation_allowed to true",
+      "marking memory/MCP/gateway as ready without dedicated review",
+      "overriding blocked surfaces through user approval"
+    ]
+  },
+  "deed_briefing": {
+    "deed_id": "PROPOSED-DEED-18R-001",
+    "deed_type": "mainline_resume_first_authorization_deed_proposal",
+    "status": "structurally_valid_but_not_executed",
+    "actionable": false,
+    "requires_human_review": true,
+    "requires_explicit_user_authorization": true
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18R deed proposal carryover",
+      "source_round": "R241-18R",
+      "required_evidence": "R241-18R status=passed, deed_review_passed=true, deed_structure=valid_proposal_not_executed, deed_executable=false, allow_enter_r241_18s=true",
+      "observed_state": "R241-18R JSON confirmed: status=passed, decision=approve_first_authorization_deed_review, deed_review_passed=true, deed_structure=valid_proposal_not_executed, deed_executable=false, review_objects_A_to_J=10/10 passed, allow_enter_r241_18s=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Human review scope definition",
+      "source_round": "R241-18S",
+      "required_evidence": "mode=human_review_only, user_decision_capture_allowed=true, deed_execution_allowed=false, activation_allowed=false",
+      "observed_state": "human_review_scope defined: current_round=R241-18S, mode=human_review_only, user_decision_capture_allowed=true, deed_execution_allowed=false, activation_allowed=false, blocker_override_allowed=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "PROPOSED-DEED-18R-001 briefing",
+      "source_round": "R241-18S",
+      "required_evidence": "deed_id=PROPOSED-DEED-18R-001, status=structurally_valid_but_not_executed, actionable=false, requires_human_review=true, requires_explicit_user_authorization=true",
+      "observed_state": "PROPOSED-DEED-18R-001 briefing confirmed: deed_id=PROPOSED-DEED-18R-001, deed_type=mainline_resume_first_authorization_deed_proposal, status=structurally_valid_but_not_executed, actionable=false, requires_human_review=true, requires_explicit_user_authorization=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Provision review PROV-001",
+      "source_round": "R241-18S",
+      "required_evidence": "PROV-001: scope=produce bounded activation proposal, authorization_level=prepare_deed_review_only, actionable=false, blocker_compliant=true",
+      "observed_state": "PROV-001 confirmed: scope=authorization to produce bounded activation proposal, authorization_level=prepare_deed_review_only, actionable=false, blocker_compliant=true, blocking_surfaces_respected=['SURFACE-010','CAND-002','CAND-003','GSIC-003','GSIC-004']",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Provision review PROV-002",
+      "source_round": "R241-18S",
+      "required_evidence": "PROV-002: scope=package evidence for future activation, authorization_level=evidence_packaging, actionable=false, blocker_compliant=true",
+      "observed_state": "PROV-002 confirmed: scope=authorization to package evidence for future activation, authorization_level=evidence_packaging, actionable=false, blocker_compliant=true, blocking_surfaces_respected=['SURFACE-010','CAND-002','CAND-003','GSIC-003','GSIC-004']",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Provision review PROV-003",
+      "source_round": "R241-18S",
+      "required_evidence": "PROV-003: scope=continue read-only review cycles, authorization_level=review_continuation, actionable=false, blocker_compliant=true",
+      "observed_state": "PROV-003 confirmed: scope=authorization to continue read-only review cycles, authorization_level=review_continuation, actionable=false, blocker_compliant=true, blocking_surfaces_respected=['SURFACE-010','CAND-002','CAND-003','GSIC-003','GSIC-004']",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Constraint review CONST-001~008",
+      "source_round": "R241-18S",
+      "required_evidence": "All 8 constraints compliant, no constraint allows blocker override",
+      "observed_state": "CONST-001~008 all compliant: CONST-001 no runtime activation, CONST-002 no SURFACE-010 override, CONST-003 no CAND-002 override, CONST-004 no CAND-003 override, CONST-005 no GSIC-003/004 override, CONST-006 no mainline_gateway_activation_allowed=true, CONST-007 no DSRT-001~006 enable, CONST-008 no actual activation. All 8 can_user_authorization_override=false.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Blocker non-override confirmation",
+      "source_round": "R241-18S",
+      "required_evidence": "All blockers intact, user approval cannot override any blocker",
+      "observed_state": "Blocker non-override confirmed: SURFACE-010=BLOCKED CRITICAL, CAND-002=BLOCKED, CAND-003=DEFERRED, GSIC-003=BLOCKED, GSIC-004=BLOCKED, mainline_gateway_activation_allowed=false, DSRT-001~006 enabled=false. all_blockers_intact=true, user_approval_can_override_blockers=false, violations=[]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "User decision capture",
+      "source_round": "R241-18S",
+      "required_evidence": "User explicitly chose approve_review_continuation_only in current session",
+      "observed_state": "User explicitly stated '我同意你的建议。' — recorded as human_decision=approve_review_continuation_only, human_authorization_obtained=true, approval_scope=['prepare_deed_review_only','evidence_packaging','review_continuation'], activation_approved=false, blocker_override_approved=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "R241-18T gate review readiness",
+      "source_round": "R241-18S",
+      "required_evidence": "All review conditions met for entering R241-18T",
+      "observed_state": "All 10 review objects assessed: A=passed, B=passed, C=passed, D=passed, E=passed, F=passed, G=passed, H=passed, I=passed, J=passed. allow_enter_r241_18t=true. R241-18T authorization deed gate review can proceed.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "provision_review": [
+    {
+      "provision_id": "PROV-001",
+      "user_visible_summary": "Authorization to produce bounded activation proposal",
+      "authorization_level": "prepare_deed_review_only",
+      "actionable": false,
+      "activation_allowed": false,
+      "blocker_compliant": true,
+      "human_decision_required": true
+    },
+    {
+      "provision_id": "PROV-002",
+      "user_visible_summary": "Authorization to package evidence for future activation",
+      "authorization_level": "evidence_packaging",
+      "actionable": false,
+      "activation_allowed": false,
+      "blocker_compliant": true,
+      "human_decision_required": true
+    },
+    {
+      "provision_id": "PROV-003",
+      "user_visible_summary": "Authorization to continue read-only review cycles",
+      "authorization_level": "review_continuation",
+      "actionable": false,
+      "activation_allowed": false,
+      "blocker_compliant": true,
+      "human_decision_required": true
+    }
+  ],
+  "constraint_review": [
+    {"constraint_id": "CONST-001", "description": "Does NOT activate gateway, memory, MCP, Feishu, scheduler, runtime writes", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-002", "description": "Does NOT override SURFACE-010 BLOCKED", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-003", "description": "Does NOT override CAND-002 BLOCKED", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-004", "description": "Does NOT override CAND-003 DEFERRED", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-005", "description": "Does NOT override GSIC-003/GSIC-004 BLOCKED", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-006", "description": "Does NOT set mainline_gateway_activation_allowed=true", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-007", "description": "Does NOT enable DSRT-001~006", "compliant": true, "can_user_authorization_override": false},
+    {"constraint_id": "CONST-008", "description": "Does NOT authorize actual activation", "compliant": true, "can_user_authorization_override": false}
+  ],
+  "blocker_non_override_confirmation": {
+    "all_blockers_intact": true,
+    "user_approval_can_override_blockers": false,
+    "violations": []
+  },
+  "human_decision": {
+    "decision": "approve_review_continuation_only",
+    "human_authorization_obtained": true,
+    "user_statement": "我同意你的建议。",
+    "approval_scope": [
+      "prepare_deed_review_only",
+      "evidence_packaging",
+      "review_continuation"
+    ],
+    "activation_approved": false,
+    "blocker_override_approved": false,
+    "explicit_statement_recorded": true,
+    "silent_or_inferred": false
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.24,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "human_review_passed": true,
+  "allow_enter_r241_18t": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "human_decision captured as approve_review_continuation_only — activation NOT approved, blocker override NOT approved"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "human_approved_review_continuation_only",
+    "human_review_passed": true,
+    "human_authorization_obtained": true,
+    "human_decision": "approve_review_continuation_only",
+    "activation_approved": false,
+    "blocker_override_approved": false,
+    "review_objects_A_to_J": "10/10 passed",
+    "allow_enter_r241_18t": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18S",
+    "next_prompt_needed": "R241-18T_MAINLINE_RESUME_AUTHORIZATION_DEED_GATE_REVIEW"
+  }
+}

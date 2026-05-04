@@ -1,0 +1,83 @@
+cution"
+  },
+  "preflight": {
+    "minimax_api_key_present": true,
+    "workspace_clean": true,
+    "health_200": true,
+    "preflight_passed": true
+  },
+  "model_config": {
+    "name": "minimax-m2.7",
+    "model": "MiniMax-M2.7",
+    "api_key_redacted": "sk-cp-L..."
+  },
+  "lane_1_scope_gate": {
+    "status": "complete",
+    "start_run_signature": "async def start_run(body, thread_id, request, run_in_background=True)",
+    "asyncio_create_task_location": "services.py:272",
+    "http_endpoints_confirmed": ["create_run (line 97)", "stream_run (line 105)"],
+    "run_agent_signature_confirmed": "worker.py:79 - (bridge, run_manager, record, *, ctx, agent_factory, graph_input, config, stream_modes, stream_subgraphs, interrupt_before, interrupt_after)",
+    "only_services_py_modified": true,
+    "production_default_preserved": true
+  },
+  "lane_2_pre_fix_baseline": {
+    "status": "complete",
+    "run_in_background_exists": false,
+    "asyncio_create_task_present": true,
+    "await_run_agent_inline_present": false,
+    "baseline_confirmed": true
+  },
+  "lane_3_minimal_patch": {
+    "status": "complete",
+    "patch_locations": ["services.py:195 (param)", "services.py:208-214 (docstring)", "services.py:280-310 (if/else branch)"],
+    "param_added": "run_in_background: bool = True",
+    "branch_added": "if run_in_background: asyncio.create_task(...) else: await run_agent(...)",
+    "lines_added": 28,
+    "lines_removed": 5
+  },
+  "lane_4_static_validation": {
+    "status": "complete",
+    "py_compile": "pass",
+    "ast_parse": "pass",
+    "signature_check": "pass",
+    "import_check": "pass",
+    "run_in_background_default": true
+  },
+  "lane_5_background_mode_regression": {
+    "status": "complete",
+    "default_still_uses_create_task": true,
+    "inline_await_in_else_block": true,
+    "production_default_unchanged": true
+  },
+  "lane_6_inline_smoke_test": {
+    "status": "complete",
+    "test_script": "run_r139c.py (R139C harness adapted)",
+    "run_id": "05b4665e-b00f-4f6d-9a95-f5a787709f31",
+    "final_status": "success",
+    "final_error": null,
+    "worker_started": true,
+    "worker_completed": true,
+    "worker_error": null,
+    "stream_bridge_stream_created": true,
+    "stream_event_count": 5,
+    "model_response_detected": true,
+    "model_response_length": 103,
+    "execution_mode": "start_run(run_in_background=False) — run_agent awaited inline",
+    "r139c_result": "passed"
+  },
+  "result_classification": {
+    "classification": "passed",
+    "outcome": "inline execution works correctly — status=success",
+    "no_regression_in_production_path": true
+  },
+  "commit": {
+    "sha": "f480fec1",
+    "message": "feat(gateway): add run_in_background=False to start_run for inline test execution"
+  },
+  "cause_chain": {
+    "r139_cause": "TestClient context teardown cancelled asyncio.create_task background task",
+    "r139c_confirmation": "inline await (no background task) → status=success",
+    "r140_fix": "run_in_background=False skips create_task, awaits run_agent inline",
+    "production_impact": "none — default run_in_background=True is unchanged"
+  },
+  "recommended_next_phase": "R141_AUTH_WIRING_REGRESSION_CHECK"

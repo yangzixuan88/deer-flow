@@ -1,0 +1,1619 @@
+{
+  "discovery": {
+    "discovered_count": 26,
+    "missing_surfaces": [],
+    "surfaces": [
+      {
+        "surface_id": "truth_state_contract",
+        "surface_type": "truth_state_projection",
+        "module_path": "backend/app/m11/truth_state_contract.py",
+        "import_path": "app.m11.truth_state_contract",
+        "owner_domain": "truth_state",
+        "test_refs": [
+          "backend/app/m11/test_truth_state_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1A_TRUTH_STATE_WRAPPER_REPORT.md"
+        ],
+        "sample_refs": [],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "governance_readonly_projection",
+        "surface_type": "governance_projection",
+        "module_path": "backend/app/m11/governance_bridge.py",
+        "import_path": "app.m11.governance_bridge",
+        "owner_domain": "truth_state",
+        "test_refs": [
+          "backend/app/m11/test_governance_truth_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1B_GOVERNANCE_READONLY_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [],
+        "dependencies": [
+          "truth_state_contract"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "queue_sandbox_truth_projection",
+        "surface_type": "queue_sandbox_projection",
+        "module_path": "backend/app/m11/queue_sandbox_truth_projection.py",
+        "import_path": "app.m11.queue_sandbox_truth_projection",
+        "owner_domain": "queue_sandbox",
+        "test_refs": [
+          "backend/app/m11/test_queue_sandbox_truth_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1C_QUEUE_SANDBOX_TRUTH_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-1C_QUEUE_SANDBOX_TRUTH_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "dependencies": [
+          "governance_readonly_projection"
+        ],
+        "warnings": [
+          "queue_path_mismatch_unresolved"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true
+      },
+      {
+        "surface_id": "memory_layer_contract",
+        "surface_type": "memory_projection",
+        "module_path": "backend/app/memory/memory_layer_contract.py",
+        "import_path": "app.memory.memory_layer_contract",
+        "owner_domain": "memory",
+        "test_refs": [
+          "backend/app/memory/test_memory_layer_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-2A_MEMORY_LAYER_CONTRACT_WRAPPER_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-2A_MEMORY_LAYER_RUNTIME_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "memory_readonly_projection",
+        "surface_type": "memory_projection",
+        "module_path": "backend/app/memory/memory_projection.py",
+        "import_path": "app.memory.memory_projection",
+        "owner_domain": "memory",
+        "test_refs": [
+          "backend/app/memory/test_memory_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-2B_MEMORY_READONLY_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-2B_MEMORY_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "dependencies": [
+          "memory_layer_contract"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "asset_lifecycle_contract",
+        "surface_type": "asset_projection",
+        "module_path": "backend/app/asset/asset_lifecycle_contract.py",
+        "import_path": "app.asset.asset_lifecycle_contract",
+        "owner_domain": "asset",
+        "test_refs": [
+          "backend/app/asset/test_asset_lifecycle_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-3A_ASSET_LIFECYCLE_CONTRACT_WRAPPER_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-3A_ASSET_LIFECYCLE_RUNTIME_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "asset_readonly_projection",
+        "surface_type": "asset_projection",
+        "module_path": "backend/app/asset/asset_projection.py",
+        "import_path": "app.asset.asset_projection",
+        "owner_domain": "asset",
+        "test_refs": [
+          "backend/app/asset/test_asset_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-3B_ASSET_READONLY_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-3B_ASSET_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "dependencies": [
+          "asset_lifecycle_contract",
+          "memory_readonly_projection"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "mode_orchestration_contract",
+        "surface_type": "mode_instrumentation",
+        "module_path": "backend/app/mode/mode_orchestration_contract.py",
+        "import_path": "app.mode.mode_orchestration_contract",
+        "owner_domain": "mode",
+        "test_refs": [
+          "backend/app/mode/test_mode_orchestration_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-4A_MODE_INVOCATION_INSTRUMENTATION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-4A_MODE_CALLGRAPH_RUNTIME_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "gateway_mode_instrumentation",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "backend/app/gateway/mode_instrumentation.py",
+        "import_path": "app.gateway.mode_instrumentation",
+        "owner_domain": "gateway",
+        "test_refs": [
+          "backend/app/gateway/test_mode_instrumentation_smoke.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-4B_GATEWAY_CONTEXT_MODE_INSTRUMENTATION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-4B_GATEWAY_MODE_INSTRUMENTATION_SAMPLE.json"
+        ],
+        "dependencies": [
+          "mode_orchestration_contract"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "tool_runtime_contract",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "backend/app/tool_runtime/tool_runtime_contract.py",
+        "import_path": "app.tool_runtime.tool_runtime_contract",
+        "owner_domain": "tool_runtime",
+        "test_refs": [
+          "backend/app/tool_runtime/test_tool_runtime_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-5A_TOOL_RUNTIME_INSTRUMENTATION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-5A_TOOL_RUNTIME_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "tool_runtime_gateway_mode_projection",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "backend/app/tool_runtime/tool_runtime_projection.py",
+        "import_path": "app.tool_runtime.tool_runtime_projection",
+        "owner_domain": "tool_runtime",
+        "test_refs": [
+          "backend/app/tool_runtime/test_tool_runtime_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-5B_TOOL_RUNTIME_GATEWAY_MODE_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-5B_TOOL_RUNTIME_GATEWAY_MODE_SAMPLE.json"
+        ],
+        "dependencies": [
+          "tool_runtime_contract",
+          "mode_orchestration_contract",
+          "gateway_mode_instrumentation"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "prompt_governance_contract",
+        "surface_type": "prompt_projection",
+        "module_path": "backend/app/prompt/prompt_governance_contract.py",
+        "import_path": "app.prompt.prompt_governance_contract",
+        "owner_domain": "prompt",
+        "test_refs": [
+          "backend/app/prompt/test_prompt_governance_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-6A_PROMPT_GOVERNANCE_WRAPPER_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-6A_PROMPT_GOVERNANCE_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "prompt_readonly_projection",
+        "surface_type": "prompt_projection",
+        "module_path": "backend/app/prompt/prompt_projection.py",
+        "import_path": "app.prompt.prompt_projection",
+        "owner_domain": "prompt",
+        "test_refs": [
+          "backend/app/prompt/test_prompt_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-6B_PROMPT_READONLY_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-6B_PROMPT_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "dependencies": [
+          "prompt_governance_contract"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "rtcm_integration_contract",
+        "surface_type": "rtcm_projection",
+        "module_path": "backend/app/rtcm/rtcm_integration_contract.py",
+        "import_path": "app.rtcm.rtcm_integration_contract",
+        "owner_domain": "rtcm",
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_integration_contract.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-7A_RTCM_ROUNDTABLE_INTEGRATION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-7A_RTCM_ROUNDTABLE_INTEGRATION_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "rtcm_runtime_projection",
+        "surface_type": "rtcm_projection",
+        "module_path": "backend/app/rtcm/rtcm_runtime_projection.py",
+        "import_path": "app.rtcm.rtcm_runtime_projection",
+        "owner_domain": "rtcm",
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_runtime_projection.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-7B_RTCM_RUNTIME_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-7B_RTCM_RUNTIME_PROJECTION_SAMPLE.json"
+        ],
+        "dependencies": [
+          "rtcm_integration_contract"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "nightly_foundation_health_review",
+        "surface_type": "nightly_review_projection",
+        "module_path": "backend/app/nightly/foundation_health_review.py",
+        "import_path": "app.nightly.foundation_health_review",
+        "owner_domain": "nightly",
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_review.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_SAMPLE.json"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "nightly_feishu_summary_projection",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "backend/app/nightly/foundation_health_summary.py",
+        "import_path": "app.nightly.foundation_health_summary",
+        "owner_domain": "nightly",
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_summary.py"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-8B_NIGHTLY_FEISHU_SUMMARY_PROJECTION_REPORT.md"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-8B_NIGHTLY_FEISHU_SUMMARY_SAMPLE.json"
+        ],
+        "dependencies": [
+          "nightly_foundation_health_review"
+        ],
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": true,
+        "tests_exist": true,
+        "reports_exist": true,
+        "samples_exist": true,
+        "import_ok": true,
+        "warnings": []
+      },
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "surface_type": "memory_projection",
+        "module_path": "",
+        "owner_domain": "memory",
+        "virtual": true,
+        "blocked_intent": "memory cleanup without quarantine",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "asset_promotion_elimination",
+        "surface_type": "asset_projection",
+        "module_path": "",
+        "owner_domain": "asset",
+        "virtual": true,
+        "blocked_intent": "asset promotion without verification",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "prompt_replacement_gepa_dspy_activation",
+        "surface_type": "prompt_projection",
+        "module_path": "",
+        "owner_domain": "prompt",
+        "virtual": true,
+        "blocked_intent": "prompt replacement without backup",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "tool_runtime_enforcement",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "",
+        "owner_domain": "tool_runtime",
+        "virtual": true,
+        "blocked_intent": "tool enforcement without dry-run",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "gateway",
+        "virtual": true,
+        "blocked_intent": "Gateway routing mutation",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "surface_type": "mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "mode",
+        "virtual": true,
+        "blocked_intent": "Mode Router replacement",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "surface_type": "rtcm_projection",
+        "module_path": "",
+        "owner_domain": "rtcm",
+        "virtual": true,
+        "blocked_intent": "RTCM state mutation",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "virtual": true,
+        "blocked_intent": "Feishu push without webhook policy",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      },
+      {
+        "surface_id": "real_scheduler_watchdog_integration",
+        "surface_type": "nightly_review_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "virtual": true,
+        "blocked_intent": "scheduler policy missing",
+        "root": "E:\\OpenClaw-Base\\deerflow",
+        "module_exists": false,
+        "tests_exist": false,
+        "reports_exist": false,
+        "samples_exist": false,
+        "import_ok": false
+      }
+    ],
+    "warnings": []
+  },
+  "matrix": {
+    "matrix_id": "integration_matrix_0163306302",
+    "generated_at": "2026-04-24T23:24:43.507584+00:00",
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "surfaces": [
+      {
+        "surface_id": "truth_state_contract",
+        "surface_type": "truth_state_projection",
+        "module_path": "backend/app/m11/truth_state_contract.py",
+        "owner_domain": "truth_state",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/m11/test_truth_state_contract.py"
+        ],
+        "sample_refs": [],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1A_TRUTH_STATE_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507003+00:00"
+      },
+      {
+        "surface_id": "governance_readonly_projection",
+        "surface_type": "governance_projection",
+        "module_path": "backend/app/m11/governance_bridge.py",
+        "owner_domain": "truth_state",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/m11/test_governance_truth_projection.py"
+        ],
+        "sample_refs": [],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1B_GOVERNANCE_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "truth_state_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507057+00:00"
+      },
+      {
+        "surface_id": "queue_sandbox_truth_projection",
+        "surface_type": "queue_sandbox_projection",
+        "module_path": "backend/app/m11/queue_sandbox_truth_projection.py",
+        "owner_domain": "queue_sandbox",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/m11/test_queue_sandbox_truth_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-1C_QUEUE_SANDBOX_TRUTH_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-1C_QUEUE_SANDBOX_TRUTH_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "governance_readonly_projection"
+        ],
+        "blockers": [],
+        "recommended_next_step": "read_only_diagnostics_allowed_queue_mismatch_remains_warning",
+        "warnings": [
+          "queue_path_mismatch_unresolved"
+        ],
+        "reviewed_at": "2026-04-24T23:24:43.507084+00:00"
+      },
+      {
+        "surface_id": "memory_layer_contract",
+        "surface_type": "memory_projection",
+        "module_path": "backend/app/memory/memory_layer_contract.py",
+        "owner_domain": "memory",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/memory/test_memory_layer_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-2A_MEMORY_LAYER_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-2A_MEMORY_LAYER_CONTRACT_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507106+00:00"
+      },
+      {
+        "surface_id": "memory_readonly_projection",
+        "surface_type": "memory_projection",
+        "module_path": "backend/app/memory/memory_projection.py",
+        "owner_domain": "memory",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/memory/test_memory_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-2B_MEMORY_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-2B_MEMORY_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "memory_layer_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507125+00:00"
+      },
+      {
+        "surface_id": "asset_lifecycle_contract",
+        "surface_type": "asset_projection",
+        "module_path": "backend/app/asset/asset_lifecycle_contract.py",
+        "owner_domain": "asset",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/asset/test_asset_lifecycle_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-3A_ASSET_LIFECYCLE_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-3A_ASSET_LIFECYCLE_CONTRACT_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507144+00:00"
+      },
+      {
+        "surface_id": "asset_readonly_projection",
+        "surface_type": "asset_projection",
+        "module_path": "backend/app/asset/asset_projection.py",
+        "owner_domain": "asset",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/asset/test_asset_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-3B_ASSET_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-3B_ASSET_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "asset_lifecycle_contract",
+          "memory_readonly_projection"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507162+00:00"
+      },
+      {
+        "surface_id": "mode_orchestration_contract",
+        "surface_type": "mode_instrumentation",
+        "module_path": "backend/app/mode/mode_orchestration_contract.py",
+        "owner_domain": "mode",
+        "readiness_level": "append_only_ready",
+        "decision": "approve_append_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/mode/test_mode_orchestration_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-4A_MODE_CALLGRAPH_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-4A_MODE_INVOCATION_INSTRUMENTATION_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "append_only_callgraph_artifact_allowed_after_review",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507181+00:00"
+      },
+      {
+        "surface_id": "gateway_mode_instrumentation",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "backend/app/gateway/mode_instrumentation.py",
+        "owner_domain": "gateway",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/gateway/test_mode_instrumentation_smoke.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-4B_GATEWAY_MODE_INSTRUMENTATION_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-4B_GATEWAY_CONTEXT_MODE_INSTRUMENTATION_REPORT.md"
+        ],
+        "dependencies": [
+          "mode_orchestration_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "keep_as_optional_metadata_projection_no_run_path_change",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507195+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_contract",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "backend/app/tool_runtime/tool_runtime_contract.py",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": true,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/tool_runtime/test_tool_runtime_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-5A_TOOL_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-5A_TOOL_RUNTIME_INSTRUMENTATION_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507211+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_gateway_mode_projection",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "backend/app/tool_runtime/tool_runtime_projection.py",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": true,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/tool_runtime/test_tool_runtime_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-5B_TOOL_RUNTIME_GATEWAY_MODE_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-5B_TOOL_RUNTIME_GATEWAY_MODE_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "tool_runtime_contract",
+          "mode_orchestration_contract",
+          "gateway_mode_instrumentation"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507226+00:00"
+      },
+      {
+        "surface_id": "prompt_governance_contract",
+        "surface_type": "prompt_projection",
+        "module_path": "backend/app/prompt/prompt_governance_contract.py",
+        "owner_domain": "prompt",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/prompt/test_prompt_governance_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-6A_PROMPT_GOVERNANCE_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-6A_PROMPT_GOVERNANCE_WRAPPER_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507244+00:00"
+      },
+      {
+        "surface_id": "prompt_readonly_projection",
+        "surface_type": "prompt_projection",
+        "module_path": "backend/app/prompt/prompt_projection.py",
+        "owner_domain": "prompt",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/prompt/test_prompt_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-6B_PROMPT_PROJECTION_RUNTIME_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-6B_PROMPT_READONLY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "prompt_governance_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507260+00:00"
+      },
+      {
+        "surface_id": "rtcm_integration_contract",
+        "surface_type": "rtcm_projection",
+        "module_path": "backend/app/rtcm/rtcm_integration_contract.py",
+        "owner_domain": "rtcm",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_integration_contract.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-7A_RTCM_ROUNDTABLE_INTEGRATION_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-7A_RTCM_ROUNDTABLE_INTEGRATION_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507277+00:00"
+      },
+      {
+        "surface_id": "rtcm_runtime_projection",
+        "surface_type": "rtcm_projection",
+        "module_path": "backend/app/rtcm/rtcm_runtime_projection.py",
+        "owner_domain": "rtcm",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/rtcm/test_rtcm_runtime_projection.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-7B_RTCM_RUNTIME_PROJECTION_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-7B_RTCM_RUNTIME_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "rtcm_integration_contract"
+        ],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507292+00:00"
+      },
+      {
+        "surface_id": "nightly_foundation_health_review",
+        "surface_type": "nightly_review_projection",
+        "module_path": "backend/app/nightly/foundation_health_review.py",
+        "owner_domain": "nightly",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "low",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_review.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_REPORT.md"
+        ],
+        "dependencies": [],
+        "blockers": [],
+        "recommended_next_step": "approve_minimal_read_only_diagnostic_surface",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507306+00:00"
+      },
+      {
+        "surface_id": "nightly_feishu_summary_projection",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "backend/app/nightly/foundation_health_summary.py",
+        "owner_domain": "nightly",
+        "readiness_level": "read_only_ready",
+        "decision": "approve_read_only_integration",
+        "risk_level": "medium",
+        "can_read_runtime": true,
+        "can_write_runtime": false,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": false,
+        "requires_root_guard": false,
+        "has_tests": true,
+        "test_refs": [
+          "backend/app/nightly/test_foundation_health_summary.py"
+        ],
+        "sample_refs": [
+          "migration_reports/foundation_audit/R241-8B_NIGHTLY_FEISHU_SUMMARY_SAMPLE.json"
+        ],
+        "report_refs": [
+          "migration_reports/foundation_audit/R241-8B_NIGHTLY_FEISHU_SUMMARY_PROJECTION_REPORT.md"
+        ],
+        "dependencies": [
+          "nightly_foundation_health_review"
+        ],
+        "blockers": [],
+        "recommended_next_step": "allow_dry_run_payload_projection_only_no_push",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507321+00:00"
+      },
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "surface_type": "memory_projection",
+        "module_path": "",
+        "owner_domain": "memory",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "memory cleanup without quarantine"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507343+00:00"
+      },
+      {
+        "surface_id": "asset_promotion_elimination",
+        "surface_type": "asset_projection",
+        "module_path": "",
+        "owner_domain": "asset",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "asset promotion without verification"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507363+00:00"
+      },
+      {
+        "surface_id": "prompt_replacement_gepa_dspy_activation",
+        "surface_type": "prompt_projection",
+        "module_path": "",
+        "owner_domain": "prompt",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "prompt replacement without backup"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507381+00:00"
+      },
+      {
+        "surface_id": "tool_runtime_enforcement",
+        "surface_type": "tool_runtime_projection",
+        "module_path": "",
+        "owner_domain": "tool_runtime",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "tool enforcement without dry-run"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507401+00:00"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "surface_type": "gateway_mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "gateway",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "gateway routing mutation"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507422+00:00"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "surface_type": "mode_instrumentation",
+        "module_path": "",
+        "owner_domain": "mode",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "mode router replacement"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507439+00:00"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "surface_type": "rtcm_projection",
+        "module_path": "",
+        "owner_domain": "rtcm",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": true,
+        "requires_rollback": true,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "rtcm state mutation"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507462+00:00"
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "surface_type": "feishu_summary_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": false,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "feishu push without webhook policy"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507483+00:00"
+      },
+      {
+        "surface_id": "real_scheduler_watchdog_integration",
+        "surface_type": "nightly_review_projection",
+        "module_path": "",
+        "owner_domain": "nightly",
+        "readiness_level": "blocked",
+        "decision": "block_integration",
+        "risk_level": "critical",
+        "can_read_runtime": false,
+        "can_write_runtime": true,
+        "can_modify_execution_path": true,
+        "requires_backup": false,
+        "requires_rollback": false,
+        "requires_user_confirmation": true,
+        "requires_root_guard": false,
+        "has_tests": false,
+        "test_refs": [],
+        "sample_refs": [],
+        "report_refs": [],
+        "dependencies": [],
+        "blockers": [
+          "scheduler policy missing"
+        ],
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation",
+        "warnings": [],
+        "reviewed_at": "2026-04-24T23:24:43.507502+00:00"
+      }
+    ],
+    "by_readiness_level": {
+      "read_only_ready": 16,
+      "append_only_ready": 1,
+      "blocked": 9
+    },
+    "by_decision": {
+      "approve_read_only_integration": 16,
+      "approve_append_only_integration": 1,
+      "block_integration": 9
+    },
+    "by_risk_level": {
+      "low": 13,
+      "medium": 4,
+      "critical": 9
+    },
+    "read_only_ready_count": 16,
+    "append_only_ready_count": 1,
+    "report_only_count": 0,
+    "blocked_count": 9,
+    "high_risk_count": 9,
+    "recommended_integration_sequence": [
+      {
+        "order": 1,
+        "step": "Truth / State read-only APIs"
+      },
+      {
+        "order": 2,
+        "step": "Governance / Queue diagnostics"
+      },
+      {
+        "order": 3,
+        "step": "Memory / Asset read-only dashboards"
+      },
+      {
+        "order": 4,
+        "step": "Prompt / ToolRuntime read-only diagnostics"
+      },
+      {
+        "order": 5,
+        "step": "RTCM read-only runtime projection"
+      },
+      {
+        "order": 6,
+        "step": "Nightly summary read-only CLI/API"
+      },
+      {
+        "order": 7,
+        "step": "Feishu projection dry-run endpoint"
+      },
+      {
+        "order": 8,
+        "step": "Append-only audit store"
+      },
+      {
+        "order": 9,
+        "step": "Gateway optional metadata integration"
+      },
+      {
+        "order": 10,
+        "step": "Gated write / auto-fix separate review"
+      }
+    ],
+    "warnings": [
+      "queue_path_mismatch_unresolved"
+    ]
+  },
+  "blockers": {
+    "blocker_count": 18,
+    "blockers": [
+      {
+        "surface_id": "queue_sandbox_truth_projection",
+        "blocker_type": "queue path mismatch unresolved",
+        "risk_level": "medium",
+        "recommended_next_step": "read_only_diagnostics_allowed_queue_mismatch_remains_warning"
+      },
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "blocker_type": "memory cleanup without quarantine",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "memory_cleanup_write_policy",
+        "blocker_type": "runtime mutation without rollback",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "asset_promotion_elimination",
+        "blocker_type": "asset promotion without verification",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "prompt_replacement_gepa_dspy_activation",
+        "blocker_type": "prompt replacement without backup",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "tool_runtime_enforcement",
+        "blocker_type": "tool enforcement without dry-run",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "blocker_type": "gateway routing mutation",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "blocker_type": "runtime mutation without rollback",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "gateway_run_path_integration",
+        "blocker_type": "Gateway routing mutation",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "blocker_type": "mode router replacement",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "blocker_type": "prompt replacement without backup",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "mode_router_replacement",
+        "blocker_type": "Mode Router replacement",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "blocker_type": "rtcm state mutation",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "blocker_type": "runtime mutation without rollback",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "rtcm_state_mutation",
+        "blocker_type": "RTCM state mutation",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "blocker_type": "feishu push without webhook policy",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "real_feishu_push",
+        "blocker_type": "Feishu push without webhook policy",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      },
+      {
+        "surface_id": "real_scheduler_watchdog_integration",
+        "blocker_type": "scheduler policy missing",
+        "risk_level": "critical",
+        "recommended_next_step": "keep_blocked_until_dedicated_contract_and_user_confirmation"
+      }
+    ],
+    "warnings": []
+  },
+  "minimal_read_only_integration_plan": {
+    "phases": [
+      {
+        "phase_id": "Phase A",
+        "name": "Read-only Diagnostic CLI / API",
+        "surfaces": [
+          "truth_state_contract",
+          "governance_readonly_projection",
+          "queue_sandbox_truth_projection",
+          "memory_readonly_projection",
+          "asset_readonly_projection",
+          "prompt_readonly_projection",
+          "rtcm_runtime_projection",
+          "nightly_foundation_health_review",
+          "nightly_feishu_summary_projection"
+        ],
+        "allowed": true,
+        "constraints": [
+          "read_only_only",
+          "no_runtime_write",
+          "no_action_queue"
+        ]
+      },
+      {
+        "phase_id": "Phase B",
+        "name": "Append-only Audit Trail",
+        "surfaces": [
+          "mode_orchestration_contract",
+          "tool_runtime_contract",
+          "nightly_foundation_health_review"
+        ],
+        "allowed": true,
+        "constraints": [
+          "append_only_artifact",
+          "no_original_runtime_mutation"
+        ]
+      },
+      {
+        "phase_id": "Phase C",
+        "name": "Gateway Optional Metadata",
+        "surfaces": [
+          "gateway_mode_instrumentation",
+          "tool_runtime_gateway_mode_projection"
+        ],
+        "allowed": true,
+        "constraints": [
+          "optional_metadata_only",
+          "no_routing_change",
+          "no_response_schema_change"
+        ]
+      },
+      {
+        "phase_id": "Phase D",
+        "name": "Feishu Dry-run / Manual Push",
+        "surfaces": [
+          "nightly_feishu_summary_projection"
+        ],
+        "allowed": true,
+        "constraints": [
+          "projection_payload_only",
+          "no_webhook_by_default",
+          "manual_send_policy_required"
+        ]
+      },
+      {
+        "phase_id": "Phase E",
+        "name": "Gated Write / Auto-fix",
+        "surfaces": [
+          "memory_cleanup_write_policy",
+          "asset_promotion_elimination",
+          "prompt_replacement_gepa_dspy_activation",
+          "tool_runtime_enforcement",
+          "rtcm_state_mutation"
+        ],
+        "allowed": false,
+        "constraints": [
+          "blocked",
+          "requires_backup",
+          "requires_rollback",
+          "requires_user_confirmation",
+          "separate_contract_required"
+        ]
+      }
+    ],
+    "warnings": []
+  },
+  "generated_at": "2026-04-24T23:24:43.508348+00:00",
+  "warnings": [
+    "queue_path_mismatch_unresolved"
+  ]
+}

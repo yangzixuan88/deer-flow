@@ -1,0 +1,12 @@
+R241-12C Trend Report Artifact
+projection-only; no-auto-fix; no audit JSONL write; no runtime write
+trend_report_id=nightly_trend_report_add6847ddab5
+status=ok
+window=all_available
+total_records_analyzed=18
+series_count=12
+regression_count=2
+by_severity={'medium': 2}
+regression_summary=medium queue_missing_warning_count=8.0; medium unknown_taxonomy_count=46.0
+warnings=[]
+errors=[]

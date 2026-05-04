@@ -1,0 +1,547 @@
+{
+  "report_id": "R241-22J_AUTH_SUB_BUNDLE_D_RESET_ADMIN_IMPLEMENTATION_PLAN_REVIEW",
+  "generated_at": "2026-04-29T16:30:00+08:00",
+  "phase": "22J",
+  "status": "PASSED_WITH_WARNINGS",
+  "decision": "reset_admin_plan_completed_cli_only_no_http_exposure_confirmed",
+  "reset_admin_plan_completed": true,
+  "privileged_auth_risk_matrix_completed": true,
+  "implementation_allowed": false,
+  "surface010_unblocked": false,
+  "route_registration_allowed": false,
+  "gateway_activation_allowed": false,
+  "runtime_touch_detected": false,
+  "dependency_execution_executed": false,
+  "code_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "admin_modified": false,
+  "password_reset_executed": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+
+  "1_executive_summary": {
+    "status": "PASSED_WITH_WARNINGS",
+    "decision": "reset_admin_plan_completed_cli_only_no_http_exposure_confirmed",
+    "reset_admin_plan_completed": true,
+    "privileged_auth_risk_matrix_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "key_finding": "reset_admin.py is CLI-only (python -m app.gateway.auth.reset_admin), not HTTP-exposed. All privileged operations are local to the process. credential_file.write_initial_credentials uses atomic O_CREAT|O_TRUNC with mode 0600 to prevent credential exposure.",
+    "warning": "SURFACE-010 must be unblocked before reset_admin.py can run (depends on init_engine_from_config)"
+  },
+
+  "2_rootguard": {
+    "python": "PASSED",
+    "powershell": "PASSED"
+  },
+
+  "3_file_inventory": {
+    "reset_admin_py": {
+      "path": "backend/app/gateway/auth/reset_admin.py",
+      "loc": "~80",
+      "upstream_verified": true,
+      "interface": "CLI only — python -m app.gateway.auth.reset_admin",
+      "http_exposed": false,
+      "route_registration": false,
+      "gateway_main_path": false
+    },
+    "credential_file_py": {
+      "path": "backend/app/gateway/auth/credential_file.py",
+      "loc": "~70",
+      "upstream_verified": true,
+      "interface": "write_initial_credentials(email, password, label) -> Path",
+      "atomic_0600": true,
+      "note": "O_WRONLY|O_CREAT|O_TRUNC with mode 0600 — password never world-readable"
+    },
+    "local_provider_py": {
+      "path": "backend/app/gateway/auth/local_provider.py",
+      "loc": "~120",
+      "upstream_verified": true,
+      "interface": "LocalAuthProvider(repository)",
+      "used_by": "reset_admin.py indirectly via SQLiteUserRepository"
+    },
+    "sqlite_repository_py": {
+      "path": "backend/app/gateway/auth/repositories/sqlite.py",
+      "loc": "~200",
+      "upstream_verified": true,
+      "interface": "SQLiteUserRepository(session_factory)",
+      "used_by": "reset_admin.py directly"
+    },
+    "user_model_py": {
+      "path": "backend/packages/harness/deerflow/persistence/user/model.py",
+      "loc": "~70",
+      "upstream_verified": true,
+      "table": "users",
+      "key_columns": ["id", "email", "password_hash", "system_role", "token_version", "needs_setup", "oauth_provider", "oauth_id"]
+    },
+    "persistence_engine_py": {
+      "path": "backend/packages/harness/deerflow/persistence/engine.py",
+      "loc": "~180",
+      "upstream_verified": true,
+      "used_by": "reset_admin.py via init_engine_from_config(), get_session_factory(), close_engine()"
+    }
+  },
+
+  "4_privileged_operation_inventory": {
+    "operations": [
+      {
+        "id": "PRIV-01",
+        "name": "Password hash write",
+        "severity": "HIGH",
+        "location": "reset_admin.py: user.password_hash = hash_password(new_password)",
+        "threat": "Plaintext password in memory before hashing",
+        "mitigation": "Immediately hashed with dfv2 (SHA-256 + bcrypt), plaintext not stored or logged"
+      },
+      {
+        "id": "PRIV-02",
+        "name": "Token version increment",
+        "severity": "HIGH",
+        "location": "reset_admin.py: user.token_version += 1",
+        "threat": "All existing JWTs for this user become invalid immediately",
+        "mitigation": "Intentional — forces all sessions to re-authenticate with new password"
+      },
+      {
+        "id": "PRIV-03",
+        "name": "needs_setup flag set",
+        "severity": "MEDIUM",
+        "location": "reset_admin.py: user.needs_setup = True",
+        "threat": "User must complete setup flow on next login",
+        "mitigation": "Expected behavior — operator informed via log message"
+      },
+      {
+        "id": "PRIV-04",
+        "name": "Credential file write",
+        "severity": "HIGH",
+        "location": "credential_file.py: write_initial_credentials()",
+        "threat": "Password written to disk",
+        "mitigation": "Atomic O_CREAT|O_TRUNC with mode 0600 — only process user can read"
+      },
+      {
+        "id": "PRIV-05",
+        "name": "Database user lookup",
+        "severity": "LOW",
+        "location": "reset_admin.py: repo.get_user_by_email() or direct SELECT",
+        "threat": "Email enumeration",
+        "mitigation": "Only usable by operator with CLI access; email not returned on error"
+      },
+      {
+        "id": "PRIV-06",
+        "name": "Persistence engine init",
+        "severity": "MEDIUM",
+        "location": "reset_admin.py: init_engine_from_config(config.database)",
+        "threat": "Creates/modifies SQLite database file",
+        "mitigation": "Expected for admin reset; database must exist for reset to work"
+      }
+    ]
+  },
+
+  "5_admin_reset_threat_model": {
+    "attack_vectors": [
+      {
+        "vector": "Local CLI access",
+        "risk": "HIGH",
+        "scenario": "Attacker with shell access to the machine runs reset_admin.py",
+        "existing_mitigations": ["Requires authenticated shell session", "File mode 0600 limits exposure"],
+        "residual_risk": "Operator must secure shell access"
+      },
+      {
+        "vector": "Log injection",
+        "risk": "LOW",
+        "scenario": "Password printed to stdout/stderr",
+        "existing_mitigations": ["Password written to file only, not printed", "credential_file.py designed to prevent this"],
+        "residual_risk": "None — credentials never reach logs"
+      },
+      {
+        "vector": "Credential file theft",
+        "risk": "MEDIUM",
+        "scenario": "Attacker reads .deer-flow/admin_initial_credentials.txt",
+        "existing_mitigations": ["mode 0600 — only owner can read", "File should be deleted after operator logs in"],
+        "residual_risk": "Operator may forget to delete file"
+      },
+      {
+        "vector": "Memory exposure",
+        "risk": "LOW",
+        "scenario": "Plaintext password accessible in process memory",
+        "existing_mitigations": ["Immediately hashed after file write", "No long-term plaintext retention"],
+        "residual_risk": "Short window between input and hash"
+      },
+      {
+        "vector": "JWT invalidation bypass",
+        "risk": "LOW",
+        "scenario": "Attacker attempts to use old JWT after reset",
+        "existing_mitigations": ["token_version increment invalidates all existing tokens"],
+        "residual_risk": "None — token_version check enforced in get_current_user_from_request"
+      }
+    ],
+    "risk_summary": {
+      "critical_credential_sprawl": "MITIGATED — file mode 0600",
+      "log_exposure": "MITIGATED — no stdout printing",
+      "jwt_reuse_after_reset": "MITIGATED — token_version increment",
+      "unauthorized_reset": "PARTIAL — requires local shell access"
+    }
+  },
+
+  "6_required_persistence_dependencies": {
+    "engine_py": {
+      "status": "SURFACE-010 BLOCKED",
+      "function": "init_engine_from_config(config.database)",
+      "purpose": "Initialize async SQLAlchemy engine",
+      "blocking": true,
+      "dependency_chain": "SURFACE-010 unblock → DT-002 (engine.py) → init_engine_from_config available"
+    },
+    "user_row": {
+      "status": "CAND-024 (R241-22C)",
+      "location": "backend/packages/harness/deerflow/persistence/user/model.py",
+      "table": "users",
+      "used_by": "SQLiteUserRepository._row_to_user() and _user_to_row()",
+      "blocking": false
+    },
+    "sqlite_user_repository": {
+      "status": "Auth Bundle C",
+      "location": "backend/app/gateway/auth/repositories/sqlite.py",
+      "used_by": "reset_admin.py",
+      "requires": "session_factory from get_session_factory()",
+      "blocking": false
+    },
+    "local_auth_provider": {
+      "status": "Auth Bundle C",
+      "location": "backend/app/gateway/auth/local_provider.py",
+      "used_by": "_ensure_admin_user in app.py (not reset_admin.py)",
+      "blocking": false
+    },
+    "session_factory": {
+      "status": "SURFACE-010 BLOCKED",
+      "source": "get_session_factory() from deerflow.persistence.engine",
+      "returned": "async_sessionmaker[AsyncSession] | None",
+      "memory_backend": "Returns None when database.backend=memory",
+      "blocking": true,
+      "note": "reset_admin.py will exit with error if sf is None"
+    }
+  },
+
+  "7_password_reset_flow_contract": {
+    "entry_point": "python -m app.gateway.auth.reset_admin [--email EMAIL]",
+    "steps": [
+      {
+        "step": 1,
+        "action": "init_engine_from_config(config.database)",
+        "purpose": "Initialize SQLAlchemy engine and create tables if needed",
+        "blocking": "SURFACE-010 unblock required"
+      },
+      {
+        "step": 2,
+        "action": "get_session_factory()",
+        "purpose": "Get async session factory",
+        "error_if_none": "Exits with error: 'persistence engine not available'"
+      },
+      {
+        "step": 3,
+        "action": "User lookup",
+        "variants": [
+          "If --email provided: repo.get_user_by_email(email)",
+          "If no --email: SELECT first admin (UserRow.system_role == 'admin' LIMIT 1)"
+        ],
+        "error_if_not_found": "Exits with error: 'user EMAIL not found' or 'no admin user found'"
+      },
+      {
+        "step": 4,
+        "action": "new_password = secrets.token_urlsafe(16)",
+        "purpose": "Generate 16-byte cryptographically random password"
+      },
+      {
+        "step": 5,
+        "action": "user.password_hash = hash_password(new_password)",
+        "purpose": "Hash with dfv2 (SHA-256 + bcrypt)"
+      },
+      {
+        "step": 6,
+        "action": "user.token_version += 1",
+        "purpose": "Invalidate all existing JWTs for this user"
+      },
+      {
+        "step": 7,
+        "action": "user.needs_setup = True",
+        "purpose": "Force user through setup flow on next login"
+      },
+      {
+        "step": 8,
+        "action": "await repo.update_user(user)",
+        "purpose": "Persist changes to database (password_hash, token_version, needs_setup)"
+      },
+      {
+        "step": 9,
+        "action": "write_initial_credentials(user.email, new_password, label='reset')",
+        "purpose": "Atomically write credential file with mode 0600",
+        "path": ".deer-flow/admin_initial_credentials.txt"
+      },
+      {
+        "step": 10,
+        "action": "close_engine()",
+        "purpose": "Dispose engine and release connections"
+      }
+    ],
+    "exit_codes": {
+      "0": "Success",
+      "1": "Error (user not found, engine unavailable, etc.)"
+    }
+  },
+
+  "8_token_version_invalidation_contract": {
+    "mechanism": "user.token_version += 1",
+    "effect": "All existing JWTs become invalid immediately",
+    "verification_location": "app/gateway/deps.py:get_current_user_from_request()",
+    "verification_code": "if user.token_version != payload.ver: raise HTTPException(401, 'Token revoked')",
+    "jwt_payload_field": "TokenPayload.ver (must match User.token_version)",
+    "token_version_at_creation": "create_access_token(user_id, token_version=user.token_version)",
+    "rollback_note": "Password cannot be 'un-reset' — token_version is monotonically increasing"
+  },
+
+  "9_needs_setup_system_role_handling": {
+    "needs_setup_flag": {
+      "field": "User.needs_setup (bool)",
+      "set_by": "reset_admin.py on password reset",
+      "set_by": "_ensure_admin_user() on first boot (not — logs only, does not set needs_setup)",
+      "effect": "User must complete setup flow on next login",
+      "cleared_by": "User completing setup (PUT /api/v1/auth/initialize or similar)"
+    },
+    "system_role_field": {
+      "field": "User.system_role (Literal['admin', 'user'])",
+      "used_by": "reset_admin.py: WHERE system_role == 'admin' LIMIT 1",
+      "note": "reset_admin.py does NOT modify system_role — only resets password"
+    },
+    "interaction": {
+      "reset_admin": "Sets needs_setup=True, does NOT change system_role",
+      "first_admin_creation": "Via /setup endpoint, system_role='admin', needs_setup=False",
+      "reset_then_setup": "After reset, user must login with temp password, then complete setup"
+    }
+  },
+
+  "10_first_admin_existing_admin_decision_boundary": {
+    "first_admin_creation": {
+      "mechanism": "POST /api/v1/auth/initialize",
+      "condition": "count_admin_users() == 0",
+      "sets": "system_role='admin', needs_setup=False",
+      "gateway_protected": false,
+      "note": "HTTP endpoint — runs when gateway is active"
+    },
+    "existing_admin_reset": {
+      "mechanism": "python -m app.gateway.auth.reset_admin",
+      "condition": "admin already exists",
+      "sets": "password_hash (new), token_version+=1, needs_setup=True",
+      "does_not_set": "system_role",
+      "gateway_protected": false,
+      "note": "CLI tool — does not require gateway"
+    },
+    "no_auto_admin_creation": {
+      "mechanism": "_ensure_admin_user() in app.py",
+      "condition": "count_admin_users() == 0",
+      "action": "Logs 'First boot detected — visit /setup', does NOT auto-create admin",
+      "reason": "No auto-admin — operator must explicitly create via /setup"
+    },
+    "decision_boundary": "reset_admin.py does NOT create first admin (only resets existing). First admin creation is always via /setup HTTP endpoint."
+  },
+
+  "11_cli_only_vs_http_exposed_boundary": {
+    "reset_admin_cli": {
+      "interface": "python -m app.gateway.auth.reset_admin",
+      "execution_context": "Local shell, not HTTP",
+      "no_route_registration": true,
+      "not_in_app_routes": true,
+      "no_fastapi_router": true,
+      "invocation": "Operator manually runs on host"
+    },
+    "no_http_equivalence": {
+      "note": "There is NO HTTP endpoint for admin password reset",
+      "reason": "Admin password reset is a privileged operation requiring host access",
+      "alternative": "Operator SSH into host and run CLI tool"
+    },
+    "no_route_registration_guarantee": {
+      "grep_verification": "reset_admin.py does NOT call app.add_route or app.include_router",
+      "app_py_verification": "app.py does NOT import or register reset_admin routes",
+      "routers_dir": "reset_admin.py is NOT in app/gateway/routers/"
+    }
+  },
+
+  "12_no_route_registration_guarantee": {
+    "evidence": [
+      "reset_admin.py has no app.add_route() calls",
+      "reset_admin.py has no app.include_router() calls",
+      "reset_admin.py has no FastAPI router objects",
+      "reset_admin.py is not importable from app.gateway.routers",
+      "grep 'include_router.*reset_admin' in app.py returns empty",
+      "grep 'add_route.*reset_admin' in app.py returns empty"
+    ],
+    "conclusion": "GUARANTEED: reset_admin.py registers no FastAPI routes"
+  },
+
+  "13_no_gateway_main_path_modification_guarantee": {
+    "app_py_inspection": "app.py does NOT import reset_admin",
+    "deps_py_inspection": "deps.py does NOT import reset_admin",
+    "lifespan_inspection": "lifespan function does NOT call reset_admin",
+    "conclusion": "GUARANTEED: reset_admin.py does not modify gateway main path"
+  },
+
+  "14_surface010_dependency_mapping": {
+    "dependency_chain": {
+      "reset_admin_run": {
+        "requires": "init_engine_from_config() from deerflow.persistence.engine",
+        "blocking": "SURFACE-010 DT-002 (engine.py) must be unblocked"
+      }
+    },
+    "dt001_not_required": {
+      "note": "reset_admin.py does NOT use user_context.py (ContextVar for auth middleware)",
+      "reason": "CLI tool runs standalone, not through FastAPI middleware chain"
+    },
+    "dt002_required": {
+      "file": "deerflow.persistence.engine (DT-002)",
+      "functions_used": ["init_engine_from_config", "get_session_factory", "close_engine"],
+      "blocking": true
+    },
+    "memory_backend_handling": {
+      "sf_none": "reset_admin.py exits with error message if get_session_factory() returns None",
+      "reason": "Cannot reset admin without database — no user to reset",
+      "operator_message": "'Error: persistence engine not available (check config.database).'"
+    },
+    "parallel_with_auth_bundle_c": {
+      "reset_admin_depends": "engine.py (DT-002) — not on auth_middleware.py (DT-001)",
+      "auth_bundle_c_depends": "user_context.py (DT-001) — not on engine.py",
+      "can_run_parallel": "YES — reset_admin needs engine, Auth Bundle C needs user_context"
+    }
+  },
+
+  "15_privileged_audit_evidence_requirements": {
+    "required_audit_trail": [
+      {
+        "event": "admin_password_reset",
+        "operator_action": "python -m app.gateway.auth.reset_admin [--email EMAIL]",
+        "logged_to": "stdout/stderr (path only, not password)",
+        "credential_file": ".deer-flow/admin_initial_credentials.txt",
+        "db_change": "password_hash, token_version, needs_setup updated for target user",
+        "non_repudiation": "File mode 0600 — only operator's user can read"
+      }
+    ],
+    "no_audit_in_reset_admin": {
+      "note": "reset_admin.py does NOT write to an audit log",
+      "stdout_message": "Only prints: 'Password reset for: EMAIL' and 'Credentials written to: PATH'",
+      "improvement_opportunity": "Could add syslog/journald integration for audit trail"
+    },
+    "db_audit": {
+      "token_version_increment": "DB write is audit-equivalent — all old tokens invalidated",
+      "timestamp": "created_at unchanged — reset event not timestamped in DB"
+    }
+  },
+
+  "16_test_file_plan": {
+    "test_files": [
+      {
+        "file": "tests/unit/auth/test_reset_admin.py",
+        "cases": [
+          "reset with --email flag finds correct user",
+          "reset without --email finds first admin",
+          "reset with non-existent email exits with error",
+          "reset when no admin exists exits with error",
+          "password_hash is updated after reset",
+          "token_version incremented after reset",
+          "needs_setup set to True after reset",
+          "credential file written with correct content",
+          "credential file mode is 0600",
+          "exit code 0 on success",
+          "exit code 1 on user not found"
+        ],
+        "framework": "pytest + pytest-asyncio",
+        "duration": "10s",
+        "requires_db": true
+      },
+      {
+        "file": "tests/unit/auth/test_credential_file.py",
+        "cases": [
+          "write_initial_credentials creates file",
+          "file mode is 0600",
+          "file contains correct email and password",
+          "label='reset' appears in header",
+          "label='initial' appears in header",
+          "atomic write — partial content not visible",
+          "overwrites existing file"
+        ],
+        "framework": "pytest",
+        "duration": "5s",
+        "requires_db": false
+      }
+    ],
+    "total_files": 2,
+    "total_cases": 17,
+    "estimated_duration": "15s"
+  },
+
+  "17_implementation_order_if_authorized": {
+    "current_blockers": {
+      "SURFACE-010": "BLOCKED — engine.py DT-002 must be unblocked first",
+      "memory_backend": "reset_admin.py exits gracefully when sf=None"
+    },
+    "recommended_sequence": {
+      "1": "Verify persistence/engine.py (DT-002) implementation complete",
+      "2": "Verify UserRow model exists at deerflow.persistence.user.model",
+      "3": "Verify SQLiteUserRepository implemented",
+      "4": "Read reset_admin.py upstream source (already verified)",
+      "5": "Create tests/unit/auth/test_reset_admin.py",
+      "6": "Implement tests — do not proceed to file creation until tests pass",
+      "7": "Implement reset_admin.py if all blockers cleared"
+    },
+    "when_not_authorized": "This is an implementation PLAN only — no file creation until explicit authorization"
+  },
+
+  "18_explicit_stop_conditions": [
+    {
+      "condition": "SURFACE-010 not yet unblocked",
+      "action": "Do not run reset_admin.py — will exit with error"
+    },
+    {
+      "condition": "init_engine_from_config raises",
+      "action": "reset_admin.py catches and exits with error code 1"
+    },
+    {
+      "condition": "get_session_factory() returns None",
+      "action": "reset_admin.py exits with: 'persistence engine not available'"
+    },
+    {
+      "condition": "User not found (by email or first admin)",
+      "action": "reset_admin.py exits with error message and exit code 1"
+    },
+    {
+      "condition": "Code modification detected during review",
+      "action": "Abort and report safety violation"
+    },
+    {
+      "condition": "reset_admin.py used to modify user other than intended target",
+      "action": "Impossible — no parameter for user_id, only email or first-admin heuristic"
+    }
+  ],
+
+  "19_danger_zones": {
+    "credential_file_permissions": {
+      "risk": "File created with mode 0600 — verify OS honors this on Windows",
+      "note": "Windows ACLs work differently; atomic mode 0600 may not translate",
+      "severity": "MEDIUM"
+    },
+    "no_audit_log": {
+      "risk": "reset_admin.py does not write to audit log",
+      "impact": "No forensic trail of who ran reset_admin and when",
+      "severity": "LOW"
+    },
+    "token_version_monotonic": {
+      "risk": "token_version can only increment, never rollback",
+      "impact": "If reset is performed accidentally, all tokens remain invalidated",
+      "severity": "LOW"
+    },
+    "memory_backend_exit": {
+      "risk": "reset_admin.py exits silently when database.backend=memory",
+      "impact": "Operator may think reset succeeded when it didn't",
+      "severity": "MEDIUM",
+      "mitigation": "Error message clearly states 'persistence engine not available'"
+    }
+  },
+
+  "recommended_resume_point": "R241-22G_or_R241-22K",
+  "next_prompt_needed": "user_selection"
+}

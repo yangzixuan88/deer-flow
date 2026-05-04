@@ -1,0 +1,208 @@
+{
+  "phase": "R241-25D",
+  "status": "COMPLETE",
+  "generated": "2026-04-29",
+  "description": "System Repair Static Inventory Execution — LANE 8 report",
+  "preceded_by": "R241-25C",
+  "proceeded_by": "R241-25E",
+  "execution_mode": "PLAN_THEN_INSPECT",
+  "laneware": {
+    "lane_1_scope_gate": "PASS",
+    "lane_2_src001": "PASS",
+    "lane_3_src002": "PASS",
+    "lane_4_src003": "PASS",
+    "lane_5_pr2645": "PASS",
+    "lane_6_classification": "PASS",
+    "lane_7_recommendation": "PASS",
+    "lane_8_report": "PASS"
+  },
+  "scope_gate": {
+    "passed": true,
+    "current_branch": "r241/auth-disabled-wiring-v2",
+    "current_head": "29f8ed8a",
+    "tracked_modifications_detected": false,
+    "read_only_mode": true,
+    "untracked_files_count": 172,
+    "scope_gate_passed": true
+  },
+  "src_001": {
+    "candidate": "SRC-001",
+    "file_path": "backend/tests/test_auth_route_static.py",
+    "issue_claimed": "7 tests fail due to missing email-validator",
+    "file_found": true,
+    "email_validator_used": false,
+    "email_validator_installed": true,
+    "tests_run": 28,
+    "tests_passed": 28,
+    "tests_failed": 0,
+    "issue_confirmed": false,
+    "issue_type": "resolved_false_alarm",
+    "conclusion": "email-validator v2.3.0 is installed and all 28 tests pass. The claimed '7 test failures' were either from a prior removed test file or a historical state.",
+    "recommended_action": "none — issue resolved",
+    "execution_allowed_now": false,
+    "outcome": "resolved_false_alarm"
+  },
+  "src_002": {
+    "candidate": "SRC-002",
+    "file_path": "backend/packages/harness/deerflow/agents/memory/storage.py",
+    "file_found": true,
+    "classification": "active_runtime",
+    "classification_class": "A",
+    "top_level_side_effect_risk": "none",
+    "description": "FileMemoryStorage — active file-based memory provider with lazy initialization. No file I/O at import time.",
+    "imports_safe": true,
+    "high_risk_imports": [],
+    "db_write_on_init": false,
+    "jsonl_write_on_init": false,
+    "file_write_on_init": false,
+    "recommended_action": "none — active runtime module, no cleanup needed",
+    "execution_allowed_now": false,
+    "outcome": "no_action_needed"
+  },
+  "src_003": {
+    "candidate": "SRC-003",
+    "dirs_found": ["m03", "m04", "m05", "m07", "m08", "m09", "m10", "m11", "m12"],
+    "dirs_not_found": ["m06"],
+    "dir_classification": {
+      "m03": {
+        "files": ["self_hardening.py", "__init__.py"],
+        "py_count": 2,
+        "classification": "active_app_module",
+        "referenced_by": ["app.m05.heartbeat_pulse"]
+      },
+      "m04": {
+        "files": ["registry_db.py", "registry_manager.py", "__init__.py"],
+        "py_count": 3,
+        "classification": "active_app_module",
+        "referenced_by": ["self (m04 internal)"]
+      },
+      "m05": {
+        "files": ["heartbeat_pulse.py", "__init__.py"],
+        "py_count": 2,
+        "classification": "active_app_module",
+        "referenced_by": ["app.m05.heartbeat_pulse imports m03/m08/m11/m12"]
+      },
+      "m07": {
+        "files": ["asset_system.py", "__init__.py"],
+        "py_count": 2,
+        "classification": "active_app_module",
+        "referenced_by": ["app.m07.asset_system imports m11"]
+      },
+      "m08": {
+        "files": ["learning_system.py", "__init__.py"],
+        "py_count": 2,
+        "classification": "active_app_module",
+        "referenced_by": ["app.m08.learning_system imports m11/m12"]
+      },
+      "m09": {
+        "files": ["token_optimizer.py", "__init__.py"],
+        "py_count": 2,
+        "classification": "active_app_module",
+        "referenced_by": ["standalone (no internal m-module imports detected)"]
+      },
+      "m10": {
+        "files": ["engine.py", "llm_evaluator.py", "models.py", "search_optimizer.py", "timeout_manager.py", "__init__.py"],
+        "py_count": 6,
+        "classification": "active_app_module",
+        "referenced_by": ["m10 engine/search/timeout/llm_evaluator internal cross-refs", "m10 imports m12"]
+      },
+      "m11": {
+        "files": ["agent_s_adapter.py", "approval_webhook.py", "bytebot_sandbox_mode.py", "claude_code_primary_role.py", "claude_code_router.py", "daemon_tick.py", "external_backend_selector.py", "governance_bridge.py", "governance_bridge.py.bak_round23", "governance_bridge.py.bak_round23_shell_true", "governance_state.json", "queue_consumer.py", "queue_sandbox_truth_projection.py", "sandbox_executor.py", "scrapling_adapter.py", "__init__.py"],
+        "py_count": 18,
+        "classification": "active_app_module",
+        "referenced_by": ["m05/m07/m08/m10/m11/m12 — heavily referenced across codebase"],
+        "note": "Contains .bak_round23* files — backup artifacts, not active code"
+      },
+      "m12": {
+        "files": ["unified_config.py", "__init__.py"],
+        "py_count": 2,
+        "classification": "active_app_module",
+        "referenced_by": ["m05 imports m12.unified_config", "m10 imports m12.unified_config", "m11/models.py imports m12"]
+      }
+    },
+    "import_references_summary": {
+      "m03": "imported by m05 heartbeat_pulse",
+      "m04": "internal self-imports",
+      "m05": "imports m03/m08/m11/m12",
+      "m07": "imports m11",
+      "m08": "imports m11/m12",
+      "m09": "no cross-m-module imports found",
+      "m10": "internal cross-refs + imports m12",
+      "m11": "heavily cross-referenced by m05/m07/m08/m10/m11/m12",
+      "m12": "imported by m05/m10/m11"
+    },
+    "cleanup_candidate_dirs": [],
+    "non_cleanup_candidate_files": [
+      "m11/governance_bridge.py.bak_round23",
+      "m11/governance_bridge.py.bak_round23_shell_true",
+      "m11/governance_state.json"
+    ],
+    "needs_authorization_for_cleanup": false,
+    "conclusion": "All m03-m12 directories contain ACTIVE app modules. No stale artifacts. .bak files in m11 are backup artifacts but referenced in code; need careful review before cleanup.",
+    "outcome": "no_action_needed"
+  },
+  "pr2645_passive_recheck": {
+    "candidate": "SRC-009",
+    "rechecked": true,
+    "state": "open",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "ci_missing": true,
+    "ci_triggered": "license/cla success only; all other checks not triggered",
+    "note": "External fork PR — needs maintainer manual CI trigger"
+  },
+  "candidate_outcomes": {
+    "SRC-001": "resolved_false_alarm",
+    "SRC-002": "no_action_needed",
+    "SRC-003": "no_action_needed"
+  },
+  "new_candidates_created": [],
+  "lane_7_recommendation": {
+    "recommended_next": "R241-25E_BRANCH_DIVERGENCE_ANALYSIS",
+    "reason": "SRC-001/002/003 yielded no actionable items (false alarm + active modules). R241-25E git read-only diff for credential_file.py + reset_admin.py is the next safe step. Authorization: git read-only access to origin/main.",
+    "git_read_only_authorization_needed": true,
+    "authorization_scope": "git log/diff origin/main — read-only"
+  },
+  "blockers_preserved": [
+    "Production SQLite binding — BLOCKED",
+    "Production Postgres binding — BLOCKED",
+    "CAND-003 MCP binding — BLOCKED",
+    "DSRT — DISABLED",
+    "Actual gateway activation — BLOCKED",
+    "MAINLINE_GATEWAY_ACTIVATION=false",
+    "AUTH_MIDDLEWARE_ENABLED=false",
+    "AUTH_ROUTES_ENABLED=false"
+  ],
+  "hard_prohibitions": [
+    "no_code_modification",
+    "no_deletion_of_untracked_files",
+    "no_git_clean_or_git_add",
+    "no_reset_or_stash",
+    "no_AUTH_flags_enablement",
+    "no_production_init_engine",
+    "no_DB_writes",
+    "no_JSONL_writes",
+    "no_gateway_activation",
+    "no_dependency_installation",
+    "no_pyproject_modification",
+    "no_push_to_main",
+    "no_merge_PR_2645",
+    "no_blocker_override"
+  ],
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R241-25D_SYSTEM_REPAIR_STATIC_INVENTORY_EXECUTION.md",
+    "migration_reports/recovery/R241-25D_SYSTEM_REPAIR_STATIC_INVENTORY_EXECUTION.json"
+  ],
+  "next_prompt": "Enter R241-25E_BRANCH_DIVERGENCE_ANALYSIS. R241-25D complete. SRC-001/002/003: all false alarms or active modules — no cleanup needed. Next action: git read-only diff of credential_file.py and reset_admin.py against origin/main. Requires git read-only authorization to origin/main. All blockers preserved. R241-25E PLAN_ONLY with optional inspection lane."
+}

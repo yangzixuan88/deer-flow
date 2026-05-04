@@ -1,0 +1,30 @@
+{
+  "audit_id": "R240-MA",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "summary": "Original asset design defines nine categories and five lifecycle tiers. Current code implements several overlapping asset paths; runtime is partial.",
+  "categories": [
+    {"id": "A1", "name": "capability_tool_assets", "examples": ["tool parameters", "retry strategies", "security boundaries"], "code_evidence": ["backend/src/domain/asset_manager.ts", "backend/packages/harness/deerflow/assets/asset_manager.py"], "runtime_evidence": [".deerflow/operation_assets/asset_registry.json"]},
+    {"id": "A2", "name": "external_resource_assets", "examples": ["API endpoints", "docs", "mirrors"], "code_evidence": ["backend/packages/harness/deerflow/assets/asset_manager.py"], "runtime_evidence": [".deerflow/operation_assets/asset_registry.json"]},
+    {"id": "A3", "name": "solution_workflow_assets", "examples": ["workflow DAGs", "SOPs"], "code_evidence": ["backend/src/domain/nightly_distiller.ts"], "runtime_evidence": [".deerflow/rtcm/dossiers/*/final_report.*"]},
+    {"id": "A4", "name": "execution_experience_assets", "examples": ["pitfalls", "workarounds", "failure recovery"], "code_evidence": ["backend/packages/harness/deerflow/assets/memory_manager.py"], "runtime_evidence": ["backend/.deer-flow/threads/*"]},
+    {"id": "A5", "name": "cognitive_method_assets", "examples": ["thinking templates", "decomposition strategy"], "code_evidence": ["backend/src/domain/asset_manager.ts"], "runtime_evidence": []},
+    {"id": "A6", "name": "source_person_network_assets", "examples": ["source maps", "high-quality information channels"], "code_evidence": ["backend/src/domain/asset_manager.ts"], "runtime_evidence": []},
+    {"id": "A7", "name": "prompt_instruction_assets", "examples": ["optimized prompts", "few-shot examples"], "code_evidence": ["backend/src/domain/prompt_engine/layer5_asset.ts", "backend/packages/harness/deerflow/assets/prompt_manager.py"], "runtime_evidence": []},
+    {"id": "A8", "name": "user_preference_assets", "examples": ["hard preferences", "safety rules"], "code_evidence": ["backend/packages/harness/deerflow/assets/asset_manager.py"], "runtime_evidence": ["backend/.deer-flow/.openclaw/memory.json"]},
+    {"id": "A9", "name": "domain_knowledge_maps", "examples": ["GraphRAG maps", "knowledge relations"], "code_evidence": ["backend/src/domain/memory/layer4/knowledge_graph.ts"], "runtime_evidence": ["backend/.deer-flow/data/qdrant/collection/deerflow_memory/storage.sqlite"]}
+  ],
+  "tiers": [
+    {"name": "record", "score_range": "<30", "retrieval": "not_retrieved_by_llm", "elimination": "180_day_cleanup"},
+    {"name": "general", "score_range": "30-59", "retrieval": "low_priority", "elimination": "direct_elimination_after_repeated_failure"},
+    {"name": "available", "score_range": "60-74", "retrieval": "normal", "elimination": "observation_before_elimination"},
+    {"name": "premium", "score_range": "75-89", "retrieval": "high_priority", "elimination": "observation_and_user_visible_review"},
+    {"name": "core", "score_range": ">=90", "retrieval": "protected", "elimination": "no_automatic_elimination"}
+  ],
+  "runtime_artifacts": [
+    { "path": ".deerflow/operation_assets/asset_registry.json", "type": "operation_asset_registry", "status": "active_partial" },
+    { "path": "backend/app/m11/governance_state.json", "type": "governance_outcomes", "status": "active_partial" },
+    { "path": ".deerflow/reports/latest_report.json", "type": "review_report", "status": "exists" },
+    { "path": "assets/asset-index.json", "type": "top_level_asset_index", "status": "empty_or_placeholder" },
+    { "path": ".deerflow/rtcm/dossiers/*/final_report.*", "type": "candidate_asset_artifact", "status": "candidate_not_auto_asset" }
+  ]
+}

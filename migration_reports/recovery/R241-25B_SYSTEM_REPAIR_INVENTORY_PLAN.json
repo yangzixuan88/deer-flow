@@ -1,0 +1,134 @@
+{
+  "phase": "R241-25B",
+  "status": "COMPLETE_PLAN_ONLY",
+  "generated": "2026-04-29",
+  "description": "System Repair Inventory Plan — LANE 8 report",
+  "preceded_by": "R241-25A",
+  "proceeded_by": "R241-25C",
+  "inventory_scope": {
+    "module_roots": ["backend/app", "backend/packages/harness", "backend/packages/workspace"],
+    "excluded_paths": ["node_modules", "frontend", ".git", ".venv", "__pycache__", "tmp", ".pytest_cache", ".ruff_cache"],
+    "inventory_scope_confirmed": true
+  },
+  "untracked_files": {
+    "count": 172,
+    "hygiene_decision": "DO NOT clean, git clean, or git add",
+    "categories": {
+      "generated_reports": 1,
+      "temp_worktrees": 1,
+      "new_source_files_expected": 15,
+      "debug_artifacts": 5,
+      "config_ide": 6,
+      "memory_scratch": 5,
+      "agent_scratch": 6,
+      "unknown": 133
+    },
+    "cleanup_required": false,
+    "cleanup_authorization_needed": false
+  },
+  "import_scan_method": "ast_only",
+  "safe_import_whitelist": ["typing", "collections", "contextlib", "functools", "pathlib", "os", "sys", "re", "json", "copy", "dataclasses", "enum", "warnings", "tempfile", "uuid", "hashlib", "hmac", "base64", "asyncio", "inspect", "fastapi", "starlette", "pydantic", "deerflow", "app"],
+  "high_risk_imports": ["aiosqlite", "sqlalchemy", "email_validator", "psycopg2", "redis", "requests", "urllib3", "httpx", "aiohttp"],
+  "missing_dependencies": ["email-validator (optional, installed v2.3.0)", "httpx (installed v0.28.1)"],
+  "resolved_import_cascades": [
+    "summarization_hook — deerflow.agents.lead_agent.prompt — RESOLVED",
+    "summarization_middleware — deerflow.agents.middlewares.summarization_middleware — RESOLVED",
+    "validate_agent_name — deerflow.agents.lead_agent.agent — RESOLVED",
+    "user_context.set_current_user — deerflow.runtime.user_context — RESOLVED R241-22W",
+    "thread_meta memory backend — deerflow.persistence.thread_meta — RESOLVED R241-22AA",
+    "engine import-safe — deerflow.persistence.engine — RESOLVED R241-22Z"
+  ],
+  "unresolved_import_risks": [
+    "m03-m12 directories (11 unknown dirs) — HIGH",
+    "credential_file.py — exists on origin/main not private/main — MEDIUM",
+    "reset_admin.py — exists on origin/main not private/main — LOW",
+    "backend/app/memory/ — new directory, unknown — HIGH",
+    "gateway/auth branch divergence — upstream added auth features — MEDIUM"
+  ],
+  "module_classification_summary": {
+    "A-import-safe": 9,
+    "B-import-unsafe-optional-dep": 0,
+    "C-import-unsafe-runtime-side-effect": 0,
+    "D-db-writing-if-initialized": 1,
+    "E-gateway-activation-sensitive": 1,
+    "F-unknown-DNE": 0
+  },
+  "high_risk_surfaces": [
+    "packages/harness/deerflow/persistence/engine.py [D] — PRODUCTION DB BLOCKER",
+    "packages/harness/deerflow/persistence/models.py [D] — PRODUCTION DB BLOCKER",
+    "app/gateway/app.py [E] — AUTH ACTIVATION GATE",
+    "app/gateway/deps.py [E] — AUTH ACTIVATION GATE"
+  ],
+  "no_touch_surfaces": [
+    "packages/harness/deerflow/persistence/engine.py",
+    "packages/harness/deerflow/persistence/models.py",
+    "app/gateway/app.py (audited, no mod without authorization)",
+    "app/gateway/deps.py (audited, no mod without authorization)"
+  ],
+  "system_repair_candidates": [
+    {"id": "SRC-001", "path": "backend/tests/test_gateway_auth_route_static.py", "issue": "7 tests fail due to missing email-validator", "risk": "low", "blocker_impact": "none", "category": "optional-dependency-guard", "suggested_phase": "R241-25D", "execution_allowed_now": false},
+    {"id": "SRC-002", "path": "backend/packages/harness/deerflow/agents/memory/storage.py", "issue": "Unknown content; needs inspection", "risk": "unknown", "blocker_impact": "none", "category": "static-inventory-only", "suggested_phase": "R241-25D", "execution_allowed_now": false},
+    {"id": "SRC-003", "path": "backend/app/m03/ .. m12/ (11 directories)", "issue": "Unknown content", "risk": "unknown", "blocker_impact": "none", "category": "hygiene-inspection", "suggested_phase": "R241-25D", "execution_allowed_now": false},
+    {"id": "SRC-004", "path": "backend/app/gateway/auth/credential_file.py", "issue": "Exists on origin/main but not private/main", "risk": "medium", "blocker_impact": "none", "category": "branch-divergence-analysis", "suggested_phase": "R241-25E", "execution_allowed_now": false},
+    {"id": "SRC-005", "path": "backend/app/gateway/auth/reset_admin.py", "issue": "Exists on origin/main but not private/main", "risk": "low", "blocker_impact": "none", "category": "branch-divergence-analysis", "suggested_phase": "R241-25E", "execution_allowed_now": false},
+    {"id": "SRC-006", "path": "backend/packages/harness/deerflow/scratch/", "issue": "Scratch directory; likely temp files", "risk": "low", "blocker_impact": "none", "category": "hygiene-cleanup", "suggested_phase": "R241-25F", "execution_allowed_now": false},
+    {"id": "SRC-007", "path": "backend/_debug*.py (5 files)", "issue": "Debug artifacts from prior sessions", "risk": "none", "blocker_impact": "none", "category": "hygiene-cleanup", "suggested_phase": "R241-25F", "execution_allowed_now": false},
+    {"id": "SRC-008", "path": "migration_reports/recovery/", "issue": "Handoff reports accumulating", "risk": "none", "blocker_impact": "none", "category": "report-pruning", "suggested_phase": "R241-25G", "execution_allowed_now": false},
+    {"id": "SRC-009", "path": "PR #2645 (bytedance/deer-flow#2645)", "issue": "Open PR, CI not triggered; needs maintainer", "risk": "external", "blocker_impact": "none", "category": "ci-monitoring", "suggested_phase": "R241-25H", "execution_allowed_now": false},
+    {"id": "SRC-010", "path": "backend/app/gateway/auth/credential_file.py + reset_admin.py", "issue": "Upstream auth features; auth activation review needed", "risk": "medium", "blocker_impact": "auth_activation_gate", "category": "auth-activation-review", "suggested_phase": "R241-25I", "execution_allowed_now": false}
+  ],
+  "candidate_count": 10,
+  "recommended_next_phase": "R241-25C_SYSTEM_REPAIR_CANDIDATE_PRIORITIZATION",
+  "top_candidates": ["SRC-001 (optional dependency guard)", "SRC-002 (memory/storage inspection)", "SRC-003 (m03-m12 hygiene inspection)"],
+  "phase_sequence": [
+    "R241-25C: System repair candidate prioritization (PLAN)",
+    "R241-25D: SRC-001, SRC-002, SRC-003",
+    "R241-25E: SRC-004, SRC-005",
+    "R241-25F: SRC-006, SRC-007",
+    "R241-25G: SRC-008",
+    "R241-25H: SRC-009",
+    "R241-25I: SRC-010"
+  ],
+  "blockers_preserved": [
+    "Production SQLite binding — BLOCKED",
+    "Production Postgres binding — BLOCKED",
+    "CAND-003 MCP binding — BLOCKED",
+    "DSRT — DISABLED",
+    "Actual gateway activation — BLOCKED",
+    "MAINLINE_GATEWAY_ACTIVATION=false",
+    "AUTH_MIDDLEWARE_ENABLED=false",
+    "AUTH_ROUTES_ENABLED=false"
+  ],
+  "hard_prohibitions": [
+    "no_code_modification",
+    "no_deletion_of_untracked_files",
+    "no_git_clean_or_git_add",
+    "no_reset_or_stash",
+    "no_AUTH_flags_enablement",
+    "no_production_init_engine",
+    "no_DB_writes",
+    "no_JSONL_writes",
+    "no_gateway_activation",
+    "no_dependency_installation",
+    "no_pyproject_modification",
+    "no_push_to_main",
+    "no_merge_PR_2645",
+    "no_blocker_override"
+  ],
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R241-25B_SYSTEM_REPAIR_INVENTORY_PLAN.md",
+    "migration_reports/recovery/R241-25B_SYSTEM_REPAIR_INVENTORY_PLAN.json"
+  ],
+  "next_prompt": "Enter R241-25C_SYSTEM_REPAIR_CANDIDATE_PRIORITIZATION. R241-25B complete. 10 system repair candidates identified (SRC-001 through SRC-010). Top candidates: SRC-001 (email-validator test fix), SRC-002 (memory/storage inspection), SRC-003 (m03-m12 inspection). Phase sequence planned R241-25C through R241-25I. R241-25C is PLAN ONLY. No code execution. All blockers preserved."
+}

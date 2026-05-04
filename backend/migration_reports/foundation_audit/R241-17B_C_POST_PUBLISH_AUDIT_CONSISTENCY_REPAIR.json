@@ -1,0 +1,77 @@
+{
+  "task_id": "R241-17B-C",
+  "title": "Post-Publish Audit Consistency Repair / Final Test Closure",
+  "generated_at": "2026-04-27",
+  "status": "COMPLETED",
+  "phase_completion": {
+    "1_confirm_state": "COMPLETED",
+    "2_implement_parser": "COMPLETED",
+    "3_fix_module": "COMPLETED",
+    "4_fix_tests": "COMPLETED",
+    "5_verify_audit": "COMPLETED",
+    "6_confirm_worktree": "COMPLETED",
+    "7_run_tests": "COMPLETED",
+    "8_generate_report": "COMPLETED"
+  },
+  "test_results": {
+    "parser_tests": {
+      "file": "backend/app/foundation/test_ci_workflow_trigger_parser.py",
+      "passed": 22,
+      "failed": 0
+    },
+    "audit_tests": {
+      "file": "backend/app/foundation/test_ci_post_publish_deviation_audit.py",
+      "passed": 53,
+      "failed": 0
+    },
+    "total": {
+      "passed": 75,
+      "failed": 0
+    }
+  },
+  "audit_result": {
+    "status": "operationally_closed_with_deviation",
+    "decision": "approve_operational_closure_with_force_push_deviation",
+    "warnings": []
+  },
+  "key_fixes": [
+    {
+      "issue": "PyYAML bool coercion trap (on: -> True)",
+      "fix": "Created line-based parser ci_workflow_trigger_parser.py",
+      "file": "backend/app/foundation/ci_workflow_trigger_parser.py"
+    },
+    {
+      "issue": "unexpected_runs_detected always False",
+      "fix": "Changed to run_count > 0",
+      "file": "backend/app/foundation/ci_post_publish_deviation_audit.py"
+    },
+    {
+      "issue": "TestInspectRemotePublishState mock side_effect incomplete",
+      "fix": "Added all 7 git commands in correct order",
+      "file": "backend/app/foundation/test_ci_post_publish_deviation_audit.py"
+    },
+    {
+      "issue": "TestEvaluatePostPublishDeviationAudit missing trigger keys",
+      "fix": "Added has_pull_request_trigger, has_push_trigger, has_schedule_trigger",
+      "file": "backend/app/foundation/test_ci_post_publish_deviation_audit.py"
+    },
+    {
+      "issue": "TestInspectWorktreeAndStashState incomplete stash mocks",
+      "fix": "Extended to include stash show --stat and --name-only",
+      "file": "backend/app/foundation/test_ci_post_publish_deviation_audit.py"
+    }
+  ],
+  "files_created": [
+    "backend/app/foundation/ci_workflow_trigger_parser.py",
+    "backend/app/foundation/test_ci_workflow_trigger_parser.py",
+    "backend/migration_reports/foundation_audit/R241-17B_C_POST_PUBLISH_AUDIT_CONSISTENCY_REPAIR.md",
+    "backend/migration_reports/foundation_audit/R241-17B_C_POST_PUBLISH_AUDIT_CONSISTENCY_REPAIR.json"
+  ],
+  "prohibited_actions_not_executed": [
+    "git push",
+    "git commit",
+    "git stash pop",
+    "git push --force",
+    "gh workflow run"
+  ]
+}

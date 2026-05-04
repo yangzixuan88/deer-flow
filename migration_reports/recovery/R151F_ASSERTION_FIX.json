@@ -1,0 +1,76 @@
+{
+  "phase": "R151F",
+  "title": "ASSERTION_FIX",
+  "status": "partial_fix_applied",
+  "preceded_by": "R151E4",
+  "proceeding_to": "R152_PATH_A_TO_PATH_B_HANDOFF_MAP",
+  "lane_0_pressure": "M",
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "m01_m04_m11_untracked_preserved": true,
+    "no_git_clean_performed": true,
+    "no_git_reset_performed": true,
+    "safe_to_continue": true
+  },
+  "lane_2_fixes_applied": [
+    {
+      "file": "backend/src/domain/m01/intent_classifier.ts",
+      "action": "Moved search indicator check BEFORE classifyOperation in suggestSystemType() — prevents 'search' keyword from being caught by WEB_ACTION_KEYWORDS",
+      "lines": "257-283"
+    }
+  ],
+  "lane_3_smoke_result": {
+    "note": "Cannot verify - no jest environment in current workspace. TypeScript compilation passes (0 TS errors from R151E4).",
+    "typescript_errors": 0,
+    "tests_runnable": "unknown"
+  },
+  "lane_4_test_failure_analysis": {
+    "should_detect_search_intent": {
+      "input": "搜索关于TypeScript类型系统的文档",
+      "expected_route": "ORCHESTRATION",
+      "expected_suggestedSystem": "SEARCH",
+      "root_cause": "'search' appears in both WEB_ACTION_KEYWORDS (line 2485 of executor_adapter.ts) and SEARCH_INDICATORS (line 24 of intent_classifier.ts). classifyOperation() matches 'search' first, returning OperationType.WEB_BROWSER, causing suggestSystemType() to return SystemType.VISUAL_WEB instead of 'search'.",
+      "fix_applied": "Reordered suggestSystemType() to check SEARCH_INDICATORS before calling classifyOperation() — search queries route to SEARCH before web browser check can intercept them.",
+      "status": "fix_applied_cannot_verify"
+    },
+    "should_route_simple_query_to_direct_answer": {
+      "note": "Requires running test infrastructure to diagnose. Possible causes: (1) context_envelope.ts not properly stubbed in test, (2) DeerFlow client health check failing in test, (3) coordinator.execute() returning unexpected result.",
+      "status": "not_investigated"
+    },
+    "should_route_complex_task_to_orchestration": {
+      "note": "Same as above - requires running test infrastructure.",
+      "status": "not_investigated"
+    }
+  },
+  "lane_5_safety_boundary": {
+    "dependency_installed": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "safety_violations": [],
+    "m01_m04_m11_untracked_preserved": true
+  },
+  "lane_6_key_patterns": {
+    "keyword_conflict_resolution": "WEB_ACTION_KEYWORDS includes 'search', SEARCH_INDICATORS includes 'search' — ordering matters. Search queries must be checked first."
+  },
+  "lane_7_next_phase": {
+    "recommended_next_phase": "R152_PATH_A_TO_PATH_B_HANDOFF_MAP",
+    "reason": "R151F partial fix applied to search intent assertion. Two remaining failures (simple query routing, complex task routing) require test infrastructure debugging which is blocked by missing jest setup in current workspace."
+  },
+  "classification": "partial_fix_applied",
+  "files_modified": [
+    "backend/src/domain/m01/intent_classifier.ts"
+  ],
+  "code_modified": true,
+  "dependency_installed": false,
+  "env_modified": false,
+  "tests_actually_run": "unknown_no_jest_env",
+  "errors_fixed_this_phase": 1,
+  "errors_remaining": 0 (TS),
+  "errors_remaining_assertion": 2,
+  "recommended_next_phase": "R152_PATH_A_TO_PATH_B_HANDOFF_MAP"
+}

@@ -1,0 +1,175 @@
+{
+  "phase": "R147L",
+  "title": "MCP_STATUS_SUMMARY_AND_AGENT_GATE",
+  "status": "passed",
+  "preceded_by": "R147K",
+  "proceeding_to": "R148_TAVILY_AGENT_TOOL_CALL_SMOKE",
+  "pressure_assessment": {
+    "previous_phase": "R147K",
+    "current_phase": "R147L",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147K",
+    "current_phase": "R147L",
+    "recommended_pressure": "XXL",
+    "reason": "Tavily stdio standalone smoke passed; summarize MCP state and gate agent integration"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked",
+    "r147k_commit_present": true,
+    "r147k_commit_sha": "da4b7565",
+    "r147k_commit_message": "chore(mcp): switch Tavily from SSE to stdio transport",
+    "safe_to_continue": true,
+    "authorized_modified_files": ["backend/extensions_config.json"],
+    "note": "Only extensions_config.json was modified for MCP fix; no production code touched"
+  },
+  "lane_2_mcp_config_snapshot": {
+    "only_tavily_enabled": true,
+    "tavily_type": "stdio",
+    "tavily_command": "npx.cmd",
+    "tavily_args": ["-y", "tavily-mcp@latest"],
+    "tavily_args_correct": true,
+    "tavily_key_in_url": false,
+    "tavily_env_var_auth": true,
+    "lark_disabled": true,
+    "exa_disabled": true,
+    "enabled_servers": ["tavily"],
+    "disabled_servers": ["exa", "lark", "pinecone", "cloud_run", "chrome_devtools"]
+  },
+  "lane_3_r147k_audit_reconciliation": {
+    "r147k_external_write_performed": false,
+    "r147k_config_modified": true,
+    "r147k_production_code_modified": false,
+    "r147k_tavily_readonly_tool_called": true,
+    "r147k_mcp_runtime_called": true,
+    "r147k_model_api_called": false,
+    "r147k_safety_violations": [],
+    "correction_note": "R147K classification should reflect external_readonly_tool_called=true, not external_tool_called=true; no production code modified; config patch (extensions_config.json) does not count as code modification"
+  },
+  "lane_4_tavily_standalone_readiness": {
+    "tavily_api_key_present": true,
+    "tavily_tools_listed": true,
+    "tool_count": 5,
+    "tavily_search_tool_name": "tavily_tavily_search",
+    "tavily_tool_schema_type": "tavily_tavily_search_input",
+    "lark_runtime_called": false,
+    "exa_runtime_called": false,
+    "note": "Tools loaded via get_cached_mcp_tools(); no Tavily search executed this lane"
+  },
+  "lane_5_agent_integration_risk": {
+    "direct_tool_injection_possible": true,
+    "create_deerflow_agent_accepts_tools_list": true,
+    "effective_tools_mechanism": "list(tools or []) passed to factory",
+    "mcp_lazy_init_risk": "low",
+    "reason_lazy_init_low": "tools passed as plain list arg; no lazy init triggered by agent creation",
+    "model_call_budget": 2,
+    "tavily_tool_call_limit": 1,
+    "result_persistence_ready": true,
+    "tool_injection_route": "pre-load MCP tools via get_cached_mcp_tools() → inject as tools= argument to create_deerflow_agent()",
+    "gate_pass": true
+  },
+  "lane_6_r148_authorization_package": {
+    "recommended_phase": "R148_TAVILY_AGENT_TOOL_CALL_SMOKE",
+    "goal": "Agent with Tavily tool; 2 model calls; 1 readonly Tavily search; no write tools",
+    "model_call_limit": 2,
+    "tavily_tool_call_limit": 1,
+    "allowed_tool": "tavily_tavily_search",
+    "external_write_allowed": false,
+    "lark_allowed": false,
+    "exa_allowed": false,
+    "validation_plan": [
+      "1. Pre-load Tavily MCP tools via get_cached_mcp_tools()",
+      "2. Inject tavily_tavily_search into create_deerflow_agent(tools=[tavily_tool])",
+      "3. Execute agent with prompt: 'Use the Tavily search tool exactly once to search for OpenAI, then answer with a one-sentence summary.'",
+      "4. Limit model calls to 2 (initial + one follow-up)",
+      "5. Expect Tavily tool-call (1 search) + model response",
+      "6. Verify result persistence in run record",
+      "7. Timeout: 120s max"
+    ],
+    "rollback_plan": "none; no config change expected in R148",
+    "forbidden": [
+      "no Lark runtime",
+      "no Exa runtime",
+      "no write tools",
+      "no POST /runs",
+      "no production DB writes",
+      "no JSONL writes"
+    ]
+  },
+  "lane_7_mcp_status_summary": [
+    {
+      "server": "tavily",
+      "status": "working",
+      "transport": "stdio",
+      "command": "npx.cmd -y tavily-mcp@latest",
+      "auth": "env var (TAVILY_API_KEY)",
+      "next": "agent integration (R148)"
+    },
+    {
+      "server": "lark",
+      "status": "paused",
+      "blocker": "SDK token attach bug (99991661)",
+      "fix_required": "SDK patch to attach tenant token in stdio MCP tool calls",
+      "note": "Paused since R147I; not a config issue"
+    },
+    {
+      "server": "exa",
+      "status": "disabled",
+      "blocker": "EXA_API_KEY missing from environment",
+      "fix_required": "Provide EXA_API_KEY to re-enable",
+      "note": "Disabled since R147A"
+    }
+  ],
+  "lane_8_next_phase_decision": {
+    "gate_pass": true,
+    "conditions_met": [
+      "tavily_tools_listed: true",
+      "tavily_api_key_present: true",
+      "only_tavily_enabled: true",
+      "lark_disabled: true",
+      "exa_disabled: true",
+      "direct_tool_injection_possible: true",
+      "config_clean: true",
+      "r147k_commit_present: true"
+    ],
+    "recommended_next_phase": "R148_TAVILY_AGENT_TOOL_CALL_SMOKE"
+  },
+  "lane_9_r144_r147k_journey_summary": {
+    "phases": [
+      "R144: Initial Lark MCP diagnostic",
+      "R145: Lark token routing investigation",
+      "R146: HTTP_PROXY fix attempt",
+      "R147A: Sanitize MCP config",
+      "R147B-R147F: NO_PROXY/HTTP_PROXY fixes",
+      "R147G: NO_PROXY fix confirmed无效 (99991661 persists)",
+      "R147H: keytar/OAuth route infeasible (tenant mode, browser required)",
+      "R147I: Lark disabled, Tavily enabled → 405 (SSE POST/Get mismatch)",
+      "R147J: Root cause confirmed (tavily-mcp is local stdio, not remote SSE)",
+      "R147K: stdio fix applied; Tavily smoke test PASSED (8.80s, real results)",
+      "R147L: MCP status summary; agent integration gate PASSED"
+    ],
+    "final_mcp_status": {
+      "tavily": "working via stdio",
+      "lark": "paused (SDK bug)",
+      "exa": "disabled (missing credentials)"
+    }
+  },
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R148_TAVILY_AGENT_TOOL_CALL_SMOKE"
+}

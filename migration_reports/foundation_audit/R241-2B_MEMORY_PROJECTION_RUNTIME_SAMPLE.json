@@ -1,0 +1,2169 @@
+{
+  "generated_at": "2026-04-24T12:51:05.122491+00:00",
+  "content_policy": "paths, classifications, and summaries only; no full memory content included",
+  "memory_projection_summary": {
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "scanned_count": 500,
+    "classified_count": 262,
+    "by_track": {
+      "deerflow_cognitive": 256,
+      "unknown": 238,
+      "openclaw_native": 6
+    },
+    "by_layer": {
+      "L2_session": 245,
+      "L4_knowledge_graph": 5,
+      "L3_persistent": 12,
+      "unknown": 238
+    },
+    "by_scope": {
+      "thread": 31,
+      "rtcm": 219,
+      "governance": 3,
+      "unknown": 237,
+      "project_native": 6,
+      "user_long_term": 1,
+      "system_internal": 3
+    },
+    "retention_policy_counts": {
+      "session_bound": 245,
+      "graph_persistent": 5,
+      "persistent": 12,
+      "unknown": 237,
+      "quarantine_candidate": 1
+    },
+    "long_term_eligible_count": 17,
+    "asset_candidate_eligible_count": 7,
+    "warnings": [
+      "max_files_reached:500",
+      "checkpoint_not_long_term_memory",
+      "council_log_not_long_term_memory",
+      "unknown_memory_artifact",
+      "memory_scope_agent_or_user_not_fully_proven",
+      "unverified_qdrant_point_not_asset",
+      "raw_governance_outcome_not_long_term_memory"
+    ],
+    "representative_records": [
+      {
+        "memory_ref_id": "memref_47b50a7bddbb5ee89195362fd585b6fb",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_checkpoint_1776616875717.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_1bab38ead6c05c2491192ae424e09da0",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_checkpoint_1776617124269.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_17db6a3adad250e78b6db1fa3ed6ec3b",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_resume_1776616875813.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_75cb2dbc53dd5429beb6f2bd3e78b87c",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_resume_1776617124364.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_df8cb9dfc2bc59a5b0a3d078c3c436cb",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_interrupt_1776617854678.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_3a1dbfc1d2bf54a7813ba2b4c764173e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_interrupt_1776618307558.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_f6de112eae515aa88936f0ff11118a5a",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_interrupt_1776620874449.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_cffdc7c99cc45032818248d332374554",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_nodup_1776617854765.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_9d0a5a9318db543abb0056522294a552",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_nodup_1776618307643.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_52c946de94385de8b6d4799b29159a11",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_nodup_1776620874525.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_381fac1b8def5aa39c755d33874fbd83",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_goal_sat_1776620849982.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_8b94b6f145a75fd6a87f363df4cc6b06",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_real_interrupt_1776620840187.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_ad22bccc4d3f57c1b834bbb94fdd81d4",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_real_interrupt_1776620849824.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_51bb3c82f9bf54c585d4939aaeb768ad",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_resume_goal_1776620840249.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_1fd4b0cdb73e556886c3f8b240587f8e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_resume_goal_1776620849883.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_e5282bb757e15aeab5fa9577867e32a8",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554004056-39b492b6_alerts.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_639c419047845ba2a753630956060b59",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554004056-39b492b6_config.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_7b0b21ea102b569e85e4680079f2337f",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554004056-39b492b6_state.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_6a06a8ff439f5c1f8c03f3206ee8b79e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554030264-a6f0f9b5_alerts.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_76e5c25d1d035e82bc1746309606273d",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554030264-a6f0f9b5_config.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_f164ede4dfaa5f7ba764f6b25aadbd69",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554030264-a6f0f9b5_state.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_95b6ca5e6d085c3296027d5f56b09167",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554109046-ec858b7a_alerts.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_520307cfa4c6509581e5a53986eab768",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554109046-ec858b7a_config.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_9ee41205a38650db8f70cd6dc4977fb0",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\budget\\session-budget-1776554109046-ec858b7a_state.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_261c04189b1e5572b1402e6e5c3cbcd2",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\checkpoints\\checkpoint-1776556756382-c8426c7b.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_c8cddfbb977056cebf07ec09c1b2048a",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\checkpoints\\checkpoint-1776556802662-d580272f.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_90bf1750192457a6a284b3c8a32c33d8",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\checkpoints\\checkpoint-1776556844834-ed9ffad9.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_c49103075e4658e39448307ee64be26b",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\brief_report.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_a507aff9a3905eedb981476338018a38",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\brief_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_7dce1549ac3353f5a6d47e3637648f1e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\council_log.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "council_log_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_482834a265255ee98ea7b6325f92d111",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\council_log.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "council_log_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_2364f0c9ef045c1db84b9469d5845dbc",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "governance",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.8,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_2b33696ed86e5955ad2e69b89bfbade3",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_dbfad579af3456239c2e9563286430a1",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_17cb1d6eacca541092ef5fd57c09884e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\issue_graph.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_0c89ebb5bd3950d2bb3f919424556f45",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\manifest.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_b45ddaa0d59958aba6d1127f3b9ac8ec",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\issue_cards\\issue-001.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_2f4c4c793449593998c00677dbe755ba",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\validation_runs\\val-1776547216700.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_40bd15d1515b55a8bddcf0f80056619a",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\brief_report.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_2c98f5c55ac2529db21bcc2980d073e2",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\brief_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_d0bd354eb86658a8ab4671ffe9a342db",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\council_log.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "council_log_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_14146b24a4df5abfa9d50631e2d1d09f",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "governance",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.8,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_7003b972e6ac5b55bc743da9c6ed1f39",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_617ec65368ca5d09b79ebca6d9d44610",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_498404be42c45d45b904cc57030a70cc",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\issue_issue-001.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_613403533e3659ae9392383094709459",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\manifest.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_a6ff8bd79941576eb5d4182455f6f77c",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\validation_run_val-1776549101188.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_8746047d072751b2818f342f758dc891",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\validation_run_val-1776549532975.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_f05fbc2c6b5152a6a515d52aa7f44de2",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\validation_run_val-1776549572032.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_038bdced4afc5e678c9055cd75a3e58b",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\validation_run_val-1776549682911.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.65,
+        "warnings": []
+      }
+    ]
+  },
+  "long_term_candidates": {
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "candidate_count": 17,
+    "by_layer": {
+      "L4_knowledge_graph": 5,
+      "L3_persistent": 12
+    },
+    "by_scope": {
+      "governance": 2,
+      "rtcm": 5,
+      "project_native": 6,
+      "user_long_term": 1,
+      "system_internal": 3
+    },
+    "candidates": [
+      {
+        "memory_ref_id": "memref_2364f0c9ef045c1db84b9469d5845dbc",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "governance",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.8,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_2b33696ed86e5955ad2e69b89bfbade3",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_dbfad579af3456239c2e9563286430a1",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_14146b24a4df5abfa9d50631e2d1d09f",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "governance",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.8,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_7003b972e6ac5b55bc743da9c6ed1f39",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_617ec65368ca5d09b79ebca6d9d44610",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_21413b8c688a5fb0bcd8c9099696330c",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_39ab7e14e25550138e44f19c6d1aa8b0",
+        "memory_track": "openclaw_native",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "project_native",
+        "source_system": "openclaw_native",
+        "source_path": "backend\\MEMORY.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.95,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_4180eea70ee157b2a68bf58b0eea08f6",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "user_long_term",
+        "source_system": "deerflow_harness",
+        "source_path": "backend\\.deer-flow\\.openclaw\\memory.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.9,
+        "warnings": [
+          "memory_scope_agent_or_user_not_fully_proven"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_7915e6548fc3571a942136dc5c68617f",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "system_internal",
+        "source_system": "deerflow_qdrant",
+        "source_path": "backend\\.deer-flow\\data\\qdrant\\.lock",
+        "content_kind": ".lock",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.85,
+        "warnings": [
+          "unverified_qdrant_point_not_asset"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_2fe86aa3a6805b949d04aba1ee808b73",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "system_internal",
+        "source_system": "deerflow_qdrant",
+        "source_path": "backend\\.deer-flow\\data\\qdrant\\meta.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.85,
+        "warnings": [
+          "unverified_qdrant_point_not_asset"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_3f87b776387754a8a1a0df0d15e8e168",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "system_internal",
+        "source_system": "deerflow_qdrant",
+        "source_path": "backend\\.deer-flow\\data\\qdrant\\collection\\deerflow_memory\\storage.sqlite",
+        "content_kind": "sqlite",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.85,
+        "warnings": [
+          "unverified_qdrant_point_not_asset"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_3ae0350042dd5618b2f89441a29480cb",
+        "memory_track": "openclaw_native",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "project_native",
+        "source_system": "openclaw_native",
+        "source_path": "backend\\.deer-flow\\threads\\454abca3-36ab-4243-a003-950ae0b2467c\\user-data\\workspace\\boulder.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_c07e0c79fb3e5786b292ac8f4b767e54",
+        "memory_track": "openclaw_native",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "project_native",
+        "source_system": "openclaw_docs",
+        "source_path": "backend\\docs\\memory-settings-sample.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.75,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_eb0c5a30f17b5d36895c86ae24c6eb22",
+        "memory_track": "openclaw_native",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "project_native",
+        "source_system": "openclaw_docs",
+        "source_path": "backend\\docs\\MEMORY_IMPROVEMENTS.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.75,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_68fa458905ed50f3a102364ad2eecd72",
+        "memory_track": "openclaw_native",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "project_native",
+        "source_system": "openclaw_docs",
+        "source_path": "backend\\docs\\MEMORY_IMPROVEMENTS_SUMMARY.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.75,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_84392a0743135cc6bbfd54e659227d71",
+        "memory_track": "openclaw_native",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "project_native",
+        "source_system": "openclaw_docs",
+        "source_path": "backend\\docs\\MEMORY_SETTINGS_REVIEW.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": false,
+        "retention_policy": "persistent",
+        "confidence": 0.75,
+        "warnings": []
+      }
+    ],
+    "warnings": [
+      "max_files_reached:500",
+      "checkpoint_not_long_term_memory",
+      "council_log_not_long_term_memory",
+      "unknown_memory_artifact",
+      "memory_scope_agent_or_user_not_fully_proven",
+      "unverified_qdrant_point_not_asset",
+      "raw_governance_outcome_not_long_term_memory"
+    ],
+    "note": "candidate projection only; no consolidation or writes performed",
+    "candidate_total_count": 17
+  },
+  "asset_candidates": {
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "candidate_count": 7,
+    "by_source_system": {
+      "rtcm": 7
+    },
+    "by_layer": {
+      "L4_knowledge_graph": 2,
+      "L3_persistent": 5
+    },
+    "candidates": [
+      {
+        "memory_ref_id": "memref_2364f0c9ef045c1db84b9469d5845dbc",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "governance",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\evidence_ledger.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.8,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_2b33696ed86e5955ad2e69b89bfbade3",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_dbfad579af3456239c2e9563286430a1",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_14146b24a4df5abfa9d50631e2d1d09f",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L4_knowledge_graph",
+        "memory_scope": "governance",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\evidence_ledger.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "graph_persistent",
+        "confidence": 0.8,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_7003b972e6ac5b55bc743da9c6ed1f39",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.json",
+        "content_kind": "json",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_617ec65368ca5d09b79ebca6d9d44610",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "memory_ref_id": "memref_21413b8c688a5fb0bcd8c9099696330c",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L3_persistent",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-beta-validation\\final_report.md",
+        "content_kind": "markdown",
+        "long_term_eligible": true,
+        "asset_candidate_eligible": true,
+        "retention_policy": "persistent",
+        "confidence": 0.85,
+        "warnings": []
+      }
+    ],
+    "warnings": [
+      "max_files_reached:500",
+      "checkpoint_not_long_term_memory",
+      "council_log_not_long_term_memory",
+      "unknown_memory_artifact",
+      "memory_scope_agent_or_user_not_fully_proven",
+      "unverified_qdrant_point_not_asset",
+      "raw_governance_outcome_not_long_term_memory"
+    ],
+    "note": "candidate projection only; no asset promotion performed",
+    "candidate_total_count": 7
+  },
+  "risk_signals": {
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "risk_count": 274,
+    "risk_by_type": {
+      "checkpoint_not_long_term_memory": 31,
+      "council_log_not_long_term_memory": 3,
+      "unknown_memory_artifact": 238,
+      "possible_raw_governance_memory": 1,
+      "max_files_reached": 1
+    },
+    "risk_records": [
+      {
+        "memory_ref_id": "memref_47b50a7bddbb5ee89195362fd585b6fb",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_checkpoint_1776616875717.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_1bab38ead6c05c2491192ae424e09da0",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_checkpoint_1776617124269.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_17db6a3adad250e78b6db1fa3ed6ec3b",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_resume_1776616875813.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_75cb2dbc53dd5429beb6f2bd3e78b87c",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round7_resume_1776617124364.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_df8cb9dfc2bc59a5b0a3d078c3c436cb",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_interrupt_1776617854678.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_3a1dbfc1d2bf54a7813ba2b4c764173e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_interrupt_1776618307558.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_f6de112eae515aa88936f0ff11118a5a",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_interrupt_1776620874449.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_cffdc7c99cc45032818248d332374554",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_nodup_1776617854765.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_9d0a5a9318db543abb0056522294a552",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_nodup_1776618307643.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_52c946de94385de8b6d4799b29159a11",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round8_nodup_1776620874525.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_381fac1b8def5aa39c755d33874fbd83",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_goal_sat_1776620849982.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_8b94b6f145a75fd6a87f363df4cc6b06",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_real_interrupt_1776620840187.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_ad22bccc4d3f57c1b834bbb94fdd81d4",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_real_interrupt_1776620849824.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_51bb3c82f9bf54c585d4939aaeb768ad",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_resume_goal_1776620840249.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_1fd4b0cdb73e556886c3f8b240587f8e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\checkpoints\\round9_resume_goal_1776620849883.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_261c04189b1e5572b1402e6e5c3cbcd2",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\checkpoints\\checkpoint-1776556756382-c8426c7b.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_c8cddfbb977056cebf07ec09c1b2048a",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\checkpoints\\checkpoint-1776556802662-d580272f.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_90bf1750192457a6a284b3c8a32c33d8",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\checkpoints\\checkpoint-1776556844834-ed9ffad9.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_7dce1549ac3353f5a6d47e3637648f1e",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\council_log.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "council_log_not_long_term_memory"
+        ],
+        "risk_types": [
+          "council_log_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_482834a265255ee98ea7b6325f92d111",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\ai-manju-project\\council_log.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "council_log_not_long_term_memory"
+        ],
+        "risk_types": [
+          "council_log_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_d0bd354eb86658a8ab4671ffe9a342db",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "rtcm",
+        "source_system": "rtcm",
+        "source_path": ".deerflow\\rtcm\\dossiers\\rtcm-alpha-validation\\council_log.jsonl",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "council_log_not_long_term_memory"
+        ],
+        "risk_types": [
+          "council_log_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_ce3968be4bee5e18a7c304027684c830",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\recovery\\verification_checkpoint-1776556756382-c8426c7b.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_b3e55beeb49f53d2b101f109b77e5ea1",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\recovery\\verification_checkpoint-1776556802662-d580272f.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_335bf1082cdf59fba82a2c5167fd55cb",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\recovery\\verification_checkpoint-1776556844834-ed9ffad9.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_d665b78df41f5aa4bed6bedd83337249",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\recovery\\session-recover-1776554004051-bdce4330\\checkpoint.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_176f6ecb8e66563da956ee955dfc010d",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\recovery\\session-recover-1776554030260-bda8cfe8\\checkpoint.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_848830a02f43569086a56d4d86bbc348",
+        "memory_track": "deerflow_cognitive",
+        "memory_layer": "L2_session",
+        "memory_scope": "thread",
+        "source_system": "deerflow_checkpoint",
+        "source_path": ".deerflow\\rtcm\\recovery\\session-recover-1776554109041-0f4c8ec6\\checkpoint.json",
+        "content_kind": "json",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "session_bound",
+        "confidence": 0.9,
+        "warnings": [
+          "checkpoint_not_long_term_memory"
+        ],
+        "risk_types": [
+          "checkpoint_not_long_term_memory"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_76822eaa1bc9591280f43f6fbbb37f17",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776884836370_governance_decision_asset_exa_exa_search_rollback.sh",
+        "content_kind": "demand_1776884836370_governance_decision_asset_exa_exa_search_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_ffe3a96086eb5760a7f280f9672da324",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776884836370_governance_decision_asset_read_file_rollback.sh",
+        "content_kind": "demand_1776884836370_governance_decision_asset_read_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_da37af630bbb517da7ece2a248c1dd45",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776884836370_governance_decision_asset_write_file_rollback.sh",
+        "content_kind": "demand_1776884836370_governance_decision_asset_write_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_974b43d272255123a9fe4316e6476274",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776885178819_governance_decision_asset_read_file_rollback.sh",
+        "content_kind": "demand_1776885178819_governance_decision_asset_read_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_14bcc34de92a55c78075557be9259736",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776885178819_governance_decision_asset_write_file_rollback.sh",
+        "content_kind": "demand_1776885178819_governance_decision_asset_write_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_1637fc231b1f5d46bd295b11ed04c9de",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776885786398_governance_decision_asset_read_file_rollback.sh",
+        "content_kind": "demand_1776885786398_governance_decision_asset_read_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_98ae91075cb0587d8fd52dd188560f2b",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776885786398_governance_decision_asset_write_file_rollback.sh",
+        "content_kind": "demand_1776885786398_governance_decision_asset_write_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_bcd5bc46ca075c569bca37cc835fa22c",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776885786399_governance_decision_asset_read_file_rollback.sh",
+        "content_kind": "demand_1776885786399_governance_decision_asset_read_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_848065651e9d567aa6e2cf00b21907dd",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776885786399_governance_decision_asset_write_file_rollback.sh",
+        "content_kind": "demand_1776885786399_governance_decision_asset_write_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_e0f7691922ab59b08a4caeb5687518ff",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776886205386_governance_decision_asset_read_file_rollback.sh",
+        "content_kind": "demand_1776886205386_governance_decision_asset_read_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_11abfb8c603259f884f15adbde988eb8",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776886205386_governance_decision_asset_write_file_rollback.sh",
+        "content_kind": "demand_1776886205386_governance_decision_asset_write_file_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_1818af73db4755d1a75b2f52327e7aeb",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776895314194_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776895314194_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_4fad46485645579a849c4400b4cddd7f",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776895314195_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776895314195_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_5e7bab1936d557bd84b00997417e0e9d",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776895623824_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776895623824_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_9d856a168945579195daf0a9dc176ce1",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776895623825_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776895623825_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_5e57520562175b75930ef12866039cf8",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776895768557_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776895768557_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_39da43765b885badb91295a4627f7893",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776895768558_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776895768558_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_f008eeb04a2953bba9730598ab1a110d",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776896013316_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776896013316_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_e08ce2654d6d57bd93bc581e929fcc05",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776896013317_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776896013317_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_6eea6b397f505ce08392b0366e74f69e",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776901621652_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776901621652_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_381b6375ca7055e2839b817eb181896b",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776901621653_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776901621653_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_82ab05b470f05b38be163f80264e10d7",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776901634910_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776901634910_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      },
+      {
+        "memory_ref_id": "memref_d032d7e118b9592fb25121beba149519",
+        "memory_track": "unknown",
+        "memory_layer": "unknown",
+        "memory_scope": "unknown",
+        "source_system": "unknown",
+        "source_path": ".deerflow\\upgrade-center\\sandbox\\rollback_templates\\demand_1776901634911_governance_decision_asset_unknown_rollback.sh",
+        "content_kind": "demand_1776901634911_governance_decision_asset_unknown_rollback.sh",
+        "long_term_eligible": false,
+        "asset_candidate_eligible": false,
+        "retention_policy": "unknown",
+        "confidence": 0.25,
+        "warnings": [
+          "unknown_memory_artifact"
+        ],
+        "risk_types": [
+          "unknown_memory_artifact"
+        ]
+      }
+    ],
+    "warnings": [
+      "max_files_reached:500",
+      "checkpoint_not_long_term_memory",
+      "council_log_not_long_term_memory",
+      "unknown_memory_artifact",
+      "memory_scope_agent_or_user_not_fully_proven",
+      "unverified_qdrant_point_not_asset",
+      "raw_governance_outcome_not_long_term_memory"
+    ],
+    "note": "diagnostic only; no cleanup, quarantine, or mutation performed"
+  },
+  "warnings": [
+    "max_files_reached:500",
+    "checkpoint_not_long_term_memory",
+    "council_log_not_long_term_memory",
+    "unknown_memory_artifact",
+    "memory_scope_agent_or_user_not_fully_proven",
+    "unverified_qdrant_point_not_asset",
+    "raw_governance_outcome_not_long_term_memory"
+  ]
+}

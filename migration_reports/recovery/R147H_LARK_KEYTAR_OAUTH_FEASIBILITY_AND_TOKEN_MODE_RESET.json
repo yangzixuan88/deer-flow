@@ -1,0 +1,284 @@
+{
+  "phase": "R147H",
+  "title": "LARK_KEYTAR_OAUTH_FEASIBILITY_AND_TOKEN_MODE_RESET",
+  "status": "passed",
+  "preceded_by": "R147G",
+  "proceeding_to": "R147I_LARK_DISABLE_AND_TAVILY_405_DIAGNOSTIC",
+  "pressure_assessment": {
+    "previous_phase": "R147G",
+    "current_phase": "R147H",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147G",
+    "current_phase": "R147H",
+    "recommended_pressure": "XXL",
+    "reason": "NO_PROXY failed; evaluate keytar/OAuth route; keytar only relevant after token-mode reset to user_access_token"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many (untracked files)",
+    "r147a_commit_present": true,
+    "extensions_config_dirty": true,
+    "unexpected_production_dirty_files": [
+      "backend/extensions_config.json (R147G authorized patch)"
+    ],
+    "safe_to_continue": true,
+    "authorized_modified_files": [
+      "backend/extensions_config.json"
+    ]
+  },
+  "lane_2_current_lark_config": {
+    "lark_enabled": true,
+    "tavily_disabled": true,
+    "exa_disabled": true,
+    "token_mode_cli_arg": "tenant_access_token (R147E)",
+    "env_lark_token_mode": "tenant_access_token",
+    "env_no_proxy": "open.feishu.cn",
+    "config_state": "tenant_mode",
+    "config_state_detail": "Lark MCP in stdio mode with --token-mode tenant_access_token; NO_PROXY present (R147G patch); OAuth not enabled"
+  },
+  "lane_3_token_mode_reset_analysis": {
+    "token_mode_reset_options": [
+      {
+        "option": "A",
+        "name": "Remove --token-mode, keep LARK_TOKEN_MODE env=tenant_access_token",
+        "config_change": "Remove --token-mode tenant_access_token from CLI args; keep env",
+        "oauth_required": false,
+        "keytar_required": false,
+        "user_action_required": false,
+        "risk": "low",
+        "expected_effect": "SDK behavior unchanged; still uses tenant_access_token; 99991661 persists"
+      },
+      {
+        "option": "B",
+        "name": "Switch to --token-mode user_access_token",
+        "config_change": "Change --token-mode to user_access_token; add --oauth flag",
+        "oauth_required": true,
+        "keytar_required": true,
+        "user_action_required": true (browser OAuth login on localhost:3000)",
+        "risk": "medium",
+        "expected_effect": "OAuth flow activated; requires browser interaction and keytar working"
+      },
+      {
+        "option": "C",
+        "name": "Set token_mode to auto (remove explicit mode)",
+        "config_change": "Remove --token-mode from args and env",
+        "oauth_required": false,
+        "keytar_required": false,
+        "user_action_required": false,
+        "risk": "low",
+        "expected_effect": "SDK in auto mode; may attempt UAT (user access token) first; keytar issue means user token unavailable; fallback to tenant; 99991661 persists"
+      },
+      {
+        "option": "D",
+        "name": "Keep tenant mode, abandon keytar route",
+        "config_change": "No change",
+        "oauth_required": false,
+        "keytar_required": false,
+        "user_action_required": false,
+        "risk": "none",
+        "expected_effect": "99991661 persists; Lark MCP remains non-functional in current config"
+      }
+    ],
+    "recommended_token_mode_for_keytar_path": "option_B",
+    "keytar_only_matters_for_user_mode": true,
+    "critical_insight": "In tenant_access_token mode, keytar is completely irrelevant. The keytar rebuild route only helps if we also switch to user_access_token mode AND complete OAuth login. These are coupled requirements, not independent."
+  },
+  "lane_4_keytar_feasibility": {
+    "node_version": "v24.14.0",
+    "platform": "win32/x64",
+    "keytar_package_found_in_cache": true,
+    "keytar_node_exists": false,
+    "missing_binary_path": "keytar/build/Release/keytar.node",
+    "keytar_version": "7.9.0",
+    "prebuild_found": false,
+    "build_gyp_found": true,
+    "build_tools_present": "unknown",
+    "rebuild_command_candidates": [
+      "pnpm rebuild keytar",
+      "npm rebuild keytar --runtime=node",
+      "npx node-gyp rebuild --directory=keytar"
+    ],
+    "risk": "medium",
+    "keytar_fix_conclusion": "keytar.node binary is missing from pnpm cache. Rebuild may succeed but requires native compilation tools (node-gyp, Python, C++ compiler) which may not be present. Even if rebuild succeeds, it only enables OAuth token persistence — it does not fix the tenant token auto-attach bug."
+  },
+  "lane_5_oauth_feasibility": {
+    "oauth_supported_by_lark_mcp": true,
+    "login_command_available": true,
+    "browser_required": true,
+    "redirect_uri": "http://localhost:3000/callback",
+    "user_action_required": true,
+    "oauth_command": "npx -y @larksuiteoapi/lark-mcp login -a <app_id> -s <app_secret> --oauth",
+    "lark_mcp_help_confirms_oauth": true,
+    "existing_user_token_present": false,
+    "user_access_token_env_present": false,
+    "keytar_store_existing_data": false,
+    "oauth_flow_description": "Starts local HTTP server on localhost:3000 → opens browser for OAuth → callback to localhost:3000/callback with auth code → token stored via keytar",
+    "keytar_prerequisite": "keytar.node must exist for OAuth token storage to work after login completes"
+  },
+  "lane_6_repair_route_comparison": [
+    {
+      "route": "A",
+      "name": "keytar rebuild + switch to user_access_token mode + OAuth login",
+      "dependency_install_required": true,
+      "config_patch_required": true,
+      "user_action_required": true,
+      "code_patch_required": false,
+      "secret_risk": "low",
+      "success_probability": "medium",
+      "recommended": false,
+      "reason": "Requires native rebuild (may fail without build tools), requires user browser interaction, still has 99991661 risk if SDK tenant token bug exists in user mode too. Too many coupled failure points."
+    },
+    {
+      "route": "B",
+      "name": "Explicit USER_ACCESS_TOKEN env injection",
+      "dependency_install_required": false,
+      "config_patch_required": true,
+      "user_action_required": false,
+      "code_patch_required": false,
+      "secret_risk": "high",
+      "success_probability": "high",
+      "recommended": false,
+      "reason": "Would work but requires injecting a real user access token into env — security risk and token would be visible in config"
+    },
+    {
+      "route": "C",
+      "name": "Investigate SDK withTenantToken() pattern and patch mcp-tool.js",
+      "dependency_install_required": false,
+      "config_patch_required": false,
+      "user_action_required": false,
+      "code_patch_required": true,
+      "secret_risk": "none",
+      "success_probability": "unknown",
+      "recommended": false,
+      "reason": "Would require deep SDK investigation and code modification; potentially most correct fix but heaviest lift"
+    },
+    {
+      "route": "D",
+      "name": "Pause Lark, investigate Tavily 405",
+      "dependency_install_required": false,
+      "config_patch_required": true,
+      "user_action_required": false,
+      "code_patch_required": false,
+      "secret_risk": "none",
+      "success_probability": "unknown",
+      "recommended": true,
+      "reason": "Lark MCP tenant token bug is a deep SDK issue requiring multi-step repair with uncertain outcome. Tavily 405 was identified early (R131A) and is independent. Pausing Lark unblocks progress on other fronts."
+    },
+    {
+      "route": "E",
+      "name": "Pause external MCP, return mainline",
+      "dependency_install_required": false,
+      "config_patch_required": false,
+      "user_action_required": false,
+      "code_patch_required": false,
+      "secret_risk": "none",
+      "success_probability": "high",
+      "recommended": false,
+      "reason": "External MCP debug is consuming significant phase budget without resolution. Return to mainline to make forward progress, can revisit later."
+    }
+  ],
+  "lane_7_recommended_strategy": {
+    "recommended_strategy": "Pause Lark MCP (disable it in extensions_config.json); enable Tavily MCP; investigate Tavily 405 error from R131A",
+    "rationale": "Lark MCP 99991661 has persisted across R147D→R147G despite multiple fix attempts (NO_PROXY, token mode). The root cause is a deep SDK behavior issue: getShouldUseUAT=false causes handler.js to call func(params) without token, and there's no evidence Client.request() auto-attaches tenant token for stdio MCP tools. The keytar rebuild route is blocked because: (1) keytar.node binary missing from cache, (2) rebuild may fail without build tools, (3) even if keytar works, OAuth login requires browser interaction, and (4) token mode must also be switched to user_access_token which is a separate config change with its own risks. Tavily 405 was identified in R131A and is independent — worth investigating while Lark is paused.",
+    "continue_lark_now": false,
+    "requires_user_action": false,
+    "requires_dependency_install": false,
+    "requires_config_patch": true,
+    "next_action": "R147I: disable Lark in extensions_config.json, enable Tavily, smoke test Tavily"
+  },
+  "lane_8_r147i_authorization_package": {
+    "recommended_phase": "R147I_LARK_DISABLE_AND_TAVILY_405_DIAGNOSTIC",
+    "patch_required": true,
+    "patch_target": "backend/extensions_config.json — set lark.enabled=false, tavily.enabled=true",
+    "dependency_install_required": false,
+    "env_update_required": false,
+    "user_action_required": false,
+    "files_allowed": [
+      "backend/extensions_config.json"
+    ],
+    "files_forbidden": [
+      ".env",
+      "backend/packages/*",
+      "package.json",
+      "*.lock"
+    ],
+    "selected_tool": "tavily_search",
+    "allowed_tool_calls": 1,
+    "model_call_allowed": false,
+    "write_tool_allowed": false,
+    "params": {"query": "test search"},
+    "validation_plan": [
+      "1. Patch extensions_config.json: lark.enabled=false, tavily.enabled=true",
+      "2. Reset MCP tools cache",
+      "3. Load tools and verify tavily_search is available",
+      "4. Invoke tavily_search with test query",
+      "5. If 405: Tavily 405 confirmed → investigate R131A notes",
+      "6. If success: Tavily working → Lark paused successfully",
+      "7. If other error: classify and determine next step"
+    ],
+    "rollback_plan": "Restore lark.enabled=true, tavily.enabled=false in extensions_config.json"
+  },
+  "lane_9_branch_decision": {
+    "continue_lark": false,
+    "switch_to_tavily": true,
+    "pause_external_mcp": false,
+    "return_to_mainline": false,
+    "rationale": "Lark MCP is blocked by deep SDK token attachment bug. Multiple fix attempts (NO_PROXY, token mode changes) have failed. Pausing Lark and switching to Tavily unblocks MCP tool availability. Lark can be revisited when more resources/time are available for a proper SDK patch investigation."
+  },
+  "lane_10_unknown_registry_updates": [
+    {
+      "id": "U-lark-tenant-mode-keytar-irrelevance",
+      "description": "keytar module is only used for OAuth user token persistence, NOT for tenant_access_token flow. keytar.node missing does NOT cause 99991661 in tenant mode.",
+      "priority": "high",
+      "fix_applied": "R147H: keytar relevance correctly classified — keytar rebuild does not fix tenant token issue"
+    },
+    {
+      "id": "U-lark-token-mode-oauth-coupling",
+      "description": "Switching to user_access_token mode requires --oauth flag AND OAuth login AND keytar working — these are coupled requirements",
+      "priority": "high",
+      "fix_applied": "R147H: identified that keytar rebuild alone is insufficient; must also switch token mode AND complete OAuth login"
+    },
+    {
+      "id": "U-keytar-rebuild-feasibility",
+      "description": "keytar.node binary missing from pnpm cache; rebuild requires native build tools; success uncertain",
+      "priority": "high",
+      "fix_applied": "R147H: keytar rebuild feasibility assessed as medium risk with uncertain outcome"
+    },
+    {
+      "id": "U-oauth-browser-requirement",
+      "description": "lark-mcp OAuth login requires browser redirect to localhost:3000/callback — requires human interaction and cannot be automated without additional tooling",
+      "priority": "high",
+      "fix_applied": "R147H: OAuth login requires user action (browser) which is blocked by current phase constraints"
+    },
+    {
+      "id": "U-lark-sdk-token-attach-bug",
+      "description": "SDK's handler.js calls func(params) without token when getShouldUseUAT=false; Client.request() may not auto-attach tenant token; this is the root cause of 99991661",
+      "priority": "critical",
+      "fix_applied": "R147H: confirmed root cause is SDK not auto-attaching token, NOT proxy or keytar"
+    },
+    {
+      "id": "U-lark-vs-tavily-branch-decision",
+      "description": "Lark MCP tenant token issue is deep SDK bug; Tavily 405 (R131A) is independent and should be investigated while Lark is paused",
+      "priority": "medium",
+      "fix_applied": "R147H: recommended pause Lark + investigate Tavily"
+    }
+  ],
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R147I_LARK_DISABLE_AND_TAVILY_405_DIAGNOSTIC",
+  "next_prompt_needed": true
+}

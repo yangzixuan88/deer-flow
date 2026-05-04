@@ -1,0 +1,69 @@
+{
+  "phase": "R133H",
+  "title": "GATEWAY_AUTH_MIDDLEWARE_SYNTAX_REPAIR",
+  "status": "completed",
+  "preceded_by": "R133G",
+  "proceeding_to": "R133G_RETRY",
+  "pressure_assessment": {
+    "previous_phase": "R133G",
+    "previous_pressure": "XXL++",
+    "current_recommended_pressure": "XXL++",
+    "reason": "Syntax repair only — cherry-pick damage in 40f2275c introduced 3 broken constructs across auth_middleware.py and authz.py. All three fixed."
+  },
+  "repairs": [
+    {
+      "file": "backend/app/gateway/auth_middleware.py",
+      "line": 85,
+      "issue": "Cherry-pick deleted closing '}' from JSONResponse content=dict and closing ')' from return JSONResponse() call",
+      "fix": "Added missing '}' and ')' after content dict",
+      "type": "syntax_error"
+    },
+    {
+      "file": "backend/app/gateway/authz.py",
+      "line": 149,
+      "issue": "Cherry-pick split require_auth docstring: line 149 opened new docstring, line 150 opened second orphan docstring with duplicate text — leaving first docstring unclosed",
+      "fix": "Merged lines 149-150 into single docstring, removed orphan line 150",
+      "type": "syntax_error"
+    },
+    {
+      "file": "backend/app/gateway/app.py",
+      "line": 393,
+      "issue": "Local import 'from app.gateway.auth_middleware import AuthMiddleware' inside create_app() shadowed global import at line 10. Python function-local scoping means AuthMiddleware was treated as local throughout create_app, causing UnboundLocalError at line 303 where global import was referenced",
+      "fix": "Removed redundant local import — global import at line 10 already provides AuthMiddleware",
+      "type": "import_error"
+    }
+  ],
+  "validation": {
+    "auth_middleware_ast": "PASS — py_compile clean",
+    "auth_middleware_import": "PASS — AuthMiddleware imported successfully",
+    "authz_ast": "PASS — ast.parse clean",
+    "gateway_app_import": "PASS — app = create_app() succeeds",
+    "testclient_init": "PASS — TestClient(app) instantiates",
+    "health_endpoint": "PASS — GET /health returns 200"
+  },
+  "smoke_test_result": {
+    "gateway_app_import": "PASS",
+    "testclient_creation": "PASS",
+    "health_check": "PASS (200)",
+    "stream_endpoint_csrf": "PASS (403 CSRF, not 500 crash — CSRF middleware orthogonal to R133G scope)"
+  },
+  "constraints": {
+    "code_modified": true,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "agent_astream_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R133H_GATEWAY_AUTH_MIDDLEWARE_SYNTAX_REPAIR.md",
+    "migration_reports/recovery/R133H_GATEWAY_AUTH_MIDDLEWARE_SYNTAX_REPAIR.json"
+  ],
+  "next_prompt_needed": "R133G_RETRY"
+}

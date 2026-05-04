@@ -1,0 +1,306 @@
+{
+  "report_id": "R241-20F_FORBIDDEN_RUNTIME_UNBLOCK_PLANNING",
+  "phase": "phase_20f_forbidden_runtime_unblock_planning",
+  "status": "passed",
+  "decision": "approve_forbidden_runtime_unblock_planning",
+  "source": "R241-20E_DEPENDENCY_RISK_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "dirty_tracked_count": 329,
+    "staged_file_count": 0,
+    "stash_count": 1
+  },
+  "preconditions_from_r241_20e": {
+    "r241_20e_status": "passed",
+    "decision": "approve_dependency_risk_review_quarantine_maintained",
+    "allow_enter_r241_20f": true,
+    "all_preconditions_met": true
+  },
+  "unblock_planning_scope": {
+    "current_round": "R241-20F",
+    "mode": "unblock_planning_only",
+    "planning_only": true,
+    "blocker_override_forbidden": true,
+    "apply_forbidden": true,
+    "total_candidates": 9
+  },
+  "blocker_candidate_mapping": {
+    "SURFACE-010": {
+      "blocker_type": "BLOCKED CRITICAL",
+      "reason": "memory runtime BLOCKED — persistence layer DB/JSONL writes require unblock",
+      "candidates_count": 7,
+      "candidates": [
+        {
+          "id": "CAND-008",
+          "path": "backend/packages/harness/deerflow/persistence/__init__.py",
+          "type": "package namespace umbrella",
+          "audit_hit": false
+        },
+        {
+          "id": "CAND-009",
+          "path": "backend/packages/harness/deerflow/persistence/engine.py",
+          "type": "DB write at startup",
+          "audit_hit": true
+        },
+        {
+          "id": "CAND-010",
+          "path": "backend/packages/harness/deerflow/persistence/feedback/sql.py",
+          "type": "DB write",
+          "audit_hit": false
+        },
+        {
+          "id": "CAND-011",
+          "path": "backend/packages/harness/deerflow/persistence/run/sql.py",
+          "type": "DB write",
+          "audit_hit": false
+        },
+        {
+          "id": "CAND-012",
+          "path": "backend/packages/harness/deerflow/runtime/events/store/db.py",
+          "type": "runtime event DB write",
+          "audit_hit": true
+        },
+        {
+          "id": "CAND-013",
+          "path": "backend/packages/harness/deerflow/runtime/events/store/jsonl.py",
+          "type": "audit JSONL write",
+          "audit_hit": true
+        },
+        {
+          "id": "CAND-024",
+          "path": "backend/app/gateway/auth/repositories/sqlite.py",
+          "type": "auth DB write",
+          "audit_hit": true
+        }
+      ],
+      "unblock_requirements": [
+        "memory runtime must be unblocked first",
+        "backup/rollback strategy required",
+        "persistence layer initialization order must be defined",
+        "SURFACE-010 is BLOCKED CRITICAL — requires dedicated unblock review"
+      ]
+    },
+    "GSIC-003": {
+      "blocker_type": "BLOCKED",
+      "reason": "gateway main path modification blocked",
+      "candidates_count": 1,
+      "candidates": [
+        {
+          "id": "CAND-018",
+          "path": "backend/app/gateway/app.py",
+          "type": "gateway main path modification",
+          "audit_hit": true
+        }
+      ],
+      "unblock_requirements": [
+        "gateway activation must be enabled (MAINLINE-GATEWAY-ACTIVATION=true)",
+        "DSRT must be implemented (DSRT-IMPLEMENTED=true)",
+        "protected path conflict resolution required"
+      ]
+    },
+    "GSIC-004": {
+      "blocker_type": "BLOCKED",
+      "reason": "FastAPI route registration blocked",
+      "candidates_count": 1,
+      "candidates": [
+        {
+          "id": "CAND-007",
+          "path": "backend/app/gateway/routers/auth.py",
+          "type": "FastAPI route registration",
+          "audit_hit": true
+        }
+      ],
+      "unblock_requirements": [
+        "FastAPI route registration must be reviewed",
+        "gateway activation must be enabled",
+        "DSRT must be implemented"
+      ]
+    }
+  },
+  "unblock_sequence_analysis": {
+    "prerequisite_chain": [
+      {
+        "phase": 0,
+        "blocker": "SURFACE-010 (memory runtime BLOCKED CRITICAL)",
+        "must_unblock_first": true,
+        "reason": "all persistence layer candidates depend on memory being unblocked"
+      },
+      {
+        "phase": 1,
+        "blocker": "MAINLINE-GATEWAY-ACTIVATION=false",
+        "depends_on": "SURFACE-010 unblock",
+        "must_unblock_before": "GSIC-003, GSIC-004"
+      },
+      {
+        "phase": 2,
+        "blocker": "DSRT-ENABLED=false",
+        "depends_on": "MAINLINE-GATEWAY-ACTIVATION=true",
+        "must_unblock_before": "GSIC-003, GSIC-004"
+      },
+      {
+        "phase": 3,
+        "blocker": "DSRT-IMPLEMENTED=false",
+        "depends_on": "DSRT-ENABLED=true",
+        "must_unblock_before": "GSIC-003, GSIC-004"
+      },
+      {
+        "phase": 4,
+        "blocker": "GSIC-003, GSIC-004",
+        "depends_on": "all above true",
+        "final_unblock": true
+      }
+    ],
+    "recommended_unblock_order": [
+      "1. SURFACE-010 (memory unblock) — prerequisite for everything",
+      "2. MAINLINE-GATEWAY-ACTIVATION=true — gateway activation",
+      "3. DSRT-ENABLED=true — DSRT enable",
+      "4. DSRT-IMPLEMENTED=true — DSRT implementation",
+      "5. GSIC-003 (gateway/app.py) — gateway main path",
+      "6. GSIC-004 (routers/auth.py) — FastAPI route registration",
+      "7. SURFACE-010 persistence candidates — db.py, jsonl.py, sql.py files"
+    ]
+  },
+  "candidate_unblock_plan": {
+    "CAND-007": {
+      "blocker": "GSIC-004",
+      "unblock_preconditions": [
+        "MAINLINE-GATEWAY-ACTIVATION must be true",
+        "DSRT-IMPLEMENTED must be true",
+        "FastAPI route registration review must pass"
+      ],
+      "risk_level": "high",
+      "reason": "FastAPI route registration affects API surface"
+    },
+    "CAND-008": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "memory runtime must be operational"
+      ],
+      "risk_level": "critical",
+      "reason": "package namespace — affects all persistence"
+    },
+    "CAND-009": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "backup/rollback must be configured"
+      ],
+      "risk_level": "high",
+      "reason": "DB write at startup — startup behavior change"
+    },
+    "CAND-010": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "persistence layer initialization order must be defined"
+      ],
+      "risk_level": "medium",
+      "reason": "structural persistence writer"
+    },
+    "CAND-011": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "persistence layer initialization order must be defined"
+      ],
+      "risk_level": "medium",
+      "reason": "structural persistence writer"
+    },
+    "CAND-012": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "runtime event initialization order must be defined"
+      ],
+      "risk_level": "high",
+      "reason": "runtime event DB write — active runtime modification"
+    },
+    "CAND-013": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "audit JSONL retention policy must be defined"
+      ],
+      "risk_level": "high",
+      "reason": "audit JSONL write — audit trail generation"
+    },
+    "CAND-018": {
+      "blocker": "GSIC-003",
+      "unblock_preconditions": [
+        "MAINLINE-GATEWAY-ACTIVATION must be true",
+        "DSRT-IMPLEMENTED must be true",
+        "gateway main path modification review must pass"
+      ],
+      "risk_level": "critical",
+      "reason": "gateway main path modification — protected path"
+    },
+    "CAND-024": {
+      "blocker": "SURFACE-010",
+      "unblock_preconditions": [
+        "SURFACE-010 must be unblocked first",
+        "auth DB initialization must be reviewed"
+      ],
+      "risk_level": "high",
+      "reason": "auth DB write — authentication infrastructure"
+    }
+  },
+  "planning_summary": {
+    "total_candidates": 9,
+    "blocked_by_SURFACE-010": 7,
+    "blocked_by_GSIC-003": 1,
+    "blocked_by_GSIC-004": 1,
+    "unblock_phases_required": 5,
+    "critical_risk_candidates": 3,
+    "high_risk_candidates": 4,
+    "medium_risk_candidates": 2
+  },
+  "blocker_dependency_graph": {
+    "root_blocker": "SURFACE-010",
+    "blocks": ["CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+    "unblock_path": "memory runtime must be unblocked first",
+    "dependent_blockers": ["MAINLINE-GATEWAY-ACTIVATION", "DSRT-ENABLED", "DSRT-IMPLEMENTED", "GSIC-003", "GSIC-004"]
+  },
+  "safety_boundary": {
+    "no_blocker_overridden": true,
+    "no_apply_executed": true,
+    "no_code_modified": true,
+    "no_runtime_activated": true,
+    "planning_only": true,
+    "blockers_preserved": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "decision": "approve_forbidden_runtime_unblock_planning",
+    "planning_only": true,
+    "candidates_planned": 9,
+    "unblock_sequence_documented": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "allow_enter_next_phase": true,
+    "recommended_resume_point": "R241-20F",
+    "next_prompt_needed": "R241-20G_PUSH_AUTHORIZATION_REVIEW"
+  }
+}

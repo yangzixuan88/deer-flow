@@ -1,0 +1,494 @@
+{
+  "decision": {
+    "decision_id": "R241-16G_workflow_confirmation_gate_decision",
+    "generated_at": "2026-04-26T00:36:39.912776+00:00",
+    "status": "allowed_for_next_review",
+    "decision": "allow_implementation_review",
+    "allowed_next_phase": "R241-16H_workflow_creation_implementation",
+    "workflow_creation_allowed_now": false,
+    "confirmation_input": {
+      "input_id": "workflow_confirmation_input",
+      "provided_confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+      "expected_confirmation_phrase": "CONFIRM_MANUAL_FOUNDATION_CI_DRYRUN",
+      "phrase_present": true,
+      "phrase_exact_match": true,
+      "requested_option": "option_c_manual_plan_only_workflow",
+      "requested_option_valid": true,
+      "requested_scope": "workflow_dispatch_plan_only",
+      "provided_at": "2026-04-26T00:36:39.908981+00:00",
+      "warnings": [],
+      "errors": []
+    },
+    "requested_option": "option_c_manual_plan_only_workflow",
+    "confirmation_checks": [
+      {
+        "check_id": "check_confirmation_phrase",
+        "check_type": "confirmation_phrase",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Confirmation phrase must be exact match of VALID_CONFIRMATION_PHRASE.",
+        "evidence_refs": [
+          "build_workflow_confirmation_input()"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_requested_workflow_option",
+        "check_type": "requested_option",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Requested option must be valid and confirmed.",
+        "evidence_refs": [
+          "build_workflow_confirmation_input()"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_blueprint_safety",
+        "check_type": "blueprint_safety",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Blueprint must remain report-only with no forbidden tokens.",
+        "evidence_refs": [
+          "R241-16F blueprint",
+          "render_manual_dispatch_workflow_blueprint_yaml()"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_existing_workflow_state",
+        "check_type": "existing_workflow_state",
+        "passed": true,
+        "risk_level": "medium",
+        "description": "Existing workflows unchanged; no new workflow created this round.",
+        "evidence_refs": [
+          "ci_enablement_review.discover_existing_workflows()"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": [],
+        "existing_workflow_count": 2,
+        "existing_workflow_compatibility": [
+          {
+            "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+            "exists": true,
+            "parsed": true,
+            "trigger_summary": {
+              "pull_request": true,
+              "push": true,
+              "schedule": false,
+              "workflow_dispatch": false
+            },
+            "job_count": 6,
+            "runs_pytest": true,
+            "touches_foundation_or_audit": false,
+            "likely_overlap_with_foundation_ci": true,
+            "conflict_level": "medium",
+            "conflict_reasons": [
+              "existing_pr_backend_test_overlap",
+              "existing_push_trigger_present"
+            ],
+            "recommended_action": "review_overlap_before_enablement",
+            "warnings": [
+              "yaml_text_heuristic_analysis_used"
+            ],
+            "errors": []
+          },
+          {
+            "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml",
+            "exists": true,
+            "parsed": true,
+            "trigger_summary": {
+              "pull_request": true,
+              "push": true,
+              "schedule": false,
+              "workflow_dispatch": false
+            },
+            "job_count": 5,
+            "runs_pytest": false,
+            "touches_foundation_or_audit": false,
+            "likely_overlap_with_foundation_ci": false,
+            "conflict_level": "low",
+            "conflict_reasons": [
+              "existing_push_trigger_present",
+              "existing_workflow_secret_reference_or_literal"
+            ],
+            "recommended_action": "no_blocking_conflict_detected",
+            "warnings": [
+              "yaml_text_heuristic_analysis_used"
+            ],
+            "errors": []
+          }
+        ]
+      },
+      {
+        "check_id": "check_path_and_artifact_policy",
+        "check_type": "path_artifact_policy",
+        "passed": true,
+        "risk_level": "medium",
+        "description": "Path and artifact policy in safe report-only state.",
+        "evidence_refs": [
+          "build_ci_path_compatibility_policy()",
+          "build_ci_artifact_collection_specs()"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [
+          "path_inconsistency_detected_report_only"
+        ],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_github_workflows_write_this_round",
+        "check_type": "no_github_workflows_write",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No .github/workflows files written this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_pr_push_schedule_triggers",
+        "check_type": "no_pr_push_schedule_triggers",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No PR/push/schedule triggers enabled this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_secrets",
+        "check_type": "no_secrets",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No secrets read this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_network",
+        "check_type": "no_network",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No network calls made this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_runtime_write",
+        "check_type": "no_runtime_write",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No runtime files written this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_audit_jsonl_write",
+        "check_type": "no_audit_jsonl_write",
+        "passed": true,
+        "risk_level": "high",
+        "description": "No audit JSONL written this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_action_queue_write",
+        "check_type": "no_action_queue_write",
+        "passed": true,
+        "risk_level": "high",
+        "description": "No action queue written this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "check_no_auto_fix",
+        "check_type": "no_auto_fix",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "No auto-fix executed this round.",
+        "evidence_refs": [
+          "design_only_gate"
+        ],
+        "required_before_allow": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "blueprint_ref": {
+      "blueprint_id": "R241-16F_manual_dispatch_workflow_blueprint",
+      "workflow_filename_proposed": "foundation-manual-dispatch.yml",
+      "write_target_allowed": false,
+      "report_only_blueprint_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16F_MANUAL_DISPATCH_WORKFLOW_BLUEPRINT.yml.txt"
+    },
+    "existing_workflow_compatibility": [
+      {
+        "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+        "exists": true,
+        "parsed": true,
+        "trigger_summary": {
+          "pull_request": true,
+          "push": true,
+          "schedule": false,
+          "workflow_dispatch": false
+        },
+        "job_count": 6,
+        "runs_pytest": true,
+        "touches_foundation_or_audit": false,
+        "likely_overlap_with_foundation_ci": true,
+        "conflict_level": "medium",
+        "conflict_reasons": [
+          "existing_pr_backend_test_overlap",
+          "existing_push_trigger_present"
+        ],
+        "recommended_action": "review_overlap_before_enablement",
+        "warnings": [
+          "yaml_text_heuristic_analysis_used"
+        ],
+        "errors": []
+      },
+      {
+        "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml",
+        "exists": true,
+        "parsed": true,
+        "trigger_summary": {
+          "pull_request": true,
+          "push": true,
+          "schedule": false,
+          "workflow_dispatch": false
+        },
+        "job_count": 5,
+        "runs_pytest": false,
+        "touches_foundation_or_audit": false,
+        "likely_overlap_with_foundation_ci": false,
+        "conflict_level": "low",
+        "conflict_reasons": [
+          "existing_push_trigger_present",
+          "existing_workflow_secret_reference_or_literal"
+        ],
+        "recommended_action": "no_blocking_conflict_detected",
+        "warnings": [
+          "yaml_text_heuristic_analysis_used"
+        ],
+        "errors": []
+      }
+    ],
+    "path_compatibility_policy": {
+      "path_compatibility_policy_id": "R241-16A_path_compatibility",
+      "generated_at": "2026-04-26T00:36:39.912951+00:00",
+      "primary_report_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+      "secondary_report_path": "E:\\OpenClaw-Base\\deerflow\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "action_now": "report_only",
+      "future_options": [
+        "unify_report_root_under_migration_reports_only",
+        "add_compatibility_note_in_ci_config",
+        "migrate_old_backend_reports_in_phase_6",
+        "ci_collect_both_paths_temporarily"
+      ],
+      "migration_allowed_now": false,
+      "deletion_allowed_now": false,
+      "rewriting_allowed_now": false,
+      "warnings": [
+        "No migration, deletion, or rewriting in this phase",
+        "CI should collect from both paths when both exist",
+        "Future Phase 6 will address path cleanup"
+      ],
+      "errors": []
+    },
+    "artifact_policy": {
+      "artifact_specs": [
+        {
+          "artifact_spec_id": "art_spec_foundation_reports",
+          "artifact_type": "foundation_audit_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit",
+            "backend\\migration_reports\\foundation_audit"
+          ],
+          "destination_name": "foundation_audit_reports",
+          "include_patterns": [
+            "*.json",
+            "*.md"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/*.jsonl",
+            "**/runtime/**",
+            "**/action_queue/**",
+            "**/.secret/**",
+            "**/webhook_url*",
+            "**/*token*",
+            "**/*secret*"
+          ],
+          "retention_days": 30,
+          "path_inconsistency_handling": "collect_both_report_warning",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "primary path: migration_reports\\foundation_audit",
+            "secondary path: backend\\migration_reports\\foundation_audit",
+            "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_ci_matrix",
+          "artifact_type": "ci_matrix_report",
+          "source_paths": [
+            "migration_reports\\foundation_audit"
+          ],
+          "destination_name": "ci_matrix_reports",
+          "include_patterns": [
+            "R241-15*",
+            "R241-16*"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 90,
+          "path_inconsistency_handling": "primary_only",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_pytest_logs",
+          "artifact_type": "pytest_log",
+          "source_paths": [],
+          "destination_name": "pytest_logs",
+          "include_patterns": [
+            "**/pytest.log",
+            "**/.pytest_cache/**",
+            "**/tmp/**/pytest*.log"
+          ],
+          "exclude_patterns": [
+            "**/audit_trail/**"
+          ],
+          "retention_days": 7,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "pytest logs are temp — only collect if explicitly enabled"
+          ],
+          "errors": []
+        },
+        {
+          "artifact_spec_id": "art_spec_junit_xml",
+          "artifact_type": "junit_xml",
+          "source_paths": [],
+          "destination_name": "junit_reports",
+          "include_patterns": [
+            "**/junit*.xml",
+            "**/test-results/**/*.xml"
+          ],
+          "exclude_patterns": [],
+          "retention_days": 14,
+          "path_inconsistency_handling": "none",
+          "secrets_allowed": false,
+          "runtime_files_allowed": false,
+          "warnings": [
+            "junit xml is optional — requires --junit-xml flag in pytest command"
+          ],
+          "errors": []
+        }
+      ],
+      "spec_count": 4,
+      "primary_report_path": "migration_reports\\foundation_audit",
+      "secondary_report_path": "backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "path_inconsistency_action": "report_only_no_migration_no_deletion"
+    },
+    "rollback_plan": {
+      "rollback_plan_id": "R241-16E_manual_dispatch_rollback",
+      "rollback_modes": [
+        "disable_workflow_file",
+        "remove_workflow_dispatch_inputs",
+        "revert_to_disabled_draft",
+        "manual_revert_only"
+      ],
+      "rollback_steps": [
+        "Set workflow file to if: ${{ false }} or remove workflow_dispatch trigger.",
+        "Remove confirmation input from workflow_dispatch inputs.",
+        "Use scripts/ci_foundation_check.py as local fallback.",
+        "Validate with local plan-only smoke."
+      ],
+      "owner_action_required": true,
+      "expected_recovery_time": "< 15 minutes",
+      "rollback_risks": [],
+      "validation_after_rollback": [
+        "No workflow_dispatch trigger remains enabled.",
+        "Local ci_foundation_check.py plan-only remains available.",
+        "No runtime rollback required."
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "security_policy": {
+      "no_secrets": true,
+      "no_network": true,
+      "no_runtime_write": true,
+      "no_audit_jsonl_write": true,
+      "no_action_queue_write": true,
+      "no_auto_fix": true
+    },
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-26T00:36:39.913301+00:00"
+  },
+  "generated_at": "2026-04-26T00:36:39.913308+00:00"
+}

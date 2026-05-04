@@ -1,0 +1,82 @@
+{
+  "report_id": "R241-20G6_TMP_WORKTREE_CLEANUP",
+  "phase": "phase_20g6_tmp_worktree_cleanup",
+  "status": "passed",
+  "decision": "worktree_removed_remote_branch_preserved",
+  "source": "R241-20G5_user_authorization",
+  "authorization_scope": {
+    "remove_tmp_worktree": true,
+    "preserve_remote_branch": true,
+    "no_pr_modification": true,
+    "no_merge": true,
+    "no_push_main": true,
+    "no_main_worktree_modification": true,
+    "no_dependency_install": true,
+    "no_runtime_activation": true,
+    "no_blocker_override": true
+  },
+  "execution": {
+    "command": "git worktree remove \"E:/OpenClaw-Base/.tmp_r241_20g_push\"",
+    "before_worktrees": [
+      {
+        "path": "E:/OpenClaw-Base/deerflow",
+        "commit": "0bb97b51",
+        "branch": "main"
+      },
+      {
+        "path": "E:/OpenClaw-Base/.tmp_r241_20g_push",
+        "commit": "579a75f5",
+        "branch": "r241/cand017-lead-agent-summarization"
+      }
+    ],
+    "after_worktrees": [
+      {
+        "path": "E:/OpenClaw-Base/deerflow",
+        "commit": "0bb97b51",
+        "branch": "main"
+      }
+    ]
+  },
+  "verification": {
+    "worktree_removed": true,
+    "main_worktree_unaffected": true,
+    "remote_branch_preserved": true,
+    "pr_branch_preserved": true,
+    "pr_2645_unaffected": true
+  },
+  "remote_branch_status": {
+    "branch": "r241/cand017-lead-agent-summarization",
+    "remote": "origin",
+    "exists": true
+  },
+  "safety_boundary": {
+    "merge_executed": false,
+    "main_modified": false,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed",
+    "worktree_removed": "E:/OpenClaw-Base/.tmp_r241_20g_push",
+    "remote_branch_preserved": "r241/cand017-lead-agent-summarization",
+    "pr_2645_unaffected": true,
+    "main_worktree_commit": "0bb97b51",
+    "safety_violations": []
+  }
+}

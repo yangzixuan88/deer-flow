@@ -1,0 +1,512 @@
+{
+  "workflow_draft_spec": {
+    "workflow_id": "R241-16C_disabled_foundation_check_workflow",
+    "generated_at": "2026-04-25T23:45:22.534080+00:00",
+    "status": "disabled_draft",
+    "workflow_name": "Foundation Check Disabled Draft",
+    "trigger_policy": "workflow_dispatch_only",
+    "auto_triggers_enabled": false,
+    "workflow_dispatch_enabled": true,
+    "pull_request_enabled": false,
+    "push_enabled": false,
+    "schedule_enabled": false,
+    "jobs": [
+      {
+        "job_id": "job_smoke",
+        "job_type": "smoke",
+        "name": "Smoke",
+        "command": "python -m pytest -m smoke -v",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "pr_warning",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 1,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled",
+          "FOUNDATION_CI_NO_EXTERNAL_CALLS": "true"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "disabled_draft_job_not_enabled"
+        ],
+        "errors": []
+      },
+      {
+        "job_id": "job_fast",
+        "job_type": "fast",
+        "name": "Fast Unit + Fast Integration",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"not slow\" -v",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "pr_blocking",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 1,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled",
+          "FOUNDATION_CI_NO_EXTERNAL_CALLS": "true"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "pytest_log",
+          "coverage_report"
+        ],
+        "warnings": [
+          "disabled_draft_job_not_enabled"
+        ],
+        "errors": []
+      },
+      {
+        "job_id": "job_safety",
+        "job_type": "safety",
+        "name": "Safety Boundaries",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "pr_blocking",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 1,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled",
+          "FOUNDATION_CI_NO_EXTERNAL_CALLS": "true"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "disabled_draft_job_not_enabled"
+        ],
+        "errors": []
+      },
+      {
+        "job_id": "job_slow",
+        "job_type": "slow",
+        "name": "Slow Integration",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "nightly_required",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 2,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled",
+          "FOUNDATION_CI_NO_EXTERNAL_CALLS": "true"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "pytest_log",
+          "foundation_audit_report"
+        ],
+        "warnings": [
+          "disabled_draft_job_not_enabled"
+        ],
+        "errors": []
+      },
+      {
+        "job_id": "job_full",
+        "job_type": "full",
+        "name": "Full Regression",
+        "command": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "manual_only",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 5,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled",
+          "FOUNDATION_CI_NO_EXTERNAL_CALLS": "true"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "pytest_log",
+          "foundation_audit_report",
+          "coverage_report"
+        ],
+        "warnings": [
+          "disabled_draft_job_not_enabled"
+        ],
+        "errors": []
+      },
+      {
+        "job_id": "job_collect_only",
+        "job_type": "collect_only",
+        "name": "Collection Check",
+        "command": "python -m pytest backend/app/foundation backend/app/audit --collect-only -q",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "pr_warning",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 1,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled",
+          "FOUNDATION_CI_NO_EXTERNAL_CALLS": "true"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "pytest_log"
+        ],
+        "warnings": [
+          "disabled_draft_job_not_enabled"
+        ],
+        "errors": []
+      },
+      {
+        "job_id": "job_artifact_collection",
+        "job_type": "artifact_collection",
+        "name": "Artifact Collection",
+        "command": "collect report artifacts only",
+        "enabled": false,
+        "trigger_policy": "workflow_dispatch_only",
+        "gating_policy": "report_only",
+        "runs_on": "ubuntu-latest",
+        "timeout_minutes": 5,
+        "environment_variables": {
+          "FOUNDATION_CI_DRAFT": "disabled"
+        },
+        "secret_refs_allowed": false,
+        "network_allowed": false,
+        "runtime_write_allowed": false,
+        "auto_fix_allowed": false,
+        "artifact_upload_enabled": false,
+        "artifact_patterns": [
+          "*.json",
+          "*.md",
+          "R241-15*",
+          "R241-16*",
+          "**/pytest.log",
+          "**/.pytest_cache/**",
+          "**/tmp/**/pytest*.log",
+          "**/junit*.xml",
+          "**/test-results/**/*.xml"
+        ],
+        "warnings": [
+          "artifact_upload_disabled_in_design_phase"
+        ],
+        "errors": []
+      }
+    ],
+    "artifact_policy": {
+      "artifact_policy_id": "R241-16C_artifact_policy",
+      "source_artifact_specs": {
+        "artifact_specs": [
+          {
+            "artifact_spec_id": "art_spec_foundation_reports",
+            "artifact_type": "foundation_audit_report",
+            "source_paths": [
+              "migration_reports\\foundation_audit",
+              "backend\\migration_reports\\foundation_audit"
+            ],
+            "destination_name": "foundation_audit_reports",
+            "include_patterns": [
+              "*.json",
+              "*.md"
+            ],
+            "exclude_patterns": [
+              "**/audit_trail/*.jsonl",
+              "**/runtime/**",
+              "**/action_queue/**",
+              "**/.secret/**",
+              "**/webhook_url*",
+              "**/*token*",
+              "**/*secret*"
+            ],
+            "retention_days": 30,
+            "path_inconsistency_handling": "collect_both_report_warning",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [
+              "primary path: migration_reports\\foundation_audit",
+              "secondary path: backend\\migration_reports\\foundation_audit",
+              "path_inconsistency: both paths exist — no migration, no deletion in this phase"
+            ],
+            "errors": []
+          },
+          {
+            "artifact_spec_id": "art_spec_ci_matrix",
+            "artifact_type": "ci_matrix_report",
+            "source_paths": [
+              "migration_reports\\foundation_audit"
+            ],
+            "destination_name": "ci_matrix_reports",
+            "include_patterns": [
+              "R241-15*",
+              "R241-16*"
+            ],
+            "exclude_patterns": [],
+            "retention_days": 90,
+            "path_inconsistency_handling": "primary_only",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [],
+            "errors": []
+          },
+          {
+            "artifact_spec_id": "art_spec_pytest_logs",
+            "artifact_type": "pytest_log",
+            "source_paths": [],
+            "destination_name": "pytest_logs",
+            "include_patterns": [
+              "**/pytest.log",
+              "**/.pytest_cache/**",
+              "**/tmp/**/pytest*.log"
+            ],
+            "exclude_patterns": [
+              "**/audit_trail/**"
+            ],
+            "retention_days": 7,
+            "path_inconsistency_handling": "none",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [
+              "pytest logs are temp — only collect if explicitly enabled"
+            ],
+            "errors": []
+          },
+          {
+            "artifact_spec_id": "art_spec_junit_xml",
+            "artifact_type": "junit_xml",
+            "source_paths": [],
+            "destination_name": "junit_reports",
+            "include_patterns": [
+              "**/junit*.xml",
+              "**/test-results/**/*.xml"
+            ],
+            "exclude_patterns": [],
+            "retention_days": 14,
+            "path_inconsistency_handling": "none",
+            "secrets_allowed": false,
+            "runtime_files_allowed": false,
+            "warnings": [
+              "junit xml is optional — requires --junit-xml flag in pytest command"
+            ],
+            "errors": []
+          }
+        ],
+        "spec_count": 4,
+        "primary_report_path": "migration_reports\\foundation_audit",
+        "secondary_report_path": "backend\\migration_reports\\foundation_audit",
+        "primary_exists": true,
+        "secondary_exists": true,
+        "path_inconsistency": true,
+        "path_inconsistency_action": "report_only_no_migration_no_deletion"
+      },
+      "include_paths": [
+        "migration_reports/foundation_audit/*.json",
+        "migration_reports/foundation_audit/*.md",
+        "backend/migration_reports/foundation_audit/*.json",
+        "backend/migration_reports/foundation_audit/*.md"
+      ],
+      "exclude_patterns": [
+        "**/audit_trail/*.jsonl",
+        "**/runtime/**",
+        "**/action_queue/**",
+        "**/*secret*",
+        "**/*token*",
+        "**/webhook_url*"
+      ],
+      "collect_primary_report_path": true,
+      "collect_secondary_report_path_temporarily": true,
+      "path_inconsistency_strategy": "collect_both_report_warning_no_migration_no_deletion",
+      "retention_days": 30,
+      "secrets_allowed": false,
+      "runtime_files_allowed": false,
+      "audit_jsonl_allowed": false,
+      "warnings": [
+        "secondary report path is temporary compatibility collection only"
+      ],
+      "errors": []
+    },
+    "path_compatibility_policy": {
+      "path_compatibility_policy_id": "R241-16A_path_compatibility",
+      "generated_at": "2026-04-25T23:45:22.534067+00:00",
+      "primary_report_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+      "secondary_report_path": "E:\\OpenClaw-Base\\deerflow\\backend\\migration_reports\\foundation_audit",
+      "primary_exists": true,
+      "secondary_exists": true,
+      "path_inconsistency": true,
+      "action_now": "report_only",
+      "future_options": [
+        "unify_report_root_under_migration_reports_only",
+        "add_compatibility_note_in_ci_config",
+        "migrate_old_backend_reports_in_phase_6",
+        "ci_collect_both_paths_temporarily"
+      ],
+      "migration_allowed_now": false,
+      "deletion_allowed_now": false,
+      "rewriting_allowed_now": false,
+      "warnings": [
+        "No migration, deletion, or rewriting in this phase",
+        "CI should collect from both paths when both exist",
+        "Future Phase 6 will address path cleanup"
+      ],
+      "errors": []
+    },
+    "threshold_policy": {
+      "threshold_policy_id": "R241-16A_threshold_policy",
+      "generated_at": "2026-04-25T23:45:22.533899+00:00",
+      "foundation_fast_warning_threshold_seconds": 30,
+      "foundation_fast_blocker_threshold_seconds": 60,
+      "audit_fast_warning_threshold_seconds": 15,
+      "audit_fast_blocker_threshold_seconds": 30,
+      "slow_suite_warning_threshold_seconds": 60,
+      "slow_suite_blocker_threshold_seconds": 120,
+      "safety_suite_warning_threshold_seconds": 10,
+      "safety_suite_blocker_threshold_seconds": 20,
+      "collect_only_warning_threshold_seconds": 10,
+      "collect_only_blocker_threshold_seconds": 20,
+      "failure_handling": {
+        "smoke_failure": "pr_warning_only",
+        "fast_failure": "pr_block",
+        "safety_failure": "pr_block",
+        "slow_failure": "create_stabilization_ticket_warning",
+        "full_failure": "manual_review_required"
+      },
+      "warning_handling": {
+        "fast_warning": "log_and_warn_pr_comment",
+        "slow_warning": "log_and_create_stabilization_ticket",
+        "safety_warning": "log_and_notify_channel"
+      },
+      "warn_does_not_block_pr_unless_configured": true,
+      "blocker_blocks_pr_for_pr_blocking_stages": true,
+      "slow_warning_creates_stabilization_ticket_not_auto_fix": true,
+      "warnings": [],
+      "errors": []
+    },
+    "blocked_actions": {
+      "blocked_actions": [
+        {
+          "action": "enabling_real_feishu_send",
+          "blocked": true,
+          "reason": "Feishu send requires explicit opt-in per R241-15F policy",
+          "alternative": "Use dry-run / projection-only mode"
+        },
+        {
+          "action": "network_call",
+          "blocked": true,
+          "reason": "CI stages must not call external services",
+          "alternative": "Use monkeypatched / synthetic fixtures"
+        },
+        {
+          "action": "webhook_call",
+          "blocked": true,
+          "reason": "Webhook calls are forbidden in CI environment",
+          "alternative": "Validate webhook URLs statically without calling"
+        },
+        {
+          "action": "reading_real_secrets",
+          "blocked": true,
+          "reason": "CI should not read real tokens/secrets from environment",
+          "alternative": "Use placeholder values in test fixtures"
+        },
+        {
+          "action": "runtime_write",
+          "blocked": true,
+          "reason": "Runtime state writes are forbidden in CI",
+          "alternative": "Use tmp_path fixture for any file operations"
+        },
+        {
+          "action": "action_queue_write",
+          "blocked": true,
+          "reason": "Action queue writes are forbidden in CI",
+          "alternative": "Validate queue structure without writing"
+        },
+        {
+          "action": "auto_fix",
+          "blocked": true,
+          "reason": "Auto-fix is never executed in CI environment",
+          "alternative": "Detect auto-fix availability but do not execute"
+        },
+        {
+          "action": "gateway_mutation",
+          "blocked": true,
+          "reason": "Gateway state mutations are forbidden in CI",
+          "alternative": "Use read-only diagnostics only"
+        },
+        {
+          "action": "audit_jsonl_overwrite_truncate_delete",
+          "blocked": true,
+          "reason": "Audit JSONL must never be modified by CI stages",
+          "alternative": "Read-only scan is allowed; append is audit-only"
+        },
+        {
+          "action": "deleting_tests",
+          "blocked": true,
+          "reason": "CI must not delete existing tests",
+          "alternative": "Use skip/xfail with explicit justification"
+        },
+        {
+          "action": "skipping_safety_tests",
+          "blocked": true,
+          "reason": "Safety tests (no_network/no_runtime_write/no_secret) must not be skipped",
+          "alternative": "Fix safety test failures rather than skip them"
+        },
+        {
+          "action": "reducing_security_coverage",
+          "blocked": true,
+          "reason": "CI must maintain current security coverage level",
+          "alternative": "Improve coverage through new tests, not reduction"
+        }
+      ],
+      "blocked_count": 12,
+      "warnings": [],
+      "errors": []
+    },
+    "warnings": [
+      "workflow_dispatch is a future manual preview only",
+      "do not copy this draft into .github/workflows without user confirmation",
+      "secondary report path is temporary compatibility collection only"
+    ],
+    "errors": [],
+    "yaml_draft": "# DISABLED DRAFT\n# DO NOT ENABLE WITHOUT USER CONFIRMATION\n# NO PR/PUSH/SCHEDULE TRIGGERS\n# Store as report artifact only; do not place under .github/workflows.\nname: Foundation Check Disabled Draft\non:\n  workflow_dispatch:\n    inputs:\n      confirm_disabled_draft:\n        description: \"Manual preview only; remains disabled by job guards\"\n        required: true\n        default: \"disabled\"\npermissions:\n  contents: read\njobs:\n  job_smoke:\n    if: ${{ false }}\n    name: Smoke\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Disabled draft command preview\n        run: python -m pytest -m smoke -v\n  job_fast:\n    if: ${{ false }}\n    name: Fast Unit + Fast Integration\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Disabled draft command preview\n        run: python -m pytest backend/app/foundation backend/app/audit -m \"not slow\" -v\n  job_safety:\n    if: ${{ false }}\n    name: Safety Boundaries\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Disabled draft command preview\n        run: python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v\n  job_slow:\n    if: ${{ false }}\n    name: Slow Integration\n    runs-on: ubuntu-latest\n    timeout-minutes: 2\n    steps:\n      - name: Disabled draft command preview\n        run: python -m pytest backend/app/foundation backend/app/audit -m slow -v\n  job_full:\n    if: ${{ false }}\n    name: Full Regression\n    runs-on: ubuntu-latest\n    timeout-minutes: 5\n    steps:\n      - name: Disabled draft command preview\n        run: python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v\n  job_collect_only:\n    if: ${{ false }}\n    name: Collection Check\n    runs-on: ubuntu-latest\n    timeout-minutes: 1\n    steps:\n      - name: Disabled draft command preview\n        run: python -m pytest backend/app/foundation backend/app/audit --collect-only -q\n  job_artifact_collection:\n    if: ${{ false }}\n    name: Artifact Collection\n    runs-on: ubuntu-latest\n    timeout-minutes: 5\n    steps:\n      - name: Disabled draft command preview\n        run: collect report artifacts only\n"
+  },
+  "validation": {
+    "validation_id": "R241-16C_disabled_workflow_validation",
+    "valid": true,
+    "status": "disabled_draft",
+    "auto_triggers_disabled": true,
+    "no_pr_trigger": true,
+    "no_push_trigger": true,
+    "no_schedule_trigger": true,
+    "no_secret_refs": true,
+    "no_network": true,
+    "no_runtime_write": true,
+    "no_auto_fix": true,
+    "no_github_workflow_written": true,
+    "blocked_reasons": [],
+    "warnings": [],
+    "errors": [],
+    "validated_at": "2026-04-25T23:45:22.534233+00:00",
+    "existing_workflow_files_observed": [
+      "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\backend-unit-tests.yml",
+      "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\lint-check.yml"
+    ]
+  },
+  "generated_at": "2026-04-25T23:45:22.534769+00:00"
+}

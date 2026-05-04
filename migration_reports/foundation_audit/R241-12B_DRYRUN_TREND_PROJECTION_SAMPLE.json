@@ -1,0 +1,585 @@
+{
+  "dryrun_trend_report": {
+    "trend_report_id": "nightly_trend_report_39e9101dae83",
+    "generated_at": "2026-04-25T03:54:31.086971+00:00",
+    "status": "ok",
+    "window": "all_available",
+    "source_query_refs": [
+      "q_b2708811d7174157"
+    ],
+    "total_records_analyzed": 18,
+    "series": [
+      {
+        "series_id": "trend_series_18925973a960",
+        "metric_type": "diagnostic_status_rate",
+        "metric_name": "partial_warning_rate",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_435606ed8549",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "diagnostic_status_rate",
+            "metric_name": "partial_warning_rate",
+            "metric_value": 1.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_7906735512",
+              "audit_6267874062",
+              "audit_4658846128",
+              "audit_1292935163",
+              "audit_3923965229",
+              "audit_2616353175",
+              "audit_2175722301",
+              "audit_9267457990",
+              "audit_8332700699",
+              "audit_0935401631",
+              "audit_3968737351",
+              "audit_2022238797",
+              "audit_2975035286",
+              "audit_1307448313",
+              "audit_6517773047",
+              "audit_7446903260",
+              "audit_0791447550",
+              "audit_9078191887"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 1.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_43bf94d486e2",
+        "metric_type": "diagnostic_status_rate",
+        "metric_name": "failed_rate",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_a6ff3a297180",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "diagnostic_status_rate",
+            "metric_name": "failed_rate",
+            "metric_value": 0.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 0.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_c476eae5e621",
+        "metric_type": "append_record_count",
+        "metric_name": "total_audit_records",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_045330d532e3",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "append_record_count",
+            "metric_name": "total_audit_records",
+            "metric_value": 18.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_7906735512",
+              "audit_6267874062",
+              "audit_4658846128",
+              "audit_1292935163",
+              "audit_3923965229",
+              "audit_2616353175",
+              "audit_2175722301",
+              "audit_9267457990",
+              "audit_8332700699",
+              "audit_0935401631",
+              "audit_3968737351",
+              "audit_2022238797",
+              "audit_2975035286",
+              "audit_1307448313",
+              "audit_6517773047",
+              "audit_7446903260",
+              "audit_0791447550",
+              "audit_9078191887"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 18.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_a3da7f717ccd",
+        "metric_type": "critical_count",
+        "metric_name": "critical_signal_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_9a801599fcbf",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "critical_count",
+            "metric_name": "critical_signal_count",
+            "metric_value": 8.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_2175722301",
+              "audit_9267457990",
+              "audit_7446903260",
+              "audit_0791447550"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 8.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_e3e51f760109",
+        "metric_type": "high_count",
+        "metric_name": "high_signal_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_2fb63330e682",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "high_count",
+            "metric_name": "high_signal_count",
+            "metric_value": 40.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_2175722301",
+              "audit_9267457990",
+              "audit_7446903260",
+              "audit_0791447550"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 40.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_20a656d37670",
+        "metric_type": "queue_missing_count",
+        "metric_name": "queue_missing_warning_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_5d966dc46b2c",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "queue_missing_count",
+            "metric_name": "queue_missing_warning_count",
+            "metric_value": 8.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_6267874062",
+              "audit_2175722301",
+              "audit_9267457990",
+              "audit_8332700699",
+              "audit_3968737351",
+              "audit_7446903260",
+              "audit_0791447550",
+              "audit_9078191887"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 8.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_b2ee40cdd9ff",
+        "metric_type": "unknown_taxonomy_count",
+        "metric_name": "unknown_taxonomy_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_a53cfafa4f75",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "unknown_taxonomy_count",
+            "metric_name": "unknown_taxonomy_count",
+            "metric_value": 46.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_7906735512",
+              "audit_6267874062",
+              "audit_4658846128",
+              "audit_1292935163",
+              "audit_3923965229",
+              "audit_2175722301",
+              "audit_9267457990",
+              "audit_8332700699",
+              "audit_0935401631",
+              "audit_3968737351",
+              "audit_2022238797",
+              "audit_2975035286",
+              "audit_1307448313",
+              "audit_7446903260",
+              "audit_0791447550",
+              "audit_9078191887"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 46.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_d1f4c68f5abf",
+        "metric_type": "rollback_missing_count",
+        "metric_name": "rollback_missing_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_4c1fa3387417",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "rollback_missing_count",
+            "metric_name": "rollback_missing_count",
+            "metric_value": 0.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 0.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_ea0d58640744",
+        "metric_type": "backup_missing_count",
+        "metric_name": "backup_missing_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_7fe6b0927f5b",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "backup_missing_count",
+            "metric_name": "backup_missing_count",
+            "metric_value": 0.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 0.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_ab116eaca10b",
+        "metric_type": "command_run_count",
+        "metric_name": "feishu_dry_run_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_dd3f18fbc7d3",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "command_run_count",
+            "metric_name": "feishu_dry_run_count",
+            "metric_value": 2.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_9267457990",
+              "audit_0791447550"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 2.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_ffae4c8952d6",
+        "metric_type": "command_run_count",
+        "metric_name": "nightly_review_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_b6040fe34fef",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "command_run_count",
+            "metric_name": "nightly_review_count",
+            "metric_value": 2.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [
+              "audit_2175722301",
+              "audit_7446903260"
+            ],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 2.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      },
+      {
+        "series_id": "trend_series_759b5da48dc2",
+        "metric_type": "invalid_line_count",
+        "metric_name": "invalid_jsonl_line_count",
+        "window": "all_available",
+        "points": [
+          {
+            "point_id": "trend_point_e0ebb5d0b8b6",
+            "timestamp": "2026-04-25T02:23:26.007482+00:00",
+            "window": "all_available",
+            "metric_type": "invalid_line_count",
+            "metric_name": "invalid_jsonl_line_count",
+            "metric_value": 0.0,
+            "source_command": null,
+            "event_type": null,
+            "domain": null,
+            "severity": null,
+            "source_record_refs": [],
+            "warnings": []
+          }
+        ],
+        "direction": "insufficient_data",
+        "latest_value": 0.0,
+        "previous_value": null,
+        "delta": null,
+        "delta_percent": null,
+        "sample_count": 1,
+        "warnings": [
+          "insufficient_data_for_direction"
+        ]
+      }
+    ],
+    "regression_signals": [
+      {
+        "regression_id": "trend_regression_c4a8d3e4f980",
+        "metric_type": "queue_missing_count",
+        "metric_name": "queue_missing_warning_count",
+        "severity": "medium",
+        "direction": "insufficient_data",
+        "current_value": 8.0,
+        "baseline_value": null,
+        "threshold": null,
+        "affected_commands": [],
+        "affected_domains": [],
+        "evidence_record_refs": [
+          "audit_6267874062",
+          "audit_2175722301",
+          "audit_9267457990",
+          "audit_8332700699",
+          "audit_3968737351",
+          "audit_7446903260",
+          "audit_0791447550",
+          "audit_9078191887"
+        ],
+        "recommended_action": "diagnostic_only",
+        "warnings": [
+          "insufficient_data_for_persistence_window"
+        ]
+      },
+      {
+        "regression_id": "trend_regression_6700855a3758",
+        "metric_type": "unknown_taxonomy_count",
+        "metric_name": "unknown_taxonomy_count",
+        "severity": "medium",
+        "direction": "insufficient_data",
+        "current_value": 46.0,
+        "baseline_value": null,
+        "threshold": null,
+        "affected_commands": [],
+        "affected_domains": [],
+        "evidence_record_refs": [
+          "audit_7906735512",
+          "audit_6267874062",
+          "audit_4658846128",
+          "audit_1292935163",
+          "audit_3923965229",
+          "audit_2175722301",
+          "audit_9267457990",
+          "audit_8332700699",
+          "audit_0935401631",
+          "audit_3968737351",
+          "audit_2022238797",
+          "audit_2975035286",
+          "audit_1307448313",
+          "audit_7446903260",
+          "audit_0791447550",
+          "audit_9078191887"
+        ],
+        "recommended_action": "refine_taxonomy",
+        "warnings": [
+          "insufficient_data_for_persistence_window"
+        ]
+      }
+    ],
+    "summary": {
+      "point_count": 12,
+      "series_count": 12,
+      "regression_count": 2,
+      "query_status": "ok",
+      "total_invalid_lines": 0
+    },
+    "warnings": [],
+    "errors": []
+  },
+  "trend_summary": {
+    "status": "ok",
+    "window": "all_available",
+    "total_records_analyzed": 18,
+    "series_count": 12,
+    "regression_count": 2,
+    "by_metric_type": {
+      "diagnostic_status_rate": 2,
+      "append_record_count": 1,
+      "critical_count": 1,
+      "high_count": 1,
+      "queue_missing_count": 1,
+      "unknown_taxonomy_count": 1,
+      "rollback_missing_count": 1,
+      "backup_missing_count": 1,
+      "command_run_count": 2,
+      "invalid_line_count": 1
+    },
+    "by_severity": {
+      "medium": 2
+    },
+    "top_regressions": [
+      {
+        "metric_name": "queue_missing_warning_count",
+        "severity": "medium",
+        "current_value": 8.0,
+        "recommended_action": "diagnostic_only",
+        "warnings": [
+          "insufficient_data_for_persistence_window"
+        ]
+      },
+      {
+        "metric_name": "unknown_taxonomy_count",
+        "severity": "medium",
+        "current_value": 46.0,
+        "recommended_action": "refine_taxonomy",
+        "warnings": [
+          "insufficient_data_for_persistence_window"
+        ]
+      }
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "sample_formatted_markdown": "# Nightly Trend Report Dry-run\n\nstatus=ok\nwindow=all_available\ntotal_analyzed=18\nseries_count=12\nregression_count=2\nby_severity={'medium': 2}\ntop_regressions:\n- medium queue_missing_warning_count=8.0 action=diagnostic_only\n- medium unknown_taxonomy_count=46.0 action=refine_taxonomy",
+  "sample_formatted_text": "Nightly Trend Report Dry-run\nstatus=ok\nwindow=all_available\ntotal_analyzed=18\nseries_count=12\nregression_count=2\nby_severity={'medium': 2}\ntop_regressions:\n- medium queue_missing_warning_count=8.0 action=diagnostic_only\n- medium unknown_taxonomy_count=46.0 action=refine_taxonomy",
+  "generated_at": "2026-04-25T03:54:31.087959+00:00",
+  "warnings": []
+}

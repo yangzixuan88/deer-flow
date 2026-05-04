@@ -1,0 +1,96 @@
+{
+  "report_id": "R241-19B_EVIDENCE_INDEX",
+  "phase": "phase_19b_foundation_repair_execution_batch1",
+  "generated_at": "2026-04-28T06:50:00+00:00",
+  "evidence_package": {
+    "core_reports": [
+      {
+        "file": "migration_reports/recovery/R241-19B_DIRTY_WORKTREE_BASELINE_MANIFEST.json",
+        "purpose": "dirty worktree baseline before R241-19B execution",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_DIRTY_WORKTREE_BASELINE_MANIFEST.md",
+        "purpose": "dirty worktree baseline markdown report",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1.json",
+        "purpose": "batch1 execution report (12 review objects A-L)",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1.md",
+        "purpose": "batch1 execution markdown report (12 sections)",
+        "status": "written"
+      }
+    ],
+    "auxiliary_reports": [
+      {
+        "file": "migration_reports/recovery/R241-19B_EVIDENCE_INDEX.json",
+        "purpose": "this file — evidence package manifest",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_EVIDENCE_INDEX.md",
+        "purpose": "evidence package markdown index",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_ROOTGUARD_CONTINUITY_EVIDENCE.json",
+        "purpose": "RootGuard dual pass continuity evidence",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_ROOTGUARD_CONTINUITY_EVIDENCE.md",
+        "purpose": "RootGuard continuity markdown evidence",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_MODIFIED_FILE_ATTRIBUTION.json",
+        "purpose": "modified file attribution report",
+        "status": "written"
+      },
+      {
+        "file": "migration_reports/recovery/R241-19B_MODIFIED_FILE_ATTRIBUTION.md",
+        "purpose": "modified file attribution markdown report",
+        "status": "written"
+      }
+    ],
+    "pre_existing_evidence_carried_over": [
+      {
+        "file": "backend/migration_reports/foundation_audit/R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json",
+        "bytes": 24269,
+        "date": "Apr 27 17:52",
+        "classification": "historical_evidence_file",
+        "do_not_delete": true,
+        "responsible_for_pre_existing_test_failure": true
+      }
+    ]
+  },
+  "carryover_reports_from_prior_phases": [
+    {
+      "file": "migration_reports/recovery/R241-19A_MAINLINE_REPAIR_REENTRY_PLAN.json",
+      "carryover_phase": "R241-19A",
+      "used_as_reference": true
+    },
+    {
+      "file": "migration_reports/recovery/R241-19A_MAINLINE_REPAIR_REENTRY_PLAN.md",
+      "carryover_phase": "R241-19A",
+      "used_as_reference": true
+    },
+    {
+      "file": "migration_reports/recovery/R241-18Z_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW.json",
+      "carryover_phase": "R241-18Z",
+      "used_as_reference": true
+    },
+    {
+      "file": "migration_reports/recovery/R241-18Z_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW.md",
+      "carryover_phase": "R241-18Z",
+      "used_as_reference": true
+    }
+  ],
+  "evidence_package_complete": true,
+  "total_reports_generated_in_batch1": 10,
+  "total_bytes_evidence": 0
+}

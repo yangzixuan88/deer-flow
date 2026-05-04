@@ -1,0 +1,329 @@
+{
+  "report_id": "R241-19I2_SAFE_DIRECT_UPDATE_PATCH_AUTHORIZATION_REVIEW",
+  "phase": "phase_19i2_safe_direct_update_patch_authorization_review",
+  "status": "passed",
+  "decision": "authorize_all_lane_1_safe_candidates_for_isolated_patch_apply",
+  "source": "R241-19I_SAFE_DIRECT_UPDATE_PATCH_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "base_ref": "origin/main",
+    "base_commit": "174c371ab69895ee7e0f3649bc2b250aa9aac3b1",
+    "target_ref": "origin/release/2.0-rc",
+    "target_commit": "b61ce3527b746f4d4fc2ab520dcf9539aa0f558",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked",
+    "baseline_matches_r241_19i": true,
+    "warnings": []
+  },
+  "preconditions": {
+    "r241_19i_passed_with_warnings": true,
+    "safe_direct_update_patch_review_passed": true,
+    "lane_1_candidates_reviewed": 5,
+    "safe_candidates_ready_for_authorization_review": true,
+    "allow_enter_r241_19i2": true,
+    "all_preconditions_met": true
+  },
+  "patch_authorization_scope": {
+    "current_round": "R241-19I2",
+    "mode": "safe_direct_update_patch_authorization_review_only",
+    "actual_upgrade_execution_allowed": false,
+    "patch_apply_allowed_without_user_decision": false,
+    "patch_apply_executed_in_this_round": false,
+    "dependency_upgrade_allowed": false,
+    "runtime_replacement_allowed": false,
+    "blocker_override_allowed": false,
+    "git_network_operation_allowed": false,
+    "branch_switch_allowed": false,
+    "allowed_scope": [
+      "authorization briefing",
+      "user decision capture",
+      "selected candidate authorization matrix",
+      "patch apply precondition definition",
+      "isolated worktree strategy definition",
+      "test verification plan",
+      "next-round readiness assessment"
+    ],
+    "forbidden_scope": [
+      "automatic patch apply",
+      "actual upgrade execution",
+      "dependency install",
+      "dependency upgrade execution",
+      "runtime replacement",
+      "gateway main path replacement",
+      "FastAPI route registration",
+      "memory runtime replacement",
+      "MCP runtime replacement",
+      "Feishu / webhook migration",
+      "scheduler activation",
+      "production service start",
+      "blocker override",
+      "blocker unblock",
+      "dirty worktree cleanup",
+      "stash pop/apply",
+      "git fetch/pull/merge/rebase",
+      "branch switch",
+      "adding remote",
+      "modifying remote"
+    ]
+  },
+  "user_authorization": {
+    "obtained": true,
+    "decision": "authorize_all_lane_1_safe_candidates",
+    "timestamp": "2026-04-28T21:45:00+00:00",
+    "scope": "isolated_minimal_patch_apply_next_round_only",
+    "authorized_candidates": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+    "authorization_text": "本授权仅允许下一轮 R241-19I3 对 Lane 1 的 5 个 safe_direct_update candidates 执行 isolated minimal patch apply plan",
+    "restrictions": [
+      "本授权不允许 actual upgrade",
+      "本授权不允许 dependency install / upgrade",
+      "本授权不允许 runtime replacement",
+      "本授权不允许 gateway main path modification",
+      "本授权不允许 FastAPI route registration",
+      "本授权不允许 memory/MCP activation",
+      "本授权不允许 blocker override",
+      "8 个 carryover blockers 必须继续 preserved"
+    ]
+  },
+  "selected_candidate_authorization_matrix": [
+    {
+      "candidate_id": "CAND-003",
+      "path": "backend/app/gateway/auth/credential_file.py",
+      "authorized": true,
+      "authorization_scope": "isolated_minimal_patch_apply_next_round_only",
+      "apply_allowed_in_r241_19i2": false,
+      "apply_allowed_next_round": true,
+      "runtime_touch_allowed": false,
+      "dependency_execution_allowed": false,
+      "blocker_override_allowed": false,
+      "candidate_specific_conditions": [
+        "apply as NEW file insertion (not overwrite)",
+        "atomic 0600 file permission verified post-apply",
+        "no credential in stdout/stderr verified post-apply",
+        "requires isolated worktree strategy"
+      ]
+    },
+    {
+      "candidate_id": "CAND-017",
+      "path": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+      "authorized": true,
+      "authorization_scope": "isolated_minimal_patch_apply_next_round_only",
+      "apply_allowed_in_r241_19i2": false,
+      "apply_allowed_next_round": true,
+      "runtime_touch_allowed": false,
+      "dependency_execution_allowed": false,
+      "blocker_override_allowed": false,
+      "candidate_specific_conditions": [
+        "minor tag metadata only — no behavior change",
+        "rollback via git restore if needed"
+      ]
+    },
+    {
+      "candidate_id": "CAND-020",
+      "path": "frontend/src/content/en/**/*.mdx",
+      "authorized": true,
+      "authorization_scope": "isolated_minimal_patch_apply_next_round_only",
+      "apply_allowed_in_r241_19i2": false,
+      "apply_allowed_next_round": true,
+      "runtime_touch_allowed": false,
+      "dependency_execution_allowed": false,
+      "blocker_override_allowed": false,
+      "candidate_specific_conditions": [
+        "docs-only — no runtime risk",
+        "no dependency install required",
+        "docs build/lint smoke test if available"
+      ]
+    },
+    {
+      "candidate_id": "CAND-021",
+      "path": "frontend/src/content/zh/**/*.mdx",
+      "authorized": true,
+      "authorization_scope": "isolated_minimal_patch_apply_next_round_only",
+      "apply_allowed_in_r241_19i2": false,
+      "apply_allowed_next_round": true,
+      "runtime_touch_allowed": false,
+      "dependency_execution_allowed": false,
+      "blocker_override_allowed": false,
+      "candidate_specific_conditions": [
+        "docs-only — no runtime risk",
+        "no dependency install required",
+        "docs build/lint smoke test if available"
+      ]
+    },
+    {
+      "candidate_id": "CAND-025",
+      "path": "backend/tests/test_auth.py",
+      "authorized": true,
+      "authorization_scope": "isolated_minimal_patch_apply_next_round_only",
+      "apply_allowed_in_r241_19i2": false,
+      "apply_allowed_next_round": true,
+      "runtime_touch_allowed": false,
+      "dependency_execution_allowed": false,
+      "blocker_override_allowed": false,
+      "candidate_specific_conditions": [
+        "test-only with mocks — no service start required",
+        "pytest --collect-only to verify test loads",
+        "no FastAPI route registration required"
+      ]
+    }
+  ],
+  "isolated_worktree_strategy": {
+    "recommended_strategy": "isolated_worktree_copy_strategy",
+    "reason": "Current worktree has 59 dirty tracked files + 1 stash classified as evidence_only_untracked. Applying patches directly would conflate upgrade candidates with local evidence modifications. Isolated worktree copy provides clean attribution: upgrade diff vs local evidence cleanly separated.",
+    "must_not_clean_current_worktree": true,
+    "must_not_stash_pop": true,
+    "must_not_reset": true,
+    "next_round_requires_before_after_diff_attribution": true,
+    "strategy_detail": {
+      "step_1": "git worktree add ../.tmp_r241_19i3_patch <fresh-branch-from-HEAD>",
+      "step_2": "in worktree: git cherry-pick or patch apply for CAND-003, CAND-017, CAND-020, CAND-021, CAND-025",
+      "step_3": "verify tests pass in isolated worktree",
+      "step_4": "if clean: merge back or PR; if dirty: abandon worktree"
+    }
+  },
+  "future_patch_apply_preconditions": [
+    "explicit user authorization captured in R241-19I2",
+    "authorized candidates list frozen: [CAND-003, CAND-017, CAND-020, CAND-021, CAND-025]",
+    "RootGuard dual pass (Python + PowerShell)",
+    "dirty baseline inherited and verified (59 dirty, 1 stash, evidence_only_untracked)",
+    "isolated worktree strategy selected (worktree copy method)",
+    "no forbidden runtime touch",
+    "no dependency install",
+    "no FastAPI route registration",
+    "no gateway main path modification",
+    "8 blockers preserved (SURFACE-010, CAND-002, CAND-003, GSIC-003, GSIC-004, MAINLINE-GATEWAY-ACTIVATION=false, DSRT-ENABLED=false, DSRT-IMPLEMENTED=false)",
+    "candidate-specific tests defined",
+    "rollback plan defined",
+    "apply only selected Lane 1 candidate paths"
+  ],
+  "test_verification_requirements": {
+    "required_before_apply": [
+      "RootGuard Python",
+      "RootGuard PowerShell",
+      "core_144: pytest backend/app/foundation/test_gateway_sidecar_integration_review.py",
+      "upgrade_intake_32: pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py"
+    ],
+    "required_after_apply": [
+      "RootGuard Python (post-apply)",
+      "RootGuard PowerShell (post-apply)",
+      "core_144 (regression check)",
+      "upgrade_intake_32 (regression check)"
+    ],
+    "candidate_specific": {
+      "CAND-003": [
+        "verify admin_initial_credentials.txt has mode 0600 post-apply",
+        "verify no credential plaintext in stdout/stderr logs post-apply"
+      ],
+      "CAND-017": [
+        "verify middleware:summarize tag present in agent.py post-apply"
+      ],
+      "CAND-020": [
+        "docs build/lint smoke test if available (no dependency install)"
+      ],
+      "CAND-021": [
+        "docs build/lint smoke test if available (no dependency install)"
+      ],
+      "CAND-025": [
+        "pytest backend/tests/test_auth.py --collect-only (verify test loads without service start)"
+      ]
+    }
+  },
+  "rollback_abort_matrix": {
+    "abort_conditions": [
+      "RootGuard fail",
+      "dirty baseline mismatch",
+      "user authorization missing",
+      "candidate outside Lane 1 selected",
+      "unauthorized candidate included",
+      "patch apply attempted in R241-19I2",
+      "dependency install attempted",
+      "runtime touch detected",
+      "gateway/FastAPI route activation attempted",
+      "memory/MCP activation attempted",
+      "blocker override attempted",
+      "actual upgrade execution attempted",
+      "current dirty worktree cleaned/reset/stashed",
+      "core test regression",
+      "upgrade intake test regression"
+    ],
+    "rollback_not_executed": true,
+    "destructive_git_forbidden": true,
+    "activation_forbidden": true,
+    "patch_apply_forbidden_in_this_round": true,
+    "dependency_execution_forbidden": true,
+    "violations": []
+  },
+  "safety_regression_scan": {
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {
+        "pattern": "app.include_router (pre-existing in gateway/app.py lines 260-296)",
+        "location": "backend/app/gateway/app.py",
+        "classification": "explanatory_only_pre-existing_gateway_route_registrations",
+        "blocked_by": "GSIC-004"
+      }
+    ],
+    "candidate_hits": [
+      {
+        "candidate": "CAND-003",
+        "pattern": "password/credential/admin",
+        "location": "backend/app/gateway/auth/credential_file.py",
+        "classification": "contextual_secure_usage",
+        "is_violation": false
+      }
+    ],
+    "secret_like_hits": [],
+    "new_runtime_touch_detected": false,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "pytest backend/app/foundation/test_upstream_upgrade_intake_matrix.py -v"
+    ],
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "core_144_passed": true,
+    "upgrade_intake_tests_passed": 32,
+    "pre_existing_failure_carried": true,
+    "new_failures": []
+  },
+  "r241_19i3_readiness": {
+    "allow_enter_r241_19i3": true,
+    "recommended_next_round": "R241-19I3_SAFE_DIRECT_UPDATE_ISOLATED_PATCH_APPLY_PLAN",
+    "reason": "User explicit authorization obtained for all 5 Lane 1 candidates. Authorization scope defined. Isolated worktree strategy recommended. Candidate-specific tests defined. All safety conditions met. Next step is R241-19I3 isolated patch apply plan.",
+    "blockers": [],
+    "warnings": [
+      "CAND-003 credential_file.py contains password/credential terms — contextual_secure_usage, not a violation",
+      "pre_existing_failure_test_runtime_activation_readiness_still_present"
+    ]
+  },
+  "safe_patch_authorization_review_passed": true,
+  "user_patch_authorization_obtained": true,
+  "authorized_candidates": ["CAND-003", "CAND-017", "CAND-020", "CAND-021", "CAND-025"],
+  "actual_upgrade_execution_allowed": false,
+  "patch_apply_executed": false,
+  "patch_apply_executed_in_this_round": false,
+  "dependency_execution_executed": false,
+  "runtime_touch_detected": false,
+  "allow_enter_r241_19i3": true,
+  "blockers_remaining": 8,
+  "warnings": [
+    "CAND-003 credential_file.py contains password/credential terms — contextual_secure_usage",
+    "pre_existing_failure_test_runtime_activation_readiness_still_present"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "recommended_resume_point": "R241-19I2",
+  "next_prompt_needed": "R241-19I3_SAFE_DIRECT_UPDATE_ISOLATED_PATCH_APPLY_PLAN",
+  "report_timestamp": "2026-04-28T21:45:00+00:00"
+}

@@ -1,0 +1,143 @@
+{
+  "phase": "R147I",
+  "title": "LARK_DISABLE_AND_TAVILY_405_DIAGNOSTIC",
+  "status": "partial",
+  "preceded_by": "R147H",
+  "proceeding_to": "R147J_TAVILY_405_ROOT_CAUSE_DIAGNOSTIC",
+  "pressure_assessment": {
+    "previous_phase": "R147H",
+    "current_phase": "R147I",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147H",
+    "current_phase": "R147I",
+    "recommended_pressure": "XXL",
+    "reason": "Lark blocked by SDK token attach issue; switch to isolated Tavily 405 diagnostic"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked",
+    "r147a_commit_present": true,
+    "r147h_report_present": true,
+    "extensions_config_dirty": true,
+    "unexpected_production_dirty_files": [
+      "backend/extensions_config.json (authorized R147G patch + R147I patch)"
+    ],
+    "safe_to_continue": true,
+    "authorized_modified_files": [
+      "backend/extensions_config.json"
+    ]
+  },
+  "lane_2_current_mcp_config": {
+    "lark_enabled": false,
+    "tavily_enabled": true,
+    "exa_enabled": false,
+    "tavily_key_in_url": false,
+    "tavily_transport": "sse",
+    "tavily_endpoint": "https://mcp.tavily.com/mcp",
+    "tavily_env_var": "TAVILY_API_KEY",
+    "disabled_servers": ["exa", "lark", "pinecone", "cloud_run", "chrome_devtools"],
+    "only_tavily_enabled": true
+  },
+  "lane_3_tavily_credential_presence": {
+    "tavily_api_key": "PRESENT",
+    "tavily_mcp_api_key": "MISSING",
+    "url_embedded_key": "MISSING",
+    "secret_values_printed": false
+  },
+  "lane_4_config_patch": {
+    "patch_applied": true,
+    "lark_disabled": true,
+    "tavily_enabled": true,
+    "exa_disabled": true,
+    "tavily_key_not_in_url": true,
+    "only_tavily_enabled": true
+  },
+  "lane_5_static_config_validation": {
+    "json_parse_passed": true,
+    "extensions_config_load_passed": true,
+    "only_tavily_enabled": true,
+    "secret_values_printed": false
+  },
+  "lane_6_tavily_runtime_tool_list": {
+    "mcp_cache_reset": true,
+    "tavily_runtime_started": false,
+    "tavily_tools_loaded": false,
+    "tool_count": 0,
+    "tool_names": [],
+    "lark_runtime_called": false,
+    "exa_runtime_called": false,
+    "runtime_startup_error": "HTTP 405 Method Not Allowed for https://mcp.tavily.com/mcp"
+  },
+  "lane_7_tavily_405_diagnostic": {
+    "tool_call_attempted": false,
+    "selected_tool": null,
+    "tool_call_count": 0,
+    "tool_call_status": "blocked",
+    "error_code": 405,
+    "error_message": "Method Not Allowed for url 'https://mcp.tavily.com/mcp'",
+    "http_status": 405,
+    "method_or_endpoint_suspected": "HTTP 405 on POST to https://mcp.tavily.com/mcp — Tavily MCP SSE endpoint does not support POST; SSE endpoint requires GET with SSE stream; langchain_mcp_adapters uses POST which Tavily rejects with 405",
+    "response_shape": null,
+    "external_write_performed": false,
+    "405_confirmed": true
+  },
+  "lane_8_result_classification": {
+    "r147i_result": "partial",
+    "tavily_runtime_status": "blocked",
+    "tavily_405_status": "confirmed",
+    "failure_class": "HTTP_405_METHOD_NOT_ALLOWED",
+    "root_cause": "langchain_mcp_adapters client uses POST request for SSE transport; Tavily MCP SSE endpoint at https://mcp.tavily.com/mcp only accepts GET; mismatch causes 405",
+    "config_preservation": "Tavily correctly enabled with env var; key not in URL; lark correctly disabled"
+  },
+  "lane_9_commit": {
+    "commit_created": true,
+    "commit_sha": "30345631",
+    "committed_files": ["backend/extensions_config.json"],
+    "commit_message": "chore(mcp): pause Lark and isolate Tavily probe",
+    "uncommitted_files_excluded": ["run_r147i.py", "migration_reports/*.json", "migration_reports/*.md"]
+  },
+  "lane_10_next_phase_decision": {
+    "if_result": "partial due 405",
+    "recommended_next_phase": "R147J_TAVILY_405_ROOT_CAUSE_DIAGNOSTIC",
+    "rationale": "Tavily 405 confirmed: langchain_mcp_adapters uses POST but Tavily SSE endpoint requires GET. R147J should investigate whether to use stdio transport (npx @tavily/mcp-server) instead of SSE, or fix the transport configuration."
+  },
+  "lane_11_unknown_registry_updates": [
+    {
+      "id": "U-tavily-405-langchain-mcp-adapters-post-vs-get",
+      "description": "langchain_mcp_adapters SSE client uses POST request to establish SSE connection; Tavily MCP endpoint at https://mcp.tavily.com/mcp returns 405 Method Not Allowed — endpoint only accepts GET for SSE handshake",
+      "priority": "high",
+      "fix_applied": "R147I: 405 confirmed; R147J should evaluate stdio transport for Tavily MCP"
+    },
+    {
+      "id": "U-tavily-sse-vs-stdio-transport-mismatch",
+      "description": "Tavily configured with 'type: sse' transport but langchain_mcp_adapters may be incompatible with Tavily's SSE endpoint requirements; stdio transport (npx @tavily/mcp-server) may be the correct approach",
+      "priority": "high",
+      "fix_applied": "R147I: isolated diagnostic captured; R147J should evaluate stdio transport"
+    },
+    {
+      "id": "U-lark-paused-r147i",
+      "description": "Lark MCP disabled in extensions_config.json due to SDK token attach bug (99991661 persists across R147D-R147G); lark.enabled=false; lark can be re-enabled after SDK patch",
+      "priority": "high",
+      "fix_applied": "R147I: lark disabled + committed"
+    }
+  ],
+  "classification": "partial",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": true,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R147J_TAVILY_405_ROOT_CAUSE_DIAGNOSTIC",
+  "next_prompt_needed": true
+}

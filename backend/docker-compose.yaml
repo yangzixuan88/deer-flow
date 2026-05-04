@@ -1,0 +1,30 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: deerflow-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage:z
+    restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: deerflow-n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678
+      - N8N_EXECUTIONS_DATA_SAVE_ON_ERROR=all
+      - N8N_EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
+      - N8N_EXECUTIONS_DATA_SAVE_ON_TIMEOUT=all
+      - N8N_EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=true
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_METRICS=true
+    restart: unless-stopped

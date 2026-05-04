@@ -1,0 +1,342 @@
+{
+  "report_id": "R241-18Q_MAINLINE_RESUME_ACTIVATION_AUTHORIZATION_REVIEW",
+  "status": "passed",
+  "decision": "approve_authorization_review",
+  "source": "R241-18P_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW",
+  "phase": "phase_10_mainline_resume_authorization_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18p_passed": true,
+    "activation_gate_review_passed": true,
+    "activation_allowed": false,
+    "authorization_allowed": false,
+    "allow_enter_r241_18q": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "authorization_review_scope": {
+    "current_round": "R241-18Q",
+    "mode": "authorization_review_only",
+    "authorization_review_allowed": true,
+    "authorization_deed_allowed": false,
+    "activation_allowed": false,
+    "runtime_mutation_allowed": false,
+    "blocker_override_allowed": false,
+    "allowed_scope": [
+      "human authorization requirement review",
+      "authorization scope boundary definition",
+      "blocker non-override rule verification",
+      "authorization deed prerequisite matrix",
+      "safety invariant recheck",
+      "evidence continuity check",
+      "next-round deed review plan"
+    ],
+    "forbidden_scope": [
+      "actual authorization deed",
+      "actual gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "network access",
+      "Feishu real send",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "changing mainline_gateway_activation_allowed to true",
+      "marking memory/MCP/gateway as ready without dedicated review",
+      "overriding blocked surfaces through authorization"
+    ]
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18P activation gate carryover",
+      "source_round": "R241-18P",
+      "required_evidence": "R241-18P status=passed, activation_gate_review_passed=true, allow_enter_r241_18q=true",
+      "observed_state": "R241-18P JSON confirmed: status=passed, decision=approve_activation_gate_review, activation_gate_review_passed=true, activation_allowed=false, authorization_allowed=false, allow_enter_r241_18q=true, gate_objects_A_to_L=12/12 passed",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Authorization review scope definition",
+      "source_round": "R241-18Q",
+      "required_evidence": "mode=authorization_review_only, authorization_deed_allowed=false, activation_allowed=false",
+      "observed_state": "authorization_review_scope defined: current_round=R241-18Q, mode=authorization_review_only, authorization_review_allowed=true, authorization_deed_allowed=false, activation_allowed=false, runtime_mutation_allowed=false, blocker_override_allowed=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Human explicit authorization requirement",
+      "source_round": "R241-18Q",
+      "required_evidence": "human explicit authorization required, cannot be inferred, activation_without_user_confirmation_allowed=false",
+      "observed_state": "human_authorization_requirement defined: explicit_user_authorization_required=true, authorization_present_in_current_round=false, authorization_can_be_inferred=false, activation_without_user_confirmation_allowed=false, authorization_can_override_blockers=false, authorization_can_grant_activation=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Authorization scope limitation",
+      "source_round": "R241-18Q",
+      "required_evidence": "authorization_scope_limited_required=true, maximum_authorization_level=prepare_deed_review_only",
+      "observed_state": "authorization_scope_limitation defined: maximum_authorization_level=prepare_deed_review_only. Allowed scope: continue review, prepare activation authorization deed, package evidence, run read-only tests, produce bounded activation proposal. Forbidden scope: gateway activation, FastAPI registration, memory/MCP activation, Feishu real send, network, scheduler, auto-fix, tool enforcement, runtime write, audit JSONL write, action queue write, DSRT enabled=true, implemented_now=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Blocker non-override rule",
+      "source_round": "R241-18Q",
+      "required_evidence": "authorization_cannot_override_blockers=true",
+      "observed_state": "blocker_non_override_matrix defined for 8 blockers: SURFACE-010 BLOCKED, CAND-002 BLOCKED, CAND-003 DEFERRED, GSIC-003 BLOCKED, GSIC-004 BLOCKED, mainline_gateway_activation_allowed=false, DSRT enabled=false, DSRT implemented_now=false. All can_authorization_override=false.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "DSRT authorization exclusion",
+      "source_round": "R241-18Q",
+      "required_evidence": "DSRT-001~006 cannot be activated by authorization",
+      "observed_state": "dsrt_authorization_exclusion: entries_checked=6, activation_by_authorization_allowed=false, violations=[]. All DSRT entries: enabled=False, disabled_by_default=True, implemented_now=False, paths under /_disabled/. Source read confirms read_only_runtime_sidecar_stub_contract.py lines 278-554.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Gateway/FastAPI authorization exclusion",
+      "source_round": "R241-18Q",
+      "required_evidence": "gateway and FastAPI cannot be activated by authorization",
+      "observed_state": "gateway_fastapi_authorization_exclusion: gateway_activation_by_authorization_allowed=false, fastapi_route_registration_by_authorization_allowed=false, violations=[]. GSIC-003 BLOCKED, GSIC-004 BLOCKED, mainline_gateway_activation_allowed=false. No /_disabled/ registered in FastAPI. No uvicorn.run found.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Memory authorization exclusion",
+      "source_round": "R241-18Q",
+      "required_evidence": "memory cannot be activated or unblocked by authorization",
+      "observed_state": "memory_authorization_exclusion: memory_authorization_ready=false, memory_activation_by_authorization_allowed=false, memory_blocker_override_allowed=false, violations=[]. SURFACE-010 BLOCKED CRITICAL, CAND-002 BLOCKED, memory_runtime_activation_allowed=false. Authorization cannot unblock SURFACE-010 or activate memory.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "MCP authorization exclusion",
+      "source_round": "R241-18Q",
+      "required_evidence": "MCP cannot be activated or approved by authorization",
+      "observed_state": "mcp_authorization_exclusion: mcp_authorization_ready=false, mcp_activation_by_authorization_allowed=false, mcp_blocker_override_allowed=false, depends_on_memory=true, violations=[]. CAND-003 DEFERRED, mcp_runtime_activation_allowed=false, network_access_allowed=false, tool_enforcement_allowed=false. Authorization cannot approve CAND-003 or activate MCP.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Feishu/network/scheduler/tool-enforcement authorization exclusion",
+      "source_round": "R241-18Q",
+      "required_evidence": "execution operations cannot be authorized",
+      "observed_state": "execution_authorization_exclusions: feishu_real_send=false, webhook=false, network=false, scheduler=false, auto_fix=false, tool_enforcement=false, runtime_write=false, audit_jsonl_write=false, action_queue_write=false, all violations=[]. Confirmed from R241-18L safety_invariants and activation_regression_scan.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "Runtime/audit/action-queue write authorization exclusion",
+      "source_round": "R241-18Q",
+      "required_evidence": "write operations cannot be authorized",
+      "observed_state": "runtime/audit/action-queue write authorization exclusions confirmed. runtime_write_allowed=false, audit_jsonl_write_allowed=false, action_queue_write_allowed=false, violations=[]. Confirmed from R241-18L safety_invariants: no_runtime_write=true, no_audit_jsonl_write=true, no_action_queue_write=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "R241-18R First Authorization Deed readiness",
+      "source_round": "R241-18Q",
+      "required_evidence": "All authorization review conditions met for entering R241-18R",
+      "observed_state": "All 12 authorization review objects (A-L) passed. allow_enter_r241_18r=true. R241-18R First Authorization Deed Review can proceed with: authorization_review_only mode, authorization_deed_allowed=false, blocker_override_allowed=false, explicit_user_authorization_required=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "human_authorization_requirement": {
+    "explicit_user_authorization_required": true,
+    "authorization_present_in_current_round": false,
+    "authorization_can_be_inferred_from_prior_context": false,
+    "authorization_scope_limited_required": true,
+    "authorization_time_limited_required": true,
+    "authorization_reversibility_required": true,
+    "authorization_can_override_blockers": false,
+    "authorization_can_grant_activation": false
+  },
+  "authorization_scope_limitation": {
+    "allowed_authorization_scope": [
+      "continue review to R241-18R",
+      "prepare activation authorization deed review",
+      "package evidence for authorization",
+      "run additional read-only tests",
+      "produce bounded activation proposal"
+    ],
+    "forbidden_authorization_scope": [
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "Feishu real send",
+      "network listener",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "DSRT enabled=true",
+      "DSRT implemented_now=true",
+      "override SURFACE-010 BLOCKED",
+      "override CAND-002/CAND-003 BLOCKED/DEFERRED",
+      "override GSIC-003/004 BLOCKED",
+      "set mainline_gateway_activation_allowed=true",
+      "activate any blocked surface"
+    ],
+    "maximum_authorization_level": "prepare_deed_review_only"
+  },
+  "blocker_non_override_matrix": [
+    {"blocker_id": "SURFACE-010", "name": "memory BLOCKED CRITICAL", "current_status": "BLOCKED", "can_authorization_override": false, "required_unblock_process": "Dedicated memory readiness review with evidence of memory runtime safety"},
+    {"blocker_id": "CAND-002", "name": "memory_read_binding BLOCKED", "current_status": "BLOCKED", "can_authorization_override": false, "required_unblock_process": "Dedicated memory readiness review must pass first"},
+    {"blocker_id": "CAND-003", "name": "mcp_read_binding DEFERRED", "current_status": "DEFERRED", "can_authorization_override": false, "required_unblock_process": "Dedicated MCP readiness review must pass first after memory readiness unblock"},
+    {"blocker_id": "GSIC-003", "name": "blocking_gateway_main_path BLOCKED", "current_status": "BLOCKED", "can_authorization_override": false, "required_unblock_process": "Gateway sidecar integration review must unblock GSIC-003/004"},
+    {"blocker_id": "GSIC-004", "name": "blocking_fastapi_route_registration BLOCKED", "current_status": "BLOCKED", "can_authorization_override": false, "required_unblock_process": "Gateway sidecar integration review must unblock GSIC-003/004"},
+    {"blocker_id": "MAINLINE-GATEWAY-ACTIVATION", "name": "mainline_gateway_activation_allowed=false", "current_status": "false", "can_authorization_override": false, "required_unblock_process": "Must be explicitly set true after all required gates pass"},
+    {"blocker_id": "DSRT-ENABLED", "name": "DSRT enabled=false", "current_status": "false", "can_authorization_override": false, "required_unblock_process": "Dedicated DSRT activation review required"},
+    {"blocker_id": "DSRT-IMPLEMENTED", "name": "DSRT implemented_now=false", "current_status": "false", "can_authorization_override": false, "required_unblock_process": "Dedicated DSRT activation review required"}
+  ],
+  "authorization_exclusion_objects": {
+    "dsrt": {
+      "entries_checked": 6,
+      "activation_by_authorization_allowed": false,
+      "violations": [],
+      "source_verified": "read_only_runtime_sidecar_stub_contract.py lines 278-554"
+    },
+    "gateway_fastapi": {
+      "gateway_activation_by_authorization_allowed": false,
+      "fastapi_route_registration_by_authorization_allowed": false,
+      "violations": [],
+      "gsic003_blocked": true,
+      "gsic004_blocked": true,
+      "mainline_gateway_activation_allowed": false
+    },
+    "memory": {
+      "memory_authorization_ready": false,
+      "memory_activation_by_authorization_allowed": false,
+      "memory_blocker_override_allowed": false,
+      "surface_010_status": "BLOCKED",
+      "cand_002_status": "BLOCKED",
+      "violations": []
+    },
+    "mcp": {
+      "mcp_authorization_ready": false,
+      "mcp_activation_by_authorization_allowed": false,
+      "mcp_blocker_override_allowed": false,
+      "cand_003_status": "DEFERRED",
+      "depends_on_memory": true,
+      "violations": []
+    },
+    "execution": {
+      "feishu_real_send_authorization_allowed": false,
+      "webhook_authorization_allowed": false,
+      "network_authorization_allowed": false,
+      "scheduler_authorization_allowed": false,
+      "auto_fix_authorization_allowed": false,
+      "tool_enforcement_authorization_allowed": false,
+      "runtime_write_authorization_allowed": false,
+      "audit_jsonl_write_authorization_allowed": false,
+      "action_queue_write_authorization_allowed": false,
+      "violations": []
+    }
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.32,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "authorization_review_passed": true,
+  "authorization_deed_allowed": false,
+  "activation_allowed": false,
+  "blocker_override_allowed": false,
+  "allow_enter_r241_18r": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "No authorization present in current round — this is correct (R241-18Q is authorization review, not authorization grant)"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_authorization_review",
+    "authorization_review_passed": true,
+    "authorization_deed_allowed": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "review_objects_A_to_L": "12/12 passed",
+    "human_explicit_authorization_requirement": "defined",
+    "authorization_scope_limitation": "defined",
+    "blocker_non_override_matrix": "8 blockers all non-override",
+    "authorization_exclusions": "DSRT/Gateway/FastAPI/Memory/MCP/Execution all exclusion confirmed",
+    "allow_enter_r241_18r": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18Q",
+    "next_prompt_needed": "R241-18R_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_REVIEW"
+  }
+}

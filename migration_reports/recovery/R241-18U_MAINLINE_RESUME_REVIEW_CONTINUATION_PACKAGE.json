@@ -1,0 +1,363 @@
+{
+  "report_id": "R241-18U_MAINLINE_RESUME_REVIEW_CONTINUATION_PACKAGE",
+  "status": "passed",
+  "decision": "approve_review_continuation_package",
+  "source": "R241-18T_MAINLINE_RESUME_AUTHORIZATION_DEED_GATE_REVIEW",
+  "phase": "phase_14_mainline_resume_review_continuation_package",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18t_passed": true,
+    "authorization_deed_gate_passed": true,
+    "authorization_scope_valid": true,
+    "activation_approved": false,
+    "blocker_override_approved": false,
+    "deed_executed": false,
+    "allow_enter_r241_18u": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "review_continuation_scope": {
+    "mode": "review_continuation_package_only",
+    "activation_allowed": false,
+    "authorization_expansion_allowed": false,
+    "blocker_override_allowed": false,
+    "deed_execution_allowed": false,
+    "allowed_scope": [
+      "evidence packaging",
+      "review continuation",
+      "bounded activation proposal draft skeleton",
+      "blocker carryover ledger",
+      "prerequisite ledger",
+      "test continuity review",
+      "next-round draft review readiness"
+    ],
+    "forbidden_scope": [
+      "actual activation",
+      "authorization expansion",
+      "deed execution",
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "mainline_gateway_activation_allowed=true",
+      "blocker override",
+      "DSRT enabled=true",
+      "implemented_now=true"
+    ]
+  },
+  "package_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18T gate carryover",
+      "source_round": "R241-18T",
+      "required_evidence": "R241-18T status=passed, authorization_deed_gate_passed=true, authorization_scope_valid=true, allow_enter_r241_18u=true",
+      "observed_state": "R241-18T JSON confirmed: status=passed, decision=approve_authorization_deed_gate_review, authorization_deed_gate_passed=true, authorization_scope_valid=true, activation_approved=false, blocker_override_approved=false, deed_executed=false, gate_objects_A_to_J=10/10 passed, allow_enter_r241_18u=true",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Review continuation package scope",
+      "source_round": "R241-18U",
+      "required_evidence": "mode=review_continuation_package_only, activation_allowed=false, authorization_expansion_allowed=false",
+      "observed_state": "review_continuation_scope defined: mode=review_continuation_package_only, activation_allowed=false, authorization_expansion_allowed=false, blocker_override_allowed=false, deed_execution_allowed=false",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Evidence package extension",
+      "source_round": "R241-18U",
+      "required_evidence": "All required evidence files found and readable",
+      "observed_state": "13/13 required evidence files found: R241-18J~R241-18T JSON files all present, R241-18I/R241-18J foundation audit files present. package_status=complete",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Bounded activation proposal skeleton",
+      "source_round": "R241-18U",
+      "required_evidence": "proposal_id=DRAFT-PROPOSAL-18U-001, status=draft_skeleton_only, executable=false",
+      "observed_state": "DRAFT-PROPOSAL-18U-001 generated: status=draft_skeleton_only, executable=false, activation_allowed=false, authorization_expansion_allowed=false, blocker_override_allowed=false. Allowed sections: problem_statement, current_blocker_ledger, preconditions, required_reviews, evidence_requirements, rollback_abort_criteria, human_approval_checkpoints. Forbidden sections: concrete activation command, gateway start, FastAPI registration patch, memory/MCP activation patch, Feishu send, runtime write, audit JSONL write, action queue write, blocker override instruction.",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Blocker carryover ledger",
+      "source_round": "R241-18U",
+      "required_evidence": "All 8 blockers remain intact from R241-18T through R241-18U",
+      "observed_state": "blocker_carryover_ledger confirmed: SURFACE-010=BLOCKED CRITICAL, CAND-002=BLOCKED, CAND-003=DEFERRED, GSIC-003=BLOCKED, GSIC-004=BLOCKED, mainline_gateway_activation_allowed=false, DSRT-001~006 enabled=false, DSRT-001~006 implemented_now=false. All 8 can_be_overridden_by_current_scope=false.",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "DSRT disabled continuity ledger",
+      "source_round": "R241-18U",
+      "required_evidence": "DSRT-001~006 all enabled=false, disabled_by_default=true, implemented_now=false, paths under /_disabled/",
+      "observed_state": "dsrt_disabled_continuity_ledger: entries_checked=6, passed=6, failed=0, violations=[]. DSRT-001~006 all: enabled=false, disabled_by_default=true, implemented_now=false, paths under /_disabled/foundation/. Source confirmed at read_only_runtime_sidecar_stub_contract.py lines 278-554.",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Gateway/FastAPI prohibition ledger",
+      "source_round": "R241-18U",
+      "required_evidence": "GSIC-003/004 BLOCKED, no /_disabled/ route registered, no uvicorn.run",
+      "observed_state": "gateway_fastapi_prohibition_ledger: gateway_activation_allowed=false, fastapi_route_registration_allowed=false, violations=[]. GSIC-003=BLOCKED, GSIC-004=BLOCKED, mainline_gateway_activation_allowed=false. 13 mainline routers confirmed all /api/* paths. No DSRT registration.",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Memory/MCP prerequisite ledger",
+      "source_round": "R241-18U",
+      "required_evidence": "SURFACE-010=BLOCKED, CAND-002=BLOCKED, CAND-003=DEFERRED, memory_readiness_status=not_ready, mcp_readiness_status=not_ready",
+      "observed_state": "memory_mcp_prerequisite_ledger: memory.SURFACE-010=BLOCKED CRITICAL, memory.CAND-002=BLOCKED, memory.memory_readiness_status=not_ready, memory.memory_activation_allowed=false. mcp.CAND-003=DEFERRED, mcp.depends_on_memory=true, mcp.mcp_readiness_status=not_ready, mcp.mcp_activation_allowed=false. violations=[].",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Execution exclusion ledger",
+      "source_round": "R241-18U",
+      "required_evidence": "all execution paths disabled: feishu/webhook/network/scheduler/auto-fix/tool-enforcement/runtime-write/audit/action-queue",
+      "observed_state": "execution_exclusion_ledger: all_execution_paths_disabled=true, violations=[]. feishu_real_send_allowed=false, webhook_allowed=false, network_listener_allowed=false, scheduler_allowed=false, auto_fix_allowed=false, tool_enforcement_allowed=false, runtime_write_allowed=false, audit_jsonl_write_allowed=false, action_queue_write_allowed=false.",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Test and evidence continuity package",
+      "source_round": "R241-18U",
+      "required_evidence": "144 tests passed, evidence chain complete from R241-18J through R241-18T",
+      "observed_state": "Test continuity: 48 gateway_sidecar + 96 disabled_stub/dsrt/feishu/audit/trend = 144 passed, 0 failed, 2.23s. Evidence chain complete: R241-18J~R241-18T (13 JSON files all found), R241-18I/R241-18J foundation audit files found.",
+      "package_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "R241-18V readiness decision",
+      "source_round": "R241-18U",
+      "required_evidence": "All package conditions met for entering R241-18V",
+      "observed_state": "All 11 package objects assessed: A=passed, B=passed, C=passed, D=passed, E=passed, F=passed, G=passed, H=passed, I=passed, J=passed, K=passed. review_continuation_package_ready=true, bounded_activation_proposal_skeleton_ready=true, allow_enter_r241_18v=true.",
+      "package_status": "ready",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "evidence_package_extension": {
+    "required_files": [
+      "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json",
+      "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json",
+      "migration_reports/recovery/R241-18L_DISABLED_STUB_CONTINUATION_HARDENING.json",
+      "migration_reports/recovery/R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW.json",
+      "migration_reports/recovery/R241-18N_MAINLINE_RESUME_DRYRUN_PLAN.json",
+      "migration_reports/recovery/R241-18O_MAINLINE_RESUME_DRYRUN_PACKAGE_REVIEW.json",
+      "migration_reports/recovery/R241-18P_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW.json",
+      "migration_reports/recovery/R241-18Q_MAINLINE_RESUME_ACTIVATION_AUTHORIZATION_REVIEW.json",
+      "migration_reports/recovery/R241-18R_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_REVIEW.json",
+      "migration_reports/recovery/R241-18S_MAINLINE_RESUME_FIRST_AUTHORIZATION_DEED_HUMAN_REVIEW.json",
+      "migration_reports/recovery/R241-18T_MAINLINE_RESUME_AUTHORIZATION_DEED_GATE_REVIEW.json",
+      "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json"
+    ],
+    "found_files": 13,
+    "missing_files": [],
+    "unreadable_files": [],
+    "package_status": "complete"
+  },
+  "bounded_activation_proposal_skeleton": {
+    "proposal_id": "DRAFT-PROPOSAL-18U-001",
+    "status": "draft_skeleton_only",
+    "executable": false,
+    "activation_allowed": false,
+    "authorization_expansion_allowed": false,
+    "blocker_override_allowed": false,
+    "allowed_sections": [
+      "problem_statement",
+      "current_blocker_ledger",
+      "preconditions_before_any_future_activation_discussion",
+      "required_reviews_before_activation",
+      "evidence_requirements",
+      "rollback_abort_criteria",
+      "human_approval_checkpoints"
+    ],
+    "forbidden_sections": [
+      "concrete_activation_command",
+      "gateway_start_command",
+      "fastapi_route_registration_patch",
+      "memory_runtime_activation_patch",
+      "mcp_runtime_activation_patch",
+      "feishu_send_command",
+      "runtime_write_command",
+      "audit_jsonl_write_command",
+      "action_queue_write_command",
+      "blocker_override_instruction"
+    ],
+    "required_future_reviews": [
+      "R241-18V: Bounded Activation Proposal Draft Review",
+      "R241-18W: Proposal Structural Validation",
+      "R241-18X: Human Review of Proposal",
+      "R241-18Y: Final Authorization Deed Review",
+      "R241-18Z: Activation Gate Review"
+    ]
+  },
+  "blocker_carryover_ledger": [
+    {"blocker_id": "SURFACE-010", "status": "BLOCKED CRITICAL", "source_round": "R241-18K", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Dedicated memory readiness review with SURFACE-010 evidence"},
+    {"blocker_id": "CAND-002", "status": "BLOCKED", "source_round": "R241-18K", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Dedicated memory readiness review must pass first"},
+    {"blocker_id": "CAND-003", "status": "DEFERRED", "source_round": "R241-18K", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Dedicated MCP readiness review after memory unblock"},
+    {"blocker_id": "GSIC-003", "status": "BLOCKED", "source_round": "R241-18J", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Gateway sidecar integration review must unblock GSIC-003/004"},
+    {"blocker_id": "GSIC-004", "status": "BLOCKED", "source_round": "R241-18J", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Gateway sidecar integration review must unblock GSIC-003/004"},
+    {"blocker_id": "MAINLINE-GATEWAY-ACTIVATION", "status": "false", "source_round": "R241-18N", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Must be explicitly set true after all required gates pass"},
+    {"blocker_id": "DSRT-ENABLED", "status": "false", "source_round": "R241-18I", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Dedicated DSRT activation review required"},
+    {"blocker_id": "DSRT-IMPLEMENTED", "status": "false", "source_round": "R241-18I", "can_be_overridden_by_current_scope": false, "required_unblock_process": "Dedicated DSRT activation review required"}
+  ],
+  "dsrt_disabled_continuity_ledger": {
+    "entries_checked": 6,
+    "passed": 6,
+    "failed": 0,
+    "violations": [],
+    "dsrt_summary": {
+      "DSRT-001": "enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/diagnose",
+      "DSRT-002": "enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/audit-query",
+      "DSRT-003": "enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/trend-report",
+      "DSRT-004": "enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/feishu-dryrun",
+      "DSRT-005": "enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/feishu-presend",
+      "DSRT-006": "enabled=false, disabled_by_default=true, implemented_now=false, path=/_disabled/foundation/truth-state"
+    },
+    "source_verified": "read_only_runtime_sidecar_stub_contract.py lines 278-554"
+  },
+  "gateway_fastapi_prohibition_ledger": {
+    "gateway_activation_allowed": false,
+    "fastapi_route_registration_allowed": false,
+    "gsic003_blocked": true,
+    "gsic004_blocked": true,
+    "mainline_gateway_activation_allowed": false,
+    "no_disabled_route_registered": true,
+    "no_dsrt_router_registered": true,
+    "no_uvicorn_run_found": true,
+    "violations": []
+  },
+  "memory_mcp_prerequisite_ledger": {
+    "memory": {
+      "surface_010_status": "BLOCKED CRITICAL",
+      "cand_002_status": "BLOCKED",
+      "memory_readiness_status": "not_ready",
+      "memory_activation_allowed": false,
+      "memory_write_allowed": false,
+      "memory_cleanup_allowed": false
+    },
+    "mcp": {
+      "cand_003_status": "DEFERRED",
+      "depends_on_memory": true,
+      "mcp_readiness_status": "not_ready",
+      "mcp_activation_allowed": false,
+      "mcp_network_access_allowed": false,
+      "mcp_tool_enforcement_allowed": false
+    },
+    "violations": []
+  },
+  "execution_exclusion_ledger": {
+    "feishu_real_send_allowed": false,
+    "webhook_allowed": false,
+    "network_listener_allowed": false,
+    "scheduler_allowed": false,
+    "auto_fix_allowed": false,
+    "tool_enforcement_allowed": false,
+    "runtime_write_allowed": false,
+    "audit_jsonl_write_allowed": false,
+    "action_queue_write_allowed": false,
+    "all_execution_paths_disabled": true,
+    "violations": []
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.23,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "review_continuation_package_ready": true,
+  "bounded_activation_proposal_skeleton_ready": true,
+  "activation_allowed": false,
+  "authorization_expansion_allowed": false,
+  "blocker_override_allowed": false,
+  "allow_enter_r241_18v": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "DRAFT-PROPOSAL-18U-001 is a skeleton only — executable=false, not actual activation"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "approve_review_continuation_package",
+    "review_continuation_package_ready": true,
+    "bounded_activation_proposal_skeleton_ready": true,
+    "activation_allowed": false,
+    "authorization_expansion_allowed": false,
+    "blocker_override_allowed": false,
+    "package_objects_A_to_K": "11/11 passed",
+    "evidence_package_status": "complete",
+    "allow_enter_r241_18v": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18U",
+    "next_prompt_needed": "R241-18V_MAINLINE_RESUME_BOUNDED_ACTIVATION_PROPOSAL_DRAFT_REVIEW"
+  }
+}

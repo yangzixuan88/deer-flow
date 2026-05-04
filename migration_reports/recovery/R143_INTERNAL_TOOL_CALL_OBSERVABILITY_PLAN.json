@@ -1,0 +1,78 @@
+{
+  "phase": "R143",
+  "title": "INTERNAL_TOOL_CALL_OBSERVABILITY_PLAN",
+  "status": "planning_complete",
+  "preceded_by": "R142C_RESULT_PERSISTENCE_PATCH",
+  "proceeding_to": "R144_INTERNAL_TOOL_CALL_OBSERVABILITY_SMOKE",
+  "pressure_assessment": {
+    "previous_phase": "R142C",
+    "current_phase": "R143",
+    "recommended_pressure": "XXL"
+  },
+  "lane_3_mcp_lazy_init_boundary": {
+    "mcp_init_entry": "get_available_tools() [tools.py:36] → get_cached_mcp_tools() [cache.py:82] → initialize_mcp_tools() [cache.py:56] → get_mcp_tools() [tools.py:57] → MultiServerMCPClient(servers_config).get_tools()",
+    "can_disable_via_config": true,
+    "disable_mechanism": "No enabled servers in extensions_config.json OR include_mcp=False in get_available_tools()",
+    "can_avoid_by_injecting_tools": true,
+    "avoidance_mechanism": "create_deerflow_agent(tools=[echo_tool]) [factory.py:61] bypasses get_available_tools() entirely — user-injected tools take priority and no MCP path is reached",
+    "mcp_will_start_for_internal_tool_smoke": false,
+    "mcp_start_condition": "get_available_tools() called with include_mcp=True AND ExtensionsConfig has enabled servers",
+    "risk": "low",
+    "key_finding": "Two distinct tool paths: (1) make_lead_agent → get_available_tools (MCP-dependent), (2) create_deerflow_agent(tools=...) bypasses get_available_tools"
+  },
+  "lane_5_tool_event_surface": {
+    "tool_call_in_values_snapshot": "AIMessage.tool_calls present in channel_values['messages'] after tool invocation node",
+    "sse_event_type": "'messages' — _lg_mode_to_sse_event maps LangGraph 'messages' mode to SSE 'messages' event",
+    "stream_bridge_publish": "bridge.publish(run_id, 'messages', serialize(chunk, mode='messages')) [worker.py:241]",
+    "runstore_persistence": "journal.get_completion_data() captures token_usage; update_run_completion(result=serialize_channel_values) in finally block [worker.py:341-344]",
+    "runeventstore_capture": "RunJournal via on_llm_end / on_chain_start_end callbacks [worker.py:185]",
+    "result_field_keys": ["messages", "thread_data", "title"],
+    "runrecord_result": "record.result holds serialize_channel_values(final_channel_values) [worker.py:327-328]"
+  },
+  "lane_6_patch_harness_strategy": {
+    "option_a_status": "recommended",
+    "option_a_name": "Internal No-op Tool via create_deerflow_agent",
+    "option_a_description": "Inject a simple built-in echo tool via create_deerflow_agent(tools=[echo_tool]) — no MCP server connections, no get_available_tools() call",
+    "option_a_pro": "No MCP initialization, no config changes, uses the correct agent factory that accepts tools directly",
+    "option_a_con": "make_lead_agent does not accept tools parameter — cannot be used for this smoke test",
+    "option_b_status": "rejected",
+    "option_b_description": "Disable MCP via extensions_config.json",
+    "option_b_con": "Requires config file manipulation, may not fully suppress MCP lazy init in all paths"
+  },
+  "lane_7_r144_authorization_package": {
+    "patch_files": [],
+    "harness_files": ["run_r144.py"],
+    "no_code_changes": true,
+    "tools_injected": ["echo_tool (built-in, no MCP)"],
+    "mcp_enabled": false,
+    "constraints": {
+      "model_api_calls": 1,
+      "tool_calls": 1,
+      "mcp_runtime": false,
+      "db_writes": "limited_to_test_artifacts"
+    }
+  },
+  "unknown_registry": [
+    {
+      "id": "U-mcp-init-in-get_available_tools",
+      "description": "get_available_tools() [tools.py:113] calls get_cached_mcp_tools() which triggers MCP lazy init if any servers are enabled",
+      "priority": "medium",
+      "mitigation": "Use create_deerflow_agent(tools=[echo_tool]) to avoid get_available_tools entirely"
+    },
+    {
+      "id": "U-make_lead_agent-tools-inaccessible",
+      "description": "make_lead_agent() [agent.py:317] has no tools= parameter — tools come only from internal get_available_tools() call",
+      "priority": "high",
+      "mitigation": "For internal smoke tests, use create_deerflow_agent(tools=[...]) from factory.py instead"
+    },
+    {
+      "id": "U-tools_bound_count-0-reason",
+      "description": "R139 logged tools_bound_count=0 because no ToolConfig entries exist in the harness-configured minimal AppConfig (only MiniMax model, no tool configs)",
+      "priority": "medium"
+    }
+  ],
+  "key_insight": "create_deerflow_agent(tools=[echo_tool]) [factory.py:61] is the correct path for internal smoke testing — it accepts tools directly, deduplicates against feature-injected tools, and never reaches get_available_tools() when tools are injected",
+  "recommended_next_phase": "R144_INTERNAL_TOOL_CALL_OBSERVABILITY_SMOKE",
+  "classification": "planning_complete",
+  "output": "R143_INTERNAL_TOOL_CALL_OBSERVABILITY_PLAN"
+}

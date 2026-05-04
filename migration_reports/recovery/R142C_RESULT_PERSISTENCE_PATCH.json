@@ -1,0 +1,76 @@
+{
+  "phase": "R142C",
+  "title": "RESULT_PERSISTENCE_PATCH",
+  "status": "passed",
+  "preceded_by": "R142B_RESULT_PERSISTENCE_AND_EVENT_MODEL_DESIGN",
+  "proceeding_to": "R143_INTERNAL_TOOL_CALL_OBSERVABILITY",
+  "pressure_assessment": {
+    "previous_phase": "R142B",
+    "current_phase": "R142C",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_preflight": {
+    "minimax_api_key_present": true,
+    "workspace_clean": true,
+    "health_200": true,
+    "preflight_passed": true
+  },
+  "lane_1_scope_gate": {
+    "runrecord_has_result_field": true,
+    "response_has_result_field": true,
+    "record_to_response_copies_result": true,
+    "worker_has_result_capture": true,
+    "scope_gate_passed": true
+  },
+  "lane_2_thread_baseline": {
+    "thread_create_status": 200,
+    "thread_id": "7a967b45-0340-4d56-9123-9519a9cfb18f",
+    "thread_baseline_passed": true
+  },
+  "lane_3_inline_run": {
+    "run_id": "4a7c1d2e-6d20-497f-93ef-fd2c325b9b2e",
+    "record_created": true,
+    "worker_completed": true,
+    "final_status": "success",
+    "final_error": null
+  },
+  "lane_4_get_run_result_verification": {
+    "get_run_status": 200,
+    "response_has_result": true,
+    "result_field_non_null": true,
+    "result_messages_exists": true,
+    "result_messages_non_empty": true
+  },
+  "lane_5_runstore_record_check": {
+    "store_record_has_result": true,
+    "store_record_result_non_null": true
+  },
+  "lane_6_regression": {
+    "default_run_in_background": true,
+    "inline_execution_works": true,
+    "production_default_unchanged": true
+  },
+  "lane_7_classification": {
+    "classification": "passed",
+    "run_status": "success"
+  },
+  "cause_chain": {
+    "r142_finding": "RunStore record has no result field, HTTP GET returns only metadata",
+    "r142b_design": "Option A \u2014 RunRecord gains result field, worker captures final state",
+    "r142c_patch": "RunRecord+result, RunResponse+result, worker captures serialize_channel_values final state",
+    "r142c_result": "GET /runs/{run_id} now returns result with messages"
+  },
+  "patch_files": [
+    "packages/harness/deerflow/runtime/runs/manager.py (RunRecord +result)",
+    "app/gateway/routers/thread_runs.py (RunResponse +result, _record_to_response)",
+    "packages/harness/deerflow/runtime/runs/worker.py (result snapshot capture)"
+  ],
+  "result_messages_count": 2,
+  "commit": "bc3c0670",
+  "classification": "passed",
+  "recommended_next_phase": "R143_INTERNAL_TOOL_CALL_OBSERVABILITY_PLAN",
+  "bug_fixes": [
+    {"bug": "status string overwriting RunStatus enum in update_run_completion", "fix": "skip 'status' key in setattr loop"},
+    {"bug": "result not propagating to in-memory RunRecord", "fix": "setattr(record, key, value) in update_run_completion"}
+  ]
+}

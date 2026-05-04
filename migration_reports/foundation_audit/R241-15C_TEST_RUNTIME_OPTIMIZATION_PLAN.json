@@ -1,0 +1,1587 @@
+{
+  "plan_id": "R241-15C_test_runtime_optimization",
+  "generated_at": "2026-04-25T22:11:23.079923+00:00",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "runtime_baseline_summary": {
+    "generated_at": "2026-04-25T22:11:23.079940+00:00",
+    "original_baseline_runtime": "6m40s+",
+    "original_baseline_seconds": 400.0,
+    "foundation_fast_runtime": {
+      "runtime": 314.8106727,
+      "runtime_seconds": 314.8106727,
+      "passed": 181,
+      "failed": 0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "audit_fast_runtime": {
+      "runtime": 4.3440573,
+      "runtime_seconds": 4.3440573,
+      "passed": 359,
+      "failed": 0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "slow_suite_runtime": {
+      "runtime": 115.5970048,
+      "runtime_seconds": 115.5970048,
+      "passed": 87,
+      "failed": 0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "safety_suite_runtime": {
+      "runtime": 3.7246882,
+      "runtime_seconds": 3.7246882,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "collect_only_runtime": {
+      "runtime": 2.3874808,
+      "runtime_seconds": 2.3874808,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "stabilization_tests_runtime": {
+      "runtime": 2.379631,
+      "runtime_seconds": 2.379631,
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "fast_combined_runtime_seconds": 319.15473,
+    "fast_combined_runtime": "5m19.15s",
+    "improvement_estimate": {
+      "baseline": "6m40s+",
+      "fast_combined_runtime": "5m19.15s",
+      "seconds_saved_estimate": 80.84527000000003,
+      "percent_saved_estimate": 20.21,
+      "notes": "Estimate compares foundation_fast + audit_fast against the pre-split 6m40s+ baseline."
+    }
+  },
+  "remaining_slow_in_fast_detection": {
+    "detected_at": "2026-04-25T22:11:23.143189+00:00",
+    "remaining_slow_in_fast_count": 173,
+    "remaining_slow_in_fast": [
+      {
+        "file": "backend\\app\\foundation\\test_integration_readiness.py",
+        "line": 6,
+        "test_hint": "def test_discover_foundation_surfaces_mock_surfaces(tmp_path, monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_integration_readiness.py",
+        "line": 19,
+        "test_hint": "def test_missing_module_report_sample_returns_warning(tmp_path, monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_integration_readiness.py",
+        "line": 128,
+        "test_hint": "def test_import_failure_not_crash(tmp_path, monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+        "line": 69,
+        "test_hint": "def test_discover_contains_read_only_diagnostic(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+        "line": 87,
+        "test_hint": "def test_discover_contains_trend_cli_guard(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+        "line": 93,
+        "test_hint": "def test_discover_contains_feishu_preview(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_observability_closure_review.py",
+        "line": 109,
+        "test_hint": "def test_evaluate_read_only_diagnostic_network_false(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 19,
+        "test_hint": "def test_registry_implemented_commands():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 28,
+        "test_hint": "def test_registry_disabled_commands_empty():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 33,
+        "test_hint": "def test_registry_phase_c_warnings_present():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 48,
+        "test_hint": "def test_run_memory_diagnostic_monkeypatch_no_memory_write(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 61,
+        "test_hint": "def test_run_memory_diagnostic_import_failure(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 73,
+        "test_hint": "def test_run_asset_diagnostic_monkeypatch_no_registry_write(monkeypatch):",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 84,
+        "test_hint": "def test_run_asset_diagnostic_import_failure(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 96,
+        "test_hint": "def test_run_prompt_diagnostic_monkeypatch_no_prompt_write(monkeypatch):",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 112,
+        "test_hint": "def test_run_prompt_diagnostic_import_failure(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 124,
+        "test_hint": "def test_run_rtcm_diagnostic_monkeypatch_no_rtcm_write(monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 135,
+        "test_hint": "def test_run_rtcm_diagnostic_import_failure(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 147,
+        "test_hint": "def test_run_feishu_summary_diagnostic_monkeypatch_no_[redacted-webhook](monkeypatch):",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 184,
+        "test_hint": "def test_run_feishu_summary_diagnostic_import_failure(monkeypatch):",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 192,
+        "test_hint": "def test_run_feishu_summary_diagnostic_send_allowed_false():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 198,
+        "test_hint": "def test_run_feishu_summary_diagnostic_[redacted-webhook]():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 203,
+        "test_hint": "def test_run_feishu_summary_diagnostic_no_[redacted-webhook]():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 208,
+        "test_hint": "def test_run_feishu_summary_diagnostic_validation_present():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 283,
+        "test_hint": "def test_format_json_returns_dict():",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 288,
+        "test_hint": "def test_format_markdown_returns_string():",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 293,
+        "test_hint": "def test_format_text_returns_string():",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 298,
+        "test_hint": "def test_format_markdown_handles_memory_summary(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 306,
+        "test_hint": "def test_format_text_handles_asset_summary(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 314,
+        "test_hint": "def test_format_markdown_handles_feishu_summary(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 327,
+        "test_hint": "def test_format_text_handles_feishu_summary(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 344,
+        "test_hint": "def test_main_memory_exit_0(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 349,
+        "test_hint": "def test_main_asset_exit_0(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 354,
+        "test_hint": "def test_main_prompt_exit_0(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 359,
+        "test_hint": "def test_main_rtcm_exit_0(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 364,
+        "test_hint": "def test_main_feishu_summary_exit_0(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 369,
+        "test_hint": "def test_main_feishu_summary_text_exit_0(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 374,
+        "test_hint": "def test_main_unknown_command_exit_1():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 380,
+        "test_hint": "def test_script_foundation_diagnose_imports_main():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 396,
+        "test_hint": "def test_no_http_endpoint_opened():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 400,
+        "test_hint": "def test_gateway_not_modified_by_cli_module():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 404,
+        "test_hint": "def test_no_runtime_written(tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 411,
+        "test_hint": "def test_no_tool_execution():",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 416,
+        "test_hint": "def test_no_full_memory_content_in_payload(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 428,
+        "test_hint": "def test_no_full_prompt_content_in_payload(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 440,
+        "test_hint": "def test_no_real_feishu_push(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 452,
+        "test_hint": "def test_no_[redacted-webhook](monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 463,
+        "test_hint": "def test_no_[redacted-webhook](monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 477,
+        "test_hint": "def test_no_action_queue_write(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 519,
+        "test_hint": "def test_add_audit_record_helper_exists():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 523,
+        "test_hint": "def test_add_audit_record_adds_fields():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 530,
+        "test_hint": "def test_add_audit_record_write_mode_design_only():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 536,
+        "test_hint": "def test_add_audit_record_event_type_mapping():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 553,
+        "test_hint": "def test_run_truth_state_has_audit_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 562,
+        "test_hint": "def test_run_queue_sandbox_has_audit_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 570,
+        "test_hint": "def test_run_memory_has_audit_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 577,
+        "test_hint": "def test_run_asset_has_audit_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 584,
+        "test_hint": "def test_run_prompt_has_audit_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 591,
+        "test_hint": "def test_run_rtcm_has_audit_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 598,
+        "test_hint": "def test_run_nightly_has_audit_record_event_type_nightly_health_review():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 604,
+        "test_hint": "def test_run_feishu_summary_has_audit_record_event_type_feishu_summary_dry_run():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 610,
+        "test_hint": "def test_run_all_has_audit_record_event_type_diagnostic_cli_run():",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 616,
+        "test_hint": "def test_audit_record_payload_hash_present():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 633,
+        "test_hint": "def test_audit_record_sensitivity_level_classified():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 639,
+        "test_hint": "def test_audit_validation_has_valid_field():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 645,
+        "test_hint": "def test_add_audit_record_exception_is_graceful():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 654,
+        "test_hint": "def test_generate_dryrun_audit_record_projection_sample_exists():",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 659,
+        "test_hint": "def test_markdown_formatter_shows_audit_summary(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 675,
+        "test_hint": "def test_text_formatter_shows_audit_summary(monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 691,
+        "test_hint": "def test_no_audit_jsonl_file_created(tmp_path, monkeypatch):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 725,
+        "test_hint": "def test_audit_record_redaction_applied_for_sensitive_payload():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 741,
+        "test_hint": "def test_audit_query_command_exists():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 751,
+        "test_hint": "def test_audit_scan_command_exists():",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 760,
+        "test_hint": "def test_audit_query_does_not_trigger_append(monkeypatch, tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 806,
+        "test_hint": "def test_audit_scan_does_not_write_files(monkeypatch, tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_diagnostics_cli.py",
+        "line": 828,
+        "test_hint": "def test_audit_query_unknown_args_exit_nonzero():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 46,
+        "test_hint": "def test_build_cli_command_specs_contains_nine_commands():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 74,
+        "test_hint": "def test_feishu_summary_dry_run_only():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 80,
+        "test_hint": "def test_validate_blocks_post_put_delete():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 87,
+        "test_hint": "def test_validate_blocks_blocked_surface():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 97,
+        "test_hint": "def test_queue_path_mismatch_warning_only():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 120,
+        "test_hint": "def test_no_runtime_modified(tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_read_only_integration_plan.py",
+        "line": 136,
+        "test_hint": "def test_no_tool_execution():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_runtime_optimization.py",
+        "line": 53,
+        "test_hint": "def test_generate_sample_report():",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_runtime_optimization.py",
+        "line": 56,
+        "test_hint": "def test_scan_real_tree():",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_runtime_optimization.py",
+        "line": 91,
+        "test_hint": "def test_detect_remaining_slow_in_fast_marks_sample_generation(tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_runtime_optimization.py",
+        "line": 185,
+        "test_hint": "def test_no_audit_jsonl_written(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_runtime_optimization.py",
+        "line": 192,
+        "test_hint": "def test_no_runtime_or_action_queue_written(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_stabilization_plan.py",
+        "line": 98,
+        "test_hint": "def test_identifies_read_only_diagnostics_cli(self):",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\foundation\\test_stabilization_plan.py",
+        "line": 110,
+        "test_hint": "def test_identifies_sample_generation(self):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 185,
+        "test_hint": "def test_validate_audit_record_rejects_raw_secret_token():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 201,
+        "test_hint": "def test_validate_audit_record_rejects_full_private_body():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 217,
+        "test_hint": "def test_validate_audit_record_accepts_valid_record():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 241,
+        "test_hint": "def test_build_audit_target_specs_does_not_create_files(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 301,
+        "test_hint": "def test_build_append_only_audit_trail_design_integration_points():",
+        "reason": "aggregate diagnostic",
+        "recommended_marker_change": "add @pytest.mark.slow for multi-domain aggregate diagnostics",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 371,
+        "test_hint": "def test_read_only_diagnostics_cli_not_modified():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_contract.py",
+        "line": 381,
+        "test_hint": "def test_scripts_foundation_diagnose_not_modified():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 142,
+        "test_hint": "def test_discover_does_not_create_directory(self, query_mod, tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 314,
+        "test_hint": "def test_match_event_type(self, query_mod):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 359,
+        "test_hint": "def test_match_combined_filters(self, query_mod):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 395,
+        "test_hint": "def test_query_filter_by_event_type(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 403,
+        "test_hint": "def test_query_filter_by_status(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 411,
+        "test_hint": "def test_query_limit_offset(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 425,
+        "test_hint": "def test_query_order_desc(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 432,
+        "test_hint": "def test_query_sensitivity_masked(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 453,
+        "test_hint": "def test_summarize_counts_by_event_type(self, query_mod, tmp_audit_trail):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 459,
+        "test_hint": "def test_summarize_counts_by_status(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 465,
+        "test_hint": "def test_summarize_has_time_range(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 484,
+        "test_hint": "def test_format_json_returns_dict(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 491,
+        "test_hint": "def test_format_jsonl_returns_string(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 500,
+        "test_hint": "def test_format_csv_flat(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 508,
+        "test_hint": "def test_format_markdown_has_tables(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 515,
+        "test_hint": "def test_format_text_not_empty(self, query_mod, tmp_audit_trail):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 522,
+        "test_hint": "def test_format_unknown_defaults_to_json(self, query_mod, tmp_audit_trail):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 534,
+        "test_hint": "def test_sample_generates_to_path(self, query_mod, tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 542,
+        "test_hint": "def test_sample_structure(self, query_mod, tmp_audit_trail, tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 559,
+        "test_hint": "def test_no_jsonl_written(self, query_mod, tmp_audit_trail, tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 575,
+        "test_hint": "def test_no_audit_trail_directory_created(self, query_mod, tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 584,
+        "test_hint": "def test_query_does_not_call_network(self, query_mod, tmp_audit_trail, monkeypatch):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_query.py",
+        "line": 595,
+        "test_hint": "def test_sensitive_fields_masked_in_output(self, query_mod, tmp_path):",
+        "reason": "slow helper in fast path",
+        "recommended_marker_change": "mark tests that call full projection/query helpers as slow",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_writer.py",
+        "line": 20,
+        "test_hint": "def test_resolve_audit_target_diagnostic_cli_run():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_writer.py",
+        "line": 187,
+        "test_hint": "def test_append_audit_record_to_target_dry_run_does_not_create_files(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_writer.py",
+        "line": 343,
+        "test_hint": "def test_append_all_diagnostic_audit_records_dry_run_no_files_created(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_writer.py",
+        "line": 398,
+        "test_hint": "def test_append_all_diagnostic_audit_records_single_failure_not_interrupt(tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_writer.py",
+        "line": 453,
+        "test_hint": "def test_append_all_diagnostic_audit_records_dry_run_false_writes(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trail_writer.py",
+        "line": 573,
+        "test_hint": "def test_generate_sample_writes_only_to_tmp(tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 68,
+        "test_hint": "def test_output_safety_detects_[redacted-webhook]():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 74,
+        "test_hint": "def test_output_safety_detects_token_secret_api_key():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 80,
+        "test_hint": "def test_output_safety_detects_prompt_memory_rtcm_bodies():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 88,
+        "test_hint": "def test_output_safety_safe_output_passes():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 93,
+        "test_hint": "def test_artifact_paths_accepts_r241_12d_formats(tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 103,
+        "test_hint": "def test_artifact_paths_rejects_audit_trail(tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_cli_guard.py",
+        "line": 110,
+        "test_hint": "def test_artifact_paths_rejects_parent_traversal(tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_contract.py",
+        "line": 113,
+        "test_hint": "def test_does_not_write_audit_jsonl(tmp_path):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 24,
+        "test_hint": "def test_import_module():",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 49,
+        "test_hint": "def test_env_ref_returns_metadata(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 60,
+        "test_hint": "def test_secret_manager_ref_returns_metadata(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 71,
+        "test_hint": "def test_missing_ref_returns_none_with_warning(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 76,
+        "test_hint": "def test_missing_ref_type_with_name_returns_blocked(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 82,
+        "test_hint": "def test_inline_[redacted-webhook](self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 92,
+        "test_hint": "def test_unknown_ref_type_returns_blocked(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 105,
+        "test_hint": "def test_json_returns_dict(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 112,
+        "test_hint": "def test_markdown_contains_validate_only(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 139,
+        "test_hint": "def test_text_contains_no_[redacted-webhook](self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 165,
+        "test_hint": "def test_markdown_contains_all_validity_flags(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 198,
+        "test_hint": "def test_run_valid_like_case_returns_structured_result(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 214,
+        "test_hint": "def test_run_missing_confirmation_blocked(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 226,
+        "test_hint": "def test_run_env_ref_does_not_read_env(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 250,
+        "test_hint": "def test_run_secret_manager_ref_does_not_read_secret(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 266,
+        "test_hint": "def test_run_blocked_by_inline_[redacted-webhook](self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 279,
+        "test_hint": "def test_run_returns_no_feishu_send_flag(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 331,
+        "test_hint": "def test_no_network_call(self, tmp_path, monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 354,
+        "test_hint": "def test_no_runtime_write(self, tmp_path):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 366,
+        "test_hint": "def test_no_audit_jsonl_write(self, tmp_path, monkeypatch):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 389,
+        "test_hint": "def test_no_auto_fix_execution(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_cli.py",
+        "line": 403,
+        "test_hint": "def test_no_secret_token_output(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_validator.py",
+        "line": 24,
+        "test_hint": "def test_import_module():",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_validator.py",
+        "line": 441,
+        "test_hint": "def test_generate_sample_writes_tmp_path(self, tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_validator.py",
+        "line": 451,
+        "test_hint": "def test_sample_valid_case_has_valid_true(self, tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_presend_validator.py",
+        "line": 516,
+        "test_hint": "def test_validator_no_real_secret_output(self, tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+        "line": 170,
+        "test_hint": "def test_import_module():",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+        "line": 349,
+        "test_hint": "def test_format_preview_no_network_call(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+        "line": 376,
+        "test_hint": "def test_sample_diagnostic_no_audit_jsonl_write(self, tmp_path, monkeypatch):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_preview.py",
+        "line": 405,
+        "test_hint": "def test_preview_status_values(self):",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_projection.py",
+        "line": 149,
+        "test_hint": "def test_import_module():",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_projection.py",
+        "line": 463,
+        "test_hint": "def test_returns_projection_payload_with_safety_flags(self, monkeypatch):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_projection.py",
+        "line": 493,
+        "test_hint": "def test_sample_writes_tmp_path(self, tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_feishu_projection.py",
+        "line": 505,
+        "test_hint": "def test_sample_not_write_audit_jsonl(self, tmp_path, monkeypatch):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+        "line": 49,
+        "test_hint": "def test_fetch_audit_records_for_trend_monkeypatch_no_jsonl_write(monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+        "line": 144,
+        "test_hint": "def test_generate_dryrun_report_empty_records_insufficient_data(monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+        "line": 154,
+        "test_hint": "def test_generate_dryrun_report_normal(monkeypatch):",
+        "reason": "filesystem scan",
+        "recommended_marker_change": "add @pytest.mark.slow when the test scans real repository trees",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+        "line": 195,
+        "test_hint": "def test_generate_sample_writes_only_tmp_path(tmp_path):",
+        "reason": "sample generation",
+        "recommended_marker_change": "add @pytest.mark.slow to sample/report artifact generation tests",
+        "safe_to_mark_slow": true
+      },
+      {
+        "file": "backend\\app\\audit\\test_audit_trend_projection.py",
+        "line": 202,
+        "test_hint": "def test_cli_audit_trend_command_exists():",
+        "reason": "CLI smoke",
+        "recommended_marker_change": "add @pytest.mark.integration and @pytest.mark.slow for real CLI smoke paths",
+        "safe_to_mark_slow": true
+      }
+    ],
+    "warnings": []
+  },
+  "marker_quality_audit": {
+    "audited_at": "2026-04-25T22:11:23.156439+00:00",
+    "required_markers": [
+      "smoke",
+      "unit",
+      "integration",
+      "slow",
+      "full",
+      "no_network",
+      "no_runtime_write",
+      "no_secret"
+    ],
+    "configured_markers": [
+      "full",
+      "integration",
+      "no_network",
+      "no_runtime_write",
+      "no_secret",
+      "slow",
+      "smoke",
+      "unit"
+    ],
+    "marker_count": 8,
+    "missing_required_markers": [],
+    "pytest_markers_contains_8_required": true,
+    "slow_marker_count": 89,
+    "safety_marker_count": 6,
+    "slow_marker_too_broad": false,
+    "pure_unit_likely_mis_marked_slow": [],
+    "safety_tests_all_marked_slow": false,
+    "safety_markers_runnable": true,
+    "no_network_runnable": true,
+    "no_runtime_write_runnable": true,
+    "no_secret_runnable": true,
+    "warnings": []
+  },
+  "optimization_options": {
+    "built_at": "2026-04-25T22:11:23.156463+00:00",
+    "options": [
+      {
+        "option_id": "Option A",
+        "name": "Marker Refinement",
+        "description": "Correct missed/over-broad markers without deleting tests or safety assertions.",
+        "allowed_changes": [
+          "add slow marker",
+          "add integration marker",
+          "add safety marker"
+        ],
+        "forbidden_changes": [
+          "test removal",
+          "safety-test bypass",
+          "safety-test xfail"
+        ],
+        "recommended": true
+      },
+      {
+        "option_id": "Option B",
+        "name": "Fixture Caching",
+        "description": "Cache read-only synthetic projection inputs in pytest fixtures.",
+        "allowed_changes": [
+          "session scoped synthetic fixtures",
+          "tmp_path cached sample inputs"
+        ],
+        "forbidden_changes": [
+          "runtime-state caching",
+          "secret caching",
+          "audit-trail mutation"
+        ],
+        "recommended": true
+      },
+      {
+        "option_id": "Option C",
+        "name": "Synthetic Fixture Replacement",
+        "description": "Replace real repository scans with tmp_path synthetic fixtures when the test only validates classification logic.",
+        "allowed_changes": [
+          "tmp_path synthetic trees",
+          "small JSON fixtures"
+        ],
+        "forbidden_changes": [
+          "remove real scan coverage from slow suite"
+        ],
+        "recommended": true
+      },
+      {
+        "option_id": "Option D",
+        "name": "Split CLI Smoke from Unit Tests",
+        "description": "Keep CLI smoke under integration/slow marker and keep pure helper tests in fast path.",
+        "allowed_changes": [
+          "integration marker for CLI smoke",
+          "slow marker for full CLI aggregation"
+        ],
+        "forbidden_changes": [
+          "change CLI behavior",
+          "skip CLI smoke"
+        ],
+        "recommended": true
+      },
+      {
+        "option_id": "Option E",
+        "name": "CI Stage Matrix",
+        "description": "Run fast, slow, safety, and full stages separately.",
+        "allowed_changes": [
+          "CI command matrix",
+          "report-only measurements"
+        ],
+        "forbidden_changes": [
+          "safety-stage disablement",
+          "network/webhook-enabled stage"
+        ],
+        "recommended": true
+      }
+    ],
+    "recommended_next_step": "Apply Option A for missed markers first, then Option C for scan-heavy tests.",
+    "ci_stage_matrix": {
+      "fast": "python -m pytest backend/app/foundation backend/app/audit -m 'not slow' -v",
+      "slow": "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+      "safety": "python -m pytest backend/app/foundation backend/app/audit -m 'no_network or no_runtime_write or no_secret' -v",
+      "full": "python -m pytest backend/app/foundation backend/app/audit -v"
+    }
+  },
+  "deleted_tests": false,
+  "safety_coverage_reduced": false,
+  "warnings": [],
+  "validation": {
+    "validated_at": "2026-04-25T22:11:23.157150+00:00",
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  }
+}

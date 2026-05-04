@@ -1,0 +1,573 @@
+{
+  "review_id": "R241-16V",
+  "stage_chain": [
+    {
+      "stage_id": "R241-16A",
+      "description": "CI Matrix Plan",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16A_CI_IMPLEMENTATION_PLAN.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16A_CI_IMPLEMENTATION_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16B",
+      "description": "CI Implementation Plan",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16B_LOCAL_CI_DRYRUN_SAMPLE.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16B_LOCAL_CI_DRYRUN_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16C",
+      "description": "CI Local Dry Run",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16C_DISABLED_WORKFLOW_DRAFT_PLAN.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16C_DISABLED_WORKFLOW_DRAFT_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16D",
+      "description": "CI Workflow Draft",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16D_PR_BLOCKING_ENABLEMENT_REVIEW.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16D_PR_BLOCKING_ENABLEMENT_REVIEW.md"
+    },
+    {
+      "stage_id": "R241-16E",
+      "description": "CI Enablement Review",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16E_MANUAL_DISPATCH_DRYRUN_REVIEW.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16E_MANUAL_DISPATCH_DRYRUN_REVIEW.md"
+    },
+    {
+      "stage_id": "R241-16F",
+      "description": "CI Manual Dispatch Review",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16F_MANUAL_DISPATCH_IMPLEMENTATION_REVIEW.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16F_MANUAL_DISPATCH_IMPLEMENTATION_REVIEW.md"
+    },
+    {
+      "stage_id": "R241-16G",
+      "description": "CI Manual Dispatch Implementation Review",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16G_MANUAL_WORKFLOW_CONFIRMATION_GATE.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16G_MANUAL_WORKFLOW_CONFIRMATION_GATE.md"
+    },
+    {
+      "stage_id": "R241-16H",
+      "description": "CI Manual Workflow Confirmation Gate",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16H_MANUAL_WORKFLOW_CREATION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16H_MANUAL_WORKFLOW_CREATION_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16I",
+      "description": "CI Manual Workflow Creation",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16I_MANUAL_WORKFLOW_RUNTIME_VERIFICATION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16I_MANUAL_WORKFLOW_RUNTIME_VERIFICATION_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16J",
+      "description": "CI Manual Workflow Runtime Verification",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16J_REMOTE_DISPATCH_CONFIRMATION_GATE_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16J_REMOTE_DISPATCH_CONFIRMATION_GATE_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16K",
+      "description": "CI Remote Dispatch Confirmation Gate",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16K_REMOTE_DISPATCH_EXECUTION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16K_REMOTE_DISPATCH_PLAN_ONLY_EXECUTION.md"
+    },
+    {
+      "stage_id": "R241-16L",
+      "description": "CI Remote Dispatch Execution",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16L_REMOTE_WORKFLOW_VISIBILITY_REVIEW.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16L_REMOTE_WORKFLOW_VISIBILITY_REVIEW.md"
+    },
+    {
+      "stage_id": "R241-16M",
+      "description": "CI Remote Workflow Visibility Review",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16M_REMOTE_VISIBILITY_CONSISTENCY_REVIEW.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16M_REMOTE_VISIBILITY_CONSISTENCY_REVIEW.md"
+    },
+    {
+      "stage_id": "R241-16N",
+      "description": "CI Remote Visibility Consistency",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16N_B_PUBLISH_READINESS_CONSISTENCY_REPAIR.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16N_B_PUBLISH_READINESS_CONSISTENCY_REPAIR.md"
+    },
+    {
+      "stage_id": "R241-16O",
+      "description": "CI Publish Confirmation Gate",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16O_PUBLISH_CONFIRMATION_GATE.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16O_PUBLISH_CONFIRMATION_GATE.md"
+    },
+    {
+      "stage_id": "R241-16P",
+      "description": "CI Publish Implementation",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16P_PUBLISH_IMPLEMENTATION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16P_PUBLISH_IMPLEMENTATION_REPORT.md"
+    },
+    {
+      "stage_id": "R241-16Q",
+      "description": "CI Publish Retry Git Identity",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16Q_B_STAGED_AREA_CONSISTENCY_REPAIR.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16Q_B_STAGED_AREA_CONSISTENCY_REPAIR.md"
+    },
+    {
+      "stage_id": "R241-16R",
+      "description": "CI Publish Push Failure Review",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16R_RECOVERY_PATH_CONFIRMATION_GATE.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16R_RECOVERY_PATH_CONFIRMATION_GATE.md"
+    },
+    {
+      "stage_id": "R241-16S",
+      "description": "CI Publish Patch Bundle Generation",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_GENERATION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16S_PATCH_BUNDLE_GENERATION_RESULT.md"
+    },
+    {
+      "stage_id": "R241-16T",
+      "description": "CI Patch Bundle Verification",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16T_PATCH_BUNDLE_VERIFICATION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16T_PATCH_BUNDLE_VERIFICATION_RESULT.md"
+    },
+    {
+      "stage_id": "R241-16U",
+      "description": "CI Delivery Package Finalization",
+      "report_json_exists": true,
+      "report_md_exists": true,
+      "report_json_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_DELIVERY_PACKAGE_FINALIZATION_RESULT.json",
+      "report_md_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_DELIVERY_FINAL_CHECKLIST.md"
+    }
+  ],
+  "artifact_summary": [
+    {
+      "filename": "R241-16S_FOUNDATION_MANUAL_WORKFLOW.patch",
+      "role": "patch",
+      "exists": true,
+      "sha256": "3f9d456c201e4155787595ba18c45a06425264b6e1b6342289a3d4599c7f6fa8",
+      "size_bytes": 3277,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16S_FOUNDATION_MANUAL_WORKFLOW.bundle",
+      "role": "bundle",
+      "exists": true,
+      "sha256": "99198cd2a9ae1c93d7302dafa0906dbf97746de515ab775fecb62996988092a6",
+      "size_bytes": 1314,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16S_PATCH_BUNDLE_MANIFEST.json",
+      "role": "manifest",
+      "exists": true,
+      "sha256": "2d0f4df82448f7367a282914c3e8e2821e1377372eba831f678d60282fb47d16",
+      "size_bytes": 2530,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16T_PATCH_BUNDLE_VERIFICATION_RESULT.json",
+      "role": "verification_report",
+      "exists": true,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size_bytes": 2,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16T_PATCH_DELIVERY_NOTE.md",
+      "role": "delivery_note",
+      "exists": true,
+      "sha256": "4261a8cb9bb898e2b8345525db2cd42fce632fa9b4db92d189d19e33337e2195",
+      "size_bytes": 2160,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16U_DELIVERY_PACKAGE_INDEX.json",
+      "role": "handoff_index",
+      "exists": true,
+      "sha256": "998720a7865883ab980f45dc64ddb494255c1de94ae80c119ca571867d400038",
+      "size_bytes": 3241,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16U_DELIVERY_PACKAGE_INDEX.md",
+      "role": "handoff_index_md",
+      "exists": true,
+      "sha256": "c115b4a0bb7e23e04b07d57ec8c795f25c2973599347e45d40935dddcd80df61",
+      "size_bytes": 1815,
+      "required": false,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16U_DELIVERY_FINAL_CHECKLIST.md",
+      "role": "final_checklist",
+      "exists": true,
+      "sha256": "a1760b300a8f2765a7d35acfa68bc93bb87c69aced4638108b8b53be504f993c",
+      "size_bytes": 1841,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16U_HANDOFF_SUMMARY.md",
+      "role": "handoff_summary",
+      "exists": true,
+      "sha256": "a3634bf27d45695e7d213a9885f76c36f5b62ab64a0549cd26ff15f4d76cdf89",
+      "size_bytes": 2929,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16U_DELIVERY_PACKAGE_FINALIZATION_RESULT.json",
+      "role": "finalization_result",
+      "exists": true,
+      "sha256": "66c2757d971ff8bc496c754a03146f784f599bd3319eb47ec72e94e271fadf30",
+      "size_bytes": 32297,
+      "required": true,
+      "validation_errors": []
+    },
+    {
+      "filename": "R241-16U_DELIVERY_PACKAGE_FINALIZATION_REPORT.md",
+      "role": "finalization_report",
+      "exists": false,
+      "sha256": null,
+      "size_bytes": null,
+      "required": false,
+      "validation_errors": [
+        "Optional artifact missing: R241-16U_DELIVERY_PACKAGE_FINALIZATION_REPORT.md"
+      ]
+    }
+  ],
+  "closure_checks": [
+    {
+      "check_id": "artifact_delivery_complete",
+      "domain": "artifact_integrity",
+      "description": "Delivery artifact completeness: 10/11 artifacts present",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "existing_artifacts": 10,
+        "total_artifacts": 11,
+        "coverage_pct": 90.9
+      },
+      "recommendations": [
+        "Ensure all delivery artifacts are generated"
+      ]
+    },
+    {
+      "check_id": "artifact_finalization_result_valid",
+      "domain": "artifact_integrity",
+      "description": "Delivery package finalization result is present and readable",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "high",
+      "details": {
+        "finalization_file": "R241-16U_DELIVERY_PACKAGE_FINALIZATION_RESULT.json",
+        "errors": []
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "artifact_manifest_valid",
+      "domain": "artifact_integrity",
+      "description": "Patch bundle manifest is present and readable",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "high",
+      "details": {
+        "manifest_file": "R241-16S_PATCH_BUNDLE_MANIFEST.json",
+        "errors": []
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "artifact_required_exist",
+      "domain": "artifact_integrity",
+      "description": "All required delivery artifacts exist",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "required_missing": [],
+        "total_required": 9
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "artifact_sha256_computed",
+      "domain": "artifact_integrity",
+      "description": "SHA256 computed for 10/10 existing artifacts",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "medium",
+      "details": {
+        "sha256_computed": 10,
+        "existing_artifacts": 10
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "artifact_verification_result_valid",
+      "domain": "artifact_integrity",
+      "description": "Patch bundle verification result is present and readable",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "high",
+      "details": {
+        "verification_file": "R241-16T_PATCH_BUNDLE_VERIFICATION_RESULT.json",
+        "errors": []
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "chain_complete_R241-16A",
+      "domain": "chain_completeness",
+      "description": "Critical stage R241-16A has a delivery report",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "stage_id": "R241-16A",
+        "has_report": true
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "chain_complete_R241-16S",
+      "domain": "chain_completeness",
+      "description": "Critical stage R241-16S has a delivery report",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "stage_id": "R241-16S",
+        "has_report": true
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "chain_complete_R241-16T",
+      "domain": "chain_completeness",
+      "description": "Critical stage R241-16T has a delivery report",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "stage_id": "R241-16T",
+        "has_report": true
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "chain_complete_R241-16U",
+      "domain": "chain_completeness",
+      "description": "Critical stage R241-16U has a delivery report",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "stage_id": "R241-16U",
+        "has_report": true
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "chain_coverage",
+      "domain": "chain_completeness",
+      "description": "Stage chain coverage: 21/21 stages have reports",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "stages_with_reports": 21,
+        "total_stages": 21,
+        "coverage_pct": 100.0
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "final_checklist_exists",
+      "domain": "delivery_package",
+      "description": "Delivery package final checklist exists",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "medium",
+      "details": {
+        "checklist_files": [
+          "R241-16U_DELIVERY_FINAL_CHECKLIST.md"
+        ]
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "finalization_decision",
+      "domain": "delivery_package",
+      "description": "R241-16U handoff decision is 'approve_handoff_with_warnings'",
+      "passed": true,
+      "status": "approve_handoff_with_warnings",
+      "risk_level": "low",
+      "details": {
+        "decision": "approve_handoff_with_warnings",
+        "status": "finalized_with_warnings"
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "finalization_result_exists",
+      "domain": "delivery_package",
+      "description": "R241-16U finalization result exists",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16U_DELIVERY_PACKAGE_FINALIZATION_RESULT.json"
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "finalization_result_parseable",
+      "domain": "delivery_package",
+      "description": "R241-16U finalization result is valid JSON",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {},
+      "recommendations": []
+    },
+    {
+      "check_id": "finalization_status",
+      "domain": "delivery_package",
+      "description": "R241-16U finalization status is 'finalized_with_warnings'",
+      "passed": true,
+      "status": "finalized_with_warnings",
+      "risk_level": "low",
+      "details": {
+        "status": "finalized_with_warnings",
+        "decision": "approve_handoff_with_warnings",
+        "validation_valid": true
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "handoff_index_exists",
+      "domain": "delivery_package",
+      "description": "Delivery package handoff index exists",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "medium",
+      "details": {
+        "index_files": [
+          "R241-16U_DELIVERY_PACKAGE_INDEX.json"
+        ]
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "handoff_summary_exists",
+      "domain": "delivery_package",
+      "description": "Delivery package handoff summary exists",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "medium",
+      "details": {
+        "summary_files": [
+          "R241-16U_HANDOFF_SUMMARY.md"
+        ]
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "mutation_head_hash",
+      "domain": "mutation_guard",
+      "description": "Git HEAD hash captured: 94908556cc2ca66c219d361f424954945eee9e67",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "head_hash": "94908556cc2ca66c219d361f424954945eee9e67"
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "mutation_no_staged",
+      "domain": "mutation_guard",
+      "description": "No staged changes detected during closure review",
+      "passed": true,
+      "status": "passed",
+      "risk_level": "low",
+      "details": {
+        "staged_files": [],
+        "count": 0
+      },
+      "recommendations": []
+    },
+    {
+      "check_id": "mutation_no_working_tree",
+      "domain": "mutation_guard",
+      "description": "No uncommitted working tree changes detected",
+      "passed": false,
+      "status": "failed",
+      "risk_level": "medium",
+      "details": {
+        "git_status_short": " M .dockerignore\n M .gitignore\n M backend/AGENTS.md\n M backend/Dockerfile\n M backend/app/channels/discord.py\n M backend/app/channels/feishu.py\n M backend/app/channels/manager.py\n M backend/app/channels/service.py\n M backend/app/channels/slack.py\n M backend/app/channels/telegram.py\n M backend/app/gateway/__init__.py\n M backend/app/gateway/app.py\n M backend/app/gateway/config.py\n M backend/app/gateway/routers/__init__.py\n M backend/app/gateway/routers/agents.py\n M backend/app/gateway/routers/mcp.py\n M backend/app/gateway/services.py\n M backend/packages/harness/deerflow/agents/factory.py\n M backend/packages/harness/deerflow/agents/lead_agent/__init__.py\n M backend/packages/harness/deerflow/agents/lead_agent/agent.py\n M backend/packages/harness/deerflow/agents/lead_agent/prompt.py\n M backend/packages/harness/deerflow/agents/memory/prompt.py\n M backend/packages/harness/deerflow/agents/memory/storage.py\n M backend/packages/harness/deerflow/agents/memory/updater.py\n M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\n M backend/packages/harness/deerflow/agents/thread_state.py\n M backend/packages/harness/deerflow/config/agents_config.py\n M backend/packages/harness/deerflow/config/app_config.py\n M backend/packages/harness/deerflow/config/extensions_config.py\n M backend/packages/harness/deerflow/config/memory_config.py\n M backend/packages/harness/deerflow/config/paths.py\n M backend/packages/harness/deerflow/mcp/client.py\n M backend/packages/harness/deerflow/mcp/oauth.py\n M backend/packages/harness/deerflow/mcp/tools.py\n M backend/packages/harness/deerflow/models/factory.py\n M backend/packages/harness/deerflow/models/patched_minimax.py\n M backend/packages/harness/deerflow/runtime/runs/worker.py\n M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py\n M backend/packages/harness/deerflow/tools/builtins/__init__.py\n M backend/packages/harness/deerflow/tools/builtins/task_tool.py\n M backend/packages/harness/deerflow/tools/tools.py\n M backend/packages/harness/pyproject.toml\n M backend/pyproject.toml\n M backend/tests/test_channels.py\n M backend/uv.lock\n M docker/provisioner/app.py\n M frontend/.env.example\n M frontend/CLAUDE.md\n M frontend/README.md\n M frontend/next.config.js\n M frontend/package.json\n M frontend/src/core/mcp/api.ts\n M frontend/src/core/models/api.ts\n M frontend/src/core/skills/api.ts\n M frontend/src/server/better-auth/config.ts\n?? .openclaw/\n?? .serena/\n?? DECISIONS.md\n?? OpenClaw-DeerFlow.code-workspace\n?? R241-16M.json\n?? R241-16N.json\n?? UPGRADE_CENTER.md\n?? assets/\n?? backend/.lark-cli/\n?? backend/MEMORY.md\n?? backend/app/asset/\n?? backend/app/audit/\n?? backend/app/foundation/\n?? backend/app/gateway/context.py\n?? backend/app/gateway/mode_instrumentation.py\n?? backend/app/gateway/mode_router.py\n?? backend/app/gateway/test_context_envelope_smoke.py\n?? backend/app/gateway/test_mode_instrumentation_smoke.py\n?? backend/app/m03/\n?? backend/app/m04/\n?? backend/app/m05/\n?? backend/app/m07/\n?? backend/app/m08/\n?? backend/app/m09/\n?? backend/app/m10/\n?? backend/app/m11/\n?? backend/app/m12/\n?? backend/app/memory/\n?? backend/app/mode/\n?? backend/app/nightly/\n?? backend/app/perception/\n?? backend/app/prompt/\n?? backend/app/rtcm/\n?? backend/app/runtime_paths.py\n?? backend/app/scripts/\n?? backend/app/tool_runtime/\n?? backend/apply_slow_markers.py\n?? backend/audit_r205_align.py\n?? backend/boulder.json\n?? backend/check_fi.py\n?? backend/check_missing_plus.py\n?? backend/data/\n?? backend/docker-compose.yaml\n?? backend/external/\n?? backend/find_broken.py\n?? backend/fix_concat.py\n?? backend/fix_rollback_v8.py\n?? backend/fix_sandbox.py\n?? backend/fix_sandbox_v2.py\n?? backend/fix_sandbox_v3.py\n?? backend/fix_sandbox_v4.py\n?? backend/fix_sandbox_v5.py\n?? backend/fix_sandbox_v6.py\n?? backend/fix_sandbox_v7.py\n?? backend/fix_verify_section.py\n?? backend/generate_r241_14c_report.py\n?? backend/migration_reports/\n?? backend/n8n_data/\n?? backend/packages/harness/deerflow/agents/evaluator/\n?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py\n?? backend/packages/harness/deerflow/agents/memory/vector_storage.py\n?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py\n?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py\n?? backend/packages/harness/deerflow/assets/\n?? backend/packages/harness/deerflow/harness_server.py\n?? backend/packages/harness/deerflow/scratch/\n?? backend/packages/harness/deerflow/skills/system/\n?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py\n?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py\n?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py\n?? backend/packages/harness/deerflow/tools/minimax_multimodal.py\n?? backend/packages/harness/scratch/\n?? backend/packages/workspace/\n?? backend/probe2.py\n?? backend/probe_channelmgr.py\n?? backend/probe_errors.py\n?? backend/probe_final.py\n?? backend/probe_lg.py\n?? backend/probe_m01_bridge.py\n?? backend/probe_m01_entry.py\n?? backend/probe_readfile.py\n?? backend/probe_readfile2.py\n?? backend/qdrant_storage/\n?? backend/rewrite_rollback.py\n?? backend/rewrite_verify.py\n?? backend/scratch/\n?? backend/scripts/\n?? backend/server_lark.log\n?? backend/server_output.log\n?? backend/src/\n?? backend/start_server.py\n?? backend/test_api.py\n?? backend/test_env.py\n?? backend/test_escape.txt\n?? backend/test_fr_script.ts\n?? backend/test_gov_engine.py\n?? backend/test_gov_import.py\n?? backend/test_governance_import.cjs\n?? backend/test_minimal.py\n?? backend/test_r187_diag.py\n?? backend/test_r187_dpbs_runtime.py\n?? backend/test_r188_roi_verification.ts\n?? backend/test_r189_roi_rollback.ts\n?? backend/test_r190_real_verification.ts\n?? backend/test_r191_real_rollback.ts\n?? backend/test_r194_uc_approval_outcome.py\n?? backend/test_r198_feishu_cards.cjs\n?? backend/test_r198_feishu_cards.ts\n?? backend/test_r199_approval_result.ts\n?? backend/test_r201_integration.ts\n?? backend/test_r202_idempotency.ts\n?? backend/test_r203_roi_freshness.ts\n?? backend/test_r204_scoring_accuracy.ts\n?? backend/test_record_outcome.cjs\n?? backend/test_record_outcome.py\n?? backend/test_spawn_compare.cjs\n?? backend/test_spawn_env.cjs\n?? backend/test_spawn_env.js\n?? backend/tests/foundation/\n?? backend/tmp_uc_backflow.json\n?? backend/tmp_uc_backflow.py\n?? baseline.md\n?? boulder.json\n?? crontabs.yaml\n?? docker-compose.yaml\n?? docs/LARK_CLI_INTEGRATION_REPORT.md\n?? docs/testing/\n?? evolution_seams.md\n?? frontend/package-lock.json\n?? gw_scan.py\n?? jest.config.cjs\n?? mcp-bridge.js\n?? memory/\n?? migration_reports/\n?? mission/\n?? openclaw_project/\n?? package-lock.json\n?? package.json\n?? pytest.ini\n?? rtcm/\n?? runbook.md\n?? scratch/\n?? scripts/ci_foundation_check.py\n?? scripts/foundation_diagnose.py\n?? scripts/root_guard.ps1\n?? scripts/root_guard.py\n?? start_deerflow.bat\n?? start_server.mjs\n?? tsconfig.json\n?? vitest.config.ts\n"
+      },
+      "recommendations": [
+        "Commit or discard working tree changes before closure"
+      ]
+    }
+  ],
+  "receiver_next_steps": [
+    "Commit or discard working tree changes before closure"
+  ],
+  "mutation_guard": {
+    "captured_at": "2026-04-26T11:13:03.410096+00:00",
+    "head_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+    "branch": "main",
+    "staged_files": [],
+    "git_status_short": " M .dockerignore\n M .gitignore\n M backend/AGENTS.md\n M backend/Dockerfile\n M backend/app/channels/discord.py\n M backend/app/channels/feishu.py\n M backend/app/channels/manager.py\n M backend/app/channels/service.py\n M backend/app/channels/slack.py\n M backend/app/channels/telegram.py\n M backend/app/gateway/__init__.py\n M backend/app/gateway/app.py\n M backend/app/gateway/config.py\n M backend/app/gateway/routers/__init__.py\n M backend/app/gateway/routers/agents.py\n M backend/app/gateway/routers/mcp.py\n M backend/app/gateway/services.py\n M backend/packages/harness/deerflow/agents/factory.py\n M backend/packages/harness/deerflow/agents/lead_agent/__init__.py\n M backend/packages/harness/deerflow/agents/lead_agent/agent.py\n M backend/packages/harness/deerflow/agents/lead_agent/prompt.py\n M backend/packages/harness/deerflow/agents/memory/prompt.py\n M backend/packages/harness/deerflow/agents/memory/storage.py\n M backend/packages/harness/deerflow/agents/memory/updater.py\n M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\n M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\n M backend/packages/harness/deerflow/agents/thread_state.py\n M backend/packages/harness/deerflow/config/agents_config.py\n M backend/packages/harness/deerflow/config/app_config.py\n M backend/packages/harness/deerflow/config/extensions_config.py\n M backend/packages/harness/deerflow/config/memory_config.py\n M backend/packages/harness/deerflow/config/paths.py\n M backend/packages/harness/deerflow/mcp/client.py\n M backend/packages/harness/deerflow/mcp/oauth.py\n M backend/packages/harness/deerflow/mcp/tools.py\n M backend/packages/harness/deerflow/models/factory.py\n M backend/packages/harness/deerflow/models/patched_minimax.py\n M backend/packages/harness/deerflow/runtime/runs/worker.py\n M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py\n M backend/packages/harness/deerflow/tools/builtins/__init__.py\n M backend/packages/harness/deerflow/tools/builtins/task_tool.py\n M backend/packages/harness/deerflow/tools/tools.py\n M backend/packages/harness/pyproject.toml\n M backend/pyproject.toml\n M backend/tests/test_channels.py\n M backend/uv.lock\n M docker/provisioner/app.py\n M frontend/.env.example\n M frontend/CLAUDE.md\n M frontend/README.md\n M frontend/next.config.js\n M frontend/package.json\n M frontend/src/core/mcp/api.ts\n M frontend/src/core/models/api.ts\n M frontend/src/core/skills/api.ts\n M frontend/src/server/better-auth/config.ts\n?? .openclaw/\n?? .serena/\n?? DECISIONS.md\n?? OpenClaw-DeerFlow.code-workspace\n?? R241-16M.json\n?? R241-16N.json\n?? UPGRADE_CENTER.md\n?? assets/\n?? backend/.lark-cli/\n?? backend/MEMORY.md\n?? backend/app/asset/\n?? backend/app/audit/\n?? backend/app/foundation/\n?? backend/app/gateway/context.py\n?? backend/app/gateway/mode_instrumentation.py\n?? backend/app/gateway/mode_router.py\n?? backend/app/gateway/test_context_envelope_smoke.py\n?? backend/app/gateway/test_mode_instrumentation_smoke.py\n?? backend/app/m03/\n?? backend/app/m04/\n?? backend/app/m05/\n?? backend/app/m07/\n?? backend/app/m08/\n?? backend/app/m09/\n?? backend/app/m10/\n?? backend/app/m11/\n?? backend/app/m12/\n?? backend/app/memory/\n?? backend/app/mode/\n?? backend/app/nightly/\n?? backend/app/perception/\n?? backend/app/prompt/\n?? backend/app/rtcm/\n?? backend/app/runtime_paths.py\n?? backend/app/scripts/\n?? backend/app/tool_runtime/\n?? backend/apply_slow_markers.py\n?? backend/audit_r205_align.py\n?? backend/boulder.json\n?? backend/check_fi.py\n?? backend/check_missing_plus.py\n?? backend/data/\n?? backend/docker-compose.yaml\n?? backend/external/\n?? backend/find_broken.py\n?? backend/fix_concat.py\n?? backend/fix_rollback_v8.py\n?? backend/fix_sandbox.py\n?? backend/fix_sandbox_v2.py\n?? backend/fix_sandbox_v3.py\n?? backend/fix_sandbox_v4.py\n?? backend/fix_sandbox_v5.py\n?? backend/fix_sandbox_v6.py\n?? backend/fix_sandbox_v7.py\n?? backend/fix_verify_section.py\n?? backend/generate_r241_14c_report.py\n?? backend/migration_reports/\n?? backend/n8n_data/\n?? backend/packages/harness/deerflow/agents/evaluator/\n?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py\n?? backend/packages/harness/deerflow/agents/memory/vector_storage.py\n?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py\n?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py\n?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py\n?? backend/packages/harness/deerflow/assets/\n?? backend/packages/harness/deerflow/harness_server.py\n?? backend/packages/harness/deerflow/scratch/\n?? backend/packages/harness/deerflow/skills/system/\n?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py\n?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py\n?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py\n?? backend/packages/harness/deerflow/tools/minimax_multimodal.py\n?? backend/packages/harness/scratch/\n?? backend/packages/workspace/\n?? backend/probe2.py\n?? backend/probe_channelmgr.py\n?? backend/probe_errors.py\n?? backend/probe_final.py\n?? backend/probe_lg.py\n?? backend/probe_m01_bridge.py\n?? backend/probe_m01_entry.py\n?? backend/probe_readfile.py\n?? backend/probe_readfile2.py\n?? backend/qdrant_storage/\n?? backend/rewrite_rollback.py\n?? backend/rewrite_verify.py\n?? backend/scratch/\n?? backend/scripts/\n?? backend/server_lark.log\n?? backend/server_output.log\n?? backend/src/\n?? backend/start_server.py\n?? backend/test_api.py\n?? backend/test_env.py\n?? backend/test_escape.txt\n?? backend/test_fr_script.ts\n?? backend/test_gov_engine.py\n?? backend/test_gov_import.py\n?? backend/test_governance_import.cjs\n?? backend/test_minimal.py\n?? backend/test_r187_diag.py\n?? backend/test_r187_dpbs_runtime.py\n?? backend/test_r188_roi_verification.ts\n?? backend/test_r189_roi_rollback.ts\n?? backend/test_r190_real_verification.ts\n?? backend/test_r191_real_rollback.ts\n?? backend/test_r194_uc_approval_outcome.py\n?? backend/test_r198_feishu_cards.cjs\n?? backend/test_r198_feishu_cards.ts\n?? backend/test_r199_approval_result.ts\n?? backend/test_r201_integration.ts\n?? backend/test_r202_idempotency.ts\n?? backend/test_r203_roi_freshness.ts\n?? backend/test_r204_scoring_accuracy.ts\n?? backend/test_record_outcome.cjs\n?? backend/test_record_outcome.py\n?? backend/test_spawn_compare.cjs\n?? backend/test_spawn_env.cjs\n?? backend/test_spawn_env.js\n?? backend/tests/foundation/\n?? backend/tmp_uc_backflow.json\n?? backend/tmp_uc_backflow.py\n?? baseline.md\n?? boulder.json\n?? crontabs.yaml\n?? docker-compose.yaml\n?? docs/LARK_CLI_INTEGRATION_REPORT.md\n?? docs/testing/\n?? evolution_seams.md\n?? frontend/package-lock.json\n?? gw_scan.py\n?? jest.config.cjs\n?? mcp-bridge.js\n?? memory/\n?? migration_reports/\n?? mission/\n?? openclaw_project/\n?? package-lock.json\n?? package.json\n?? pytest.ini\n?? rtcm/\n?? runbook.md\n?? scratch/\n?? scripts/ci_foundation_check.py\n?? scripts/foundation_diagnose.py\n?? scripts/root_guard.ps1\n?? scripts/root_guard.py\n?? start_deerflow.bat\n?? start_server.mjs\n?? tsconfig.json\n?? vitest.config.ts\n",
+    "audit_jsonl_line_count": 14,
+    "runtime_dir_exists": false
+  },
+  "decision": "approve_closure_with_conditions",
+  "status": "passed_with_warnings",
+  "risk_level": "medium",
+  "generated_at": "2026-04-26T11:13:03.410704+00:00",
+  "validated": true,
+  "validation_errors": []
+}

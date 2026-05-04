@@ -1,0 +1,139 @@
+{
+  "report_id": "R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1",
+  "phase": "phase_19b_foundation_repair_execution_batch1",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_classification": "evidence_only_untracked"
+  },
+  "execution_scope_gate": {
+    "phase": "R241-19B",
+    "scope_class": "foundation_repair_execution_batch1",
+    "execution_allowed": true,
+    "FORBIDDEN_CODE_TOUCH_REQUIRED": false,
+    "no_production_runtime_modules_modified": true,
+    "no_gateway_main_path_modified": true,
+    "no_FastAPI_route_registration_added": true,
+    "no_memory_runtime_modules_modified": true,
+    "no_MCP_runtime_modules_modified": true,
+    "no_DSRT_entries_modified": true,
+    "no_Feishu_real_send_added": true
+  },
+  "pre_existing_failure_triage": {
+    "test_name": "test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path",
+    "classification": "pre_existing_non_blocking",
+    "root_cause": "runtime_activation_readiness.py defaults output_path=None to backend/migration_reports/foundation_audit/, creating R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json artifact from prior session (Apr 27 17:52)",
+    "artifact_file": "backend/migration_reports/foundation_audit/R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json",
+    "artifact_size_bytes": 24269,
+    "artifact_date": "Apr 27 17:52",
+    "artifact_classification": "historical_evidence_file",
+    "artifact_delete_allowed": false,
+    "production_module": "backend/app/foundation/runtime_activation_readiness.py",
+    "module_classification": "production_runtime_module",
+    "module_in_allowed_code_touch_list": false,
+    "can_fix_in_batch1": false,
+    "fix_strategy": "document_pre_existing",
+    "blocker_classification": "CAND-002 (memory readiness blocker) related artifact"
+  },
+  "safety_regression_scan": {
+    "scan_target_patterns": [
+      "mainline_gateway_activation_allowed=true",
+      "enabled=true OR implemented_now=true",
+      "uvicorn.run OR APIRouter OR add_api_route",
+      "requests\\.post.*FEISHU OR requests\\.post.*LARK OR FEISHU_WEBHOOK OR LARK_WEBHOOK"
+    ],
+    "hits": [
+      {
+        "pattern": "mainline_gateway_activation_allowed=true",
+        "match_count": 0,
+        "classification": "clean"
+      },
+      {
+        "pattern": "enabled=true OR implemented_now=true",
+        "match_count": 0,
+        "all_in_test_files": true,
+        "classification": "explanatory_only"
+      },
+      {
+        "pattern": "uvicorn.run OR APIRouter OR add_api_route",
+        "match_count": 0,
+        "all_in_existing_gateway_routers_or_test_files": true,
+        "classification": "explanatory_only"
+      },
+      {
+        "pattern": "requests\\.post.*FEISHU OR requests\\.post.*LARK OR FEISHU_WEBHOOK OR LARK_WEBHOOK",
+        "match_count": 0,
+        "all_in_audit_policy_or_validation_code": true,
+        "classification": "explanatory_only"
+      }
+    ],
+    "new_dangerous_patterns_detected": false,
+    "all_hits_explanatory": true
+  },
+  "modified_file_attribution": {
+    "code_modifications_made": false,
+    "no_new_changes_attributable_to_r241_19b": true,
+    "dirty_tracked_files_origin": "R241-17B and prior sessions — pre-existing evidence",
+    "stash_origin": "R241-17B worktree stash"
+  },
+  "test_results": {
+    "gateway_sidecar_integration_review": {
+      "command": "pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "passed": 48,
+      "failed": 0,
+      "duration_seconds": 0.23
+    },
+    "disabled_stub_dsrt_feishu_audit_trend": {
+      "command": "pytest backend/app/foundation -k \"disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report\" -v",
+      "passed": 96,
+      "failed": 0,
+      "duration_seconds": 2.05
+    },
+    "core_total": {
+      "passed": 144,
+      "failed": 0,
+      "duration_seconds": 2.28
+    },
+    "pre_existing_failure": {
+      "test": "test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path",
+      "status": "failed",
+      "classification": "pre_existing_non_blocking",
+      "artifact": "R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json",
+      "module": "runtime_activation_readiness.py",
+      "module_restricted": true,
+      "cannot_fix_in_batch1": true
+    }
+  },
+  "r241_19c_reentry_conditions": {
+    "phase_19b_execution_completed": true,
+    "all_blockers_preserved": true,
+    "no_runtime_activation_occurred": true,
+    "safety_invariants_clean": true,
+    "pre_existing_failure_documented": true,
+    "allow_enter_r241_19c": true,
+    "blockers_remaining": 8,
+    "next_prompt_needed": "R241-19C_MAINLINE_REPAIR_EXECUTION_BATCH2"
+  },
+  "decision": {
+    "status": "passed_with_warnings",
+    "decision": "approve_foundation_repair_execution_batch1_with_unresolved_preexisting_failure",
+    "warnings": [
+      "pre_existing_failure_in_test_runtime_activation_readiness.py_cannot_be_resolved_in_batch1",
+      "production_module_runtime_activation_readiness.py_is_restricted_by_allowed_code_touch_policy"
+    ],
+    "blockers_remaining": 8,
+    "tests_passed": 144,
+    "tests_failed_pre_existing": 1,
+    "safety_violations": [],
+    "all_execution_surfaces_blocked": true,
+    "allow_enter_r241_19c": true
+  }
+}

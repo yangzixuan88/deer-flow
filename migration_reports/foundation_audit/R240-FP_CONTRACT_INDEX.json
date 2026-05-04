@@ -1,0 +1,147 @@
+{
+  "audit_id": "R240-FP",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "status": "planning_only",
+  "contracts": [
+    {
+      "name": "TruthEvent",
+      "purpose": "Represent execution truth, observation signal, governance signal, rtcm_truth, and asset_quality_signal without semantic collision.",
+      "related_systems": ["Sandbox Executor", "Upgrade Center", "Governance", "RTCM", "Asset", "Nightly"],
+      "input_sources": ["R240-6_TruthEvent.schema.json", "sandbox_execution_result", "upgrade_center outcomes", "RTCM signoff/final_report", "asset scores"],
+      "output_artifacts": ["TruthEvent plan", "truth source mapping"],
+      "dependencies": ["StateEvent", "OutcomeContract"],
+      "unresolved_questions": ["Exact migration order from legacy actual fields to typed truth events"],
+      "user_confirmed_principles": ["Separate actual execution truth from observation and governance signals"]
+    },
+    {
+      "name": "StateEvent",
+      "purpose": "Represent lifecycle state changes separately from truth and outcome semantics.",
+      "related_systems": ["Queue", "Watchdog", "Governance", "Workflow", "Task", "Asset", "Memory"],
+      "input_sources": ["R240-6_StateEvent.schema.json", "queue snapshots", "watchdog health", "asset lifecycle states"],
+      "output_artifacts": ["StateEvent plan", "state transition mapping"],
+      "dependencies": ["TruthEvent", "OutcomeContract"],
+      "unresolved_questions": ["Canonical status enum alignment across TS and Python chains"],
+      "user_confirmed_principles": ["State/status must not be mixed with success/truth"]
+    },
+    {
+      "name": "OutcomeContract",
+      "purpose": "Normalize result records and map truth, state, score, and governance outcomes into one contract boundary.",
+      "related_systems": ["Governance", "Upgrade Center", "Sandbox", "RTCM", "Asset", "Nightly"],
+      "input_sources": ["R240-6_OutcomeContract.json", "governance_state.json", "upgrade_center_result artifacts"],
+      "output_artifacts": ["OutcomeContract plan"],
+      "dependencies": ["TruthEvent", "StateEvent"],
+      "unresolved_questions": ["Which legacy records require wrapper-only mapping vs future schema migration"],
+      "user_confirmed_principles": ["Outcome fields require typed semantic meaning"]
+    },
+    {
+      "name": "MemoryLayerContract",
+      "purpose": "Define OpenClaw native + DeerFlow cognitive dual-track memory and L1-L5 responsibilities.",
+      "related_systems": ["Memory", "DeerFlow Harness", "OpenClaw TS Domain", "Gateway", "Nightly", "Asset"],
+      "input_sources": ["R240-MA_MEMORY_DEEP_AUDIT.md", "R240-MA_MemoryLayerMap.json"],
+      "output_artifacts": ["MemoryLayerContract plan"],
+      "dependencies": ["OutcomeContract"],
+      "unresolved_questions": ["How to expose L1-L5 across existing runtime stores without destructive migration"],
+      "user_confirmed_principles": ["Do not reduce memory to MemoryMiddleware or Qdrant"]
+    },
+    {
+      "name": "MemoryScopeContract",
+      "purpose": "Define memory scope, read policy, write policy, retention, quarantine, and asset-promotion gates.",
+      "related_systems": ["Memory", "Mode", "Asset", "Prompt", "Nightly", "Governance"],
+      "input_sources": ["R240-MA_MemoryDesignCodeRuntimeGap.md", "R240-3_CONTEXT_CONTRACT.md"],
+      "output_artifacts": ["MemoryScopeContract plan", "ReadPolicy plan", "WritePolicy plan", "RetentionPolicy plan"],
+      "dependencies": ["MemoryLayerContract", "ModeOrchestrationContract"],
+      "unresolved_questions": ["Exact per-mode default memory scopes"],
+      "user_confirmed_principles": ["Long-term memory cleanup requires quarantine/observation before deletion"]
+    },
+    {
+      "name": "AssetLifecycleContract",
+      "purpose": "Define A1-A9 categories, five lifecycle tiers, required fields, state changes, verification, and tier protection.",
+      "related_systems": ["Asset", "DPBS", "Governance", "Upgrade Center", "RTCM", "Memory", "Prompt"],
+      "input_sources": ["R240-MA_ASSET_DEEP_AUDIT.md", "R240-MA_AssetLifecycleMap.json"],
+      "output_artifacts": ["AssetLifecycleContract plan"],
+      "dependencies": ["OutcomeContract", "MemoryLayerContract"],
+      "unresolved_questions": ["Canonical registry target and compatibility with DPBS operation assets"],
+      "user_confirmed_principles": ["DPBS is a sub-chain, not complete Asset System"]
+    },
+    {
+      "name": "AssetPromotionContract",
+      "purpose": "Define asset candidate validation, scoring, CAPTURED, DERIVED, FIX, promotion, observation, and retirement rules.",
+      "related_systems": ["Asset", "Memory", "RTCM", "Governance", "Nightly", "Prompt"],
+      "input_sources": ["R240-MA_AssetPromotionEliminationRules.json", "R240-MA_MemoryAssetRelationMap.md"],
+      "output_artifacts": ["AssetPromotionContract plan"],
+      "dependencies": ["AssetLifecycleContract", "TruthEvent", "OutcomeContract"],
+      "unresolved_questions": ["Exact user confirmation threshold for Premium to Core promotion"],
+      "user_confirmed_principles": ["RTCM final_report, governance outcome, and memory facts are candidates first, not assets"]
+    },
+    {
+      "name": "ModeOrchestrationContract",
+      "purpose": "Define peer-mode orchestration across search, task, workflow, autonomous agent, and roundtable.",
+      "related_systems": ["M01", "M04", "RTCM", "DeerFlow Harness", "Gateway", "Frontend", "Feishu"],
+      "input_sources": ["R240-2_INTENT_MODE_CONTRACT.md", "R240-4_5_ENTRY_GRAPH.json", "R240-4_5_INVOKE_GRAPH.json"],
+      "output_artifacts": ["ModeOrchestrationContract plan"],
+      "dependencies": ["MemoryScopeContract", "AssetLifecycleContract", "TruthEvent"],
+      "unresolved_questions": ["Exact wrapper placement for first non-invasive implementation"],
+      "user_confirmed_principles": ["Five modes are peer domains and can nest/call/hand off"]
+    },
+    {
+      "name": "ModeInvocation",
+      "purpose": "Represent each mode call, including parent/child relation, executor, permissions, and result sink.",
+      "related_systems": ["Mode", "M01", "M04", "RTCM", "DeerFlow", "Tool Runtime"],
+      "input_sources": ["R240-2_ModeDecision.schema.json", "R240-2_ModeExecutionResult.schema.json"],
+      "output_artifacts": ["ModeInvocation schema plan"],
+      "dependencies": ["ModeOrchestrationContract", "ToolExecutionEvent"],
+      "unresolved_questions": ["How much legacy selected_mode compatibility to preserve"],
+      "user_confirmed_principles": ["Child mode returns to parent by default"]
+    },
+    {
+      "name": "ModeCallGraph",
+      "purpose": "Represent nested mode calls and cross-mode handoffs in one conversation or workflow.",
+      "related_systems": ["Mode", "Context", "Memory", "Asset", "Nightly", "Governance"],
+      "input_sources": ["R240-4_5_INVOKE_GRAPH.json", "R240-3_ContextLink.schema.json"],
+      "output_artifacts": ["ModeCallGraph schema plan"],
+      "dependencies": ["ModeInvocation", "ContextEnvelope"],
+      "unresolved_questions": ["Graph storage location and retention policy"],
+      "user_confirmed_principles": ["Single selected_mode is not sufficient as final model"]
+    },
+    {
+      "name": "AutonomousToolRuntimeContract",
+      "purpose": "Define high-autonomy tool execution policy, risk classes, backup/rollback gates, and audit events.",
+      "related_systems": ["Tool Runtime", "Sandbox", "RootGuard", "Governance", "Nightly", "M11"],
+      "input_sources": ["R240-4_5_RUNTIME_ARTIFACT_GRAPH.json", "sandbox executor facts", "RootGuard rules"],
+      "output_artifacts": ["AutonomousToolRuntimeContract plan", "ToolPolicy plan", "ToolExecutionEvent plan"],
+      "dependencies": ["TruthEvent", "OutcomeContract", "ModeInvocation"],
+      "unresolved_questions": ["Exact protected operation list by tool type"],
+      "user_confirmed_principles": ["Risk control relies on backup/rollback/audit/review rather than frequent prompting"]
+    },
+    {
+      "name": "PromptGovernanceContract",
+      "purpose": "Define prompt precedence, SOUL.md role, GEPA/DSPy safety, prompt asset lifecycle, and rollback rules.",
+      "related_systems": ["Prompt", "M09", "Asset", "Memory", "Nightly", "Governance"],
+      "input_sources": ["R240-4_5_MEMORY_PROMPT_TOOL_MAP.md", "R240-MA_ASSET_DEEP_AUDIT.md"],
+      "output_artifacts": ["PromptGovernanceContract plan"],
+      "dependencies": ["AssetPromotionContract", "AutonomousToolRuntimeContract"],
+      "unresolved_questions": ["Canonical prompt registry and promotion test suite"],
+      "user_confirmed_principles": ["P1 hard constraints are highest; SOUL.md is not highest override"]
+    },
+    {
+      "name": "NightlyReviewContract",
+      "purpose": "Expand Nightly Review into full Foundation Health Review and action queue generator.",
+      "related_systems": ["Upgrade Center", "Nightly", "Asset", "Memory", "Prompt", "RTCM", "Governance", "Tool Runtime"],
+      "input_sources": ["Upgrade Center reports", "R240-MA_FOUNDATION_IMPLICATIONS.md", "R240-4_5_RUNTIME_ARTIFACT_GRAPH.json"],
+      "output_artifacts": ["NightlyReviewContract plan", "FoundationHealthReport plan", "ActionQueue plan"],
+      "dependencies": ["AssetPromotionContract", "MemoryScopeContract", "PromptGovernanceContract", "AutonomousToolRuntimeContract"],
+      "unresolved_questions": ["Which low-risk checks can be auto-executed without user confirmation"],
+      "user_confirmed_principles": ["Nightly cannot directly execute high-risk repairs"]
+    },
+    {
+      "name": "RTCMIntegrationContract",
+      "purpose": "Bind RTCM as the current main roundtable executor and define roundtable truth, asset candidates, followup, and governance mapping.",
+      "related_systems": ["RTCM", "Roundtable", "Mode", "Asset", "Governance", "Nightly", "Feishu"],
+      "input_sources": ["R240-4_5_RTCM_DEEP_MAP.md", "RTCM dossier artifacts", "R240-2_INTENT_MODE_CONTRACT.md"],
+      "output_artifacts": ["RTCMIntegrationContract plan"],
+      "dependencies": ["ModeOrchestrationContract", "AssetPromotionContract", "TruthEvent"],
+      "unresolved_questions": ["Exact user-confirmation gate for RTCM followup tasks"],
+      "user_confirmed_principles": ["RTCM final_report is an asset candidate, not an automatic asset"]
+    }
+  ]
+}

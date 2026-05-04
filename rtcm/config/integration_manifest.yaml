@@ -1,0 +1,34 @@
+bundle_id: "rtcm_config_bundle_v1_1_audited"
+bundle_name: "RTCM 接入配置汇总包（审计修正版）"
+recommended_roots:
+  - "./rtcm"
+  - "~/.deerflow/roundtable"
+
+load_order:
+  - "config/role_registry.final.yaml"
+  - "config/agent_registry.rtcm.final.yaml"
+  - "config/issue_debate_protocol.final.yaml"
+  - "config/project_dossier_schema.final.yaml"
+  - "config/prompt_loader_and_assembly_spec.final.yaml"
+  - "config/runtime_orchestrator_spec.final.yaml"
+  - "config/feishu_rendering_spec.final.yaml"
+
+prompt_root_default: "./rtcm/prompts"
+dossier_root_default: "./rtcm/examples/ai_manju_project/project_dossier"
+example_root: "./rtcm/examples/ai_manju_project"
+
+minimum_integration_steps:
+  - "load configs"
+  - "load prompts"
+  - "init runtime state"
+  - "init project dossier"
+  - "run fixed speaking order"
+  - "write issue card"
+  - "write validation run"
+  - "write brief/final report"
+  - "validate bundle integrity"
+
+defer_until_later:
+  - "feishu card renderer"
+  - "nightly deep optimization"
+  - "main router deep replacement"

@@ -1,0 +1,116 @@
+{
+  "phase": "R147K",
+  "title": "TAVILY_STDIO_FIX",
+  "status": "passed",
+  "preceded_by": "R147J",
+  "proceeding_to": "R147L_MCP_STATUS_SUMMARY",
+  "pressure_assessment": {
+    "previous_phase": "R147J",
+    "current_phase": "R147K",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147J",
+    "current_phase": "R147K",
+    "recommended_pressure": "XXL",
+    "reason": "Tavily stdio fix ready; apply patch and smoke test"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked",
+    "r147a_commit_present": true,
+    "extensions_config_dirty": true,
+    "safe_to_continue": true,
+    "authorized_modified_files": ["backend/extensions_config.json"],
+    "note": "R147I commit 30345631, R147J reports written"
+  },
+  "lane_2_config_patch_applied": {
+    "patch_file": "backend/extensions_config.json",
+    "from_type": "sse",
+    "to_type": "stdio",
+    "from_url": "https://mcp.tavily.com/mcp",
+    "to_url": null,
+    "command": "npx.cmd",
+    "args": ["-y", "tavily-mcp@latest"],
+    "env_var_auth": true,
+    "key_in_url": false,
+    "only_tavily_enabled": true
+  },
+  "lane_3_static_config_validation": {
+    "json_parse_passed": true,
+    "extensions_config_load_passed": true,
+    "only_tavily_enabled": true,
+    "tavily_type": "stdio",
+    "tavily_command": "npx.cmd",
+    "tavily_args_correct": true,
+    "secret_values_printed": false
+  },
+  "lane_4_tavily_runtime_tool_list": {
+    "mcp_cache_reset": true,
+    "tools_loaded": 5,
+    "tavily_tool_found": true,
+    "tavily_tool_name": "tavily_tavily_search",
+    "lark_called": false,
+    "exa_called": false,
+    "startup_error": null
+  },
+  "lane_5_smoke_test_execution": {
+    "smoke_test_invoked": true,
+    "tool_name": "tavily_tavily_search",
+    "params": {"query": "OpenAI"},
+    "elapsed_seconds": 8.80,
+    "result_type": "list",
+    "result_count": 1,
+    "first_result_keys": ["type", "text", "id"],
+    "smoke_status": "passed",
+    "env_var_auth_working": true
+  },
+  "lane_6_result_verification": {
+    "search_returned_real_results": true,
+    "result_content_quality": "high (SAS, IBM, Wikipedia articles)",
+    "ai_search_results": [
+      "SAS: Artificial Intelligence - what it is and why it matters",
+      "IBM: What Is Artificial Intelligence (AI)?",
+      "Wikipedia: Artificial Intelligence",
+      "Notre Dame Learning: AI Overview and Definitions",
+      "People Powered: What do we mean by AI?"
+    ],
+    "key_in_url": false,
+    "env_var_auth": true
+  },
+  "lane_7_commit": {
+    "commit_created": true,
+    "commit_sha": "da4b7565",
+    "committed_files": ["extensions_config.json"],
+    "commit_message": "chore(mcp): switch Tavily from SSE to stdio transport",
+    "uncommitted_files_excluded": ["run_r147k.py", "migration_reports/*.json", "migration_reports/*.md"]
+  },
+  "lane_8_next_phase_decision": {
+    "if_result": "passed - Tavily stdio working",
+    "recommended_next_phase": "R147L_MCP_STATUS_SUMMARY",
+    "rationale": "Tavily now working via stdio transport. R147L should summarize MCP status: Lark (SDK bug, paused), Tavily (working via stdio), Exa (missing credentials)."
+  },
+  "lane_9_unknown_registry_updates": [
+    {
+      "id": "U-tavily-stdio-fix-verified",
+      "description": "Switch from type=sse to type=stdio with npx.cmd + tavily-mcp@latest verified working",
+      "priority": "high",
+      "fix_applied": "R147K: stdio fix applied and smoke test passed"
+    }
+  ],
+  "classification": "passed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": true,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": true,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true
+}

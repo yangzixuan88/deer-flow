@@ -1,0 +1,116 @@
+{
+  "phase": "R135B",
+  "title": "AUTH_MIDDLEWARE_INTERNAL_AUTH_ORDER_FIX",
+  "status": "passed",
+  "preceded_by": "R135",
+  "proceeding_to": "R135C",
+  "pressure_assessment": {
+    "previous_phase": "R135",
+    "current_status": "passed",
+    "recommended_pressure": "XXL++",
+    "reason": "Minimal production logic repair; internal auth ordering defect blocks Option C harness."
+  },
+  "scope_gate": {
+    "scope_gate_passed": true,
+    "target_file": "backend/app/gateway/auth_middleware.py",
+    "bug_confirmed": true,
+    "allowed_files": [
+      "backend/app/gateway/auth_middleware.py"
+    ],
+    "forbidden_files": [
+      "csrf_middleware.py",
+      "authz.py",
+      "app.py",
+      "deps.py",
+      "routers/*.py",
+      "config.yaml",
+      ".env"
+    ]
+  },
+  "lane_2_pre_fix_reproduction": {
+    "pre_fix_reproduced": true,
+    "pre_fix_status": 401,
+    "pre_fix_error_summary": "not_authenticated — internal auth header blocked by access_token requirement"
+  },
+  "lane_3_fix": {
+    "fix_applied": true,
+    "fix_type": "internal_auth_precedes_cookie_jwt_path",
+    "modified_files": [
+      "backend/app/gateway/auth_middleware.py"
+    ],
+    "description": "Moved internal_user detection before access_token cookie check; internal_user takes priority over JWT path; JWT path only reached when internal_user is None"
+  },
+  "lane_4_static_validation": {
+    "py_compile_passed": true,
+    "ast_parse_passed": true,
+    "auth_middleware_import_passed": true,
+    "gateway_app_import_passed": true,
+    "testclient_passed": true,
+    "health_200": true
+  },
+  "lane_5_control_tests": {
+    "without_csrf_status": 403,
+    "without_auth_status": 401,
+    "with_auth_csrf_status": 503,
+    "csrf_still_enforced": true,
+    "auth_internal_header_works": true,
+    "auth_jwt_path_preserved": true,
+    "detail": "CSRF correctly blocks without token; auth correctly blocks without cred; internal auth+CSRF now passes auth (gets 503 for store, not 401)"
+  },
+  "lane_6_create_thread_recheck": {
+    "create_thread_recheck_attempted": true,
+    "create_thread_status": 503,
+    "auth_blocked": false,
+    "csrf_blocked": false,
+    "thread_created": false,
+    "thread_id": "missing",
+    "next_blocker_after_auth": "store_not_initialized (503 — Checkpointer not available)",
+    "detail": "Auth fixed — no longer 401. Next blocker is store initialization, not auth."
+  },
+  "lane_7_runs_feasibility": {
+    "post_runs_attempted": false,
+    "requires_R136_model_authorization": true,
+    "model_api_called": false,
+    "detail": "POST /runs would trigger worker; auth fix validated, model risk requires R136"
+  },
+  "lane_8_regression_guard": {
+    "regression_guard_passed": true,
+    "csrf_behavior_changed": false,
+    "auth_flags_changed": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false
+  },
+  "lane_9_commit": {
+    "commit_created": true,
+    "commit_sha": "2e1a69da",
+    "push_executed": false
+  },
+  "result": {
+    "r135b_result": "passed",
+    "auth_middleware_fixed": true,
+    "csrf_preserved": true,
+    "jwt_path_preserved": true,
+    "internal_auth_works": true
+  },
+  "constraints": {
+    "code_modified": true,
+    "modified_file": "backend/app/gateway/auth_middleware.py",
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R135B_AUTH_MIDDLEWARE_INTERNAL_AUTH_ORDER_FIX.md",
+    "migration_reports/recovery/R135B_AUTH_MIDDLEWARE_INTERNAL_AUTH_ORDER_FIX.json"
+  ],
+  "recommended_next_phase": "R135C_AUTH_CSRF_HARNESS_HTTP_ENDPOINT_RETRY",
+  "next_prompt_needed": "R135C"
+}

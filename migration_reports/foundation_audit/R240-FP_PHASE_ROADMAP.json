@@ -1,0 +1,129 @@
+{
+  "audit_id": "R240-FP",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "status": "planning_only",
+  "route_principle": "当前仍然不开始实施。本轮只生成工程规划文件。所有 contract 设计完成并经用户审查后，才允许进入实施。实施必须分阶段、可回滚、可验证。",
+  "phases": [
+    {
+      "phase_id": "Phase 0",
+      "name": "已完成主根唯一化",
+      "goal": "确认 Repository Root Split 已解决，deerflow 是唯一主根。",
+      "inputs": ["R240-0 root consolidation reports", "RootGuard validation", "workspace validation"],
+      "outputs": ["root uniqueness baseline"],
+      "dependencies": [],
+      "risks": ["runtime artifact roots still need contract-level normalization"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 1",
+      "name": "Truth / State Contract",
+      "goal": "定义 TruthEvent、StateEvent、OutcomeContract，区分 predicted、actual、state、status、success、signal、outcome。",
+      "inputs": ["R240-6_TRUTH_STATE_CONTRACT.md", "R240-6_TruthEvent.schema.json", "R240-6_StateEvent.schema.json", "R240-6_OutcomeContract.json"],
+      "outputs": ["TruthEvent plan", "StateEvent plan", "OutcomeContract plan", "truth/source mapping review"],
+      "dependencies": ["Phase 0"],
+      "risks": ["actual fields may continue to mix execution truth and observation signal if wrappers are implemented too early"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 2",
+      "name": "Memory Layer + Scope Contract",
+      "goal": "基于 OpenClaw native + DeerFlow cognitive 双轨和 L1-L5 定义 MemoryLayerContract、MemoryScope、ReadPolicy、WritePolicy、RetentionPolicy。",
+      "inputs": ["R240-MA_MEMORY_DEEP_AUDIT.md", "R240-MA_MemoryLayerMap.json", "R240-MA_MemoryDesignCodeRuntimeGap.md"],
+      "outputs": ["MemoryLayerContract plan", "MemoryScopeContract plan", "Memory retention and quarantine rules"],
+      "dependencies": ["Phase 1"],
+      "risks": ["treating MemoryMiddleware or Qdrant as the whole memory system", "unsafe cleanup of long-term memory"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 3",
+      "name": "Asset Lifecycle Contract",
+      "goal": "基于 A1-A9 和 Record/General/Available/Premium/Core 定义 AssetLifecycleContract 和 AssetPromotionContract。",
+      "inputs": ["R240-MA_ASSET_DEEP_AUDIT.md", "R240-MA_AssetLifecycleMap.json", "R240-MA_AssetPromotionEliminationRules.json"],
+      "outputs": ["AssetLifecycleContract plan", "AssetPromotionContract plan", "asset retirement protection rules"],
+      "dependencies": ["Phase 1", "Phase 2"],
+      "risks": ["treating DPBS as complete asset system", "promoting candidates without verification", "auto-retiring Core assets"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 4",
+      "name": "Mode Orchestration Contract",
+      "goal": "定义五大模式并列协同、primary_mode、active_modes、ModeInvocation、ModeCallGraph、子模式返回父模式。",
+      "inputs": ["R240-2_INTENT_MODE_CONTRACT.md", "R240-4_5_ENTRY_GRAPH.json", "R240-4_5_INVOKE_GRAPH.json"],
+      "outputs": ["ModeOrchestrationContract plan", "ModeInvocation plan", "ModeCallGraph plan"],
+      "dependencies": ["Phase 1", "Phase 2", "Phase 3"],
+      "risks": ["single selected_mode model may be too narrow", "premature replacement of M01/M04/RTCM"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 5",
+      "name": "Autonomous Tool Runtime Contract",
+      "goal": "定义高放权工具运行策略、ToolExecutionEvent、ToolPolicy、RootGuard binding rules、备份回滚要求。",
+      "inputs": ["R240-4_5_RUNTIME_ARTIFACT_GRAPH.json", "RootGuard validation", "sandbox executor facts", "governance learning facts"],
+      "outputs": ["AutonomousToolRuntimeContract plan", "ToolExecutionEvent plan", "ToolPolicy plan"],
+      "dependencies": ["Phase 1", "Phase 4"],
+      "risks": ["irreversible side effects without backup", "over-prompting user and reducing autonomy"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 6",
+      "name": "Prompt Governance Contract",
+      "goal": "定义 M09 P1-P6 prompt precedence、SOUL.md role、GEPA/DSPy backup/rollback、prompt asset promotion rules。",
+      "inputs": ["R240-4_5_MEMORY_PROMPT_TOOL_MAP.md", "R240-MA_ASSET_DEEP_AUDIT.md"],
+      "outputs": ["PromptGovernanceContract plan", "prompt asset lifecycle binding"],
+      "dependencies": ["Phase 2", "Phase 3", "Phase 5"],
+      "risks": ["silent prompt replacement", "prompt assets bypassing verification"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 7",
+      "name": "RTCM / Roundtable Integration Contract",
+      "goal": "将 RTCM 明确绑定为 roundtable mode 当前主要 executor，并定义 rtcm_truth、final_report asset candidate、followup 和 governance 关系。",
+      "inputs": ["R240-4_5_RTCM_DEEP_MAP.md", "RTCM dossier artifacts", "R240-2_INTENT_MODE_CONTRACT.md"],
+      "outputs": ["RTCMIntegrationContract plan", "roundtable truth mapping", "RTCM asset candidate rules"],
+      "dependencies": ["Phase 1", "Phase 3", "Phase 4"],
+      "risks": ["RTCM bypassing ModeCallGraph", "final_report being promoted without verification"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 8",
+      "name": "Nightly Foundation Health Review",
+      "goal": "将 Nightly Review 从 UC 局部复盘升级为覆盖模式、工具、资产、记忆、提示词、RTCM、Governance、Runtime Artifact 的系统健康复盘。",
+      "inputs": ["Upgrade Center reports", "R240-MA_FOUNDATION_IMPLICATIONS.md", "R240-4_5_RUNTIME_ARTIFACT_GRAPH.json"],
+      "outputs": ["NightlyReviewContract plan", "foundation health action queue plan", "Feishu summary plan"],
+      "dependencies": ["Phase 1", "Phase 2", "Phase 3", "Phase 5", "Phase 6", "Phase 7"],
+      "risks": ["Nightly executing high-risk fixes automatically", "asset/memory/prompt changes without review"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 9",
+      "name": "Implementation Readiness Review",
+      "goal": "确认所有 contract 已经审查，实施范围、测试、回滚、验收标准完整。",
+      "inputs": ["all prior contract plans", "risk and rollback plan", "test strategy"],
+      "outputs": ["implementation readiness checklist", "phase-by-phase execution approval gates"],
+      "dependencies": ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7", "Phase 8"],
+      "risks": ["entering implementation before contracts are decision-complete"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    },
+    {
+      "phase_id": "Phase 10",
+      "name": "分阶段实施",
+      "goal": "在用户逐阶段确认后实施，不在 R240-FP 规划轮中执行。",
+      "inputs": ["Implementation Readiness Review approval"],
+      "outputs": ["future staged implementation tasks"],
+      "dependencies": ["Phase 9"],
+      "risks": ["scope creep", "non-reversible changes", "missing runtime verification"],
+      "user_confirmation_required": true,
+      "implementation_allowed": false
+    }
+  ]
+}

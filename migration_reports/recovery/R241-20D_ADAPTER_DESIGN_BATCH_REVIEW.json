@@ -1,0 +1,251 @@
+{
+  "report_id": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW",
+  "phase": "phase_20d_adapter_design_batch_review",
+  "status": "passed_design_review_completed",
+  "decision": "approve_adapter_design_batch_review",
+  "source": "R241-20C_LOW_RISK_DEBT_CLOSEOUT_BATCH",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "dirty_tracked_count": 329,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "worktree_list": [
+      "E:/OpenClaw-Base/deerflow 0bb97b51 [main]"
+    ]
+  },
+  "preconditions_from_r241_20c": {
+    "r241_20c_status": "passed_with_pending_cleanup_authorization",
+    "decision": "approve_low_risk_debt_closeout_with_cleanup_pending",
+    "cleanup_executed": false,
+    "adapter_lane_ready": true,
+    "allow_enter_r241_20d": true,
+    "all_preconditions_met": true
+  },
+  "adapter_design_batch_review_scope": {
+    "current_round": "R241-20D",
+    "mode": "adapter_design_review_only",
+    "design_only": true,
+    "apply_allowed": false,
+    "batch_mode": true,
+    "allowed_actions": [
+      "extract adapter candidates from R241-19H lane_2",
+      "review adapter design requirements per candidate",
+      "assess local customization conflicts",
+      "identify protected path conflicts",
+      "assess runtime context requirements",
+      "generate adapter design review report"
+    ],
+    "forbidden_actions": [
+      "actual patch apply",
+      "code overwrite",
+      "runtime activation",
+      "dependency install",
+      "blocker override",
+      "production service start"
+    ]
+  },
+  "adapter_candidates_lane_2": {
+    "source": "R241-19H lane_assignment_matrix lane_2_adapter_design_review",
+    "candidate_count": 10,
+    "candidates": [
+      {
+        "candidate_id": "CAND-001",
+        "path": "backend/app/gateway/auth/__init__.py",
+        "classification": "adapter_only",
+        "design_conflict": "new auth module directory; conflicts with local gateway custom auth",
+        "design_required": "local gateway auth integration adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-002",
+        "path": "backend/app/gateway/auth/jwt.py",
+        "classification": "adapter_only",
+        "design_conflict": "new JWT auth module; needs adapter for local auth middleware integration",
+        "design_required": "auth middleware integration adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-004",
+        "path": "backend/app/gateway/auth/reset_admin.py",
+        "classification": "adapter_only",
+        "design_conflict": "privileged admin reset; requires careful handling",
+        "design_required": "privileged auth review adapter",
+        "blockers_implicated": [],
+        "protected_path": false,
+        "privileged": true
+      },
+      {
+        "candidate_id": "CAND-005",
+        "path": "backend/app/gateway/auth_middleware.py",
+        "classification": "adapter_only",
+        "design_conflict": "new auth middleware; adapter required for local gateway integration",
+        "design_required": "gateway integration adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-006",
+        "path": "backend/app/gateway/langgraph_auth.py",
+        "classification": "adapter_only",
+        "design_conflict": "auth integration with LangGraph",
+        "design_required": "LangGraph integration adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-014",
+        "path": "backend/packages/harness/deerflow/runtime/events/store/memory.py",
+        "classification": "adapter_only",
+        "design_conflict": "in-memory event store; local runtime context required",
+        "design_required": "runtime context adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-015",
+        "path": "backend/packages/harness/deerflow/runtime/journal.py",
+        "classification": "adapter_only",
+        "design_conflict": "runtime journal; local runtime context required",
+        "design_required": "runtime context adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-019",
+        "path": "backend/app/gateway/services.py",
+        "classification": "adapter_only",
+        "design_conflict": "gateway services modification; protected path conflict",
+        "design_required": "protected path gateway services adapter",
+        "blockers_implicated": [],
+        "protected_path": true
+      },
+      {
+        "candidate_id": "CAND-022",
+        "path": "backend/langgraph.json",
+        "classification": "adapter_only",
+        "design_conflict": "config change for persistence layer",
+        "design_required": "persistence layer config adapter",
+        "blockers_implicated": [],
+        "protected_path": false
+      },
+      {
+        "candidate_id": "CAND-023",
+        "path": "backend/app/gateway/auth/providers.py",
+        "classification": "adapter_only",
+        "design_conflict": "auth provider with privileged setup",
+        "design_required": "privileged auth provider adapter",
+        "blockers_implicated": [],
+        "protected_path": false,
+        "privileged": true
+      }
+    ],
+    "adapter_design_required": [
+      "CAND-001 (auth module — local gateway custom auth conflict)",
+      "CAND-002 (auth/jwt.py — local auth middleware integration)",
+      "CAND-004 (auth/reset_admin.py — privileged auth review)",
+      "CAND-005 (auth_middleware.py — local gateway integration)",
+      "CAND-006 (langgraph_auth.py — adapter for LangGraph integration)",
+      "CAND-014 (runtime/events/store/memory.py — local runtime context)",
+      "CAND-015 (runtime/journal.py — local runtime context)",
+      "CAND-019 (gateway/services.py — protected path)",
+      "CAND-022 (langgraph.json — persistence layer config)",
+      "CAND-023 (auth/providers.py — privileged auth provider)"
+    ],
+    "privileged_auth_review_required": ["CAND-004", "CAND-023"],
+    "protected_path_conflicts": ["CAND-019"],
+    "runtime_context_conflicts": ["CAND-014", "CAND-015"]
+  },
+  "other_lanes_summary": {
+    "lane_3_dependency_quarantine_review": {
+      "candidate_count": 1,
+      "candidates": ["CAND-016"],
+      "path": "backend/pyproject.toml",
+      "next_round": "R241-20E_DEPENDENCY_RISK_REVIEW"
+    },
+    "lane_4_forbidden_runtime_unblock_review": {
+      "candidate_count": 9,
+      "candidates": ["CAND-007", "CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-018", "CAND-024"],
+      "blockers_implicated": ["SURFACE-010", "GSIC-003", "GSIC-004"],
+      "next_round": "R241-20F_FORBIDDEN_RUNTIME_UNBLOCK_PLANNING"
+    }
+  },
+  "design_review_findings": {
+    "total_adapter_candidates": 10,
+    "auth_related": 6,
+    "runtime_related": 2,
+    "config_related": 1,
+    "gateway_services": 1,
+    "privileged_review_required": 2,
+    "protected_path_conflict": 1,
+    "no_blockers_implicated": true,
+    "design_phase_appropriate": true
+  },
+  "next_lane_priority": [
+    {
+      "rank": 1,
+      "round": "R241-20E_DEPENDENCY_RISK_REVIEW",
+      "reason": "dependency (CAND-016) quarantined; install forbidden until reviewed"
+    },
+    {
+      "rank": 2,
+      "round": "R241-20F_FORBIDDEN_RUNTIME_UNBLOCK_PLANNING",
+      "reason": "9 forbidden candidates quarantined; planning only"
+    },
+    {
+      "rank": 3,
+      "round": "R241-20G_PUSH_AUTHORIZATION_REVIEW",
+      "reason": "external side effect; defer until local stability"
+    }
+  ],
+  "test_results": {
+    "design_review_only": true,
+    "no_tests_required": true,
+    "tests_passed": 0,
+    "tests_failed": 0
+  },
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "design_only": true,
+    "no_apply_executed": true,
+    "blockers_preserved": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "final_decision": {
+    "status": "passed_design_review_completed",
+    "decision": "approve_adapter_design_batch_review",
+    "adapter_candidates_catalogued": 10,
+    "design_only": true,
+    "apply_executed": false,
+    "tests_passed": 0,
+    "tests_failed": 0,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "allow_enter_next_phase": true,
+    "recommended_resume_point": "R241-20D",
+    "next_prompt_needed": "R241-20E_DEPENDENCY_RISK_REVIEW"
+  }
+}

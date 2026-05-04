@@ -1,0 +1,429 @@
+{
+  "report_id": "R241-18Z_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW",
+  "status": "passed",
+  "decision": "activation_gate_review_completed_blocked_as_expected",
+  "source": "R241-18Y_MAINLINE_RESUME_FINAL_AUTHORIZATION_DEED_REVIEW",
+  "phase": "phase_19_mainline_resume_activation_gate_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18y_passed": true,
+    "final_deed_review_passed": true,
+    "deed_non_executable": true,
+    "activation_excluded": true,
+    "all_blockers_intact": true,
+    "allow_enter_r241_18z": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "activation_gate_review_scope": {
+    "current_round": "R241-18Z",
+    "mode": "activation_gate_review_only",
+    "actual_activation_allowed": false,
+    "activation_execution_allowed": false,
+    "blocker_override_allowed": false,
+    "production_code_change_allowed": false,
+    "allowed_scope": [
+      "final activation eligibility review",
+      "blocker gate matrix",
+      "activation denial / approval reason matrix",
+      "R241-18 closure summary",
+      "R241-19A re-entry readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual activation",
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "DSRT enablement",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "mainline_gateway_activation_allowed=true",
+      "blocker override",
+      "production code change",
+      "concrete activation command"
+    ]
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18Y final deed carryover",
+      "source_round": "R241-18Y",
+      "required_evidence": "R241-18Y status=passed, final_deed_review_passed=true, deed_non_executable=true, activation_excluded=true, all_blockers_intact=true, allow_enter_r241_18z=true",
+      "observed_state": "R241-18Y JSON confirmed: status=passed, decision=approve_final_authorization_deed_review, final_deed_review_passed=true, deed_non_executable=true, activation_excluded=true, all_blockers_intact=true, review_objects_A_to_L=12/12 passed, allow_enter_r241_18z=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Activation gate review scope",
+      "source_round": "R241-18Z",
+      "required_evidence": "mode=activation_gate_review_only, actual_activation_allowed=false, activation_execution_allowed=false",
+      "observed_state": "activation_gate_review_scope defined: current_round=R241-18Z, mode=activation_gate_review_only, actual_activation_allowed=false, activation_execution_allowed=false, blocker_override_allowed=false, production_code_change_allowed=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Actual activation eligibility check",
+      "source_round": "R241-18Z",
+      "required_evidence": "eligible=false when blockers are intact, no activation authorized without blocker resolution",
+      "observed_state": "actual_activation_eligibility assessed: eligible=false, blockers_remaining=8 (SURFACE-010, CAND-002, CAND-003, GSIC-003, GSIC-004, MAINLINE-GATEWAY-ACTIVATION, DSRT-ENABLED, DSRT-IMPLEMENTED), missing_conditions=['SURFACE-010 dedicated memory readiness review not passed', 'CAND-002 dedicated memory readiness review not passed', 'CAND-003 dedicated MCP readiness review not passed', 'GSIC-003 dedicated gateway sidecar integration review not passed', 'GSIC-004 dedicated FastAPI route registration review not passed', 'MAINLINE-GATEWAY-ACTIVATION not explicitly approved after all gates', 'DSRT-ENABLED dedicated DSRT activation review not passed', 'DSRT-IMPLEMENTED dedicated DSRT activation review not passed', 'explicit user activation approval not provided in current conversation'], activation_denial_reason=blockers_intact, actual_activation_allowed=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Blocker gate matrix",
+      "source_round": "R241-18Z",
+      "required_evidence": "All 8 blockers remain intact, none can be overridden by this review",
+      "observed_state": "blocker_gate_matrix reviewed: 8/8 blockers intact — SURFACE-010=BLOCKED CRITICAL (requires dedicated memory readiness review, not passed), CAND-002=BLOCKED (requires dedicated memory readiness review, not passed), CAND-003=DEFERRED (requires memory readiness + dedicated MCP readiness review, not passed), GSIC-003=BLOCKED (requires dedicated gateway sidecar integration review, not passed), GSIC-004=BLOCKED (requires dedicated FastAPI route registration review, not passed), MAINLINE-GATEWAY-ACTIVATION=false (requires explicit approval after all gates pass), DSRT-ENABLED=false (requires dedicated DSRT activation review, not passed), DSRT-IMPLEMENTED=false (requires dedicated DSRT activation review, not passed). activation_gate_result=blocked_as_expected for all 8.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Memory activation gate",
+      "source_round": "R241-18Z",
+      "required_evidence": "SURFACE-010 and CAND-002 remain blocked, memory readiness review not passed",
+      "observed_state": "memory_activation_gate assessed: SURFACE-010=BLOCKED CRITICAL, CAND-002=BLOCKED, memory_readiness_review_not_passed=true, memory_activation_allowed=false, memory_write_allowed=false, memory_cleanup_allowed=false, gate_status=blocked_as_expected",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "MCP activation gate",
+      "source_round": "R241-18Z",
+      "required_evidence": "CAND-003 deferred, memory readiness prerequisite unmet, MCP readiness review not passed",
+      "observed_state": "mcp_activation_gate assessed: CAND-003=DEFERRED, memory_readiness_prerequisite_met=false, mcp_readiness_review_not_passed=true, mcp_activation_allowed=false, mcp_network_access_allowed=false, mcp_tool_enforcement_allowed=false, gate_status=blocked_as_expected",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Gateway/FastAPI activation gate",
+      "source_round": "R241-18Z",
+      "required_evidence": "GSIC-003 and GSIC-004 remain blocked, mainline_gateway_activation_allowed=false",
+      "observed_state": "gateway_fastapi_activation_gate assessed: GSIC-003=BLOCKED, GSIC-004=BLOCKED, mainline_gateway_activation_allowed=false, no gateway main path activation=true, no FastAPI route registration=true, no app.include_router for DSRT=true, no uvicorn.run=true, no sidecar service start=true, gateway_activation_allowed=false, fastapi_route_registration_allowed=false, gate_status=blocked_as_expected",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "DSRT activation gate",
+      "source_round": "R241-18Z",
+      "required_evidence": "DSRT-001~006 all disabled, DSRT-ENABLED=false, DSRT-IMPLEMENTED=false",
+      "observed_state": "dsrt_activation_gate assessed: DSRT-001=disabled_by_default, DSRT-002=disabled_by_default, DSRT-003=disabled_by_default, DSRT-004=disabled_by_default, DSRT-005=disabled_by_default, DSRT-006=disabled_by_default, enabled=false, implemented_now=false, DSRT-ENABLED=false, DSRT-IMPLEMENTED=false, not_registered_in_fastapi=true, no_network_listener=true, no_runtime_write=true, no_feishu_send=true, no_webhook_call=true, no_scheduler=true, entries_checked=6, activation_allowed=false, gate_status=blocked_as_expected",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Feishu/network/scheduler/tool-enforcement gate",
+      "source_round": "R241-18Z",
+      "required_evidence": "All execution surfaces remain disabled or excluded",
+      "observed_state": "execution_surface_gates assessed: feishu_allowed=false, webhook_allowed=false, network_allowed=false, scheduler_allowed=false, auto_fix_allowed=false, tool_enforcement_allowed=false, runtime_write_allowed=false, audit_jsonl_write_allowed=false, action_queue_write_allowed=false, all_execution_surfaces_blocked=true, violations=[]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Runtime/audit/action-queue write gate",
+      "source_round": "R241-18Z",
+      "required_evidence": "Runtime write surfaces all excluded from deed scope and forbidden_scope",
+      "observed_state": "runtime_audit_action_queue_gates assessed: runtime_write_allowed=false, audit_jsonl_write_allowed=false, action_queue_write_allowed=false, no runtime write in proposal or deed=true, violations=[]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "Human approval chain final check",
+      "source_round": "R241-18Z",
+      "required_evidence": "R241-18S, R241-18X, R241-18Y all review-only, no activation approval in chain",
+      "observed_state": "human_approval_chain_final_check: R241-18S=review_only, R241-18X=review_only, R241-18Y=review_only, all_approvals_review_only=true, actual_activation_approval_present=false, blocker_override_approval_present=false, future_explicit_activation_approval_required=true, violations=[]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "R241-18 review chain closure",
+      "source_round": "R241-18Z",
+      "required_evidence": "R241-18V+W+X+Y+Z all completed, chain closed, activation blocked as expected",
+      "observed_state": "r241_18_review_chain_closure: R241-18V=passed, R241-18W=passed, R241-18X=passed, R241-18Y=passed, R241-18Z=completed (this review), chain_complete=true, activation_granted=false, activation_blocked_as_expected=true, reason=all proposal/review/deed gates completed but blockers remain intact, next_phase=R241-19A_MAINLINE_REPAIR_REENTRY_PLAN",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "M",
+      "object_name": "R241-19A mainline repair re-entry readiness",
+      "source_round": "R241-18Z",
+      "required_evidence": "R241-18Z completed, all blockers intact, no activation occurred, allow_enter_r241_19a=true",
+      "observed_state": "r241_19a_readiness assessed: R241-18Z activation gate review completed, actual_activation_allowed=false, activation_blocked_as_expected=true, all_blockers_intact=true, no_runtime_activation_occurred=true, no_gateway_fastapi_memory_mcp_feishu_scheduler_runtime_write_occurred=true, tests_passed=true, safety_violations_clean=true, allow_enter_r241_19a=true, required_carryover_blockers=[SURFACE-010, CAND-002, CAND-003, GSIC-003, GSIC-004, MAINLINE-GATEWAY-ACTIVATION, DSRT-ENABLED, DSRT-IMPLEMENTED], recommended_scope=[Track_A_foundation_repair_and_optimization_regression, Track_B_official_openclaw_gradual_upgrade_intake_regression, allowed_code_touch_list, forbidden_runtime_surfaces, patch_candidate_classification, evidence_packaging, dirty_worktree_handling_policy]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "actual_activation_eligibility": {
+    "eligible": false,
+    "blockers_remaining": [
+      "SURFACE-010",
+      "CAND-002",
+      "CAND-003",
+      "GSIC-003",
+      "GSIC-004",
+      "MAINLINE-GATEWAY-ACTIVATION",
+      "DSRT-ENABLED",
+      "DSRT-IMPLEMENTED"
+    ],
+    "missing_conditions": [
+      "SURFACE-010 dedicated memory readiness review not passed",
+      "CAND-002 dedicated memory readiness review not passed",
+      "CAND-003 dedicated MCP readiness review after memory readiness not passed",
+      "GSIC-003 dedicated gateway sidecar integration review not passed",
+      "GSIC-004 dedicated FastAPI route registration review not passed",
+      "MAINLINE-GATEWAY-ACTIVATION explicit approval after all gates not obtained",
+      "DSRT-ENABLED dedicated DSRT activation review not passed",
+      "DSRT-IMPLEMENTED dedicated DSRT activation review not passed",
+      "explicit user activation approval not provided in current conversation"
+    ],
+    "activation_denial_reason": "blockers_intact",
+    "actual_activation_allowed": false
+  },
+  "blocker_gate_matrix": [
+    {
+      "blocker_id": "SURFACE-010",
+      "current_status": "BLOCKED CRITICAL",
+      "source_round": "R241-18K",
+      "required_unblock_review": "dedicated memory readiness review",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "CAND-002",
+      "current_status": "BLOCKED",
+      "source_round": "R241-18K",
+      "required_unblock_review": "dedicated memory readiness review",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "CAND-003",
+      "current_status": "DEFERRED",
+      "source_round": "R241-18K",
+      "required_unblock_review": "dedicated MCP readiness review after memory readiness",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "GSIC-003",
+      "current_status": "BLOCKED",
+      "source_round": "R241-18J",
+      "required_unblock_review": "dedicated gateway sidecar integration review",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "GSIC-004",
+      "current_status": "BLOCKED",
+      "source_round": "R241-18J",
+      "required_unblock_review": "dedicated FastAPI route registration review",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "MAINLINE-GATEWAY-ACTIVATION",
+      "current_status": "false",
+      "source_round": "R241-18N",
+      "required_unblock_review": "explicit approval after all gates pass",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "DSRT-ENABLED",
+      "current_status": "false",
+      "source_round": "R241-18I",
+      "required_unblock_review": "dedicated DSRT activation review",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    },
+    {
+      "blocker_id": "DSRT-IMPLEMENTED",
+      "current_status": "false",
+      "source_round": "R241-18I",
+      "required_unblock_review": "dedicated DSRT activation review",
+      "currently_unblocked": false,
+      "activation_gate_result": "blocked_as_expected",
+      "can_be_overridden": false
+    }
+  ],
+  "memory_activation_gate": {
+    "gate_status": "blocked_as_expected",
+    "activation_allowed": false,
+    "reason": "SURFACE-010 and CAND-002 remain blocked, memory readiness review not passed",
+    "violations": []
+  },
+  "mcp_activation_gate": {
+    "gate_status": "blocked_as_expected",
+    "activation_allowed": false,
+    "reason": "CAND-003 deferred and memory readiness prerequisite unmet, MCP readiness review not passed",
+    "violations": []
+  },
+  "gateway_fastapi_activation_gate": {
+    "gate_status": "blocked_as_expected",
+    "gateway_activation_allowed": false,
+    "fastapi_route_registration_allowed": false,
+    "reason": "GSIC-003 and GSIC-004 remain blocked, mainline_gateway_activation_allowed=false",
+    "violations": []
+  },
+  "dsrt_activation_gate": {
+    "gate_status": "blocked_as_expected",
+    "entries_checked": 6,
+    "activation_allowed": false,
+    "violations": []
+  },
+  "execution_surface_gates": {
+    "all_execution_surfaces_blocked": true,
+    "feishu_allowed": false,
+    "webhook_allowed": false,
+    "network_allowed": false,
+    "scheduler_allowed": false,
+    "auto_fix_allowed": false,
+    "tool_enforcement_allowed": false,
+    "runtime_write_allowed": false,
+    "audit_jsonl_write_allowed": false,
+    "action_queue_write_allowed": false,
+    "violations": []
+  },
+  "human_approval_chain_final_check": {
+    "all_approvals_review_only": true,
+    "actual_activation_approval_present": false,
+    "blocker_override_approval_present": false,
+    "future_explicit_activation_approval_required": true,
+    "violations": []
+  },
+  "r241_18_review_chain_closure": {
+    "chain_complete": true,
+    "activation_granted": false,
+    "activation_blocked_as_expected": true,
+    "reason": "all proposal/review/deed gates completed, but blockers remain intact",
+    "next_phase": "R241-19A_MAINLINE_REPAIR_REENTRY_PLAN"
+  },
+  "r241_19a_readiness": {
+    "allow_enter_r241_19a": true,
+    "required_carryover_blockers": [
+      "SURFACE-010",
+      "CAND-002",
+      "CAND-003",
+      "GSIC-003",
+      "GSIC-004",
+      "MAINLINE-GATEWAY-ACTIVATION",
+      "DSRT-ENABLED",
+      "DSRT-IMPLEMENTED"
+    ],
+    "recommended_scope": [
+      "Track_A_foundation_repair_and_optimization_regression",
+      "Track_B_official_openclaw_gradual_upgrade_intake_regression",
+      "allowed_code_touch_list",
+      "forbidden_runtime_surfaces",
+      "patch_candidate_classification",
+      "evidence_packaging",
+      "dirty_worktree_handling_policy"
+    ]
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.28,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "activation_gate_review_passed": true,
+  "actual_activation_allowed": false,
+  "activation_blocked_as_expected": true,
+  "all_blockers_intact": true,
+  "allow_enter_r241_19a": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "8 blockers remain intact — actual activation remains blocked until dedicated unblock reviews pass"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "activation_gate_review_completed_blocked_as_expected",
+    "activation_gate_review_passed": true,
+    "actual_activation_allowed": false,
+    "activation_blocked_as_expected": true,
+    "all_blockers_intact": true,
+    "review_objects_A_to_M": "13/13 passed",
+    "blockers_remaining": 8,
+    "allow_enter_r241_19a": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18Z",
+    "next_prompt_needed": "R241-19A_MAINLINE_REPAIR_REENTRY_PLAN"
+  }
+}

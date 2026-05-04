@@ -1,0 +1,242 @@
+spec_version: "1.1"
+spec_id: "prompt_loader_and_assembly_spec_final"
+mode_id: "rtcm_v2"
+
+design_goals:
+  - "all_members_present_every_round"
+  - "all_members_receive_only_the_context_they_need"
+  - "chair_and_supervisor_receive_full_context"
+  - "structured_short_form_outputs_only"
+  - "issue_driven_context_injection"
+  - "stable_reproducible_prompt_assembly"
+
+root_paths:
+  prompt_root:
+    mode: "configurable"
+    default: "./rtcm/prompts"
+    alternatives:
+      - "~/.deerflow/roundtable/prompts"
+  dossier_root:
+    mode: "configurable"
+    default: "./rtcm/examples/ai_manju_project/project_dossier"
+    alternatives:
+      - "~/.deerflow/roundtables/{project_slug}"
+
+role_prompt_mapping:
+  rtcm-chair-agent: {prompt_file: "chair.md", context_profile: "full_control_profile"}
+  rtcm-supervisor-agent: {prompt_file: "supervisor.md", context_profile: "full_audit_profile"}
+  rtcm-trend-agent: {prompt_file: "trend.md", context_profile: "member_profile_trend"}
+  rtcm-value-agent: {prompt_file: "value.md", context_profile: "member_profile_value"}
+  rtcm-architecture-agent: {prompt_file: "architecture.md", context_profile: "member_profile_architecture"}
+  rtcm-automation-agent: {prompt_file: "automation.md", context_profile: "member_profile_automation"}
+  rtcm-quality-agent: {prompt_file: "quality.md", context_profile: "member_profile_quality"}
+  rtcm-efficiency-agent: {prompt_file: "efficiency.md", context_profile: "member_profile_efficiency"}
+  rtcm-challenger-agent: {prompt_file: "challenger.md", context_profile: "member_profile_challenger"}
+  rtcm-validator-agent: {prompt_file: "validator.md", context_profile: "member_profile_validator"}
+
+context_profiles:
+  full_control_profile:
+    full_meeting_log: true
+    current_issue_card: true
+    chair_summaries: true
+    evidence_ledger: true
+    issue_graph: true
+    dossier_manifest: true
+    validation_runs: true
+    user_constraints: true
+    user_interventions: true
+
+  full_audit_profile:
+    full_meeting_log: true
+    current_issue_card: true
+    chair_summaries: true
+    evidence_ledger: true
+    issue_graph: true
+    dossier_manifest: true
+    validation_runs: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_trend:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_value:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_architecture:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_automation:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_quality:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_efficiency:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_challenger:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+  member_profile_validator:
+    full_meeting_log: false
+    current_issue_card: true
+    chair_summary_last_round: true
+    role_specific_evidence_extract: true
+    user_constraints: true
+    user_interventions: true
+
+stage_specific_assembly:
+  issue_definition:
+    inject:
+      - "mode_declaration"
+      - "global_hard_rules"
+      - "role_specific_prompt"
+      - "project_manifest_brief"
+      - "current_issue_card"
+      - "user_constraints_and_interventions"
+      - "output_contract"
+
+  evidence_search:
+    inject:
+      - "mode_declaration"
+      - "global_hard_rules"
+      - "role_specific_prompt"
+      - "current_issue_card"
+      - "chair_summary_last_round"
+      - "user_constraints_and_interventions"
+      - "output_contract"
+    extra_runtime_actions:
+      - "spawn_surface_pod"
+      - "spawn_deep_pod"
+      - "spawn_reality_pod"
+      - "collect_evidence_ledger_entries"
+      - "assemble_role_specific_evidence_extracts"
+
+  solution_generation:
+    inject:
+      - "mode_declaration"
+      - "global_hard_rules"
+      - "role_specific_prompt"
+      - "project_manifest_brief"
+      - "current_issue_card"
+      - "chair_summary_last_round"
+      - "role_specific_evidence_extract"
+      - "user_constraints_and_interventions"
+      - "issue_graph_local_branch_if_enabled"
+      - "output_contract"
+
+  verdict:
+    inject:
+      - "mode_declaration"
+      - "global_hard_rules"
+      - "role_specific_prompt"
+      - "current_issue_card"
+      - "chair_summary_last_round"
+      - "role_specific_evidence_extract"
+      - "latest_validation_delta_if_any"
+      - "user_constraints_and_interventions"
+      - "issue_graph_local_branch_if_enabled"
+      - "output_contract"
+
+output_contract:
+  required_fields:
+    - "current_position"
+    - "supported_or_opposed_hypotheses"
+    - "strongest_evidence"
+    - "largest_vulnerability"
+    - "recommended_next_step"
+    - "should_enter_validation"
+    - "confidence_interval"
+    - "dissent_note_if_any"
+    - "unresolved_uncertainties"
+    - "evidence_ledger_refs"
+
+member_output_parser:
+  mode: "strict_structured_fields"
+  reject_if_missing_any_required_field: true
+  reject_if_unstructured_longform: true
+
+chair_summary_builder:
+  source_inputs:
+    - "all_member_outputs_current_round"
+    - "latest_validation_delta_if_any"
+    - "latest_user_intervention"
+  summary_fields:
+    - "current_consensus"
+    - "current_conflicts"
+    - "strongest_support"
+    - "strongest_dissent"
+    - "unresolved_uncertainties"
+    - "recommended_state_transition"
+
+evidence_extract_builder:
+  source_inputs:
+    - "evidence_ledger.json"
+    - "source_index"
+    - "reality_constraints"
+    - "latest_validation_results"
+
+execution_lease_policy:
+  enabled: true
+  lease_required_for:
+    - "tool_use"
+    - "search_dispatch"
+    - "workflow_execution"
+    - "validation_run"
+    - "code_or_script_action"
+  lease_granted_by: "rtcm-chair-agent"
+  lease_checked_by: "rtcm-supervisor-agent"
+
+supervisor_checks:
+  before_round_close:
+    - "all_members_present"
+    - "all_outputs_parseable"
+    - "critical_claims_have_evidence_refs"
+    - "dissent_field_present"
+    - "uncertainty_field_present"
+
+failure_handling:
+  missing_prompt_file:
+    action: "abort_round_with_error"
+  missing_issue_card:
+    action: "pause_and_rebuild_issue_card"
+  malformed_member_output:
+    action: "request_regeneration_once_then_escalate"
+  missing_lease_for_execution:
+    action: "hard_block_and_notify_supervisor"

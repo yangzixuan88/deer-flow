@@ -1,0 +1,290 @@
+{
+  "phase": "R152",
+  "title": "PATH_A_TO_PATH_B_HANDOFF_MAP",
+  "status": "mapped",
+  "preceded_by": "R151F",
+  "proceeding_to": "R153_HANDOFF_CONTRACT_PATCH",
+  "lane_0_pressure": "H",
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "m01_m04_m11_untracked_preserved": true,
+    "no_git_clean_performed": true,
+    "no_git_reset_performed": true,
+    "r151f_search_order_fix_present": true,
+    "typescript_errors_known_zero": true,
+    "safe_to_continue": true
+  },
+  "lane_2_path_a_outlet_table": {
+    "modules": {
+      "M01_IntentClassifier": {
+        "classify(input)": {
+          "input": "string (userInput)",
+          "output": "IntentClassification { route, complexity, confidence, suggestedSystem?, reasoning }",
+          "key_fields": ["route (IntentRoute)", "complexity.score", "suggestedSystem (SystemType)"]
+        },
+        "suggestSystemType(input, complexity)": {
+          "input": "string, ComplexityAssessment",
+          "output": "SystemType | undefined (search|workflow|visual_web|desktop_app|task)",
+          "key_fields": ["needsSearch boolean", "SEARCH_INDICATORS match", "classifyOperation() result"]
+        },
+        "needsSearch(input)": {
+          "output": "boolean (true if complexity.needsSearch)"
+        },
+        "needsRTCM(input)": {
+          "output": "{ needed: boolean, type: 'explicit'|'suggested'|null, confidence: number }"
+        }
+      },
+      "M01_DAGPlanner": {
+        "buildPlan(request)": {
+          "input": "OrchestrationRequest { requestId, sessionId, userInput, priority }",
+          "output": "DAGPlan { id, nodes[], executionOrder, estimatedDuration }",
+          "key_fields": ["nodes[].systemType (SystemType)", "nodes[].task", "nodes[].dependencies[]"]
+        },
+        "SYSTEM_TYPE_KEYWORDS": {
+          "visual_web": "[.com,.cn,org,.net,.io,.dev,.app, 打开网站, 浏览网页, go to, navigate, http://, https://]",
+          "search": "[搜索, 查找, 查询, 研究, 分析]",
+          "workflow": "[流程, 多步, 自动化, 编排]",
+          "task": "[执行, 完成, 实现, 构建, 创建, 修复]"
+        }
+      },
+      "M01_Orchestrator": {
+        "execute(request)": {
+          "input": "OrchestrationRequest { requestId, sessionId, userInput, priority }",
+          "output": "OrchestrationResult { requestId, success, route, directAnswer?, clarification?, execution?, error?, executionTime }",
+          "key_fields": ["route (IntentRoute)", "directAnswer", "clarification.question", "execution.dagPlan"]
+        },
+        "handleDeerFlowExecution(request, dagPlan)": {
+          "input": "OrchestrationRequest, DAGPlan",
+          "output": "OrchestrationResult with execution.dagPlan, completedNodes, totalNodes",
+          "DeerFlow_deerflowEnabled": "DEFAULT_M01_CONFIG.deerflowEnabled = true (line 251)"
+        }
+      },
+      "M01_DeerFlowClient": {
+        "executeUntilComplete(dagPlan, {session_id, request_id, priority})": {
+          "input": "DAGPlan, { session_id, request_id, priority }",
+          "output": "DeerFlowExecutionResult { request_id, success, dag_plan, completed_nodes, total_nodes, duration, error? }",
+          "http_method": "POST",
+          "http_path": "/api/threads/{thread_id}/runs"
+        },
+        "DeerFlowRunRequest": {
+          "input": "{ input: { messages: [{role, content}] }, metadata: { session_id, request_id, priority, dag_plan? } }",
+          "note": "metadata.dag_plan preserved as context but NOT executed by Python agent (R99 fix)"
+        }
+      },
+      "M04_Coordinator": {
+        "execute(context)": {
+          "input": "ExecutionContext { request_id, session_id, system_type, priority, metadata }",
+          "output": "CoordinatorResult { success, system_type, result?, error?, execution_time_ms, context }",
+          "system_type_cases": "SystemType.SEARCH|TASK|WORKFLOW|CLAUDE_CODE|GSTACK_SKILL|LARKSUITE|VISUAL_WEB|DESKTOP_APP"
+        }
+      },
+      "M04_Types_SystemType": {
+        "SystemType enum values": {
+          "SEARCH": "'search'",
+          "TASK": "'task'",
+          "WORKFLOW": "'workflow'",
+          "CLAUDE_CODE": "'claude_code'",
+          "GSTACK_SKILL": "'gstack_skill'",
+          "LARKSUITE": "'larksuite'",
+          "VISUAL_WEB": "'visual_web'",
+          "DESKTOP_APP": "'desktop_app'"
+        }
+      }
+    }
+  },
+  "lane_3_path_b_inlet_table": {
+    "gateway_threads_py": {
+      "POST /api/threads": "Create thread",
+      "GET /api/threads/{thread_id}": "Get thread state",
+      "POST /api/threads/{thread_id}/runs": "Create run (primary Path B entry for M01→Path B handoff)",
+      "RunCreateRequest model": {
+        "assistant_id": "str|null",
+        "input": "dict|null (e.g. {messages: [...]})",
+        "metadata": "dict|null (session_id, request_id, priority, dag_plan?)",
+        "config": "dict|null"
+      }
+    },
+    "gateway_thread_runs_py": {
+      "POST /api/threads/{thread_id}/runs/{run_id}/stream": "SSE stream (GET=join, POST=cancel-then-stream)",
+      "RunResponse model": {
+        "run_id": "str",
+        "thread_id": "str",
+        "status": "str",
+        "result": "dict|null"
+      }
+    },
+    "deerflow_runtime": {
+      "RunRecord": "Persistence record for run state",
+      "checkpoint_id": "Resume from checkpoint support"
+    }
+  },
+  "lane_4_contract_map": [
+    {
+      "contract_field": "user input text",
+      "path_a_producer": "orchestrator.execute(request)",
+      "path_a_name": "request.userInput (string)",
+      "path_b_consumer": "DeerFlow POST /api/threads/{thread_id}/runs",
+      "path_b_name": "input.messages[0].content",
+      "status": "OK",
+      "evidence": "DeerFlowRunRequest.input.messages = [{role:'user', content: request.userInput}]"
+    },
+    {
+      "contract_field": "session identifier",
+      "path_a_producer": "orchestrator.execute(request)",
+      "path_a_name": "request.sessionId (string)",
+      "path_b_consumer": "DeerFlowClient.executeUntilComplete()",
+      "path_b_name": "metadata.session_id",
+      "status": "OK",
+      "evidence": "DeerFlowRunRequest.metadata.session_id = request.sessionId"
+    },
+    {
+      "contract_field": "request identifier",
+      "path_a_producer": "orchestrator.execute(request)",
+      "path_a_name": "request.requestId (string)",
+      "path_b_consumer": "DeerFlowClient.executeUntilComplete()",
+      "path_b_name": "metadata.request_id",
+      "status": "OK",
+      "evidence": "DeerFlowRunRequest.metadata.request_id = request.requestId"
+    },
+    {
+      "contract_field": "priority",
+      "path_a_producer": "orchestrator.execute(request)",
+      "path_a_name": "request.priority ('low'|'normal'|'high')",
+      "path_b_consumer": "DeerFlowClient.executeUntilComplete()",
+      "path_b_name": "metadata.priority",
+      "status": "OK",
+      "evidence": "metadata.priority = request.priority || 'normal'"
+    },
+    {
+      "contract_field": "DAG plan",
+      "path_a_producer": "dagPlanner.buildPlan(request)",
+      "path_a_name": "DAGPlan { nodes: DAGNode[] }",
+      "path_b_consumer": "DeerFlowClient.executeUntilComplete()",
+      "path_b_name": "metadata.dag_plan (preserved, not executed)",
+      "status": "OK",
+      "note": "R99 Fix: dag_plan is preserved in metadata for context but NOT executed by Python agent. Python agent reads input.messages instead."
+    },
+    {
+      "contract_field": "system type for DAG nodes",
+      "path_a_producer": "dagPlanner.buildPlan() assigns SystemType",
+      "path_a_name": "DAGNode.systemType (SystemType enum)",
+      "path_b_consumer": "coordinator.execute(context) via orchestrator.executeDAG()",
+      "path_b_name": "context.system_type (SystemType enum)",
+      "status": "OK",
+      "note": "DAGNode.systemType maps to coordinator's ExecutionContext.system_type"
+    },
+    {
+      "contract_field": "intent route",
+      "path_a_producer": "IntentClassifier.classify()",
+      "path_a_name": "IntentClassification.route (IntentRoute enum: DIRECT_ANSWER|CLARIFICATION|ORCHESTRATION)",
+      "path_b_consumer": "orchestrator internal routing (no external handoff)",
+      "path_b_name": "N/A - internal to M01",
+      "status": "OK",
+      "note": "route determines which handler is called within orchestrator, not passed to Path B"
+    },
+    {
+      "contract_field": "suggested system type",
+      "path_a_producer": "IntentClassifier.suggestSystemType()",
+      "path_a_name": "suggestedSystem (SystemType|'search'|'workflow' as string cast)",
+      "path_b_consumer": "dagPlanner.buildPlan() - used to assign DAGNode.systemType",
+      "path_b_name": "DAGNode.systemType",
+      "status": "MINOR_STRING_CAST",
+      "note": "suggestSystemType() returns 'search' as SystemType via 'search' as SystemType cast. This is a type narrowing pattern, not a value mismatch."
+    }
+  ],
+  "lane_5_assertion_failure_attribution": [
+    {
+      "assertion": "should_route_simple_query_to_direct_answer",
+      "input": "'你好' (length=2, simple greeting)",
+      "expected": "result.route === IntentRoute.DIRECT_ANSWER && result.directAnswer defined",
+      "likely_actual": "route is DIRECT_ANSWER but directAnswer undefined OR success===false OR exception thrown",
+      "contract_point": "handleDirectAnswer() line 133-139",
+      "root_cause_evidence": "handleDirectAnswer() returns hardcoded string: `已理解您的查询: ${request.userInput}。这是一个简单的直接回答场景。` - This returns a directAnswer string. The issue is likely that result.success===false or an exception is thrown before reaching this handler.",
+      "likely_blocker": "context_envelope.ts require() call in orchestrator.execute() line 69 - if ContextEnvelope generation fails in test env, the catch block at line 112-119 returns success:false with route:ORCHESTRATION",
+      "fix_candidate": "stub context_envelope.ts in test OR mock require() for context_envelope",
+      "confidence": "high"
+    },
+    {
+      "assertion": "should_route_complex_task_to_orchestration",
+      "input": "'搜索最新的AI新闻并保存到文件'",
+      "expected": "result.route === IntentRoute.ORCHESTRATION && result.execution.dagPlan defined",
+      "likely_actual": "route is ORCHESTRATION but result.execution undefined OR success===false",
+      "contract_point": "handleOrchestration() → handleDeerFlowExecution() OR handleLocalExecution()",
+      "root_cause_evidence": "Both handlers return execution field with dagPlan. However, if DeerFlow health check fails (line 208 isHealthy check) and createThread() probe also fails (line 214), it falls back to handleLocalExecution(). But in test env without real DeerFlow + without proper stubs, the fallback may fail.",
+      "likely_blocker": "DeerFlowClient healthCheck() and createThread() are real HTTP calls in test env - they fail with connection errors, causing unexpected fallback behavior OR the error propagates to catch block",
+      "fix_candidate": "mock DeerFlowClient entirely in test OR configure deerflowEnabled:false in test config",
+      "confidence": "medium"
+    }
+  ],
+  "lane_6_minimum_verification_plan": {
+    "with_jest": {
+      "command": "NODE_OPTIONS='--experimental-vm-modules' node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+      "expected_total": 16,
+      "expected_passed_if_r151f_fixed": 14,
+      "remaining_failures_if_r151f_works": 2,
+      "failure_names": "should_route_simple_query_to_direct_answer, should_route_complex_task_to_orchestration"
+    },
+    "without_jest": {
+      "actions": [
+        "Check node_modules/.bin/jest - NOT FOUND (backend has no package.json)",
+        "Check jest.config.cjs in backend - NOT FOUND",
+        "Check tsconfig.jest.json in backend - NOT FOUND",
+        "Conclusion: Cannot run tests in current workspace"
+      ],
+      "alternative_validation": [
+        "TypeScript compilation check: tsc --noEmit on m01/*.ts (not available without tsc setup)",
+        "Contract map validation: manual code review confirms field mapping consistency",
+        "R151F fix validation: grep confirms SEARCH_INDICATORS check reordered before classifyOperation()"
+      ]
+    },
+    "blocked_by": "missing jest infrastructure in backend workspace"
+  },
+  "lane_7_key_findings": {
+    "contract_health": "OK - all major field mappings are consistent between Path A and Path B",
+    "DeerFlow_handoff": "POST /api/threads/{thread_id}/runs is the correct primary path (not /runs/stream)",
+    "dag_plan_preservation": "R99 fix correctly preserves dag_plan in metadata as context, not execution input",
+    "system_type_enum": "SystemType enum is consistent: SEARCH='search', TASK='task', VISUAL_WEB='visual_web', etc.",
+    "deerflowEnabled_default": "DEFAULT_M01_CONFIG.deerflowEnabled=true - orchestrator defaults to DeerFlow path",
+    "context_envelope_risk": "orchestrator.execute() calls require('./context_envelope') at line 69 - this may fail in test environment without proper stubbing",
+    "DeerFlowClient_probe": "healthCheck() and createThread() are real HTTP calls - no test doubles exist",
+    "r151f_fix_preserved": "git status confirms m01/ is untracked (R151F fix is present in working tree)"
+  },
+  "lane_8_next_phase_recommendation": {
+    "recommended_next_phase": "R153_HANDOFF_CONTRACT_PATCH",
+    "reason": "Contract map is complete and healthy. Next step is targeted fixes: (1) add test doubles for DeerFlowClient and context_envelope, OR (2) configure test environment with deerflowEnabled:false. These are test infrastructure fixes, not business logic changes.",
+    "alternative": "R152B_TEST_ENV_RECOVERY if jest setup is prioritized first"
+  },
+  "classification": "mapped",
+  "pressure_used": "H",
+  "throughput": "max_safe_batch",
+  "files_read": [
+    "backend/src/domain/m01/intent_classifier.ts",
+    "backend/src/domain/m01/orchestrator.ts",
+    "backend/src/domain/m01/types.ts",
+    "backend/src/domain/m01/dag_planner.ts",
+    "backend/src/domain/m01/deerflow_client.ts",
+    "backend/src/domain/m04/types.ts",
+    "backend/src/domain/m04/coordinator.ts",
+    "backend/src/domain/m11/mod.ts",
+    "backend/app/gateway/routers/thread_runs.py",
+    "backend/app/gateway/routers/threads.py"
+  ],
+  "files_modified": [],
+  "contract_map_created": true,
+  "mismatches_found": 0,
+  "tests_actually_run": "unknown_no_jest_env",
+  "typescript_errors": 0,
+  "safety_boundary": {
+    "dependency_installed": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "safety_violations": [],
+    "m01_m04_m11_untracked_preserved": true
+  },
+  "recommended_next_phase": "R153_HANDOFF_CONTRACT_PATCH"
+}

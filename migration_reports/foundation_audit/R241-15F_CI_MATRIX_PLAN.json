@@ -1,0 +1,312 @@
+{
+  "plan_id": "R241-15F_ci_matrix_plan",
+  "generated_at": "2026-04-25T23:06:24.508326+00:00",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "ci_stage_catalog": {
+    "catalog_id": "R241-15F_ci_stage_catalog",
+    "generated_at": "2026-04-25T23:06:24.508350+00:00",
+    "stages": [
+      {
+        "stage_id": "stage_1_smoke",
+        "name": "Smoke",
+        "goal": "Minimal health checks: import, registry, marker, root guard style checks.",
+        "command": "python -m pytest -m smoke -v",
+        "target_runtime_seconds": 60,
+        "required": true,
+        "writes_runtime": false,
+        "network_allowed": false
+      },
+      {
+        "stage_id": "stage_2_fast",
+        "name": "Fast Unit + Fast Integration",
+        "goal": "Default local developer regression excluding slow tests.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"not slow\" -v",
+        "target_runtime_seconds": 60,
+        "required": true,
+        "writes_runtime": false,
+        "network_allowed": false
+      },
+      {
+        "stage_id": "stage_3_safety",
+        "name": "Safety",
+        "goal": "Run no_network / no_runtime_write / no_secret boundaries independently.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m \"no_network or no_runtime_write or no_secret\" -v",
+        "target_runtime_seconds": 10,
+        "required": true,
+        "writes_runtime": false,
+        "network_allowed": false
+      },
+      {
+        "stage_id": "stage_4_slow",
+        "name": "Slow Integration",
+        "goal": "Real boundary, real repo scan, aggregate diagnostic, append/query/trend/Feishu preview smoke.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit -m slow -v",
+        "target_runtime_seconds": 60,
+        "required": true,
+        "writes_runtime": false,
+        "network_allowed": false
+      },
+      {
+        "stage_id": "stage_5_full",
+        "name": "Full Regression",
+        "goal": "Pre-release or large-change regression across foundation surfaces.",
+        "command": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+        "target_runtime_seconds": null,
+        "required": true,
+        "writes_runtime": false,
+        "network_allowed": false
+      }
+    ],
+    "stage_count": 5,
+    "warnings": []
+  },
+  "marker_usage_policy": {
+    "policy_id": "R241-15F_marker_usage_policy",
+    "generated_at": "2026-04-25T23:06:24.508366+00:00",
+    "marker_count": 8,
+    "markers": {
+      "smoke": {
+        "use_for": "Minimal import/registry/root health tests expected to finish quickly.",
+        "do_not_use_for": "Deep scans, real aggregate diagnostics, or report generation.",
+        "examples": [
+          "module import",
+          "command registry shape",
+          "root guard wrapper smoke"
+        ],
+        "combinable_with": [
+          "unit",
+          "integration",
+          "no_network",
+          "no_runtime_write",
+          "no_secret"
+        ],
+        "fast_lane_allowed": true
+      },
+      "unit": {
+        "use_for": "Pure functions: validators, formatters, classifiers, schema builders.",
+        "do_not_use_for": "Tests that scan the repo, call CLI aggregate helpers, or write reports.",
+        "examples": [
+          "validate_ci_matrix_plan",
+          "format markdown from synthetic result"
+        ],
+        "combinable_with": [
+          "smoke",
+          "no_network",
+          "no_runtime_write",
+          "no_secret"
+        ],
+        "fast_lane_allowed": true
+      },
+      "integration": {
+        "use_for": "Cross-module helpers, CLI wrappers, projections, query helpers.",
+        "do_not_use_for": "Pure unit tests that should stay simple and isolated.",
+        "examples": [
+          "diagnostic helper with monkeypatch",
+          "audit query projection"
+        ],
+        "combinable_with": [
+          "slow",
+          "smoke",
+          "no_network",
+          "no_runtime_write",
+          "no_secret"
+        ],
+        "fast_lane_allowed": true
+      },
+      "slow": {
+        "use_for": "Real repo scan, real aggregate diagnostic, real CLI smoke, sample/report generation.",
+        "do_not_use_for": "Pure validators, small formatters, or schema-only tests.",
+        "examples": [
+          "run_all_diagnostics real boundary",
+          "audit-trend CLI smoke"
+        ],
+        "combinable_with": [
+          "integration",
+          "full",
+          "no_network",
+          "no_runtime_write",
+          "no_secret"
+        ],
+        "fast_lane_allowed": false
+      },
+      "full": {
+        "use_for": "Full regression-only cases or broad coverage groups.",
+        "do_not_use_for": "Marker replacement for slow or safety; keep semantics explicit.",
+        "examples": [
+          "pre-release matrix coverage"
+        ],
+        "combinable_with": [
+          "slow",
+          "integration"
+        ],
+        "fast_lane_allowed": false
+      },
+      "no_network": {
+        "use_for": "Tests proving no webhook/network calls happen.",
+        "do_not_use_for": "Tests that require real network access; such tests are not allowed in this foundation suite.",
+        "examples": [
+          "Feishu dry-run no webhook call",
+          "network monkeypatch guard"
+        ],
+        "combinable_with": [
+          "smoke",
+          "unit",
+          "integration",
+          "slow"
+        ],
+        "fast_lane_allowed": true,
+        "must_not_delete": true
+      },
+      "no_runtime_write": {
+        "use_for": "Tests proving no runtime/action queue/governance writes happen.",
+        "do_not_use_for": "Append-only audit writer tests unless the assertion explicitly checks dry-run or tmp_path.",
+        "examples": [
+          "runtime write guard",
+          "report-only helper"
+        ],
+        "combinable_with": [
+          "smoke",
+          "unit",
+          "integration",
+          "slow"
+        ],
+        "fast_lane_allowed": true,
+        "must_not_delete": true
+      },
+      "no_secret": {
+        "use_for": "Tests proving no token/secret/webhook URL/full private body is output.",
+        "do_not_use_for": "Tests requiring real secrets; real secrets must not be read.",
+        "examples": [
+          "redaction guard",
+          "payload safety validator"
+        ],
+        "combinable_with": [
+          "smoke",
+          "unit",
+          "integration",
+          "slow"
+        ],
+        "fast_lane_allowed": true,
+        "must_not_delete": true
+      }
+    },
+    "required_markers": [
+      "smoke",
+      "unit",
+      "integration",
+      "slow",
+      "full",
+      "no_network",
+      "no_runtime_write",
+      "no_secret"
+    ],
+    "warnings": []
+  },
+  "synthetic_fixture_policy": {
+    "policy_id": "R241-15F_synthetic_fixture_policy",
+    "generated_at": "2026-04-25T23:06:24.508371+00:00",
+    "should_use_synthetic_fixture": [
+      "formatter structure only",
+      "payload schema only",
+      "projection aggregation shape",
+      "report/sample JSON shape",
+      "path validation",
+      "audit_record field existence",
+      "repeated run_all_diagnostics without validating real repo state"
+    ],
+    "must_keep_real_boundary": [
+      "RootGuard",
+      "append-only audit JSONL invariant",
+      "audit query real JSONL read smoke",
+      "trend CLI guard line count",
+      "no network / no webhook / no secret / no runtime write safety",
+      "Feishu preview / pre-send validator real CLI smoke",
+      "at least one real repo scan slow smoke",
+      "Gateway smoke"
+    ],
+    "forbidden_to_syntheticize": [
+      "safety redline tests",
+      "real boundary invariant",
+      "user confirmation / webhook policy / secret redaction critical paths",
+      "audit JSONL append-only line count verification",
+      "runtime write detection"
+    ],
+    "required_synthetic_fixture_properties": [
+      "preserve asserted schema",
+      "preserve safety flags",
+      "write only tmp_path artifacts",
+      "avoid real repo scan unless explicitly testing boundary"
+    ],
+    "warnings": []
+  },
+  "test_contribution_checklist": {
+    "checklist_id": "R241-15F_test_contribution_checklist",
+    "generated_at": "2026-04-25T23:06:24.508375+00:00",
+    "questions": [
+      "Is this unit / integration / slow / safety / full?",
+      "Does it read the real repository?",
+      "Does it scan many files?",
+      "Does it generate sample/report artifacts?",
+      "Does it call CLI aggregate diagnostics?",
+      "Does it involve network/webhook/secret/runtime write boundaries?",
+      "Can it use a synthetic fixture?",
+      "Must it keep a real boundary?",
+      "Does it need no_network / no_runtime_write / no_secret marker?",
+      "Will it pollute the fast lane?"
+    ],
+    "question_count": 10,
+    "default_rule": "Prefer synthetic fixtures unless the test is explicitly a real boundary invariant.",
+    "warnings": []
+  },
+  "report_path_consistency": {
+    "checked_at": "2026-04-25T23:06:24.508675+00:00",
+    "primary_report_path": "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit",
+    "primary_exists": true,
+    "backend_report_path": "E:\\OpenClaw-Base\\deerflow\\backend\\migration_reports\\foundation_audit",
+    "backend_path_exists": true,
+    "path_inconsistency": true,
+    "action_taken": "reported_only_no_migration_no_delete",
+    "recommendation": "Unify report root or add a compatibility note in a future cleanup.",
+    "warnings": [
+      "path_inconsistency:backend/migration_reports/foundation_audit_exists"
+    ]
+  },
+  "runtime_regression_thresholds": {
+    "threshold_id": "R241-15F_runtime_regression_thresholds",
+    "generated_at": "2026-04-25T23:06:24.508876+00:00",
+    "baselines": {
+      "foundation_fast_baseline": 11.33,
+      "audit_fast_baseline": 2.37,
+      "slow_baseline": 6.84,
+      "safety_baseline": 1.07,
+      "collect_only_baseline": 2.86
+    },
+    "thresholds": {
+      "foundation_fast_warning_threshold": 30,
+      "foundation_fast_blocker_threshold": 60,
+      "audit_fast_warning_threshold": 15,
+      "slow_suite_warning_threshold": 60,
+      "safety_suite_warning_threshold": 10,
+      "collect_only_warning_threshold": 10
+    },
+    "warnings": []
+  },
+  "safety_constraints": {
+    "delete_tests": false,
+    "skip_safety_tests": false,
+    "xfail_safety_tests": false,
+    "network_call": false,
+    "runtime_write": false,
+    "audit_jsonl_overwrite": false,
+    "auto_fix": false,
+    "safety_coverage_reduced": false
+  },
+  "warnings": [],
+  "errors": [],
+  "validation": {
+    "validated_at": "2026-04-25T23:06:24.508905+00:00",
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  }
+}

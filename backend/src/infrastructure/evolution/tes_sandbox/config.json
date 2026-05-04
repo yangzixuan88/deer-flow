@@ -1,0 +1,9 @@
+{
+  "optimizer": "MIPROv2",
+  "max_bootstrapped_demos": 4,
+  "max_labeled_demos": 16,
+  "num_candidate_programs": 10,
+  "metric": "SuccessRateThreshold_0.85",
+  "evolution_budget": 1.5,
+  "data_source": "${OPENCLAW_ROOT}/assets/trace_logs"
+}

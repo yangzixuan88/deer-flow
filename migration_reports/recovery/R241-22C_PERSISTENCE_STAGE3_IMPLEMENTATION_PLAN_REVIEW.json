@@ -1,0 +1,654 @@
+{
+  "report_id": "R241-22C_PERSISTENCE_STAGE3_IMPLEMENTATION_PLAN_REVIEW",
+  "phase": "phase_22c_persistence_stage3_implementation_plan_review",
+  "status": "passed_with_warnings",
+  "decision": "persistence_stage3_plan_completed_engine_and_userrow_contracts_defined",
+  "source": "R241-22A_MEMORY_RUNTIME_UNBLOCK_DESIGN_REVIEW",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+
+  "stage3_file_inventory": {
+    "total_files": 4,
+    "total_loc_estimate": "~280",
+    "files": [
+      {
+        "file_id": "ST3-01",
+        "candidate": "CAND-009",
+        "path": "backend/packages/harness/deerflow/persistence/engine.py",
+        "type": "Async SQLAlchemy engine lifecycle",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "PRIMARY SURFACE-010 TRIGGER — init_engine performs startup DB writes",
+        "surface_010_direct": true,
+        "startup_writes": [
+          "CREATE DATABASE (postgres only)",
+          "PRAGMA journal_mode=WAL (sqlite per-connection)",
+          "PRAGMA synchronous=NORMAL (sqlite per-connection)",
+          "PRAGMA foreign_keys=ON (sqlite per-connection)",
+          "Base.metadata.create_all (all backends)"
+        ],
+        "priority": "P0",
+        "loc_estimate": 140
+      },
+      {
+        "file_id": "ST3-02",
+        "candidate": "CAND-024",
+        "path": "backend/packages/harness/deerflow/persistence/user/model.py",
+        "type": "SQLAlchemy ORM model",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "Read + Write to DB (model definition only at import)",
+        "surface_010": "indirect (depends on engine.py)",
+        "priority": "P0",
+        "loc_estimate": 70
+      },
+      {
+        "file_id": "ST3-03",
+        "candidate": "N/A (base.py)",
+        "path": "backend/packages/harness/deerflow/persistence/base.py",
+        "type": "SQLAlchemy DeclarativeBase with to_dict",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "Provides Base class for all ORM models",
+        "surface_010": false,
+        "priority": "P0",
+        "loc_estimate": 50
+      },
+      {
+        "file_id": "ST3-04",
+        "candidate": "N/A (models/__init__.py)",
+        "path": "backend/packages/harness/deerflow/persistence/models/__init__.py",
+        "type": "ORM model registration entry point",
+        "upstream_exists": true,
+        "local_exists": false,
+        "runtime_impact": "Registers all models with Base.metadata",
+        "surface_010": false,
+        "priority": "P1",
+        "note": "Required so create_all discovers all tables",
+        "loc_estimate": 20
+      }
+    ],
+    "no_route_registration": true,
+    "no_gateway_main_path_modification": true,
+    "no_db_write_at_import": true
+  },
+
+  "cand009_engine_implementation_contract": {
+    "file": "backend/packages/harness/deerflow/persistence/engine.py",
+    "lines": 140,
+    "upstream_verified": true,
+
+    "core_functions": [
+      {
+        "fn": "init_engine(backend: str, url: str, echo: bool, pool_size: int, sqlite_dir: str)",
+        "contract": "Creates AsyncEngine + async_sessionmaker; performs backend-specific setup; runs create_all",
+        "backend_handling": {
+          "memory": "Returns immediately — no engine, no factory",
+          "sqlite": "Creates directory, engine, WAL PRAGMAs per-connection, create_all",
+          "postgres": "Creates engine, checks asyncpg, create_all (with auto-create DB retry)"
+        }
+      },
+      {
+        "fn": "init_engine_from_config(config: DatabaseConfig)",
+        "contract": "Convenience wrapper — extracts backend/url/pool_size from config object"
+      },
+      {
+        "fn": "get_session_factory() -> async_sessionmaker | None",
+        "contract": "Returns None if backend=memory, else returns the sessionmaker"
+      },
+      {
+        "fn": "get_engine() -> AsyncEngine | None",
+        "contract": "Returns None if not initialized or backend=memory"
+      },
+      {
+        "fn": "close_engine()",
+        "contract": "Disposes engine, sets _engine=None, _session_factory=None"
+      }
+    ],
+
+    "global_state": {
+      "_engine": "AsyncEngine | None = None",
+      "_session_factory": "async_sessionmaker | None = None",
+      "note": "Module-level globals; close_engine resets to None"
+    },
+
+    "sqlite_wal_pragma_sequence": [
+      "PRAGMA journal_mode=WAL",
+      "PRAGMA synchronous=NORMAL",
+      "PRAGMA foreign_keys=ON"
+    ],
+    "pragma_per_connection": true,
+    "pragma_mechanism": "event.listens_for(_engine.sync_engine, 'connect') — runs on every new connection",
+
+    "postgres_auto_create_sequence": [
+      "1. Create engine to 'postgres' maintenance DB",
+      "2. Run: CREATE DATABASE \"{db_name}\"",
+      "3. Dispose maintenance engine",
+      "4. Create engine to target DB",
+      "5. Run create_all"
+    ],
+
+    "memory_backend_noop": "if backend == 'memory': logger.info + return immediately",
+    "memory_fallback_guarantee": "Returns early, _engine=None, _session_factory=None"
+  },
+
+  "cand024_userrow_model_contract": {
+    "file": "backend/packages/harness/deerflow/persistence/user/model.py",
+    "lines": 70,
+    "upstream_verified": true,
+
+    "table_name": "users",
+    "inherits_from": "Base (DeclarativeBase)",
+
+    "columns": [
+      {"name": "id", "type": "String(36)", "pk": true, "note": "UUID stored as string"},
+      {"name": "email", "type": "String(320)", "unique": true, "index": true},
+      {"name": "password_hash", "type": "String(128)", "nullable": true},
+      {"name": "system_role", "type": "String(16)", "default": "user"},
+      {"name": "created_at", "type": "DateTime(timezone=True)", "default": "datetime.now(UTC)"},
+      {"name": "oauth_provider", "type": "String(32)", "nullable": true},
+      {"name": "oauth_id", "type": "String(128)", "nullable": true},
+      {"name": "needs_setup", "type": "Boolean", "default": False},
+      {"name": "token_version", "type": "Integer", "default": 0}
+    ],
+
+    "table_args": [
+      "Index('idx_users_oauth_identity', oauth_provider, oauth_id, unique=True, sqlite_where=oauth_provider IS NOT NULL AND oauth_id IS NOT NULL)"
+    ],
+
+    "used_by": [
+      "app.py _ensure_admin_user() — queries for admin user row",
+      "auth/repositories/sqlite.py — user CRUD operations"
+    ],
+
+    "model_purpose": "User identity and auth metadata persistence"
+  },
+
+  "database_backend_memory_noop_contract": {
+    "contract_id": "MEMORY_NOOP",
+    "description": "When backend=memory, init_engine returns early with no engine created",
+
+    "init_engine_behavior": {
+      "step_1": "if backend == 'memory'",
+      "step_2": "logger.info('Persistence backend=memory -- ORM engine not initialized')",
+      "step_3": "return (no engine created, no session_factory, no DB operation)"
+    },
+
+    "get_session_factory_behavior": {
+      "returns": "None",
+      "reason": "_session_factory is never set when backend=memory"
+    },
+
+    "get_engine_behavior": {
+      "returns": "None",
+      "reason": "_engine is never set when backend=memory"
+    },
+
+    "close_engine_behavior": {
+      "effect": "No-op (engine already None)"
+    },
+
+    "repository_contracts": {
+      "RunRepository": "Must check: if sf is None: use MemoryRunStore()",
+      "FeedbackRepository": "Must check: if sf is None: use no-op or in-memory",
+      "ThreadMetaStore": "Must check: if sf is None: use in-memory"
+    },
+
+    "gateway_app_state_fallback": {
+      "run_store": "MemoryRunStore() instance",
+      "feedback_repo": "None"
+    }
+  },
+
+  "get_session_factory_none_fallback_contract": {
+    "contract_id": "FACTORY_NONE_FALLBACK",
+    "description": "Repositories and gateway must handle None from get_session_factory()",
+
+    "null_check_pattern": {
+      "sf = get_session_factory()",
+      "if sf is None:",
+      "    # fallback to memory implementation",
+      "else:",
+      "    # use SQL implementation"
+    },
+
+    "usage_in_deps_py": {
+      "location": "backend/app/gateway/deps.py langgraph_runtime()",
+      "pattern": "sf = get_session_factory(); if sf is not None: create SQL repos; else: create MemoryRunStore()"
+    },
+
+    "usage_in_app_py": {
+      "location": "backend/app/gateway/app.py _ensure_admin_user()",
+      "pattern": "sf = get_session_factory(); if sf is None: return (skip admin check)"
+    }
+  },
+
+  "sqlite_startup_write_safety_plan": {
+    "description": "SQLite backend init_engine startup write sequence",
+
+    "writes_per_connection": [
+      {
+        "pragma": "PRAGMA journal_mode=WAL",
+        "purpose": "Write-Ahead Logging — concurrent reads + writers without blocking",
+        "safety": "non-destructive; WAL file created if not exists"
+      },
+      {
+        "pragma": "PRAGMA synchronous=NORMAL",
+        "purpose": "Periodic fsync only at checkpoint boundaries — fast + safe",
+        "safety": "no data loss risk with UPSERT patterns"
+      },
+      {
+        "pragma": "PRAGMA foreign_keys=ON",
+        "purpose": "Enforce foreign key constraints",
+        "safety": "non-destructive; validates data integrity"
+      }
+    ],
+
+    "pragma_mechanism": "event.listens_for(_engine.sync_engine, 'connect') — attaches to every new connection",
+    "directory_creation": "os.makedirs(sqlite_dir, exist_ok=True) — only creates dir, not files",
+
+    "create_all_safety": {
+      "operation": "Base.metadata.create_all",
+      "tables_created": ["users", "runs", "run_events", "feedback", "thread_meta"],
+      "idempotent": "CREATE TABLE IF NOT EXISTS — safe to run on already-existing tables",
+      "not_destructive": "Does not DROP or ALTER existing tables"
+    },
+
+    "rollback_on_failure": {
+      "scenario": "create_all fails (e.g., existing table with incompatible schema)",
+      "action": "Exception propagates; engine still created but tables incomplete",
+      "recovery": "Alembic downgrade, fix schema, retry"
+    }
+  },
+
+  "postgres_create_database_safety_plan": {
+    "description": "Postgres backend auto-create database sequence",
+
+    "trigger_condition": "backend=postgres AND database does not exist",
+
+    "sequence": [
+      "1. Create engine to 'postgres' maintenance DB (AUTOCOMMIT isolation)",
+      "2. Execute: CREATE DATABASE \"{db_name}\"",
+      "3. Dispose maintenance engine",
+      "4. Retry init_engine with target DB"
+    ],
+
+    "maintenance_db": "postgres (default admin DB on every Postgres server)",
+
+    "isolation_level": "AUTOCOMMIT — required because CREATE DATABASE cannot run in transaction",
+
+    "failure_modes": [
+      {
+        "failure": "Permission denied to create database",
+        "action": "Exception propagates; gateway fails to start",
+        "recovery": "Grant CREATEDB privilege to user, or pre-create database manually"
+      },
+      {
+        "failure": "Database already exists (race condition)",
+        "action": "CREATE DATABASE fails with 'already exists' — caught and re-raised as the original create_all error",
+        "note": "Original error re-raised because retry would infinite loop"
+      }
+    ],
+
+    "rollback_on_failure": {
+      "scenario": "CREATE DATABASE succeeds but subsequent create_all fails",
+      "action": "Database exists but empty; manual cleanup required",
+      "recovery": "DROP DATABASE {db_name}; fix issue; retry"
+    }
+  },
+
+  "schema_create_all_safety_plan": {
+    "description": "Base.metadata.create_all() safety analysis",
+
+    "operation": "async with _engine.begin() as conn: await conn.run_sync(Base.metadata.create_all)",
+
+    "idempotent_check": {
+      "operation": "CREATE TABLE IF NOT EXISTS (SQLAlchemy default)",
+      "safety": "Safe to call on already-initialized database"
+    },
+
+    "not_destructive": {
+      "does_not": "DROP tables, ALTER columns, migrate data",
+      "only_does": "CREATE TABLE IF NOT EXISTS for each Base.metadata registry"
+    },
+
+    "model_discovery": {
+      "mechanism": "import deerflow.persistence.models — triggers model imports",
+      "models_registered": ["FeedbackRow", "RunEventRow", "RunRow", "ThreadMetaRow", "UserRow"],
+      "purpose": "All ORM models must be imported so Base.metadata discovers them"
+    },
+
+    "failure_handling": {
+      "postgres_specific": "if 'does not exist' in str(exc): auto-create DB, retry",
+      "other_errors": "re-raised immediately"
+    },
+
+    "no_schema_drift": {
+      "note": "create_all is for dev convenience; production should use Alembic",
+      "alembic_alternative": "Alembic for schema migrations, create_all only in dev/test"
+    }
+  },
+
+  "close_engine_cleanup_contract": {
+    "contract_id": "CLOSE_ENGINE_CLEANUP",
+    "description": "close_engine() must properly dispose of engine and release all connections",
+
+    "contract": [
+      "1. Check if _engine is not None",
+      "2. await _engine.dispose() — release all connection pool connections",
+      "3. Set _engine = None, _session_factory = None",
+      "4. Log 'Persistence engine closed'"
+    ],
+
+    "no_op_when_uninitialized": {
+      "scenario": "close_engine called when _engine=None (e.g., memory backend or not yet initialized)",
+      "action": "No-op; returns immediately"
+    },
+
+    "lifespan_shutdown": {
+      "location": "deps.py langgraph_runtime() finally block",
+      "usage": "await close_engine() in shutdown hook"
+    },
+
+    "connection_release_guarantee": "dispose() closes all pooled connections; no lingering connections after close"
+  },
+
+  "connection_pool_lifecycle_contract": {
+    "contract_id": "POOL_LIFECYCLE",
+    "description": "Connection pool must be properly sized and managed",
+
+    "pool_config": {
+      "sqlite": {
+        "size": "default (SQLAlchemy uses QueuePool)",
+        "pre_ping": "not applicable (no pool_pre_ping for SQLite)"
+      },
+      "postgres": {
+        "size": "pool_size config (default 5)",
+        "pre_ping": "pool_pre_ping=True (validates connections before use)"
+      }
+    },
+
+    "pool_pre_ping": {
+      "purpose": "Test connection validity before use; recycle stale connections",
+      "applies_to": "postgres only",
+      "effect": "Slight latency overhead but prevents 'connection dead' errors"
+    },
+
+    "pool_exhaustion_handling": {
+      "symptom": "All connections in use; new request blocks/waits",
+      "timeout": "SQLAlchemy default queue_timeout",
+      "failure_mode": "503 Service Unavailable or timeout",
+      "mitigation": "pool_size tuning, close_engine on shutdown"
+    },
+
+    "memory_backend": {
+      "pool": "None (no engine created)",
+      "connections": "N/A (no DB)"
+    }
+  },
+
+  "sdb_01_through_sdb_09_mapping": {
+    "SDB-01": {
+      "name": "memory backend no-op",
+      "tests": "init_engine(backend='memory') returns early; get_session_factory() returns None",
+      "contract_file": "engine.py"
+    },
+    "SDB-02": {
+      "name": "sqlite directory creation",
+      "tests": "sqlite_dir created if not exists; engine created with url",
+      "contract_file": "engine.py"
+    },
+    "SDB-03": {
+      "name": "sqlite WAL mode enabled",
+      "tests": "Query PRAGMA journal_mode returns 'wal'",
+      "contract_file": "engine.py"
+    },
+    "SDB-04": {
+      "name": "sqlite synchronous NORMAL",
+      "tests": "Query PRAGMA synchronous returns 'normal'",
+      "contract_file": "engine.py"
+    },
+    "SDB-05": {
+      "name": "sqlite foreign keys ON",
+      "tests": "Query PRAGMA foreign_keys returns 'on'",
+      "contract_file": "engine.py"
+    },
+    "SDB-06": {
+      "name": "postgres database auto-create",
+      "tests": "Non-existent DB created automatically; create_all succeeds",
+      "contract_file": "engine.py"
+    },
+    "SDB-07": {
+      "name": "schema create_all runs",
+      "tests": "All 5 tables exist after init_engine completes",
+      "contract_file": "engine.py + models/__init__.py"
+    },
+    "SDB-08": {
+      "name": "close_engine cleanup",
+      "tests": "After close_engine, engine is None, factory is None",
+      "contract_file": "engine.py"
+    },
+    "SDB-09": {
+      "name": "graceful degradation on failure",
+      "tests": "If create_all fails, appropriate error logged; no crash",
+      "contract_file": "engine.py"
+    }
+  },
+
+  "pool_01_through_pool_05_mapping": {
+    "POOL-01": {
+      "name": "50 concurrent DB reads",
+      "tests": "All complete within 30s; no timeout",
+      "requires": "postgres pool_size >= 5"
+    },
+    "POOL-02": {
+      "name": "100 concurrent DB operations",
+      "tests": "All complete; max wait < 5s",
+      "requires": "postgres pool_size >= 10"
+    },
+    "POOL-03": {
+      "name": "Pool exhaustion recovery",
+      "tests": "Graceful rejection (503) when pool exhausted",
+      "contract_file": "engine.py"
+    },
+    "POOL-04": {
+      "name": "Pool recycle on error",
+      "tests": "Stale connection recycled; subsequent requests succeed",
+      "requires": "pool_pre_ping=True"
+    },
+    "POOL-05": {
+      "name": "close_engine releases all",
+      "tests": "After close, no lingering connections",
+      "contract_file": "engine.py"
+    }
+  },
+
+  "rollback_disable_switch_mapping": {
+    "switch_key": "database.backend",
+    "switch_values": ["memory", "sqlite", "postgres"],
+    "memory_setting": "memory → init_engine no-op → get_session_factory=None",
+    "rollback_procedure": [
+      "1. Set database.backend=memory in config.yaml",
+      "2. Restart gateway",
+      "3. init_engine returns early, no engine created",
+      "4. Repositories fall back to in-memory",
+      "5. Existing SQLite/Postgres data preserved on disk"
+    ],
+    "no_data_loss": "memory fallback does not delete SQLite/Postgres files"
+  },
+
+  "test_file_plan": {
+    "test_files": [
+      {
+        "file_id": "TF-05",
+        "path": "tests/unit/persistence/test_engine.py",
+        "cases": ["init_engine memory no-op", "init_engine sqlite", "init_engine postgres", "get_session_factory None on memory", "get_session_factory returns factory on disk", "close_engine cleanup", "close_engine no-op when uninitialized"],
+        "framework": "pytest + pytest-asyncio",
+        "duration_estimate": "30 seconds"
+      },
+      {
+        "file_id": "TF-06",
+        "path": "tests/unit/persistence/test_user_row.py",
+        "cases": ["UserRow column mapping", "to_dict() serialization", "model inspection"],
+        "framework": "pytest",
+        "duration_estimate": "5 seconds"
+      },
+      {
+        "file_id": "TF-07",
+        "path": "tests/unit/persistence/test_sqlite_wal.py",
+        "cases": ["SDB-02 through SDB-05 (sqlite PRAGMAs)"],
+        "framework": "pytest + aiosqlite",
+        "duration_estimate": "10 seconds"
+      },
+      {
+        "file_id": "TF-08",
+        "path": "tests/unit/persistence/test_postgres_auto_create.py",
+        "cases": ["SDB-06 (postgres auto-create)"],
+        "framework": "pytest + asyncpg (requires postgres)",
+        "duration_estimate": "20 seconds",
+        "skip_if_no_postgres": true
+      },
+      {
+        "file_id": "TF-09",
+        "path": "tests/unit/persistence/test_pool_stability.py",
+        "cases": ["POOL-01 through POOL-05"],
+        "framework": "pytest + sqlalchemy async",
+        "duration_estimate": "1 minute"
+      }
+    ],
+    "total_test_files": 5,
+    "estimated_duration": "~2 minutes (excluding postgres tests)"
+  },
+
+  "implementation_order_if_authorization_granted": {
+    "sequence": [
+      {
+        "step": 1,
+        "file": "backend/packages/harness/deerflow/persistence/base.py",
+        "reason": "Foundation — Base class required for all ORM models",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 2,
+        "file": "backend/packages/harness/deerflow/persistence/user/model.py",
+        "reason": "UserRow ORM model",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 3,
+        "file": "backend/packages/harness/deerflow/persistence/models/__init__.py",
+        "reason": "Model registration — imports all models for Base.metadata discovery",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 4,
+        "file": "backend/packages/harness/deerflow/persistence/engine.py",
+        "reason": "CRITICAL — init_engine/close_engine/session_factory; SURFACE-010 primary trigger",
+        "can_parallelize_with": []
+      },
+      {
+        "step": 5,
+        "file": "backend/packages/harness/deerflow/persistence/__init__.py",
+        "reason": "Aggregate exports — re-exports init_engine, close_engine, get_session_factory",
+        "can_parallelize_with": []
+      }
+    ],
+    "total_steps": 5,
+    "parallelization_possible": "Step 1 and Step 2 can run in parallel (Base and UserRow independent)",
+    "critical_path": "Step 4 (engine.py) is the primary trigger and must be last in this sequence"
+  },
+
+  "explicit_stop_conditions": {
+    "stop_conditions": [
+      {
+        "condition": "SURFACE-010 not yet unblocked",
+        "action": "Do not implement Stage 3 — engine.py triggers SURFACE-010"
+      },
+      {
+        "condition": "Authorization scope does not expand to allow persistence/ directory",
+        "action": "Design only, no file creation"
+      },
+      {
+        "condition": "SDB gates (01-09) not all passed",
+        "action": "Do not proceed to implementation"
+      },
+      {
+        "condition": "POOL gates (01-05) not all passed",
+        "action": "Do not proceed to implementation"
+      },
+      {
+        "condition": "Code modification detected during review",
+        "action": "Abort and report safety violation"
+      }
+    ]
+  },
+
+  "classification_results": {
+    "persistence_stage3_plan_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "files_planned": ["persistence/base.py", "persistence/user/model.py", "persistence/models/__init__.py", "persistence/engine.py", "persistence/__init__.py"],
+    "sdb_mapping_completed": true,
+    "pool_mapping_completed": true,
+    "rollback_mapping_completed": true,
+    "memory_backend_contract_completed": true,
+    "no_route_registration": true,
+    "no_gateway_modification": true,
+    "db_written_at_import": false
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "persistence_dir_created": false,
+    "engine_created": false,
+    "userrow_created": false,
+    "base_created": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "patch_applied": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed_with_warnings",
+    "decision": "persistence_stage3_plan_completed_engine_and_userrow_contracts_defined",
+    "persistence_stage3_plan_completed": true,
+    "implementation_allowed": false,
+    "surface010_unblocked": false,
+    "files_planned": 5,
+    "sdb_mapping_completed": true,
+    "pool_mapping_completed": true,
+    "rollback_mapping_completed": true,
+    "memory_backend_contract_completed": true,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-22D",
+    "next_prompt_needed": "user_selection"
+  }
+}

@@ -1,0 +1,622 @@
+{
+  "design": {
+    "design_id": "nightly_trend_design_5e6638152966",
+    "generated_at": "2026-04-25T03:34:17.574166+00:00",
+    "input_sources": [
+      {
+        "module": "backend/app/audit/audit_trail_query.py",
+        "functions": [
+          "query_audit_trail",
+          "scan_append_only_audit_trail",
+          "summarize_audit_query_result",
+          "build_audit_query_filter"
+        ],
+        "read_only": true,
+        "writes_audit_jsonl": false
+      }
+    ],
+    "metric_catalog": [
+      {
+        "metric_type": "diagnostic_status_rate",
+        "metric_name": "partial_warning_rate",
+        "description": "Ratio of diagnostic audit records whose status is partial_warning.",
+        "source_field": "status",
+        "aggregation_method": "count(status=partial_warning)/count(all diagnostic records)",
+        "severity_mapping": {
+          "lt_0_25": "low",
+          "gte_0_25": "medium",
+          "gte_0_5": "high"
+        },
+        "recommended_action_type": "diagnostic_only"
+      },
+      {
+        "metric_type": "diagnostic_status_rate",
+        "metric_name": "failed_rate",
+        "description": "Ratio of diagnostic audit records whose status is failed.",
+        "source_field": "status",
+        "aggregation_method": "count(status=failed)/count(all diagnostic records)",
+        "severity_mapping": {
+          "gt_0": "high",
+          "gte_0_2": "critical"
+        },
+        "recommended_action_type": "review_tool_policy"
+      },
+      {
+        "metric_type": "append_record_count",
+        "metric_name": "total_audit_records",
+        "description": "Total valid append-only audit records in the selected window.",
+        "source_field": "audit_record_id",
+        "aggregation_method": "count(valid records)",
+        "severity_mapping": {
+          "zero": "medium",
+          "positive": "info"
+        },
+        "recommended_action_type": "diagnostic_only"
+      },
+      {
+        "metric_type": "critical_count",
+        "metric_name": "critical_signal_count",
+        "description": "Number of critical health or summary signals.",
+        "source_field": "summary.by_severity.critical",
+        "aggregation_method": "sum critical count",
+        "severity_mapping": {
+          "gt_0": "critical"
+        },
+        "recommended_action_type": "requires_user_confirmation"
+      },
+      {
+        "metric_type": "high_count",
+        "metric_name": "high_signal_count",
+        "description": "Number of high-severity health or summary signals.",
+        "source_field": "summary.by_severity.high",
+        "aggregation_method": "sum high count",
+        "severity_mapping": {
+          "gt_0": "high",
+          "increasing": "high"
+        },
+        "recommended_action_type": "diagnostic_only"
+      },
+      {
+        "metric_type": "queue_missing_count",
+        "metric_name": "queue_missing_warning_count",
+        "description": "Occurrences of queue_missing warnings in diagnostics.",
+        "source_field": "warnings",
+        "aggregation_method": "count warning contains queue_missing",
+        "severity_mapping": {
+          "persistent": "medium"
+        },
+        "recommended_action_type": "diagnostic_only"
+      },
+      {
+        "metric_type": "unknown_taxonomy_count",
+        "metric_name": "unknown_taxonomy_count",
+        "description": "Unknown taxonomy warnings across Memory, Prompt, RTCM, Asset, and Truth projections.",
+        "source_field": "warnings",
+        "aggregation_method": "count warning contains unknown",
+        "severity_mapping": {
+          "persistent": "medium",
+          "increasing": "high"
+        },
+        "recommended_action_type": "refine_taxonomy"
+      },
+      {
+        "metric_type": "rollback_missing_count",
+        "metric_name": "rollback_missing_count",
+        "description": "Missing rollback warning count from Prompt/ToolRuntime/Health signals.",
+        "source_field": "warnings",
+        "aggregation_method": "count warning contains rollback_missing",
+        "severity_mapping": {
+          "gt_0": "high"
+        },
+        "recommended_action_type": "add_rollback"
+      },
+      {
+        "metric_type": "backup_missing_count",
+        "metric_name": "backup_missing_count",
+        "description": "Missing backup warning count from Prompt/ToolRuntime/Health signals.",
+        "source_field": "warnings",
+        "aggregation_method": "count warning contains backup_missing",
+        "severity_mapping": {
+          "gt_0": "high"
+        },
+        "recommended_action_type": "add_backup"
+      },
+      {
+        "metric_type": "command_run_count",
+        "metric_name": "feishu_dry_run_count",
+        "description": "Count of Feishu summary dry-run projection records.",
+        "source_field": "source_command,event_type",
+        "aggregation_method": "count source_command contains feishu or event_type is feishu_summary_dryrun",
+        "severity_mapping": {
+          "zero_after_nightly": "medium"
+        },
+        "recommended_action_type": "diagnostic_only"
+      },
+      {
+        "metric_type": "command_run_count",
+        "metric_name": "nightly_review_count",
+        "description": "Count of Nightly Foundation Health Review records.",
+        "source_field": "source_command,event_type",
+        "aggregation_method": "count nightly health review records",
+        "severity_mapping": {
+          "zero_in_expected_window": "high"
+        },
+        "recommended_action_type": "diagnostic_only"
+      },
+      {
+        "metric_type": "invalid_line_count",
+        "metric_name": "invalid_jsonl_line_count",
+        "description": "Invalid JSONL line count reported by scan_append_only_audit_trail.",
+        "source_field": "file_summaries.invalid_line_count",
+        "aggregation_method": "sum invalid line count",
+        "severity_mapping": {
+          "gt_0": "high"
+        },
+        "recommended_action_type": "diagnostic_only"
+      }
+    ],
+    "trend_windows": {
+      "last_24h": {
+        "start_time_rule": "now - 24 hours",
+        "end_time_rule": "now",
+        "minimum_required_points": 2,
+        "expected_use": "Daily regression and nightly health drift detection."
+      },
+      "last_7d": {
+        "start_time_rule": "now - 7 days",
+        "end_time_rule": "now",
+        "minimum_required_points": 3,
+        "expected_use": "Short-term trend smoothing and persistent warning detection."
+      },
+      "last_30d": {
+        "start_time_rule": "now - 30 days",
+        "end_time_rule": "now",
+        "minimum_required_points": 5,
+        "expected_use": "Longer baseline comparison and recurring regression detection."
+      },
+      "all_available": {
+        "start_time_rule": "first available audit record",
+        "end_time_rule": "last available audit record",
+        "minimum_required_points": 1,
+        "expected_use": "Bootstrap baseline when insufficient historical data exists."
+      },
+      "custom": {
+        "start_time_rule": "caller supplied start_time",
+        "end_time_rule": "caller supplied end_time",
+        "minimum_required_points": 1,
+        "expected_use": "Manual investigation and targeted incident review."
+      }
+    },
+    "regression_rules": [
+      {
+        "rule_id": "partial_warning_rate_increases",
+        "metric_name": "partial_warning_rate",
+        "trigger_condition": "current window rate exceeds baseline by >= 20% or crosses 0.5",
+        "severity": "medium",
+        "required_evidence": [
+          "status counts",
+          "baseline rate",
+          "current rate"
+        ],
+        "recommended_action": "diagnostic_only",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "critical_count_increases",
+        "metric_name": "critical_signal_count",
+        "trigger_condition": "critical count is greater than previous comparable window",
+        "severity": "critical",
+        "required_evidence": [
+          "by_severity.critical",
+          "source record refs"
+        ],
+        "recommended_action": "requires_user_confirmation",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "high_count_increases",
+        "metric_name": "high_signal_count",
+        "trigger_condition": "high count is greater than previous comparable window",
+        "severity": "high",
+        "required_evidence": [
+          "by_severity.high",
+          "source record refs"
+        ],
+        "recommended_action": "diagnostic_only",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "queue_missing_persists",
+        "metric_name": "queue_missing_warning_count",
+        "trigger_condition": "queue_missing appears in two or more consecutive nightly windows",
+        "severity": "medium",
+        "required_evidence": [
+          "warning refs",
+          "source_command queue-sandbox/nightly"
+        ],
+        "recommended_action": "diagnostic_only",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "unknown_taxonomy_persists",
+        "metric_name": "unknown_taxonomy_count",
+        "trigger_condition": "unknown taxonomy warning count remains > 0 across configured window",
+        "severity": "medium",
+        "required_evidence": [
+          "warning refs",
+          "affected domains"
+        ],
+        "recommended_action": "refine_taxonomy",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "backup_missing_persists",
+        "metric_name": "backup_missing_count",
+        "trigger_condition": "backup_missing remains > 0 across configured window",
+        "severity": "high",
+        "required_evidence": [
+          "warning refs",
+          "affected commands/domains"
+        ],
+        "recommended_action": "add_backup",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "rollback_missing_persists",
+        "metric_name": "rollback_missing_count",
+        "trigger_condition": "rollback_missing remains > 0 across configured window",
+        "severity": "high",
+        "required_evidence": [
+          "warning refs",
+          "affected commands/domains"
+        ],
+        "recommended_action": "add_rollback",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "invalid_line_count_gt_zero",
+        "metric_name": "invalid_jsonl_line_count",
+        "trigger_condition": "scan_append_only_audit_trail reports invalid_line_count > 0",
+        "severity": "high",
+        "required_evidence": [
+          "file_summaries.invalid_line_count",
+          "target file refs"
+        ],
+        "recommended_action": "diagnostic_only",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "no_nightly_record_in_expected_window",
+        "metric_name": "nightly_review_count",
+        "trigger_condition": "nightly health review record count is 0 in expected nightly window",
+        "severity": "high",
+        "required_evidence": [
+          "time window",
+          "query result count"
+        ],
+        "recommended_action": "diagnostic_only",
+        "auto_fix_allowed": false
+      },
+      {
+        "rule_id": "feishu_dry_run_missing_after_nightly",
+        "metric_name": "feishu_dry_run_count",
+        "trigger_condition": "nightly record exists but no Feishu summary dry-run record follows it in window",
+        "severity": "medium",
+        "required_evidence": [
+          "nightly record refs",
+          "feishu dry-run query result"
+        ],
+        "recommended_action": "diagnostic_only",
+        "auto_fix_allowed": false
+      }
+    ],
+    "output_formats": [
+      "json",
+      "markdown",
+      "text"
+    ],
+    "future_integration_points": [
+      {
+        "name": "audit_trend_cli",
+        "description": "Future read-only audit-trend CLI powered by audit query engine.",
+        "runtime_write_allowed": false,
+        "network_allowed": false
+      },
+      {
+        "name": "feishu_trend_summary_dry_run",
+        "description": "Future Feishu card payload projection for trend summary; no webhook send by default.",
+        "send_allowed": false,
+        "webhook_call_allowed": false
+      },
+      {
+        "name": "long_term_dashboard",
+        "description": "Future dashboard design, separate from Gateway main run path.",
+        "gateway_mutation_allowed": false
+      }
+    ],
+    "blocked_actions": [
+      {
+        "action": "write_audit_jsonl",
+        "blocked": true,
+        "reason": "R241-12A is design-only"
+      },
+      {
+        "action": "modify_existing_jsonl",
+        "blocked": true,
+        "reason": "append-only integrity"
+      },
+      {
+        "action": "runtime_write",
+        "blocked": true,
+        "reason": "trend design cannot mutate runtime"
+      },
+      {
+        "action": "action_queue_write",
+        "blocked": true,
+        "reason": "no action queue in design phase"
+      },
+      {
+        "action": "feishu_send",
+        "blocked": true,
+        "reason": "dry-run only"
+      },
+      {
+        "action": "network_call",
+        "blocked": true,
+        "reason": "no webhook or network"
+      },
+      {
+        "action": "auto_fix",
+        "blocked": true,
+        "reason": "trend report only creates future action candidates"
+      },
+      {
+        "action": "gateway_mutation",
+        "blocked": true,
+        "reason": "no Gateway/M01/M04/DeerFlow main path mutation"
+      }
+    ],
+    "implementation_phases": [
+      {
+        "phase": "Phase 1",
+        "name": "Design-only Contract",
+        "scope": "Current R241-12A; define schema, metrics, windows, extraction rules, and regression rules.",
+        "runtime_write_allowed": false
+      },
+      {
+        "phase": "Phase 2",
+        "name": "Dry-run Trend Projection",
+        "scope": "Call audit query engine to generate trend points without writing trend runtime.",
+        "runtime_write_allowed": false
+      },
+      {
+        "phase": "Phase 3",
+        "name": "Trend Report Artifact",
+        "scope": "Write report artifacts to migration_reports/foundation_audit only.",
+        "runtime_write_allowed": false
+      },
+      {
+        "phase": "Phase 4",
+        "name": "Nightly Trend CLI",
+        "scope": "Add read-only audit-trend CLI; no scheduler coupling.",
+        "runtime_write_allowed": false
+      },
+      {
+        "phase": "Phase 5",
+        "name": "Feishu Trend Summary Dry-run",
+        "scope": "Generate Feishu trend payload projection, do not send.",
+        "runtime_write_allowed": false,
+        "send_allowed": false
+      },
+      {
+        "phase": "Phase 6",
+        "name": "Long-term Trend Dashboard",
+        "scope": "Future separate design; not connected to Gateway main path.",
+        "runtime_write_allowed": false,
+        "gateway_mutation_allowed": false
+      }
+    ],
+    "warnings": [],
+    "root": "E:\\OpenClaw-Base\\deerflow",
+    "status": "design_only",
+    "extraction_design": {
+      "source": "AuditQueryResult.records from query_audit_trail() and file_summaries from scan_append_only_audit_trail()",
+      "extraction_fields": [
+        {
+          "field": "source_command",
+          "usage": "Group trend points by CLI command or dry-run command surface."
+        },
+        {
+          "field": "event_type",
+          "usage": "Separate diagnostic_run, nightly_health_review, feishu_summary_dryrun, and append events."
+        },
+        {
+          "field": "status",
+          "usage": "Compute ok / partial_warning / failed rates."
+        },
+        {
+          "field": "warnings",
+          "usage": "Count queue_missing, unknown taxonomy, backup_missing, rollback_missing, and policy warnings."
+        },
+        {
+          "field": "errors",
+          "usage": "Compute hard failure trends and query/runtime design errors."
+        },
+        {
+          "field": "summary",
+          "usage": "Extract total_signals, by_severity, action_candidate_count, blocked_high_risk_count, requires_confirmation_count."
+        },
+        {
+          "field": "summary.by_severity",
+          "usage": "Compute critical/high/medium/low severity series."
+        },
+        {
+          "field": "summary.action_candidate_count",
+          "usage": "Track action candidate volume over time."
+        },
+        {
+          "field": "summary.blocked_high_risk_count",
+          "usage": "Track blocked high-risk action trend."
+        },
+        {
+          "field": "payload_hash",
+          "usage": "Detect repeated identical payloads and de-duplicate trend evidence."
+        },
+        {
+          "field": "generated_at",
+          "usage": "Primary event timestamp for trend bucketing."
+        },
+        {
+          "field": "observed_at",
+          "usage": "Fallback source observation timestamp."
+        },
+        {
+          "field": "appended_at",
+          "usage": "Append-only record timestamp and fallback ordering key."
+        }
+      ],
+      "time_precedence": [
+        "generated_at",
+        "observed_at",
+        "appended_at"
+      ],
+      "record_reference_fields": [
+        "audit_record_id",
+        "payload_hash",
+        "source_command",
+        "event_type"
+      ],
+      "warnings": []
+    },
+    "schema_objects": {
+      "AuditTrendPoint": [
+        "point_id",
+        "timestamp",
+        "window",
+        "metric_type",
+        "metric_name",
+        "metric_value",
+        "source_command",
+        "event_type",
+        "domain",
+        "severity",
+        "source_record_refs",
+        "warnings"
+      ],
+      "AuditTrendSeries": [
+        "series_id",
+        "metric_type",
+        "metric_name",
+        "window",
+        "points",
+        "direction",
+        "latest_value",
+        "previous_value",
+        "delta",
+        "delta_percent",
+        "sample_count",
+        "warnings"
+      ],
+      "TrendRegressionSignal": [
+        "regression_id",
+        "metric_type",
+        "metric_name",
+        "severity",
+        "direction",
+        "current_value",
+        "baseline_value",
+        "threshold",
+        "affected_commands",
+        "affected_domains",
+        "evidence_record_refs",
+        "recommended_action",
+        "warnings"
+      ],
+      "NightlyTrendReport": [
+        "trend_report_id",
+        "generated_at",
+        "status",
+        "window",
+        "source_query_refs",
+        "total_records_analyzed",
+        "series",
+        "regression_signals",
+        "summary",
+        "warnings",
+        "errors"
+      ],
+      "NightlyTrendDesign": [
+        "design_id",
+        "generated_at",
+        "input_sources",
+        "metric_catalog",
+        "trend_windows",
+        "regression_rules",
+        "output_formats",
+        "future_integration_points",
+        "blocked_actions",
+        "implementation_phases",
+        "warnings"
+      ]
+    },
+    "enum_values": {
+      "TrendMetricType": [
+        "diagnostic_status_rate",
+        "warning_count",
+        "error_count",
+        "severity_count",
+        "event_type_count",
+        "command_run_count",
+        "domain_signal_count",
+        "critical_count",
+        "high_count",
+        "blocked_action_count",
+        "requires_confirmation_count",
+        "queue_missing_count",
+        "unknown_taxonomy_count",
+        "rollback_missing_count",
+        "backup_missing_count",
+        "append_record_count",
+        "invalid_line_count",
+        "unknown"
+      ],
+      "TrendDirection": [
+        "improving",
+        "stable",
+        "worsening",
+        "volatile",
+        "insufficient_data",
+        "unknown"
+      ],
+      "TrendSeverity": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical",
+        "unknown"
+      ],
+      "TrendWindow": [
+        "last_24h",
+        "last_7d",
+        "last_30d",
+        "custom",
+        "all_available"
+      ],
+      "TrendReportStatus": [
+        "design_only",
+        "ready_for_dry_run",
+        "blocked_insufficient_data",
+        "blocked_query_error",
+        "unknown"
+      ]
+    }
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  },
+  "generated_at": "2026-04-25T03:34:17.574671+00:00",
+  "warnings": []
+}

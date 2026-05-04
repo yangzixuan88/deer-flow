@@ -1,0 +1,211 @@
+ M .dockerignore
+ M .gitignore
+ M backend/AGENTS.md
+ M backend/Dockerfile
+ M backend/app/channels/discord.py
+ M backend/app/channels/feishu.py
+ M backend/app/channels/manager.py
+ M backend/app/channels/service.py
+ M backend/app/channels/slack.py
+ M backend/app/channels/telegram.py
+ M backend/app/gateway/__init__.py
+ M backend/app/gateway/app.py
+ M backend/app/gateway/config.py
+ M backend/app/gateway/routers/__init__.py
+ M backend/app/gateway/routers/agents.py
+ M backend/app/gateway/routers/mcp.py
+ M backend/app/gateway/services.py
+ M backend/packages/harness/deerflow/agents/factory.py
+ M backend/packages/harness/deerflow/agents/lead_agent/__init__.py
+ M backend/packages/harness/deerflow/agents/lead_agent/agent.py
+ M backend/packages/harness/deerflow/agents/lead_agent/prompt.py
+ M backend/packages/harness/deerflow/agents/memory/prompt.py
+ M backend/packages/harness/deerflow/agents/memory/storage.py
+ M backend/packages/harness/deerflow/agents/memory/updater.py
+ M backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py
+ M backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py
+ M backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py
+ M backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py
+ M backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py
+ M backend/packages/harness/deerflow/agents/thread_state.py
+ M backend/packages/harness/deerflow/config/agents_config.py
+ M backend/packages/harness/deerflow/config/app_config.py
+ M backend/packages/harness/deerflow/config/extensions_config.py
+ M backend/packages/harness/deerflow/config/memory_config.py
+ M backend/packages/harness/deerflow/config/paths.py
+ M backend/packages/harness/deerflow/mcp/client.py
+ M backend/packages/harness/deerflow/mcp/oauth.py
+ M backend/packages/harness/deerflow/mcp/tools.py
+ M backend/packages/harness/deerflow/models/factory.py
+ M backend/packages/harness/deerflow/models/patched_minimax.py
+ M backend/packages/harness/deerflow/runtime/runs/worker.py
+ M backend/packages/harness/deerflow/sandbox/local/local_sandbox.py
+ M backend/packages/harness/deerflow/tools/builtins/__init__.py
+ M backend/packages/harness/deerflow/tools/builtins/task_tool.py
+ M backend/packages/harness/deerflow/tools/tools.py
+ M backend/packages/harness/pyproject.toml
+ M backend/pyproject.toml
+ M backend/tests/test_channels.py
+ M backend/uv.lock
+ M docker/provisioner/app.py
+ M frontend/.env.example
+ M frontend/CLAUDE.md
+ M frontend/README.md
+ M frontend/next.config.js
+ M frontend/package.json
+ M frontend/src/core/mcp/api.ts
+ M frontend/src/core/models/api.ts
+ M frontend/src/core/skills/api.ts
+ M frontend/src/server/better-auth/config.ts
+?? .openclaw/
+?? .serena/
+?? DECISIONS.md
+?? OpenClaw-DeerFlow.code-workspace
+?? R241-16M.json
+?? R241-16N.json
+?? UPGRADE_CENTER.md
+?? assets/
+?? backend/.lark-cli/
+?? backend/MEMORY.md
+?? backend/app/asset/
+?? backend/app/audit/
+?? backend/app/foundation/
+?? backend/app/gateway/context.py
+?? backend/app/gateway/mode_instrumentation.py
+?? backend/app/gateway/mode_router.py
+?? backend/app/gateway/test_context_envelope_smoke.py
+?? backend/app/gateway/test_mode_instrumentation_smoke.py
+?? backend/app/m03/
+?? backend/app/m04/
+?? backend/app/m05/
+?? backend/app/m07/
+?? backend/app/m08/
+?? backend/app/m09/
+?? backend/app/m10/
+?? backend/app/m11/
+?? backend/app/m12/
+?? backend/app/memory/
+?? backend/app/mode/
+?? backend/app/nightly/
+?? backend/app/perception/
+?? backend/app/prompt/
+?? backend/app/rtcm/
+?? backend/app/runtime_paths.py
+?? backend/app/scripts/
+?? backend/app/tool_runtime/
+?? backend/apply_slow_markers.py
+?? backend/audit_r205_align.py
+?? backend/boulder.json
+?? backend/check_fi.py
+?? backend/check_missing_plus.py
+?? backend/data/
+?? backend/docker-compose.yaml
+?? backend/external/
+?? backend/find_broken.py
+?? backend/fix_concat.py
+?? backend/fix_rollback_v8.py
+?? backend/fix_sandbox.py
+?? backend/fix_sandbox_v2.py
+?? backend/fix_sandbox_v3.py
+?? backend/fix_sandbox_v4.py
+?? backend/fix_sandbox_v5.py
+?? backend/fix_sandbox_v6.py
+?? backend/fix_sandbox_v7.py
+?? backend/fix_verify_section.py
+?? backend/generate_r241_14c_report.py
+?? backend/migration_reports/
+?? backend/n8n_data/
+?? backend/packages/harness/deerflow/agents/evaluator/
+?? backend/packages/harness/deerflow/agents/lead_agent/prompt_assembler.py
+?? backend/packages/harness/deerflow/agents/memory/vector_storage.py
+?? backend/packages/harness/deerflow/agents/middlewares/context_folder.py
+?? backend/packages/harness/deerflow/agents/middlewares/harness_review_middleware.py
+?? backend/packages/harness/deerflow/agents/middlewares/learning_middleware.py
+?? backend/packages/harness/deerflow/agents/middlewares/ralph_loop_middleware.py
+?? backend/packages/harness/deerflow/assets/
+?? backend/packages/harness/deerflow/harness_server.py
+?? backend/packages/harness/deerflow/scratch/
+?? backend/packages/harness/deerflow/skills/system/
+?? backend/packages/harness/deerflow/tools/builtins/autonomous_tools.py
+?? backend/packages/harness/deerflow/tools/builtins/knowledge_tool.py
+?? backend/packages/harness/deerflow/tools/builtins/review_evolution_tool.py
+?? backend/packages/harness/deerflow/tools/minimax_multimodal.py
+?? backend/packages/harness/scratch/
+?? backend/packages/workspace/
+?? backend/probe2.py
+?? backend/probe_channelmgr.py
+?? backend/probe_errors.py
+?? backend/probe_final.py
+?? backend/probe_lg.py
+?? backend/probe_m01_bridge.py
+?? backend/probe_m01_entry.py
+?? backend/probe_readfile.py
+?? backend/probe_readfile2.py
+?? backend/qdrant_storage/
+?? backend/rewrite_rollback.py
+?? backend/rewrite_verify.py
+?? backend/scratch/
+?? backend/scripts/
+?? backend/server_lark.log
+?? backend/server_output.log
+?? backend/src/
+?? backend/start_server.py
+?? backend/test_api.py
+?? backend/test_env.py
+?? backend/test_escape.txt
+?? backend/test_fr_script.ts
+?? backend/test_gov_engine.py
+?? backend/test_gov_import.py
+?? backend/test_governance_import.cjs
+?? backend/test_minimal.py
+?? backend/test_r187_diag.py
+?? backend/test_r187_dpbs_runtime.py
+?? backend/test_r188_roi_verification.ts
+?? backend/test_r189_roi_rollback.ts
+?? backend/test_r190_real_verification.ts
+?? backend/test_r191_real_rollback.ts
+?? backend/test_r194_uc_approval_outcome.py
+?? backend/test_r198_feishu_cards.cjs
+?? backend/test_r198_feishu_cards.ts
+?? backend/test_r199_approval_result.ts
+?? backend/test_r201_integration.ts
+?? backend/test_r202_idempotency.ts
+?? backend/test_r203_roi_freshness.ts
+?? backend/test_r204_scoring_accuracy.ts
+?? backend/test_record_outcome.cjs
+?? backend/test_record_outcome.py
+?? backend/test_spawn_compare.cjs
+?? backend/test_spawn_env.cjs
+?? backend/test_spawn_env.js
+?? backend/tests/foundation/
+?? backend/tmp_uc_backflow.json
+?? backend/tmp_uc_backflow.py
+?? baseline.md
+?? boulder.json
+?? crontabs.yaml
+?? docker-compose.yaml
+?? docs/LARK_CLI_INTEGRATION_REPORT.md
+?? docs/testing/
+?? evolution_seams.md
+?? frontend/package-lock.json
+?? gw_scan.py
+?? jest.config.cjs
+?? mcp-bridge.js
+?? memory/
+?? migration_reports/
+?? mission/
+?? openclaw_project/
+?? package-lock.json
+?? package.json
+?? pytest.ini
+?? rtcm/
+?? runbook.md
+?? scratch/
+?? scripts/ci_foundation_check.py
+?? scripts/foundation_diagnose.py
+?? scripts/root_guard.ps1
+?? scripts/root_guard.py
+?? start_deerflow.bat
+?? start_server.mjs
+?? tsconfig.json
+?? vitest.config.ts

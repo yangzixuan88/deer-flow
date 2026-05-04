@@ -1,0 +1,163 @@
+{
+  "phase": "R147E",
+  "title": "LARK_TENANT_TOKEN_SMOKE",
+  "status": "failed",
+  "preceded_by": "R147D",
+  "proceeding_to": "R147F_KEYTAR_FIX_OR_LARK_PAUSE",
+  "pressure_assessment": {
+    "previous_phase": "R147D",
+    "current_phase": "R147E",
+    "recommended_pressure": "XXL"
+  },
+  "lane_0_pressure": {
+    "previous_phase": "R147D",
+    "current_phase": "R147E",
+    "recommended_pressure": "XXL",
+    "reason": "R147D identified tenant_access_token mode as lowest-risk fix; R147E must apply patch and verify if it resolves 99991661"
+  },
+  "lane_1_patch_summary": {
+    "patch_applied": true,
+    "patch_target": "backend/extensions_config.json",
+    "patch_type": "cli args",
+    "original_args": ["dlx", "@larksuiteoapi/lark-mcp", "mcp", "-a", "$LARK_APP_ID", "-s", "$LARK_APP_SECRET"],
+    "patched_args": ["dlx", "@larksuiteoapi/lark-mcp", "mcp", "-a", "$LARK_APP_ID", "-s", "$LARK_APP_SECRET", "--token-mode", "tenant_access_token"],
+    "env_field_added": false,
+    "description_updated": "Lark/Feishu MCP (enabled R147A; tenant_token mode R147E)"
+  },
+  "lane_2_smoke_result": {
+    "smoke_executed": true,
+    "tool_invoked": "lark_im_v1_chat_list",
+    "params": {},
+    "error_code": 99991661,
+    "error_message": "Missing access token for authorization",
+    "elapsed_seconds": 4.77,
+    "tool_count_loaded": 17,
+    "expected_tool_count": 19,
+    "smoke_status": "FAILED"
+  },
+  "lane_3_token_mode_flag_analysis": {
+    "flag_reaches_lark_mcp": true,
+    "evidence": "17 tools loaded vs 19 expected — 2 builtin docx tools missing, consistent with tokenMode affecting tool loading",
+    "tokenMode_values_match": {
+      "auto_mode_tool_count": 19,
+      "tenant_mode_tool_count": 17,
+      "observed_count": 17,
+      "confirms_tenant_mode_active": true
+    },
+    "cli_flag_format_correct": true,
+    "args_array_final": ["dlx", "@larksuiteoapi/lark-mcp", "mcp", "-a", "$LARK_APP_ID", "-s", "$LARK_APP_SECRET", "--token-mode", "tenant_access_token"]
+  },
+  "lane_4_sdk_code_analysis": {
+    "getShouldUseUAT_correct": true,
+    "getShouldUseUAT_returns_false_for_tenant": "Returns false for TokenMode.TENANT_ACCESS_TOKEN — confirmed from SDK source",
+    "handler_shouldUseUAT_false_behavior": "In larkOapiHandler, when shouldUseUAT=false, calls func(params) WITHOUT any token attachment",
+    "sdk_user_token_attachment": "func(params, lark.withUserAccessToken(token)) — user token explicitly attached",
+    "sdk_tenant_token_attachment": "func(params) — NO token attachment when shouldUseUAT=false",
+    "root_cause_hypothesis": "The SDK's Client.request() method should auto-attach tenant token when appId+appSecret are configured. The larkOapiHandler calls func(params) which goes through client.request(). If tenant token fetch fails or is not triggered, API call goes out without Authorization header.",
+    "getShouldUseUAT_logic": "TokenMode.TENANT_ACCESS_TOKEN → return false → shouldUseUAT=false → no user token → call func(params) → SDK should fetch tenant token via HTTP but 99991661 suggests no token was attached",
+    "keytar_not_involved": true,
+    "keytar_dependency": "Not involved in tenant_access_token flow — tenant token is fetched per-request via HTTP"
+  },
+  "lane_5_post_smoke_analysis": {
+    "smoke_conclusion": "FAILED",
+    "error_persists": true,
+    "error_code_unchanged": true,
+    "tenant_mode_effect": "Flag reaches SDK and changes tool count (17 vs 19) but does not fix 99991661",
+    "primary_hypothesis": "The SDK's im.v1.chat.list method does NOT auto-attach tenant token without explicit user token. When shouldUseUAT=false, larkOapiHandler calls func(params) without token attachment. The SDK's Client.request() method uses appId+appSecret for tenant token fetch, but this fetch may fail silently or the token may not be attached to the outgoing request in the stdio subprocess environment.",
+    "secondary_hypotheses": [
+      "Network issue: stdio subprocess cannot reach Lark tenant token endpoint due to proxy/firewall",
+      "SDK token fetch failure: appId/appSecret not passed correctly to SDK's internal Client initialization",
+      "SDK bug: tenant token not auto-attached to API calls without explicit withTenantToken() call",
+      "Permission issue: appId/appSecret are valid but bot not installed in any group/chat"
+    ],
+    "network_evidence": {
+      "elapsed_time": "4.77s — longer than typical local call, possibly timeout or slow network",
+      "proxy_env_checked": "No LARK_HTTP_PROXY or HTTPS_PROXY in .env or extensions_config.json",
+      "lark_cli_adapter_proxy": "LarkCLIAdapter sets LARK_CLI_NO_PROXY=1 to disable proxy, confirming proxy awareness issue"
+    },
+    "sdk_initialization_check": "Client initialized with {appId, appSecret} in LarkMcpTool constructor — SDK should use these to auto-fetch tenant tokens"
+  },
+  "lane_6_unknown_registry": [
+    {
+      "id": "U-lark-tenant-token-not-attached",
+      "description": "R147E smoke failed with 99991661 even with --token-mode tenant_access_token flag set. SDK's larkOapiHandler calls func(params) without token when shouldUseUAT=false. SDK's Client.request() should auto-attach tenant token but may not in stdio environment.",
+      "priority": "critical",
+      "fix_applied": "R147E: flag reaches SDK (17 tools confirms) but 99991661 persists — tenant token not being attached to API calls"
+    },
+    {
+      "id": "U-lark-tenant-token-fetch-network",
+      "description": "The 4.77s elapsed time suggests possible network latency or timeout when SDK tries to fetch tenant token from /open-apis/auth/v3/tenant_access_token/internal",
+      "priority": "high",
+      "fix_applied": "R147E: network path for tenant token fetch is unknown — R147F should investigate proxy/network configuration"
+    },
+    {
+      "id": "U-lark-sdk-auto-tenant-token",
+      "description": "R147D assumed SDK auto-attaches tenant token via Client initialization with appId+appSecret. R147E evidence suggests this assumption may be incorrect — the SDK may require explicit withTenantToken() call or tokenMode may not propagate to Client initialization in stdio environment.",
+      "priority": "critical",
+      "fix_applied": "R147E: SDK's Client initialized with appId+appSecret in LarkMcpTool constructor — whether Client.request() auto-attaches tenant token is unverified"
+    }
+  ],
+  "classification": "failed",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R147F_KEYTAR_FIX_OR_LARK_PAUSE",
+  "next_phase_options": [
+    {
+      "option": "A",
+      "name": "Fix keytar native dependency",
+      "description": "Rebuild/reinstall keytar so AuthStore can persist OAuth user tokens, bypassing tenant token flow entirely",
+      "code_change_required": false,
+      "dependency_install_required": true,
+      "user_action_required": "maybe (npm rebuild)",
+      "risk": "medium",
+      "recommended": false,
+      "reason": "R147E suggests tenant token flow itself may be broken — keytar fix may be the only path to working Lark MCP"
+    },
+    {
+      "option": "B",
+      "name": "Pause Lark MCP, switch to Tavily investigation",
+      "description": "Disable Lark MCP, re-enable Tavily (R131A investigation), proceed with non-Lark mainline",
+      "code_change_required": true,
+      "dependency_install_required": false,
+      "user_action_required": false,
+      "risk": "low",
+      "recommended": false,
+      "reason": "Tavily was disabled in R147A due to 405 error — R147F should investigate Tavily before abandoning Lark"
+    },
+    {
+      "option": "C",
+      "name": "Try explicit USER_ACCESS_TOKEN env injection",
+      "description": "Pass a pre-obtained Lark user access token via env.USER_ACCESS_TOKEN to bypass SDK's token loading",
+      "code_change_required": true,
+      "dependency_install_required": false,
+      "user_action_required": "YES — user must obtain and provide a valid USER_ACCESS_TOKEN",
+      "risk": "high",
+      "recommended": false,
+      "reason": "Introduces long-lived secret; requires user to obtain token via lark-mcp login (which also needs keytar)"
+    },
+    {
+      "option": "D",
+      "name": "Investigate network/proxy issue for tenant token fetch",
+      "description": "R147F should instrument the stdio subprocess to capture stderr/stdout and see if tenant token fetch succeeds",
+      "code_change_required": false,
+      "dependency_install_required": false,
+      "user_action_required": false,
+      "risk": "low",
+      "recommended": true,
+      "reason": "4.77s elapsed time suggests possible network issue. A debug test that captures Lark MCP stderr could reveal if tenant token endpoint is reachable."
+    }
+  ],
+  "rollback_applied": false,
+  "rollback_note": "No rollback needed — extensions_config.json change is the authorized patch for R147E"
+}

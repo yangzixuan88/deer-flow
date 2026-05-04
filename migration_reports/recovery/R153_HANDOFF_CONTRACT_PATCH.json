@@ -1,0 +1,114 @@
+{
+  "phase": "R153",
+  "title": "HANDOFF_CONTRACT_PATCH",
+  "status": "completed",
+  "preceded_by": "R152",
+  "proceeding_to": "R154_SAFETY_AND_CONFIG_HYGIENE_PASS",
+  "lane_0_pressure": "M",
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "m01_m04_m11_untracked_preserved": true,
+    "no_git_clean_performed": true,
+    "no_git_reset_performed": true,
+    "r151f_search_order_fix_present": true,
+    "safe_to_continue": true
+  },
+  "lane_2_root_causes_found": [
+    {
+      "root_cause": "classify() search fast-path gap in intent_classifier.ts",
+      "description": "classifyOperation() at line 65 of classify() catches 'search' keyword before suggestSystemType() can return 'search'. R151F fix was placed in suggestSystemType() but was unreachable because the early-return at line 66-75 intercepts first.",
+      "fix": "Added search-indicator fast-path before classifyOperation() in classify() method",
+      "file": "backend/src/domain/m01/intent_classifier.ts"
+    },
+    {
+      "root_cause": "require() called inside function body in ESM mode",
+      "description": "orchestrator.execute() at line 69 used require('./context_envelope'). In Jest --experimental-vm-modules mode, require is undefined at runtime. Throws 'require is not defined', caught by try/catch, returns {success:false}.",
+      "fix": "Converted to static ESM import at module scope (line 17 of orchestrator.ts)",
+      "file": "backend/src/domain/m01/orchestrator.ts"
+    },
+    {
+      "root_cause": "ensureContextEnvelope mock returning undefined",
+      "description": "jest.fn() without return value returns undefined. Then ctx.request_id = ... in orchestrator.ts throws TypeError: Cannot set properties of undefined. Caught by try/catch, returns {success:false}.",
+      "fix": "ensureContextEnvelope mock now returns a proper object: jest.fn((req: any) => ({...req, context_id: 'test-context-id', request_id: req.requestId, session_id: req.sessionId}))",
+      "file": "backend/src/domain/m01/orchestrator.test.ts"
+    }
+  ],
+  "lane_3_test_doubles_applied": [
+    {
+      "module": "./context_envelope",
+      "type": "jest.mock() with return value override",
+      "mocks": {
+        "ensureContextEnvelope": "returns {context_id, request_id, session_id} instead of undefined",
+        "injectEnvelopeIntoContext": "jest.fn()",
+        "generateContextId": "jest.fn(() => 'test-context-id')",
+        "generateRequestId": "jest.fn(() => 'test-request-id')",
+        "generateLinkId": "jest.fn(() => 'test-link-id')",
+        "extractEnvelopeFromContext": "jest.fn()"
+      }
+    },
+    {
+      "module": "./deerflow_client",
+      "type": "MockDeerFlowClient class injected via Orchestrator constructor",
+      "mocks": {
+        "healthCheck": "mockResolvedValue(true)",
+        "createThread": "mockResolvedValue({thread_id: 'test-thread-001'})",
+        "executeUntilComplete": "mockResolvedValue({success:true, dag_plan:mockDagPlan, completed_nodes:1, total_nodes:2, duration:1234})"
+      }
+    }
+  ],
+  "lane_4_smoke_result": {
+    "command": "NODE_OPTIONS='--experimental-vm-modules' node_modules/.bin/jest backend/src/domain/m01/orchestrator.test.ts --config jest.config.cjs --no-coverage",
+    "tests_passed_before": 22,
+    "tests_passed_after": 25,
+    "tests_failed_before": 3,
+    "tests_failed_after": 0,
+    "test_suites": 1,
+    "all_tests": 25,
+    "M01_IntentClassifier": "13/13 pass",
+    "M01_DAGPlanner": "9/9 pass",
+    "M01_Orchestrator_execute": "3/3 pass (was failing)",
+    "M01_Orchestrator_getConfig": "1/1 pass"
+  },
+  "lane_5_safety_boundary": {
+    "dependency_installed": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "safety_violations": [],
+    "m01_m04_m11_untracked_preserved": true
+  },
+  "lane_6_key_patterns": {
+    "esm_require_incompatibility": "Jest --experimental-vm-modules runs TS as true ESM where require is undefined. jest.mock() hoists but require() inside function bodies executes at runtime. Solution: static ESM import at module scope.",
+    "search_keyword_conflict": "'search' in WEB_ACTION_KEYWORDS and SEARCH_INDICATORS. classifyOperation() catches first. Fast-path in classify() before classifyOperation() routes correctly.",
+    "mock_return_value_correctness": "jest.fn() without return returns undefined. Code that sets properties on mock result throws TypeError. Mock must return a proper object.",
+    "constructor_DI_for_mocks": "Orchestrator accepts optional dfClient parameter. In test, inject new MockDeerFlowClient() directly — bypasses module system and gives precise control."
+  },
+  "lane_7_files_modified": [
+    {
+      "file": "backend/src/domain/m01/intent_classifier.ts",
+      "change": "Added search-indicator fast-path before classifyOperation() in classify() — completes R151F fix that was in suggestSystemType() but unreachable"
+    },
+    {
+      "file": "backend/src/domain/m01/orchestrator.ts",
+      "change": "Converted require('./context_envelope') at line 69 to static ESM import at module scope"
+    },
+    {
+      "file": "backend/src/domain/m01/orchestrator.test.ts",
+      "change": "Added context_envelope mock, MockDeerFlowClient class, DI in beforeEach"
+    }
+  ],
+  "lane_8_next_phase": {
+    "recommended_next_phase": "R154_SAFETY_AND_CONFIG_HYGIENE_PASS",
+    "reason": "All 3 assertion failures resolved. Next: configuration hygiene, security settings, environment isolation before R155 final functional sweep."
+  },
+  "classification": "completed",
+  "tests_passed": "25/25",
+  "tests_failed": 0,
+  "root_causes_fixed": 3,
+  "contract_map_preserved": true,
+  "recommended_next_phase": "R154_SAFETY_AND_CONFIG_HYGIENE_PASS"
+}

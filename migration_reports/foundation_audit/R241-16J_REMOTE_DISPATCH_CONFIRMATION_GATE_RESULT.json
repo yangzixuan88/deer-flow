@@ -1,0 +1,187 @@
+{
+  "gate_id": "R241-16J_remote_dispatch_confirmation_gate",
+  "generated_at": "2026-04-26T01:34:47.078383+00:00",
+  "status": "passed",
+  "decision": "confirm",
+  "all_passed": true,
+  "checks": [
+    {
+      "check_id": "check_confirmation_phrase",
+      "check_type": "confirmation_phrase_validation",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Validates confirmation phrase matches expected dry-run phrase",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_requested_mode",
+      "check_type": "mode_validation",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Validates requested mode is one of: ['remote_plan_only', 'remote_selected_execute', 'remote_all_execute', 'remote_safety_execute', 'remote_slow_execute']",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_workflow_runtime_ready",
+      "check_type": "workflow_runtime_validation",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Validates workflow readiness using R241-16I runtime verification results",
+      "evidence_refs": [
+        "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16I_MANUAL_WORKFLOW_RUNTIME_VERIFICATION_RESULT.json"
+      ],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_execute_mode_plan_only",
+      "check_type": "execute_mode_safety_check",
+      "passed": true,
+      "risk_level": "high",
+      "description": "execute_mode must be plan_only for confirmation gate",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_stage_selection_valid",
+      "check_type": "stage_selection_validation",
+      "passed": true,
+      "risk_level": "medium",
+      "description": "stage_selection must be one of: ['all_pr', 'fast', 'safety']",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_workflow_file_exists",
+      "check_type": "workflow_existence_check",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Workflow file foundation-manual-dispatch.yml must exist",
+      "evidence_refs": [
+        "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml"
+      ],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_workflow_dispatch_trigger",
+      "check_type": "workflow_trigger_check",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Workflow must have workflow_dispatch trigger enabled",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_remote_dispatch_not_allowed",
+      "check_type": "remote_dispatch_safety_guard",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "remote_dispatch_allowed_now must be False in this phase",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_no_secrets_in_workflow",
+      "check_type": "security_check",
+      "passed": true,
+      "risk_level": "critical",
+      "description": "Workflow must not reference any secrets",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "check_id": "check_no_network_calls",
+      "check_type": "security_check",
+      "passed": true,
+      "risk_level": "high",
+      "description": "Workflow must not make direct network calls",
+      "evidence_refs": [],
+      "required_before_pass": true,
+      "blocked_reasons": [],
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "blueprint": {
+    "blueprint": {
+      "command_type": "gh workflow run E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml",
+      "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml",
+      "inputs": {
+        "confirm_manual_dispatch": "CONFIRM_REMOTE_FOUNDATION_CI_DRYRUN",
+        "stage_selection": "all_pr",
+        "execute_mode": "plan_only"
+      },
+      "dry_run": true,
+      "remote_dispatch_allowed": false
+    },
+    "command_type": "gh workflow run E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml",
+    "remote_dispatch_allowed": false,
+    "mode": "remote_plan_only",
+    "stage_selection": "all_pr",
+    "execute_mode": "plan_only"
+  },
+  "rollback_plan": {
+    "rollback_plan": {
+      "decision": "confirm",
+      "reason": "Gate passed, dispatch confirmed not executed",
+      "workflow_path": "E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml",
+      "rollback_steps": [
+        {
+          "step": 1,
+          "action": "cancel_pending_runs",
+          "description": "Cancel any pending workflow runs for foundation-manual-dispatch",
+          "command": "gh run list --workflow=E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml --status=in_progress | xargs -r gh run cancel"
+        },
+        {
+          "step": 2,
+          "action": "verify_no_dispatch_occurred",
+          "description": "Verify no actual dispatch occurred by checking run history",
+          "command": "gh run list --workflow=E:\\OpenClaw-Base\\deerflow\\.github\\workflows\\foundation-manual-dispatch.yml --limit=5 --json=status,conclusion"
+        }
+      ],
+      "gate_id": "R241-16J_remote_dispatch_confirmation_gate"
+    },
+    "cancel_steps": [
+      {
+        "step": 1,
+        "action": "no_cancellation_needed",
+        "description": "No active dispatch to cancel"
+      }
+    ]
+  },
+  "confirmation_phrase": "CONFIRM_REMOTE_FOUNDATION_CI_DRYRUN",
+  "requested_mode": "remote_plan_only",
+  "stage_selection": "all_pr",
+  "execute_mode": "plan_only",
+  "remote_dispatch_allowed_now": false,
+  "warnings": [],
+  "errors": []
+}

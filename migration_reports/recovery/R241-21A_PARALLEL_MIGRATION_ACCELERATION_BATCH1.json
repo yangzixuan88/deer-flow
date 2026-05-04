@@ -1,0 +1,276 @@
+{
+  "report_id": "R241-21A_PARALLEL_MIGRATION_ACCELERATION_BATCH1",
+  "phase": "phase_21a_parallel_migration_acceleration_batch1",
+  "status": "passed",
+  "decision": "parallel_batch_completed_no_violations",
+  "source": "R241-20G6_TMP_WORKTREE_CLEANUP",
+  "parallel_tasks": 4,
+  "runtime_touch_detected": false,
+  "dependency_execution_executed": false,
+  "code_modified": false,
+  "blockers_preserved": true,
+  "safety_violations": [],
+
+  "task_1_pr_status": {
+    "task": "PR #2645 Read-Only Status Check",
+    "completed": true,
+    "pr_number": 2645,
+    "pr_url": "https://github.com/bytedance/deer-flow/pull/2645",
+    "state": "OPEN",
+    "title": "R241-20G3: apply CAND-017 lead agent summarization config",
+    "source_branch": "r241/cand017-lead-agent-summarization",
+    "target_branch": "main",
+    "changed_files": 1,
+    "modified_file": "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+    "checks": [
+      {
+        "context": "license/cla",
+        "state": "SUCCESS",
+        "startedAt": "2026-04-29T03:00:05Z"
+      }
+    ],
+    "verification": {
+      "pr_exists": true,
+      "changed_files_confirmed": 1,
+      "modified_file_unchanged": true,
+      "merge_executed": false,
+      "main_modified": false,
+      "pr_branch_modified": false
+    }
+  },
+
+  "task_2_adapter_planning": {
+    "task": "Adapter Implementation Planning Batch",
+    "completed": true,
+    "source": "R241-20D_ADAPTER_DESIGN_BATCH_REVIEW",
+    "total_candidates": 10,
+
+    "safe_subset": [
+      {
+        "id": "CAND-001",
+        "path": "backend/app/gateway/auth/__init__.py",
+        "type": "auth",
+        "reason": "new module, no conflicts"
+      },
+      {
+        "id": "CAND-005",
+        "path": "backend/app/gateway/auth_middleware.py",
+        "type": "auth",
+        "reason": "new file, isolated"
+      },
+      {
+        "id": "CAND-006",
+        "path": "backend/app/gateway/langgraph_auth.py",
+        "type": "auth",
+        "reason": "LangGraph integration, isolated"
+      },
+      {
+        "id": "CAND-022",
+        "path": "backend/langgraph.json",
+        "type": "config",
+        "reason": "config only, no runtime"
+      }
+    ],
+
+    "blocked_subset": [
+      {
+        "id": "CAND-002",
+        "path": "backend/app/gateway/auth/jwt.py",
+        "blocker": "CAND-002 memory_read_binding",
+        "reason": "blocked by carryover blocker"
+      },
+      {
+        "id": "CAND-014",
+        "path": "runtime/events/store/memory.py",
+        "blocker": "SURFACE-010",
+        "reason": "memory BLOCKED CRITICAL"
+      },
+      {
+        "id": "CAND-015",
+        "path": "runtime/journal.py",
+        "blocker": "SURFACE-010",
+        "reason": "memory BLOCKED CRITICAL"
+      },
+      {
+        "id": "CAND-019",
+        "path": "backend/app/gateway/services.py",
+        "blocker": "GSIC-003/GSIC-004",
+        "reason": "protected path + gateway chain"
+      }
+    ],
+
+    "auth_review_subset": [
+      {
+        "id": "CAND-004",
+        "path": "backend/app/gateway/auth/reset_admin.py",
+        "reason": "privileged admin reset"
+      },
+      {
+        "id": "CAND-023",
+        "path": "backend/app/gateway/auth/providers.py",
+        "reason": "privileged auth provider"
+      }
+    ],
+
+    "recommended_action": "Proceed with CAND-022 (langgraph.json) first, then CAND-001/CAND-005/CAND-006 in parallel"
+  },
+
+  "task_3_dependency_pin_strategy": {
+    "task": "Dependency CAND-016 Pin Strategy",
+    "completed": true,
+    "source": "R241-20E_DEPENDENCY_RISK_REVIEW",
+    "package": "langchain-ollama>=0.3.0",
+    "location": "backend/packages/harness/pyproject.toml:41",
+    "risk_level": "medium",
+    "current_pin": ">=0.3.0",
+    "quarantine_maintained": true,
+
+    "recommended_upper_bound": {
+      "pin": "langchain-ollama>=0.3.0,<1.0.0",
+      "rationale": "Major version boundary control — LangChain stable, conservative major boundary"
+    },
+
+    "install_preconditions": {
+      "surface_010_unblocked": false,
+      "gateway_chain_complete": false,
+      "quarantine_review_complete": true,
+      "separate_authorization_received": false
+    },
+
+    "test_preconditions": {
+      "isolated_test_environment": false,
+      "no_production_runtime": false,
+      "rollback_plan_documented": true
+    },
+
+    "rollback_conditions": [
+      {
+        "condition": "Ollama server unreachable",
+        "action": "Remove from pyproject, revert"
+      },
+      {
+        "condition": "langchain-ollama import failure",
+        "action": "Pin to last known working version"
+      },
+      {
+        "condition": "Runtime conflict detected",
+        "action": "Full quarantine restore"
+      }
+    ],
+
+    "no_install_conclusion": "Install NOT authorized. Quarantine maintained."
+  },
+
+  "task_4_forbidden_unblock_prerequisite_matrix": {
+    "task": "Forbidden Runtime Unblock Prerequisite Matrix",
+    "completed": true,
+    "source": "R241-20F_FORBIDDEN_RUNTIME_UNBLOCK_PLANNING",
+    "total_candidates": 9,
+    "unblock_phases": 7,
+
+    "unblock_sequence": [
+      {
+        "phase": 0,
+        "blocker": "SURFACE-010",
+        "description": "memory BLOCKED CRITICAL — root blocker",
+        "unblocks": ["CAND-008", "CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+        "evidence_required": ["Memory runtime stability proof", "No memory leaks in test", "Backup verified"]
+      },
+      {
+        "phase": 1,
+        "blocker": "MAINLINE-GATEWAY-ACTIVATION",
+        "description": "gateway activation flag",
+        "unblocks": ["GSIC-003", "GSIC-004"],
+        "evidence_required": ["Gateway activation safety analysis", "No conflicts with DSRT"]
+      },
+      {
+        "phase": 2,
+        "blocker": "DSRT-ENABLED",
+        "description": "DSRT enable flag",
+        "unblocks": ["DSRT-IMPLEMENTED"],
+        "evidence_required": ["DSRT design document", "Integration test plan"]
+      },
+      {
+        "phase": 3,
+        "blocker": "DSRT-IMPLEMENTED",
+        "description": "DSRT implementation complete",
+        "unblocks": ["GSIC-003", "GSIC-004"],
+        "evidence_required": ["DSRT implementation complete", "All tests pass"]
+      },
+      {
+        "phase": 4,
+        "blocker": "GSIC-003 + GSIC-004",
+        "description": "gateway/app.py + routers/auth.py",
+        "unblocks": ["CAND-007", "CAND-018"],
+        "evidence_required": ["Protected path review", "FastAPI route safety analysis"]
+      },
+      {
+        "phase": 5,
+        "blocker": "SURFACE-010 persistence",
+        "description": "Final persistence unblock",
+        "unblocks": ["CAND-009", "CAND-010", "CAND-011", "CAND-012", "CAND-013", "CAND-024"],
+        "evidence_required": ["Init order defined", "Retention policy defined", "Backup verified"]
+      }
+    ],
+
+    "minimal_safe_review_order": [
+      "SURFACE-010 (root blocker) — must be first",
+      "MAINLINE-GATEWAY-ACTIVATION=true",
+      "DSRT-ENABLED=true",
+      "DSRT-IMPLEMENTED=true",
+      "GSIC-003 (CAND-018 gateway/app.py)",
+      "GSIC-004 (CAND-007 gateway/routers/auth.py)",
+      "SURFACE-010 persistence candidates (7 files)"
+    ],
+
+    "no_blocker_override": true
+  },
+
+  "safety_boundary": {
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "pr_branch_modified": false,
+    "merge_executed": false,
+    "main_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+
+  "final_decision": {
+    "status": "passed",
+    "pr_2645_status": "OPEN",
+    "pr_2645_checks": "license/cla SUCCESS",
+    "adapter_planning_completed": true,
+    "adapter_safe_subset": ["CAND-001", "CAND-005", "CAND-006", "CAND-022"],
+    "adapter_blocked_subset": ["CAND-002", "CAND-014", "CAND-015", "CAND-019"],
+    "adapter_auth_review_subset": ["CAND-004", "CAND-023"],
+    "dependency_pin_strategy_completed": true,
+    "cand016_quarantine_maintained": true,
+    "cand016_recommended_pin": ">=0.3.0,<1.0.0",
+    "forbidden_unblock_prerequisite_matrix_completed": true,
+    "unblock_phases": 7,
+    "runtime_touch_detected": false,
+    "dependency_execution_executed": false,
+    "code_modified": false,
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-21A",
+    "next_prompt_needed": "user_selection"
+  }
+}

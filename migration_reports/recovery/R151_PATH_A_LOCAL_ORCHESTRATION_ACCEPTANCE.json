@@ -1,0 +1,146 @@
+{
+  "phase": "R151",
+  "title": "PATH_A_LOCAL_ORCHESTRATION_ACCEPTANCE",
+  "status": "partial",
+  "preceded_by": "R150",
+  "proceeding_to": "R151B_PATH_A_HARNESS_REPAIR_PLAN",
+  "lane_0_pressure": {
+    "previous_phase": "R150",
+    "current_phase": "R151",
+    "recommended_pressure": "M",
+    "reason": "Path A local TS orchestration acceptance; no model/MCP/Python gateway calls; static analysis only"
+  },
+  "lane_1_workspace_guard": {
+    "workspace_dirty": true,
+    "dirty_files_count": "many untracked (report artifacts + new modules)",
+    "key_commits_present": true,
+    "f480fec1_r140_inline_fix": true,
+    "bc3c0670_r142c_result_persistence": true,
+    "da4b7565_r147k_tavily_stdio": true,
+    "unexpected_production_dirty_files": [],
+    "safe_to_continue": true
+  },
+  "lane_2_path_a_static_structure": {
+    "m01_orchestrator_ts": {
+      "exists": true,
+      "path": "backend/src/domain/m01/orchestrator.ts",
+      "deerflow_enabled_flag_present": true,
+      "deerflow_enabled_line": 189,
+      "health_check_probe_present": true,
+      "health_check_line": 208,
+      "create_thread_probe_present": true,
+      "create_thread_line": 214,
+      "local_fallback_on_timeout_present": true,
+      "local_fallback_lines": "231-233"
+    },
+    "m04_coordinator_ts": {
+      "exists": true,
+      "path": "backend/src/domain/m04/coordinator.ts",
+      "system_type_switch_present": true,
+      "system_type_switch_line": 146,
+      "never_calls_python_directly": true,
+      "python_boundary_respected": true
+    },
+    "m11_executor_adapter_ts": {
+      "exists": true,
+      "path": "backend/src/domain/m11/adapters/executor_adapter.ts",
+      "executor_readiness_gate_present": true,
+      "executor_readiness_gate_line": 241,
+      "not_ready_skip_action_present": true,
+      "not_ready_skip_line": 282,
+      "opencli_fallback_present": true
+    },
+    "ts_files_found": ["orchestrator.ts", "orchestrator.test.ts", "context_envelope.ts", "dag_planner.ts", "deerflow_client.ts", "intent_classifier.ts", "types.ts", "mod.ts"],
+    "all_components_present": true,
+    "python_boundary_verified": true
+  },
+  "lane_3_dependency_test_runner_readiness": {
+    "ts_runtime_ready": false,
+    "reason": "jest.config.* missing from backend/ root; node_modules not installed in backend/; network install required",
+    "package_manager_available": true,
+    "package_json_at_root": true,
+    "package_json_content": {
+      "name": "openclaw",
+      "scripts": {
+        "test": "cd backend && jest --runInBand",
+        "test:m04": "cd backend && NODE_OPTIONS='--experimental-vm-modules' jest src/domain/m04",
+        "test:m11": "cd backend && NODE_OPTIONS='--experimental-vm-modules' jest src/domain/m11"
+      }
+    },
+    "jest_config_in_backend": false,
+    "node_modules_in_backend": false,
+    "network_install_required": true,
+    "safe_to_run_ts_tests": false,
+    "tests_found": ["orchestrator.test.ts", "coordinator.test.ts", "coordinator_sandbox_integration.test.ts", "lark_routing.test.ts", "skill_router.test.ts", "sandbox.test.ts"],
+    "blocking_issue": "backend/ directory lacks jest.config.ts and node_modules; root package.json tries to cd into backend for jest but backend has no package.json and no node_modules",
+    "alternative_execution_possible": false
+  },
+  "lane_4_path_a_harness_plan": {
+    "entrypoint": "backend/src/domain/m01/orchestrator.ts",
+    "mocked_components": ["DeerFlowClient", "M04Coordinator", "M11ExecutorAdapter", "executorReadinessGate"],
+    "forbidden_calls": ["POST /runs", "MiniMax API", "MCP runtime", "Python gateway"],
+    "expected_result": "M01.execute() with deerflowEnabled=false returns local execution without reaching Python gateway",
+    "harness_feasibility": "notRunnableDueToDependencyBlock",
+    "reason": "Cannot run TS tests without node_modules and jest.config.ts in backend/"
+  },
+  "lane_5_path_a_smoke_attempt": {
+    "path_a_smoke_attempted": false,
+    "path_a_smoke_status": "blocked",
+    "block_reason": "dependency_block_ts_runtime_infrastructure",
+    "m01_invoked": false,
+    "m04_invoked": false,
+    "m11_invoked": false,
+    "python_gateway_called": false,
+    "external_network_called": false,
+    "note": "Smoke blocked at LANE 3 due to missing test infrastructure, not Path A chain failure"
+  },
+  "lane_6_failure_classification": {
+    "failure_class": "dependency_block_ts_test_infrastructure",
+    "failure_detail": "backend/ has no package.json, no jest.config.ts, no node_modules. Root package.json references 'cd backend && jest' but backend/ lacks the test infrastructure. Cannot execute TS smoke.",
+    "ts_chain_broken": false,
+    "python_boundary_leak": false,
+    "unexpected_network_call": false,
+    "repair_needed": true,
+    "recommended_repair_phase": "R151B_PATH_A_HARNESS_REPAIR_PLAN"
+  },
+  "lane_7_path_a_acceptance_decision": {
+    "path_a_acceptance_status": "partial",
+    "path_a_mainline_ready": "unknown_due_to_infrastructure_block",
+    "static_structure_clear": true,
+    "smoke_passes": false,
+    "python_gateway_called": false,
+    "reason": "Path A static structure is fully intact (all components present, deerflowEnabled flag verified, python boundary respected). But smoke execution is blocked by missing TypeScript test infrastructure (no jest.config.ts, no node_modules in backend/). This is a harness/infrastructure issue, not a Path A chain failure.",
+    "path_a_structure_intact": true,
+    "runtime_acceptance_deferred": true
+  },
+  "lane_8_next_phase_decision": {
+    "if_pass": "not_applicable",
+    "if_partial_due_harness": "R151B_PATH_A_HARNESS_REPAIR_PLAN",
+    "if_fail_due_ts_chain": "not_applicable",
+    "if_blocked_due_deps": "R151B_PATH_A_HARNESS_REPAIR_PLAN",
+    "recommended_next_phase": "R151B_PATH_A_HARNESS_REPAIR_PLAN",
+    "rationale": "Path A static structure is clear but runtime smoke blocked by missing test infrastructure. R151B should: (1) create jest.config.ts in backend/, (2) establish node_modules or find alternative execution method, (3) re-attempt smoke without npm install network requirement."
+  },
+  "lane_9_report_generation": {
+    "reports_written": true,
+    "md_report": "R151_PATH_A_LOCAL_ORCHESTRATION_ACCEPTANCE.md",
+    "json_report": "R151_PATH_A_LOCAL_ORCHESTRATION_ACCEPTANCE.json"
+  },
+  "classification": "partial",
+  "code_modified": false,
+  "dependency_installed": false,
+  "env_modified": false,
+  "patch_applied": false,
+  "db_written": false,
+  "jsonl_written": false,
+  "gateway_started": false,
+  "model_api_called": false,
+  "mcp_runtime_called": false,
+  "external_tool_called": false,
+  "push_executed": false,
+  "merge_executed": false,
+  "safety_violations": [],
+  "blockers_preserved": true,
+  "recommended_next_phase": "R151B_PATH_A_HARNESS_REPAIR_PLAN",
+  "next_prompt_needed": "R151B specification"
+}

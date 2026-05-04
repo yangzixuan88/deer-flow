@@ -1,0 +1,71 @@
+# DISABLED DRAFT
+# DO NOT ENABLE WITHOUT USER CONFIRMATION
+# NO PR/PUSH/SCHEDULE TRIGGERS
+# Store as report artifact only; do not place under .github/workflows.
+name: Foundation Check Disabled Draft
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_disabled_draft:
+        description: "Manual preview only; remains disabled by job guards"
+        required: true
+        default: "disabled"
+permissions:
+  contents: read
+jobs:
+  job_smoke:
+    if: ${{ false }}
+    name: Smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Disabled draft command preview
+        run: python -m pytest -m smoke -v
+  job_fast:
+    if: ${{ false }}
+    name: Fast Unit + Fast Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Disabled draft command preview
+        run: python -m pytest backend/app/foundation backend/app/audit -m "not slow" -v
+  job_safety:
+    if: ${{ false }}
+    name: Safety Boundaries
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Disabled draft command preview
+        run: python -m pytest backend/app/foundation backend/app/audit -m "no_network or no_runtime_write or no_secret" -v
+  job_slow:
+    if: ${{ false }}
+    name: Slow Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Disabled draft command preview
+        run: python -m pytest backend/app/foundation backend/app/audit -m slow -v
+  job_full:
+    if: ${{ false }}
+    name: Full Regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Disabled draft command preview
+        run: python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v
+  job_collect_only:
+    if: ${{ false }}
+    name: Collection Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Disabled draft command preview
+        run: python -m pytest backend/app/foundation backend/app/audit --collect-only -q
+  job_artifact_collection:
+    if: ${{ false }}
+    name: Artifact Collection
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Disabled draft command preview
+        run: collect report artifacts only

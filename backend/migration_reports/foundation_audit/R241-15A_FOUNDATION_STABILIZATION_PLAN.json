@@ -1,0 +1,408 @@
+{
+  "plan_version": "1.0",
+  "generated_at": "2026-04-25T08:21:31.841639+00:00",
+  "layer_catalog": {
+    "catalog_version": "1.0",
+    "generated_at": "2026-04-25T08:21:31.841489+00:00",
+    "layers": {
+      "smoke": {
+        "name": "smoke",
+        "description": "Fast health checks — target < 60s. Minimal import + smoke tests.",
+        "marker": "smoke",
+        "target_runtime_seconds": 60,
+        "entrypoint": "python -m pytest -m smoke -v",
+        "typical_size": "5-15 tests"
+      },
+      "unit": {
+        "name": "unit",
+        "description": "Pure unit tests — no I/O, no network, no runtime writes. Contract/validator tests.",
+        "marker": "unit",
+        "target_runtime_seconds": 120,
+        "entrypoint": "python -m pytest -m 'unit and not slow' -v",
+        "typical_size": "50-150 tests"
+      },
+      "integration": {
+        "name": "integration",
+        "description": "Integration-level tests — CLI helpers, projections, query combinations. May write tmp.",
+        "marker": "integration",
+        "target_runtime_seconds": 300,
+        "entrypoint": "python -m pytest -m 'integration and not slow' -v",
+        "typical_size": "30-80 tests"
+      },
+      "slow": {
+        "name": "slow",
+        "description": "Long-running tests — real diagnostics, full scan, large sample generation, all-diagnostics aggregate.",
+        "marker": "slow",
+        "target_runtime_seconds": 600,
+        "entrypoint": "python -m pytest -m slow -v",
+        "typical_size": "10-30 tests"
+      },
+      "full": {
+        "name": "full",
+        "description": "Full regression suite — all tests across foundation, audit, nightly, rtcm, prompt, tool_runtime, mode, gateway, asset, memory, m11.",
+        "marker": "full",
+        "target_runtime_seconds": 900,
+        "entrypoint": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+        "typical_size": "200-500 tests"
+      }
+    },
+    "marker_definitions": {
+      "smoke": "fast health checks — target < 60s",
+      "unit": "pure unit tests — no I/O, no network, no runtime",
+      "integration": "integration-level tests — CLI helpers, projections, queries",
+      "slow": "long-running tests — real diagnostics, full scan, large samples",
+      "full": "full regression suite — all tests",
+      "no_network": "must not call network or webhooks",
+      "no_runtime_write": "must not write runtime state or action queue",
+      "no_secret": "must not read or output secrets, tokens, webhook URLs"
+    }
+  },
+  "slow_test_candidates": {
+    "discovered_at": "2026-04-25T08:21:31.841616+00:00",
+    "total_candidates": 18,
+    "candidates": [
+      {
+        "test_name": "test_read_only_diagnostics_cli",
+        "reason": "runs full diagnostic aggregate with real file scans",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_run_all_diagnostics",
+        "reason": "runs 7 diagnostic commands + file discovery",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_cli_audit_trend",
+        "reason": "runs trend projection with audit JSONL scan",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_audit_trend",
+        "reason": "runs audit trend with artifact bundle generation",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_write_trend_report",
+        "reason": "writes trend report artifact to disk",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_generate_trend_report",
+        "reason": "generates large artifact bundle",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_sample_generator",
+        "reason": "generates 5 CLI scenario samples to disk",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "generate_feishu_presend_validate_only_cli_sample",
+        "reason": "generates 5 scenarios with projection",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "generate_trend_report_artifact_bundle",
+        "reason": "builds multi-artifact bundle with real projections",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_discover_foundation_surfaces",
+        "reason": "scans full app/ directory tree",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_scan_append_only_audit_trail",
+        "reason": "scans all JSONL files in audit trail",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_query_audit_trail",
+        "reason": "runs audit query with multi-file scan",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_load_audit_jsonl_records",
+        "reason": "loads all JSONL records across audit trail",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "run_all_diagnostics",
+        "reason": "aggregates 7 diagnostics in single test",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "run_feishu_trend_preview_diagnostic",
+        "reason": "runs Feishu preview with projection building",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "run_guarded_audit_trend_cli_projection",
+        "reason": "runs full trend projection with guard checks",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_generate_audit_query_engine_sample",
+        "reason": "generates large sample with query simulation",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      },
+      {
+        "test_name": "test_generate_dryrun_nightly_trend_report",
+        "reason": "runs nightly trend report dry-run with projections",
+        "recommended_marker": "slow",
+        "expected_runtime_reduction_pct": 30,
+        "safe_to_split": true,
+        "file": null
+      }
+    ],
+    "summary": {
+      "by_marker_slow": 18,
+      "safe_to_split_count": 18
+    }
+  },
+  "command_matrix": {
+    "smoke": {
+      "command": "python -m pytest -m smoke -v",
+      "description": "Fast smoke tests — target < 60s",
+      "marker": "smoke",
+      "timeout_seconds": 60
+    },
+    "unit_fast": {
+      "command": "python -m pytest -m 'unit and not slow' -v",
+      "description": "Fast unit tests — no I/O, no slow",
+      "marker": "unit and not slow",
+      "timeout_seconds": 120
+    },
+    "integration_fast": {
+      "command": "python -m pytest -m 'integration and not slow' -v",
+      "description": "Fast integration tests — CLI helpers, no slow",
+      "marker": "integration and not slow",
+      "timeout_seconds": 300
+    },
+    "foundation_fast": {
+      "command": "python -m pytest backend/app/foundation -m 'not slow' -v",
+      "description": "Foundation tests excluding slow — most stable",
+      "marker": "not slow",
+      "path": "backend/app/foundation",
+      "timeout_seconds": 300
+    },
+    "audit_fast": {
+      "command": "python -m pytest backend/app/audit -m 'not slow' -v",
+      "description": "Audit tests excluding slow",
+      "marker": "not slow",
+      "path": "backend/app/audit",
+      "timeout_seconds": 300
+    },
+    "foundation_smoke": {
+      "command": "python -m pytest backend/app/foundation -m smoke -v",
+      "description": "Foundation smoke tests only",
+      "marker": "smoke",
+      "path": "backend/app/foundation",
+      "timeout_seconds": 60
+    },
+    "audit_smoke": {
+      "command": "python -m pytest backend/app/audit -m smoke -v",
+      "description": "Audit smoke tests only",
+      "marker": "smoke",
+      "path": "backend/app/audit",
+      "timeout_seconds": 60
+    },
+    "full_regression": {
+      "command": "python -m pytest backend/app/foundation backend/app/audit backend/app/nightly backend/app/rtcm backend/app/prompt backend/app/tool_runtime backend/app/mode backend/app/gateway backend/app/asset backend/app/memory backend/app/m11 -v",
+      "description": "Full regression — all app modules",
+      "marker": null,
+      "path": "backend/app/{foundation,audit,nightly,rtcm,prompt,tool_runtime,mode,gateway,asset,memory,m11}",
+      "timeout_seconds": 900
+    },
+    "foundation_regression": {
+      "command": "python -m pytest backend/app/foundation -v",
+      "description": "Full foundation regression",
+      "marker": null,
+      "path": "backend/app/foundation",
+      "timeout_seconds": 600
+    },
+    "slow_only": {
+      "command": "python -m pytest -m slow -v",
+      "description": "Slow tests only — full diagnostics, scan, samples",
+      "marker": "slow",
+      "timeout_seconds": 600
+    },
+    "safety_checks": {
+      "command": "python -m pytest -m 'no_network and no_runtime_write and no_secret' -v",
+      "description": "Safety constraint tests — no network, no runtime write, no secret",
+      "marker": "no_network and no_runtime_write and no_secret",
+      "timeout_seconds": 300
+    }
+  },
+  "risk_matrix": {
+    "catalog_version": "1.0",
+    "generated_at": "2026-04-25T08:21:31.841632+00:00",
+    "risks": [
+      {
+        "risk_id": "slow_test_risk",
+        "risk_name": "Foundation test suite slow",
+        "risk_level": "MEDIUM",
+        "evidence": "125/125 tests PASS but runtime ~6m40s+ (400s)",
+        "current_status": "Known — tests are correct but slow",
+        "recommended_next_action": "Mark slow candidates with @pytest.mark.slow; split into separate pipeline stage",
+        "should_fix_now": false,
+        "ticketable": true
+      },
+      {
+        "risk_id": "queue_missing_warning_count",
+        "risk_name": "queue-sandbox diagnostic may report missing queue_path warnings",
+        "risk_level": "LOW",
+        "evidence": "diagnostic checks runtime_path, not queue_path",
+        "current_status": "Design-only concern — queue is optional in new architecture",
+        "recommended_next_action": "Monitor in next sprint; not blocking",
+        "should_fix_now": false,
+        "ticketable": false
+      },
+      {
+        "risk_id": "unknown_taxonomy_count",
+        "risk_name": "Foundation surfaces may contain unknown taxonomy entries",
+        "risk_level": "LOW",
+        "evidence": "R241-14A marked this as LOW",
+        "current_status": "Monitored; not actively growing",
+        "recommended_next_action": "Review in quarterly audit",
+        "should_fix_now": false,
+        "ticketable": false
+      },
+      {
+        "risk_id": "missing_tool_runtime_projections",
+        "risk_name": "tool_runtime_projections.jsonl missing",
+        "risk_level": "MEDIUM",
+        "evidence": "design-only fallback used; real file not yet written",
+        "current_status": "Expected for new codebase — design-only fallback handles this",
+        "recommended_next_action": "Normal in new projects; file gets created as audit runs",
+        "should_fix_now": false,
+        "ticketable": false
+      },
+      {
+        "risk_id": "missing_mode_callgraph_projections",
+        "risk_name": "mode_callgraph_projections.jsonl missing",
+        "risk_level": "MEDIUM",
+        "evidence": "design-only fallback used; real file not yet written",
+        "current_status": "Same as tool_runtime — expected for new codebase",
+        "recommended_next_action": "Same as tool_runtime — expected; not blocking",
+        "should_fix_now": false,
+        "ticketable": false
+      },
+      {
+        "risk_id": "feishu_manual_send_still_blocked",
+        "risk_name": "Feishu manual send still blocked by R241-13D policy",
+        "risk_level": "HIGH",
+        "evidence": "R241-13D blocks manual send; requires Gateway integration to unblock",
+        "current_status": "By design — manual send blocked until Gateway sidecar complete",
+        "recommended_next_action": "R241-16/17: implement Gateway Feishu sidecar, then re-enable",
+        "should_fix_now": false,
+        "ticketable": true
+      },
+      {
+        "risk_id": "gateway_sidecar_not_implemented",
+        "risk_name": "Gateway sidecar / API not implemented for Feishu send",
+        "risk_level": "HIGH",
+        "evidence": "Gateway has no Feishu channel integration; app/channels/feishu.py exists but not wired",
+        "current_status": "Known gap — Feishu integration exists in app/channels but not gateway-wired",
+        "recommended_next_action": "R241-16/17: wire Feishu channel through Gateway router",
+        "should_fix_now": false,
+        "ticketable": true
+      },
+      {
+        "risk_id": "mode_router_not_integrated",
+        "risk_name": "Mode Router not integrated with lead_agent",
+        "risk_level": "MEDIUM",
+        "evidence": "Mode router exists in harness but not connected to agent lifecycle",
+        "current_status": "Mode router is scaffolded but not activated",
+        "recommended_next_action": "R241-18: integrate ModeRouter into agent factory",
+        "should_fix_now": false,
+        "ticketable": true
+      },
+      {
+        "risk_id": "audit_jsonl_retention_not_designed",
+        "risk_name": "audit JSONL retention/rotation not designed",
+        "risk_level": "LOW",
+        "evidence": "append-only writer exists but no retention policy",
+        "current_status": "Design gap — not critical for current volume",
+        "recommended_next_action": "R241-20: add retention policy to audit_trail_writer",
+        "should_fix_now": false,
+        "ticketable": false
+      }
+    ],
+    "summary": {
+      "high": 2,
+      "medium": 4,
+      "low": 3,
+      "fix_now_count": 0,
+      "ticketable_count": 4
+    }
+  },
+  "markers": {
+    "smoke": "fast health checks — target < 60s",
+    "unit": "pure unit tests — no I/O, no network, no runtime",
+    "integration": "integration-level tests — CLI helpers, projections, queries",
+    "slow": "long-running tests — real diagnostics, full scan, large samples",
+    "full": "full regression suite — all tests",
+    "no_network": "must not call network or webhooks",
+    "no_runtime_write": "must not write runtime state or action queue",
+    "no_secret": "must not read or output secrets, tokens, webhook URLs"
+  },
+  "validation": {
+    "valid": true,
+    "validated_at": "2026-04-25T08:21:31.841657+00:00",
+    "layer_count": 5,
+    "command_count": 11,
+    "risk_count": 9
+  }
+}

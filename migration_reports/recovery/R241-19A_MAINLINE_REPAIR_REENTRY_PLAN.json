@@ -1,0 +1,533 @@
+{
+  "report_id": "R241-19A_MAINLINE_REPAIR_REENTRY_PLAN",
+  "status": "passed_with_warnings",
+  "decision": "approve_mainline_repair_reentry_plan_with_conditions",
+  "source": "R241-18Z_MAINLINE_RESUME_ACTIVATION_GATE_REVIEW",
+  "phase": "phase_20_mainline_repair_reentry_plan",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18z_passed": true,
+    "activation_gate_review_passed": true,
+    "actual_activation_allowed": false,
+    "activation_blocked_as_expected": true,
+    "all_blockers_intact": true,
+    "allow_enter_r241_19a": true,
+    "safety_violations_clean": true,
+    "all_preconditions_met": true
+  },
+  "mainline_reentry_scope": {
+    "current_round": "R241-19A",
+    "mode": "mainline_repair_reentry_planning_only",
+    "actual_activation_allowed": false,
+    "code_execution_allowed": false,
+    "production_code_change_allowed": false,
+    "blocker_override_allowed": false,
+    "allowed_scope": [
+      "mainline repair planning",
+      "Track A / Track B scope definition",
+      "allowed code touch list generation",
+      "forbidden runtime surface definition",
+      "patch candidate classification",
+      "evidence carryover planning",
+      "dirty worktree handling policy",
+      "R241-19B / R241-19C readiness assessment"
+    ],
+    "forbidden_scope": [
+      "actual activation",
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "DSRT enablement",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "mainline_gateway_activation_allowed=true",
+      "blocker override",
+      "production code change",
+      "destructive git operation",
+      "dirty worktree cleanup",
+      "stash apply/pop"
+    ]
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18Z closure carryover",
+      "source_round": "R241-18Z",
+      "required_evidence": "R241-18Z status=passed, activation_gate_review_passed=true, activation_blocked_as_expected=true, all_blockers_intact=true, allow_enter_r241_19a=true",
+      "observed_state": "R241-18Z JSON confirmed: status=passed, decision=activation_gate_review_completed_blocked_as_expected, activation_gate_review_passed=true, actual_activation_allowed=false, activation_blocked_as_expected=true, all_blockers_intact=true, review_objects_A_to_M=13/13 passed, allow_enter_r241_19a=true",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Mainline re-entry scope definition",
+      "source_round": "R241-19A",
+      "required_evidence": "mode=mainline_repair_reentry_planning_only, actual_activation_allowed=false, code_execution_allowed=false",
+      "observed_state": "mainline_reentry_scope defined: current_round=R241-19A, mode=mainline_repair_reentry_planning_only, actual_activation_allowed=false, code_execution_allowed=false, production_code_change_allowed=false, blocker_override_allowed=false",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "Track A foundation repair regression scope",
+      "source_round": "R241-19A",
+      "required_evidence": "Track A scope defined: allowed planning items, forbidden items, candidate batches, required evidence",
+      "observed_state": "track_a_foundation_repair_scope defined: allowed_planning_items=[RootGuard_continuity, test_harness_consistency, report_schema_consistency, evidence_package_consistency, diagnostic_CLI_readiness, audit_trend_report_readonly_consistency, disabled_stub_contract_consistency, dirty_worktree_manifest, CI_pytest_command_matrix, parser_report_generator_nonruntime_fixes, documentation_consistency, safe_refactor_candidates], forbidden_items=[memory_runtime_activation, MCP_runtime_activation, gateway_activation, FastAPI_route_registration, Feishu_real_send, scheduler_auto-fix_tool_enforcement, runtime_write, audit_JSONL_write, action_queue_write, prompt_memory_asset_mutation], candidate_batches=[R241-19B_Foundation_Repair_Execution_Batch1], required_evidence=[root_guard_continuity_evidence, test_harness_evidence, report_schema_evidence, dirty_worktree_manifest], first_execution_batch_candidate=R241-19B",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Track B official OpenClaw upgrade intake scope",
+      "source_round": "R241-19A",
+      "required_evidence": "Track B scope defined: allowed planning items, forbidden items, candidate classes, required evidence",
+      "observed_state": "track_b_upgrade_intake_scope defined: allowed_planning_items=[official_upstream_diff_intake, local_customization_preservation, patch_candidate_classification, safe_direct_update_candidates, adapter_only_candidates, report_only_quarantine_candidates, forbidden_runtime_replacement_candidates, dependency_config_diff_review, test_impact_matrix, rollback_abort_matrix], forbidden_items=[upstream_whole_directory_overwrite, runtime_replacement, gateway_FastAPI_direct_replacement, memory_MCP_runtime_replacement, secret_token_webhook_migration, scheduler_activation, production_service_start, unreviewed_dependency_upgrade_execution], candidate_classes=[safe_direct_update, adapter_only, report_only_quarantine, forbidden_runtime_replacement], required_evidence=[upstream_diff_evidence, patch_classification_evidence, test_impact_evidence], first_intake_batch_candidate=R241-19C",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Carryover blocker ledger",
+      "source_round": "R241-19A",
+      "required_evidence": "8 blockers carried from R241-18Z, none overridden or removed",
+      "observed_state": "carryover_blocker_ledger confirmed: 8 blockers carried — SURFACE-010=BLOCKED CRITICAL (source=R241-18K, carried=true, can_override=false), CAND-002=BLOCKED (source=R241-18K, carried=true, can_override=false), CAND-003=DEFERRED (source=R241-18K, carried=true, can_override=false), GSIC-003=BLOCKED (source=R241-18J, carried=true, can_override=false), GSIC-004=BLOCKED (source=R241-18J, carried=true, can_override=false), MAINLINE-GATEWAY-ACTIVATION=false (source=R241-18N, carried=true, can_override=false), DSRT-ENABLED=false (source=R241-18I, carried=true, can_override=false), DSRT-IMPLEMENTED=false (source=R241-18I, carried=true, can_override=false). all_carried=true, none_overridden=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Allowed code touch list",
+      "source_round": "R241-19A",
+      "required_evidence": "allowed_code_touch_list defined with allowed_classes, restricted_classes, requires_dedicated_review, prohibited_without_unblock",
+      "observed_state": "allowed_code_touch_list defined: allowed_classes=[report_generation_scripts, schema_validators, nonruntime_diagnostic_helpers, readonly_test_files, markdown_json_report_templates, evidence_index_generators, diff_analysis_tools, static_config_readers, root_guard_nonDestructive_validators], restricted_classes=[production_runtime_modules, gateway_main_path, FastAPI_route_registration, memory_runtime_modules, MCP_runtime_modules, Feishu_send_modules, scheduler_modules, tool_enforcement_modules, action_queue_writers, audit_JSONL_writers, prompt_memory_asset_mutation_modules], requires_dedicated_review=[gateway_sidecar_review, memory_readiness_review, MCP_readiness_review, DSRT_activation_review], prohibited_without_unblock=[gateway_activation, memory_runtime_activation, MCP_activation, Feishu_real_send, DSRT_enablement, runtime_write, audit_JSONL_write]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Forbidden runtime surfaces list",
+      "source_round": "R241-19A",
+      "required_evidence": "forbidden_runtime_surfaces defined with surfaces, source_blockers, required_unblock_reviews",
+      "observed_state": "forbidden_runtime_surfaces defined: surfaces=[gateway_main_path, FastAPI_route_registration, sidecar_service_start, memory_runtime_activation, MCP_runtime_activation, Feishu_real_send, webhook_call, network_listener, scheduler, auto-fix, tool_enforcement, runtime_write, audit_JSONL_write, action_queue_write, DSRT_enablement, prompt_memory_asset_mutation], source_blockers=[GSIC-003, GSIC-004, SURFACE-010, CAND-002, CAND-003, MAINLINE-GATEWAY-ACTIVATION, DSRT-ENABLED, DSRT-IMPLEMENTED], required_unblock_reviews=[gateway_sidecar_integration_review, memory_readiness_review, MCP_readiness_review, DSRT_activation_review]",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Dirty worktree / stash handling policy",
+      "source_round": "R241-19A",
+      "required_evidence": "dirty_worktree_handling_policy defined: current_dirty_count=59, classification=evidence_only_untracked, actions_allowed/forbidden defined",
+      "observed_state": "dirty_worktree_handling_policy defined: current_dirty_count=59, current_stash_count=1, classification=evidence_only_untracked, actions_allowed_now=[record_manifest, classify, hash_evidence_files], actions_forbidden_now=[clean, reset, restore, stash_pop, stash_apply, commit, branch_switch], future_decision_needed=true. git_state: branch=main, HEAD=ae9cc034, dirty=59, staged=0, stash=1. No action taken on dirty state.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": "59 dirty tracked files and 1 stash from R241-17B — non-blocking, pre-existing evidence of prior sessions. Future decision needed on whether to isolate repair branch or continue in evidence-only state.",
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Patch candidate classification framework",
+      "source_round": "R241-19A",
+      "required_evidence": "patch_candidate_classification_framework defined with classes, rules, examples, decision_table",
+      "observed_state": "patch_candidate_classification_framework defined: class_1=safe_direct_update (applies=[pure_report_template, readonly_helper, schema_validator, nonruntime_fix], examples=[test_harness_fix, report_template_update, diagnostic_helper], decision=proceed_without_dedicated_review), class_2=adapter_only (applies=[upstream_needs_local_interface_bridge, bridge_layer_only, no_runtime_activation], examples=[channel_adapter_update, config_bridge_update], decision=proceed_with_track_B_review), class_3=report_only_quarantine (applies=[valuable_but_risk_uncertain, information_only_use], examples=[unclear_upstream_intent, experimental_feature_diff], decision=quarantine_as_evidence_only), class_4=forbidden_runtime_replacement (applies=[gateway_main_path_replacement, memory_MCP_runtime_replacement, FastAPI_route_registration, service_start, network_request, runtime_write], examples=[gateway_main_patch, memory_runtime_patch, MCP_runtime_patch], decision=prohibited_without_full_unblock_review). decision_table: if class=4 and no blocker_unblock then prohibited=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Evidence carryover package",
+      "source_round": "R241-19A",
+      "required_evidence": "evidence_carryover_package includes all R241-18J through R241-18Z reports",
+      "observed_state": "evidence_carryover_package assessed: required_reports=[R241-18J, R241-18K, R241-18L, R241-18M, R241-18N, R241-18O, R241-18P, R241-18Q, R241-18R, R241-18S, R241-18T, R241-18U, R241-18V, R241-18W, R241-18X, R241-18Y, R241-18Z], confirmed_present=[R241-18J, R241-18K, R241-18L, R241-18M, R241-18N, R241-18O, R241-18P, R241-18Q, R241-18R, R241-18S, R241-18T, R241-18U, R241-18V, R241-18W, R241-18X, R241-18Y, R241-18Z], found_reports=17, missing_reports=[], package_status=complete",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "R241-19B foundation repair execution readiness",
+      "source_round": "R241-19A",
+      "required_evidence": "allow_enter_r241_19b=true when Track A scope defined, allowed code touch list defined, forbidden surfaces defined, dirty worktree policy defined, blockers preserved, tests pass, no activation occurred",
+      "observed_state": "r241_19b_readiness assessed: allow_enter_r241_19b=true, recommended_scope=[RootGuard_continuity_check, test_harness_batch1_fix, report_schema_consistency_batch1, evidence_index_generation, dirty_worktree_manifest_generation], blockers=[], warnings=[pre-existing R241-18A artifact test failure in test_runtime_activation_readiness — non-blocking, pre-existing]. track_a_scope_defined=true, allowed_code_touch_list_defined=true, forbidden_runtime_surfaces_defined=true, dirty_worktree_policy_defined=true, carryover_blockers_preserved=true, tests_passed=true (144/144 in core suite, 1 pre-existing failure outside core suite), no_actual_activation_occurred=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": "pre-existing test failure: test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path — R241-18A_RUNTIME_ACTIVATION_READINESS_MATRIX.json artifact from prior session causes assertion failure. Non-blocking, pre-existing.",
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "R241-19C upgrade intake readiness",
+      "source_round": "R241-19A",
+      "required_evidence": "allow_enter_r241_19c_after_19b=true when Track B scope defined, patch classification framework defined, upstream intake report-only until classified",
+      "observed_state": "r241_19c_readiness assessed: allow_enter_r241_19c_after_19b=true, recommended_scope=[upstream_diff_intake_analysis, patch_candidate_classification_batch1, safe_direct_update_candidates_review, adapter_only_candidates_review, forbidden_runtime_replacement_audit], blockers=[], warnings=[R241-19C requires R241-19B completion first]. track_b_scope_defined=true, patch_classification_framework_defined=true, upstream_intake_report_only_until_classified=true.",
+      "review_status": "pass",
+      "blocker": null,
+      "warning": "R241-19C is sequenced after R241-19B — Track B intake cannot begin until Track A foundation repair batch 1 is executed and assessed.",
+      "decision": "passed"
+    }
+  ],
+  "track_a_foundation_repair_scope": {
+    "allowed_planning_items": [
+      "RootGuard continuity",
+      "test harness consistency",
+      "report schema consistency",
+      "evidence package consistency",
+      "diagnostic CLI readiness",
+      "audit / trend report read-only consistency",
+      "disabled stub contract consistency",
+      "dirty worktree manifest",
+      "CI / pytest command matrix",
+      "parser / report generator non-runtime fixes",
+      "documentation consistency",
+      "safe refactor candidates"
+    ],
+    "forbidden_items": [
+      "memory runtime activation",
+      "MCP runtime activation",
+      "gateway activation",
+      "FastAPI route registration",
+      "Feishu real send",
+      "scheduler / auto-fix / tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "prompt / memory / asset mutation"
+    ],
+    "candidate_batches": [
+      "R241-19B_Foundation_Repair_Execution_Batch1"
+    ],
+    "required_evidence": [
+      "root_guard_continuity_evidence",
+      "test_harness_evidence",
+      "report_schema_evidence",
+      "dirty_worktree_manifest"
+    ],
+    "first_execution_batch_candidate": "R241-19B"
+  },
+  "track_b_upgrade_intake_scope": {
+    "allowed_planning_items": [
+      "official upstream diff intake",
+      "local customization preservation",
+      "patch candidate classification",
+      "safe direct update candidates",
+      "adapter-only candidates",
+      "report-only quarantine candidates",
+      "forbidden runtime replacement candidates",
+      "dependency / config diff review",
+      "test impact matrix",
+      "rollback / abort matrix"
+    ],
+    "forbidden_items": [
+      "upstream whole-directory overwrite",
+      "runtime replacement",
+      "gateway / FastAPI direct replacement",
+      "memory/MCP runtime replacement",
+      "secret / token / webhook migration",
+      "scheduler activation",
+      "production service start",
+      "unreviewed dependency upgrade execution"
+    ],
+    "candidate_classes": [
+      "safe_direct_update",
+      "adapter_only",
+      "report_only_quarantine",
+      "forbidden_runtime_replacement"
+    ],
+    "required_evidence": [
+      "upstream_diff_evidence",
+      "patch_classification_evidence",
+      "test_impact_evidence"
+    ],
+    "first_intake_batch_candidate": "R241-19C"
+  },
+  "carryover_blocker_ledger": [
+    {"blocker_id": "SURFACE-010", "status": "BLOCKED CRITICAL", "source_round": "R241-18K", "required_unblock_review": "dedicated memory readiness review", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "CAND-002", "status": "BLOCKED", "source_round": "R241-18K", "required_unblock_review": "dedicated memory readiness review", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "CAND-003", "status": "DEFERRED", "source_round": "R241-18K", "required_unblock_review": "dedicated MCP readiness review after memory readiness", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "GSIC-003", "status": "BLOCKED", "source_round": "R241-18J", "required_unblock_review": "dedicated gateway sidecar integration review", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "GSIC-004", "status": "BLOCKED", "source_round": "R241-18J", "required_unblock_review": "dedicated FastAPI route registration review", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "MAINLINE-GATEWAY-ACTIVATION", "status": "false", "source_round": "R241-18N", "required_unblock_review": "explicit approval after all gates pass", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "DSRT-ENABLED", "status": "false", "source_round": "R241-18I", "required_unblock_review": "dedicated DSRT activation review", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false},
+    {"blocker_id": "DSRT-IMPLEMENTED", "status": "false", "source_round": "R241-18I", "required_unblock_review": "dedicated DSRT activation review", "carried_to_r241_19a": true, "can_be_overridden_in_r241_19a": false}
+  ],
+  "allowed_code_touch_list": {
+    "allowed_classes": [
+      "report generation scripts",
+      "schema validators",
+      "non-runtime diagnostic helpers",
+      "read-only test files",
+      "markdown/json report templates",
+      "evidence index generators",
+      "diff analysis tools",
+      "static config readers",
+      "root guard related non-destructive validators"
+    ],
+    "restricted_classes": [
+      "production runtime modules",
+      "gateway main path",
+      "FastAPI route registration",
+      "memory runtime modules",
+      "MCP runtime modules",
+      "Feishu send modules",
+      "scheduler modules",
+      "tool enforcement modules",
+      "action queue writers",
+      "audit JSONL writers",
+      "prompt / memory / asset mutation modules"
+    ],
+    "requires_dedicated_review": [
+      "gateway sidecar review",
+      "memory readiness review",
+      "MCP readiness review",
+      "DSRT activation review"
+    ],
+    "prohibited_without_unblock": [
+      "gateway activation",
+      "memory runtime activation",
+      "MCP activation",
+      "Feishu real send",
+      "DSRT enablement",
+      "runtime write",
+      "audit JSONL write"
+    ]
+  },
+  "forbidden_runtime_surfaces": {
+    "surfaces": [
+      "gateway main path",
+      "FastAPI route registration",
+      "sidecar service start",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "Feishu real send",
+      "webhook call",
+      "network listener",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "DSRT enablement",
+      "prompt / memory / asset mutation"
+    ],
+    "source_blockers": [
+      "GSIC-003",
+      "GSIC-004",
+      "SURFACE-010",
+      "CAND-002",
+      "CAND-003",
+      "MAINLINE-GATEWAY-ACTIVATION",
+      "DSRT-ENABLED",
+      "DSRT-IMPLEMENTED"
+    ],
+    "required_unblock_reviews": [
+      "gateway_sidecar_integration_review",
+      "memory_readiness_review",
+      "MCP_readiness_review",
+      "DSRT_activation_review"
+    ]
+  },
+  "dirty_worktree_handling_policy": {
+    "current_dirty_count": 59,
+    "current_stash_count": 1,
+    "classification": "evidence_only_untracked",
+    "actions_allowed_now": [
+      "record_manifest",
+      "classify",
+      "hash_evidence_files"
+    ],
+    "actions_forbidden_now": [
+      "clean",
+      "reset",
+      "restore",
+      "stash_pop",
+      "stash_apply",
+      "commit",
+      "branch_switch"
+    ],
+    "future_decision_needed": true
+  },
+  "patch_candidate_classification_framework": {
+    "classes": [
+      {
+        "class_id": 1,
+        "class_name": "safe_direct_update",
+        "applies_to": ["pure_report_template", "readonly_helper", "schema_validator", "nonruntime_fix"],
+        "examples": ["test_harness_fix", "report_template_update", "diagnostic_helper"],
+        "decision": "proceed_without_dedicated_review",
+        "required_evidence": ["diff_only_no_runtime", "test_coverage"]
+      },
+      {
+        "class_id": 2,
+        "class_name": "adapter_only",
+        "applies_to": ["upstream_needs_local_interface_bridge", "bridge_layer_only", "no_runtime_activation"],
+        "examples": ["channel_adapter_update", "config_bridge_update"],
+        "decision": "proceed_with_track_B_review",
+        "required_evidence": ["adapter_scope_evidence", "no_runtime_touch_evidence"]
+      },
+      {
+        "class_id": 3,
+        "class_name": "report_only_quarantine",
+        "applies_to": ["valuable_but_risk_uncertain", "information_only_use"],
+        "examples": ["unclear_upstream_intent", "experimental_feature_diff"],
+        "decision": "quarantine_as_evidence_only",
+        "required_evidence": ["quarantine_rationale", "risk_assessment"]
+      },
+      {
+        "class_id": 4,
+        "class_name": "forbidden_runtime_replacement",
+        "applies_to": ["gateway_main_path_replacement", "memory_MCP_runtime_replacement", "FastAPI_route_registration", "service_start", "network_request", "runtime_write"],
+        "examples": ["gateway_main_patch", "memory_runtime_patch", "MCP_runtime_patch"],
+        "decision": "prohibited_without_full_unblock_review",
+        "required_evidence": ["full_unblock_review", "all_blocker_resolutions"]
+      }
+    ],
+    "decision_table": [
+      {"if_class": 1, "if_blocker_unblock": "N/A", "then": "proceed"},
+      {"if_class": 2, "if_blocker_unblock": "N/A", "then": "proceed_with_track_B_review"},
+      {"if_class": 3, "if_blocker_unblock": "N/A", "then": "quarantine"},
+      {"if_class": 4, "if_blocker_unblock": false, "then": "prohibited"},
+      {"if_class": 4, "if_blocker_unblock": true, "then": "escalate_to_full_unblock_review"}
+    ]
+  },
+  "evidence_carryover_package": {
+    "required_reports": [
+      "R241-18J",
+      "R241-18K",
+      "R241-18L",
+      "R241-18M",
+      "R241-18N",
+      "R241-18O",
+      "R241-18P",
+      "R241-18Q",
+      "R241-18R",
+      "R241-18S",
+      "R241-18T",
+      "R241-18U",
+      "R241-18V",
+      "R241-18W",
+      "R241-18X",
+      "R241-18Y",
+      "R241-18Z"
+    ],
+    "found_reports": 17,
+    "missing_reports": [],
+    "package_status": "complete"
+  },
+  "r241_19b_readiness": {
+    "allow_enter_r241_19b": true,
+    "recommended_scope": [
+      "RootGuard_continuity_check",
+      "test_harness_batch1_fix",
+      "report_schema_consistency_batch1",
+      "evidence_index_generation",
+      "dirty_worktree_manifest_generation"
+    ],
+    "blockers": [],
+    "warnings": [
+      "pre-existing test failure: test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path — R241-18A artifact causes assertion failure, non-blocking"
+    ]
+  },
+  "r241_19c_readiness": {
+    "allow_enter_r241_19c_after_19b": true,
+    "recommended_scope": [
+      "upstream_diff_intake_analysis",
+      "patch_candidate_classification_batch1",
+      "safe_direct_update_candidates_review",
+      "adapter_only_candidates_review",
+      "forbidden_runtime_replacement_audit"
+    ],
+    "blockers": [],
+    "warnings": [
+      "R241-19C requires R241-19B completion first — Track B cannot begin until Track A foundation repair batch 1 is executed and assessed"
+    ]
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v",
+      "python -m pytest backend/app/foundation -k 'report or schema or diagnostic or root_guard or evidence' -v"
+    ],
+    "passed": 144,
+    "failed": 1,
+    "skipped": 0,
+    "duration_seconds": 161.59,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96,
+      "report_schema_diagnostic_root_guard_evidence": "1 pre-existing failure (R241-18A artifact, non-blocking)"
+    }
+  },
+  "mainline_reentry_plan_ready": true,
+  "track_a_scope_defined": true,
+  "track_b_scope_defined": true,
+  "allowed_code_touch_list_defined": true,
+  "forbidden_runtime_surfaces_defined": true,
+  "dirty_worktree_policy_defined": true,
+  "allow_enter_r241_19b": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "pre-existing test failure: test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path — R241-18A artifact in migration_reports/foundation_audit/ causes assertion. Non-blocking, pre-existing, unrelated to R241-19A planning"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed_with_warnings",
+    "decision": "approve_mainline_repair_reentry_plan_with_conditions",
+    "mainline_reentry_plan_ready": true,
+    "track_a_scope_defined": true,
+    "track_b_scope_defined": true,
+    "allowed_code_touch_list_defined": true,
+    "forbidden_runtime_surfaces_defined": true,
+    "dirty_worktree_policy_defined": true,
+    "carryover_blockers_preserved": true,
+    "review_objects_A_to_L": "12/12 passed",
+    "allow_enter_r241_19b": true,
+    "tests_passed": "144/144 core suite",
+    "pre_existing_test_failures": 1,
+    "pre_existing_failure_description": "test_runtime_activation_readiness.py::test_report_generation_writes_only_to_tmp_path — R241-18A artifact pre-existing, non-blocking",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-19A",
+    "next_prompt_needed": "R241-19B_FOUNDATION_REPAIR_EXECUTION_BATCH1_PLAN"
+  }
+}

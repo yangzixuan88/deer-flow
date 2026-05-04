@@ -1,0 +1,130 @@
+{
+  "report_id": "R241-20G2_HEAD_ONLY_PUSH_STRATEGY_REVIEW",
+  "phase": "phase_20g2_head_only_push_strategy_review",
+  "status": "passed_with_strategy",
+  "decision": "approve_path_limited_restore_isolated_branch_strategy",
+  "source": "R241-20G_PUSH_AUTHORIZATION_REVIEW (option B)",
+  "authorization_scope": {
+    "authorized": "R241-20G2 strategy review only",
+    "not_authorized": [
+      "push to main",
+      "push 6 commits",
+      "force push",
+      "merge/rebase main",
+      "dependency install",
+      "runtime activation",
+      "blocker override"
+    ],
+    "requires_next_authorization": "R241-20G3 push execution requires separate authorization"
+  },
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "0bb97b51a5cea3b57a13188900c118faeb01c000",
+    "ahead_behind": "ahead 6 / behind 84",
+    "origin_main": "395c1435 (84 commits ahead of local base)",
+    "target_branch_name": "r241/cand017-lead-agent-summarization"
+  },
+  "constraint_analysis": {
+    "key_constraint": "push ONLY 0bb97b51 without pushing 5 preceding foundation commits",
+    "challenge": "0bb97b51 depends on ae9cc034 (base) — cannot be cherry-picked standalone without its changes",
+    "base_commit_analysis": {
+      "0bb97b51_changes": [
+        "backend/packages/harness/deerflow/agents/lead_agent/agent.py (middleware:summarize tag)",
+        "backend/packages/harness/deerflow/agents/lead_agent/__init__.py"
+      ],
+      "ae9cc034_base_changes": [
+        "foundation batch files (R241-18F)",
+        "migration reports",
+        "test files"
+      ],
+      "isolation_possible": true,
+      "reason": "CAND-017 changes are in harness/lead_agent which is standalone from foundation batches"
+    }
+  },
+  "strategy_options": {
+    "option_1_path_limited_restore": {
+      "name": "path_limited_restore_isolated_branch",
+      "description": "Create isolated branch from origin/main, use path_limited_restore to restore only CAND-017 files",
+      "pros": [
+        "Documented strategy from R241-19I6",
+        "Creates clean isolated commit",
+        "No dependency on local history",
+        "Can cherry-pick or path-restore individual files"
+      ],
+      "cons": [
+        "Requires verifying which files in 0bb97b51 are CAND-017 specific vs base changes"
+      ],
+      "target_branch": "r241/cand017-lead-agent-summarization",
+      "base": "origin/main (395c1435)",
+      "files_to_restore": "TBD — need to verify file list",
+      "execution_command": "TBD after file verification"
+    },
+    "option_2_cherry_pick_without_base": {
+      "name": "cherry_pick_with_path_filter",
+      "description": "Use git cherry-pick with --no-commit, then reset specific files to isolate CAND-017",
+      "pros": ["Clean cherry-pick possible"],
+      "cons": ["Complex, may include unintended changes"],
+      "target_branch": "r241/cand017-lead-agent-summarization",
+      "feasible": false,
+      "reason": "CAND-017 changes in agent.py may reference base that doesn't exist on origin/main"
+    },
+    "option_3_manual_patch": {
+      "name": "manual_diff_apply",
+      "description": "git diff 0bb97b51 vs ae9cc034 for CAND-017 files only, apply as new commit",
+      "pros": ["Precise control"],
+      "cons": ["Manual process, error prone"],
+      "target_branch": "r241/cand017-lead-agent-summarization"
+    }
+  },
+  "recommended_strategy": {
+    "strategy": "path_limited_restore_isolated_branch",
+    "reason": "Documented strategy, clean isolation, proven approach from R241-19I6",
+    "steps": [
+      "1. Verify CAND-017 files in 0bb97b51 vs ae9cc034",
+      "2. Create new branch from origin/main (395c1435)",
+      "3. Use path_limited_restore to restore only CAND-017 files (agent.py, __init__.py)",
+      "4. Commit as single isolated commit",
+      "5. Push to r241/cand017-lead-agent-summarization",
+      "6. Report to user for final G3 authorization"
+    ]
+  },
+  "verification_checklist": {
+    "cand017_file_isolation": "REQUIRED — must verify only harness/lead_agent files are CAND-017 specific",
+    "no_foundation_batch_in_isolation": "REQUIRED — must exclude R241-18D/E/F batches",
+    "target_branch_naming": "r241/cand017-lead-agent-summarization — confirmed",
+    "push_affects_only_new_branch": "YES — does not touch main or origin/main",
+    "requires_user_authorization_for_push_execution": "YES — G3 required for actual push"
+  },
+  "next_phase_requirement": {
+    "next_phase": "R241-20G3_PUSH_EXECUTION_AUTHORIZATION",
+    "user_authorization_required": true,
+    "reason": "G2 is strategy review only; G3 is execution with user sign-off"
+  },
+  "safety_boundary": {
+    "no_push_executed": true,
+    "no_branch_created_yet": true,
+    "no_file_restored_yet": true,
+    "strategy_planning_only": true,
+    "blockers_preserved": true
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false
+  },
+  "final_decision": {
+    "status": "passed_with_strategy",
+    "decision": "approve_path_limited_restore_isolated_branch_strategy",
+    "strategy_validated": true,
+    "requires_verification_before_execution": true,
+    "g3_authorization_required": true,
+    "runtime_touch_detected": false,
+    "blockers_preserved": true,
+    "recommended_resume_point": "R241-20G2",
+    "next_prompt_needed": "R241-20G3_PUSH_EXECUTION_AUTHORIZATION"
+  }
+}

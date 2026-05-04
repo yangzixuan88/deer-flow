@@ -1,0 +1,29 @@
+{
+  "project_id": "proj_ai_manju_20260419_001",
+  "nodes": [
+    {
+      "issue_id": "issue_001",
+      "issue_title": "AI漫剧的爆款感主要由什么决定",
+      "issue_type": "definition",
+      "status": "resolved"
+    },
+    {
+      "issue_id": "issue_002",
+      "issue_title": "AI漫剧自动化全流程的最小落地链路是什么",
+      "issue_type": "solution",
+      "status": "reopened"
+    }
+  ],
+  "edges": [
+    {
+      "from": "issue_001",
+      "to": "issue_002",
+      "relation": "supports"
+    },
+    {
+      "from": "issue_002",
+      "to": "issue_001",
+      "relation": "depends_on"
+    }
+  ]
+}

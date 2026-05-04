@@ -1,0 +1,288 @@
+{
+  "phase": "R138",
+  "title": "GRAPH_INTERRUPT_DIAGNOSTIC_AND_NO_INTERRUPT_MODEL_SMOKE_PLAN",
+  "status": "completed",
+  "preceded_by": "R137",
+  "proceeding_to": "R138_EXECUTION_AUTHORIZATION",
+  "pressure_assessment": {
+    "previous_phase": "R137",
+    "current_phase": "R138",
+    "recommended_pressure": "XXL",
+    "reason": "Read-only scan only — no code execution, no API calls, no tools, no MCP, no side effects"
+  },
+  "lane_0_pressure_assessment": {
+    "status": "pass",
+    "r137_actual_status": "passed_with_interrupted",
+    "r137_actual_outcome": "Outcome D",
+    "r137_worker_path": "exercised_correctly",
+    "r137_model_api_called": false,
+    "pressure_for_r138": "XXL",
+    "rationale": "All LANE 0 checks in R137 passed; worker executed; interrupt triggered without model API call; ready for diagnostic"
+  },
+  "lane_1_r137_reclassification": {
+    "status": "pass",
+    "r137_actual_result": "passed_with_interrupted",
+    "reclassification": "partial_mainline_success",
+    "reclassification_rationale": "Worker path confirmed: run reaches 'running' then 'interrupted' in ~9s without model API call; graph-level interrupt fires even when interrupt_before_nodes is None",
+    "lane_8_classification": "Outcome D — graph-level interrupt triggered; worker path exercised correctly",
+    "reclassification_confidence": "high",
+    "key_evidence": "run_manager.set_status(running) succeeded at 11:19:44, set_status(interrupted) succeeded at 11:19:53, no CancelledError, no error message in record.error"
+  },
+  "lane_2_interrupt_source_mapping": {
+    "status": "complete",
+    "scan_scope": "worker.py / services.py / thread_runs.py / lead_agent/agent.py / langchain.agents factory",
+    "interrupt_before_sources": [
+      {
+        "file": "worker.py",
+        "lines": [201, 202],
+        "code": "if interrupt_before: agent.interrupt_before_nodes = interrupt_before",
+        "condition": "Only set when interrupt_before is truthy",
+        "default_value": "None"
+      },
+      {
+        "file": "services.py",
+        "lines": [283, 284],
+        "code": "interrupt_before=body.interrupt_before, interrupt_after=body.interrupt_after",
+        "note": "Passes through from RunCreateRequest"
+      },
+      {
+        "file": "thread_runs.py",
+        "lines": [46, 47],
+        "code": "interrupt_before: list[str] | Literal['*'] | None = Field(default=None)",
+        "note": "RunCreateRequest field defaults to None"
+      },
+      {
+        "file": "langchain.agents.factory",
+        "line": 664,
+        "code": "interrupt_before: list[str] | None = None",
+        "note": "create_agent() parameter defaults to None"
+      }
+    ],
+    "interrupt_after_sources": [
+      {
+        "file": "worker.py",
+        "lines": [203, 204],
+        "code": "if interrupt_after: agent.interrupt_after_nodes = interrupt_after",
+        "condition": "Only set when interrupt_after is truthy",
+        "default_value": "None"
+      },
+      {
+        "file": "services.py",
+        "lines": [283, 284],
+        "code": "interrupt_after=body.interrupt_after",
+        "note": "Passes through from RunCreateRequest"
+      },
+      {
+        "file": "thread_runs.py",
+        "lines": [46, 47],
+        "code": "interrupt_after: list[str] | Literal['*'] | None = Field(default=None)",
+        "note": "RunCreateRequest field defaults to None"
+      },
+      {
+        "file": "langchain.agents.factory",
+        "line": 665,
+        "code": "interrupt_after: list[str] | None = None",
+        "note": "create_agent() parameter defaults to None"
+      }
+    ],
+    "langchain_create_agent_default_interrupt_behavior": {
+      "file": "langchain.agents.factory",
+      "lines": [1596, 1604],
+      "finding": "interrupt_before and interrupt_after are passed to graph.compile() — LangGraph uses these to set interrupt_before_nodes / interrupt_after_nodes on the CompiledStateGraph at compile time. The compiled graph has NO default interrupt nodes when both are None.",
+      "conclusion": "create_agent() does NOT set any default interrupt nodes when interrupt_before=None and interrupt_after=None"
+    },
+    "lead_agent_agent_py_interrupt_check": {
+      "file": "agents/lead_agent/agent.py",
+      "grep_result": "No matches for interrupt_before_nodes|interrupt_after_nodes in entire agents directory",
+      "conclusion": "make_lead_agent does NOT set interrupt_before_nodes or interrupt_after_nodes anywhere"
+    },
+    "finding": "interrupt_before and interrupt_after are NOT set by default anywhere in the chain. They must be explicitly passed via POST /runs body."
+  },
+  "lane_3_request_payload_influence": {
+    "status": "complete",
+    "question": "Can POST /runs payload disable interrupt via explicit interrupt_before: [] / interrupt_after: []?",
+    "findings": [
+      {
+        "fact": "worker.py:201-204 sets interrupt nodes ONLY when truthy: if interrupt_before: agent.interrupt_before_nodes = interrupt_before",
+        "implication": "Passing interrupt_before=[] (empty list) is falsy in Python, so agent.interrupt_before_nodes would NOT be set"
+      },
+      {
+        "fact": "LangGraph CompiledStateGraph.compile() with interrupt_before=None → graph has no interrupt nodes",
+        "implication": "Even if empty list bypassed the worker check, graph.compile(None) would not add interrupt nodes"
+      },
+      {
+        "fact": "langchain.agents.factory:1599-1600 passes interrupt_before to graph.compile()",
+        "implication": "compile() receives None, graph has no built-in interrupts"
+      },
+      {
+        "fact": "interrupt_before_nodes is a writable attribute set at runtime in worker.py:202",
+        "implication": "Runtime assignment of interrupt nodes is independent of what create_agent() set at compile time"
+      }
+    ],
+    "conclusion": "Explicit interrupt_before=[] / interrupt_after=[] in POST /runs body would disable interrupts at the worker level (empty list is falsy → assignment skipped). HOWEVER: the interrupt still needs to be triggered by something. An empty POST /runs with [] would likely result in success, not interrupted. The interrupt in R137 was NOT caused by interrupt_before/interrupt_after."
+  },
+  "lane_4_worker_graph_execution_boundary": {
+    "status": "complete",
+    "question": "What sets status=interrupted in worker when interrupt_before_nodes=None?",
+    "code_path_analysis": [
+      {
+        "block": "worker.py:262-281",
+        "code": "if record.abort_event.is_set(): ... else: await run_manager.set_status(run_id, RunStatus.success)",
+        "finding": "Normal astream completion → success. abort_event NOT set → success path."
+      },
+      {
+        "block": "worker.py:283-301",
+        "code": "except asyncio.CancelledError: ... record.abort_action ... record.abort_event.set() → interrupted",
+        "finding": "Task cancellation path. BUT: no CancelledError was logged in R137; task was NOT externally cancelled."
+      },
+      {
+        "block": "worker.py:303-306",
+        "code": "except Exception as exc: → error status",
+        "finding": "Exception path. No exception in R137."
+      }
+    ],
+    "abort_event_analysis": {
+      "source_1": "manager.py:159-160: cancel() sets abort_event and abort_action",
+      "source_2": "manager.py:201-208: create_or_reject with multitask_strategy in (interrupt, rollback) sets abort_event on inflight runs",
+      "conclusion": "abort_event is set by EXTERNAL calls to cancel() or by create_or_reject() clearing inflight runs. R137 did NOT call cancel()."
+    },
+    "interrupt_hypothesis": {
+      "hypothesis": "LangGraph's interrupt_before_nodes triggers a special interrupt that does NOT raise CancelledError but sets status=interrupted via abort_event mechanism",
+      "investigation": "The interrupt_before_nodes attribute on CompiledStateGraph causes LangGraph to pause at the specified node and issue an interrupt. When astream is called with a stream_mode, an interrupt at the first node would cause astream to return early with interrupt state.",
+      "key_observation": "In R137, worker.py:201-204 sets interrupt_before_nodes from interrupt_before parameter. Since interrupt_before=None from POST /runs body, worker.py:201 check fails: if interrupt_before: → False → interrupt_before_nodes NOT set on agent",
+      "conclusion": "interrupt_before_nodes was NOT set in R137. The interrupt must come from a different source."
+    },
+    "langgraph_astream_interrupt_behavior": {
+      "file": "langchain.agents.factory",
+      "finding": "graph.compile(interrupt_before=None, interrupt_after=None) creates a graph with NO interrupt nodes",
+      "behavior": "When astream is called on such a graph with input={\"messages\": [...]}, it should process through model node and return. No interrupt should occur.",
+      "r137_observation": "9 seconds elapsed between 'running' and 'interrupted'. Model API was NOT called (sk-c... truncated). This is NOT enough time for a real API call + response cycle, but is consistent with a graph-level interrupt firing at the first checkpoint."
+    },
+    "leading_hypothesis": "The interrupt is triggered by LangGraph's checkpointer behavior when the agent is resumed from a checkpoint that has interrupt state from a prior execution. However, R137 created a NEW run (new run_id), so this shouldn't apply. ALTERNATIVE: The interrupt_before_nodes or interrupt_after_nodes is being set somewhere outside the explicit worker.py assignment."
+  },
+  "lane_5_resume_path_feasibility": {
+    "status": "complete",
+    "question": "Is there a POST /runs/{run_id}/resume endpoint?",
+    "findings": [
+      {
+        "file": "app/gateway/routers/thread_runs.py",
+        "result": "No /runs/{run_id}/resume endpoint found",
+        "endpoints": [
+          "POST /api/threads/{thread_id}/runs (create)",
+          "GET /api/threads/{thread_id}/runs/{run_id} (status)",
+          "POST /api/threads/{thread_id}/runs/{run_id}/cancel",
+          "GET /api/threads/{thread_id}/runs/{run_id}/stream (SSE stream)"
+        ]
+      },
+      {
+        "file": "app/gateway/routers/threads.py",
+        "lines": [459, 462],
+        "endpoint": "POST /api/threads/{thread_id}/state",
+        "purpose": "Update thread state (e.g. for human-in-the-loop resume or title rename)",
+        "mechanism": "Writes a new checkpoint that merges values into the latest channel values",
+        "note": "This is the RESUME mechanism — writes a checkpoint with new values that the next run can resume from"
+      },
+      {
+        "file": "app/gateway/routers/threads.py",
+        "line": 115,
+        "model": "ThreadStateUpdateRequest",
+        "fields": "checkpoint_id (optional), values (dict)"
+      }
+    ],
+    "resume_mechanism": "Resume is NOT a /runs/{run_id}/resume endpoint. Instead: (1) POST /threads/{thread_id}/state with values updates the checkpoint; (2) The next POST /runs with checkpoint_id parameter references that checkpoint. This is the LangGraph Platform checkpoint-based resume pattern.",
+    "conclusion": "No single-step resume endpoint exists. Resume requires: (1) updating thread state via /threads/{thread_id}/state, then (2) creating a new run with checkpoint_id parameter."
+  },
+  "lane_6_r139_no_interrupt_one_model_smoke_plan": {
+    "status": "drafted",
+    "objective": "Verify that POST /runs with interrupt_before=[] / interrupt_after=[] produces a clean success outcome (no interrupt, model API called, run completes successfully)",
+    "constraints": {
+      "code_modified": false,
+      "db_written": false,
+      "jsonl_written": false,
+      "gateway_started": false,
+      "model_api_called": true,
+      "mcp_runtime_called": false,
+      "tool_call_executed": false,
+      "push_executed": false,
+      "merge_executed": false,
+      "interrupt_before_nodes": "Must be explicitly disabled via interrupt_before=[] in request body"
+    },
+    "pressure_assessment": "XXL — real model API call with no interrupts and no side effects",
+    "expected_outcome": "Outcome A — clean success; model API called exactly once; run completes successfully",
+    "test_steps": [
+      "LANE 0: Pressure check (XXL, R138→R139)",
+      "LANE 1: Preflight — MINIMAX_API_KEY, workspace clean, health_200",
+      "LANE 2: Model injection — same as R137",
+      "LANE 3: Thread create — POST /api/threads",
+      "LANE 4: POST /runs with interrupt_before=[] and interrupt_after=[]",
+      "LANE 5: Poll run status until completed/success (not interrupted)",
+      "LANE 6: Verify model API called exactly once",
+      "LANE 7: Verify no tool calls, no MCP, no DB/JSONL writes",
+      "LANE 8: Result classification — expect Outcome A (clean success)"
+    ],
+    "key_differences_from_r137": [
+      "interrupt_before=[] (empty list — falsy, disables interrupt_before_nodes assignment)",
+      "interrupt_after=[] (empty list — falsy, disables interrupt_after_nodes assignment)",
+      "Expected status: success (not interrupted)",
+      "Expected model API call: true (exactly 1)"
+    ]
+  },
+  "lane_7_tool_enabled_readiness_gate": {
+    "status": "complete",
+    "findings": [
+      {
+        "check": "R137 model API call count",
+        "result": 0,
+        "note": "interrupted before model was called"
+      },
+      {
+        "check": "R137 interrupt behavior",
+        "result": "interrupt fires WITHOUT model API call",
+        "note": "interrupt_before_nodes=None yet interrupt still triggered"
+      },
+      {
+        "check": "interrupt_before_nodes=None in worker.py",
+        "result": "confirmed — worker.py:201 check fails when interrupt_before=None",
+        "note": "This means interrupt is NOT caused by explicit interrupt_before_nodes setting"
+      },
+      {
+        "check": "Tool-enabled smoke readiness",
+        "result": "BLOCKED — need to understand interrupt source first",
+        "note": "R137 interrupt fired without model API call and without explicit interrupt nodes set. This means the interrupt source is NOT in the interrupt_before_nodes assignment path."
+      }
+    ],
+    "conclusion": "R139 (no-interrupt smoke) must run before R138_TOOL_ENABLED_SMOKE. The unexpected interrupt in R137 (fires with interrupt_before_nodes=None) must be characterized first. If R139 with interrupt_before=[] still gets interrupted, the interrupt source is in the graph itself, not the interrupt_before_nodes assignment."
+  },
+  "lane_8_unknown_registry_update": {
+    "status": "complete",
+    "new_findings": [
+      {
+        "registry_id": "U-interrupt-source-unknown",
+        "description": "interrupt_before_nodes=None yet status=interrupted fires at worker.py:279 in ~9s without model API call",
+        "evidence": "R137 timeline: running@11:19:44, interrupted@11:19:53, no API call, no CancelledError, no error message",
+        "possible_sources": [
+          "LangGraph checkpointer interrupt state from prior checkpoint (unlikely — new run_id)",
+          "LangGraph's own internal interrupt for empty/initial graph input",
+          "Something in the middleware chain triggering an interrupt",
+          "The abort_event being set by create_or_reject during inflight cleanup"
+        ],
+        "priority": "critical"
+      },
+      {
+        "registry_id": "U-resume-mechanism",
+        "description": "Resume is NOT a /runs/{run_id}/resume single endpoint — uses POST /threads/{thread_id}/state + checkpoint_id parameter pattern",
+        "evidence": "thread_runs.py has no resume endpoint; threads.py:462 has update_thread_state for checkpoint updates",
+        "priority": "informational"
+      }
+    ]
+  },
+  "lane_9_report_generation": {
+    "status": "complete",
+    "json_report": "E:/OpenClaw-Base/deerflow/migration_reports/recovery/R138_GRAPH_INTERRUPT_DIAGNOSTIC_AND_NO_INTERRUPT_MODEL_SMOKE_PLAN.json",
+    "md_report": "E:/OpenClaw-Base/deerflow/migration_reports/recovery/R138_GRAPH_INTERRUPT_DIAGNOSTIC_AND_NO_INTERRUPT_MODEL_SMOKE_PLAN.md"
+  },
+  "critical_finding": "The interrupt in R137 fired even though interrupt_before_nodes was NOT set (worker.py:201 check fails when interrupt_before=None). This means the interrupt source is NOT in the explicit interrupt_before_nodes assignment path. The interrupt must originate from: (1) LangGraph's internal behavior with the empty graph input, (2) middleware, or (3) the checkpointer. R139 with interrupt_before=[] must run to determine if the interrupt persists without explicit interrupt nodes.",
+  "recommended_next_phase": "R139_NO_INTERRUPT_ONE_MODEL_SMOKE",
+  "next_prompt_needed": "R139 execution authorization",
+  "proceeding_to": "R139_NO_INTERRUPT_ONE_MODEL_SMOKE"
+}

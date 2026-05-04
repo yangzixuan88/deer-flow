@@ -1,0 +1,111 @@
+{
+  "report_id": "R241-21B_SAFE_CONFIG_CHANGE_BATCH2",
+  "phase": "phase_21b_safe_config_change_batch2",
+  "status": "blocked_by_upstream_auth_reference",
+  "decision": "cannot_apply_upstream_langgraph_json",
+  "source": "R241-21A_PARALLEL_MIGRATION_ACCELERATION_BATCH1",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "cand022_analysis": {
+    "candidate": "CAND-022",
+    "path": "backend/langgraph.json",
+    "type": "config",
+    "upstream_content": {
+      "auth": {
+        "path": "./app/gateway/langgraph_auth.py:auth"
+      },
+      "checkpointer": {
+        "path": "./packages/harness/deerflow/runtime/checkpointer/async_provider.py:make_checkpointer"
+      }
+    },
+    "local_content": {
+      "checkpointer": {
+        "path": "./packages/harness/deerflow/agents/checkpointer/async_provider.py:make_checkpointer"
+      }
+    },
+    "local_auth_removed": true,
+    "blocking_issue": "upstream auth.path references ./app/gateway/langgraph_auth.py which does NOT exist locally"
+  },
+  "blocking_finding": {
+    "local_app_gateway_auth_dir_exists": false,
+    "local_langgraph_auth_exists": false,
+    "local_auth_jwt_exists": false,
+    "upstream_langgraph_auth_exists": true,
+    "upstream_langgraph_auth_lines": 106,
+    "runtime_import_would_fail": true,
+    "blocking_reason": "applying upstream langgraph.json would cause LangGraph Server to fail importing non-existent auth module"
+  },
+  "checkpointer_path_analysis": {
+    "upstream_path": "runtime/checkpointer/async_provider.py",
+    "local_path": "agents/checkpointer/async_provider.py",
+    "local_path_exists": true,
+    "upstream_path_exists": true,
+    "adaptation_safe": true,
+    "note": "local has adapted path to reflect deerflow.* vs app.* package split"
+  },
+  "safety_verification": {
+    "runtime_activation_risk": "none",
+    "persistence_activation": false,
+    "memory_initialization": false,
+    "gateway_registration": false,
+    "fastapi_registration": false,
+    "mcp_activation": false,
+    "dsrt_activation": false,
+    "surface_010_impact": false,
+    "blocker_override": false,
+    "pyproject_modified": false,
+    "dependency_installed": false
+  },
+  "carryover_blockers": {
+    "preserved_count": 8,
+    "any_blocker_overridden": false,
+    "blockers": [
+      "SURFACE-010 memory BLOCKED CRITICAL",
+      "CAND-002 memory_read_binding BLOCKED",
+      "CAND-003 mcp_read_binding DEFERRED",
+      "GSIC-003 blocking_gateway_main_path BLOCKED",
+      "GSIC-004 blocking_fastapi_route_registration BLOCKED",
+      "MAINLINE-GATEWAY-ACTIVATION=false",
+      "DSRT-ENABLED=false",
+      "DSRT-IMPLEMENTED=false"
+    ]
+  },
+  "revised_safe_subset": {
+    "cand022": {
+      "status": "blocked",
+      "reason": "upstream auth.path references non-existent local file",
+      "local_already_adapted": true,
+      "action": "no change needed - local version is correct"
+    },
+    "cand001": {
+      "status": "needs_verification",
+      "path": "backend/app/gateway/auth/__init__.py",
+      "note": "gateway auth dir may not exist locally"
+    },
+    "cand005": {
+      "status": "needs_verification",
+      "path": "backend/app/gateway/auth_middleware.py",
+      "note": "depends on gateway dir structure"
+    },
+    "cand006": {
+      "status": "blocked",
+      "reason": "upstream references non-existent auth module"
+    }
+  },
+  "final_decision": {
+    "status": "blocked_by_upstream_auth_reference",
+    "decision": "cannot_apply_upstream_langgraph_json",
+    "cand022_safe_to_apply": false,
+    "local_langgraph_json": "already adapted correctly",
+    "checkpointer_adaptation": "safe",
+    "runtime_activation_risk": "none",
+    "blocker_impact": "none",
+    "blockers_preserved": true,
+    "safety_violations": [],
+    "recommended_resume_point": "R241-21B",
+    "next_cand_candidates": ["CAND-001 (verify first)", "CAND-005 (verify first)"]
+  }
+}

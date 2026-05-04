@@ -1,0 +1,107 @@
+{
+  "phase": "R241-25U",
+  "title": "CI_FAILURE_ATTRIBUTION_AND_FIX_GATE",
+  "status": "passed_with_warnings",
+  "preceded_by": "R241-25T",
+  "proceeding_to": "R241-25V",
+  "pressure_assessment": {
+    "previous_phase": "R241-25T",
+    "previous_status": "blocked",
+    "previous_pressure": "XL++",
+    "current_recommended_pressure": "XL++",
+    "reason": "CI attribution only; no code modification. PASSED WITH WARNINGS — bootstrap-related lint issue found but merge gate evidence generated."
+  },
+  "pr3_status": {
+    "pr_number": 3,
+    "state": "open",
+    "head_sha": "43a0564c698151e5d8fa909ad50e957e93e1b859",
+    "mergeable": true,
+    "mergeable_state": "unstable",
+    "additions": 37559,
+    "deletions": 4426
+  },
+  "ci_status": {
+    "checks_passed": ["e2e-tests", "frontend-unit-tests", "lint-frontend"],
+    "checks_failed": ["lint", "backend-unit-tests"],
+    "checks_pending": []
+  },
+  "lint_failure_attribution": "bootstrap_scope",
+  "lint_failure_summary": "Duplicate import lines added by bootstrap chain port in local_provider.py (F811 redefinition of unused User at line 10) and un-sorted import block (I001) — both introduced by bootstrap chain commits edbddc6e/3c07e939",
+  "lint_bootstrap_related": true,
+  "lint_annotations": {
+    "message": "Process completed with exit code 2.",
+    "path": ".github",
+    "annotation_level": "failure"
+  },
+  "backend_unit_failure_attribution": "baseline_or_infrastructure",
+  "backend_unit_failure_summary": "Test collection errors (23 errors during collection, 2344 tests collected) — unrelated to bootstrap chain. CI infrastructure issue. bootstrap chain has NO backend test coverage in PR #3.",
+  "backend_unit_bootstrap_related": false,
+  "backend_unit_annotations": {
+    "message": "Process completed with exit code 2.",
+    "path": ".github",
+    "annotation_level": "failure"
+  },
+  "diff_to_failure_correlation": {
+    "bootstrap_chain_files_in_diff": [
+      "backend/app/gateway/auth/credential_file.py (new, +48)",
+      "backend/app/gateway/auth/local_provider.py (modified, +33, bootstrap-related lint issue)",
+      "backend/app/gateway/auth/repositories/sqlite.py (modified, +13)",
+      "backend/app/gateway/auth/errors.py (modified, +1)"
+    ],
+    "failure_correlation": {
+      "lint_failure_path": ".github (annotation level) — actual issue is F811/I001 in local_provider.py",
+      "bootstrap_related": true,
+      "bootstrap_files_cause_lint": true,
+      "backend_unit_bootstrap_related": false
+    },
+    "unrelated_to_bootstrap": false
+  },
+  "local_reproduction": {
+    "attempted": true,
+    "safe": true,
+    "results": "ruff check on app/gateway/auth/ finds: F811 redefinition of unused User in local_provider.py:10 and I001 unsorted import block in local_provider.py:3. Also finds E402 config.py import-not-at-top-of-file and F811 BaseModel/Field redefinition in config.py. Backend unit tests have 23 collection errors due to missing dependencies/config, unrelated to bootstrap chain."
+  },
+  "ci_failure_unrelated": false,
+  "ci_failure_caused_by_bootstrap": true,
+  "ci_failure_classification": {
+    "lint": "bootstrap_scope — local_provider.py duplicate imports introduced by bootstrap chain port",
+    "backend_unit_tests": "baseline/infrastructure — test collection errors, no bootstrap chain test coverage in PR #3"
+  },
+  "bootstrap_lint_issue": {
+    "file": "backend/app/gateway/auth/local_provider.py",
+    "issues": [
+      "F811: Redefinition of unused `User` from line 3 — duplicate import at line 10",
+      "I001: Import block is un-sorted or un-formatted at line 3"
+    ],
+    "introduced_by": "edbddc6e (bootstrap chain port) — git show shows private/main version has NO duplicate User import",
+    "fix_scope": "minimal — remove duplicate import line, sort imports",
+    "fix_authorization_needed": true
+  },
+  "decision_gate": {
+    "case": "B",
+    "description": "lint failure caused by bootstrap and fixable (duplicate imports in local_provider.py)",
+    "recommended_action": "R241-25V_MINIMAL_CI_FIX"
+  },
+  "merge_readiness": {
+    "merge_ready": false,
+    "reason": "lint failure must be fixed before merge",
+    "blocking_items": ["lint failure — bootstrap-related, fixable"]
+  },
+  "pr_2645": {
+    "found_in_yangzixuan88": false,
+    "note": "PR #2645 not found in yangzixuan88/deer-flow"
+  },
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "next_phase": "R241-25V_MINIMAL_CI_FIX",
+  "recommended_action": "fix_bootstrap_lint_issue"
+}

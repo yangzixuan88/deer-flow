@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dreaming Rules for Golden Asset Distillation",
+  "description": "Rules for the Nightly Distiller to ensure high-purity, executable assets enter MEMORY.md. Reference: Super Constitution §09",
+  "version": "1.0.0",
+  "core_principles": [
+    {
+      "id": "conclusion_first",
+      "name": "结论先行 (Conclusion First)",
+      "description": "Every asset MUST begin with the core conclusion/answer before any explanation. No preambles, no context-building.",
+      "priority": 1,
+      "validation": {
+        "first_line_must_match": "^(结论|Answer|Solution|Result|Summary|核心):",
+        "rejected_patterns": [
+          "^以下是",
+          "^首先",
+          "^其次",
+          "^关于.*的说明",
+          "^我们来",
+          "^让我"
+        ]
+      }
+    },
+    {
+      "id": "code_simplicity",
+      "name": "代码简洁 (Code Simplicity)",
+      "description": "Code blocks must be minimal, self-contained, and immediately executable. No verbose comments, no redundant boilerplate.",
+      "priority": 2,
+      "validation": {
+        "max_comment_lines_ratio": 0.2,
+        "must_have_error_handling": true,
+        "rejected_patterns": [
+          "// This is a comment explaining what the code does",
+          "#!/bin/bash",
+          "echo 'Starting process...'"
+        ]
+      }
+    },
+    {
+      "id": "asset_fingerprint",
+      "name": "特定 Schema (Schema Compliance)",
+      "description": "All distilled assets MUST include the [ASSET_V1.0] fingerprint in their header for traceability.",
+      "priority": 3,
+      "validation": {
+        "required_header": "[ASSET_V1.0]",
+        "schema_fields": [
+          "id",
+          "name",
+          "category",
+          "quality_score",
+          "created_at",
+          "fingerprint"
+        ]
+      }
+    }
+  ],
+  "rejection_criteria": {
+    "narrative_text_threshold": 500,
+    "code_to_text_ratio": 0.3,
+    "prohibited_content": [
+      "流水账",
+      "详细的步骤说明",
+      "背景介绍",
+      "个人感受",
+      "无意义的连接词"
+    ]
+  },
+  "output_format": {
+    "header_template": "[ASSET_V1.0] {{asset_name}} | {{category}} | Score: {{quality_score}}",
+    "body_structure": {
+      "section_1": "结论 (Conclusion) - Max 3 lines",
+      "section_2": "代码示例 (Code) - Minimal, executable",
+      "section_3": "使用场景 (Usage) - When to apply this asset",
+      "section_4": "注意事项 (Caveats) - Edge cases, pitfalls"
+    }
+  },
+  "quality_gates": {
+    "min_quality_score": 0.75,
+    "min_execution_confidence": 0.85,
+    "max_complexity": 15,
+    "must_be_self_contained": true
+  },
+  "enforcement": {
+    "nightly_distiller_integration": true,
+    "auto_reject_non_compliant": true,
+    "log_violations": true
+  }
+}

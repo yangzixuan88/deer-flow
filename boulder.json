@@ -1,0 +1,118 @@
+{
+  "project_id": "deerflow-autonomous",
+  "mission_goal": "Maintain system autonomy and self-evolution",
+  "current_node": "START",
+  "nodes_completed": [],
+  "progress_percentage": 0,
+  "last_updated": "2026-04-19T01:30:00Z",
+  "checkpoints": [],
+  "failures_count": 0,
+  "status": "idle",
+  "base_capabilities": {
+    "last_updated": "2026-04-19",
+    "summary": "OpenClaw基地能力基本盘 - 所有操作和能力来源",
+    "core_config": {
+      "model": "MiniMax M2.7",
+      "framework": "DeerFlow 2.0",
+      "orchestration": "LangGraph",
+      "config_version": 6,
+      "tech_stack": "Next.js 16 + React 19 + FastAPI"
+    },
+    "feishu_integration": {
+      "bot_profiles": 16,
+      "api_skills": 22,
+      "categories": ["消息", "日历", "文档", "表格", "任务", "通讯录", "其他"],
+      "adapter": "lark-cli + 意图识别路由",
+      "identity_switch": "支持 --as bot/user"
+    },
+    "four_major_modes": {
+      "search": {
+        "protocol": "STORM三轮搜索",
+        "engines": ["SearXNG", "Tavily", "Exa", "Context7", "GitHub", "Jina"],
+        "flow": "交叉验证→冲突检测→报告生成"
+      },
+      "task": {
+        "capability": "DAG分解 + 拓扑排序",
+        "circuit_breaker": "阈值3,恢复60s",
+        "checkpoint": "任务持久化与恢复",
+        "task_types": ["SEARCH", "CODE_GEN", "RESEARCH", "ANALYSIS", "PLANNING", "CREATIVE", "SYS_CONFIG", "DATA_PROCESSING"]
+      },
+      "workflow": {
+        "orchestration": "n8n + Dify融合",
+        "nodes": 55,
+        "n8n_nodes": 35,
+        "dify_nodes": 20,
+        "sandbox": "n8n_code沙箱隔离"
+      },
+      "aal": {
+        "ice_score": "goal×0.30 + deliverable×0.25 + quality_bar×0.20 + constraints×0.15 + deadline×0.10, 阈值0.85",
+        "confidence_melt": 0.7,
+        "oracle": "Hephaestus→Librarian→Oracle三重核实",
+        "budget_control": "$0.1阈值",
+        "reporting": "每4小时飞书推送"
+      }
+    },
+    "supervisor_agent": {
+      "watchdog": "24/7心跳监控,白天5分钟/夜间30分钟间隔",
+      "guardrails": "AllowlistProvider/OAP Passport/Custom",
+      "decision_engine": "置信度熔断 + 预算检查 + 飞书上报",
+      "hooks": ["PreToolUse", "PostToolUse", "UserPromptSubmit", "SessionCreate", "SessionEnd", "Stop"],
+      "oracle": "三重核实规则"
+    },
+    "asset_system": {
+      "asset_manager": "九大资产类别",
+      "five_tier_quality": {
+        "CORE": "90-100,永不淘汰",
+        "PREMIUM": "75-89,3连败→14天观察期",
+        "AVAILABLE": "60-74,3连败→7天观察期",
+        "GENERAL": "30-59,3连败+成功率<50%→淘汰",
+        "RECORD": "0-29,直接淘汰"
+      },
+      "scoring_formula": "S_f×0.25 + S_s×0.30 + S_t×0.20 + S_c×0.15 + S_u×0.10",
+      "asset_packer": "PII清洗",
+      "skill_factory": "SKILL.md格式编译"
+    },
+    "prompt_engineering": {
+      "five_layers": {
+        "layer1": "9种任务识别 + P1-P6优先级组装",
+        "layer2": "LLM-Judge四维评分(accuracy 35%/completeness 30%/format 20%/preference 15%)",
+        "layer3": "三大信号源 + 贡献归因",
+        "layer4": "GEPA六步反思 + MIPRO遗传算法",
+        "layer5": "四级分级晋升淘汰"
+      },
+      "p1_p6_priority": "安全约束→用户偏好→任务专用→Few-shot→上下文→基础系统",
+      "soul_md": "核心身份定义"
+    },
+    "gepa_evolution": {
+      "optimizer": "100ms即时优化,精简率≥20%写入",
+      "nightly_distiller": "每日02:00六阶段复盘",
+      "gepa_operations": ["CAPTURED", "DERIVED", "FIX"],
+      "roi_engine": "目标72%Token节省",
+      "shadow_tester": "TES A/B隔离测试",
+      "reflective_adaptor": "根因分析(RCA)"
+    },
+    "memory_system": {
+      "layers": {
+        "L1": "ReMe三阶段压缩,90k token触发",
+        "L2": "SimpleMem语义压缩,最大50会话",
+        "L3": "FTS5+RRF混合检索,72%降Token",
+        "L4": "GraphRAG+Mem0,BFS路径查询",
+        "L5": "Single-Frame-Active,90%存储减少"
+      },
+      "post_tool_use_stages": "去重→脱敏→压缩→验证→评分→嵌入→写入"
+    },
+    "executor_m11": {
+      "executors": ["Claude Code", "Midscene", "OpenCLI", "LarkCLI", "UI-TARS", "CLI-Anything"],
+      "sandbox": "gVisor沙箱隔离",
+      "opencli": "89平台浏览器自动化",
+      "daemon": "Cron守护进程",
+      "retry": "最多3次"
+    },
+    "frontend": {
+      "components": "50+ AI组件",
+      "ai_elements": ["Artifact", "Canvas", "ChainOfThought", "CodeBlock", "Context", "ModelSelector"],
+      "interaction": "语音输入 + 文件拖放 + 流式响应",
+      "models": "40+模型选择器"
+    }
+  }
+}

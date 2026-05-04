@@ -1,0 +1,322 @@
+{
+  "report_id": "R241-18L_DISABLED_STUB_CONTINUATION_HARDENING",
+  "status": "passed",
+  "decision": "allow_mainline_resume_pregate",
+  "source": "R241-18K_MEMORY_MCP_READINESS_REVIEW",
+  "phase": "phase_5_disabled_stub_hardening",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "not_run",
+    "output": "ROOT_OK"
+  },
+  "preconditions": {
+    "r241_18k_blocked_continue_disabled_stub_only": true,
+    "memory_readiness_not_ready": true,
+    "mcp_readiness_not_ready": true,
+    "disabled_stub_continuation_approved": true,
+    "mainline_gateway_activation_allowed": false,
+    "all_preconditions_met": true
+  },
+  "review_objects": [
+    {
+      "object_id": "A",
+      "object_name": "DSRT descriptor immutability",
+      "source_round": "R241-18I",
+      "current_status": "confirmed_immutable",
+      "required_invariants": ["disabled_by_default=true", "implemented_now=false", "enabled=false"],
+      "evidence_files": [
+        "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+        "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py"
+      ],
+      "validation_method": "Source code inspection + contract JSON cross-reference",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": null
+    },
+    {
+      "object_id": "B",
+      "object_name": "Disabled namespace enforcement",
+      "source_round": "R241-18I",
+      "current_status": "enforced",
+      "required_invariants": ["all DSRT paths start with /_disabled/", "no FastAPI include_router for /_disabled/"],
+      "evidence_files": [
+        "backend/app/gateway/app.py",
+        "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py"
+      ],
+      "validation_method": "Path inspection + app.include_router scan",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": null
+    },
+    {
+      "object_id": "C",
+      "object_name": "No runtime activation regression",
+      "source_round": "R241-17D through R241-18K",
+      "current_status": "clean",
+      "required_invariants": ["no_enabled=true", "no_implemented_now=true", "no_runtime_write_allowed"],
+      "evidence_files": [
+        "migration_reports/recovery/R241-18J_CROSS_VALIDATION.json",
+        "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json"
+      ],
+      "validation_method": "Keyword regression scan + source grep",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": null
+    },
+    {
+      "object_id": "D",
+      "object_name": "No gateway main path coupling",
+      "source_round": "R241-18J",
+      "current_status": "blocked",
+      "required_invariants": ["GSIC-003 blocked", "GSIC-004 blocked", "mainline_gateway_activation_allowed=false"],
+      "evidence_files": [
+        "backend/migration_reports/foundation_audit/R241-18J_GATEWAY_SIDECAR_INTEGRATION_REVIEW.json"
+      ],
+      "validation_method": "Gateway review JSON validation",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": null
+    },
+    {
+      "object_id": "E",
+      "object_name": "No FastAPI route registration",
+      "source_round": "R241-18I",
+      "current_status": "clean",
+      "required_invariants": ["no /_disabled/ routes registered", "DSRT not in app.include_router"],
+      "evidence_files": ["backend/app/gateway/app.py"],
+      "validation_method": "include_router scan + path grep",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": null
+    },
+    {
+      "object_id": "F",
+      "object_name": "No Feishu/webhook/network execution",
+      "source_round": "R241-18D through R241-18G",
+      "current_status": "clean",
+      "required_invariants": ["send_allowed=false", "webhook_allowed=false", "network_listener_started=false"],
+      "evidence_files": [
+        "backend/app/foundation/read_only_runtime_entry_batch2.py",
+        "backend/app/foundation/read_only_runtime_entry_batch4.py"
+      ],
+      "validation_method": "Source grep + validation logic inspection",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": null
+    },
+    {
+      "object_id": "G",
+      "object_name": "Mainline resume pre-gate readiness",
+      "source_round": "R241-18K",
+      "current_status": "ready",
+      "required_invariants": [
+        "DSRT hardening passed",
+        "memory blocked",
+        "MCP not approved",
+        "gateway blocked",
+        "no activation regression",
+        "R241-18K decision=continue_disabled_stub_only inherited"
+      ],
+      "evidence_files": [
+        "migration_reports/recovery/R241-18K_MEMORY_MCP_READINESS_REVIEW.json"
+      ],
+      "validation_method": "Precondition check + invariant cross-validation",
+      "decision": "passed",
+      "blocker": null,
+      "next_action": "Proceed to R241-18M"
+    }
+  ],
+  "dsrt_hardening_matrix": [
+    {
+      "dsrt_id": "DSRT-001",
+      "name": "foundation_diagnose",
+      "route_type": "foundation_diagnose",
+      "path": "/_disabled/foundation/diagnose",
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "path_prefix_disabled": true,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "feishu_send_allowed": false,
+      "webhook_call_allowed": false,
+      "scheduler_allowed": false,
+      "auto_fix_allowed": false,
+      "source_file": "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py:278",
+      "contract_file": "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "status": "passed"
+    },
+    {
+      "dsrt_id": "DSRT-002",
+      "name": "audit_query",
+      "route_type": "audit_query",
+      "path": "/_disabled/foundation/audit-query",
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "path_prefix_disabled": true,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "feishu_send_allowed": false,
+      "webhook_call_allowed": false,
+      "scheduler_allowed": false,
+      "auto_fix_allowed": false,
+      "source_file": "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py:324",
+      "contract_file": "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "status": "passed"
+    },
+    {
+      "dsrt_id": "DSRT-003",
+      "name": "trend_report",
+      "route_type": "trend_report",
+      "path": "/_disabled/foundation/trend-report",
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "path_prefix_disabled": true,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "feishu_send_allowed": false,
+      "webhook_call_allowed": false,
+      "scheduler_allowed": false,
+      "auto_fix_allowed": false,
+      "source_file": "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py:371",
+      "contract_file": "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "status": "passed"
+    },
+    {
+      "dsrt_id": "DSRT-004",
+      "name": "feishu_dryrun",
+      "route_type": "feishu_dryrun",
+      "path": "/_disabled/foundation/feishu-dryrun",
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "path_prefix_disabled": true,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "feishu_send_allowed": false,
+      "webhook_call_allowed": false,
+      "scheduler_allowed": false,
+      "auto_fix_allowed": false,
+      "source_file": "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py:419",
+      "contract_file": "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "status": "passed"
+    },
+    {
+      "dsrt_id": "DSRT-005",
+      "name": "feishu_presend",
+      "route_type": "feishu_presend_validate",
+      "path": "/_disabled/foundation/feishu-presend",
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "path_prefix_disabled": true,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "feishu_send_allowed": false,
+      "webhook_call_allowed": false,
+      "scheduler_allowed": false,
+      "auto_fix_allowed": false,
+      "source_file": "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py:464",
+      "contract_file": "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "status": "passed"
+    },
+    {
+      "dsrt_id": "DSRT-006",
+      "name": "truth_state",
+      "route_type": "truth_state",
+      "path": "/_disabled/foundation/truth-state",
+      "enabled": false,
+      "disabled_by_default": true,
+      "implemented_now": false,
+      "path_prefix_disabled": true,
+      "network_listener_started": false,
+      "gateway_main_path_touched": false,
+      "runtime_write_allowed": false,
+      "audit_jsonl_write_allowed": false,
+      "feishu_send_allowed": false,
+      "webhook_call_allowed": false,
+      "scheduler_allowed": false,
+      "auto_fix_allowed": false,
+      "source_file": "backend/app/foundation/read_only_runtime_sidecar_stub_contract.py:513",
+      "contract_file": "backend/migration_reports/foundation_audit/R241-18I_DISABLED_SIDECAR_STUB_CONTRACT.json",
+      "status": "passed"
+    }
+  ],
+  "activation_regression_scan": {
+    "enabled_true_hits": 0,
+    "implemented_now_true_hits": 0,
+    "dangerous_hits": [],
+    "explanatory_hits": [
+      {"pattern": "enabled=true", "file": "backend/external/bytebot/helm/values.yaml", "context": "Helm chart documentation, not production code", "status": "explanatory_hit"},
+      {"pattern": "runtime_write guard constant", "file": "backend/app/audit/audit_trend_cli_guard.py:42", "context": "Named constant for guard, value is False by default", "status": "explanatory_hit"},
+      {"pattern": "send_allowed=True default", "file": "backend/app/audit/audit_trend_feishu_presend_validator.py:417", "context": "Default value in payload extraction, overridden to False by validation", "status": "explanatory_hit"},
+      {"pattern": "send_allowed=True default", "file": "backend/app/audit/audit_trend_feishu_projection.py:483", "context": "Default value in payload extraction, overridden by contract enforcement", "status": "explanatory_hit"}
+    ],
+    "violations": [],
+    "network_listener_hits": 0,
+    "gateway_main_path_hits": 0,
+    "fastapi_route_registration_hits": 0
+  },
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k \"disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report\" -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.30,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "mainline_resume_pregate": {
+    "allowed": true,
+    "conditions": [
+      "DSRT hardening matrix: all 6/6 DSRT entries passed",
+      "No runtime activation regression detected",
+      "No gateway main path coupling found",
+      "No FastAPI route registration for /_disabled/ paths",
+      "No Feishu/webhook/network execution attempted",
+      "Memory/MCP blocked status correctly carried forward",
+      "R241-18K decision continue_disabled_stub_only fully inherited",
+      "R241-18J classification option_D_blocked_disallowed confirmed"
+    ],
+    "blockers": []
+  },
+  "safety_invariants": {
+    "no_runtime_write": true,
+    "no_network": true,
+    "no_gateway_main_path": true,
+    "no_fastapi_route_registration": true,
+    "no_feishu_send": true,
+    "no_webhook_call": true,
+    "no_scheduler": true,
+    "no_auto_fix": true,
+    "memory_mcp_still_blocked": true,
+    "violations": []
+  },
+  "final_assessment": {
+    "status": "passed",
+    "decision": "allow_mainline_resume_pregate",
+    "dsrt_hardening_passed": true,
+    "mainline_resume_pregate_allowed": true,
+    "recommended_resume_point": "R241-18L",
+    "next_prompt_needed": "R241-18M_MAINLINE_RESUME_PREGATE_CLOSURE_REVIEW",
+    "all_safety_invariants_clean": true,
+    "no_new_conflicts": true
+  }
+}

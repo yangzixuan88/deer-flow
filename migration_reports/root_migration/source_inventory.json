@@ -1,0 +1,2917 @@
+{
+  "root": "E:\\OpenClaw-Base\\openclaw超级工程项目",
+  "total_files": 363,
+  "categories": {
+    "config": 20,
+    "other": 147,
+    "doc": 64,
+    "source": 130,
+    "script": 2
+  },
+  "files": [
+    {
+      "rel_path": "ACCEPTANCE_REPORT.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\ACCEPTANCE_REPORT.md",
+      "size_bytes": 10822,
+      "mtime": "2026-04-14T22:43:07.924158",
+      "sha256": "43c3f8be6baff7edbbbd45a707e219176296a94cb0b54f7ccfaaac63926627ff",
+      "category": "doc"
+    },
+    {
+      "rel_path": "BUILD_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\BUILD_PLAN.md",
+      "size_bytes": 12431,
+      "mtime": "2026-04-14T09:14:31.378384",
+      "sha256": "c4fec0ee712f6d44dc6708d6788ab3d12bcbadcdb72ce8735f89da0bf57b4f99",
+      "category": "doc"
+    },
+    {
+      "rel_path": "BUILD_PLAN_DETAILED.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\BUILD_PLAN_DETAILED.md",
+      "size_bytes": 17732,
+      "mtime": "2026-04-14T21:17:03.799030",
+      "sha256": "0ae71067be4acd4a2a3d2f2b8f810b8ac2b7c5a51da84f9f8c085384487a2813",
+      "category": "doc"
+    },
+    {
+      "rel_path": "DECISIONS.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\DECISIONS.md",
+      "size_bytes": 1117,
+      "mtime": "2026-04-13T08:27:34.262484",
+      "sha256": "69ebc08f712e2fdc814460acc8bfe0363947b84cb891bbd3f283cb20d75a93f4",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Decision_Log.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Decision_Log.md",
+      "size_bytes": 8511,
+      "mtime": "2026-04-14T06:18:53.278136",
+      "sha256": "a9101a966117afeb224b4ea6e33d47456770e526e63eab7b95d7ba4f97e4fd44",
+      "category": "doc"
+    },
+    {
+      "rel_path": "DEPLOYMENT_CHECKLIST.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\DEPLOYMENT_CHECKLIST.md",
+      "size_bytes": 3244,
+      "mtime": "2026-04-17T00:55:53.476917",
+      "sha256": "fd3518d9fc2efabc59c933718301b4d693a31b35a4d445618cb962e634c0d3e0",
+      "category": "doc"
+    },
+    {
+      "rel_path": "DESIGN_AUDIT_REPORT.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\DESIGN_AUDIT_REPORT.md",
+      "size_bytes": 10850,
+      "mtime": "2026-04-14T07:45:21.313651",
+      "sha256": "48401910ddf3f81924fabce15f15e842da60d03d9786edfd579e72486578fbba",
+      "category": "doc"
+    },
+    {
+      "rel_path": "jest.config.cjs",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\jest.config.cjs",
+      "size_bytes": 1071,
+      "mtime": "2026-04-17T00:13:47.295753",
+      "sha256": "53276aabda1d09b159491a83df7345322b1b014ddf468bc3c5b86eb5d5b19add",
+      "category": "script"
+    },
+    {
+      "rel_path": "mcp-bridge.js",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\mcp-bridge.js",
+      "size_bytes": 9317,
+      "mtime": "2026-04-15T00:49:53.404865",
+      "sha256": "7fa9d6fdb658dbde9036d79d58917821f4fb5387e8b63d5ad9d9cf3a3bb2255e",
+      "category": "source"
+    },
+    {
+      "rel_path": "Mission.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Mission.md",
+      "size_bytes": 7689,
+      "mtime": "2026-04-14T06:25:44.550544",
+      "sha256": "8f6a603f978e24657faf9fc9847b2ee61e082fa8238938e5efe78c8bae02d13f",
+      "category": "doc"
+    },
+    {
+      "rel_path": "NEXT_ACTION_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\NEXT_ACTION_PLAN.md",
+      "size_bytes": 7495,
+      "mtime": "2026-04-14T22:46:29.213142",
+      "sha256": "170e6362ff15ea0ae50169c770dbbb3f701f0c6667f57aae26c5c80e8cc56818",
+      "category": "doc"
+    },
+    {
+      "rel_path": "NEXT_ACTION_PLAN_V2.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\NEXT_ACTION_PLAN_V2.md",
+      "size_bytes": 18841,
+      "mtime": "2026-04-15T00:19:56.748105",
+      "sha256": "c296047a26e624c5c477a2a378dface7af4581a3f189626f02d5ffe1301bd8f3",
+      "category": "doc"
+    },
+    {
+      "rel_path": "NEXT_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\NEXT_PLAN.md",
+      "size_bytes": 5724,
+      "mtime": "2026-04-14T06:25:29.878396",
+      "sha256": "db1e4c0399b86cc037b1ecb32f4bb9accd593d43d7801398202e16e9801da2ae",
+      "category": "doc"
+    },
+    {
+      "rel_path": "OpenClaw超级工程项目_V1_Full_Archive.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\OpenClaw超级工程项目_V1_Full_Archive.md",
+      "size_bytes": 382643,
+      "mtime": "2026-04-13T08:46:44.258499",
+      "sha256": "3ccde3d951f46fb8409a7f29f340f19ff041ae0e4719225b4344d76d36e57270",
+      "category": "doc"
+    },
+    {
+      "rel_path": "package-lock.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\package-lock.json",
+      "size_bytes": 239743,
+      "mtime": "2026-04-15T02:11:50.303346",
+      "sha256": "509859a4581eb71200c8aba5d96cc57efd62989c7ae75e54de80e3d367533360",
+      "category": "config"
+    },
+    {
+      "rel_path": "package.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\package.json",
+      "size_bytes": 1004,
+      "mtime": "2026-04-15T02:11:50.164370",
+      "sha256": "565175ee94cf45e5404594d0f4c6d0bd40ab5ae5dd92729e593df5453f954db7",
+      "category": "config"
+    },
+    {
+      "rel_path": "Phase.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Phase.md",
+      "size_bytes": 8784,
+      "mtime": "2026-04-15T02:42:23.431814",
+      "sha256": "1ace90d2f1fe9a6d68a2c84024830bb3c5e771fe376ab575892bf6136ddbc325",
+      "category": "doc"
+    },
+    {
+      "rel_path": "PHASE_10_5_DETAILED_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\PHASE_10_5_DETAILED_PLAN.md",
+      "size_bytes": 25690,
+      "mtime": "2026-04-14T06:38:58.666579",
+      "sha256": "e29b59eb0b9d73cd605421a71dccbe6540a298ce2ec81e22ffb65172a9d08fb6",
+      "category": "doc"
+    },
+    {
+      "rel_path": "PHASE_16_18_IMPLEMENTATION_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\PHASE_16_18_IMPLEMENTATION_PLAN.md",
+      "size_bytes": 17266,
+      "mtime": "2026-04-14T19:10:19.468595",
+      "sha256": "1e84bc24ea63bfc420c45f468fa3568f3f67ae62fc45a7066dc314203ad806fc",
+      "category": "doc"
+    },
+    {
+      "rel_path": "portable_setup.ps1",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\portable_setup.ps1",
+      "size_bytes": 3297,
+      "mtime": "2026-04-14T05:33:27.821760",
+      "sha256": "6780c61dff5c07dd2cb2611bf322c82d12355eb86d92b169139f17a257c71d8b",
+      "category": "script"
+    },
+    {
+      "rel_path": "PROBLEMS_AND_FIXES.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\PROBLEMS_AND_FIXES.md",
+      "size_bytes": 10320,
+      "mtime": "2026-04-15T00:47:58.222260",
+      "sha256": "1965e70188192e8b25d5f1d0aca86eed52c7feaa7c17d36221803d2be6c6d25b",
+      "category": "doc"
+    },
+    {
+      "rel_path": "REMEDIATION_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\REMEDIATION_PLAN.md",
+      "size_bytes": 4076,
+      "mtime": "2026-04-15T00:35:41.913874",
+      "sha256": "d853f6c19e7c5c0d8d0564bec023bf285b4a1b20902050362b04c07136f9a5e4",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round51_Gateway_API_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round51_Gateway_API_Verification_Report.md",
+      "size_bytes": 15434,
+      "mtime": "2026-04-21T07:45:44.820559",
+      "sha256": "6b1fe1702be0a6af709cba45c8daaf5e175e035b24502dde502b2f9637ef66ab",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round52_Governance_Health_Observability_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round52_Governance_Health_Observability_Report.md",
+      "size_bytes": 9293,
+      "mtime": "2026-04-21T07:54:00.232552",
+      "sha256": "f1c76214e2f49f2f281b043fee5ecc559ad02d84c98f8fc34577569bfb03d72d",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round53_Container_Rebuild_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round53_Container_Rebuild_Verification_Report.md",
+      "size_bytes": 6540,
+      "mtime": "2026-04-21T08:26:26.782041",
+      "sha256": "17089f819389e180c32a02c0ba68e5c2478e13fdaa095138891b62a9f2e7c086",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round55_n8n_Integration_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round55_n8n_Integration_Verification_Report.md",
+      "size_bytes": 7182,
+      "mtime": "2026-04-21T08:55:32.828396",
+      "sha256": "208f8cfdab05af336749083d3e2d2763348aeaadbb0490b2ac84087a16229fa9",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round56_M04_TypeScript_Coordination_Layer_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round56_M04_TypeScript_Coordination_Layer_Verification_Report.md",
+      "size_bytes": 8787,
+      "mtime": "2026-04-21T09:03:23.626417",
+      "sha256": "9e6acbde0374369722771b72758b48977a08517e93fcf77339324c1a8a248137",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round57_Governance_Execution_Closure_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round57_Governance_Execution_Closure_Verification_Report.md",
+      "size_bytes": 12426,
+      "mtime": "2026-04-21T09:18:56.048655",
+      "sha256": "9152daece4d623066124fff0280f020850f3e84b85a24ec91c4f0928009ac035",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round58_Governance_Architecture_Unification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round58_Governance_Architecture_Unification_Report.md",
+      "size_bytes": 11645,
+      "mtime": "2026-04-21T09:26:07.667272",
+      "sha256": "0a347c213ffb45f4a161da336a447625da23593181927deeb8e9c012f26af8e8",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round59_Governance_E2E_Live_Closure_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round59_Governance_E2E_Live_Closure_Verification_Report.md",
+      "size_bytes": 9437,
+      "mtime": "2026-04-21T09:37:38.954253",
+      "sha256": "3b5652a09e9821e2343208ab255598882a79719fcd382bf9e35c845af6802d8c",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round60_Global_System_State_Convergence_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round60_Global_System_State_Convergence_Report.md",
+      "size_bytes": 10037,
+      "mtime": "2026-04-21T09:44:17.371447",
+      "sha256": "45c33e5229bf165a81c86e4b683772d2a00f45d5ed057577a17156d1e42aa202",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round61_Feishu_Ingress_Activation_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round61_Feishu_Ingress_Activation_Verification_Report.md",
+      "size_bytes": 8648,
+      "mtime": "2026-04-21T10:20:57.155670",
+      "sha256": "ce33d073e345bbe9a98a0af94d16a880519ba01f733b371dd2520d4f3883b3c3",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round62_n8n_Module_Disposition_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round62_n8n_Module_Disposition_Verification_Report.md",
+      "size_bytes": 10278,
+      "mtime": "2026-04-21T10:31:40.807915",
+      "sha256": "5008d115a8b11cebb8da7950beaa859ab4844f6d6d25431814ed1d9fc359ee12",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round63_Dify_Vector_Service_Integration_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round63_Dify_Vector_Service_Integration_Verification_Report.md",
+      "size_bytes": 9572,
+      "mtime": "2026-04-21T10:41:29.583216",
+      "sha256": "06e8f507703fb6de767d9221f63d32088d3fad6f6950bff1bac26bffeb854527",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round64_Feishu_Event_Subscription_Platform_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round64_Feishu_Event_Subscription_Platform_Verification_Report.md",
+      "size_bytes": 9133,
+      "mtime": "2026-04-21T10:50:32.231061",
+      "sha256": "7e1dc80060ff2e3cccffbd0d509ccf7ce0b9abcc3d3078524993aa727886e842",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round65_LangGraph_API_Server_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round65_LangGraph_API_Server_Verification_Report.md",
+      "size_bytes": 14200,
+      "mtime": "2026-04-21T11:26:53.915821",
+      "sha256": "7bc4806368fffdaf58f16a47296c3b076e2686d3db90cf403b409703e79beaaa",
+      "category": "doc"
+    },
+    {
+      "rel_path": "Round66B_Feishu_E2E_Closure_Verification_Report.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Round66B_Feishu_E2E_Closure_Verification_Report.md",
+      "size_bytes": 6259,
+      "mtime": "2026-04-21T11:51:06.638465",
+      "sha256": "bc6f769041ed50cba622bb71b488c69c1e4e14c794869628c324c0df59553515",
+      "category": "doc"
+    },
+    {
+      "rel_path": "start_server.mjs",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\start_server.mjs",
+      "size_bytes": 614,
+      "mtime": "2026-04-14T19:52:23.595549",
+      "sha256": "11721bfe14c80e7029fc18e19059ade06cc03182f0e6b1154a4eef5cdaf266eb",
+      "category": "script"
+    },
+    {
+      "rel_path": "test_auth.mjs",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\test_auth.mjs",
+      "size_bytes": 3543,
+      "mtime": "2026-04-14T19:50:04.019093",
+      "sha256": "c015c3b29aed32f5740342475a8f7aa45caa77c5e2288b7652d65720d6b16928",
+      "category": "script"
+    },
+    {
+      "rel_path": "TEST_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\TEST_PLAN.md",
+      "size_bytes": 12149,
+      "mtime": "2026-04-16T03:16:21.037924",
+      "sha256": "a8dbefea7e546fab1d1b61646274aa64c4170e28342d1434aec6262fa5f05b63",
+      "category": "doc"
+    },
+    {
+      "rel_path": "tsconfig.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\tsconfig.json",
+      "size_bytes": 712,
+      "mtime": "2026-04-15T02:11:10.614096",
+      "sha256": "ac8ff2d953295cb7642bcb79d23000a53764f168a7e41a4742d0b555db79a5fd",
+      "category": "config"
+    },
+    {
+      "rel_path": "typedoc.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\typedoc.json",
+      "size_bytes": 812,
+      "mtime": "2026-04-14T21:58:56.656177",
+      "sha256": "1fc97447636c9d94973c5f30ec2212ce7543bed1172e5dbb7afa82f4d27bad97",
+      "category": "config"
+    },
+    {
+      "rel_path": "Unresolved_Issues.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\Unresolved_Issues.md",
+      "size_bytes": 1722,
+      "mtime": "2026-04-12T07:49:50.620718",
+      "sha256": "07f955e7f18821ca3bde3797857678b46968ef4267d3d648a72ee4e78175a18e",
+      "category": "doc"
+    },
+    {
+      "rel_path": "VERIFICATION_REPORT.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\VERIFICATION_REPORT.md",
+      "size_bytes": 6989,
+      "mtime": "2026-04-14T07:40:56.672736",
+      "sha256": "a3f30974a16e101c244762bea9fad3d698b950a9fe76766bea3d631c48182883",
+      "category": "doc"
+    },
+    {
+      "rel_path": "vitest.config.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\vitest.config.ts",
+      "size_bytes": 437,
+      "mtime": "2026-04-15T02:46:08.879380",
+      "sha256": "94860819de7474a67bf424735c3e1c66ad9ebe6b673180eba89b38760ca7f9c5",
+      "category": "source"
+    },
+    {
+      "rel_path": "运行记录",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\运行记录",
+      "size_bytes": 9474,
+      "mtime": "2026-04-14T06:18:08.754119",
+      "sha256": "78132c9a9036a5e84d853e89b0fc1d638e477553ed76e698d8994b926a2da462",
+      "category": "skip_unknown"
+    },
+    {
+      "rel_path": "assets\\Asset_Manifest.sqlite",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\assets\\Asset_Manifest.sqlite",
+      "size_bytes": 16384,
+      "mtime": "2026-04-14T05:33:27.820759",
+      "sha256": "b7642b189e447090f61ed7049f343d5d2c07f4b5199f59be080a1f446c655781",
+      "category": "skip_sqlite"
+    },
+    {
+      "rel_path": "assets\\domain_knowledge\\react_ui_comparison.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\assets\\domain_knowledge\\react_ui_comparison.md",
+      "size_bytes": 2198,
+      "mtime": "2026-04-14T05:33:27.821760",
+      "sha256": "6e91f226d70970deaa458ccd57160746d2f84b2366e28c2b197242d503f2191d",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\00_Module_Index.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\00_Module_Index.md",
+      "size_bytes": 4709,
+      "mtime": "2026-04-11T20:08:36.734738",
+      "sha256": "ffc8a844cefa7ad17b260f8b2b802852ac64a4dc6fecb8280103f2163cf8bfa3",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\01_Orchestration_Engine.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\01_Orchestration_Engine.md",
+      "size_bytes": 26646,
+      "mtime": "2026-04-11T19:07:28.049421",
+      "sha256": "c6017ee421ca84449bfd7a3c93858a5c961ed5a52415486e07741dce14c98d43",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\02_OMO_Agent_Matrix.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\02_OMO_Agent_Matrix.md",
+      "size_bytes": 32491,
+      "mtime": "2026-04-12T05:25:47.537791",
+      "sha256": "766826ad7a687858579cbc81b06cf3f1413fedbd9bedabff46abed6e07ab5737",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\03_Harness_Hooks_System.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\03_Harness_Hooks_System.md",
+      "size_bytes": 30729,
+      "mtime": "2026-04-11T19:08:48.326619",
+      "sha256": "ea45468ef2be0318f6966a6fdcf6a167cbda2d43f52eaf7fea0a2affadc5cd2e",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\04_Three_Systems_Coordination.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\04_Three_Systems_Coordination.md",
+      "size_bytes": 24092,
+      "mtime": "2026-04-11T19:12:31.092819",
+      "sha256": "a102a6628f113debab312b35a48cdb24659d368e2ca17af434c822f95e3874be",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\05_Autonomous_Agent_Layer.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\05_Autonomous_Agent_Layer.md",
+      "size_bytes": 22829,
+      "mtime": "2026-04-11T19:11:03.447210",
+      "sha256": "33b9850ad50dcf61b3e4ecee663e38647c465e01040ade4f39f4d1ddad3d7439",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\06_Memory_Architecture.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\06_Memory_Architecture.md",
+      "size_bytes": 24790,
+      "mtime": "2026-04-11T19:12:31.101824",
+      "sha256": "42320ce436247821d769db6254d6e7399028d940c791bf0d9871dcf3af486f47",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\07_Digital_Asset_System.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\07_Digital_Asset_System.md",
+      "size_bytes": 38992,
+      "mtime": "2026-04-11T19:12:54.222919",
+      "sha256": "f134352560dd3ed0fa2e999f07d2bdb76e43bd41fc706630a3e00525f677938d",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\08_Learning_System.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\08_Learning_System.md",
+      "size_bytes": 17037,
+      "mtime": "2026-04-11T19:13:12.889307",
+      "sha256": "c40162d03e25e42c4ae841e262e4634e4c6cefd7ba3c5cf7b48a2b53a2f33ccc",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\09_Prompt_Engineering_System.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\09_Prompt_Engineering_System.md",
+      "size_bytes": 24438,
+      "mtime": "2026-04-11T19:13:32.746966",
+      "sha256": "f03709b931e7e81daaf1e3530c95d84909d508dc6427433bc2ccff748ea278d1",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\10_Intent_Clarification_Engine.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\10_Intent_Clarification_Engine.md",
+      "size_bytes": 26108,
+      "mtime": "2026-04-11T19:12:31.098118",
+      "sha256": "0ec46f3c59324b01efcc32f69397999337dd0e93600c61edbaa0901ab3474ac0",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\11_Execution_And_Daemons.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\11_Execution_And_Daemons.md",
+      "size_bytes": 16902,
+      "mtime": "2026-04-11T19:12:31.094422",
+      "sha256": "cc3adc406c33a7a8df4972ca9dda7e5dd107ac306b1aad9a68b8b8b91c35273a",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\12_Tech_Stack_And_Config.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\12_Tech_Stack_And_Config.md",
+      "size_bytes": 14466,
+      "mtime": "2026-04-11T19:12:31.019079",
+      "sha256": "59f2525c69316b45195daa877219a4749c50b133d506b1a8ec2a03e27e02169f",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\13_Phased_Implementation.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\13_Phased_Implementation.md",
+      "size_bytes": 18505,
+      "mtime": "2026-04-11T20:09:47.771482",
+      "sha256": "270f06fc739839444243aedba85b77223fdde326b9c66e560db922361cbadbcc",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\CLAUDE_CODE_DEEP_INTEGRATION_REPORT.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\CLAUDE_CODE_DEEP_INTEGRATION_REPORT.md",
+      "size_bytes": 34364,
+      "mtime": "2026-04-16T23:30:31.060851",
+      "sha256": "a665a0f15fbd86c004dba0ef84c0dcd2d17ddfa5c3c6956a918efa9c1593542e",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\DISASTER_RECOVERY_PLAYBOOK.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\DISASTER_RECOVERY_PLAYBOOK.md",
+      "size_bytes": 7303,
+      "mtime": "2026-04-15T02:36:17.198095",
+      "sha256": "15beaec8b626a830ad16516a46287c851f712896d5e356007cf3e6aa25b71161",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\FEISHU_CLI深度接入计划.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\FEISHU_CLI深度接入计划.md",
+      "size_bytes": 28055,
+      "mtime": "2026-04-17T01:56:09.779341",
+      "sha256": "de6086725689f5651b4066babd082ea4b7a9c5d8ea62180b145c717bfebb2264",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\Hermes_Agent_Deep_Analysis.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\Hermes_Agent_Deep_Analysis.md",
+      "size_bytes": 1,
+      "mtime": "2026-04-18T00:49:53.124231",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\hermes_opencli_deep_改造计划.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\hermes_opencli_deep_改造计划.md",
+      "size_bytes": 34232,
+      "mtime": "2026-04-14T01:43:54.771750",
+      "sha256": "ee7c20369ad567d2a0c96d2ae60679a34d3ceadde611ed94a23fb3ff68217825",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\M00_System_Overview.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\M00_System_Overview.md",
+      "size_bytes": 13453,
+      "mtime": "2026-04-11T19:39:34.693991",
+      "sha256": "08d0f1821efdc8d717206b205ece512b23b418170e45f341f73405ac2b0df57b",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\M01_DEERFLOW_INJECTION_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\M01_DEERFLOW_INJECTION_PLAN.md",
+      "size_bytes": 6821,
+      "mtime": "2026-04-15T02:31:39.415072",
+      "sha256": "1db2a9eee4ab43e86f400b92844f46032e9340a3f21e42cf3893ac0b7cb98843",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\M01_DeerFlow_Integration_Design.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\M01_DeerFlow_Integration_Design.md",
+      "size_bytes": 4248,
+      "mtime": "2026-04-15T02:01:19.671760",
+      "sha256": "a57ae1fac38fcb33f8f3dd21b76f7f7793688ee16401c9f5abf8c110ea69e21c",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\OPENCLI_INTEGRATION_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\OPENCLI_INTEGRATION_PLAN.md",
+      "size_bytes": 33237,
+      "mtime": "2026-04-15T03:15:37.307438",
+      "sha256": "435c8914834f89ab51995378393f5ad8d728b59f2d93d0bbea019c8d487b64d0",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\TRI_UNIFIED_AUTOMATION_PLAN.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\TRI_UNIFIED_AUTOMATION_PLAN.md",
+      "size_bytes": 66133,
+      "mtime": "2026-04-15T06:00:24.346025",
+      "sha256": "d62613fcf4f4f44b6b6e7a4d23714d509e21ff3391015110ab162234b19f738a",
+      "category": "doc"
+    },
+    {
+      "rel_path": "docs\\api\\hierarchy.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\hierarchy.html",
+      "size_bytes": 5941,
+      "mtime": "2026-04-14T21:59:10.813900",
+      "sha256": "a7c488753a5446c718efe0012b2eb7a5fde97c52d2921da3d2386171ccd1dcbf",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\index.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\index.html",
+      "size_bytes": 15645,
+      "mtime": "2026-04-14T21:59:10.811901",
+      "sha256": "4f6cde8440ab93057f757e4ba0b90d7c3ff6a760a0bc93edf1f7c3e40173f178",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\hierarchy.js",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\hierarchy.js",
+      "size_bytes": 305,
+      "mtime": "2026-04-14T21:59:10.753711",
+      "sha256": "3686dc86b4b3382fe2d8317fdb8bf610597c1b393dd95f959a6049e989d58557",
+      "category": "source"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\highlight.css",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\highlight.css",
+      "size_bytes": 510,
+      "mtime": "2026-04-14T21:59:11.035167",
+      "sha256": "0d8b35ca5d513f222b33222275bbe66970da8b5e4f9b7ea995506e0a29ccec57",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\icons.js",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\icons.js",
+      "size_bytes": 15087,
+      "mtime": "2026-04-14T21:59:11.030132",
+      "sha256": "ef46752ace8ec936ceeaf75e4499774ba970ae6e8fc663f35a3a6c08ed7c7e1b",
+      "category": "source"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\icons.svg",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\icons.svg",
+      "size_bytes": 14445,
+      "mtime": "2026-04-14T21:59:11.030132",
+      "sha256": "6e6463c759b66b92fad51bdb72d93c937d609b4039607b39815457f82ace36db",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\main.js",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\main.js",
+      "size_bytes": 51109,
+      "mtime": "2026-04-14T21:59:11.034132",
+      "sha256": "a5b87236132a708b28f1996c0a0bf4ef7941dbebd36642c53b27cc13c0181a70",
+      "category": "source"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\navigation.js",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\navigation.js",
+      "size_bytes": 2550,
+      "mtime": "2026-04-14T21:59:10.753711",
+      "sha256": "df8ff132a21b3e21175133ae058fcd47ce408d35af09c11d2544949e2685eafe",
+      "category": "source"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\search.js",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\search.js",
+      "size_bytes": 35631,
+      "mtime": "2026-04-14T21:59:10.768628",
+      "sha256": "b8b25f35e1ecbd1f44e53633c1eacafa79a633ba56f5a6891f38b5ae1f4305da",
+      "category": "source"
+    },
+    {
+      "rel_path": "docs\\api\\assets\\style.css",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\assets\\style.css",
+      "size_bytes": 49406,
+      "mtime": "2026-04-14T08:28:59.346226",
+      "sha256": "42d95eb199921348fa120d5d547c93fd45ab7b14b0e22d0d38eed2e946209b74",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\asset_manager.AssetManager.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\asset_manager.AssetManager.html",
+      "size_bytes": 34115,
+      "mtime": "2026-04-14T21:59:10.830945",
+      "sha256": "50ad51d9bcd2a9a0ea96b604863cdf8af1bb07b3d8b7af2e190fa8059ff5e8b6",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\decision_engine.DecisionEngine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\decision_engine.DecisionEngine.html",
+      "size_bytes": 17228,
+      "mtime": "2026-04-14T21:59:10.849998",
+      "sha256": "1d73065abf8e72dc5d8a735d4bfb8bf401cdf5071d86c6df222eff1fa0df36d1",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\hooks.HookRegistry.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\hooks.HookRegistry.html",
+      "size_bytes": 48986,
+      "mtime": "2026-04-14T21:59:10.859164",
+      "sha256": "ac6ac708748aafea06170380043f72f9d4b6508636faa87269ee9cdfa2bb8a85",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\ice_engine.ICEEngine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\ice_engine.ICEEngine.html",
+      "size_bytes": 21880,
+      "mtime": "2026-04-14T21:59:10.883297",
+      "sha256": "d7b7030c51b91b81002c4457e6248a4d8e5c87624e6a86cee1b054c7a00059e0",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\m04_coordinator.Coordinator.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\m04_coordinator.Coordinator.html",
+      "size_bytes": 26436,
+      "mtime": "2026-04-14T21:59:10.894298",
+      "sha256": "d79d30d6fe4083e4f203cf7424d97202090ec5b22b8685709e2337e5d2e3139a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\m11_sandbox.GVisorSandbox.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\m11_sandbox.GVisorSandbox.html",
+      "size_bytes": 21216,
+      "mtime": "2026-04-14T21:59:10.939731",
+      "sha256": "b270db615bf450d4d928a13c38f3a283d74df0346f3ec2bd37608249cc78cead",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\m11_sandbox.RiskAssessor.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\m11_sandbox.RiskAssessor.html",
+      "size_bytes": 14752,
+      "mtime": "2026-04-14T21:59:10.941731",
+      "sha256": "f5a31317f273f24ab2535f241da17404073430c9b66911632594f5db9274049b",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\memory_layer1_working_memory.WorkingMemory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\memory_layer1_working_memory.WorkingMemory.html",
+      "size_bytes": 30329,
+      "mtime": "2026-04-14T21:59:10.947732",
+      "sha256": "c8a0e7853292f990425249421e3c5d4e3757c03e1718f7fe80959e42df107e85",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\memory_layer2_session_memory.SessionMemory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\memory_layer2_session_memory.SessionMemory.html",
+      "size_bytes": 26849,
+      "mtime": "2026-04-14T21:59:10.951731",
+      "sha256": "60c8c4cb07d92d76d2c2f88e090855f7ad1bde06a1726d70835f6f8b0fa33e6a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\nightly_distiller.NightlyDistiller.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\nightly_distiller.NightlyDistiller.html",
+      "size_bytes": 46651,
+      "mtime": "2026-04-14T21:59:10.996005",
+      "sha256": "05b76a8a304484de338931f712fa065c8fdc09ad08f31f6f127f47f37153f3b5",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\optimizer.OptimizerNode.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\optimizer.OptimizerNode.html",
+      "size_bytes": 22686,
+      "mtime": "2026-04-14T21:59:11.014563",
+      "sha256": "6bf7e00243579ba6319dc5092e02f108e400dd627b297de32dd929822333584d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\roi_engine.ROIEngine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\roi_engine.ROIEngine.html",
+      "size_bytes": 16673,
+      "mtime": "2026-04-14T21:59:11.023133",
+      "sha256": "c6277285448b75d57290434369f5e1c75380ca97db4bde1ead15c117bdc4581f",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\classes\\shadow_tester.ShadowABTester.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\classes\\shadow_tester.ShadowABTester.html",
+      "size_bytes": 12866,
+      "mtime": "2026-04-14T21:59:11.027133",
+      "sha256": "aec3909581dc500df934a95dba3476790acae189b94c73492cb609b22fcffb72",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.NodeStatus.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.NodeStatus.html",
+      "size_bytes": 11349,
+      "mtime": "2026-04-14T21:59:10.898944",
+      "sha256": "9616b494791e354aef7d505de2d65678bd09c6c9e28bb8fd71af1a124aeb40af",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.NodeType.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.NodeType.html",
+      "size_bytes": 13007,
+      "mtime": "2026-04-14T21:59:10.899941",
+      "sha256": "4e9df943a25eb6e9e0d5812d87204619914adc2810584e2b4617082b59a2bc1d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.RiskLevel.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.RiskLevel.html",
+      "size_bytes": 10355,
+      "mtime": "2026-04-14T21:59:10.900940",
+      "sha256": "0bf944106e9e4017655348425d42f8f77756cbd15e5b1af16b48f5c4e38c930a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.SearchEngine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.SearchEngine.html",
+      "size_bytes": 13110,
+      "mtime": "2026-04-14T21:59:10.903064",
+      "sha256": "ea029efc6e8e9f5d44a482fa15d2c303badd860ebb05f796f63ff9fde10dc306",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.SearchRound.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.SearchRound.html",
+      "size_bytes": 9499,
+      "mtime": "2026-04-14T21:59:10.904064",
+      "sha256": "b7c8d258ce4fa08ebcaa9a0e64fdf850bd5d29133203bf252f5172117ba12b94",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.SystemType.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.SystemType.html",
+      "size_bytes": 10684,
+      "mtime": "2026-04-14T21:59:10.905064",
+      "sha256": "7385760ab68244e06a1efa393fb7f8836666c4f9140efd0f4691e71f6afb17d1",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.TaskCategory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.TaskCategory.html",
+      "size_bytes": 15220,
+      "mtime": "2026-04-14T21:59:10.907062",
+      "sha256": "97626b673aed141427c00591d7e10dc7b428419c07a175541d01bf77062a0c71",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.TaskStatus.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.TaskStatus.html",
+      "size_bytes": 11417,
+      "mtime": "2026-04-14T21:59:10.908062",
+      "sha256": "a290933e88dcfc2d59c62257307db6d51aaf8196875f5b5acd879be7af8bcad9",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m04_types.WhitelistLevel.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m04_types.WhitelistLevel.html",
+      "size_bytes": 9449,
+      "mtime": "2026-04-14T21:59:10.909061",
+      "sha256": "50cd209e46a23e81a5df10594075ba7e941a782f111a6a49d2bd9391c29020c0",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m11_sandbox.RiskLevel.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m11_sandbox.RiskLevel.html",
+      "size_bytes": 11386,
+      "mtime": "2026-04-14T21:59:10.931735",
+      "sha256": "511eaa14d5f027e1721b63f886ee97599fa6b4ec43d710b5030cb383db27585d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\m11_sandbox.SandboxType.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\m11_sandbox.SandboxType.html",
+      "size_bytes": 9476,
+      "mtime": "2026-04-14T21:59:10.933733",
+      "sha256": "d5ac93b15f3fc29ee41e5afe265e0485fc665bd17abf13e11c33e5553c09ae53",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\memory_types.DeduplicationStatus.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\memory_types.DeduplicationStatus.html",
+      "size_bytes": 9473,
+      "mtime": "2026-04-14T21:59:10.955731",
+      "sha256": "23464f9fe0a334fb83b4748c3609b9469e75f6d5df6ea0a1828e7f73db34cacf",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\memory_types.MemoryLayer.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\memory_types.MemoryLayer.html",
+      "size_bytes": 14030,
+      "mtime": "2026-04-14T21:59:10.957812",
+      "sha256": "e57d258c675b5153ada30a6ca8064a62f968624d9c59e2247bcd13680862fc8e",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\memory_types.MemorySource.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\memory_types.MemorySource.html",
+      "size_bytes": 13138,
+      "mtime": "2026-04-14T21:59:10.958884",
+      "sha256": "22690fa0c56529909266cb892484ac048bf9e6edc2984daf9f3f24141a178827",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\enums\\nightly_distiller.EvolutionOperation.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\enums\\nightly_distiller.EvolutionOperation.html",
+      "size_bytes": 9545,
+      "mtime": "2026-04-14T21:59:10.993006",
+      "sha256": "fee6f65f22602acc68d28e28f34cc3c8edefe32a971ed94f59923717de2286fa",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\asset_manager.DigitalAsset.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\asset_manager.DigitalAsset.html",
+      "size_bytes": 26139,
+      "mtime": "2026-04-14T21:59:10.834958",
+      "sha256": "cb7d5d365200b27ff0e338f7c49abe2e23fc028972d787dcdb9b9ca50c1ce45b",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\decision_engine.BoulderState.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\decision_engine.BoulderState.html",
+      "size_bytes": 17275,
+      "mtime": "2026-04-14T21:59:10.851652",
+      "sha256": "7315f7e8e2417eb8046f8b3fba9ab061b33b9592d7986905cc3088a336c75b99",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\decision_engine.PhasePlan.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\decision_engine.PhasePlan.html",
+      "size_bytes": 12831,
+      "mtime": "2026-04-14T21:59:10.853165",
+      "sha256": "1a5a46ff8e5899108cb1ec06aa378f0c6a252298183c7f1eeec0927e68a4b0cd",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.HookContext.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.HookContext.html",
+      "size_bytes": 13032,
+      "mtime": "2026-04-14T21:59:10.861166",
+      "sha256": "b92a001b0e1b0de770a61ce72b13a1cf23483f47e438abccaae889df6437f130",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.HookRegistration.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.HookRegistration.html",
+      "size_bytes": 14207,
+      "mtime": "2026-04-14T21:59:10.862164",
+      "sha256": "2de52aa4ad492e8563ab8ebddab1a5843f9dd881bc4307532f55d108e316a8fb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.IPostToolUseHook.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.IPostToolUseHook.html",
+      "size_bytes": 10850,
+      "mtime": "2026-04-14T21:59:10.864166",
+      "sha256": "c8abb68457d53ad2600ff4e5f4945ad6d1bf21804c4f2599b4cf3c20c8f96c98",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.IPreToolUseHook.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.IPreToolUseHook.html",
+      "size_bytes": 12812,
+      "mtime": "2026-04-14T21:59:10.865722",
+      "sha256": "4ffe3e640e80c13cc33d7cb8872e6fa83cca8f9dd0e6ccf2a1aabdac66101a3a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.ISessionCreateHook.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.ISessionCreateHook.html",
+      "size_bytes": 14463,
+      "mtime": "2026-04-14T21:59:10.867722",
+      "sha256": "b393ea725ef83fec93422c788c74df413571bc3fde61bb440159c4eeddcb7663",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.ISessionEndHook.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.ISessionEndHook.html",
+      "size_bytes": 16475,
+      "mtime": "2026-04-14T21:59:10.869722",
+      "sha256": "383b304156ef8c7f8048c1ad73e23013a7f6f9cb3877a4283256ef2cfd427f01",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.IStopHook.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.IStopHook.html",
+      "size_bytes": 14646,
+      "mtime": "2026-04-14T21:59:10.870722",
+      "sha256": "957caa9d29b5cb7776e5d109af8c3545610e4186d3cb7a4e896e8b8134c19734",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.IUserPromptSubmitHook.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.IUserPromptSubmitHook.html",
+      "size_bytes": 14398,
+      "mtime": "2026-04-14T21:59:10.872722",
+      "sha256": "d30bd716e3aa9da4ff226a09a5e8475a4537ca8adddb08311cf46f703ed51188",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.PostToolUseData.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.PostToolUseData.html",
+      "size_bytes": 28394,
+      "mtime": "2026-04-14T21:59:10.874723",
+      "sha256": "10e7c3fa83e48e12baecc0542ccaeca5432b1637e7b313342e00c18ff73b1c82",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\hooks.PreToolUseData.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\hooks.PreToolUseData.html",
+      "size_bytes": 15117,
+      "mtime": "2026-04-14T21:59:10.876722",
+      "sha256": "f50cdb41b57d2d1e861db739abdcc0845956e5a3cd3b391039c66cdd3f38afca",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\ice_engine.FiveDimensionalInput.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\ice_engine.FiveDimensionalInput.html",
+      "size_bytes": 14858,
+      "mtime": "2026-04-14T21:59:10.884296",
+      "sha256": "c2bb7208f4d8437021a9775814ef3a55136f551638e5da0bda4d3b5d9012d228",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\ice_engine.FiveDimensionalScore.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\ice_engine.FiveDimensionalScore.html",
+      "size_bytes": 16520,
+      "mtime": "2026-04-14T21:59:10.886296",
+      "sha256": "9b7cb4a4373695720bfb230496c028f5e4e687224d8a953b7ce519642b6b318c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\ice_engine.IntentClarity.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\ice_engine.IntentClarity.html",
+      "size_bytes": 10479,
+      "mtime": "2026-04-14T21:59:10.887297",
+      "sha256": "676159f1ba73d20b2f7f7ef941dac897542c1f12ef5ccc5cb2827d8585091a3a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\ice_engine.IntentProfile.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\ice_engine.IntentProfile.html",
+      "size_bytes": 27701,
+      "mtime": "2026-04-14T21:59:10.890296",
+      "sha256": "c7e6b51831d476619ca8cdb9e7d8498b3275039a54d09c8414f279d140246fbb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.CoordinatorConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.CoordinatorConfig.html",
+      "size_bytes": 14154,
+      "mtime": "2026-04-14T21:59:10.910061",
+      "sha256": "991910515f098408df25c32275c5ad20fcf30685526c2bead77ea9052087f9d8",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.CoordinatorResult.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.CoordinatorResult.html",
+      "size_bytes": 13964,
+      "mtime": "2026-04-14T21:59:10.911060",
+      "sha256": "4ac0116cdbe8c4300e56fc4561dfecbabd86084cc47fb3380716385f1c273d33",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.CrossSystemData.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.CrossSystemData.html",
+      "size_bytes": 12662,
+      "mtime": "2026-04-14T21:59:10.912613",
+      "sha256": "2a6b3a6de7782684c144e6fde53dee69fcff88a5794eba8ab9e2a6e049dca451",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.ExecutionContext.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.ExecutionContext.html",
+      "size_bytes": 14704,
+      "mtime": "2026-04-14T21:59:10.913610",
+      "sha256": "4111a6ee84a218c2666c949d0accd0d10a47fe4b7347f36734774747f6a49412",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.SearchResponse.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.SearchResponse.html",
+      "size_bytes": 15735,
+      "mtime": "2026-04-14T21:59:10.915612",
+      "sha256": "48b8cd0116223783d222350d3c65a3cd3b4046bc7a78c0fca7f6b498a39bfbe2",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.SearchResult.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.SearchResult.html",
+      "size_bytes": 12673,
+      "mtime": "2026-04-14T21:59:10.916642",
+      "sha256": "e2c41ea186b14923bd1602469d429fb3bbd4b333f82a1c1cd511e488551eb47c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.SearchSource.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.SearchSource.html",
+      "size_bytes": 11255,
+      "mtime": "2026-04-14T21:59:10.917653",
+      "sha256": "3ecfddcc662529863d5633d5fee79009649e9e9714086d055c5acc51a9e58326",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.SearchStrategy.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.SearchStrategy.html",
+      "size_bytes": 11579,
+      "mtime": "2026-04-14T21:59:10.918649",
+      "sha256": "8fd6b4591b6ec603bec5513c5c2b20103d748c83a26c7b468e6c78b442819e55",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.SharedContextData.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.SharedContextData.html",
+      "size_bytes": 12459,
+      "mtime": "2026-04-14T21:59:10.919641",
+      "sha256": "48d7637a1a890ca043302f0c3670935acc552ff1f0e6568ad31e59fc074eeaea",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.Task.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.Task.html",
+      "size_bytes": 17277,
+      "mtime": "2026-04-14T21:59:10.920642",
+      "sha256": "e9614754b6cee5022035dae94f05e63234b488d7189e95827d89622706f2b22a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.TaskDAG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.TaskDAG.html",
+      "size_bytes": 9668,
+      "mtime": "2026-04-14T21:59:10.921643",
+      "sha256": "39a4c626dc80ff6d02466b9ef673e05f4f519cc12d85578398f2322f172a8a8e",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.TaskNode.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.TaskNode.html",
+      "size_bytes": 18462,
+      "mtime": "2026-04-14T21:59:10.923613",
+      "sha256": "141c1a0b00e8d20fdf5b1d2afcd10cefa60c99e774b7e611e156c903f9424548",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.TaskResult.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.TaskResult.html",
+      "size_bytes": 15101,
+      "mtime": "2026-04-14T21:59:10.924611",
+      "sha256": "6bd73cbe6350d3ab3f3e1b5033077fdb2325b1ea4cbfc6c21d21610ad1e1ca0d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.Workflow.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.Workflow.html",
+      "size_bytes": 18537,
+      "mtime": "2026-04-14T21:59:10.925650",
+      "sha256": "cb2b963d476596dfef8e8ab60f16ed31f7e0abfbfb7bb4cb981e020cfb717224",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.WorkflowExecution.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.WorkflowExecution.html",
+      "size_bytes": 16166,
+      "mtime": "2026-04-14T21:59:10.926646",
+      "sha256": "85b0410e18c8954f844194e5e4e7a246fc5433a31da67d6a8f8c275d0f5184a9",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m04_types.WorkflowNode.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m04_types.WorkflowNode.html",
+      "size_bytes": 13089,
+      "mtime": "2026-04-14T21:59:10.927611",
+      "sha256": "d0b036901892b3ebcc970e5cf3d2637c00d7d3cb1e37c83594d0f34f4edea3d5",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\m11_sandbox.RiskAssessment.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\m11_sandbox.RiskAssessment.html",
+      "size_bytes": 13030,
+      "mtime": "2026-04-14T21:59:10.942730",
+      "sha256": "3c681bedc303defc939772c74fc2499465f9e5ff7e02ed0efd040b7f9d4d6cd3",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.ContradictionMarker.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.ContradictionMarker.html",
+      "size_bytes": 12417,
+      "mtime": "2026-04-14T21:59:10.960901",
+      "sha256": "cf401abe5dc979ff95826b01ef6e3f8aa02ae77e227822aa6bbe22f0a5e6c71c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.GraphEntity.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.GraphEntity.html",
+      "size_bytes": 15593,
+      "mtime": "2026-04-14T21:59:10.961898",
+      "sha256": "7639f38d4422c2885ed51029a9d4b4e6b5528eecb4e4e56b399cd9e358888ceb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.GraphRelation.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.GraphRelation.html",
+      "size_bytes": 14054,
+      "mtime": "2026-04-14T21:59:10.962852",
+      "sha256": "d750737ae7bd4d38e31ffbdbef2cf1caf65881af19cf69de153bf85326ce340d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.KnowledgeGraph.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.KnowledgeGraph.html",
+      "size_bytes": 10931,
+      "mtime": "2026-04-14T21:59:10.964890",
+      "sha256": "9d51e6b2c2772244f9665ba9979a846d620bec9651fc66bcb1e26abbcd60d716",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.KnowledgeGraphConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.KnowledgeGraphConfig.html",
+      "size_bytes": 12729,
+      "mtime": "2026-04-14T21:59:10.965894",
+      "sha256": "30f05336357ec43d6c4a1dbc872f7c32c5a333bd422a177436a26c02df452814",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.MemoryItem.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.MemoryItem.html",
+      "size_bytes": 15955,
+      "mtime": "2026-04-14T21:59:10.966898",
+      "sha256": "8e7876dcd07306b879bbd443ee93cdc1eb44de16153e331361a3759c86a37add",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.MemoryMetadata.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.MemoryMetadata.html",
+      "size_bytes": 14405,
+      "mtime": "2026-04-14T21:59:10.967852",
+      "sha256": "dfefd8e5fd6b5cc24f6c82e910bb1f2f8f0b0b2ad939198e003d7cea7c9bbbb7",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.PersistentMemoryConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.PersistentMemoryConfig.html",
+      "size_bytes": 12393,
+      "mtime": "2026-04-14T21:59:10.969852",
+      "sha256": "d8ec301f6afa3b49d2523b1e092a1d13bd65970d8c1fdb101020dfb87e67b9d0",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.PersistentMemoryItem.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.PersistentMemoryItem.html",
+      "size_bytes": 19777,
+      "mtime": "2026-04-14T21:59:10.971890",
+      "sha256": "5de86e9eee82a3e5a0cdd8f6b619f1c405e4b0d07efe5e11011b06439bfa140a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.PipelineConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.PipelineConfig.html",
+      "size_bytes": 13615,
+      "mtime": "2026-04-14T21:59:10.973419",
+      "sha256": "0adc99eb109838a6f902107fe98ecdc4838b8c99890bb932d4f42fbbf0e0ad34",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.PipelineResult.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.PipelineResult.html",
+      "size_bytes": 12068,
+      "mtime": "2026-04-14T21:59:10.974420",
+      "sha256": "7c14901d650abb294c48cf5a738a6e12d1c073c916d3d3829a47e57b5843456c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.RetrievalQuery.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.RetrievalQuery.html",
+      "size_bytes": 13979,
+      "mtime": "2026-04-14T21:59:10.975418",
+      "sha256": "f8d7332cd81f32f08bccaf3cf026cb6551f9a8a6b820caf25b31c61476a5a7cf",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.RetrievalResult.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.RetrievalResult.html",
+      "size_bytes": 10725,
+      "mtime": "2026-04-14T21:59:10.976418",
+      "sha256": "8867a6e7b6245eeeeb765f888b2e94af792f471f466f0ad5f8b29ece902ec86e",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.Session.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.Session.html",
+      "size_bytes": 14310,
+      "mtime": "2026-04-14T21:59:10.978418",
+      "sha256": "221bbcc3e01e7b1d3792bad2b7c3abc1d187b65b58ed776d610c253367fb6af1",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.SessionMemoryConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.SessionMemoryConfig.html",
+      "size_bytes": 11033,
+      "mtime": "2026-04-14T21:59:10.979419",
+      "sha256": "a5e1f457131952dbba8608d449d7669c5ba92d2ada0a649fcf2a6ad112e6b7a3",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.TextAnchor.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.TextAnchor.html",
+      "size_bytes": 13164,
+      "mtime": "2026-04-14T21:59:10.980420",
+      "sha256": "fb6988ef580600755237eef3b1764cef334532e547cce4cbffde82e24f661b86",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.VisualAnchorConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.VisualAnchorConfig.html",
+      "size_bytes": 12927,
+      "mtime": "2026-04-14T21:59:10.981420",
+      "sha256": "2ea00ce2111e12ab5ad73fe83eb5daa34dd2fc154b78910455db55b5fb66feea",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.VisualFrame.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.VisualFrame.html",
+      "size_bytes": 16655,
+      "mtime": "2026-04-14T21:59:10.982419",
+      "sha256": "c5c44cf57fd345784159164746a23ddc4a4dfbd748a9c778c1072c434a82fa2e",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.WorkingMemoryConfig.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.WorkingMemoryConfig.html",
+      "size_bytes": 13432,
+      "mtime": "2026-04-14T21:59:10.983418",
+      "sha256": "d3b51d8b020be9edb693a5525782976319e3c58da779eacf2f4b7d802ea7a532",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\memory_types.WorkingMemoryState.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\memory_types.WorkingMemoryState.html",
+      "size_bytes": 12284,
+      "mtime": "2026-04-14T21:59:10.985419",
+      "sha256": "0372a3727e95e46a314ab735a26b473f173e6e597a302d2f2a6c67086d5478bb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.ExperiencePackage.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.ExperiencePackage.html",
+      "size_bytes": 24021,
+      "mtime": "2026-04-14T21:59:10.998004",
+      "sha256": "63d8abe944efb5c46c0c790167ace24c6c08eabc9f6d7066419cb18b9c648e2e",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.FailureInfo.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.FailureInfo.html",
+      "size_bytes": 10199,
+      "mtime": "2026-04-14T21:59:10.999006",
+      "sha256": "9436d2a25205b72a1d480809c8cd5d644b8e03d20645941b50a07204a2bbe8ec",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.GEPAExperience.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.GEPAExperience.html",
+      "size_bytes": 16454,
+      "mtime": "2026-04-14T21:59:11.000005",
+      "sha256": "7ba0c168e0fd8aaaf8ca1012f90e8a94879a72cf8195c62453434a3d759afd31",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.NightlyReviewReport.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.NightlyReviewReport.html",
+      "size_bytes": 16213,
+      "mtime": "2026-04-14T21:59:11.001005",
+      "sha256": "9a543028b27c99191cf9c4645a7b8b859c956cf208584f9cf0c5bf28447e0b73",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.ReusablePattern.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.ReusablePattern.html",
+      "size_bytes": 10325,
+      "mtime": "2026-04-14T21:59:11.002043",
+      "sha256": "09d510f05369bda20685d2dbda71c7ad7ffd3e43349aa81311d0ef8157a43e78",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.Stage1AggregateStats.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.Stage1AggregateStats.html",
+      "size_bytes": 17417,
+      "mtime": "2026-04-14T21:59:11.004046",
+      "sha256": "0679ff34b6127a710c8f45883a9fa61608bb06c0486e79cbaa7d2b36eac15e49",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.Stage2Bottlenecks.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.Stage2Bottlenecks.html",
+      "size_bytes": 16946,
+      "mtime": "2026-04-14T21:59:11.005562",
+      "sha256": "40fb961af41c725f97835886e7d5b5276938bf6d3a3d4a6a2e5a2d8810a8b9bd",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.Stage3PathExtractions.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.Stage3PathExtractions.html",
+      "size_bytes": 13931,
+      "mtime": "2026-04-14T21:59:11.006564",
+      "sha256": "b6eb2ff97405173b4cb9377c0c470be21f4e56a39b7b8dc60d2e9c4be609bca6",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.Stage4AssetChanges.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.Stage4AssetChanges.html",
+      "size_bytes": 14090,
+      "mtime": "2026-04-14T21:59:11.007564",
+      "sha256": "13023391fd36460395f3ba694b2b48df7fc135f5265563a7b70fcc9c8f0299c9",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.Stage5ConfigUpdates.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.Stage5ConfigUpdates.html",
+      "size_bytes": 12366,
+      "mtime": "2026-04-14T21:59:11.009564",
+      "sha256": "8285acd029e2f6020931c59dbfbdd850bc3499cf56940e714773949faf6f4e6a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.Stage6DailyReport.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.Stage6DailyReport.html",
+      "size_bytes": 18234,
+      "mtime": "2026-04-14T21:59:11.010564",
+      "sha256": "94a84850e6679cd31e0e6a12be9f2e6841b8714def6e9d69f84bfc9daeee5e42",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\nightly_distiller.ToolCall.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\nightly_distiller.ToolCall.html",
+      "size_bytes": 12521,
+      "mtime": "2026-04-14T21:59:11.011564",
+      "sha256": "69ffe3b1510fe2bc1bf5eba675b2c763fc3a32743ec595e860af7d3d7f85383c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\optimizer.EvolutionPatch.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\optimizer.EvolutionPatch.html",
+      "size_bytes": 15108,
+      "mtime": "2026-04-14T21:59:11.015563",
+      "sha256": "8e53e0ee975b05eae274ecc98a75ad08ae43151f1920a2bd3bbe00c3f5c71966",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\optimizer.OptimizationResult.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\optimizer.OptimizationResult.html",
+      "size_bytes": 12369,
+      "mtime": "2026-04-14T21:59:11.016563",
+      "sha256": "29f8a9d6fb61030317b03a4c68968889322e0fe8cca35fc1c4b0f9157d9cad90",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\optimizer.TaskMetrics.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\optimizer.TaskMetrics.html",
+      "size_bytes": 13055,
+      "mtime": "2026-04-14T21:59:11.017564",
+      "sha256": "b5f50f1016d8150dd36399b03b2dc3581389d5fd6a15358f0802df9365075efe",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\roi_engine.AlchemyProfit.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\roi_engine.AlchemyProfit.html",
+      "size_bytes": 16282,
+      "mtime": "2026-04-14T21:59:11.025131",
+      "sha256": "a0ddf8ae9dfb579f141ce74f89795e3702628531ba3e80e437416c11eb7bf03f",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\interfaces\\shadow_tester.SandboxReport.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\interfaces\\shadow_tester.SandboxReport.html",
+      "size_bytes": 15587,
+      "mtime": "2026-04-14T21:59:11.029133",
+      "sha256": "c8620090ab99b78c414307ca29f7e9e75f01d721a89b9df4d3b6c648f0a8ae14",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\asset_manager.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\asset_manager.html",
+      "size_bytes": 13653,
+      "mtime": "2026-04-14T21:59:10.822949",
+      "sha256": "68eeb14f3b9f0abf2e425af1e9ea49b40825b571b420dfa5ae189c962edec75c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\decision_engine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\decision_engine.html",
+      "size_bytes": 10051,
+      "mtime": "2026-04-14T21:59:10.844956",
+      "sha256": "903cb4590367081b57c9b94c0eb282151b035df35c8a12acd0192f1a466b9f37",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\hooks.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\hooks.html",
+      "size_bytes": 16413,
+      "mtime": "2026-04-14T21:59:10.855165",
+      "sha256": "efad6cc8be91451d7b5b572d0fafab9552ad62632bf8039e5244fedbaf3be1d1",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\ice_engine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\ice_engine.html",
+      "size_bytes": 10138,
+      "mtime": "2026-04-14T21:59:10.881298",
+      "sha256": "c812afebc23bd95640a1fc74222bd23689263f9c9f8e6cd53ca1a92d9f26d524",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\m04_coordinator.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\m04_coordinator.html",
+      "size_bytes": 7982,
+      "mtime": "2026-04-14T21:59:10.891295",
+      "sha256": "99db6c087e9fb04726aca24199f1a7484311f4be5fbd6ef25e35fd29e0181c23",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\m04_types.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\m04_types.html",
+      "size_bytes": 25083,
+      "mtime": "2026-04-14T21:59:10.896941",
+      "sha256": "23c2e47e28360b892d82d53fe1cd4d530def72d2f8b759e3eff5bd7b9554f3e5",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\m11_sandbox.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\m11_sandbox.html",
+      "size_bytes": 12749,
+      "mtime": "2026-04-14T21:59:10.929733",
+      "sha256": "5533634d554d21c22799bfd8e0eca8c5ef670db374841ad4eb996d6d7eae42fd",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\memory_layer1_working_memory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\memory_layer1_working_memory.html",
+      "size_bytes": 8083,
+      "mtime": "2026-04-14T21:59:10.944731",
+      "sha256": "9492ff8ed351f675b11921cb7093ad44ff6b6da4292a34cba6636a251ac18867",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\memory_layer2_session_memory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\memory_layer2_session_memory.html",
+      "size_bytes": 8083,
+      "mtime": "2026-04-14T21:59:10.949732",
+      "sha256": "4d29b941a8c4becbd193aabd051575690881f52ae8c7a81f04b64e6495f8d767",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\memory_types.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\memory_types.html",
+      "size_bytes": 28271,
+      "mtime": "2026-04-14T21:59:10.954730",
+      "sha256": "c246e3a5d3f0934cda0631658f49a9ee559d8f6f4841712c1dc6db182a4f772e",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\nightly_distiller.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\nightly_distiller.html",
+      "size_bytes": 17391,
+      "mtime": "2026-04-14T21:59:10.992005",
+      "sha256": "c8cedb644dab464336721de2fc0995f6a05fd91ce9148f109713ee0341e1d01d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\optimizer.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\optimizer.html",
+      "size_bytes": 9393,
+      "mtime": "2026-04-14T21:59:11.012563",
+      "sha256": "eb5d45b250250d85ec8c2afb9c25ef295aced43ff66b1f71fa9d36281a794831",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\oracle_rules.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\oracle_rules.html",
+      "size_bytes": 6683,
+      "mtime": "2026-04-14T21:59:11.018563",
+      "sha256": "3dabf1ef3a9e94d3a66c02a9b6c8d78f826f0bf29a26fc331b8f1fbf50ca263b",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\roi_engine.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\roi_engine.html",
+      "size_bytes": 7972,
+      "mtime": "2026-04-14T21:59:11.021132",
+      "sha256": "bf0d35c710b5ec9005113f88e816ab5f6705e38bb5bc8343a392677a3a19a0eb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\modules\\shadow_tester.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\modules\\shadow_tester.html",
+      "size_bytes": 8023,
+      "mtime": "2026-04-14T21:59:11.026132",
+      "sha256": "a6c60fb8a0f74b2caff15b2d7e8ab4245f65dc2852ff854e8b56496b60226e28",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\types\\asset_manager.AssetCategory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\types\\asset_manager.AssetCategory.html",
+      "size_bytes": 6315,
+      "mtime": "2026-04-14T21:59:10.835952",
+      "sha256": "949cf7b1404d3513644d6bc97abd5e8fab36ddd0a5e634c8c1ac1fb027a70792",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\types\\asset_manager.AssetStatus.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\types\\asset_manager.AssetStatus.html",
+      "size_bytes": 5641,
+      "mtime": "2026-04-14T21:59:10.836953",
+      "sha256": "1a0eecddf28189a3e648ca76f354cfe57508847b56b2034cdd5a753878d6ff24",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\types\\asset_manager.AssetTier.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\types\\asset_manager.AssetTier.html",
+      "size_bytes": 5734,
+      "mtime": "2026-04-14T21:59:10.837952",
+      "sha256": "7d48acb84a6eccf365d066022effc2e96936f4e5c29cbc7ca6e12063514de46c",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\types\\asset_manager.EliminationStatus.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\types\\asset_manager.EliminationStatus.html",
+      "size_bytes": 5775,
+      "mtime": "2026-04-14T21:59:10.838950",
+      "sha256": "fff2cb0440efda5fe244d98acf5ea4dee9da4d9fe5ee3af4aca72cb1d923b21d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\types\\decision_engine.TaskStatus.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\types\\decision_engine.TaskStatus.html",
+      "size_bytes": 5751,
+      "mtime": "2026-04-14T21:59:10.854165",
+      "sha256": "04fe1cce9f3ed83a3b838cf3695fd98f7d4b9999651f7886014e80ba9138088d",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\asset_manager.ASSET_TIER_THRESHOLDS.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\asset_manager.ASSET_TIER_THRESHOLDS.html",
+      "size_bytes": 15016,
+      "mtime": "2026-04-14T21:59:10.843954",
+      "sha256": "053210d2d38622cb1dc37ec0f96d4ca46f24c3cf57bad9eda900fa4a705c0145",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\hooks.DataCaptureSchema.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\hooks.DataCaptureSchema.html",
+      "size_bytes": 35608,
+      "mtime": "2026-04-14T21:59:10.878722",
+      "sha256": "2515b616ad2048e8fb4e1879f34b8885b64463ea847ef5cb8a0c020352f11a85",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\hooks.hookRegistry.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\hooks.hookRegistry.html",
+      "size_bytes": 5431,
+      "mtime": "2026-04-14T21:59:10.879722",
+      "sha256": "8ca3f4cb77582881c954f9a82a7c5a1d4b0c871fb4b109ff354b82fa4ce21e52",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\m04_coordinator.coordinator.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\m04_coordinator.coordinator.html",
+      "size_bytes": 5465,
+      "mtime": "2026-04-14T21:59:10.895298",
+      "sha256": "675f86b0cba4dd28523c5034583482ccbbc037e01fca349248f766b3fc8c26df",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\m04_types.DEFAULT_COORDINATOR_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\m04_types.DEFAULT_COORDINATOR_CONFIG.html",
+      "size_bytes": 5520,
+      "mtime": "2026-04-14T21:59:10.928733",
+      "sha256": "266886e8a80423393ee380f1998330f117e1f63137ef6b7aca7e80bda833a837",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\m11_sandbox.gVisorSandbox.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\m11_sandbox.gVisorSandbox.html",
+      "size_bytes": 5461,
+      "mtime": "2026-04-14T21:59:10.943730",
+      "sha256": "1df57434bd2ebf364a5d2f42ccf91f2c0d4c1df996ed2d7c30639381f3a05f95",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\m11_sandbox.riskAssessor.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\m11_sandbox.riskAssessor.html",
+      "size_bytes": 5455,
+      "mtime": "2026-04-14T21:59:10.943730",
+      "sha256": "b51e2e1fab36bb3b501d9954eb77273982def02760d34ec34a92e3fc1699cc72",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_layer1_working_memory.workingMemory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_layer1_working_memory.workingMemory.html",
+      "size_bytes": 5529,
+      "mtime": "2026-04-14T21:59:10.948771",
+      "sha256": "0e8b974cc5371715f7c191545634c1e60e52ce08b27136edd4a9a8ee0fa3129a",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_layer2_session_memory.sessionMemory.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_layer2_session_memory.sessionMemory.html",
+      "size_bytes": 5529,
+      "mtime": "2026-04-14T21:59:10.952732",
+      "sha256": "1ca9fb9ffba7f565ab306c9d05cf8845f7f5ce9a7dd9d668559a9bc7463d8094",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_types.DEFAULT_KNOWLEDGE_GRAPH_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_types.DEFAULT_KNOWLEDGE_GRAPH_CONFIG.html",
+      "size_bytes": 5554,
+      "mtime": "2026-04-14T21:59:10.985419",
+      "sha256": "256fb2e46855810ca74562e7551826be414c56f221be0b82cdae6538cb240c31",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_types.DEFAULT_PERSISTENT_MEMORY_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_types.DEFAULT_PERSISTENT_MEMORY_CONFIG.html",
+      "size_bytes": 5566,
+      "mtime": "2026-04-14T21:59:10.986418",
+      "sha256": "cd5c48c60deb5c274083a0453963e6792a2db46f5997ed5f4756020a25c52269",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_types.DEFAULT_PIPELINE_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_types.DEFAULT_PIPELINE_CONFIG.html",
+      "size_bytes": 5514,
+      "mtime": "2026-04-14T21:59:10.987418",
+      "sha256": "2c45e8f265592f758eebb610483f1832f5b2169a1ae70c6a34b2370290a1c1b4",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_types.DEFAULT_SESSION_MEMORY_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_types.DEFAULT_SESSION_MEMORY_CONFIG.html",
+      "size_bytes": 5548,
+      "mtime": "2026-04-14T21:59:10.988485",
+      "sha256": "c1ed770542a6d9a2385c59f597067d8feebeb5058fe8f1848342d548fa1695eb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_types.DEFAULT_VISUAL_ANCHOR_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_types.DEFAULT_VISUAL_ANCHOR_CONFIG.html",
+      "size_bytes": 5542,
+      "mtime": "2026-04-14T21:59:10.989007",
+      "sha256": "1bb35ddf26f642b157c16386c5a9a3cdc78408f39a2f7f2d266ff4cdd77589eb",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\memory_types.DEFAULT_WORKING_MEMORY_CONFIG.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\memory_types.DEFAULT_WORKING_MEMORY_CONFIG.html",
+      "size_bytes": 5548,
+      "mtime": "2026-04-14T21:59:10.990004",
+      "sha256": "7bb89de840b6b2b07d534f339f8a370d32a55dccd00c46d85659de4944c07e01",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "docs\\api\\variables\\oracle_rules.OracleAuditRules.html",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\docs\\api\\variables\\oracle_rules.OracleAuditRules.html",
+      "size_bytes": 10927,
+      "mtime": "2026-04-14T21:59:11.020132",
+      "sha256": "aee0d351f2f781dfedaff834038d22761e57fa353082b90d9af71adf1324f8ae",
+      "category": "skip_generated"
+    },
+    {
+      "rel_path": "src\\hello.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\hello.ts",
+      "size_bytes": 115,
+      "mtime": "2026-04-16T23:37:37.021154",
+      "sha256": "dca7981c08b32e6cdc3f523e233d4eb144432a14127cd4c3374382e1e5fbf53b",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\application\\search_service.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\application\\search_service.ts",
+      "size_bytes": 3484,
+      "mtime": "2026-04-15T01:00:32.325313",
+      "sha256": "57e3498df94b323b5730ef17fd186f97c592654dd756894fa415911e7be0c1a6",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\application\\ui\\evolution_digest.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\application\\ui\\evolution_digest.json",
+      "size_bytes": 876,
+      "mtime": "2026-04-14T05:33:27.823757",
+      "sha256": "d1e43caad3a81071d40e957f0a815160a9277c4bfb99da6296c36fb1dd48557e",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\application\\ui\\feishu_cards.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\application\\ui\\feishu_cards.json",
+      "size_bytes": 959,
+      "mtime": "2026-04-14T05:33:27.824754",
+      "sha256": "4e26908c7ca0b726bd1ea94b783cfad3e7cd4376d53d5bb53e92050024c61ee5",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\domain\\asset_manager.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\asset_manager.test.ts",
+      "size_bytes": 20738,
+      "mtime": "2026-04-14T09:36:43.456537",
+      "sha256": "e3f354cdffd2a6e82976d51e499bed2c3214520ff82681496f7d9126703ae182",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\asset_manager.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\asset_manager.ts",
+      "size_bytes": 11852,
+      "mtime": "2026-04-14T08:31:37.319271",
+      "sha256": "406841ab069b78da611add5afbcb12e861cfdd5bb1b948a03c1d98f6ffadddb4",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\asset_packer.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\asset_packer.ts",
+      "size_bytes": 4207,
+      "mtime": "2026-04-14T05:42:50.654612",
+      "sha256": "019fb3d5eafe1e1e2a9bddf8d01f13313c406726ba29dd9c843db8f9ba7a3b25",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\auto_patcher.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\auto_patcher.ts",
+      "size_bytes": 2961,
+      "mtime": "2026-04-16T20:43:51.168500",
+      "sha256": "e88c0a9ea8098189ff19bea8d7ed06fe41f9922100b3665311f97fb86c99641d",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\decision_engine.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\decision_engine.ts",
+      "size_bytes": 4554,
+      "mtime": "2026-04-14T05:33:27.827317",
+      "sha256": "8906f5afbda954f8b466b039e703f65e384246633aa3225c12e54b3c7c86c7ee",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\errors.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\errors.ts",
+      "size_bytes": 10901,
+      "mtime": "2026-04-15T00:18:35.570221",
+      "sha256": "3e0fbfbbd84108bcd18bbf7b6407f112aaced8f81693cd18786311ca42b961cf",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\errors_mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\errors_mod.ts",
+      "size_bytes": 959,
+      "mtime": "2026-04-15T00:17:37.913446",
+      "sha256": "6e8d8cb7985e517c61e967e25ac2b43304ca29c3ba9721c129067f780d569f99",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\hooks.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\hooks.test.ts",
+      "size_bytes": 16435,
+      "mtime": "2026-04-14T09:17:03.230939",
+      "sha256": "264a055b45165920fc4341d2723cf3269b039d1bd04342ff572b29834f15f901",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\hooks.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\hooks.ts",
+      "size_bytes": 16565,
+      "mtime": "2026-04-14T06:03:08.805537",
+      "sha256": "ebe1d727ca3286b67f53c111f7871fa0da2bb2f656069464ac4436e32348886f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\ice_engine.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\ice_engine.test.ts",
+      "size_bytes": 24070,
+      "mtime": "2026-04-14T22:11:37.078592",
+      "sha256": "9c633d770eaf3de98701b13c26bdb0a326806b2467892af6964a846a9734f492",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\ice_engine.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\ice_engine.ts",
+      "size_bytes": 16215,
+      "mtime": "2026-04-14T20:50:17.048393",
+      "sha256": "0a094b6d04724d1d6cf5435fddb6c255a083b9707c011998d91bce35a4a2bae2",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\ice_engine_m06_integration.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\ice_engine_m06_integration.test.ts",
+      "size_bytes": 12812,
+      "mtime": "2026-04-14T21:43:59.773429",
+      "sha256": "91ad9fb4f95666c32bd7ee046566f47eef0bdb7bb3bf578e1993afc8685959f7",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\nightly_distiller.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\nightly_distiller.test.ts",
+      "size_bytes": 26617,
+      "mtime": "2026-04-14T22:09:04.085957",
+      "sha256": "61ccfdbdf3fbe45368270dfaaafc9ccd70183f13324b434d39040046b6aab3fc",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\nightly_distiller.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\nightly_distiller.ts",
+      "size_bytes": 27068,
+      "mtime": "2026-04-14T09:51:44.747377",
+      "sha256": "0c59eec92e787e4c680b87e07c76c809386842929715358dd947bb5596a82cc1",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\optimizer.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\optimizer.test.ts",
+      "size_bytes": 16760,
+      "mtime": "2026-04-14T10:00:20.232684",
+      "sha256": "74301aa757558fe022a7fce63df9a181b482b0d21c9eb863c3a3a4eabf2fc40d",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\optimizer.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\optimizer.ts",
+      "size_bytes": 8808,
+      "mtime": "2026-04-14T09:58:22.303950",
+      "sha256": "078dfa3649949d160516d69bc15e55cf643313735c9860cb659a61f599837f0d",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\oracle_rules.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\oracle_rules.ts",
+      "size_bytes": 1177,
+      "mtime": "2026-04-14T05:33:27.831291",
+      "sha256": "789cd01d892604f24b69d54dc9de0a16e58a3f2a63eddad2be33b320df21eb2c",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\roi_engine.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\roi_engine.ts",
+      "size_bytes": 3547,
+      "mtime": "2026-04-14T05:33:27.831291",
+      "sha256": "51cb2663d33de02afbc3b2954891d10039ba6e3d8d6c6d6e3250788be49c920c",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\search_protocol.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\search_protocol.ts",
+      "size_bytes": 3117,
+      "mtime": "2026-04-14T05:33:27.832334",
+      "sha256": "ab7eaa1cf86d7abe03f30adfb5db453484b3718bb3f700335812baaf342d16d3",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\shadow_tester.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\shadow_tester.ts",
+      "size_bytes": 3243,
+      "mtime": "2026-04-14T05:33:27.832857",
+      "sha256": "fd4367171b8d8a812a4b6a1f48f896a21d3979c77e69cc973f7b00c69768b63b",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\watchdog_distiller_integration.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\watchdog_distiller_integration.test.ts",
+      "size_bytes": 15656,
+      "mtime": "2026-04-14T21:53:10.887574",
+      "sha256": "62a9713bcb3029d662af5eb49b466e56104fe9d92ca98c60a81c9cafff21106f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\e2e\\performance.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\e2e\\performance.test.ts",
+      "size_bytes": 6663,
+      "mtime": "2026-04-14T08:45:13.712872",
+      "sha256": "e816d5f44aa16aebde9d7b449ed44c69c8ae1d9dffd0d9a4120bd6667be59b17",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\e2e\\scenarios.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\e2e\\scenarios.test.ts",
+      "size_bytes": 12708,
+      "mtime": "2026-04-15T01:29:37.256533",
+      "sha256": "8506c29736b66c30d3eb20bacb580c7d754cda283bcb4e941c527d6a9adc2722",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\e2e\\stress.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\e2e\\stress.test.ts",
+      "size_bytes": 11121,
+      "mtime": "2026-04-16T22:38:46.431402",
+      "sha256": "e3b2fefc422c7ac6ad8ef73ff4711b5ac5b39030b8715c6a5fbfddc45864d86f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\evolution\\openspace_state_machine.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\evolution\\openspace_state_machine.ts",
+      "size_bytes": 3862,
+      "mtime": "2026-04-14T23:22:59.165831",
+      "sha256": "9276fdb8cf17932e95696a1fd613eb076d5e5292d69dd474f0414261aceda7c4",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\evolution\\reflective_adaptor.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\evolution\\reflective_adaptor.ts",
+      "size_bytes": 3539,
+      "mtime": "2026-04-14T05:33:27.828292",
+      "sha256": "46af3e40d436e78a3085788212e8f9b952ed444b19a49211297ca7775ce95a57",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\dag_planner.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\dag_planner.ts",
+      "size_bytes": 9734,
+      "mtime": "2026-04-15T02:09:25.688510",
+      "sha256": "e52d934cc4269149374d8e42c92bae85d6458e62a682260418d2f0323f780843",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\deerflow_client.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\deerflow_client.ts",
+      "size_bytes": 5892,
+      "mtime": "2026-04-15T02:32:02.429492",
+      "sha256": "19d3e550b1571e72fb7b08977468939e70b8bc8554b5a09ccdb54fb481597103",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\intent_classifier.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\intent_classifier.ts",
+      "size_bytes": 7246,
+      "mtime": "2026-04-15T02:26:31.621746",
+      "sha256": "7378e369f104f61cdce41e3fff83b9ff3375733771523e21307f41925106d8c7",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\mod.ts",
+      "size_bytes": 513,
+      "mtime": "2026-04-15T02:32:43.212195",
+      "sha256": "e003c0f2b5498667fd99f40e1089065ed4636aabc648f53ec33e6a81c0a33a68",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\orchestrator.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\orchestrator.test.ts",
+      "size_bytes": 9786,
+      "mtime": "2026-04-15T02:26:21.314563",
+      "sha256": "d64d94bac0a2d8f5a6d0435d5c0eb44adf60046a6591946745064c84361b085e",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\orchestrator.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\orchestrator.ts",
+      "size_bytes": 9878,
+      "mtime": "2026-04-15T02:32:35.345742",
+      "sha256": "1fe2327e47081bd270ee8281179431748a827e7b8fbf253c135ca3e4aaf77330",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m01\\types.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m01\\types.ts",
+      "size_bytes": 4844,
+      "mtime": "2026-04-15T02:01:46.872715",
+      "sha256": "f8bf3c2b02c07a8b4eb8e71b54b79e10bc956b2bec2d45909468a57d14a86519",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\coordinator.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\coordinator.test.ts",
+      "size_bytes": 6207,
+      "mtime": "2026-04-16T22:27:02.569513",
+      "sha256": "7a294a16f55d9d1d8c733bfc5a6337d46ee6d8c4f2f0e0f8a28c99085ac9b843",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\coordinator.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\coordinator.ts",
+      "size_bytes": 21014,
+      "mtime": "2026-04-16T23:52:12.008056",
+      "sha256": "249baecd35ab33c5642e6b752c41a2d559c672d03c93a84f58d268b5ee0b68b3",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\coordinator_sandbox_integration.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\coordinator_sandbox_integration.test.ts",
+      "size_bytes": 6382,
+      "mtime": "2026-04-15T01:21:17.411763",
+      "sha256": "a747375f7e887552257eb12977aa1ee736c6c775dd9a1d9ccbd6636c69b46ca6",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\dify_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\dify_adapter.ts",
+      "size_bytes": 16955,
+      "mtime": "2026-04-16T06:30:17.552307",
+      "sha256": "6963d2fee93d4941e5bb3ca8cd0fe592a1aded1d6d4b5d17410f30cff6eb44a0",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\engine_enum.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\engine_enum.ts",
+      "size_bytes": 3035,
+      "mtime": "2026-04-16T06:11:23.377550",
+      "sha256": "a23a638853e0edd159646780f33e1708134aa22babe25207ae4c9e47c486e020",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\mod.ts",
+      "size_bytes": 1885,
+      "mtime": "2026-04-16T06:21:43.660183",
+      "sha256": "8b360d2636dbf494776a02a45d5a1de057eaff51a7109df146018889ca754862",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\shared_context.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\shared_context.ts",
+      "size_bytes": 6353,
+      "mtime": "2026-04-14T07:25:20.151628",
+      "sha256": "e9a802beabc7a5595db7a1e4c7b7434c2ed171a2d27c8fa97528cef14732e509",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\skill_loader.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\skill_loader.ts",
+      "size_bytes": 7784,
+      "mtime": "2026-04-16T23:49:25.575100",
+      "sha256": "f5d5c68fcb04e7b1d3ce4a6fe512b96a8852358fb3558f29d13a24becf883d8c",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\skill_router.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\skill_router.test.ts",
+      "size_bytes": 2236,
+      "mtime": "2026-04-17T00:08:02.190955",
+      "sha256": "9b938133f80470bf09d8375bbbf5761850d5a96dfc3eaa259cc42c9f9026056a",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\skill_router.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\skill_router.ts",
+      "size_bytes": 9339,
+      "mtime": "2026-04-16T23:48:37.367403",
+      "sha256": "b4ce6f1b4b796dfeac07c931ca4fdbd388785e8202af81db09431f246ef5cc92",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\transformer.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\transformer.ts",
+      "size_bytes": 6719,
+      "mtime": "2026-04-16T06:32:32.572779",
+      "sha256": "7088afc6b76f162661452b3b293975f293f0a6eccddda1b5a07110ee66776d30",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\types.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\types.ts",
+      "size_bytes": 11585,
+      "mtime": "2026-04-16T23:51:49.627380",
+      "sha256": "bce7632913e49dd51c001e0920fde22f051a004dc49fd53509d92b5498008a6d",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\unified_builder.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\unified_builder.ts",
+      "size_bytes": 19962,
+      "mtime": "2026-04-16T06:33:01.335101",
+      "sha256": "e9d27319f9f989c9f67ab7d1c37418e2ad9ddd7338d337c821a2d63672c4bb79",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\unified_executor.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\unified_executor.ts",
+      "size_bytes": 23305,
+      "mtime": "2026-04-16T21:34:25.570331",
+      "sha256": "547d291d7db76a86b9e1d9aed988736f7a10383aa3b26be5e18b2bdfe10e0eff",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\unified_registry.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\unified_registry.ts",
+      "size_bytes": 43796,
+      "mtime": "2026-04-16T06:36:34.574997",
+      "sha256": "534e65c359dd5310e75b9448122ff68e46649ee60ea3973a610ef6f97afe05b9",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\index.ts",
+      "size_bytes": 236,
+      "mtime": "2026-04-14T07:27:43.798688",
+      "sha256": "1f9b6de18c6cd80cde68db7ad833878c69e8dec747abd654b5e9fc7e0cce2d84",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\search_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\search_adapter.ts",
+      "size_bytes": 15843,
+      "mtime": "2026-04-17T00:15:27.757728",
+      "sha256": "42b5562e7bf87a560f7a98a19a16973df1120697bb83fbd97e3aa961968ff5a7",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\task_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\task_adapter.ts",
+      "size_bytes": 8802,
+      "mtime": "2026-04-16T21:53:36.131282",
+      "sha256": "0c92c274c40666a6ce168679149726db137f90bf5b066e5f0db9338b05f70e06",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m04\\adapters\\workflow_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m04\\adapters\\workflow_adapter.ts",
+      "size_bytes": 12576,
+      "mtime": "2026-04-17T00:15:51.032064",
+      "sha256": "817a84c68287768e9dea009d74cee17a565bfde6671959fb42eb9710d8d131e5",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\daemon_manager.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\daemon_manager.ts",
+      "size_bytes": 12430,
+      "mtime": "2026-04-15T06:31:32.643023",
+      "sha256": "78f9d18e36cec1055dcfb33b0274b8039630c4d14700cd8eb69920e222cb85ac",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\mod.ts",
+      "size_bytes": 674,
+      "mtime": "2026-04-14T07:39:06.168269",
+      "sha256": "f237dabb46b848050f6d3993edf3a774506ba73efdd6ac76ca2df1a2f19a1c7f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\opencli_daemon.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\opencli_daemon.ts",
+      "size_bytes": 10209,
+      "mtime": "2026-04-15T07:10:45.054198",
+      "sha256": "3531ff3ec68d85a6482c738c97320176c21afe21e67ada7f315574a80217ee4c",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\sandbox.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\sandbox.test.ts",
+      "size_bytes": 3997,
+      "mtime": "2026-04-15T01:20:35.088167",
+      "sha256": "2ed07c45d9dc8e5bfde78a93e54c94ff4e62b82f5091b84f61961648936ba70b",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\sandbox.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\sandbox.ts",
+      "size_bytes": 13737,
+      "mtime": "2026-04-17T00:17:09.919534",
+      "sha256": "cc20ba27521b24615df099fcea67a514800beeb4752eab10260a569bb7d16cc6",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\types.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\types.ts",
+      "size_bytes": 5150,
+      "mtime": "2026-04-15T06:04:19.328019",
+      "sha256": "780424473fc91af923f4d88dca96e3f0980fd109ac9b32cd70e3fd0d9e0e1252",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\adapters\\executor_adapter.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\adapters\\executor_adapter.test.ts",
+      "size_bytes": 6067,
+      "mtime": "2026-04-16T03:23:41.455399",
+      "sha256": "2f72d04ca363d1c14d9cf4e705a61c889675a88c929ef7b89c2aa153b8bdf858",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\adapters\\executor_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\adapters\\executor_adapter.ts",
+      "size_bytes": 28305,
+      "mtime": "2026-04-17T00:16:46.843366",
+      "sha256": "6c3422ae4f4f8a0820078ef6c6371badc9bb303205adc359a9641c3972afa4a1",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\m11\\adapters\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\m11\\adapters\\index.ts",
+      "size_bytes": 143,
+      "mtime": "2026-04-14T07:39:03.763157",
+      "sha256": "9223f474a91d1a5d228110f5a9fca883d62facb355231ce743409656ca68a36e",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\memory_asset_integration.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\memory_asset_integration.test.ts",
+      "size_bytes": 6621,
+      "mtime": "2026-04-14T08:25:12.546278",
+      "sha256": "3cdbc0a491c8a4f67ac42c69af9b9e939099c27830e90f07604f52af9ca58e7e",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\mod.ts",
+      "size_bytes": 962,
+      "mtime": "2026-04-14T23:26:26.469975",
+      "sha256": "e4e849b8dc39dcc4f8a3a40e25a80ecc75b645145f6a03c22b9a575321880eb7",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\types.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\types.ts",
+      "size_bytes": 9533,
+      "mtime": "2026-04-14T07:16:34.406847",
+      "sha256": "e070b092acb82111fdb2d760f31e7d1f4ba4a008c76e9ad85465f6e0ae388fe2",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer1\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer1\\index.ts",
+      "size_bytes": 103,
+      "mtime": "2026-04-14T07:21:24.343167",
+      "sha256": "c4434a994d89a6e1cc46b67d353efd06e9a3fb49c6f8c697abeed4a0e1f0553b",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer1\\working_memory.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer1\\working_memory.test.ts",
+      "size_bytes": 3020,
+      "mtime": "2026-04-14T08:13:56.536618",
+      "sha256": "d11ee848cc80e9560206678da278689a324fd793965aed885633c9e52dbb2df4",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer1\\working_memory.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer1\\working_memory.ts",
+      "size_bytes": 9616,
+      "mtime": "2026-04-14T08:34:11.899768",
+      "sha256": "4dfe97fc1116cb2561695057bd941b770e9ba856feea9c36be890a9b6f54aafe",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer2\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer2\\index.ts",
+      "size_bytes": 103,
+      "mtime": "2026-04-14T07:21:25.503860",
+      "sha256": "8dda4379dad43901ea613300d4bbfa8a3a18e846dedbebd07236423cf21d6e31",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer2\\session_memory.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer2\\session_memory.ts",
+      "size_bytes": 5760,
+      "mtime": "2026-04-14T07:17:31.045961",
+      "sha256": "2492597e948b52bf18a10ce2f71ff5ded7607bd6f65bb5acfb724a912487bf6f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer3\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer3\\index.ts",
+      "size_bytes": 112,
+      "mtime": "2026-04-14T07:21:26.630661",
+      "sha256": "6c42ab5482adb08f5e46c789b92b6fb6cda400066d06b3a4081d788cdd6c5ce1",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer3\\persistent_memory.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer3\\persistent_memory.ts",
+      "size_bytes": 7922,
+      "mtime": "2026-04-14T07:18:02.475976",
+      "sha256": "3d71cb75230d09ed0f2881d04e5b508fb620c908d6dd759e5dbf5d4c8c5ff750",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer4\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer4\\index.ts",
+      "size_bytes": 101,
+      "mtime": "2026-04-14T23:22:31.470553",
+      "sha256": "1c9f5d3e98cf9507360db36359b2c81905664d9064c2472bff2fef6ac3aee300",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer4\\knowledge_graph.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer4\\knowledge_graph.test.ts",
+      "size_bytes": 11019,
+      "mtime": "2026-04-15T01:56:04.085944",
+      "sha256": "41aef8539a345b7caee942a7094a2a56712cb396ed546f42f179c4346c04ab00",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer4\\knowledge_graph.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer4\\knowledge_graph.ts",
+      "size_bytes": 13013,
+      "mtime": "2026-04-16T21:51:00.951085",
+      "sha256": "1f9ab8fa5e5127530f60b9756b91dd9b8d876f546ea3b7044eca8233c59a20b0",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer5\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer5\\index.ts",
+      "size_bytes": 100,
+      "mtime": "2026-04-14T07:21:28.911563",
+      "sha256": "8a98c77096ce0ef70ac58c144ed2ba6bd291c775cbc35e7b890f4defc9406ef7",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer5\\visual_anchor.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer5\\visual_anchor.test.ts",
+      "size_bytes": 8836,
+      "mtime": "2026-04-15T01:59:29.004784",
+      "sha256": "0f9ff7a084fe7b7a37794324a20ba744243485c9fb1abb4480ef0c33b6140e0c",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\layer5\\visual_anchor.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\layer5\\visual_anchor.ts",
+      "size_bytes": 7126,
+      "mtime": "2026-04-16T21:52:14.473061",
+      "sha256": "28404989f5a40363925709ff68ac61ad4ce81c83714c2881d8114283f602b613",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\pipeline\\index.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\pipeline\\index.ts",
+      "size_bytes": 109,
+      "mtime": "2026-04-14T07:21:30.060906",
+      "sha256": "a2cec6fb55cf000610cb4e8a1d9c88b19a26a23415566d2eb7d92941c804e797",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\pipeline\\semantic_writer.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\pipeline\\semantic_writer.test.ts",
+      "size_bytes": 7765,
+      "mtime": "2026-04-15T00:09:36.690526",
+      "sha256": "0156939ad1a58857bb9619840546e9e4b915063e90a700dfe0311cb6f5459776",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\memory\\pipeline\\semantic_writer.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\memory\\pipeline\\semantic_writer.ts",
+      "size_bytes": 9308,
+      "mtime": "2026-04-16T21:50:02.633437",
+      "sha256": "fc50d377601076de5f6dae5f98f7dcbb44415dcf76d296705960d9b6db90e5fa",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\dspy_compiler.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\dspy_compiler.ts",
+      "size_bytes": 34529,
+      "mtime": "2026-04-16T21:58:10.081280",
+      "sha256": "6f7fd867e293366feb26b2ec3f3d2c3f8c8e625682eb3435f1712de3cbc0c106",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\integration.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\integration.test.ts",
+      "size_bytes": 11454,
+      "mtime": "2026-04-14T08:21:06.118804",
+      "sha256": "0a9647342d2584c40902b6b82bf1db84f04302013240e034c94d1044a29f959a",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\integration.tests.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\integration.tests.ts",
+      "size_bytes": 16010,
+      "mtime": "2026-04-14T07:12:37.019796",
+      "sha256": "18d9abd04ebb9dd10b60731b8104e470995800e9431bce36237384bfeb4bb50e",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\integration.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\integration.ts",
+      "size_bytes": 14536,
+      "mtime": "2026-04-14T08:06:42.856291",
+      "sha256": "0e1a383e33f8e27aa0304825ed557a7183cc9ac3a2a8f76e57571d52bd84c5ef",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer1_router.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer1_router.ts",
+      "size_bytes": 16250,
+      "mtime": "2026-04-15T00:56:53.076379",
+      "sha256": "5cfd08d7d9227f3fd271887f54c6bd6216a14105ee5a2cfaecfb3b997717966f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer2_monitor.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer2_monitor.ts",
+      "size_bytes": 10481,
+      "mtime": "2026-04-16T21:51:38.803171",
+      "sha256": "5d4a1752610ff1530332b53f126e6eb3707689cd8ee21bd978a201d4e58d59d0",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer3_feedback.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer3_feedback.ts",
+      "size_bytes": 9573,
+      "mtime": "2026-04-14T06:46:53.820354",
+      "sha256": "d835f16cb5ae4b6ef689f8f8312356ee24727d4ab9a77f4083c8d890017af504",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer4_nightly.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer4_nightly.ts",
+      "size_bytes": 16725,
+      "mtime": "2026-04-16T21:59:30.791928",
+      "sha256": "ad8a6517051a6b75ba5ecba7746a313137d5f2ed7fb6a5553b7d5ce75b3f71bc",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\layer5_asset.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\layer5_asset.ts",
+      "size_bytes": 11169,
+      "mtime": "2026-04-14T23:25:43.869619",
+      "sha256": "22c5242c8cc6cfc8f95e5a767cb7ea4147bc3890f4c8e4e6d4d96064c94d5cda",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\mod.ts",
+      "size_bytes": 2295,
+      "mtime": "2026-04-14T23:26:27.659072",
+      "sha256": "511333fcbb8e34a1dc276750cfea63dff9bfebbdf0cc27b53a260207568d9194",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\prompt_engine.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\prompt_engine.test.ts",
+      "size_bytes": 18347,
+      "mtime": "2026-04-14T09:52:55.984324",
+      "sha256": "6cfcb555764f01e911d06eb0a4a3caf1d148247591350e94f83bc87b97bfc28d",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\soul.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\soul.md",
+      "size_bytes": 3153,
+      "mtime": "2026-04-14T07:07:22.987095",
+      "sha256": "bdfb2577241a4cab816298a3b49e077e9812b067b21a742d24f814c9fadbd8e6",
+      "category": "doc"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\types.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\types.ts",
+      "size_bytes": 12996,
+      "mtime": "2026-04-14T19:30:38.545719",
+      "sha256": "aef6c76d9151e92c671cbcf6b2cc719cbb332e9a64080256c3e757c7c3c19586",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\assembly\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\assembly\\mod.ts",
+      "size_bytes": 164,
+      "mtime": "2026-04-14T07:05:50.664484",
+      "sha256": "b7d8d9d5593241adcfc521f5c5a2d8fc3129bfc437a0c0df066ef64d79b78ea0",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\dspy\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\dspy\\mod.ts",
+      "size_bytes": 204,
+      "mtime": "2026-04-14T23:01:46.697133",
+      "sha256": "c5f218b74f7b5c6af48aee0cf5250d9bf3d291553b47cf655fdb54784ca69c6f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\gepa\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\gepa\\mod.ts",
+      "size_bytes": 161,
+      "mtime": "2026-04-14T07:05:56.121220",
+      "sha256": "bdd685e9a58737f2366f416eb6a183b9f5832103efa40826a01abf2209fe9d58",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\recipes\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\recipes\\mod.ts",
+      "size_bytes": 19240,
+      "mtime": "2026-04-14T06:45:31.142775",
+      "sha256": "efdaa4428b4e0a4e8a50b83f326bd560d40720048de387fa1cfe6256c703d571",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\search\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\search\\mod.ts",
+      "size_bytes": 2117,
+      "mtime": "2026-04-14T07:06:14.211097",
+      "sha256": "9d87283d87f6e39731c45b642d2d24aa00b1541ec7f18ab07db8a0b9dc1c5c7b",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\prompt_engine\\signatures\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\prompt_engine\\signatures\\mod.ts",
+      "size_bytes": 4642,
+      "mtime": "2026-04-14T06:44:08.885458",
+      "sha256": "e2ac75ed374a2d076ee44986f47c07fdddf543357d71c3edc868332801053ff7",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\domain\\skill_factory\\skill_compiler.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\domain\\skill_factory\\skill_compiler.ts",
+      "size_bytes": 3804,
+      "mtime": "2026-04-14T05:42:33.652308",
+      "sha256": "8eb4117b32f36fec2b9d32ee9ebe5eff16ee7226dd46a2959c7db79e4e43ef8a",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\alertmanager.yml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\alertmanager.yml",
+      "size_bytes": 3095,
+      "mtime": "2026-04-14T22:35:07.822983",
+      "sha256": "3a0f1d5d0826a9520020b2501c61cc1f8f6d907cc73cb5eab7dbc8eb0aca7144",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\asset_indexer.py",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\asset_indexer.py",
+      "size_bytes": 7145,
+      "mtime": "2026-04-16T21:03:46.517552",
+      "sha256": "34e24ed2dcc68d7839e01bbc70ff4c546f26e1c71de11fa2e643028a37776363",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\boulder.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\boulder.json",
+      "size_bytes": 561,
+      "mtime": "2026-04-14T05:33:27.835855",
+      "sha256": "fdf4a05d441fb3964f953d5783d17fd060a7a1092829dd2c5c8be0e05217c88a",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\docker-compose.yml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\docker-compose.yml",
+      "size_bytes": 6699,
+      "mtime": "2026-04-15T00:58:06.177924",
+      "sha256": "6517fecb14bb17286b1edfb40733bfb9b4d5aa56d8edeac9464a603c44bd8275",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\Dockerfile",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\Dockerfile",
+      "size_bytes": 1522,
+      "mtime": "2026-04-14T09:02:40.979529",
+      "sha256": "d0caff91fec1b080e9222d7cfc79cd2e8f7be71213af89cbb63167725d71138f",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\dreaming_rules.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dreaming_rules.json",
+      "size_bytes": 2835,
+      "mtime": "2026-04-14T05:43:19.743623",
+      "sha256": "5d421a7c77768fd9acda08a6d660be9940fc1a0911a35f3e5b94e763e42f616e",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\jina_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\jina_adapter.ts",
+      "size_bytes": 1508,
+      "mtime": "2026-04-14T05:33:27.844853",
+      "sha256": "e2e047264f1670166de646f8ad070eee9202885e89018b8c2e8000cd039896fa",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\llm_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\llm_adapter.ts",
+      "size_bytes": 16035,
+      "mtime": "2026-04-14T23:53:25.122835",
+      "sha256": "98a8e1d023121e0b2d730dff5e7073f92f6cebea97cbcfb9fc96ea3af42afa82",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\logger.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\logger.ts",
+      "size_bytes": 10856,
+      "mtime": "2026-04-15T00:19:27.934644",
+      "sha256": "e143d7f5e8f342b02195f507b370b8efcbebf79de844fa8c2f105dbf28bff301",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\prometheus.yml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\prometheus.yml",
+      "size_bytes": 714,
+      "mtime": "2026-04-14T22:34:42.957293",
+      "sha256": "f22ee130d2107d9b63aa28f3438b8325fb6f1e04cc84249787bc6412570f293e",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\prometheus_alerts.yml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\prometheus_alerts.yml",
+      "size_bytes": 6675,
+      "mtime": "2026-04-14T22:33:03.213432",
+      "sha256": "cf21c26be1fb10f9a151f457c770316219ccee22d807152746bbd49341880ead",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\redis.conf",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\redis.conf",
+      "size_bytes": 620,
+      "mtime": "2026-04-14T09:01:10.145520",
+      "sha256": "8d11a28dba7b850869190150a16c01cf5435c9e84ab1722d353dbfb61d318545",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\registry.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\registry.json",
+      "size_bytes": 260,
+      "mtime": "2026-04-14T05:33:27.844853",
+      "sha256": "8c4f0db016ad586204845e9c03f72e0c97f479ddf5e350f1b4be8415af629397",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\watchdog.py",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\watchdog.py",
+      "size_bytes": 8850,
+      "mtime": "2026-04-14T06:04:08.336710",
+      "sha256": "283abc01a648500feb2e3de24e1fe7f8e0fa2d6871733486a5e6b9293e71f610",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\watchdog.test.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\watchdog.test.ts",
+      "size_bytes": 10146,
+      "mtime": "2026-04-14T09:18:14.637971",
+      "sha256": "a0f5e5427468ca05fc35800f4ee193af8eb188241e6c4a0620b321ecef45010c",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\dapr_client.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\dapr_client.ts",
+      "size_bytes": 15269,
+      "mtime": "2026-04-14T23:27:30.593663",
+      "sha256": "f447174132a3d920e718ddcdc62b202301ad48388a2767f57a5394bef7590973",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\mod.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\mod.ts",
+      "size_bytes": 119,
+      "mtime": "2026-04-14T07:57:31.058665",
+      "sha256": "7b98cb4b7ccf75ebf052b454c1e8f301fa9bf04a28f09cc70b35a7c8bc908c5a",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\components\\pubsub.yaml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\components\\pubsub.yaml",
+      "size_bytes": 215,
+      "mtime": "2026-04-14T05:33:27.836857",
+      "sha256": "926f1175a19acc48a79f8f3ccb0260736af4125c79776c77e622dc4376ab24cc",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\dapr\\components\\statestore.yaml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\dapr\\components\\statestore.yaml",
+      "size_bytes": 218,
+      "mtime": "2026-04-14T05:33:27.836857",
+      "sha256": "f5b9653a2f389329b24baf25c7e8a97b04fafb2d7a6ce21895c6506efe7a2dcc",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\env_adapter\\env_adapter.py",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\env_adapter\\env_adapter.py",
+      "size_bytes": 1209,
+      "mtime": "2026-04-14T05:33:27.838854",
+      "sha256": "d102d940948bd19096204aa849d8192cc43e6cc0f02dbaaa88bdfa5e27dda33d",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\env_adapter\\penetration_test.sh",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\env_adapter\\penetration_test.sh",
+      "size_bytes": 921,
+      "mtime": "2026-04-14T05:33:27.838854",
+      "sha256": "ad66a57472fe568e9603d6f20de836f8df8fd4009a03497e9e859981240b7539",
+      "category": "script"
+    },
+    {
+      "rel_path": "src\\infrastructure\\evolution\\dspy_mipro_adapter.py",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\evolution\\dspy_mipro_adapter.py",
+      "size_bytes": 2821,
+      "mtime": "2026-04-16T21:42:44.137671",
+      "sha256": "091aa29e61f798c09bc96c080706c0307f990f743cccfec98bd5af81436efd3a",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\evolution\\tes_sandbox\\config.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\evolution\\tes_sandbox\\config.json",
+      "size_bytes": 249,
+      "mtime": "2026-04-16T20:44:55.177068",
+      "sha256": "8305c363991342df0fb1ff40a17e7f43513153927690e402f055f1d3031ed56c",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\base_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\base_adapter.ts",
+      "size_bytes": 3811,
+      "mtime": "2026-04-16T21:23:18.938933",
+      "sha256": "55454eb580502de710ddf8c4254fd6821801345ad87b297915ec8d6d5ee8d0d9",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\claude_code_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\claude_code_adapter.ts",
+      "size_bytes": 5943,
+      "mtime": "2026-04-16T23:36:40.214874",
+      "sha256": "4a27ca96c36d62aadaf58dce6ce930f4b734fcc99f146a04d7d8b7cc841d2d5f",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\midscene_adapter.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\midscene_adapter.ts",
+      "size_bytes": 1329,
+      "mtime": "2026-04-14T05:33:27.843854",
+      "sha256": "90a3342e7092cd7145342ad7e32efbf44eb2797190fdd383dae759788eba43c0",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\opencli_command_registry.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\opencli_command_registry.ts",
+      "size_bytes": 7637,
+      "mtime": "2026-04-16T20:44:10.970443",
+      "sha256": "7fb60bb124af208c3cd721b9754e97565ec48049282d3ec74be3e58438aaebda",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\opencli_http_client.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\opencli_http_client.ts",
+      "size_bytes": 8574,
+      "mtime": "2026-04-15T07:11:20.079327",
+      "sha256": "3e23548eedf8fce4f75af58fd2e3efdf4f73198b4687b0db6b5f5aa0fb010975",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\cli_dictionary\\mapping_dictionaries.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\cli_dictionary\\mapping_dictionaries.json",
+      "size_bytes": 3008,
+      "mtime": "2026-04-14T05:33:27.843854",
+      "sha256": "60e882bb4e47ef5ee300ad5abac9163676a3b46015f51029852013f68eed8937",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\execution\\cli_dictionary\\README.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\execution\\cli_dictionary\\README.md",
+      "size_bytes": 1817,
+      "mtime": "2026-04-14T05:33:27.842855",
+      "sha256": "6ca9a6fb3168894e0d92446fff0c0953b5275089e3d921b2e91a5e0d9a6946d0",
+      "category": "doc"
+    },
+    {
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\dashboards\\dashboards.yml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\grafana\\provisioning\\dashboards\\dashboards.yml",
+      "size_bytes": 198,
+      "mtime": "2026-04-14T09:00:41.525491",
+      "sha256": "c5cef3fa44cafa256e5a2b138d56e2097443a2f1decf216c5c1dde4a8aecc3d5",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\dashboards\\openclaw\\openclaw-overview.json",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\grafana\\provisioning\\dashboards\\openclaw\\openclaw-overview.json",
+      "size_bytes": 18886,
+      "mtime": "2026-04-14T22:34:31.822593",
+      "sha256": "3eded8fd00ebd23e615f4d0504b37acbf3fe0b468d2979bef1de88ad1d589594",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\grafana\\provisioning\\datasources\\datasources.yml",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\grafana\\provisioning\\datasources\\datasources.yml",
+      "size_bytes": 160,
+      "mtime": "2026-04-14T09:00:40.176955",
+      "sha256": "ce0bd69f3a72d7e42d085211153cbb1036e9a55cd7ae88de109fb3b5160bc300",
+      "category": "config"
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\backup_manager.py",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\backup_manager.py",
+      "size_bytes": 13118,
+      "mtime": "2026-04-14T08:58:50.514238",
+      "sha256": "9839d2f4ed31458272cdde3ea94e3538bd359f5cc0838b3ed1bdd95d83f0bc65",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\health_server.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\health_server.ts",
+      "size_bytes": 12333,
+      "mtime": "2026-04-14T08:57:42.801703",
+      "sha256": "33f85a42e378460ca0e28dce8fa2fc8d549df31a6591505539e0e68e4a5b5e98",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\mcp_api_server.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\mcp_api_server.ts",
+      "size_bytes": 23358,
+      "mtime": "2026-04-16T21:24:25.620630",
+      "sha256": "3e08dbd670bb76c65427489ad89a525b6e2d9a87f27e58cf58413875e5057473",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\mcp_server.py",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\mcp_server.py",
+      "size_bytes": 16641,
+      "mtime": "2026-04-16T21:30:21.366674",
+      "sha256": "a5f1f209d2da78a013b7bf05cdde2085e64d0f0f14c82315e5539a85c9281f82",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\server\\README.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\server\\README.md",
+      "size_bytes": 1301,
+      "mtime": "2026-04-14T05:33:27.845855",
+      "sha256": "4b760352f628fb4ae1c5127a61a46b0af633f0e95c8a079f6c5080b53e61b7d6",
+      "category": "doc"
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\bridge_manager.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\bridge_manager.ts",
+      "size_bytes": 11242,
+      "mtime": "2026-04-16T06:37:02.502322",
+      "sha256": "471859f525348c56e07c60708f492593e65ac8bcc00a5040c6de2847a63670b8",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\dify_client.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\dify_client.ts",
+      "size_bytes": 14599,
+      "mtime": "2026-04-16T21:33:48.466363",
+      "sha256": "d0bdedb7c9b17a65fe8d620f11f9477d74ec9bededd857dc2986acdc3faf2461",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\n8n_client.ts",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\n8n_client.ts",
+      "size_bytes": 6903,
+      "mtime": "2026-04-16T22:28:07.610550",
+      "sha256": "a112e530b98a5c1602a1a575b8d1cec3559da4e18d82735cea5d7344d716e5c3",
+      "category": "source"
+    },
+    {
+      "rel_path": "src\\infrastructure\\workflow\\custom_nodes\\README.md",
+      "abs_path": "E:\\OpenClaw-Base\\openclaw超级工程项目\\src\\infrastructure\\workflow\\custom_nodes\\README.md",
+      "size_bytes": 758,
+      "mtime": "2026-04-14T05:33:27.847855",
+      "sha256": "8bbcf441a109ea874060366494208b2b99ae043699503dc239479dd59ee886f1",
+      "category": "doc"
+    }
+  ]
+}

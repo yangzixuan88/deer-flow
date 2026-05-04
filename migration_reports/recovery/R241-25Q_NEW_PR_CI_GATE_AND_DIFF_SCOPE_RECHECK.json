@@ -1,0 +1,99 @@
+{
+  "phase": "R241-25Q",
+  "title": "NEW_PR_CI_GATE_AND_DIFF_SCOPE_RECHECK",
+  "status": "blocked",
+  "preceded_by": "R241-25P",
+  "proceeding_to": "R241-25R",
+  "pressure_assessment": {
+    "previous_phase": "R241-25P",
+    "previous_status": "blocked",
+    "previous_pressure": "XL++",
+    "current_recommended_pressure": "XL++",
+    "reason": "PR discovery + CI gate only. No code modification. BLOCKED — no open PR found for bootstrap chain commits."
+  },
+  "scope_gate": {
+    "local_head": "3c07e939",
+    "remote_branch": "private/r241/auth-disabled-wiring-v2",
+    "remote_sha": "4225979748d5101222670d6388a1b82bb0613136",
+    "note": "Remote branch has advanced (merge commit + frontend fix) beyond our local HEAD. local HEAD is stale relative to remote."
+  },
+  "pr_discovery": {
+    "open_pr_found": false,
+    "closed_pr_for_branch": {
+      "number": 2,
+      "title": "feat: cherry-pick R241-23G auth bundle and disabled wiring",
+      "state": "closed",
+      "head_sha": "29f8ed8ae2b889c4b5b759d40d1687cf9e13010a",
+      "note": "PR #2 head = 29f8ed8a — does NOT include bootstrap chain commits"
+    },
+    "bootstrap_chain_in_remote_branch": true,
+    "bootstrap_chain_commits": ["edbddc6e", "3c07e939"],
+    "remote_branch_head": "4225979748 (merge commit) — includes bootstrap chain as ancestors",
+    "pr_needed": true,
+    "gh_pr_create_dry_run": "would create PR from r241:auth-disabled-wiring-v2 to main"
+  },
+  "diff_scope": {
+    "remote_branch_verified": "bootstrap chain commits present in remote branch",
+    "local_head_stale": "local HEAD 3c07e939 behind remote 4225979748"
+  },
+  "ci_checks": {
+    "not_applicable": "No open PR exists — cannot check CI"
+  },
+  "bootstrap_component_gate": {
+    "bootstrap_chain_in_remote_branch": true,
+    "note": "Remote branch contains all bootstrap chain files (credential_file.py, count_admin_users, /initialize-admin, SYSTEM_ALREADY_INITIALIZED)"
+  },
+  "safety_gate": {
+    "blockers_preserved": true,
+    "production_db_write": false,
+    "gateway_activation": false,
+    "auth_flags": false,
+    "gate_passed": false,
+    "reason": "No open PR to gate — cannot proceed to CI review"
+  },
+  "remote_branch_divergence": {
+    "issue": "Remote branch has advanced beyond local HEAD",
+    "local_head": "3c07e939 (bootstrap chain)",
+    "remote_head": "4225979748 (merge of main + f7b10d42)",
+    "contains_bootstrap_chain": true,
+    "local_stale": true,
+    "force_push_would": "replace remote merge — not recommended",
+    "fast_forward_merge_would": "bring local up to remote — preserves bootstrap chain"
+  },
+  "merge_readiness": {
+    "merge_ready": false,
+    "reason": "No open PR for bootstrap chain commits",
+    "action_options": [
+      {
+        "action": "Fast-forward local to remote + push (preserves merge)",
+        "command": "git fetch private && git merge private/r241/auth-disabled-wiring-v2 --ff-only",
+        "risk": "LOW — fast-forward only, preserves remote merge",
+        "requires_authorization": true
+      },
+      {
+        "action": "Create PR from remote branch via gh CLI",
+        "command": "gh pr create --repo yangzixuan88/deer-flow --base main --head r241:auth-disabled-wiring-v2",
+        "dry_run_result": "would create PR with base=main, head=r241/auth-disabled-wiring-v2",
+        "requires_authorization": true
+      }
+    ]
+  },
+  "pr_2645": {
+    "state": "OPEN",
+    "mergeable": "MERGEABLE",
+    "mergeStateStatus": "BLOCKED",
+    "ci_missing": true
+  },
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "next_phase": "R241-25R_PR_CREATION_WITH_DIVERGENCE"
+}

@@ -1,0 +1,57 @@
+{
+  "issue_id": "issue_002",
+  "issue_title": "AI漫剧自动化全流程的最小落地链路是什么",
+  "problem_statement": "需要给出能在当前系统里最快跑通、又能保持最低可接受质量的自动化链路。",
+  "why_it_matters": "这是从讨论进入落地验证的关键议题。",
+  "candidate_hypotheses": [
+    {
+      "hypothesis_id": "h3",
+      "statement": "最小落地闭环应采用半自动链路：选题/脚本/分镜自动，角色与镜头质检人工确认。",
+      "owner_role": "rtcm-automation-agent",
+      "why_it_may_hold": "能兼顾可跑通与质量下限。",
+      "falsification_conditions": "若人工介入过高导致效率过低，则需调整。"
+    },
+    {
+      "hypothesis_id": "h4",
+      "statement": "全自动链路仍可作为备选，但不应作为第一版目标。",
+      "owner_role": "rtcm-efficiency-agent",
+      "why_it_may_hold": "全自动当前更容易失败，返工成本更高。",
+      "falsification_conditions": "若验证显示全自动样片质量已达标，则可重估。"
+    }
+  ],
+  "evidence_summary": "工作流与质量证据支持半自动 MVP；成本与失败案例不支持直接全自动量产。",
+  "challenge_log": [
+    "质询议员：半自动是不是过于保守，会不会无法体现系统优势？",
+    "先机议员：如果太重人工，会失去项目传播话题性。"
+  ],
+  "response_summary": "主持官决定：先验证半自动 MVP，若样片过线，再扩展自动化覆盖率。",
+  "known_gaps": [
+    "自动配音稳定性待确认",
+    "角色统一 prompt 模板待固化"
+  ],
+  "validation_plan_or_result": {
+    "type": "executed",
+    "run_id": "validation_001",
+    "summary": "已完成一次 45 秒样片链路验证。"
+  },
+  "verdict": "solution_feasible_but_quality_insufficient",
+  "next_action": "返会到 solution_generation，优先修正角色一致性与配音稳定性。",
+  "status": "reopened",
+  "strongest_dissent": "现有半自动链路虽然能跑通，但角色一致性仍不足以直接验收。",
+  "confidence_interval": "0.71-0.82",
+  "unresolved_uncertainties": [
+    "角色一致性模板是否能被稳定复用",
+    "自动配音是否需要引入更强后处理"
+  ],
+  "conditions_to_reopen": [
+    "样片主观质量评分低于 7/10",
+    "角色一致性显著跳变",
+    "人工校正超过总流程 40%"
+  ],
+  "evidence_ledger_refs": [
+    "ev_003",
+    "ev_004",
+    "ev_005",
+    "ev_006"
+  ]
+}

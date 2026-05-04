@@ -1,0 +1,70 @@
+{
+  "phase": "R241-25P",
+  "title": "PR_CREATION_AND_CI_GATE",
+  "status": "blocked",
+  "preceded_by": "R241-25O",
+  "proceeding_to": "R241-25Q",
+  "pressure_assessment": {
+    "previous_phase": "R241-25O",
+    "previous_pressure": "XL++",
+    "current_recommended_pressure": "XL++",
+    "reason": "PR status + CI gate only. Found PR #2 (CLOSED) from previous auth-disabled wiring. No new PR yet for bootstrap chain. BLOCKED."
+  },
+  "scope_gate": {
+    "branch": "r241/auth-disabled-wiring-v2",
+    "head_commit": "3c07e939",
+    "remote_verified": "3c07e939aa2f6ccf26d0eafba5adc5810bc6c35b on private"
+  },
+  "pr_discovery": {
+    "pr_found": false,
+    "note": "PR #2 (CLOSED) exists for r241/auth-disabled-wiring-v2 but does NOT include bootstrap chain commits (edbddc6e, 3c07e939)",
+    "closed_pr": {
+      "number": 2,
+      "title": "feat: cherry-pick R241-23G auth bundle and disabled wiring",
+      "state": "closed",
+      "url": "https://api.github.com/repos/yangzixuan88/deer-flow/pull/2"
+    },
+    "new_pr_needed": true,
+    "bootstrap_chain_commits": ["edbddc6e", "3c07e939"],
+    "not_in_any_open_pr": true
+  },
+  "diff_scope": {
+    "note": "Cannot validate PR diff without an open PR",
+    "remote_head_verified": "3c07e939 matches pushed branch"
+  },
+  "ci_checks": {
+    "not_applicable": "No open PR exists for bootstrap chain commits"
+  },
+  "safety_gate": {
+    "no_open_pr_for_bootstrap_chain": true,
+    "bootstrap_branch_pushed_to_private": true,
+    "remote_head_matches": true,
+    "blockers_preserved": true,
+    "gate_passed": false,
+    "reason": "PR #2 is closed and does not contain bootstrap chain commits. New PR must be created."
+  },
+  "merge_readiness": {
+    "merge_ready": false,
+    "reason": "No open PR exists for bootstrap chain commits (edbddc6e + 3c07e939)",
+    "action_required": "Create new PR via https://github.com/yangzixuan88/deer-flow/pull/new/r241/auth-disabled-wiring-v2",
+    "note": "PR #2 was closed and already merged via squash. New commits (edbddc6e, 3c07e939) need a new PR."
+  },
+  "pr_2645": {
+    "state": "OPEN",
+    "mergeable": "MERGEABLE",
+    "mergeStateStatus": "BLOCKED",
+    "ci_missing": true
+  },
+  "compliance": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_activation_allowed": false,
+    "production_db_write_allowed": false,
+    "push_main_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "next_phase": "R241-25Q_PR_CREATION_RETRY"
+}

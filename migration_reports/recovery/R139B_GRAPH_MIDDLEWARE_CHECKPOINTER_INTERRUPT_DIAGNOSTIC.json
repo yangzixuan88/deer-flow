@@ -1,0 +1,227 @@
+{
+  "phase": "R139B",
+  "title": "GRAPH_MIDDLEWARE_CHECKPOINTER_INTERRUPT_DIAGNOSTIC",
+  "status": "partial",
+  "preceded_by": "R139",
+  "proceeding_to": "R139C_INTERRUPT_CAUSAL_CHAIN_TEST",
+  "pressure_assessment": {
+    "previous_phase": "R139",
+    "current_phase": "R139B",
+    "recommended_pressure": "XXL",
+    "reason": "Read-only diagnostic scan only — no code execution, no API calls, no tools, no side effects"
+  },
+  "lane_0_pressure_assessment": {
+    "status": "pass",
+    "r139_outcome": "Outcome B2 — still interrupted (WITH model call)",
+    "r139_model_response_detected": true,
+    "r139_model_response_length": 103,
+    "r139_stream_event_count": 2,
+    "r139_final_status": "interrupted",
+    "r139_poll_elapsed_seconds": 3,
+    "pressure_for_r139b": "XXL",
+    "rationale": "R139 confirmed interrupt fires AFTER model response; model was called; next diagnostic must trace exact causal chain"
+  },
+  "lane_1_r139_outcome_deconstruction": {
+    "status": "complete",
+    "r139_result": "partial",
+    "outcome": "Outcome B2",
+    "interrupt_before_sent": [],
+    "interrupt_after_sent": [],
+    "model_api_called": true,
+    "model_response_detected": true,
+    "model_response_length": 103,
+    "stream_event_count": 2,
+    "stream_bridge_stream_created": true,
+    "final_status": "interrupted",
+    "key_observation": "Model response was published to stream bridge BEFORE the interrupt. abort_event.is_set() returned False during model response publish, but True at final status check.",
+    "implication": "abort_event was set AFTER the model response was published and BEFORE the worker loop exited normally."
+  },
+  "lane_2_worker_astream_loop_analysis": {
+    "status": "complete",
+    "file": "worker.py",
+    "loop_structure": "Single-mode astream loop (worker.py:233-241): async for chunk in agent.astream(...): if record.abort_event.is_set(): break; sse_event = _lg_mode_to_sse_event(single_mode); await bridge.publish(run_id, sse_event, serialize(chunk, mode=single_mode))",
+    "publish_order_analysis": [
+      {"step": 1, "event": "model response published to stream bridge", "abort_event_state": "False (otherwise loop would break before publish)", "evidence": "stream_event_count=2, model_response_detected=True"},
+      {"step": 2, "event": "loop continues or exits normally (no more chunks)", "abort_event_state": "False during loop exit"},
+      {"step": 3, "event": "worker.py:262: if record.abort_event.is_set(): → TRUE", "evidence": "final_status=interrupted, not success"},
+      {"step": 4, "event": "worker.py:279: await run_manager.set_status(run_id, RunStatus.interrupted)", "evidence": "final_status=interrupted confirmed"}
+    ],
+    "critical_finding": "The abort_event was set AFTER model response published (step 1) and BEFORE final status check (step 3). The only way abort_event is set is via: (a) manager.cancel(), (b) create_or_reject interrupt/rollback cleanup, or (c) something external.",
+    "two_possible_timeline_reconstructions": [
+      {
+        "scenario": "Scenario A: abort_event set DURING model API call",
+        "timeline": "worker:running → model API starts → model API completes (response published) → abort_event set → loop exits normally → interrupted status",
+        "abortion_time": "after model response, before loop completion",
+        "consistent_with_evidence": "model_response_detected=True (abort_event False during publish), final_status=interrupted (abort_event True at final check)"
+      },
+      {
+        "scenario": "Scenario B: abort_event set by external cancellation during astream",
+        "timeline": "worker:running → astream starts → model response published → external task.cancel() called → abort_event.set() → loop breaks or exits → interrupted status",
+        "abortion_time": "after model response, during continued astream processing",
+        "consistent_with_evidence": "CancelledError caught by worker.py:283, model_response_detected=True, final_status=interrupted"
+      }
+    ]
+  },
+  "lane_3_manager_cancel_and_create_or_reject_analysis": {
+    "status": "complete",
+    "cancel_method_analysis": {
+      "file": "manager.py",
+      "method": "cancel(run_id, action='interrupt')",
+      "lines": [155, 166],
+      "abort_event_set": "line 160: record.abort_event.set()",
+      "task_cancel_called": "line 162: record.task.cancel()",
+      "status_set": "line 163: record.status = RunStatus.interrupted",
+      "callers_found": ["services.py:296 (sse_consumer finally block)"],
+      "r139_relevance": "NOT called in R139 — stream endpoint never invoked, sse_consumer never runs"
+    },
+    "create_or_reject_interrupt_analysis": {
+      "file": "manager.py",
+      "lines": [201, 208],
+      "condition": "multitask_strategy in ('interrupt', 'rollback') AND inflight runs exist",
+      "abort_event_set": "line 204: r.abort_event.set()",
+      "task_cancel_called": "line 206: r.task.cancel()",
+      "status_set": "line 207: r.status = RunStatus.interrupted",
+      "r139_relevance": "NOT triggered in R139 — multitask_strategy='reject' (default) and no inflight runs exist for R139's thread"
+    },
+    "conclusion": "Neither cancel() nor create_or_reject interrupt path is in R139's call path. Yet task.cancel() was definitely called (CancelledError caught). Something else must be calling task.cancel()."
+  },
+  "lane_4_sse_consumer_and_stream_endpoint_inaccessibility": {
+    "status": "complete",
+    "endpoint_inaccessibility": {
+      "stream_endpoint": "POST /api/threads/{thread_id}/runs/stream (thread_runs.py:103)",
+      "sse_consumer_function": "services.py:296 — async generator, finally block: if on_disconnect == cancel and status in (pending, running): await run_mgr.cancel(record.run_id)",
+      "r139_http_calls": ["POST /api/threads", "GET /api/threads/{thread_id}", "POST /api/threads/{thread_id}/runs", "GET /api/threads/{thread_id}/runs/{run_id}"],
+      "stream_endpoint_called": false,
+      "sse_consumer_invoked": false,
+      "conclusion": "sse_consumer's cancel path is IMPOSSIBLE to reach in R139. on_disconnect cancel requires (a) stream endpoint called, (b) SSE client disconnected, (c) on_disconnect == cancel. None of these apply to R139."
+    },
+    "on_disconnect_field_analysis": {
+      "file": "thread_runs.py",
+      "line": 51,
+      "field": "on_disconnect: cancel | continue (default='cancel')",
+      "r139_payload": "interrupt_before=[] interrupt_after=[] — on_disconnect uses default 'cancel' but stream endpoint never called",
+      "relevance": "No impact — stream endpoint not called"
+    }
+  },
+  "lane_5_worker_astream_completion_logic": {
+    "status": "complete",
+    "worker.py:262_logic": {
+      "condition": "if record.abort_event.is_set(): → interrupted, else → success",
+      "key_insight": "This check is at line 262, OUTSIDE the astream loop (post-loop). It fires AFTER the loop exhausts all chunks OR breaks due to abort_event being set.",
+      "r139_model_response_published": "stream_event_count=2 confirms at least one chunk published after model response",
+      "loop_exit_behavior": "Loop exits either (a) naturally when graph finishes, or (b) via break when abort_event.is_set() during iteration",
+      "abort_event_is_set_during_model_response_publish": false,
+      "evidence": "model_response_detected=True → abort_event.is_set() returned False at least once during model response publish"
+    },
+    "worker.py:283_cancelled_error_handler": {
+      "condition": "except asyncio.CancelledError:",
+      "action_path": "action == 'rollback' → error status; else → interrupted status + logger.info('Run %s was cancelled', run_id)",
+      "r139_log_evidence": "worker.py:301 log line 'was cancelled' confirms CancelledError WAS caught — task.cancel() was called",
+      "task_cancel_source": "task.cancel() only called at manager.py:162 (cancel method) and manager.py:206 (create_or_reject interrupt/rollback cleanup)"
+    },
+    "critical_timeline_gap": "task.cancel() was called in R139 but neither manager.cancel() nor create_or_reject interrupt/rollback is in R139's call path. Something is calling task.cancel() that is NOT in the standard manager cancel path."
+  },
+  "lane_6_testclient_background_task_event_loop_lifecycle_hypothesis": {
+    "status": "complete",
+    "hypothesis": "Cause A — TestClient StreamingResponse / response handling triggering background task cancellation",
+    "testclient_response_lifecycle": "POST /runs endpoint (create_run) returns RunResponse immediately WITHOUT streaming. The response is a plain JSON HTTP response (RunResponse model), not a StreamingResponse. Therefore, the response itself does NOT trigger any stream cleanup.",
+    "fastapi_testclient_under_app_lifespan": "Each TestClient(app) context starts a fresh lifespan. Background tasks created via asyncio.create_task() during request handling outlive the request/response cycle if not awaited within the request handler.",
+    "services.py:272_task_creation": "task = asyncio.create_task(run_agent(...)); record.task = task. HTTP response returns immediately after create_run() returns.",
+    "response_type_for_create_run": "create_run() returns RunResponse (JSON), not StreamingResponse. No SSE stream involved.",
+    "key_finding": "POST /runs (create_run) returns a regular JSON response (RunResponse), NOT a StreamingResponse. The StreamingResponse is only used by POST /runs/stream endpoint. Therefore, there is NO stream cleanup that could trigger sse_consumer's cancel path.",
+    "alternative_testclient_hypothesis": "TestClient may cancel background tasks when the TestClient context exits (at the end of the 'with' block). This would happen AFTER the HTTP response is returned and the test polls for status. If the TestClient's event loop is torn down while run_agent is still running, task.cancel() would be called, triggering CancelledError in worker.",
+    "test_hypothesis_mechanism": "with TestClient(app) as client: client.post('/runs', json=payload) → returns immediately with run_id; test then polls status; then 'with' block exits → TestClient tears down lifespan/event loop → background run_agent task cancelled → CancelledError caught → status=interrupted",
+    "r139_polling_timing": "poll_elapsed_seconds=3. The test polled until completion. If TestClient context exited during or shortly after polling, the background task could be cancelled.",
+    "evidence_for": "Explains why CancelledError was caught despite no explicit cancel() call",
+    "evidence_against": "Would apply to ALL tests using TestClient background tasks, not just R139"
+  },
+  "lane_7_streambridge_drain_and_stream_cleanup_hypothesis": {
+    "status": "incomplete",
+    "hypothesis": "Cause B — StreamBridge stream object lifecycle and _run_complete() signal",
+    "file": "packages/harness/deerflow/runtime/stream_bridge/memory.py",
+    "not_investigated": "Full StreamBridge cleanup path (was cut off from analysis due to context limits — pending LANE 7-8 completion)",
+    "key_question": "Does MemoryStreamBridge have any cleanup that could trigger abort_event or task.cancel()?"
+  },
+  "lane_8_checkpointer_interrupt_state_hypothesis": {
+    "status": "pending",
+    "hypothesis": "Cause D — LangGraph checkpointer having interrupt state from prior execution",
+    "not_investigated": "Full checkpointer interrupt analysis — pending LANE 7-8 completion",
+    "key_question": "Could an old checkpoint with interrupt_before_nodes set cause a new run to interrupt?"
+  },
+  "lane_9_diagnostic_conclusion": {
+    "status": "complete",
+    "most_likely_cause": "Cause A — TestClient background task cancellation via event loop lifecycle",
+    "confidence": "medium",
+    "evidence": [
+      "task.cancel() was called (CancelledError caught in worker.py:301)",
+      "Neither manager.cancel() nor create_or_reject interrupt path in R139 call path",
+      "POST /runs returns plain JSON (RunResponse), not StreamingResponse — no SSE stream cleanup",
+      "TestClient lifecycle teardown could cancel background tasks when context exits",
+      "3-second poll_elapsed is consistent with TestClient context exiting during polling"
+    ],
+    "alternative_cause": "Cause C — StreamingResponse returned from POST /runs with no actual SSE stream, but some cleanup path triggered",
+    "alternative_confidence": "low",
+    "alternative_evidence": "create_run() returns RunResponse, not StreamingResponse — POST /runs does not involve SSE stream handling",
+    "cause_b_evidence": "stream_event_count=2 (model response published), abort_event.is_set() returned False during model response, then True at final check — suggests abort_event.set() called BETWEEN model response publish and worker loop completion",
+    "cause_d_evidence": "R139 used new run_id and new thread_id — checkpointer interrupt state from prior execution unlikely",
+    "primary_recommendation": "R139C must test: disable asyncio.create_task — await run_agent directly instead — to see if interrupt still fires. If interrupt disappears when run_agent is awaited inline (not background), Cause A (TestClient lifecycle) is confirmed."
+  },
+  "lane_10_r140_plan_generation": {
+    "status": "drafted",
+    "phase": "R140",
+    "title": "INTERRUPT_CAUSAL_CHAIN_TEST",
+    "objective": "Test the causal chain between TestClient background task lifecycle and the interrupt. Specifically: await run_agent inline (not as background task) and see if interrupt still occurs.",
+    "approach": "Modify POST /runs to await run_agent inline instead of asyncio.create_task — eliminates background task that could be cancelled by TestClient lifecycle",
+    "expected_outcome": "If interrupt still fires with inline await → interrupt source is in graph/middleware/checkpointer, NOT TestClient lifecycle. If interrupt disappears with inline await → Cause A (TestClient background task cancellation) confirmed.",
+    "constraints": {
+      "code_modified": true,
+      "db_written": false,
+      "jsonl_written": false,
+      "gateway_started": false,
+      "model_api_called": true,
+      "mcp_runtime_called": false,
+      "tool_call_executed": false,
+      "push_executed": false,
+      "merge_executed": false,
+      "note": "code_modified=true because modifying services.py start_run behavior is required"
+    },
+    "pressure_assessment": "XXL — model API call with modified task execution path"
+  },
+  "lane_11_unknown_registry_update": {
+    "status": "complete",
+    "existing_unknowns_from_r138_r139": [
+      {
+        "id": "U-explicit-empty-interrupt-effect",
+        "description": "interrupt_before=[] and interrupt_after=[] passed — interrupt PERSISTS",
+        "priority": "critical",
+        "updated": "CONFIRMED: interrupt persists with interrupt_before=[]; now confirmed interrupt fires AFTER model response"
+      },
+      {
+        "id": "U-interrupt-source-still-unknown",
+        "description": "Interrupt source STILL_UNCLEAR after R139",
+        "priority": "critical",
+        "updated": " narrowed to: (A) TestClient lifecycle cancellation, (B) StreamBridge cleanup, (C) Unknown middleware, (D) Checkpointer interrupt"
+      }
+    ],
+    "new_unknowns": [
+      {
+        "id": "U-task-cancel-source-unknown",
+        "description": "task.cancel() was called in R139 (CancelledError caught) but neither manager.cancel() nor create_or_reject interrupt path is in R139 call path",
+        "priority": "critical"
+      },
+      {
+        "id": "U-post-runs-response-type",
+        "description": "create_run() returns RunResponse (JSON), not StreamingResponse — no SSE stream cleanup should be involved, yet interrupt fires",
+        "priority": "high"
+      }
+    ]
+  },
+  "lane_12_report_generation": {
+    "status": "complete",
+    "json_report": "E:/OpenClaw-Base/deerflow/migration_reports/recovery/R139B_GRAPH_MIDDLEWARE_CHECKPOINTER_INTERRUPT_DIAGNOSTIC.json",
+    "md_report": "E:/OpenClaw-Base/deerflow/migration_reports/recovery/R139B_GRAPH_MIDDLEWARE_CHECKPOINTER_INTERRUPT_DIAGNOSTIC.md"
+  },
+  "critical_finding": "Model response was published (103 chars, 2 events, stream_event_count=2) before the interrupt. abort_event.is_set() returned False during model response publish, then True at final status check. task.cancel() was definitely called (CancelledError caught at worker.py:301). Neither manager.cancel() nor create_or_reject interrupt/rollback is in R139's call path. POST /runs returns plain JSON (RunResponse), not StreamingResponse. Most likely cause: TestClient background task cancellation during event loop lifecycle teardown (Cause A), OR an unknown cleanup path in the run_agent completion path (Cause C).",
+  "recommended_next_phase": "R139C_INTERRUPT_CAUSAL_CHAIN_TEST",
+  "next_prompt_needed": "R139C execution authorization"
+}

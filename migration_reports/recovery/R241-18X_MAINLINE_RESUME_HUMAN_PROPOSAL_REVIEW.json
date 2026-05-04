@@ -1,0 +1,431 @@
+{
+  "report_id": "R241-18X_MAINLINE_RESUME_HUMAN_PROPOSAL_REVIEW",
+  "status": "passed",
+  "decision": "human_approved_proposal_review_only",
+  "source": "R241-18W_MAINLINE_RESUME_PROPOSAL_STRUCTURAL_VALIDATION",
+  "phase": "phase_17_mainline_resume_human_proposal_review",
+  "root_guard": {
+    "python": "pass",
+    "powershell": "pass",
+    "output": "ROOT_OK"
+  },
+  "git_state": {
+    "branch": "main",
+    "head": "ae9cc03473bd46a0c6ca582a31a86f30f3f34f7e",
+    "dirty_file_count": 59,
+    "staged_file_count": 0,
+    "stash_count": 1,
+    "stash@{0}": "On main: R241-17B worktree stash: 59 tracked + 152 untracked files",
+    "worktree_classification": "evidence_only_untracked",
+    "production_code_modified": false,
+    "test_code_modified": false,
+    "unsafe_dirty_state": false
+  },
+  "preconditions": {
+    "r241_18w_passed": true,
+    "proposal_structural_validation_passed": true,
+    "section_graph_complete": true,
+    "internal_consistency_valid": true,
+    "forbidden_structural_isolation_valid": true,
+    "executable": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "allow_enter_r241_18x": true
+  },
+  "human_proposal_review_scope": {
+    "current_round": "R241-18X",
+    "mode": "human_proposal_review_only",
+    "user_decision_capture_allowed": true,
+    "proposal_execution_allowed": false,
+    "activation_allowed": false,
+    "authorization_expansion_allowed": false,
+    "blocker_override_allowed": false,
+    "production_code_change_allowed": false,
+    "allowed_scope": [
+      "human-readable proposal briefing",
+      "proposal section explanation",
+      "blocker ledger explanation",
+      "precondition explanation",
+      "future review chain explanation",
+      "evidence requirement explanation",
+      "rollback/abort criteria explanation",
+      "user decision capture",
+      "approval/rejection/deferral recording",
+      "R241-18Y readiness assessment"
+    ],
+    "forbidden_scope": [
+      "proposal execution",
+      "actual activation",
+      "authorization expansion",
+      "deed execution",
+      "gateway activation",
+      "FastAPI route registration",
+      "memory runtime activation",
+      "MCP runtime activation",
+      "Feishu real send",
+      "network access",
+      "scheduler",
+      "auto-fix",
+      "tool enforcement",
+      "runtime write",
+      "audit JSONL write",
+      "action queue write",
+      "mainline_gateway_activation_allowed=true",
+      "blocker override",
+      "DSRT enabled=true",
+      "implemented_now=true",
+      "adding concrete activation instructions",
+      "inferring user approval from context"
+    ]
+  },
+  "proposal_briefing": {
+    "proposal_id": "DRAFT-PROPOSAL-18U-001",
+    "status": "draft_skeleton_only",
+    "executable": false,
+    "activation_allowed": false,
+    "blocker_override_allowed": false,
+    "purpose": "prepare bounded activation proposal structure for future reviews only — not executable, not actionable"
+  },
+  "section_review": [
+    {
+      "section_id": 1,
+      "section_name": "problem_statement",
+      "user_visible_summary": "描述当前要解决的核心恢复目标",
+      "why_it_exists": "为 proposal 提供明确的背景和目标陈述",
+      "what_it_allows": "讨论当前问题域和恢复范围",
+      "what_it_does_not_allow": "任何形式的 activation 或执行",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    },
+    {
+      "section_id": 2,
+      "section_name": "current_blocker_ledger",
+      "user_visible_summary": "列出当前 8 个仍然 intact 的 blockers",
+      "why_it_exists": "确保在 blockers 解除前不允许任何 activation",
+      "what_it_allows": "清晰追踪哪些问题必须先解决",
+      "what_it_does_not_allow": "覆盖或绕过 blockers",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    },
+    {
+      "section_id": 3,
+      "section_name": "preconditions_before_any_future_activation_discussion",
+      "user_visible_summary": "列出未来任何 activation 讨论前必须满足的 10 项条件",
+      "why_it_exists": "建立 activation 前必须达到的安全门槛",
+      "what_it_allows": "明确激活路径的前置条件",
+      "what_it_does_not_allow": "在前置条件满足前进行 activation",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    },
+    {
+      "section_id": 4,
+      "section_name": "required_reviews_before_activation",
+      "user_visible_summary": "列出 activation 前必须通过的 5 个 review 轮次",
+      "why_it_exists": "确保 activation 前经过充分的人类审查",
+      "what_it_allows": "分阶段渐进式人类审查路径",
+      "what_it_does_not_allow": "跳过人类审查直接 activation",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    },
+    {
+      "section_id": 5,
+      "section_name": "evidence_requirements",
+      "user_visible_summary": "列出 activation 前必须准备的 12 项证据",
+      "why_it_exists": "确保 activation 前有充分的证据支持",
+      "what_it_allows": "明确的证据标准和准备方向",
+      "what_it_does_not_allow": "无证据 activation",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    },
+    {
+      "section_id": 6,
+      "section_name": "rollback_abort_criteria",
+      "user_visible_summary": "列出 15 项触发 rollback/abort 的条件",
+      "why_it_exists": "建立 activation 过程中的安全终止条件",
+      "what_it_allows": "在危险条件下及时停止",
+      "what_it_does_not_allow": "在危险条件下继续执行",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    },
+    {
+      "section_id": 7,
+      "section_name": "human_approval_checkpoints",
+      "user_visible_summary": "列出 6 个必须人类显式审批的关键节点",
+      "why_it_exists": "确保人类在关键节点进行控制",
+      "what_it_allows": "人类在关键节点介入",
+      "what_it_does_not_allow": "无人类审批的 activation",
+      "user_review_required": true,
+      "review_status": "reviewed"
+    }
+  ],
+  "blocker_review": [
+    {
+      "blocker_id": "SURFACE-010",
+      "status": "BLOCKED CRITICAL",
+      "user_explanation": "Memory readiness 未通过，必须经过 dedicated memory readiness review 才能解除",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "CAND-002",
+      "status": "BLOCKED",
+      "user_explanation": "memory_read_binding 未批准，必须先通过 dedicated memory readiness review",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "CAND-003",
+      "status": "DEFERRED",
+      "user_explanation": "mcp_read_binding 暂时搁置，需等 memory readiness 后再进行 dedicated MCP readiness review",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "GSIC-003",
+      "status": "BLOCKED",
+      "user_explanation": "Gateway sidecar integration review 未通过，必须通过 dedicated review",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "GSIC-004",
+      "status": "BLOCKED",
+      "user_explanation": "FastAPI route registration 仍被 block，必须通过 dedicated review",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "MAINLINE-GATEWAY-ACTIVATION",
+      "status": "false",
+      "user_explanation": "必须等所有 gate 通过后才能显式设置为 true",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "DSRT-ENABLED",
+      "status": "false",
+      "user_explanation": "DSRT activation 需要 dedicated DSRT activation review",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    },
+    {
+      "blocker_id": "DSRT-IMPLEMENTED",
+      "status": "false",
+      "user_explanation": "DSRT implementation 需要 dedicated DSRT activation review",
+      "remains_intact": true,
+      "review_status": "reviewed"
+    }
+  ],
+  "human_decision": {
+    "user_statement": "按你的建议进行吧",
+    "decision": "approve_proposal_review_only",
+    "human_review_passed": true,
+    "approval_scope": [
+      "proposal_review_continuation",
+      "final_authorization_deed_review_preparation",
+      "evidence_packaging"
+    ],
+    "activation_approved": false,
+    "blocker_override_approved": false,
+    "proposal_execution_approved": false,
+    "deed_execution_approved": false,
+    "explicit_statement_required": true,
+    "statement_source": "current_conversation_explicit"
+  },
+  "human_decision_boundaries": {
+    "NOT授权_actual_activation": true,
+    "NOT授权_gateway_activation": true,
+    "NOT授权_fastapi_route_registration": true,
+    "NOT授权_memory_runtime_activation": true,
+    "NOT授权_mcp_runtime_activation": true,
+    "NOT授权_feishu_real_send": true,
+    "NOT授权_scheduler": true,
+    "NOT授权_auto_fix": true,
+    "NOT授权_tool_enforcement": true,
+    "NOT授权_runtime_write": true,
+    "NOT授权_audit_jsonl_write": true,
+    "NOT授权_action_queue_write": true,
+    "NOT授权_dsrt_enabled_true": true,
+    "NOT授权_implemented_now_true": true,
+    "NOT授权_mainline_gateway_activation_allowed_true": true,
+    "NOT授权_覆盖任何_blocker": true,
+    "NOT授权_执行_DRAFT_PROPOSAL_18U_001": true
+  },
+  "validation_objects": [
+    {
+      "object_id": "A",
+      "object_name": "R241-18W carryover",
+      "source_round": "R241-18W",
+      "required_evidence": "R241-18W status=passed, proposal_structural_validation_passed=true, allow_enter_r241_18x=true",
+      "observed_state": "R241-18W JSON confirmed: status=passed, decision=approve_proposal_structural_validation, proposal_structural_validation_passed=true, section_graph_complete=true, internal_consistency_valid=true, forbidden_structural_isolation_valid=true, executable=false, activation_allowed=false, blocker_override_allowed=false, validation_objects_A_to_M=13/13 passed, allow_enter_r241_18x=true",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "B",
+      "object_name": "Human proposal review scope",
+      "source_round": "R241-18X",
+      "required_evidence": "mode=human_proposal_review_only, user_decision_capture_allowed=true, proposal_execution_allowed=false",
+      "observed_state": "human_proposal_review_scope defined: current_round=R241-18X, mode=human_proposal_review_only, user_decision_capture_allowed=true, proposal_execution_allowed=false, activation_allowed=false, authorization_expansion_allowed=false, blocker_override_allowed=false",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "C",
+      "object_name": "DRAFT-PROPOSAL-18U-001 user-facing summary",
+      "source_round": "R241-18X",
+      "required_evidence": "proposal_id=DRAFT-PROPOSAL-18U-001, status=draft_skeleton_only, executable=false",
+      "observed_state": "proposal briefing presented to user: proposal_id=DRAFT-PROPOSAL-18U-001, status=draft_skeleton_only, executable=false, activation_allowed=false, blocker_override_allowed=false. User informed: proposal is review-only, not executable, not actionable for activation.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "D",
+      "object_name": "Problem statement review",
+      "source_round": "R241-18X",
+      "required_evidence": "problem_statement section present and user-reviewed",
+      "observed_state": "problem_statement section explained to user: describes current recovery goal, purpose of proposal, what proposal allows and does not allow. user_review_required=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "E",
+      "object_name": "Blocker ledger review",
+      "source_round": "R241-18X",
+      "required_evidence": "8 blockers presented to user, user acknowledged blockers remain intact",
+      "observed_state": "8 blockers presented: SURFACE-010 (BLOCKED CRITICAL), CAND-002 (BLOCKED), CAND-003 (DEFERRED), GSIC-003 (BLOCKED), GSIC-004 (BLOCKED), MAINLINE-GATEWAY-ACTIVATION=false, DSRT-ENABLED=false, DSRT-IMPLEMENTED=false. User informed: approve does NOT override any blocker. all_blockers_intact=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "F",
+      "object_name": "Preconditions review",
+      "source_round": "R241-18X",
+      "required_evidence": "10 preconditions presented to user before any activation discussion",
+      "observed_state": "10 preconditions presented: dedicated memory readiness review, SURFACE-010 unblock, CAND-002 approval, dedicated MCP readiness after memory, CAND-003 approval, gateway sidecar integration review, GSIC-003/004 unblock, DSRT activation review, mainline_gateway_activation_allowed=true only after all gates, explicit user approval. user_review_required=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "G",
+      "object_name": "Future review chain review",
+      "source_round": "R241-18X",
+      "required_evidence": "5 future review rounds presented: R241-18X~18Z",
+      "observed_state": "5 future review rounds presented: R241-18X=Human Proposal Review (this), R241-18W=Structural Validation (done), R241-18Y=Final Authorization Deed Review (next), R241-18Z=Activation Gate Review. All review-only until final gate. user_review_required=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "H",
+      "object_name": "Evidence requirements review",
+      "source_round": "R241-18X",
+      "required_evidence": "12 evidence items presented to user",
+      "observed_state": "12 evidence requirements presented: R241-18J~18U chain, RootGuard dual pass, git snapshot, dirty manifest, 144/144 tests, DSRT/Memory/MCP/Gateway evidence, human auth R241-18S, R241-18T gate, proposal skeleton. user_review_required=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "I",
+      "object_name": "Rollback / abort criteria review",
+      "source_round": "R241-18X",
+      "required_evidence": "15 rollback/abort criteria presented to user",
+      "observed_state": "15 rollback/abort criteria presented: RootGuard fail, DSRT enabled, implemented_now, FastAPI registration, gateway touch, memory/MCP without unblock, Feishu send, webhook, network listener, scheduler, auto-fix, tool enforcement, runtime write, audit write, action queue write, test failure. user_review_required=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "J",
+      "object_name": "Human approval checkpoints review",
+      "source_round": "R241-18X",
+      "required_evidence": "6 human approval checkpoints presented, approval cannot override blockers",
+      "observed_state": "6 human approval checkpoints presented: approval to continue review, enter structural validation, enter human proposal review, enter final deed review, enter activation gate review, explicit before activation. approval_can_override_blockers=false. user_review_required=true.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "K",
+      "object_name": "User decision capture",
+      "source_round": "R241-18X",
+      "required_evidence": "User provided explicit decision: approve_proposal_review_only / reject_proposal / defer",
+      "observed_state": "User explicit statement: '按你的建议进行吧'. Decision: approve_proposal_review_only. human_review_passed=true. activation_approved=false. blocker_override_approved=false. proposal_execution_approved=false. approval_scope=[proposal_review_continuation, final_authorization_deed_review_preparation, evidence_packaging]. Statement is current-conversation explicit, not inferred from silence or context.",
+      "human_review_status": "pass",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    },
+    {
+      "object_id": "L",
+      "object_name": "R241-18Y readiness decision",
+      "source_round": "R241-18X",
+      "required_evidence": "All human review conditions met for entering R241-18Y",
+      "observed_state": "All 12 human review objects assessed: A=passed, B=passed, C=passed, D=passed, E=passed, F=passed, G=passed, H=passed, I=passed, J=passed, K=passed, L=ready. human_review_passed=true, human_decision=approve_proposal_review_only, activation_approved=false, blocker_override_approved=false, allow_enter_r241_18y=true.",
+      "human_review_status": "ready",
+      "blocker": null,
+      "warning": null,
+      "decision": "passed"
+    }
+  ],
+  "tests": {
+    "commands": [
+      "python -m pytest backend/app/foundation/test_gateway_sidecar_integration_review.py -v",
+      "python -m pytest backend/app/foundation -k 'disabled_stub or dsrt or DSRT or feishu or audit_query or trend_report' -v"
+    ],
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 2.29,
+    "breakdown": {
+      "gateway_sidecar_integration_review": 48,
+      "disabled_stub_feishu_audit_trend_dsrt": 96
+    }
+  },
+  "human_review_passed": true,
+  "human_decision": "approve_proposal_review_only",
+  "activation_approved": false,
+  "blocker_override_approved": false,
+  "proposal_execution_approved": false,
+  "deed_execution_approved": false,
+  "allow_enter_r241_18y": true,
+  "warnings": [
+    "59 dirty tracked files from prior R241 sessions — non-blocking, pre-existing",
+    "stash@{0} from R241-17B still present — non-blocking per instructions",
+    "User approval strictly limited to proposal_review_continuation — activation NOT approved"
+  ],
+  "conflicts": [],
+  "safety_violations": [],
+  "final_assessment": {
+    "status": "passed",
+    "decision": "human_approved_proposal_review_only",
+    "human_review_passed": true,
+    "human_decision": "approve_proposal_review_only",
+    "activation_approved": false,
+    "blocker_override_approved": false,
+    "proposal_execution_approved": false,
+    "all_blockers_intact": true,
+    "allow_enter_r241_18y": true,
+    "tests_passed": "144/144",
+    "all_safety_invariants_clean": true,
+    "recommended_resume_point": "R241-18X",
+    "next_prompt_needed": "R241-18Y_MAINLINE_RESUME_FINAL_AUTHORIZATION_DEED_REVIEW"
+  }
+}

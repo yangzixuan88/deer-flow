@@ -1,0 +1,52 @@
+{
+  "issue_id": "issue_001",
+  "issue_title": "AI漫剧的爆款感主要由什么决定",
+  "problem_statement": "在自动化之前，必须先定义“爆款 AI 漫剧”的关键构成，否则会做出能跑但不火的内容。",
+  "why_it_matters": "它决定了后续自动化链路优化目标和验收标准。",
+  "candidate_hypotheses": [
+    {
+      "hypothesis_id": "h1",
+      "statement": "爆款感主要来自剧情钩子与镜头节奏",
+      "owner_role": "rtcm-trend-agent",
+      "why_it_may_hold": "多数爆款短内容依赖开头 3 秒抓人和快速节奏。",
+      "falsification_conditions": "若视觉风格或角色一致性被证明更关键，则该假设弱化。 "
+    },
+    {
+      "hypothesis_id": "h2",
+      "statement": "爆款感主要来自角色设定统一与视觉风格稳定",
+      "owner_role": "rtcm-quality-agent",
+      "why_it_may_hold": "角色脸崩、风格跳变会直接伤害完播和传播。",
+      "falsification_conditions": "若低一致性样片依然传播表现强，则该假设弱化。 "
+    }
+  ],
+  "evidence_summary": "表层证据显示节奏与钩子重要；质量证据显示角色一致性与镜头统一度同样关键。",
+  "challenge_log": [
+    "质询议员指出：不能只看爆款表层形态，要考虑制作成本与自动化可得性。",
+    "效率议员指出：高一致性可能显著抬高人工修正成本。"
+  ],
+  "response_summary": "会议决定将“节奏/钩子”与“角色一致性”都纳入验收标准，不做单因归因。",
+  "known_gaps": [
+    "尚未量化角色一致性阈值",
+    "尚未完成样片 AB 对比"
+  ],
+  "validation_plan_or_result": {
+    "type": "design_only",
+    "plan": "后续用 2 版 30 秒样片测试：高节奏低一致性 vs 中节奏高一致性。"
+  },
+  "verdict": "partially_confirmed",
+  "next_action": "进入 issue_002，验证最小自动化闭环是否能同时顾及节奏与一致性。",
+  "status": "resolved",
+  "strongest_dissent": "过早追求全自动会让角色一致性失控。",
+  "confidence_interval": "0.66-0.78",
+  "unresolved_uncertainties": [
+    "一致性和传播之间的最优权衡点"
+  ],
+  "conditions_to_reopen": [
+    "如果 issue_002 的验证显示一致性无法达到最低阈值，则重开本议题"
+  ],
+  "evidence_ledger_refs": [
+    "ev_001",
+    "ev_002",
+    "ev_004"
+  ]
+}

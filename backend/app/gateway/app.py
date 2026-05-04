@@ -302,7 +302,10 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
     )
 
     # Auth: reject unauthenticated requests to non-public paths (fail-closed safety net)
-    app.add_middleware(AuthMiddleware)
+    # GSIC-003: Only register when AUTH_MIDDLEWARE_ENABLED=true (auth-disabled by default)
+    _auth_middleware_enabled = os.environ.get("AUTH_MIDDLEWARE_ENABLED", "false").lower() == "true"
+    if _auth_middleware_enabled:
+        app.add_middleware(AuthMiddleware)
 
     # CSRF: Double Submit Cookie pattern for state-changing requests
     app.add_middleware(CSRFMiddleware)

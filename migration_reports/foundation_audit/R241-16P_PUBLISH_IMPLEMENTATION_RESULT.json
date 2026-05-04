@@ -1,0 +1,540 @@
+{
+  "generated_at": "2026-04-26T05:02:21.141568+00:00",
+  "result": {
+    "result_id": "publish-impl-61c3e7b70611",
+    "generated_at": "2026-04-26T05:00:43.202188+00:00",
+    "status": "commit_failed",
+    "decision": "block_publish",
+    "requested_option": "option_c_push_to_default_branch_after_confirmation",
+    "workflow_path": ".github/workflows/foundation-manual-dispatch.yml",
+    "commit_attempted": true,
+    "commit_succeeded": false,
+    "push_attempted": false,
+    "push_succeeded": false,
+    "commit_hash": null,
+    "remote_branch": "origin/main",
+    "prechecks": [
+      {
+        "precheck_id": "precheck-publish-7837f37c9e",
+        "check_type": "r241_16o_confirmation",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16O confirmation must allow R241-16P implementation review.",
+        "observed_value": {
+          "status_allowed": true,
+          "decision_allows": true,
+          "allowed_next_phase": true,
+          "requested_option": true,
+          "publish_allowed_now_false": true,
+          "phrase_exact_match": true,
+          "readiness_ready": true,
+          "validation_valid": true,
+          "no_blocked_reasons": true
+        },
+        "expected_value": {
+          "status": "allowed_for_next_review",
+          "requested_option": "option_c_push_to_default_branch_after_confirmation"
+        },
+        "evidence_refs": [
+          "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16O_PUBLISH_CONFIRMATION_GATE.json"
+        ],
+        "blocked_reasons": [],
+        "warnings": [
+          "r241_16o_publish_allowed_now_false_is_expected_contract"
+        ],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-4a5c8655eb",
+        "check_type": "r241_16n_canonical_readiness",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Canonical R241-16N readiness must remain ready and valid.",
+        "observed_value": {
+          "status": "ready_for_publish_confirmation",
+          "decision": "allow_publish_confirmation_gate"
+        },
+        "expected_value": {
+          "status": "ready_for_publish_confirmation",
+          "decision": "allow_publish_confirmation_gate"
+        },
+        "evidence_refs": [
+          "R241-16N_REMOTE_WORKFLOW_PUBLISH_REVIEW.json"
+        ],
+        "blocked_reasons": [],
+        "warnings": [
+          "repo_dirty_warning:210 non-workflow changes ignored"
+        ],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-5a2e1dc4c6",
+        "check_type": "remote_workflow_missing_before_push",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Remote origin/main should not already contain the target workflow before publish.",
+        "observed_value": false,
+        "expected_value": false,
+        "evidence_refs": [
+          "git ls-tree -r origin/main -- .github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-bae41985cf",
+        "check_type": "workflow_safety_and_diff_scope",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Target workflow must be the only workflow diff and remain manual-only/safe.",
+        "observed_value": {
+          "local_workflow_exists": true,
+          "diff_only_target_workflow": true,
+          "existing_workflows_unchanged": true,
+          "workflow_content_safe": true,
+          "workflow_dispatch_only": true,
+          "no_pr_trigger": true,
+          "no_push_trigger": true,
+          "no_schedule_trigger": true,
+          "no_secrets": true,
+          "no_webhook": true,
+          "no_runtime_write": true,
+          "no_audit_jsonl_write": true,
+          "no_action_queue_write": true,
+          "no_auto_fix": true
+        },
+        "expected_value": "all true",
+        "evidence_refs": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-299a1cf16f",
+        "check_type": "git_available",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "git must be available before publish.",
+        "observed_value": "git version 2.53.0.windows.1\n",
+        "expected_value": "git available",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-50a66ff226",
+        "check_type": "current_branch_main",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Current branch must be main for option_c direct publish.",
+        "observed_value": "main",
+        "expected_value": "main",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-c156787e77",
+        "check_type": "staged_area_empty_before_publish",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Staged area must be empty before staging target workflow.",
+        "observed_value": [],
+        "expected_value": [],
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-6fb17a6938",
+        "check_type": "target_workflow_ready_to_add",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Target workflow must be untracked or changed and ready to add.",
+        "observed_value": [
+          {
+            "status": "??",
+            "path": ".github/workflows/foundation-manual-dispatch.yml",
+            "raw": "?? .github/workflows/foundation-manual-dispatch.yml"
+          }
+        ],
+        "expected_value": ".github/workflows/foundation-manual-dispatch.yml",
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [
+          "repo_dirty_warning:210 non-workflow changes ignored"
+        ],
+        "errors": []
+      },
+      {
+        "precheck_id": "precheck-publish-50058de4de",
+        "check_type": "rollback_plan_exists",
+        "passed": true,
+        "risk_level": "high",
+        "description": "Rollback plan must exist before publish.",
+        "observed_value": true,
+        "expected_value": true,
+        "evidence_refs": [],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "git_command_results": [
+      {
+        "command_id": "git_add_target_workflow",
+        "argv": [
+          "git",
+          "add",
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "command_executed": true,
+        "shell_allowed": false,
+        "exit_code": 0,
+        "stdout_tail": "",
+        "stderr_tail": "warning: in the working copy of '.github/workflows/foundation-manual-dispatch.yml', CRLF will be replaced by LF the next time Git touches it\n",
+        "runtime_seconds": 0.0511,
+        "would_modify_git_history": true,
+        "would_push_remote": false,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "command_id": "git_commit_target_workflow",
+        "argv": [
+          "git",
+          "commit",
+          "-m",
+          "Add manual foundation CI workflow"
+        ],
+        "command_executed": true,
+        "shell_allowed": false,
+        "exit_code": 128,
+        "stdout_tail": "",
+        "stderr_tail": "Author identity unknown\n\n*** Please tell me who you are.\n\nRun\n\n  git config --global user.email \"you@example.com\"\n  git config --global user.name \"Your Name\"\n\nto set your account's default identity.\nOmit --global to set the identity only in this repository.\n\nfatal: unable to auto-detect email address (got 'win@DESKTOP-SELQOS2.(none)')\n",
+        "runtime_seconds": 0.0896,
+        "would_modify_git_history": true,
+        "would_push_remote": false,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "remote_visibility_after_push": {},
+    "local_mutation_guard": {
+      "valid": true,
+      "target_workflow_content_unchanged": true,
+      "existing_workflows_unchanged": true,
+      "audit_jsonl_unchanged": true,
+      "runtime_action_queue_unchanged": true,
+      "baseline": {
+        "captured_at": "2026-04-26T05:00:43.784913+00:00",
+        "workflow_file_states": {
+          ".github/workflows/foundation-manual-dispatch.yml": {
+            "exists": true,
+            "sha256": "b0cafd15f9004230055c1e80b78228f219044e38aa426ce82dd5a9ecfd0a125a",
+            "mtime": 1777164469.9387193,
+            "size": 2601
+          },
+          ".github/workflows/backend-unit-tests.yml": {
+            "exists": true,
+            "sha256": "3ec3ca691154e6844a1e5303f3571e14b7fe99ca9addfcae00174aa5db53a653",
+            "mtime": 1775909408.8362625,
+            "size": 863
+          },
+          ".github/workflows/lint-check.yml": {
+            "exists": true,
+            "sha256": "c163c7c3769cd11badd9f7abb9312c3220f1576b048321e921d8019da06e3e7f",
+            "mtime": 1775909408.8362625,
+            "size": 1480
+          }
+        },
+        "audit_jsonl_line_counts": {
+          "migration_reports/foundation_audit/audit_trail/feishu_summary_dryruns.jsonl": 2,
+          "migration_reports/foundation_audit/audit_trail/foundation_diagnostic_runs.jsonl": 14,
+          "migration_reports/foundation_audit/audit_trail/nightly_health_reviews.jsonl": 2
+        },
+        "runtime_action_queue_path_states": {
+          "runtime": {
+            "exists": false,
+            "mtime": null
+          },
+          "action_queue": {
+            "exists": false,
+            "mtime": null
+          },
+          "memory": {
+            "exists": true,
+            "mtime": 1776005958.768018
+          },
+          "asset_registry": {
+            "exists": false,
+            "mtime": null
+          },
+          "prompt_runtime": {
+            "exists": false,
+            "mtime": null
+          },
+          "rtcm": {
+            "exists": true,
+            "mtime": 1776618872.3502479
+          },
+          "governance_state.json": {
+            "exists": false,
+            "mtime": null
+          },
+          "experiment_queue.json": {
+            "exists": false,
+            "mtime": null
+          }
+        },
+        "workflow_git_status": "?? .github/workflows/foundation-manual-dispatch.yml\n",
+        "staged_files": [],
+        "warnings": [],
+        "errors": []
+      },
+      "current": {
+        "captured_at": "2026-04-26T05:02:21.138741+00:00",
+        "workflow_file_states": {
+          ".github/workflows/foundation-manual-dispatch.yml": {
+            "exists": true,
+            "sha256": "b0cafd15f9004230055c1e80b78228f219044e38aa426ce82dd5a9ecfd0a125a",
+            "mtime": 1777164469.9387193,
+            "size": 2601
+          },
+          ".github/workflows/backend-unit-tests.yml": {
+            "exists": true,
+            "sha256": "3ec3ca691154e6844a1e5303f3571e14b7fe99ca9addfcae00174aa5db53a653",
+            "mtime": 1775909408.8362625,
+            "size": 863
+          },
+          ".github/workflows/lint-check.yml": {
+            "exists": true,
+            "sha256": "c163c7c3769cd11badd9f7abb9312c3220f1576b048321e921d8019da06e3e7f",
+            "mtime": 1775909408.8362625,
+            "size": 1480
+          }
+        },
+        "audit_jsonl_line_counts": {
+          "migration_reports/foundation_audit/audit_trail/feishu_summary_dryruns.jsonl": 2,
+          "migration_reports/foundation_audit/audit_trail/foundation_diagnostic_runs.jsonl": 14,
+          "migration_reports/foundation_audit/audit_trail/nightly_health_reviews.jsonl": 2
+        },
+        "runtime_action_queue_path_states": {
+          "runtime": {
+            "exists": false,
+            "mtime": null
+          },
+          "action_queue": {
+            "exists": false,
+            "mtime": null
+          },
+          "memory": {
+            "exists": true,
+            "mtime": 1776005958.768018
+          },
+          "asset_registry": {
+            "exists": false,
+            "mtime": null
+          },
+          "prompt_runtime": {
+            "exists": false,
+            "mtime": null
+          },
+          "rtcm": {
+            "exists": true,
+            "mtime": 1776618872.3502479
+          },
+          "governance_state.json": {
+            "exists": false,
+            "mtime": null
+          },
+          "experiment_queue.json": {
+            "exists": false,
+            "mtime": null
+          }
+        },
+        "workflow_git_status": "?? .github/workflows/foundation-manual-dispatch.yml\n",
+        "staged_files": [],
+        "warnings": [],
+        "errors": []
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "existing_workflows_unchanged": true,
+    "rollback_plan": {
+      "if_only_local_uncommitted": {
+        "description": "Workflow is local only (uncommitted).",
+        "rollback_action": "No action required. File remains local.",
+        "commands": [],
+        "confirmation_required": true
+      },
+      "if_committed_not_pushed": {
+        "description": "Workflow committed to local branch but not pushed.",
+        "rollback_action": "git reset --soft HEAD~1 to uncommit, then git checkout -- .github/workflows/foundation-manual-dispatch.yml to discard.",
+        "commands": [
+          "git reset --soft HEAD~1",
+          "git checkout -- .github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "confirmation_required": true,
+        "warnings": [
+          "This undoes the commit but file content may still be in staging."
+        ]
+      },
+      "if_pushed_to_review_branch": {
+        "description": "Workflow pushed to a review branch (e.g., foundation-manual-dispatch-review).",
+        "rollback_action": "Revert the commit via gh or close the PR.",
+        "commands": [
+          "gh api repos/bytedance/deer-flow/git/refs/heads/foundation-manual-dispatch-review -X DELETE",
+          "# OR: git revert <commit-sha> && git push origin foundation-manual-dispatch-review"
+        ],
+        "confirmation_required": true,
+        "warnings": [
+          "Deleting the branch removes the workflow from GitHub Actions.",
+          "If a PR is open, close it instead of deleting the branch."
+        ]
+      },
+      "if_pushed_to_default_branch": {
+        "description": "Workflow pushed directly to origin/main.",
+        "rollback_action": "Revert the commit or disable the workflow in GitHub Actions settings.",
+        "commands": [
+          "git revert <commit-sha> && git push origin main",
+          "# OR: Disable workflow in GitHub > Actions > select workflow > '...' menu > Disable"
+        ],
+        "confirmation_required": true,
+        "warnings": [
+          "Revert commit on main branch is a write operation.",
+          "GitHub Actions UI disable is irreversible and visible to repo admins.",
+          "Once disabled, the workflow cannot be re-enabled without a new commit."
+        ]
+      },
+      "no_auto_rollback": true,
+      "no_delete_existing_workflows": true
+    },
+    "rollback_result": {
+      "mode": "unstage_target_only",
+      "executed": true,
+      "command_result": {
+        "command_id": "git_reset_target_workflow_after_failed_publish",
+        "argv": [
+          "git",
+          "reset",
+          "--",
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "command_executed": true,
+        "shell_allowed": false,
+        "exit_code": 0,
+        "stdout_tail": "Unstaged changes after reset:\nM\t.dockerignore\nM\t.gitignore\nM\tbackend/AGENTS.md\nM\tbackend/Dockerfile\nM\tbackend/app/channels/discord.py\nM\tbackend/app/channels/feishu.py\nM\tbackend/app/channels/manager.py\nM\tbackend/app/channels/service.py\nM\tbackend/app/channels/slack.py\nM\tbackend/app/channels/telegram.py\nM\tbackend/app/gateway/__init__.py\nM\tbackend/app/gateway/app.py\nM\tbackend/app/gateway/config.py\nM\tbackend/app/gateway/routers/__init__.py\nM\tbackend/app/gateway/routers/agents.py\nM\tbackend/app/gateway/routers/mcp.py\nM\tbackend/app/gateway/services.py\nM\tbackend/packages/harness/deerflow/agents/factory.py\nM\tbackend/packages/harness/deerflow/agents/lead_agent/__init__.py\nM\tbackend/packages/harness/deerflow/agents/lead_agent/agent.py\nM\tbackend/packages/harness/deerflow/agents/lead_agent/prompt.py\nM\tbackend/packages/harness/deerflow/agents/memory/prompt.py\nM\tbackend/packages/harness/deerflow/agents/memory/storage.py\nM\tbackend/packages/harness/deerflow/agents/memory/updater.py\nM\tbackend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py\nM\tbackend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py\nM\tbackend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py\nM\tbackend/packages/harness/deerflow/agents/middlewares/memory_middleware.py\nM\tbackend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py\nM\tbackend/packages/harness/deerflow/agents/thread_state.py\nM\tbackend/packages/harness/deerflow/config/agents_config.py\nM\tbackend/packages/harness/deerflow/config/app_config.py\nM\tbackend/packages/harness/deerflow/config/extensions_config.py\nM\tbackend/packages/harness/deerflow/config/memory_config.py\nM\tbackend/packages/harness/deerflow/config/paths.py\nM\tbackend/packages/harness/deerflow/mcp/client.py\nM\tbackend/packages/harness/deerflow/mcp/oauth.py\nM\tbackend/packages/harness/deerflow/mcp/tools.py\nM\tbackend/packages/harness/deerflow/models/factory.py\nM\tbackend/packages/harness/deerflow/models/patched_minimax.py\nM\tbackend/packages/harness/deerflow/runtime/runs/worker.py\nM\tbackend/packages/harness/deerflow/sandbox/local/local_sandbox.py\nM\tbackend/packages/harness/deerflow/tools/builtins/__init__.py\nM\tbackend/packages/harness/deerflow/tools/builtins/task_tool.py\nM\tbackend/packages/harness/deerflow/tools/tools.py\nM\tbackend/packages/harness/pyproject.toml\nM\tbackend/pyproject.toml\nM\tbackend/tests/test_channels.py\nM\tbackend/uv.lock\nM\tdocker/provisioner/app.py\nM\tfrontend/.env.example\nM\tfrontend/CLAUDE.md\nM\tfrontend/README.md\nM\tfrontend/next.config.js\nM\tfrontend/package.json\nM\tfrontend/src/core/mcp/api.ts\nM\tfrontend/src/core/models/api.ts\nM\tfrontend/src/core/skills/api.ts\nM\tfrontend/src/server/better-auth/config.ts\n",
+        "stderr_tail": "",
+        "runtime_seconds": 0.0601,
+        "would_modify_git_history": true,
+        "would_push_remote": false,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      "reason": "commit_failed_git_author_identity_missing",
+      "warnings": [
+        "only target workflow was unstaged; no hard reset used"
+      ],
+      "errors": []
+    },
+    "warnings": [
+      "non_workflow_dirty_files_ignored_for_publish_commit"
+    ],
+    "errors": [
+      "git_commit_failed"
+    ],
+    "baseline_capture": {
+      "captured_at": "2026-04-26T05:00:43.784913+00:00",
+      "workflow_file_states": {
+        ".github/workflows/foundation-manual-dispatch.yml": {
+          "exists": true,
+          "sha256": "b0cafd15f9004230055c1e80b78228f219044e38aa426ce82dd5a9ecfd0a125a",
+          "mtime": 1777164469.9387193,
+          "size": 2601
+        },
+        ".github/workflows/backend-unit-tests.yml": {
+          "exists": true,
+          "sha256": "3ec3ca691154e6844a1e5303f3571e14b7fe99ca9addfcae00174aa5db53a653",
+          "mtime": 1775909408.8362625,
+          "size": 863
+        },
+        ".github/workflows/lint-check.yml": {
+          "exists": true,
+          "sha256": "c163c7c3769cd11badd9f7abb9312c3220f1576b048321e921d8019da06e3e7f",
+          "mtime": 1775909408.8362625,
+          "size": 1480
+        }
+      },
+      "audit_jsonl_line_counts": {
+        "migration_reports/foundation_audit/audit_trail/feishu_summary_dryruns.jsonl": 2,
+        "migration_reports/foundation_audit/audit_trail/foundation_diagnostic_runs.jsonl": 14,
+        "migration_reports/foundation_audit/audit_trail/nightly_health_reviews.jsonl": 2
+      },
+      "runtime_action_queue_path_states": {
+        "runtime": {
+          "exists": false,
+          "mtime": null
+        },
+        "action_queue": {
+          "exists": false,
+          "mtime": null
+        },
+        "memory": {
+          "exists": true,
+          "mtime": 1776005958.768018
+        },
+        "asset_registry": {
+          "exists": false,
+          "mtime": null
+        },
+        "prompt_runtime": {
+          "exists": false,
+          "mtime": null
+        },
+        "rtcm": {
+          "exists": true,
+          "mtime": 1776618872.3502479
+        },
+        "governance_state.json": {
+          "exists": false,
+          "mtime": null
+        },
+        "experiment_queue.json": {
+          "exists": false,
+          "mtime": null
+        }
+      },
+      "workflow_git_status": "?? .github/workflows/foundation-manual-dispatch.yml\n",
+      "staged_files": [],
+      "warnings": [],
+      "errors": []
+    },
+    "commit_changed_files": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": [],
+    "command_ids": [
+      "git_add_target_workflow",
+      "git_commit_target_workflow"
+    ]
+  },
+  "warnings": [
+    "non_workflow_dirty_files_ignored_for_publish_commit"
+  ],
+  "errors": [
+    "git_commit_failed"
+  ]
+}

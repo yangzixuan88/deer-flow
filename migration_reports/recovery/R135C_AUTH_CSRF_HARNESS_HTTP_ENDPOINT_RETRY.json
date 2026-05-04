@@ -1,0 +1,71 @@
+{
+  "phase": "R135C",
+  "title": "AUTH_CSRF_HARNESS_HTTP_ENDPOINT_RETRY",
+  "status": "passed",
+  "preceded_by": "R135B",
+  "proceeding_to": "R135D",
+  "pressure_assessment": {
+    "previous_phase": "R135B",
+    "current_status": "passed",
+    "recommended_pressure": "XL+",
+    "reason": "Auth fixed; next blocker is stream_bridge initialization for POST /runs"
+  },
+  "lane_5_store_isolation": {
+    "checkpointer_source_confirmed": "app.state.checkpointer via deps._require('checkpointer')",
+    "thread_store_source_confirmed": "app.state.thread_store via get_thread_store()",
+    "thread_meta_repo_source_confirmed": "app.state.thread_meta_repo via get_thread_meta_repo()",
+    "fix_applied": true,
+    "fix_type": "monkey_patch both app.state.thread_store and app.state.thread_meta_repo",
+    "stores_injected": [
+      "InMemorySaver()",
+      "InlineMemoryThreadMetaStore()",
+      "InlineMemoryThreadMetaStore()"
+    ],
+    "checkpointer_injected": "InMemorySaver()",
+    "result": "POST /api/threads -> 200; GET /api/threads/{thread_id} -> 200"
+  },
+  "lane_6_get_thread": {
+    "attempted": true,
+    "status": 200,
+    "thread_id_reused": true,
+    "detail": "GET /api/threads/{thread_id} works when app.state.thread_meta_repo is set"
+  },
+  "lane_7_post_runs": {
+    "attempted": true,
+    "status": 503,
+    "error": "Stream bridge not available",
+    "auth_blocked": false,
+    "csrf_blocked": false,
+    "next_blocker": "stream_bridge (requires full gateway lifespan or runtime context)",
+    "requires_R136": true,
+    "detail": "POST /runs requires stream_bridge from langgraph_runtime context manager"
+  },
+  "result": {
+    "r135c_result": "passed",
+    "auth_internal_header_works": true,
+    "csrf_validation_works": true,
+    "thread_create_works": true,
+    "thread_get_works": true,
+    "runs_endpoint_blocked_by_stream_bridge": true,
+    "stream_bridge_required": true
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R135C_AUTH_CSRF_HARNESS_HTTP_ENDPOINT_RETRY.md",
+    "migration_reports/recovery/R135C_AUTH_CSRF_HARNESS_HTTP_ENDPOINT_RETRY.json"
+  ],
+  "recommended_next_phase": "R135D_STREAM_BRIDGE_BYPASS_FEASIBILITY",
+  "next_prompt_needed": "R135D"
+}

@@ -1,0 +1,392 @@
+{
+  "generated_at": "2026-04-26T05:32:23.184552+00:00",
+  "review": {
+    "review_id": "push-failure-review-96f24f6a7c88",
+    "generated_at": "2026-04-26T05:32:23.144040+00:00",
+    "status": "reviewed_push_permission_denied",
+    "decision": "keep_local_commit",
+    "local_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+    "local_commit_exists": true,
+    "local_commit_only_target_workflow": true,
+    "local_branch": "main",
+    "ahead_behind_summary": "0\t1",
+    "remote_url_summary": "origin\thttps://github.com/bytedance/deer-flow.git (fetch)\norigin\thttps://github.com/bytedance/deer-flow.git (push)\n",
+    "push_failure_summary": {
+      "classification": "permission_denied_403",
+      "actor": "yangzixuan88",
+      "stderr_tail": "warning: in the working copy of '.github/workflows/foundation-manual-dispatch.yml', CRLF will be replaced by LF the next time Git touches it\n\n\nwarning: ----------------- SECURITY WARNING ----------------\nwarning: | TLS certificate verification has been disabled! |\nwarning: ---------------------------------------------------\nwarning: HTTPS connections may not be secure. See https://aka.ms/gcm/tlsverify for more information.\nwarning: ----------------- SECURITY WARNING ----------------\nwarning: | TLS certificate verification has been disabled! |\nwarning: ---------------------------------------------------\nwarning: HTTPS connections may not be secure. See https://aka.ms/gcm/tlsverify for more information.\nremote: Permission to bytedance/deer-flow.git denied to yangzixuan88.\nfatal: unable to access 'https://github.com/bytedance/deer-flow.git/': The requested URL returned error: 403\n",
+      "push_exit_code": 128,
+      "warnings": [],
+      "errors": []
+    },
+    "remote_workflow_present": false,
+    "existing_workflows_unchanged": true,
+    "local_mutation_guard": {
+      "valid": false,
+      "workflow_files_unchanged": true,
+      "audit_jsonl_unchanged": true,
+      "runtime_action_queue_unchanged": true,
+      "staged_area_empty": false,
+      "staged_files": [
+        "/app/m10/"
+      ],
+      "no_auto_fix": true,
+      "branch_unchanged": true,
+      "warnings": [],
+      "errors": [
+        "staged_files_detected"
+      ]
+    },
+    "local_commit_inspection": {
+      "local_commit_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+      "head_hash": "94908556cc2ca66c219d361f424954945eee9e67",
+      "head_equals_publish_commit": true,
+      "origin_main_hash": "c4d273a68a6b72bf2dec75c0b230f3fba68bc212",
+      "local_commit_exists": true,
+      "commit_changed_files": [
+        ".github/workflows/foundation-manual-dispatch.yml"
+      ],
+      "local_commit_only_target_workflow": true,
+      "commit_message": "Add manual foundation CI workflow",
+      "local_branch": "main",
+      "ahead_behind_summary": "0\t1",
+      "staged_area_empty": false,
+      "staged_files": [
+        "/app/m10/"
+      ],
+      "workflow_content_safe": true,
+      "workflow_dispatch_only": true,
+      "existing_workflows_unchanged": true,
+      "workflow_status": "",
+      "stat": "94908556cc2ca66c219d361f424954945eee9e67\n .github/workflows/foundation-manual-dispatch.yml | 68 ++++++++++++++++++++++++\n 1 file changed, 68 insertions(+)\n",
+      "status": "design_only",
+      "warnings": [],
+      "errors": []
+    },
+    "remote_missing_workflow_check": {
+      "remote_workflow_present": false,
+      "exact_path_present": false,
+      "command_result": {
+        "argv": [
+          "git",
+          "ls-tree",
+          "-r",
+          "origin/main",
+          "--",
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "command_executed": true,
+        "shell_allowed": false,
+        "exit_code": 0,
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "runtime_seconds": 0.0371,
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "recovery_options": [
+      {
+        "option_id": "option_a_keep_local_commit_wait_permission",
+        "label": "Keep local commit and wait for upstream permission",
+        "risk_level": "low",
+        "recommended_when": [
+          "permission_denied_403"
+        ],
+        "recommended": true,
+        "description": "Keep the safe local commit ahead 1 and retry push only after upstream permission is granted."
+      },
+      {
+        "option_id": "option_b_push_to_user_fork_after_confirmation",
+        "label": "Push to user fork after confirmation",
+        "risk_level": "medium",
+        "recommended": false,
+        "description": "Requires an explicit fork remote or confirmation of an existing fork remote."
+      },
+      {
+        "option_id": "option_c_create_review_branch_after_confirmation",
+        "label": "Create review branch after confirmation",
+        "risk_level": "medium",
+        "recommended": false,
+        "description": "Requires branch creation and push; may still fail without remote permission."
+      },
+      {
+        "option_id": "option_d_generate_patch_bundle_after_confirmation",
+        "label": "Generate patch or bundle after confirmation",
+        "risk_level": "low",
+        "recommended": false,
+        "description": "Creates a handoff artifact under migration_reports/foundation_audit without remote push."
+      },
+      {
+        "option_id": "option_e_rollback_local_commit_after_confirmation",
+        "label": "Rollback local commit after confirmation",
+        "risk_level": "high",
+        "recommended": false,
+        "description": "Requires explicit confirmation; this review does not reset/revert."
+      }
+    ],
+    "recommended_option": "option_a_keep_local_commit_wait_permission",
+    "command_blueprints": [
+      {
+        "command_id": "wait_for_permission_no_command",
+        "recovery_option": "option_a_keep_local_commit_wait_permission",
+        "argv": [],
+        "command_allowed_now": false,
+        "would_modify_git_history": false,
+        "would_push_remote": false,
+        "would_create_branch": false,
+        "would_create_pr": false,
+        "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "command_id": "push_to_user_fork_after_confirmation",
+        "recovery_option": "option_b_push_to_user_fork_after_confirmation",
+        "argv": [
+          "git",
+          "push",
+          "user-fork",
+          "main"
+        ],
+        "command_allowed_now": false,
+        "would_modify_git_history": false,
+        "would_push_remote": true,
+        "would_create_branch": false,
+        "would_create_pr": false,
+        "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "command_id": "create_review_branch_after_confirmation",
+        "recovery_option": "option_c_create_review_branch_after_confirmation",
+        "argv": [
+          "git",
+          "branch",
+          "foundation-manual-workflow-review"
+        ],
+        "command_allowed_now": false,
+        "would_modify_git_history": true,
+        "would_push_remote": false,
+        "would_create_branch": true,
+        "would_create_pr": false,
+        "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "command_id": "generate_patch_bundle_after_confirmation",
+        "recovery_option": "option_d_generate_patch_bundle_after_confirmation",
+        "argv": [
+          "git",
+          "format-patch",
+          "-1",
+          "HEAD",
+          "-o",
+          "migration_reports/foundation_audit"
+        ],
+        "command_allowed_now": false,
+        "would_modify_git_history": false,
+        "would_push_remote": false,
+        "would_create_branch": false,
+        "would_create_pr": false,
+        "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "command_id": "rollback_local_commit_after_confirmation",
+        "recovery_option": "option_e_rollback_local_commit_after_confirmation",
+        "argv": [
+          "git",
+          "reset",
+          "--soft",
+          "HEAD~1"
+        ],
+        "command_allowed_now": false,
+        "would_modify_git_history": true,
+        "would_push_remote": false,
+        "would_create_branch": false,
+        "would_create_pr": false,
+        "requires_confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "rollback_plan": {
+      "if_only_local_uncommitted": {
+        "description": "Workflow is local only (uncommitted).",
+        "rollback_action": "No action required. File remains local.",
+        "commands": [],
+        "confirmation_required": true
+      },
+      "if_committed_not_pushed": {
+        "description": "Workflow committed to local branch but not pushed.",
+        "rollback_action": "git reset --soft HEAD~1 to uncommit, then git checkout -- .github/workflows/foundation-manual-dispatch.yml to discard.",
+        "commands": [
+          "git reset --soft HEAD~1",
+          "git checkout -- .github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "confirmation_required": true,
+        "warnings": [
+          "This undoes the commit but file content may still be in staging."
+        ]
+      },
+      "if_pushed_to_review_branch": {
+        "description": "Workflow pushed to a review branch (e.g., foundation-manual-dispatch-review).",
+        "rollback_action": "Revert the commit via gh or close the PR.",
+        "commands": [
+          "gh api repos/bytedance/deer-flow/git/refs/heads/foundation-manual-dispatch-review -X DELETE",
+          "# OR: git revert <commit-sha> && git push origin foundation-manual-dispatch-review"
+        ],
+        "confirmation_required": true,
+        "warnings": [
+          "Deleting the branch removes the workflow from GitHub Actions.",
+          "If a PR is open, close it instead of deleting the branch."
+        ]
+      },
+      "if_pushed_to_default_branch": {
+        "description": "Workflow pushed directly to origin/main.",
+        "rollback_action": "Revert the commit or disable the workflow in GitHub Actions settings.",
+        "commands": [
+          "git revert <commit-sha> && git push origin main",
+          "# OR: Disable workflow in GitHub > Actions > select workflow > '...' menu > Disable"
+        ],
+        "confirmation_required": true,
+        "warnings": [
+          "Revert commit on main branch is a write operation.",
+          "GitHub Actions UI disable is irreversible and visible to repo admins.",
+          "Once disabled, the workflow cannot be re-enabled without a new commit."
+        ]
+      },
+      "no_auto_rollback": true,
+      "no_delete_existing_workflows": true
+    },
+    "confirmation_requirements": {
+      "confirmation_required": true,
+      "confirmation_phrase": "CONFIRM_PUBLISH_RECOVERY_PATH",
+      "applies_to": [
+        "option_b_push_to_user_fork_after_confirmation",
+        "option_c_create_review_branch_after_confirmation",
+        "option_d_generate_patch_bundle_after_confirmation",
+        "option_e_rollback_local_commit_after_confirmation"
+      ]
+    },
+    "checks": [
+      {
+        "check_id": "push-failure-check-3f2c375b5d",
+        "check_type": "r241_16p_retry_result",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "R241-16P-Retry result must be retry_push_failed with safe local commit.",
+        "command_blueprint": {},
+        "command_executed": {},
+        "observed_value": {
+          "status_retry_push_failed": true,
+          "publish_status_push_failed": true,
+          "commit_succeeded_true": true,
+          "push_succeeded_false": true,
+          "commit_hash_exists": true,
+          "errors_include_git_push_failed": true,
+          "existing_workflows_unchanged": true,
+          "audit_jsonl_unchanged": true,
+          "runtime_action_queue_unchanged": true,
+          "no_gh_workflow_run": true
+        },
+        "expected_value": "retry_push_failed",
+        "evidence_refs": [
+          "E:\\OpenClaw-Base\\deerflow\\migration_reports\\foundation_audit\\R241-16P_RETRY_PUBLISH_IMPLEMENTATION_RESULT.json"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "push-failure-check-d787492228",
+        "check_type": "local_commit_scope",
+        "passed": true,
+        "risk_level": "critical",
+        "description": "Local HEAD must be the publish commit and include only target workflow.",
+        "command_blueprint": {},
+        "command_executed": {},
+        "observed_value": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "expected_value": [
+          ".github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "evidence_refs": [
+          "git diff-tree --no-commit-id --name-only -r HEAD"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "push-failure-check-ec94d14d5a",
+        "check_type": "remote_workflow_missing",
+        "passed": true,
+        "risk_level": "high",
+        "description": "origin/main should still miss the target workflow after push failure.",
+        "command_blueprint": {},
+        "command_executed": {},
+        "observed_value": false,
+        "expected_value": false,
+        "evidence_refs": [
+          "git ls-tree -r origin/main -- .github/workflows/foundation-manual-dispatch.yml"
+        ],
+        "blocked_reasons": [],
+        "warnings": [],
+        "errors": []
+      },
+      {
+        "check_id": "push-failure-check-aafe256b36",
+        "check_type": "mutation_guard",
+        "passed": false,
+        "risk_level": "critical",
+        "description": "Review must not stage files or mutate workflow/runtime/audit/action queue.",
+        "command_blueprint": {},
+        "command_executed": {},
+        "observed_value": {
+          "valid": false,
+          "workflow_files_unchanged": true,
+          "audit_jsonl_unchanged": true,
+          "runtime_action_queue_unchanged": true,
+          "staged_area_empty": false,
+          "staged_files": [
+            "/app/m10/"
+          ],
+          "no_auto_fix": true,
+          "branch_unchanged": true,
+          "warnings": [],
+          "errors": [
+            "staged_files_detected"
+          ]
+        },
+        "expected_value": {
+          "valid": true,
+          "staged_area_empty": true
+        },
+        "evidence_refs": [],
+        "blocked_reasons": [
+          "staged_files_detected"
+        ],
+        "warnings": [],
+        "errors": []
+      }
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "errors": []
+  },
+  "warnings": [],
+  "errors": []
+}

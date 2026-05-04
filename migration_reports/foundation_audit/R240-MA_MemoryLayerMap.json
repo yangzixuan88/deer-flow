@@ -1,0 +1,94 @@
+{
+  "audit_id": "R240-MA",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "summary": "Original memory design defines five layers plus dual OpenClaw/DeerFlow tracks. Current runtime is strongest in DeerFlow Harness file memory with partial Qdrant.",
+  "layers": [
+    {
+      "layer": "L1",
+      "name": "Working Memory",
+      "design_engine": "ReMe",
+      "responsibility": "Current task context, recent token window, scratchpad, active structured summary.",
+      "code_paths": [
+        "backend/src/domain/memory/layer1/working_memory.ts",
+        "backend/src/domain/memory/types.ts"
+      ],
+      "runtime_artifacts": [
+        "backend/.deer-flow/.openclaw/checkpoints.db",
+        "backend/.deer-flow/threads/*"
+      ],
+      "lifecycle": "current_task_then_sink_to_session",
+      "long_term_eligible": false,
+      "share_policy": "isolated_by_request_or_thread",
+      "current_status": "code_exists_runtime_partial"
+    },
+    {
+      "layer": "L2",
+      "name": "Session Memory",
+      "design_engine": "SimpleMem",
+      "responsibility": "Recent sessions, compressed session summaries, multimodal session context.",
+      "code_paths": [
+        "backend/src/domain/memory/layer2/session_memory.ts",
+        "backend/packages/harness/deerflow/agents/memory/storage.py"
+      ],
+      "runtime_artifacts": [
+        "backend/.deer-flow/.openclaw/memory.json",
+        "backend/.deer-flow/threads/*"
+      ],
+      "lifecycle": "session_scale_with_possible_consolidation",
+      "long_term_eligible": "only_after_quality_and_scope_gate",
+      "share_policy": "session_scoped_by_default",
+      "current_status": "runtime_partial"
+    },
+    {
+      "layer": "L3",
+      "name": "Persistent Memory",
+      "design_engine": "MemOS Local Plugin",
+      "responsibility": "Stable preferences, persistent facts, capability maps, reusable skill/tool knowledge.",
+      "code_paths": [
+        "backend/src/domain/memory/layer3/persistent_memory.ts",
+        "backend/packages/harness/deerflow/agents/memory/storage.py",
+        "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py"
+      ],
+      "runtime_artifacts": [
+        "backend/.deer-flow/.openclaw/memory.json"
+      ],
+      "lifecycle": "long_term_after_validation",
+      "long_term_eligible": true,
+      "share_policy": "shared_when_scope_and_privacy_allow",
+      "current_status": "runtime_exists_not_fully_blueprinted_to_current_paths"
+    },
+    {
+      "layer": "L4",
+      "name": "Knowledge Graph",
+      "design_engine": "GraphRAG + Mem0",
+      "responsibility": "Entity-relation graph, semantic network, cross-task knowledge distillation.",
+      "code_paths": [
+        "backend/src/domain/memory/layer4/knowledge_graph.ts",
+        "backend/packages/harness/deerflow/agents/memory/vector_storage.py"
+      ],
+      "runtime_artifacts": [
+        "backend/.deer-flow/data/qdrant/collection/deerflow_memory/storage.sqlite"
+      ],
+      "lifecycle": "nightly_distilled_long_term_graph",
+      "long_term_eligible": true,
+      "share_policy": "shared_if_verified_and_non_sensitive",
+      "current_status": "wired_not_runtime_verified_full_scale"
+    },
+    {
+      "layer": "L5",
+      "name": "Visual Anchor Memory",
+      "design_engine": "CortexaDB",
+      "responsibility": "GUI screenshots, visual anchors, UI operation anchors for UI-TARS/Midscene.",
+      "code_paths": [
+        "backend/src/domain/memory/layer5/visual_anchor.ts"
+      ],
+      "runtime_artifacts": [
+        "backend/.deer-flow/threads/*/user-data/*"
+      ],
+      "lifecycle": "workflow_or_ui_task_scoped_then_verified_for_reuse",
+      "long_term_eligible": "only_if_reusable_and_verified",
+      "share_policy": "isolated_until_verified",
+      "current_status": "code_exists_not_wired"
+    }
+  ]
+}

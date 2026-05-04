@@ -1,0 +1,740 @@
+{
+  "matrix_id": "observability_matrix_4fd3516ed611",
+  "generated_at": "2026-04-25T06:45:12.370090+00:00",
+  "root": "E:\\OpenClaw-Base\\deerflow",
+  "capabilities": [
+    {
+      "capability_id": "read_only_diagnostic_cli",
+      "capability_type": "read_only_diagnostic",
+      "phase_range": "R241-10A/10B/10C",
+      "owner_module": "app.foundation.read_only_diagnostics_cli",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": true,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.180039+00:00"
+    },
+    {
+      "capability_id": "audit_trail_contract",
+      "capability_type": "audit_record_projection",
+      "phase_range": "R241-11A",
+      "owner_module": "app.audit.audit_trail_contract",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.234205+00:00"
+    },
+    {
+      "capability_id": "append_only_audit_writer",
+      "capability_type": "append_only_audit",
+      "phase_range": "R241-11C",
+      "owner_module": "app.audit.audit_trail_writer",
+      "status": "complete",
+      "read_only": false,
+      "append_only": true,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "implement_append_only_trend_audit",
+      "reviewed_at": "2026-04-25T06:45:12.235668+00:00"
+    },
+    {
+      "capability_id": "audit_query_engine",
+      "capability_type": "audit_query",
+      "phase_range": "R241-11D",
+      "owner_module": "app.audit.audit_trail_query",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.237010+00:00"
+    },
+    {
+      "capability_id": "trend_contract",
+      "capability_type": "trend_projection",
+      "phase_range": "R241-12A",
+      "owner_module": "app.audit.audit_trend_contract",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.238515+00:00"
+    },
+    {
+      "capability_id": "trend_projection",
+      "capability_type": "trend_projection",
+      "phase_range": "R241-12B",
+      "owner_module": "app.audit.audit_trend_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.239582+00:00"
+    },
+    {
+      "capability_id": "trend_artifact_writer",
+      "capability_type": "trend_artifact",
+      "phase_range": "R241-12C",
+      "owner_module": "app.audit.audit_trend_report_artifact",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.240822+00:00"
+    },
+    {
+      "capability_id": "trend_cli_guard",
+      "capability_type": "trend_cli_guard",
+      "phase_range": "R241-12D",
+      "owner_module": "app.audit.audit_trend_cli_guard",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": true,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "split_slow_tests",
+      "reviewed_at": "2026-04-25T06:45:12.242046+00:00"
+    },
+    {
+      "capability_id": "feishu_trend_dryrun_design",
+      "capability_type": "feishu_projection",
+      "phase_range": "R241-13A",
+      "owner_module": "app.audit.audit_trend_feishu_contract",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.243374+00:00"
+    },
+    {
+      "capability_id": "feishu_trend_projection",
+      "capability_type": "feishu_projection",
+      "phase_range": "R241-13B",
+      "owner_module": "app.audit.audit_trend_feishu_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-13C_AUDIT_TREND_FEISHU_CLI_PREVIEW_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.244403+00:00"
+    },
+    {
+      "capability_id": "feishu_trend_cli_preview",
+      "capability_type": "feishu_preview",
+      "phase_range": "R241-13C",
+      "owner_module": "app.audit.audit_trend_feishu_preview",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": true,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "stabilize_tests",
+      "reviewed_at": "2026-04-25T06:45:12.245638+00:00"
+    },
+    {
+      "capability_id": "manual_send_policy_design",
+      "capability_type": "manual_send_policy",
+      "phase_range": "R241-13D",
+      "owner_module": "app.audit.audit_trend_feishu_send_policy",
+      "status": "blocked",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [
+        "manual_send_blocked_until_phase_5"
+      ],
+      "next_recommendation": "keep_blocked",
+      "reviewed_at": "2026-04-25T06:45:12.246881+00:00"
+    },
+    {
+      "capability_id": "integration_readiness_matrix",
+      "capability_type": "integration_readiness",
+      "phase_range": "R241-9A/9B",
+      "owner_module": "app.foundation.integration_readiness",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.252791+00:00"
+    },
+    {
+      "capability_id": "nightly_health_review",
+      "capability_type": "nightly_health_review",
+      "phase_range": "R241-8A",
+      "owner_module": "app.nightly.foundation_health_review",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.260271+00:00"
+    },
+    {
+      "capability_id": "nightly_health_summary",
+      "capability_type": "nightly_health_review",
+      "phase_range": "R241-8B",
+      "owner_module": "app.nightly.foundation_health_summary",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-8A_NIGHTLY_FOUNDATION_HEALTH_REVIEW_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.264818+00:00"
+    },
+    {
+      "capability_id": "rtcm_runtime_projection",
+      "capability_type": "rtcm_projection",
+      "phase_range": "R241-7A/7B",
+      "owner_module": "app.rtcm.rtcm_runtime_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-7B_RTCM_RUNTIME_PROJECTION_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-7B_RTCM_RUNTIME_PROJECTION_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.291496+00:00"
+    },
+    {
+      "capability_id": "memory_projection",
+      "capability_type": "memory_projection",
+      "phase_range": "R241-2A/2B",
+      "owner_module": "app.memory.memory_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-2A_MEMORY_LAYER_RUNTIME_SAMPLE.json",
+        "migration_reports\\foundation_audit\\R241-2B_MEMORY_PROJECTION_RUNTIME_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-2A_MEMORY_LAYER_CONTRACT_WRAPPER_REPORT.md",
+        "migration_reports\\foundation_audit\\R241-2B_MEMORY_READONLY_PROJECTION_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.300346+00:00"
+    },
+    {
+      "capability_id": "asset_projection",
+      "capability_type": "asset_projection",
+      "phase_range": "R241-3A/3B",
+      "owner_module": "app.asset.asset_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-3A_ASSET_LIFECYCLE_RUNTIME_SAMPLE.json",
+        "migration_reports\\foundation_audit\\R241-3B_ASSET_PROJECTION_RUNTIME_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-3A_ASSET_LIFECYCLE_CONTRACT_WRAPPER_REPORT.md",
+        "migration_reports\\foundation_audit\\R241-3B_ASSET_READONLY_PROJECTION_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.307213+00:00"
+    },
+    {
+      "capability_id": "tool_runtime_projection",
+      "capability_type": "tool_runtime_projection",
+      "phase_range": "R241-5A/5B",
+      "owner_module": "app.tool_runtime.tool_runtime_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-5A_TOOL_RUNTIME_SAMPLE.json",
+        "migration_reports\\foundation_audit\\R241-5B_TOOL_RUNTIME_GATEWAY_MODE_SAMPLE.json",
+        "migration_reports\\foundation_audit\\R241-8A_TOOL_RUNTIME_HEALTH_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-5A_TOOL_RUNTIME_INSTRUMENTATION_REPORT.md",
+        "migration_reports\\foundation_audit\\R241-5B_TOOL_RUNTIME_GATEWAY_MODE_PROJECTION_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.326884+00:00"
+    },
+    {
+      "capability_id": "prompt_projection",
+      "capability_type": "prompt_projection",
+      "phase_range": "R241-6A/6B",
+      "owner_module": "app.prompt.prompt_projection",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-6A_PROMPT_GOVERNANCE_SAMPLE.json",
+        "migration_reports\\foundation_audit\\R241-6B_PROMPT_PROJECTION_RUNTIME_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-6A_PROMPT_GOVERNANCE_WRAPPER_REPORT.md",
+        "migration_reports\\foundation_audit\\R241-6B_PROMPT_READONLY_PROJECTION_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.343557+00:00"
+    },
+    {
+      "capability_id": "mode_instrumentation",
+      "capability_type": "mode_instrumentation",
+      "phase_range": "R241-4A/4B",
+      "owner_module": "app.gateway.mode_instrumentation",
+      "status": "mostly_complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": false,
+      "test_count": null,
+      "sample_refs": [
+        "migration_reports\\foundation_audit\\R241-4B_GATEWAY_MODE_INSTRUMENTATION_SAMPLE.json"
+      ],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-4B_GATEWAY_CONTEXT_MODE_INSTRUMENTATION_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.344831+00:00"
+    },
+    {
+      "capability_id": "truth_state_projection",
+      "capability_type": "truth_state_projection",
+      "phase_range": "R241-1A/1B/1C",
+      "owner_module": "app.m11.truth_state_contract",
+      "status": "complete",
+      "read_only": true,
+      "append_only": false,
+      "writes_runtime": false,
+      "calls_network": false,
+      "modifies_gateway": false,
+      "has_cli": false,
+      "has_tests": true,
+      "test_count": null,
+      "sample_refs": [],
+      "report_refs": [
+        "migration_reports\\foundation_audit\\R241-1A_TRUTH_STATE_WRAPPER_REPORT.md"
+      ],
+      "known_warnings": [],
+      "blockers": [],
+      "next_recommendation": "unknown",
+      "reviewed_at": "2026-04-25T06:45:12.351060+00:00"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "queue_missing_projection_gap",
+      "risk_level": "medium",
+      "risk_type": "data_gap",
+      "description": "queue_missing_warning_count may not be fully projected in tool_runtime",
+      "current_mitigation": "monitor queue_missing_warning_count in nightly trend review",
+      "recommended_action": "Implement queue_missing_warning_count projection in tool_runtime_projection",
+      "affected_capabilities": [
+        "tool_runtime_projection"
+      ],
+      "evidence_refs": [
+        "backend/app/tool_runtime/tool_runtime_projection.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "unknown_taxonomy_risk",
+      "risk_level": "medium",
+      "risk_type": "completeness",
+      "description": "Unknown taxonomy items persist across trend reviews",
+      "current_mitigation": "Nightly review generates unknown taxonomy report",
+      "recommended_action": "Investigate and classify unknown taxonomy items",
+      "affected_capabilities": [
+        "nightly_health_review",
+        "trend_projection"
+      ],
+      "evidence_refs": [
+        "backend/app/nightly/foundation_health_review.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "feishu_send_validator_missing",
+      "risk_level": "high",
+      "risk_type": "blocked_capability",
+      "description": "Manual send policy design is complete but pre-send validator not implemented",
+      "current_mitigation": "All send paths remain blocked; design contract enforced",
+      "recommended_action": "Implement Phase 2 pre-send policy validator",
+      "affected_capabilities": [
+        "manual_send_policy_design"
+      ],
+      "evidence_refs": [
+        "backend/app/audit/audit_trend_feishu_send_policy.py"
+      ],
+      "blocked_until": "Phase_5_implementation_complete",
+      "warnings": []
+    },
+    {
+      "risk_id": "gateway_sidecar_missing",
+      "risk_level": "medium",
+      "risk_type": "integration",
+      "description": "Read-only API sidecar for Gateway observability not designed",
+      "current_mitigation": "Mode instrumentation writes to append-only audit only",
+      "recommended_action": "Design read-only API sidecar (Option B next phase)",
+      "affected_capabilities": [
+        "mode_instrumentation",
+        "truth_state_projection"
+      ],
+      "evidence_refs": [
+        "backend/app/gateway/mode_instrumentation.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "audit_retention_rotation_missing",
+      "risk_level": "low",
+      "risk_type": "operational",
+      "description": "Append-only audit JSONL files need rotation and retention policy",
+      "current_mitigation": "Files grow indefinitely; no rotation policy",
+      "recommended_action": "Design audit JSONL rotation/retention policy (Option D next phase)",
+      "affected_capabilities": [
+        "append_only_audit_writer",
+        "audit_query_engine"
+      ],
+      "evidence_refs": [
+        "backend/app/audit/audit_trail_writer.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "mode_callgraph_projection_absent",
+      "risk_level": "low",
+      "risk_type": "data_gap",
+      "description": "mode_callgraph_projections.jsonl not yet projected from audit trail",
+      "current_mitigation": "Mode calls are captured in audit trail; not yet extracted",
+      "recommended_action": "Implement mode callgraph projection as future work",
+      "affected_capabilities": [
+        "mode_instrumentation"
+      ],
+      "evidence_refs": [
+        "backend/app/gateway/mode_instrumentation.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "slow_test_risk",
+      "risk_level": "medium",
+      "risk_type": "performance",
+      "description": "Foundation CLI integration tests are slow and may cause CI timeouts",
+      "current_mitigation": "Tests run against existing audit JSONL files",
+      "recommended_action": "Split slow foundation CLI tests (Option A next phase)",
+      "affected_capabilities": [
+        "read_only_diagnostic_cli",
+        "integration_readiness_matrix"
+      ],
+      "evidence_refs": [
+        "backend/app/foundation/test_read_only_diagnostics_cli.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "auto_fix_blocked_but_future_risk",
+      "risk_level": "high",
+      "risk_type": "safety",
+      "description": "Auto-fix execution is blocked in all current phases but not fully enforced at runtime",
+      "current_mitigation": "trend_cli_guard enforces no_auto_fix; blocked in send_policy",
+      "recommended_action": "Continue to keep auto-fix blocked; audit any bypass attempts",
+      "affected_capabilities": [
+        "manual_send_policy_design",
+        "trend_cli_guard"
+      ],
+      "evidence_refs": [
+        "backend/app/audit/audit_trend_feishu_send_policy.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "feishu_push_blocked_but_future_risk",
+      "risk_level": "critical",
+      "risk_type": "safety",
+      "description": "Real Feishu push is blocked; webhook URL never sent inline; confirm phrase required",
+      "current_mitigation": "send_allowed=false enforced; webhook_policy forbids inline URL",
+      "recommended_action": "Keep blocked until Phase 5; require explicit user review",
+      "affected_capabilities": [
+        "manual_send_policy_design",
+        "feishu_trend_projection"
+      ],
+      "evidence_refs": [
+        "backend/app/audit/audit_trend_feishu_send_policy.py",
+        "backend/app/audit/audit_trend_feishu_projection.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    },
+    {
+      "risk_id": "scheduler_watchdog_blocked",
+      "risk_level": "medium",
+      "risk_type": "safety",
+      "description": "Scheduler and watchdog integrations are explicitly blocked in all current phases",
+      "current_mitigation": "scheduler_auto_send is in blocked paths; separate Phase 6 review required",
+      "recommended_action": "Maintain blocked state; no scheduler integration until Phase 6 review",
+      "affected_capabilities": [
+        "manual_send_policy_design"
+      ],
+      "evidence_refs": [
+        "backend/app/audit/audit_trend_feishu_send_policy.py"
+      ],
+      "blocked_until": "",
+      "warnings": []
+    }
+  ],
+  "by_status": {
+    "complete": 20,
+    "blocked": 1,
+    "mostly_complete": 1
+  },
+  "by_capability_type": {
+    "read_only_diagnostic": 1,
+    "audit_record_projection": 1,
+    "append_only_audit": 1,
+    "audit_query": 1,
+    "trend_projection": 2,
+    "trend_artifact": 1,
+    "trend_cli_guard": 1,
+    "feishu_projection": 2,
+    "feishu_preview": 1,
+    "manual_send_policy": 1,
+    "integration_readiness": 1,
+    "nightly_health_review": 2,
+    "rtcm_projection": 1,
+    "memory_projection": 1,
+    "asset_projection": 1,
+    "tool_runtime_projection": 1,
+    "prompt_projection": 1,
+    "mode_instrumentation": 1,
+    "truth_state_projection": 1
+  },
+  "by_risk_level": {
+    "medium": 5,
+    "high": 2,
+    "low": 2,
+    "critical": 1
+  },
+  "completed_count": 20,
+  "blocked_count": 1,
+  "read_only_count": 21,
+  "append_only_count": 1,
+  "network_call_count": 0,
+  "runtime_write_count": 0,
+  "gateway_mutation_count": 0,
+  "risk_count": 10,
+  "warnings": []
+}

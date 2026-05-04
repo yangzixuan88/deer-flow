@@ -1,0 +1,75 @@
+{
+  "phase": "R241-25Z",
+  "title": "MERGE_EXCEPTION_PACKET",
+  "status": "ready_for_submission",
+  "preceded_by": "R241-25Y",
+  "proceeding_to": "R241-26A",
+  "pr3_purpose": "credential_bootstrap_chain_behind_disabled_auth_flow",
+  "bootstrap_chain_integrity": {
+    "credential_file_py": true,
+    "LocalAuthProvider_count_admin_users": true,
+    "SQLiteUserRepository_count_admin_users": true,
+    "initialize_admin_endpoint": true,
+    "SYSTEM_ALREADY_INITIALIZED": true,
+    "reset_admin_absent": true
+  },
+  "controlled_test_evidence": {
+    "tmp_sqlite_only": true,
+    "first_initialize_succeeds": true,
+    "second_initialize_409": true,
+    "admin_count_remains_1": true,
+    "admin_login_passes": true,
+    "me_endpoint_passes": true,
+    "cleanup_passes": true,
+    "repo_db_files_created": false
+  },
+  "pr3_scope_cleanliness": {
+    "reset_admin_absent": true,
+    "bootstrap_chain_intact": true,
+    "local_provider_lint": "fixed",
+    "config_lint": "fixed",
+    "password_lint": "fixed",
+    "repositories_base_lint": "fixed",
+    "repositories_sqlite_lint": "fixed",
+    "pr_scope_lint_errors": 0
+  },
+  "ci_failure_attribution": {
+    "lint": {
+      "total_errors": 257,
+      "fixed_by_pr_scope": 2,
+      "remaining_errors": 255,
+      "bootstrap_related": 0,
+      "baseline_pre_existing": 255,
+      "error_locations": ["authz.py", "auth_middleware.py", "langgraph_auth.py", "app.py"],
+      "attribution": "baseline_pre_existing_in_main"
+    },
+    "backend_unit_tests": {
+      "root_cause": "SyntaxError auth_middleware.py:85 missing closing brace in JSONResponse",
+      "pre_existing_in_main": true,
+      "bootstrap_related": false,
+      "attribution": "baseline_infrastructure"
+    }
+  },
+  "safety_boundaries": {
+    "no_production_db_writes": true,
+    "no_gateway_activation": true,
+    "no_auth_routes_enabled": true,
+    "no_auth_middleware_enabled": true,
+    "no_mainline_gateway_activation": true,
+    "reset_admin_absent": true,
+    "bootstrap_chain_intact": true
+  },
+  "exception_request": {
+    "acknowledge_bootstrap_complete": true,
+    "grant_lint_ci_rerun_exception": true,
+    "acknowledge_backend_unit_baseline": true,
+    "do_not_block_on_unrelated_baseline": true
+  },
+  "bootstrap_closeout": {
+    "bootstrap_chain_complete": true,
+    "pr_scope_lint_clean": true,
+    "reset_admin_quarantined": true,
+    "pr_ci_deprioritized": true,
+    "mainline_reentry_allowed": true
+  }
+}

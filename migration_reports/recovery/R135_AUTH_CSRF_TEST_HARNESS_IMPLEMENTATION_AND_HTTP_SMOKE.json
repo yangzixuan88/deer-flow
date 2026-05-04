@@ -1,0 +1,97 @@
+{
+  "phase": "R135",
+  "title": "AUTH_CSRF_TEST_HARNESS_IMPLEMENTATION_AND_HTTP_SMOKE",
+  "status": "partial",
+  "preceded_by": "R134D",
+  "proceeding_to": "R135B_DIAGNOSTIC",
+  "pressure_assessment": {
+    "previous_phase": "R134D",
+    "current_status": "partial_blocked",
+    "recommended_pressure": "XXL++",
+    "reason": "Option C blocked by auth_middleware bug; CSRF works but auth has code defect."
+  },
+  "preflight": {
+    "preflight_passed": true,
+    "workspace_clean": true,
+    "testclient_available": true,
+    "health_200": true,
+    "production_db_write_risk": "none",
+    "safe_to_post_threads": true
+  },
+  "lane_2_harness_construction": {
+    "internal_auth_headers_constructed": true,
+    "csrf_cookie_set": true,
+    "csrf_header_set": true,
+    "csrf_cookie_header_match": true,
+    "secret_values_printed": false
+  },
+  "lane_3_negative_control": {
+    "negative_without_csrf_status": 403,
+    "negative_without_auth_status": 401,
+    "csrf_gate_validated": true,
+    "auth_gate_validated": true,
+    "detail": "POST without CSRF correctly blocked; POST without auth correctly blocked"
+  },
+  "lane_4_create_thread": {
+    "create_thread_attempted": true,
+    "create_thread_status": 401,
+    "thread_id": "missing",
+    "thread_created": false,
+    "detail": "Internal auth header does not bypass access_token cookie requirement due to auth_middleware.py logic bug"
+  },
+  "lane_5_get_thread": {
+    "get_thread_attempted": true,
+    "get_thread_status": 401,
+    "detail": "Same auth bug affects GET endpoints"
+  },
+  "lane_6_post_runs": {
+    "post_runs_safe_without_model": true,
+    "post_runs_attempted": false,
+    "requires_R136_model_authorization": true,
+    "detail": "POST /runs analysis deferred - auth must be fixed first"
+  },
+  "bug_confirmed": {
+    "location": "auth_middleware.py:82-130",
+    "type": "logic_error",
+    "description": "auth_middleware checks access_token cookie before internal auth header, then unconditionally calls get_current_user_from_request (which requires access_token), preventing internal auth from working",
+    "impact": "Option C test harness cannot work until this bug is fixed",
+    "fix_needed": "Reorder auth_middleware to check internal_user BEFORE calling get_current_user_from_request",
+    "can_fix_without_code_change": false
+  },
+  "csrf_analysis": {
+    "csrf_cookie_set_correctly": true,
+    "csrf_header_set_correctly": true,
+    "csrf_validation_works": true,
+    "detail": "CSRF mechanism is correctly implemented; test fixture works for CSRF validation"
+  },
+  "result_classification": {
+    "r135_result": "partial",
+    "auth_csrf_harness_status": "blocked_by_production_bug",
+    "gateway_thread_endpoint_status": "blocked",
+    "gateway_run_endpoint_status": "requires_fix_before_r136",
+    "csrf_works": true,
+    "auth_broken": true
+  },
+  "lane_9_next_phase": {
+    "recommended_next_phase": "R135B_DIAGNOSTIC_AND_FIX_AUTHORIZATION",
+    "detail": "Must fix auth_middleware bug before Option C can work"
+  },
+  "constraints": {
+    "code_modified": false,
+    "db_written": false,
+    "jsonl_written": false,
+    "gateway_started": false,
+    "model_api_called": false,
+    "mcp_runtime_called": false,
+    "tool_call_executed": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "blockers_preserved": true,
+    "safety_violations": []
+  },
+  "report_files": [
+    "migration_reports/recovery/R135_AUTH_CSRF_TEST_HARNESS_IMPLEMENTATION_AND_HTTP_SMOKE.md",
+    "migration_reports/recovery/R135_AUTH_CSRF_TEST_HARNESS_IMPLEMENTATION_AND_HTTP_SMOKE.json"
+  ],
+  "next_prompt_needed": "R135B_FIX_AUTHORIZATION"
+}
