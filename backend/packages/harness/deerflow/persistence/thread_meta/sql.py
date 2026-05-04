@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
-from sqlalchemy import select, update
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from deerflow.persistence.thread_meta.base import ThreadMetaStore
@@ -82,13 +82,7 @@ class ThreadMetaRepository(ThreadMetaStore):
         limit: int = 100,
         offset: int = 0,
     ) -> list[dict]:
-        stmt = (
-            select(ThreadMetaRow)
-            .where(ThreadMetaRow.owner_id == owner_id)
-            .order_by(ThreadMetaRow.updated_at.desc())
-            .limit(limit)
-            .offset(offset)
-        )
+        stmt = select(ThreadMetaRow).where(ThreadMetaRow.owner_id == owner_id).order_by(ThreadMetaRow.updated_at.desc()).limit(limit).offset(offset)
         async with self._sf() as session:
             result = await session.execute(stmt)
             return [self._row_to_dict(r) for r in result.scalars()]
@@ -159,11 +153,7 @@ class ThreadMetaRepository(ThreadMetaStore):
             async with self._sf() as session:
                 result = await session.execute(stmt)
                 rows = [self._row_to_dict(r) for r in result.scalars()]
-            rows = [
-                r
-                for r in rows
-                if all(r.get("metadata", {}).get(k) == v for k, v in metadata.items())
-            ]
+            rows = [r for r in rows if all(r.get("metadata", {}).get(k) == v for k, v in metadata.items())]
             return rows[offset : offset + limit]
         else:
             stmt = stmt.limit(limit).offset(offset)

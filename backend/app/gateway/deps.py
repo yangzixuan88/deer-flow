@@ -10,7 +10,6 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator, Callable
 from contextlib import AsyncExitStack, asynccontextmanager
-from typing import TYPE_CHECKING
 from typing import TYPE_CHECKING, TypeVar, cast
 
 from fastapi import FastAPI, HTTPException, Request
@@ -37,6 +36,7 @@ def get_config(request: Request) -> AppConfig:
     if config is None:
         raise HTTPException(status_code=503, detail="Configuration not available")
     return config
+
 
 if TYPE_CHECKING:
     from app.gateway.auth.local_provider import LocalAuthProvider
@@ -136,6 +136,7 @@ def get_store(request: Request):
 # ---------------------------------------------------------------------------
 # Auth getters — auth chain for R241-22H3
 # ---------------------------------------------------------------------------
+
 
 def get_thread_store(request: Request) -> ThreadMetaStore:
     """Return the thread metadata store (SQL or memory-backed)."""
