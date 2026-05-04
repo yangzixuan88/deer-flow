@@ -16,10 +16,10 @@ class RegistryManager:
     这使得 M08 经验系统可以通过此接口反哺 M10 和 LangGraph，
     形成“解析-执行-复盘”闭环的数据总线。
     """
-    
+
     def __init__(self, db_path: str = DB_PATH):
         self.db_path = db_path
-        
+
     def _get_connection(self):
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
@@ -34,10 +34,10 @@ class RegistryManager:
         try:
             with self._get_connection() as conn:
                 conn.execute(
-                    '''INSERT INTO workflows 
+                    """INSERT INTO workflows 
                        (flow_id, name, category, sop_source, nodes_json, edges_json, created_at, updated_at, risk_level, cost_estimate_json)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-                    (flow_id, name, category, sop_source, json.dumps(nodes), json.dumps(edges), now, now, risk_level, json.dumps(cost_estimate or {}))
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (flow_id, name, category, sop_source, json.dumps(nodes), json.dumps(edges), now, now, risk_level, json.dumps(cost_estimate or {})),
                 )
             logger.info(f"[M04] Saved reusable workflow: {name} ({flow_id})")
             return flow_id
@@ -51,9 +51,9 @@ class RegistryManager:
                 row = conn.execute("SELECT * FROM workflows WHERE flow_id=?", (flow_id,)).fetchone()
                 if row:
                     data = dict(row)
-                    data['nodes_json'] = json.loads(data['nodes_json']) if data['nodes_json'] else {}
-                    data['edges_json'] = json.loads(data['edges_json']) if data['edges_json'] else {}
-                    data['cost_estimate_json'] = json.loads(data['cost_estimate_json']) if data['cost_estimate_json'] else {}
+                    data["nodes_json"] = json.loads(data["nodes_json"]) if data["nodes_json"] else {}
+                    data["edges_json"] = json.loads(data["edges_json"]) if data["edges_json"] else {}
+                    data["cost_estimate_json"] = json.loads(data["cost_estimate_json"]) if data["cost_estimate_json"] else {}
                     return data
         except Exception as e:
             logger.error(f"[M04] Error fetching workflow {flow_id}: {e}")
@@ -68,10 +68,10 @@ class RegistryManager:
         try:
             with self._get_connection() as conn:
                 conn.execute(
-                    '''INSERT INTO tasks 
+                    """INSERT INTO tasks 
                        (task_id, goal, status, dag_json, total_tokens, created_at, updated_at)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)''',
-                    (task_id, goal, "pending", json.dumps(dag), total_tokens, now, now)
+                       VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                    (task_id, goal, "pending", json.dumps(dag), total_tokens, now, now),
                 )
             return task_id
         except Exception as e:
@@ -82,12 +82,10 @@ class RegistryManager:
         now = int(time.time())
         try:
             with self._get_connection() as conn:
-                conn.execute(
-                    '''UPDATE tasks SET status = ?, updated_at = ?, total_tokens = total_tokens + ? WHERE task_id = ?''',
-                    (status, now, additional_tokens, task_id)
-                )
+                conn.execute("""UPDATE tasks SET status = ?, updated_at = ?, total_tokens = total_tokens + ? WHERE task_id = ?""", (status, now, additional_tokens, task_id))
         except Exception as e:
             logger.error(f"[M04] Error updating task {task_id}: {e}")
+
 
 # 供全局使用
 registry_manager = RegistryManager()

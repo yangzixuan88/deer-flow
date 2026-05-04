@@ -12,17 +12,18 @@ DB_PATH = os.path.join(
     "registry.sqlite",
 )
 
+
 def init_registry_db():
     """保证 registry.sqlite 创建所需的结构"""
     db_dir = os.path.dirname(DB_PATH)
     os.makedirs(db_dir, exist_ok=True)
-    
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
+
     try:
         # 表1: workflows (工作流组件及元数据)
-        cursor.execute('''
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS workflows (
                 flow_id TEXT PRIMARY KEY,
                 name TEXT,
@@ -35,10 +36,10 @@ def init_registry_db():
                 risk_level TEXT,
                 cost_estimate_json TEXT
             )
-        ''')
-        
+        """)
+
         # 表2: search_assets (搜索提炼缓存、工具提纯缓存)
-        cursor.execute('''
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS search_assets (
                 asset_id TEXT PRIMARY KEY,
                 query TEXT,
@@ -47,10 +48,10 @@ def init_registry_db():
                 results_json TEXT,
                 created_at INTEGER
             )
-        ''')
+        """)
 
         # 表3: tasks (拆解的独立 DAG boulder 结构)
-        cursor.execute('''
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS tasks (
                 task_id TEXT PRIMARY KEY,
                 goal TEXT,
@@ -60,10 +61,10 @@ def init_registry_db():
                 created_at INTEGER,
                 updated_at INTEGER
             )
-        ''')
-        
+        """)
+
         # 表4: boulder_records (经验复盘用的执行追踪)
-        cursor.execute('''
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS boulder_records (
                 record_id TEXT PRIMARY KEY,
                 task_id TEXT,
@@ -74,8 +75,8 @@ def init_registry_db():
                 log_json TEXT,
                 created_at INTEGER
             )
-        ''')
-        
+        """)
+
         conn.commit()
         logger.info("M04 - Registry tables initialized successfully.")
     except Exception as e:
@@ -83,6 +84,7 @@ def init_registry_db():
         conn.rollback()
     finally:
         conn.close()
+
 
 if __name__ == "__main__":
     init_registry_db()

@@ -27,6 +27,7 @@ logger = logging.getLogger(__name__)
 # Selected Mode Enum — matches R240-2 ModeDecision.schema.json
 # ---------------------------------------------------------------------------
 
+
 class SelectedMode(StrEnum):
     SEARCH = "search"
     TASK = "task"
@@ -72,6 +73,7 @@ _DELEGATION_DEFAULTS: dict[SelectedMode, DelegatedTo] = {
 # Candidate Mode record
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class CandidateMode:
     mode: SelectedMode
@@ -82,6 +84,7 @@ class CandidateMode:
 # ---------------------------------------------------------------------------
 # State Scope — minimal view scoped to ModeDecision
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class ModeStateScope:
@@ -98,6 +101,7 @@ class ModeStateScope:
 # Result Sink — minimal view scoped to ModeDecision
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class ModeResultSink:
     frontend_thread: bool = True
@@ -112,6 +116,7 @@ class ModeResultSink:
 # ModeDecision — R240-5 minimal wrapper
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class ModeDecision:
     """
@@ -120,6 +125,7 @@ class ModeDecision:
     All fields optional/defaulted to keep backward compatibility.
     Does NOT change any existing routing/execution logic.
     """
+
     mode_decision_id: str | None = None
     request_id: str | None = None
     context_id: str | None = None
@@ -144,10 +150,7 @@ class ModeDecision:
             "request_id": self.request_id,
             "context_id": self.context_id,
             "selected_mode": self.selected_mode.value if isinstance(self.selected_mode, SelectedMode) else self.selected_mode,
-            "candidate_modes": [
-                {"mode": c.mode.value, "confidence": c.confidence, "reason": c.reason}
-                for c in self.candidate_modes
-            ],
+            "candidate_modes": [{"mode": c.mode.value, "confidence": c.confidence, "reason": c.reason} for c in self.candidate_modes],
             "confidence": self.confidence,
             "decision_reason": self.decision_reason,
             "priority_rule_applied": self.priority_rule_applied,
@@ -183,10 +186,20 @@ class ModeDecision:
             return cls()
         known = {}
         for key in [
-            "mode_decision_id", "request_id", "context_id", "selected_mode",
-            "confidence", "decision_reason", "priority_rule_applied",
-            "needs_clarification", "delegated_to", "fallback_mode",
-            "allowed_tools", "denied_tools", "created_at", "source_system",
+            "mode_decision_id",
+            "request_id",
+            "context_id",
+            "selected_mode",
+            "confidence",
+            "decision_reason",
+            "priority_rule_applied",
+            "needs_clarification",
+            "delegated_to",
+            "fallback_mode",
+            "allowed_tools",
+            "denied_tools",
+            "created_at",
+            "source_system",
         ]:
             if key in data:
                 known[key] = data[key]
@@ -214,11 +227,13 @@ class ModeDecision:
             for c in data["candidate_modes"]:
                 if isinstance(c, dict):
                     try:
-                        known["candidate_modes"].append(CandidateMode(
-                            mode=SelectedMode(c.get("mode", "direct_answer")),
-                            confidence=float(c.get("confidence", 0.5)),
-                            reason=str(c.get("reason", "")),
-                        ))
+                        known["candidate_modes"].append(
+                            CandidateMode(
+                                mode=SelectedMode(c.get("mode", "direct_answer")),
+                                confidence=float(c.get("confidence", 0.5)),
+                                reason=str(c.get("reason", "")),
+                            )
+                        )
                     except (ValueError, TypeError):
                         pass
 
@@ -254,6 +269,7 @@ class ModeDecision:
 # ID generator
 # ---------------------------------------------------------------------------
 
+
 def generate_mode_decision_id() -> str:
     return f"md-{time.time():.0f}-{__import__('uuid').uuid4().hex[:8]}"
 
@@ -263,52 +279,130 @@ def generate_mode_decision_id() -> str:
 # ---------------------------------------------------------------------------
 
 _GOVERNANCE_KEYWORDS = {
-    "governance", "approval", "rollback", "sandbox", "upgrade",
-    "predicted", "actual", "verification", "rootguard", "audit",
-    "审批", "回滚", "治理", "沙盒", "验证", "复盘", "地基",
-    "安全策略", "升级", "预测", "实际", "核实",
+    "governance",
+    "approval",
+    "rollback",
+    "sandbox",
+    "upgrade",
+    "predicted",
+    "actual",
+    "verification",
+    "rootguard",
+    "audit",
+    "审批",
+    "回滚",
+    "治理",
+    "沙盒",
+    "验证",
+    "复盘",
+    "地基",
+    "安全策略",
+    "升级",
+    "预测",
+    "实际",
+    "核实",
 }
 
 _ROUNDTABLE_KEYWORDS = {
-    "roundtable", "council", "debate", "meeting",
-    "多方讨论", "圆桌", "会议", "评审会", "争议",
-    "架构决策", "决策评审", "技术评审",
+    "roundtable",
+    "council",
+    "debate",
+    "meeting",
+    "多方讨论",
+    "圆桌",
+    "会议",
+    "评审会",
+    "争议",
+    "架构决策",
+    "决策评审",
+    "技术评审",
 }
 
 _WORKFLOW_KEYWORDS = {
-    "workflow", "pipeline", "recurring", "schedule",
-    "multi-step", "dag", "n8n", "dify",
-    "流程", "工作流", "多步骤", "自动化",
-    "定时任务", "周期执行", "编排",
+    "workflow",
+    "pipeline",
+    "recurring",
+    "schedule",
+    "multi-step",
+    "dag",
+    "n8n",
+    "dify",
+    "流程",
+    "工作流",
+    "多步骤",
+    "自动化",
+    "定时任务",
+    "周期执行",
+    "编排",
 }
 
 _TASK_KEYWORDS = {
-    "implement", "fix", "run", "execute", "build", "test",
-    "修改", "修复", "执行", "运行", "构建",
-    "写代码", "开发", "调试", "测试",
+    "implement",
+    "fix",
+    "run",
+    "execute",
+    "build",
+    "test",
+    "修改",
+    "修复",
+    "执行",
+    "运行",
+    "构建",
+    "写代码",
+    "开发",
+    "调试",
+    "测试",
 }
 
 _SEARCH_KEYWORDS = {
-    "search", "research", "look up", "current", "latest",
-    "调研", "搜索", "查询", "最新", "查找",
-    "了解", "研究", "资料", "信息",
+    "search",
+    "research",
+    "look up",
+    "current",
+    "latest",
+    "调研",
+    "搜索",
+    "查询",
+    "最新",
+    "查找",
+    "了解",
+    "研究",
+    "资料",
+    "信息",
 }
 
 _AUTONOMOUS_KEYWORDS = {
-    "keep working", "autonomous", "self improve", "monitor",
-    "continue until", "自主代理", "长期执行", "自动持续",
-    "不间断", "自主", "持续优化",
+    "keep working",
+    "autonomous",
+    "self improve",
+    "monitor",
+    "continue until",
+    "自主代理",
+    "长期执行",
+    "自动持续",
+    "不间断",
+    "自主",
+    "持续优化",
 }
 
 _CLARIFICATION_TRIGGERS = {
-    "它", "这个", "那", "那里", "这时候",
-    "it", "that", "this", "what", "how",
+    "它",
+    "这个",
+    "那",
+    "那里",
+    "这时候",
+    "it",
+    "that",
+    "this",
+    "what",
+    "how",
 }
 
 
 # ---------------------------------------------------------------------------
 # Rule-based mode inference (no model call)
 # ---------------------------------------------------------------------------
+
 
 def _keyword_match(text: str, keywords: set[str]) -> bool:
     text_lower = text.lower()
@@ -367,15 +461,13 @@ def infer_candidate_modes(raw_input: str) -> list[CandidateMode]:
     # Sort by confidence descending
     candidates.sort(key=lambda x: x[1], reverse=True)
 
-    return [
-        CandidateMode(mode=mode, confidence=conf, reason=reason)
-        for mode, conf, reason in candidates
-    ]
+    return [CandidateMode(mode=mode, confidence=conf, reason=reason) for mode, conf, reason in candidates]
 
 
 # ---------------------------------------------------------------------------
 # Priority rules — from R240-2 ModePriorityRules.json
 # ---------------------------------------------------------------------------
+
 
 def apply_mode_priority_rules(
     candidates: list[CandidateMode],
@@ -447,6 +539,7 @@ def apply_mode_priority_rules(
 # ---------------------------------------------------------------------------
 # Core entry point
 # ---------------------------------------------------------------------------
+
 
 def ensure_mode_decision(
     payload: dict[str, Any] | None,
@@ -565,15 +658,10 @@ def mode_decision_summary(decision: ModeDecision) -> str:
     """
     Safe log summary — masks IDs, no raw_input.
     """
+
     def _mask(s: str | None, chars: int = 8) -> str:
         if s is None:
             return "None"
         return f"{s[:chars]}..."
-    return (
-        f"mode={decision.selected_mode.value} "
-        f"conf={decision.confidence:.2f} "
-        f"delegated={decision.delegated_to.value} "
-        f"needs_clar={decision.needs_clarification} "
-        f"md_id={_mask(decision.mode_decision_id)} "
-        f"ctx_id={_mask(decision.context_id)}"
-    )
+
+    return f"mode={decision.selected_mode.value} conf={decision.confidence:.2f} delegated={decision.delegated_to.value} needs_clar={decision.needs_clarification} md_id={_mask(decision.mode_decision_id)} ctx_id={_mask(decision.context_id)}"

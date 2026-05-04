@@ -42,6 +42,7 @@ _CONTEXT_LINKS_FILE = _CONTEXT_DIR / "context_links.jsonl"
 # ID generators
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def generate_context_id() -> str:
     return str(uuid.uuid4())
 
@@ -57,6 +58,7 @@ def generate_link_id() -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 # ContextEnvelope — minimal dataclass
 # ─────────────────────────────────────────────────────────────────────────────
+
 
 class TruthScope:
     SANDBOX = "sandbox"
@@ -187,29 +189,46 @@ class ContextEnvelope:
         if data is None:
             return cls()
         known_keys = {
-            "context_id", "request_id", "session_id", "thread_id", "run_id",
-            "task_id", "workflow_id", "dag_id", "rtcm_session_id", "rtcm_project_id",
-            "governance_trace_id", "governance_decision_id", "candidate_id", "asset_id",
-            "checkpoint_id", "parent_checkpoint_id", "memory_scope", "runtime_artifact_root",
-            "parent_context_id", "created_at", "updated_at", "source_system", "owner_system",
-            "task_origin", "truth_scope", "state_scope", "execution_permissions",
+            "context_id",
+            "request_id",
+            "session_id",
+            "thread_id",
+            "run_id",
+            "task_id",
+            "workflow_id",
+            "dag_id",
+            "rtcm_session_id",
+            "rtcm_project_id",
+            "governance_trace_id",
+            "governance_decision_id",
+            "candidate_id",
+            "asset_id",
+            "checkpoint_id",
+            "parent_checkpoint_id",
+            "memory_scope",
+            "runtime_artifact_root",
+            "parent_context_id",
+            "created_at",
+            "updated_at",
+            "source_system",
+            "owner_system",
+            "task_origin",
+            "truth_scope",
+            "state_scope",
+            "execution_permissions",
         }
         known = {k: v for k, v in data.items() if k in known_keys}
         extra = {k: v for k, v in data.items() if k not in known_keys}
         return cls(**known, **extra)
 
     def __repr__(self) -> str:
-        return (
-            f"ContextEnvelope(context_id={self.context_id[:8]}..., "
-            f"request_id={self.request_id[:8]}..., "
-            f"thread_id={self.thread_id[:8] if self.thread_id else None}..., "
-            f"run_id={self.run_id[:8] if self.run_id else None}...)"
-        )
+        return f"ContextEnvelope(context_id={self.context_id[:8]}..., request_id={self.request_id[:8]}..., thread_id={self.thread_id[:8] if self.thread_id else None}..., run_id={self.run_id[:8] if self.run_id else None}...)"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ContextLink — relationship record
 # ─────────────────────────────────────────────────────────────────────────────
+
 
 class RelationType:
     DERIVED_FROM = "derived_from"
@@ -266,15 +285,29 @@ class ContextLink:
     def from_dict(cls, data: dict) -> ContextLink:
         if data is None:
             return cls()
-        return cls(**{k: v for k, v in data.items() if k in {
-            "link_id", "from_context_id", "to_context_id", "relation_type",
-            "source_system", "confidence", "metadata", "created_at",
-        }})
+        return cls(
+            **{
+                k: v
+                for k, v in data.items()
+                if k
+                in {
+                    "link_id",
+                    "from_context_id",
+                    "to_context_id",
+                    "relation_type",
+                    "source_system",
+                    "confidence",
+                    "metadata",
+                    "created_at",
+                }
+            }
+        )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ContextLink storage (jsonl append-only)
 # ─────────────────────────────────────────────────────────────────────────────
+
 
 def _ensure_context_dir() -> Path:
     try:
@@ -306,6 +339,7 @@ def append_context_link(link: ContextLink) -> bool:
 # ─────────────────────────────────────────────────────────────────────────────
 # Core helpers
 # ─────────────────────────────────────────────────────────────────────────────
+
 
 def ensure_context_envelope(
     payload: dict | None,
@@ -397,16 +431,13 @@ def extract_envelope_from_context(context: dict | None) -> ContextEnvelope | Non
 # Logging helper — safe, no sensitive data
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def envelope_summary(envelope: ContextEnvelope) -> str:
     """返回可用于日志的 envelope 摘要（不泄露敏感内容）。"""
+
     def _mask(s: str | None, chars: int = 8) -> str:
         if s is None:
             return "None"
         return f"{s[:chars]}..."
-    return (
-        f"context_id={_mask(envelope.context_id)} "
-        f"request_id={_mask(envelope.request_id)} "
-        f"thread_id={_mask(envelope.thread_id)} "
-        f"run_id={_mask(envelope.run_id)} "
-        f"source={envelope.source_system}"
-    )
+
+    return f"context_id={_mask(envelope.context_id)} request_id={_mask(envelope.request_id)} thread_id={_mask(envelope.thread_id)} run_id={_mask(envelope.run_id)} source={envelope.source_system}"

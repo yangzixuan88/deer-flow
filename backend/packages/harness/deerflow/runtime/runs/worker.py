@@ -364,6 +364,7 @@ async def run_agent(
                     channel_values = ckpt.get("channel_values", {})
                     if channel_values:
                         from deerflow.runtime.serialization import serialize_channel_values
+
                         result_snapshot = serialize_channel_values(channel_values)
             except Exception:
                 logger.debug("Failed to capture result snapshot for run %s (non-fatal)", run_id)

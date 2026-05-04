@@ -37,6 +37,7 @@ def get_config(request: Request) -> AppConfig:
         raise HTTPException(status_code=503, detail="Configuration not available")
     return config
 
+
 if TYPE_CHECKING:
     from app.gateway.auth.local_provider import LocalAuthProvider
     from app.gateway.auth.repositories.sqlite import SQLiteUserRepository
@@ -135,6 +136,7 @@ def get_store(request: Request):
 # ---------------------------------------------------------------------------
 # Auth getters — auth chain for R241-22H3
 # ---------------------------------------------------------------------------
+
 
 def get_thread_store(request: Request) -> ThreadMetaStore:
     """Return the thread metadata store (SQL or memory-backed)."""
