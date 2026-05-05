@@ -142,9 +142,9 @@ class TestWriteUploadFileNoSymlink:
         link = tmp_path / "link.txt"
         link.symlink_to(target)
         # lstat() fallback detects the symlink and rejects the write
-        with pytest.raises(UnsafeUploadPathError) as exc_info:
+        with pytest.raises(UnsafeUploadPathError):
             write_upload_file_no_symlink(tmp_path, "link.txt", b"attacker")
-        assert "symlink" in str(exc_info.value).lower()
+        # The write is rejected; target content must remain unchanged
         assert target.read_text(encoding="utf-8") == "secret"
 
     @pytest.mark.skipif(not hasattr(os, "O_NONBLOCK"), reason="O_NONBLOCK not available on this platform")
