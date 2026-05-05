@@ -126,14 +126,27 @@ class TestWriteUploadFileNoSymlink:
         assert dest.read_bytes() == b"new contents"
         assert os.stat(dest).st_nlink == 1
 
-    def test_fails_closed_without_no_follow_support(self, tmp_path, monkeypatch):
+    def test_falls_back_to_lstat_check_when_no_nofollow(self, tmp_path, monkeypatch):
         monkeypatch.delattr(os, "O_NOFOLLOW", raising=False)
+        # Without O_NOFOLLOW, write to a regular file succeeds via lstat() fallback
+        dest = write_upload_file_no_symlink(tmp_path, "notes.txt", b"hello")
+        assert dest == tmp_path / "notes.txt"
+        assert dest.read_bytes() == b"hello"
 
-        with pytest.raises(UnsafeUploadPathError, match="O_NOFOLLOW"):
-            write_upload_file_no_symlink(tmp_path, "notes.txt", b"hello")
+    @pytest.mark.skipif(os.name == "nt", reason="Windows requires admin for symlink")
+    def test_rejects_symlink_via_lstat_fallback_without_nofollow(self, tmp_path, monkeypatch):
+        monkeypatch.delattr(os, "O_NOFOLLOW", raising=False)
+        # Create a symlink target and a symlink pointing to it
+        target = tmp_path / "target.txt"
+        target.write_text("secret", encoding="utf-8")
+        link = tmp_path / "link.txt"
+        link.symlink_to(target)
+        # lstat() fallback should detect the symlink and reject it
+        with pytest.raises(UnsafeUploadPathError, match="symlink"):
+            write_upload_file_no_symlink(tmp_path, "link.txt", b"attacker")
+        assert target.read_text(encoding="utf-8") == "secret"
 
-        assert not (tmp_path / "notes.txt").exists()
-
+    @pytest.mark.skipif(not hasattr(os, "O_NONBLOCK"), reason="O_NONBLOCK not available on this platform")
     def test_open_uses_nonblocking_flag_when_available(self, tmp_path):
         with patch("deerflow.uploads.manager.os.open", side_effect=OSError(errno.ENXIO, "no reader")) as open_mock:
             with pytest.raises(UnsafeUploadPathError, match="Unsafe upload destination"):
