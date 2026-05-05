@@ -13,12 +13,13 @@ DB_PATH = os.path.join(
 )
 
 
-def init_registry_db():
+def init_registry_db(db_path: str = None):
     """保证 registry.sqlite 创建所需的结构"""
-    db_dir = os.path.dirname(DB_PATH)
+    target_path = db_path if db_path is not None else DB_PATH
+    db_dir = os.path.dirname(target_path)
     os.makedirs(db_dir, exist_ok=True)
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(target_path)
     cursor = conn.cursor()
 
     try:
