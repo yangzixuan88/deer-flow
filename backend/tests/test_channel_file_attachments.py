@@ -7,6 +7,8 @@ import os
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from app.channels.base import Channel
 from app.channels.message_bus import InboundMessage, MessageBus, OutboundMessage, ResolvedAttachment
 
@@ -255,6 +257,7 @@ class TestResolveAttachments:
 
 
 class TestInboundFileIngestion:
+    @pytest.mark.skipif(os.name == "nt", reason="Windows requires admin privileges for symlink creation")
     def test_rejects_preexisting_symlink_destination(self, tmp_path):
         from app.channels import manager
 
@@ -284,6 +287,7 @@ class TestInboundFileIngestion:
         assert not outside_file.exists()
         assert (uploads_dir / "victim.txt").is_symlink()
 
+    @pytest.mark.skipif(os.name == "nt", reason="Windows requires admin privileges for symlink creation")
     def test_rejects_dangling_symlink_destination(self, tmp_path):
         from app.channels import manager
 
