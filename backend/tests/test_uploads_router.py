@@ -445,7 +445,7 @@ def test_upload_files_rejects_preexisting_symlink_destination(tmp_path):
         patch.object(uploads, "get_sandbox_provider", return_value=provider),
     ):
         file = UploadFile(filename="victim.txt", file=BytesIO(b"attacker upload"))
-        result = asyncio.run(uploads.upload_files("thread-local", files=[file]))
+        result = asyncio.run(call_unwrapped(uploads.upload_files, "thread-local", request=MagicMock(), files=[file], config=SimpleNamespace()))
 
     assert result.success is False
     assert result.files == []
@@ -470,7 +470,7 @@ def test_upload_files_rejects_dangling_symlink_destination(tmp_path):
         patch.object(uploads, "get_sandbox_provider", return_value=provider),
     ):
         file = UploadFile(filename="victim.txt", file=BytesIO(b"attacker upload"))
-        result = asyncio.run(uploads.upload_files("thread-local", files=[file]))
+        result = asyncio.run(call_unwrapped(uploads.upload_files, "thread-local", request=MagicMock(), files=[file], config=SimpleNamespace()))
 
     assert result.success is False
     assert result.files == []
@@ -495,7 +495,7 @@ def test_upload_files_rejects_hardlinked_destination_without_truncating(tmp_path
         patch.object(uploads, "get_sandbox_provider", return_value=provider),
     ):
         file = UploadFile(filename="victim.txt", file=BytesIO(b"attacker upload"))
-        result = asyncio.run(uploads.upload_files("thread-local", files=[file]))
+        result = asyncio.run(call_unwrapped(uploads.upload_files, "thread-local", request=MagicMock(), files=[file], config=SimpleNamespace()))
 
     assert result.success is False
     assert result.files == []
@@ -520,7 +520,7 @@ def test_upload_files_overwrites_existing_regular_file(tmp_path):
         patch.object(uploads, "get_sandbox_provider", return_value=provider),
     ):
         file = UploadFile(filename="notes.txt", file=BytesIO(b"new upload"))
-        result = asyncio.run(uploads.upload_files("thread-local", files=[file]))
+        result = asyncio.run(call_unwrapped(uploads.upload_files, "thread-local", request=MagicMock(), files=[file], config=SimpleNamespace()))
 
     assert result.success is True
     assert [file_info["filename"] for file_info in result.files] == ["notes.txt"]
