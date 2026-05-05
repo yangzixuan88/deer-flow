@@ -178,5 +178,14 @@ def resolve_owner_id(
     upstream ``thread_meta/sql.py`` uses ``owner_id`` naming while the
     local implementation uses ``user_id``. Both names are equivalent
     in the three-state semantics (AUTO / explicit str / explicit None).
+
+    - ``AUTO`` (default): resolve from contextvar; raise if no context.
+    - Explicit ``str``: use as-is.
+    - Explicit ``None``: bypass filter (no WHERE clause applied).
     """
-    return resolve_user_id(value, method_name=method_name)
+    if isinstance(value, _AutoSentinel):
+        user = _current_user.get()
+        if user is None:
+            raise RuntimeError(f"{method_name} called with owner_id=AUTO but no user context is set; pass an explicit owner_id, set the contextvar via auth middleware, or opt out with owner_id=None for migration/CLI paths.")
+        return str(user.id)
+    return value
