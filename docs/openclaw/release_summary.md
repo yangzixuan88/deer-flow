@@ -4,6 +4,8 @@
 
 This release completes the tracked OpenClaw main repair and post-closeout capability hardening cycle. All work is in tracked git; no operational data is committed.
 
+**System-level capability acceptance (R244X) is complete** — 15/15 capabilities accepted (8 AVAILABLE, 7 AVAILABLE_WITH_LIMITS). See `system_capability_acceptance_matrix.md` and `final_delivery_candidate.md`.
+
 ---
 
 ## Major completed areas

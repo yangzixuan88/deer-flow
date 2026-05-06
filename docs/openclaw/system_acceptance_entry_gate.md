@@ -4,6 +4,8 @@
 
 **READY_FOR_SYSTEM_LEVEL_ACCEPTANCE**
 
+**SYSTEM_ACCEPTANCE_COMPLETED** — R244X accepted 15/15 capabilities (8 AVAILABLE, 7 AVAILABLE_WITH_LIMITS, 0 BLOCKED). See `system_capability_acceptance_matrix.md`.
+
 The OpenClaw system has completed its vNext enhancement cycle. All preconditions for system-level capability acceptance are satisfied.
 
 ---
