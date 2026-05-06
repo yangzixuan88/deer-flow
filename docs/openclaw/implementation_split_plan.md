@@ -16,6 +16,8 @@ Each PR must pass CI independently.
 | PR #9 | Nightly Review dry-run pipeline + 18 tests | feature |
 | PR #10 | Capability matrix, deferred register, Asset/RTCM/ security docs | docs |
 | PR #11 | Nightly Review manual scheduler + 11 tests | feature |
+| PR #13 | Asset dry-run adapter (R221) | feature |
+| PR #14 | RTCM dry-run runtime (R224) + store + integration | feature |
 
 ---
 
@@ -136,3 +138,4 @@ Each PR must pass CI independently.
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial — R220–R227 queue defined |
+| 2026-05-06 | R220X/R224X — R221 Asset adapter done (PR #13); R224 RTCM dry-run runtime + R225 store + R226 integration done (PR #14) |
