@@ -45,10 +45,12 @@ The following can be stated publicly:
 - Prompt / Skill / Tool dynamically validated (276 tests)
 - Upgrade Center registry has test coverage (PR #7)
 - Feishu / Report dry-run boundary verified
-- Nightly Review dry-run pipeline implemented (PR #9)
+- Nightly Review dry-run pipeline and manual scheduler implemented (PR #9 + PR #11)
+- Asset tracked dry-run adapter implemented (PR #13)
+- RTCM tracked dry-run runtime implemented (PR #14)
 - Operational data `.gitignore` guard added (PR #8)
 - Phase 7 close/defer matrix complete
-- Phase 8 function acceptance matrix complete (14 features: 11 AVAILABLE, 1 AVAILABLE_WITH_LIMITS, 1 PARTIAL, 2 DEFERRED)
+- Phase 8 function acceptance matrix complete (15 features: 11 AVAILABLE, 4 AVAILABLE_WITH_LIMITS)
 
 ---
 
@@ -61,9 +63,9 @@ The following must NOT be claimed:
 - **"Feishu real-send production verified"** — Only dry-run verified
 - **"Nightly Review scheduler daemon implemented"** — Only manual scheduler exists; daemon deferred to R218
 - **"Nightly Review fully implemented"** — No scheduler, no real-send
-- **"Asset runtime implemented in tracked code"** — Runtime is in untracked `external/Agent-S/`
-- **"RTCM runtime implemented"** — Only dry-run runtime exists; no real agent handoff or production consensus
-- **"All Phase 7 features fully shipped"** — 3 features are DEFERRED or PARTIAL
+- **"Asset runtime production verified"** — Only dry-run adapter exists; no real Agent-S integration
+- **"RTCM runtime production verified"** — Only dry-run runtime exists; no real agent handoff or production consensus
+- **"All Phase 7 features fully shipped"** — Security exception still open
 
 ---
 
@@ -74,3 +76,4 @@ The following must NOT be claimed:
 | 2026-05-06 | Initial capability matrix — post R209X batch |
 | 2026-05-06 | R216X — Asset (R220–R223) and RTCM (R224–R227) implementation paths defined |
 | 2026-05-06 | R224X — Asset (R221) and RTCM (R224) dry-run runtimes implemented; capability matrix updated |
+| 2026-05-06 | R228X — final refresh: allowed/forbidden claims updated; Phase 8 matrix shows 11 AVAILABLE + 4 AVAILABLE_WITH_LIMITS |

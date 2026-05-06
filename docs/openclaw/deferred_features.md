@@ -139,3 +139,4 @@ Features that are **not yet available** in the tracked codebase. These are not r
 |------|--------|
 | 2026-05-06 | R216X — Asset: Option B selected (R220–R223); RTCM: dry-run runtime confirmed (R224–R227) |
 | 2026-05-06 | R220X — Asset dry-run adapter implemented (R221); R224X — RTCM dry-run runtime implemented (R224); Asset + RTCM status updated to AVAILABLE_WITH_LIMITS |
+| 2026-05-06 | R228X — cross-runtime integration smoke tests (19/19), release_summary.md, final_backlog_status.md; Phase 8 capability matrix: 11 AVAILABLE + 4 AVAILABLE_WITH_LIMITS |
