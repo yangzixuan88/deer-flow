@@ -23,7 +23,7 @@ Phases R203–R209X completed the Phase 7 close-out work. The next iteration cov
 
 | # | Task | Evidence | Pass Criteria |
 |---|------|----------|---------------|
-| R212 | Run full test suite | `pytest backend/ -q --tb=short` | 0 failures |
+| R212 | ~~Run full test suite~~ | `pytest backend/ -q --tb=short` | In progress (PR #11) |
 | R213 | Smoke-test run route | `curl localhost:PORT/api/threads/{id}/runs` | 200 OK |
 
 **Exit criteria**: Mainline CI green, smoke endpoint returns 200.
@@ -36,10 +36,12 @@ Phases R203–R209X completed the Phase 7 close-out work. The next iteration cov
 
 | # | Task | Target File | Safety Requirement |
 |---|------|-------------|-------------------|
-| R214 | Design scheduler entry point | `app/nightly_review/scheduler.py` | No daemon auto-start on import |
-| R215 | Implement cron-compatible CLI | `nightly_review/cli.py` | `--real` flag still required |
+| R214 | ~~Design scheduler entry point~~ | `app/nightly_review/scheduler.py` | ~~No daemon auto-start on import~~ |
+| R215 | ~~Implement cron-compatible CLI~~ | `nightly_review/cli.py` | ~~`--real` flag still required~~ |
 
-**Exit criteria**: `deerflow nightreview send --real` requires explicit flag; dry-run remains default.
+**Status**: R214 + R215 implemented in PR #11 — manual scheduler done. Daemon deferred to R218.
+
+**Next**: R218 — scheduler daemon design + cron integration
 
 ---
 
@@ -57,13 +59,27 @@ Phases R203–R209X completed the Phase 7 close-out work. The next iteration cov
 
 ---
 
-## Stage 4 — Asset Runtime Decision (R217)
+## Stage 4 — Scheduler Daemon (R218)
+
+**Goal**: Add cron/timer-based scheduler daemon for automated nightly execution.
+
+| # | Task | Constraint |
+|---|------|------------|
+| R218 | Design and implement scheduler daemon | No auto-start on import; CLI-triggered; cron or timer unit |
+
+**Dependency**: R216 (Feishu real-send) complete.
+
+**Exit criteria**: `cron` or `systemd timer` invokes scheduler without daemon auto-start.
+
+---
+
+## Stage 5 — Asset Runtime Decision (R219)
 
 **Goal**: Resolve Asset runtime architecture (Option B or C from `asset_runtime_decision.md`).
 
 | # | Task | Decision Gate |
 |---|------|---------------|
-| R217 | Dedicated design phase | Choose between tracked adapter (B) and minimal tracked migration (C) |
+| R219 | Dedicated design phase | Choose between tracked adapter (B) and minimal tracked migration (C) |
 
 **Dependency**: R216 complete (real-send baseline established).
 
@@ -87,7 +103,7 @@ This unblocks **R216** and full public security claims.
 - No RTCM runtime implementation in this roadmap cycle
 - No scheduler daemon auto-starting on import
 - No commit of `.deerflow/rtcm/` operational data
-- No Asset runtime before R217 decision is made and documented
+- No Asset runtime before R219 decision is made and documented
 - No mixing of Asset work with Nightly Review work
 
 ---
@@ -97,3 +113,4 @@ This unblocks **R216** and full public security claims.
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial — R210–R217 roadmap documented |
+| 2026-05-06 | R212X batch: R214+R215 manual scheduler done; R218 daemon deferred; R219 asset decision renumbered |

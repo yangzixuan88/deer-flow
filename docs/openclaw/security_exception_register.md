@@ -38,6 +38,7 @@ The token is actively used by the RTCM operational session (not by any tracked P
 | `.git/info/exclude` broad pattern | ✅ Active | Line 9: `.deerflow/` — local-only |
 | Token not printed in reports | ✅ Confirmed | `token_value_repeated=false` in all Feishu card builds |
 | No tracked runtime uses token | ✅ Confirmed | `app.rtcm` does not exist in tracked code |
+| Hygiene guard verified effective | ✅ Confirmed | R212X — `git check-ignore -v` confirms both layers cover token_cache.json |
 
 ### Required Resolution
 
@@ -63,3 +64,4 @@ The token is actively used by the RTCM operational session (not by any tracked P
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial — S-RTCM-FEISHU-TOKEN-001 documented |
+| 2026-05-06 | R212X — hygiene guard verified effective via git check-ignore |
