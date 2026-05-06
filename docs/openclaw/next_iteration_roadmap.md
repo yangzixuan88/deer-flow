@@ -53,7 +53,7 @@ Phases R203–R209X completed the Phase 7 close-out work. The next iteration cov
 |---|------|------------|
 | R216 | Wire `FeishuChannel.send` into `NightlyReviewReporter` behind `--real` | Token must come from `app_config.lark`, never from `.deerflow/rtcm/token_cache.json` |
 
-**Dependency**: R206 must be closed (operator rotation + `FEISHU_TOKEN_ROTATION_ACK=true`).
+**Dependency**: R212 (Feishu token rotation) must be closed (`FEISHU_TOKEN_ROTATION_ACK=true`).
 
 **Exit criteria**: `deerflow nightreview send --real` sends actual Feishu card to configured channel.
 
@@ -73,23 +73,47 @@ Phases R203–R209X completed the Phase 7 close-out work. The next iteration cov
 
 ---
 
-## Stage 5 — Asset Runtime Decision (R219)
+## Stage 5 — Asset Runtime (R220–R223)
 
-**Goal**: Resolve Asset runtime architecture (Option B or C from `asset_runtime_decision.md`).
+**Architecture decision (R216X)**: Option B — tracked adapter selected.
 
-| # | Task | Decision Gate |
-|---|------|---------------|
-| R219 | Dedicated design phase | Choose between tracked adapter (B) and minimal tracked migration (C) |
+**Goal**: Implement tracked asset adapter with dry-run first, completely independent of untracked `external/Agent-S/`.
 
-**Dependency**: R216 complete (real-send baseline established).
+| # | Task | Type | Constraint |
+|---|------|------|------------|
+| R220 | Asset adapter API design | docs-only | Finalize `AssetRequest` / `AssetResult` contract |
+| R221 | Asset dry-run adapter | code + tests | `models.py`, `adapter.py`, `dry_run.py`; no real Agent-S call |
+| R222 | External Agent-S adapter spike | research | Evaluate whether Agent-S can be wrapped; no production claim |
+| R223 | Asset runtime decision review | decision | Decide: keep adapter or migrate minimal runtime |
 
-**Exit criteria**: Decision documented; adapter interface defined OR minimal runtime scoped.
+**Dependency**: None (parallel to Stage 3/4).
+
+**Exit criteria**: `backend/app/asset_runtime/` implemented; 0 external network calls in tests.
+
+---
+
+## Stage 6 — RTCM Runtime (R224–R227)
+
+**Architecture decision (R216X)**: Tracked dry-run runtime first, completely independent of `.deerflow/rtcm` operational data.
+
+**Goal**: Implement tracked RTCM runtime with no dependency on operational data or Feishu token.
+
+| # | Task | Type | Constraint |
+|---|------|------|------------|
+| R224 | RTCM dry-run runtime | code + tests | `council.py`, `vote.py`, `consensus.py`, `reporter.py`; no `.deerflow/rtcm/` read |
+| R225 | RTCM store + export | code + tests | `store.py` JSONL; tmp_path tests; no `.deerflow/rtcm/` read |
+| R226 | Integration helpers | code + tests | `mode_decision_to_rtcm_request()`; `mode_router.py` unchanged |
+| R227 | RTCM real integration decision | decision | Decide: connect to external agents or remain dry-run only |
+
+**Dependency**: None (parallel to Stage 3/4/5).
+
+**Exit criteria**: `backend/app/rtcm/` implemented; `test_no_rtcm_token_path_access` passes.
 
 ---
 
 ## P0 Blocker — Feishu Token Rotation
 
-**R206** remains open until the operator:
+**R212** remains open until the operator:
 1. Rotates the token via open.feishu.cn → credentials → revoke
 2. Stores new token in operator-managed vault
 3. Sets `FEISHU_TOKEN_ROTATION_ACK=true`
@@ -100,11 +124,13 @@ This unblocks **R216** and full public security claims.
 
 ## Non-Goals (Hard Constraints)
 
-- No RTCM runtime implementation in this roadmap cycle
 - No scheduler daemon auto-starting on import
 - No commit of `.deerflow/rtcm/` operational data
-- No Asset runtime before R219 decision is made and documented
-- No mixing of Asset work with Nightly Review work
+- No Asset runtime claiming full implementation before R223 review
+- No RTCM runtime claiming full implementation before R227 review
+- No real Feishu/Lark send before R216/R212 closure
+- Do not commit `external/Agent-S/`
+- Do not read `.deerflow/rtcm/` or `.deerflow/operation_assets/` as runtime source
 
 ---
 
@@ -114,3 +140,4 @@ This unblocks **R216** and full public security claims.
 |------|--------|
 | 2026-05-06 | Initial — R210–R217 roadmap documented |
 | 2026-05-06 | R212X batch: R214+R215 manual scheduler done; R218 daemon deferred; R219 asset decision renumbered |
+| 2026-05-06 | R216X batch: R220–R223 (Asset adapter) and R224–R227 (RTCM runtime) stages defined; parallel to R216/R218 |

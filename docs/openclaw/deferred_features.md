@@ -46,13 +46,21 @@ Features that are **not yet available** in the tracked codebase. These are not r
 - No `app.asset` module
 - Runtime lives in untracked `external/Agent-S/` (off-limits to tracked code)
 
-**Next steps**:
-1. Decide between: keep external / add tracked adapter / migrate minimal runtime
-2. Do not commit `external/Agent-S/`
-3. Do not mix Asset work with Nightly Review work
-4. Do not claim Asset is implemented before decision
+**Architecture decision (R216X)**: Option B — tracked adapter selected.
+- R220: Asset adapter API design
+- R221: Asset dry-run adapter + tests
+- R222: External Agent-S adapter spike
+- R223: Asset runtime decision review
 
-**Estimated effort**: High
+**Next steps**:
+1. ~~Decide between adapter / migration / external~~ — **done (R216X: Option B selected)**
+2. R220: Design adapter API contract
+3. R221: Implement dry-run adapter + tests
+4. Do not commit `external/Agent-S/`
+5. Do not mix Asset work with RTCM work
+6. Do not claim Asset is fully implemented before R223 review
+
+**Estimated effort**: High (R220–R223)
 **Main-chain blocker**: No
 
 ---
@@ -71,11 +79,18 @@ Features that are **not yet available** in the tracked codebase. These are not r
 - No `app.rtcm` module
 - `.deerflow/rtcm/` is 230-file untracked operational data directory — NOT runtime source
 
+**Architecture decision (R216X)**: Tracked dry-run runtime first — completely independent of `.deerflow/rtcm` operational data.
+- R224: RTCM dry-run runtime + tests
+- R225: RTCM store + export
+- R226: Integration helpers (mode_router unchanged)
+- R227: RTCM real integration decision
+
 **Next steps**:
-1. Design tracked RTCM runtime architecture
-2. Do not read operational logs as implementation guide
-3. No token dependency
-4. No Feishu real-send
+1. ~~Design tracked RTCM runtime architecture~~ — **done (R216X)**
+2. R224: Implement dry-run runtime (council/vote/consensus/reporter)
+3. R225: Add store persistence + report export
+4. Do not read `.deerflow/rtcm/` operational data
+5. No Feishu token access; no real-send
 
 **Estimated effort**: High
 **Main-chain blocker**: No
@@ -111,3 +126,11 @@ Features that are **not yet available** in the tracked codebase. These are not r
 | Security Hygiene | DEFERRED_BY_OPERATOR | No | Low (operator) |
 
 **None of these block the main development line or Phase 8 acceptance testing.**
+
+---
+
+## Change Log
+
+| Date | Change |
+|------|--------|
+| 2026-05-06 | R216X — Asset: Option B selected (R220–R223); RTCM: dry-run runtime confirmed (R224–R227) |

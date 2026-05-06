@@ -27,13 +27,13 @@ The mode router can route to `ROUNDTABLE` mode, but there is no tracked implemen
 ```
 backend/app/rtcm/
 ├── __init__.py           # public API exports
-├── models.py             # RTCMSession, Vote, ConsensusRecord
+├── models.py             # RoundtableRequest, CouncilMember, Vote, ConsensusResult, DecisionRecord
 ├── council.py            # CouncilOrchestrator
 ├── vote.py               # VoteCollector, voting strategies
 ├── consensus.py          # ConsensusEngine
-├── store.py              # RTCMStore (JSONL, like NightlyReviewStore)
+├── store.py              # RTCMStore (JSONL, tmp_path-compatible)
 ├── reporter.py           # RTCMReporter (dry-run report builder)
-└── integration.py        # mode_router integration helper
+└── integration.py        # roundtablesession_to_rtcm_request helper
 ```
 
 ---
@@ -76,13 +76,57 @@ backend/app/rtcm/
 
 ---
 
-## Non-Goals (Hard Constraints)
+## Final Decision for Next Implementation Cycle
 
-- No real Feishu/Lark send in initial implementation
-- No use of `.deerflow/rtcm/` operational logs as implementation reference
-- No migration of `.deerflow/rtcm/` into tracked code
-- No scheduler daemon
-- No dependency on Asset runtime
+**Decision: Create a tracked dry-run RTCM runtime first, completely independent from `.deerflow/rtcm` operational data.**
+
+**Rationale:**
+
+- Current `ROUNDTABLE` delegation is only a promise marker — no tracked execution exists.
+- `.deerflow/rtcm/` is **operational data** containing sensitive local state (tokens, session logs).
+- The runtime must be **tracked, tested, and deterministic** — not based on operational logs.
+- Do **not** reuse operational logs as source of truth for implementation.
+
+---
+
+## Selected Architecture: Tracked Dry-Run Consensus Runtime
+
+**Proposed package:**
+
+```
+backend/app/rtcm/
+├── __init__.py        # public API exports
+├── models.py          # RoundtableRequest, CouncilMember, Vote, ConsensusResult, DecisionRecord
+├── council.py         # CouncilOrchestrator — build council from explicit input
+├── vote.py            # VoteCollector — collect deterministic votes
+├── consensus.py       # ConsensusEngine — majority / weighted / unanimous strategies
+├── store.py           # RTCMStore — JSONL persistence, tmp_path-compatible
+├── reporter.py        # RTCMReporter — dry-run Markdown / JSON report
+└── integration.py     # roundtablesession_to_rtcm_request helper
+```
+
+**Responsibilities by module:**
+
+| Module | Responsibility | Constraints |
+|--------|---------------|------------|
+| `models.py` | `RoundtableRequest`, `CouncilMember`, `Vote`, `ConsensusResult`, `DecisionRecord` | No external I/O |
+| `council.py` | Build council from explicit input; no network; no credentials | No `.deerflow/rtcm/` read |
+| `vote.py` | Collect deterministic votes; test fixture support | No external calls |
+| `consensus.py` | Majority / weighted / unanimous strategies; deterministic output | No stateful external I/O |
+| `store.py` | JSONL persistence; tmp_path-compatible | No `.deerflow/rtcm/` read |
+| `reporter.py` | Build dry-run Markdown / JSON report | No Feishu real-send |
+| `integration.py` | Convert ROUNDTABLE mode metadata into `RoundtableRequest` | Must not modify `mode_router.py` |
+
+---
+
+## Implementation Stages
+
+| Phase | Task | Type | Exit Criteria |
+|-------|------|------|---------------|
+| R224 | RTCM dry-run runtime | code + tests | `models.py`, `council.py`, `vote.py`, `consensus.py`, `reporter.py` implemented; tests pass |
+| R225 | RTCM store + export | code + tests | `store.py` + reporter export; tmp_path tests pass |
+| R226 | Integration helper | code + tests | `roundtable_to_rtcm_request()` helper; `mode_router` unchanged |
+| R227 | RTCM real integration decision | decision | Decide: connect to external agents or remain dry-run only |
 
 ---
 
@@ -97,8 +141,21 @@ If RTCM design proceeds after Nightly Review scheduler, consider extracting a sh
 
 ---
 
+## Explicit Non-Goals (Hard Constraints)
+
+- **Do not** read `.deerflow/rtcm/` — operational data is not runtime source code
+- **Do not** read `.deerflow/rtcm/token_cache.json` — token never accessed
+- **Do not** use Feishu token — credentials must come from `app_config.lark`
+- **Do not** send real Feishu/Lark messages in initial implementation
+- **Do not** create a daemon — explicit CLI / function-call only
+- **Do not** depend on Agent-S runtime
+- **Do not** claim RTCM fully implemented until tracked runtime + tests exist
+
+---
+
 ## Change Log
 
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial — proposed architecture documented |
+| 2026-05-06 | R216X — dry-run first architecture confirmed; R224–R227 stages defined |
