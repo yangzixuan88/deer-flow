@@ -73,6 +73,41 @@ These constraints apply to all R220–R227 implementation stages and are non-neg
 
 ---
 
+## Final Carry-Forward Status (R228X)
+
+As of R228X batch close, the following implementation states are confirmed:
+
+| Implementation | Dry-Run Runtime | Real Runtime | Operational Data Access |
+|----------------|-----------------|--------------|------------------------|
+| `app.asset_runtime` | ✅ IMPLEMENTED (PR #13) | ❌ NOT IMPLEMENTED | ✅ No access confirmed |
+| `app.rtcm` | ✅ IMPLEMENTED (PR #14) | ❌ NOT IMPLEMENTED | ✅ No access confirmed |
+| `app.nightly_review` | ✅ IMPLEMENTED (PR #9+11) | ⚠️ Not production-verified | ✅ No access confirmed |
+
+All three tracked dry-run runtimes passed cross-runtime safety tests (`test_openclaw_integration_smoke.py`, 19/19 passing).
+
+### Claim Status
+
+- **AVAILABLE_WITH_LIMITS**: Asset, RTCM, Feishu/Report, Nightly Review
+- **Forbidden claims** (must not be made): security fully clean, Feishu token rotated, real Agent-S integration, production-verified runtime
+
+---
+
+## Future Implementation Guard
+
+Any future work that attempts to promote Asset, RTCM, or Nightly Review from dry-run to production runtime:
+
+| Guard | Requirement |
+|-------|-------------|
+| R212 P0 closure | `FEISHU_TOKEN_ROTATION_ACK=true` must be set before real Feishu send |
+| Token origin | Credentials must come from `app_config.lark`, never `.deerflow/rtcm/token_cache.json` |
+| No operational data as runtime | `.deerflow/rtcm/` and `.deerflow/operation_assets/` are never imported or read |
+| Explicit opt-in | `--real` flag required for any real API call; dry-run is always the default |
+| Security exception open | S-RTCM-FEISHU-TOKEN-001 remains OPEN until operator rotation is confirmed |
+
+These guards are non-negotiable and apply to all future implementation stages.
+
+---
+
 ## Change Log
 
 | Date | Change |
@@ -80,3 +115,4 @@ These constraints apply to all R220–R227 implementation stages and are non-neg
 | 2026-05-06 | Initial — S-RTCM-FEISHU-TOKEN-001 documented |
 | 2026-05-06 | R212X — hygiene guard verified effective via git check-ignore |
 | 2026-05-06 | R216X — carry-forward rules added for Asset and RTCM R220–R227 |
+| 2026-05-06 | R228X — final carry-forward status added; future implementation guard added |

@@ -18,6 +18,7 @@ Each PR must pass CI independently.
 | PR #11 | Nightly Review manual scheduler + 11 tests | feature |
 | PR #13 | Asset dry-run adapter (R221) | feature |
 | PR #14 | RTCM dry-run runtime (R224) + store + integration | feature |
+| PR #15 | R228X — integration smoke tests (19), release summary, final backlog status, security exception final register, roadmap update | feature + docs |
 
 ---
 
@@ -139,3 +140,4 @@ Each PR must pass CI independently.
 |------|--------|
 | 2026-05-06 | Initial — R220–R227 queue defined |
 | 2026-05-06 | R220X/R224X — R221 Asset adapter done (PR #13); R224 RTCM dry-run runtime + R225 store + R226 integration done (PR #14) |
+| 2026-05-06 | R228X — PR #15: cross-runtime integration smoke (19 tests), release_summary.md, final_backlog_status.md, security_exception final register, roadmap docs updated |
