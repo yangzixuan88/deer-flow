@@ -31,6 +31,7 @@
 | 13 | Asset runtime | AVAILABLE_WITH_LIMITS | R221 — dry-run adapter implemented; 25 tests; no real Agent-S call |
 | 14 | RTCM Roundtable | AVAILABLE_WITH_LIMITS | R224 — dry-run runtime implemented; 33 tests; no .deerflow/rtcm reads |
 | 15 | Security posture | AVAILABLE_WITH_LIMITS | PR #8 merged — `.gitignore` hygiene guard; Feishu token rotation still deferred by operator |
+| 16 | OpenClaw Operator CLI | AVAILABLE_WITH_LIMITS | R237X — unified dry-run console; 37 tests; `--real` rejected; no credential access |
 
 ---
 
@@ -77,3 +78,4 @@ The following must NOT be claimed:
 | 2026-05-06 | R216X — Asset (R220–R223) and RTCM (R224–R227) implementation paths defined |
 | 2026-05-06 | R224X — Asset (R221) and RTCM (R224) dry-run runtimes implemented; capability matrix updated |
 | 2026-05-06 | R228X — final refresh: allowed/forbidden claims updated; Phase 8 matrix shows 11 AVAILABLE + 4 AVAILABLE_WITH_LIMITS |
+| 2026-05-06 | R237X — OpenClaw Operator CLI added as feature #16; unified dry-run console |
