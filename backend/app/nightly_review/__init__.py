@@ -24,11 +24,13 @@ from __future__ import annotations
 from .integration import mode_decision_to_review_item
 from .models import NightlyReviewItem, ReviewPayload
 from .reporter import NightlyReviewReporter
+from .scheduler import NightlyReviewScheduler
 from .store import NightlyReviewStore
 
 __all__ = [
     "NightlyReviewItem",
     "NightlyReviewReporter",
+    "NightlyReviewScheduler",
     "NightlyReviewStore",
     "ReviewPayload",
     "mode_decision_to_review_item",

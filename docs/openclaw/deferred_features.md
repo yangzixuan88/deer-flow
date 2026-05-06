@@ -6,15 +6,16 @@ Features that are **not yet available** in the tracked codebase. These are not r
 
 ## 1. Nightly Review Scheduler
 
-**Status**: AVAILABLE_WITH_LIMITS (dry-run pipeline exists)
+**Status**: AVAILABLE_WITH_LIMITS (dry-run pipeline + manual scheduler exists)
 
-**What exists after PR #9**:
+**What exists after PR #11**:
 - `NightlyReviewItem` / `ReviewPayload` models
 - `NightlyReviewStore` with JSONL persistence
 - `NightlyReviewReporter` (dry-run only)
+- `NightlyReviewScheduler` (manual, no daemon)
 - `mode_decision_to_review_item()` integration helper
-- CLI: `deerflow nightreview list | dry-run | export | clear`
-- 18 focused tests
+- CLI: `deerflow nightreview list | dry-run | export | clear | send | schedule-dry-run | run-once`
+- 29 focused tests (18 pipeline + 11 scheduler)
 
 **What does NOT exist**:
 - No scheduler daemon (no cron, no background worker)
@@ -22,12 +23,12 @@ Features that are **not yet available** in the tracked codebase. These are not r
 - No real Feishu/Lark send (`--real` raises `NotImplementedError`)
 
 **Next steps**:
-1. Design explicit scheduler entry point (CLI-first)
-2. Scheduler must not auto-start on import
-3. Real-send must remain opt-in (`--real` flag)
-4. Consider cron / CLI-driven invocation before daemon
+1. ~~Design explicit scheduler entry point~~ — **done (PR #11)**
+2. ~~Implement manual scheduler~~ — **done (PR #11)**
+3. Design and implement scheduler daemon (cron/timer, not daemon auto-start)
+4. Real-send opt-in after credential rotation
 
-**Estimated effort**: Medium
+**Estimated effort**: Medium (daemon) + Low (real-send wiring)
 **Main-chain blocker**: No
 
 ---

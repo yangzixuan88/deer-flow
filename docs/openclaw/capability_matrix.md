@@ -27,7 +27,7 @@
 | 9 | Prompt / Skill / Tool | AVAILABLE | R192 — 276 tests passed, 1 skipped |
 | 10 | Upgrade Center / m04 registry | AVAILABLE | PR #7 merged — test gap fixed, 14 tests passing |
 | 11 | Feishu / Report | AVAILABLE_WITH_LIMITS | R195 — 14 parser tests + dry-run boundary verified; real-send not production-verified |
-| 12 | Nightly Review | AVAILABLE_WITH_LIMITS | PR #9 merged — dry-run pipeline + 18 tests; no scheduler daemon; real-send = NotImplementedError |
+| 12 | Nightly Review | AVAILABLE_WITH_LIMITS | PR #9 + PR #11 merged — dry-run pipeline + manual scheduler (CLI-driven, no daemon); real-send = NotImplementedError |
 | 13 | Asset runtime | DEFERRED | R197 — `result_sink.asset` is metadata flag only; runtime in untracked `external/Agent-S/` |
 | 14 | RTCM Roundtable | DEFERRED | R198 — `SelectedMode.ROUNDTABLE` / `RTCM_MAIN_AGENT_HANDOFF` in mode_router; no tracked runtime |
 | 15 | Security posture | AVAILABLE_WITH_LIMITS | PR #8 merged — `.gitignore` hygiene guard; Feishu token rotation still deferred by operator |
@@ -59,7 +59,7 @@ The following must NOT be claimed:
 - **"Security fully clean"** — Security exception S-RTCM-FEISHU-TOKEN-001 remains open
 - **"Feishu token rotated"** — Rotation was deferred by operator
 - **"Feishu real-send production verified"** — Only dry-run verified
-- **"Nightly Review scheduler daemon implemented"** — Only dry-run pipeline exists
+- **"Nightly Review scheduler daemon implemented"** — Only manual scheduler exists; daemon deferred to R218
 - **"Nightly Review fully implemented"** — No scheduler, no real-send
 - **"Asset runtime implemented in tracked code"** — Runtime is in untracked `external/Agent-S/`
 - **"RTCM runtime implemented"** — No tracked Python runtime exists
