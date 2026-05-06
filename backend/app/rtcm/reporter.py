@@ -91,3 +91,51 @@ def build_json_report(record: DecisionRecord) -> dict:
         Dictionary representation.
     """
     return record.to_dict()
+
+
+def build_markdown_index(records: list[DecisionRecord]) -> str:
+    """Build a merged Markdown report from multiple DecisionRecords.
+
+    Args:
+        records: List of decision records to include.
+
+    Returns:
+        Merged markdown string.
+    """
+    if not records:
+        return "# RTCM Roundtable Decision Index\n\n*No records.*\n"
+
+    lines = [
+        "# RTCM Roundtable Decision Index",
+        "",
+        f"**Count**: {len(records)}",
+        "**Status**: dry-run",
+        "",
+    ]
+    for i, record in enumerate(records, 1):
+        lines.append(f"## {i}. {record.request.topic}")
+        lines.append(f"- **Request ID**: `{record.request.id}`")
+        lines.append(f"- **Status**: {record.status}")
+        lines.append(f"- **Decision**: {record.consensus.decision}")
+        lines.append(f"- **Confidence**: {record.consensus.confidence:.2%}")
+        lines.append(f"- **Members**: {len(record.members)}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def build_json_index(records: list[DecisionRecord]) -> dict:
+    """Build a JSON-serializable index from multiple DecisionRecords.
+
+    Args:
+        records: List of decision records to index.
+
+    Returns:
+        Dictionary with count, request_ids, statuses, and records.
+    """
+    return {
+        "count": len(records),
+        "request_ids": [getattr(r.request, "id", None) for r in records],
+        "statuses": [r.status for r in records],
+        "dry_run": all(getattr(r.consensus, "dry_run", True) for r in records),
+        "records": [r.to_dict() for r in records],
+    }

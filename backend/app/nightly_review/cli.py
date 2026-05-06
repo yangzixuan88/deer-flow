@@ -47,12 +47,18 @@ def _build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("dry-run", help="Print a dry-run report to stdout")
 
-    export_parser = sub.add_parser("export", help="Export items to a JSONL file")
+    export_parser = sub.add_parser("export", help="Export items to a JSONL file or markdown report")
     export_parser.add_argument(
         "--path",
         type=Path,
         required=True,
         help="Output path for JSONL export",
+    )
+    export_parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Also write a markdown report to this path",
     )
 
     clear_parser = sub.add_parser("clear", help="Clear all review items")
@@ -142,6 +148,11 @@ def _cmd_dry_run(store: NightlyReviewStore, reporter: NightlyReviewReporter) -> 
 def _cmd_export(store: NightlyReviewStore, args: argparse.Namespace) -> int:
     count = store.export_jsonl(args.path)
     print(f"Exported {count} item(s) to {args.path}")
+    if args.output is not None:
+        reporter = NightlyReviewReporter()
+        scheduler = NightlyReviewScheduler(store, reporter)
+        written = scheduler.export_markdown_report(args.output)
+        print(f"Wrote markdown report to {written}")
     return 0
 
 

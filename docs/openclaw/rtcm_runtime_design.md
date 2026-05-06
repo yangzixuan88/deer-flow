@@ -160,3 +160,4 @@ If RTCM design proceeds after Nightly Review scheduler, consider extracting a sh
 | 2026-05-06 | Initial — proposed architecture documented |
 | 2026-05-06 | R216X — dry-run first architecture confirmed; R224–R227 stages defined |
 | 2026-05-06 | R224X — dry-run runtime fully implemented: models, council, vote, consensus, reporter, store, integration (33 tests passing); next phase R227 production decision |
+| 2026-05-06 | R239X — store hardening: get(), latest(), export_json/md, list_records(limit), malformed-line skip; reporter: build_markdown_index, build_json_index; explicit export only; no .deerflow/rtcm defaults |

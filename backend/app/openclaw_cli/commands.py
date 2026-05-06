@@ -69,6 +69,18 @@ _OPERATOR_COMMANDS: list[OperatorCommand] = [
         dry_run_only=True,
     ),
     OperatorCommand(
+        name="nightly-export",
+        description="Export Nightly Review items as markdown report to an explicit output path",
+        category="nightly",
+        dry_run_only=True,
+    ),
+    OperatorCommand(
+        name="nightly-run-once-preview",
+        description="Build Nightly Review payload without sending (dry-run preview)",
+        category="nightly",
+        dry_run_only=True,
+    ),
+    OperatorCommand(
         name="asset-dry-run",
         description="Run Asset dry-run adapter",
         category="asset",
@@ -77,6 +89,18 @@ _OPERATOR_COMMANDS: list[OperatorCommand] = [
     OperatorCommand(
         name="rtcm-dry-run",
         description="Run RTCM roundtable dry-run",
+        category="rtcm",
+        dry_run_only=True,
+    ),
+    OperatorCommand(
+        name="rtcm-dry-run-export",
+        description="Run RTCM dry-run and export markdown report to an explicit path",
+        category="rtcm",
+        dry_run_only=True,
+    ),
+    OperatorCommand(
+        name="rtcm-report-index",
+        description="Build JSON index from an explicit RTCM store path",
         category="rtcm",
         dry_run_only=True,
     ),

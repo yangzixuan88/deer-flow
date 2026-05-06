@@ -263,3 +263,82 @@ def test_no_background_thread_started_on_import(
     after = threading.enumerate()
     new_threads = [t for t in after if t not in before]
     assert len(new_threads) == 0, f"Scheduler created threads: {[t.name for t in new_threads]}"
+
+
+# -------------------------------------------------------------------------
+# R239X: Nightly CLI export and run-once hardening
+# -------------------------------------------------------------------------
+
+
+def test_nightly_export_requires_explicit_output(
+    tmp_store: NightlyReviewStore,
+    reporter: NightlyReviewReporter,
+    tmp_path: Path,
+) -> None:
+    scheduler = NightlyReviewScheduler(tmp_store, reporter)
+    out_path = tmp_path / "report.md"
+    result = scheduler.export_markdown_report(out_path)
+    assert result == out_path.resolve()
+    assert out_path.exists()
+
+
+def test_nightly_export_writes_markdown(
+    tmp_store: NightlyReviewStore,
+    reporter: NightlyReviewReporter,
+    sample_item: NightlyReviewItem,
+    tmp_path: Path,
+) -> None:
+    tmp_store.append(sample_item)
+    scheduler = NightlyReviewScheduler(tmp_store, reporter)
+    out_path = tmp_path / "report.md"
+    scheduler.export_markdown_report(out_path)
+    text = out_path.read_text(encoding="utf-8")
+    assert "Nightly Review Report" in text
+    assert "autonomous_agent" in text
+
+
+def test_nightly_run_once_preview_does_not_mark_reviewed(
+    tmp_store: NightlyReviewStore,
+    reporter: NightlyReviewReporter,
+    sample_item: NightlyReviewItem,
+) -> None:
+    tmp_store.append(sample_item)
+    scheduler = NightlyReviewScheduler(tmp_store, reporter)
+    payload = scheduler.run_once(limit=None, mark_reviewed=False)
+    assert payload.items[0].status == "pending"
+    pending = tmp_store.list_pending()
+    assert len(pending) == 1
+
+
+def test_nightly_cli_real_send_still_rejected(
+    tmp_path: Path,
+) -> None:
+    from app.nightly_review.cli import main as cli_main
+
+    with pytest.raises(NotImplementedError, match="--real"):
+        cli_main(["send", "--real"])
+
+
+def test_nightly_cli_no_daemon_started(
+    tmp_path: Path,
+) -> None:
+    from app.nightly_review.cli import main as cli_main
+
+    before = threading.enumerate()
+    cli_main(["schedule-dry-run", "--store", str(tmp_path / "store.jsonl")])
+    after = threading.enumerate()
+    new_threads = [t for t in after if t not in before]
+    assert len(new_threads) == 0
+
+
+def test_nightly_cli_requires_explicit_store_for_export(
+    tmp_path: Path,
+    sample_item: NightlyReviewItem,
+) -> None:
+    from app.nightly_review.cli import main as cli_main
+
+    store = NightlyReviewStore(storage_path=tmp_path / "store.jsonl")
+    store.append(sample_item)
+
+    cli_main(["export", "--path", str(tmp_path / "export.jsonl"), "--output", str(tmp_path / "report.md")])
+    assert (tmp_path / "report.md").exists()

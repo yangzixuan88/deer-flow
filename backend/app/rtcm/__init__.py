@@ -28,7 +28,13 @@ from .models import (
     RoundtableRequest,
     Vote,
 )
-from .reporter import build_decision_record, build_json_report, build_markdown_report
+from .reporter import (
+    build_decision_record,
+    build_json_index,
+    build_json_report,
+    build_markdown_index,
+    build_markdown_report,
+)
 from .store import RTCMDecisionStore
 from .vote import cast_dry_run_votes
 
@@ -42,7 +48,9 @@ __all__ = [
     "build_council",
     "build_default_council",
     "build_decision_record",
+    "build_json_index",
     "build_json_report",
+    "build_markdown_index",
     "build_markdown_report",
     "cast_dry_run_votes",
     "compute_majority_consensus",

@@ -75,6 +75,7 @@ def preview_nightly_schedule() -> OperatorCommandResult:
                 "manual scheduler (CLI-triggered)",
                 "JSONL store persistence",
                 "capability summary export",
+                "explicit store/output required",
             ],
             "limitations": [
                 "no background daemon",
@@ -83,4 +84,97 @@ def preview_nightly_schedule() -> OperatorCommandResult:
             ],
         },
         warnings=[],
+    )
+
+
+def run_nightly_export(
+    *,
+    store: str | Path | None = None,
+    output: str | Path,
+    limit: int | None = None,
+) -> OperatorCommandResult:
+    """Export Nightly Review as a markdown report to an explicit path.
+
+    Args:
+        store: Optional explicit path to NightlyReviewStore JSONL.
+               If None, uses empty in-memory store.
+        output: Required explicit output path for the markdown report.
+        limit: Optional limit on number of items.
+
+    Returns:
+        OperatorCommandResult with output_path, item_count, dry_run=True.
+    """
+    if store is not None:
+        store_obj = NightlyReviewStore(storage_path=str(store))
+    else:
+        store_obj = NightlyReviewStore(storage_path=":memory:")
+
+    reporter = NightlyReviewReporter()
+    scheduler = NightlyReviewScheduler(store=store_obj, reporter=reporter)
+
+    written = scheduler.export_markdown_report(output, limit=limit)
+    payload = scheduler.build_review_payload(limit=limit)
+
+    warnings: list[str] = []
+    if store is not None:
+        warnings.append("Using persisted store — dry-run results may persist to store")
+
+    return OperatorCommandResult(
+        command="nightly-export",
+        status="success",
+        dry_run=True,
+        payload={
+            "store_path": str(store) if store else ":memory:",
+            "output_path": str(written),
+            "item_count": payload.total if payload else 0,
+            "pending_items": payload.items if payload else [],
+        },
+        warnings=warnings,
+    )
+
+
+def run_nightly_run_once_preview(
+    *,
+    store: str | Path | None = None,
+    limit: int | None = None,
+) -> OperatorCommandResult:
+    """Build Nightly Review payload without sending — dry-run preview.
+
+    Does NOT mark items as reviewed unless explicitly requested.
+
+    Args:
+        store: Optional explicit path to NightlyReviewStore JSONL.
+               If None, uses empty in-memory store.
+        limit: Optional limit on number of items.
+
+    Returns:
+        OperatorCommandResult with payload summary, dry_run=True, no send.
+    """
+    if store is not None:
+        store_obj = NightlyReviewStore(storage_path=str(store))
+    else:
+        store_obj = NightlyReviewStore(storage_path=":memory:")
+
+    reporter = NightlyReviewReporter()
+    scheduler = NightlyReviewScheduler(store=store_obj, reporter=reporter)
+
+    payload = scheduler.run_once(limit=limit, mark_reviewed=False)
+
+    warnings: list[str] = ["Dry-run only — no message will be sent"]
+    if store is not None:
+        warnings.append("Using persisted store — dry-run results may persist to store")
+
+    return OperatorCommandResult(
+        command="nightly-run-once-preview",
+        status="success",
+        dry_run=True,
+        payload={
+            "store_path": str(store) if store else ":memory:",
+            "total": payload.total,
+            "pending": payload.pending,
+            "reviewed": payload.reviewed,
+            "item_count": len(payload.items),
+            "dry_run": True,
+        },
+        warnings=warnings,
     )

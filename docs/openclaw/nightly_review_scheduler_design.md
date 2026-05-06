@@ -125,3 +125,4 @@ The scheduler builds on the existing dry-run pipeline from PR #9:
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial — manual scheduler design documented |
+| 2026-05-06 | R239X — CLI export now supports --output markdown; export_markdown_report in scheduler; run-once-preview does not mark reviewed; all paths explicit; no daemon/cron |
