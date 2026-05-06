@@ -144,3 +144,4 @@ This unblocks **R216** and full public security claims.
 | 2026-05-06 | R220X/R224X batch: Asset dry-run adapter (R221, PR #13) and RTCM dry-run runtime (R224–R226, PR #14) implemented; Asset + RTCM now AVAILABLE_WITH_LIMITS |
 | 2026-05-06 | R237X — Unified OpenClaw Operator CLI (PR #16) implemented; 37 tests; ruff clean |
 | 2026-05-06 | R238X — Asset capability registry implemented; tracked default_capabilities.json; DryRunAssetRuntimeAdapter wired to registry; 42 tests passing |
+| 2026-05-06 | R239X — RTCM store/report hardening (get, latest, export_json/md, limit, malformed skip); Nightly CLI export (--output md); Operator CLI export commands; 58 tests passing |

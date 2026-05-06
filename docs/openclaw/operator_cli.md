@@ -17,6 +17,8 @@ python -m app.openclaw_cli.console capability-summary
 python -m app.openclaw_cli.console nightly-dry-run
 python -m app.openclaw_cli.console nightly-dry-run --store-path /tmp/nightly.jsonl --limit 10
 python -m app.openclaw_cli.console nightly-schedule-preview
+python -m app.openclaw_cli.console nightly-export --store-path /tmp/nightly.jsonl --output /tmp/nightly.md
+python -m app.openclaw_cli.console nightly-run-once-preview --store-path /tmp/nightly.jsonl
 
 # Asset Runtime dry-run
 python -m app.openclaw_cli.console asset-dry-run
@@ -26,6 +28,8 @@ python -m app.openclaw_cli.console asset-dry-run --capability asset.plan
 # RTCM Roundtable dry-run
 python -m app.openclaw_cli.console rtcm-dry-run
 python -m app.openclaw_cli.console rtcm-dry-run --topic "Custom topic"
+python -m app.openclaw_cli.console rtcm-dry-run-export --output /tmp/rtcm.md
+python -m app.openclaw_cli.console rtcm-report-index --store /tmp/rtcm.jsonl --limit 10
 ```
 
 ## Safety Guarantees
@@ -101,13 +105,15 @@ The registry is loaded via `importlib.resources` from `app.asset_runtime.capabil
 
 ## Test Coverage
 
-42 tests covering:
+58 tests covering:
 - Import side-effect isolation
 - Command registry completeness
 - Each runtime wrapper output structure
 - Asset capability registry (18 tests)
 - Registry-aware dry-run adapter (8 tests)
 - Asset CLI with capability selection (5 tests)
+- RTCM store/export (14 tests)
+- Nightly export/run-once (6 tests)
 - JSON serializability of all outputs
 - Safety: no Feishu send, no network, no token_cache, no .deerflow/rtcm access
 - `--real` flag rejection with exit code 2
@@ -117,4 +123,5 @@ The registry is loaded via `importlib.resources` from `app.asset_runtime.capabil
 | Date | Change |
 |------|--------|
 | 2026-05-06 | R237X — Unified operator CLI implemented; 37 tests passing; ruff clean |
+| 2026-05-06 | R239X — RTCM/Nightly export commands added: rtcm-dry-run-export, rtcm-report-index, nightly-export, nightly-run-once-preview; 58 tests passing |
 | 2026-05-06 | R238X — Asset capability registry wired to CLI; 42 tests passing |
