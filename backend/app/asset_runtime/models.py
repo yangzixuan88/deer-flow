@@ -20,8 +20,13 @@ class AssetCapability:
 
     name: str
     description: str
+    category: str = "general"
     supported: bool = True
     dry_run_only: bool = True
+    requires_external_runtime: bool = False
+    inputs: list[str] = field(default_factory=list)
+    outputs: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return asdict(self)

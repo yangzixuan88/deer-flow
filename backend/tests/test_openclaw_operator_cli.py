@@ -174,6 +174,43 @@ class TestAssetRuntime:
         d = result.to_dict()
         json.dumps(d)
 
+    def test_asset_dry_run_accepts_capability_argument(self):
+        result = run_asset_dry_run(capability="asset.plan")
+        assert result.status == "success"
+        assert result.payload["selected_capability"] == "asset.plan"
+
+    def test_asset_dry_run_outputs_available_capabilities(self):
+        result = run_asset_dry_run()
+        assert "available_capabilities" in result.payload
+        caps = result.payload["available_capabilities"]
+        assert "asset.noop" in caps
+        assert "asset.plan" in caps
+        assert "asset.package" in caps
+
+    def test_capability_summary_includes_asset_registry(self):
+        result = capability_summary()
+        asset_info = result.payload["runtimes"]["asset_runtime"]
+        assert "asset" in str(asset_info)
+
+    def test_asset_external_required_capability_does_not_invoke_agent_s(self):
+        result = run_asset_dry_run(capability="asset.package")
+        assert result.payload["external_runtime_invoked"] is False
+        assert any("external Agent-S runtime not invoked" in w for w in result.payload["warnings"])
+
+    def test_asset_cli_does_not_read_operation_assets(self, monkeypatch):
+        opened_paths: list[str] = []
+
+        def tracking_open(path, *args, **kwargs):
+            p = str(path)
+            opened_paths.append(p)
+            raise FileNotFoundError("blocked")
+
+        monkeypatch.setattr("builtins.open", tracking_open)
+        run_asset_dry_run()
+
+        for p in opened_paths:
+            assert ".deerflow/operation_assets" not in p
+
 
 # =============================================================================
 # RTCM runtime wrapper tests

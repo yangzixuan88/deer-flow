@@ -160,8 +160,9 @@ class TestDryRunAssetRuntimeAdapter:
     def test_list_capabilities_contains_expected_names(self):
         adapter = DryRunAssetRuntimeAdapter()
         names = {c.name for c in adapter.list_capabilities()}
-        assert "asset_resolution" in names
-        assert "asset_validation" in names
+        assert "asset.noop" in names
+        assert "asset.plan" in names
+        assert "asset.validate" in names
 
     def test_can_handle_returns_true_for_dry_run_request(self):
         adapter = DryRunAssetRuntimeAdapter()
@@ -285,3 +286,103 @@ class TestAssetRuntimeAdapterInterface:
 
         with pytest.raises(TypeError):
             IncompleteAdapter()
+
+
+# =============================================================================
+# Registry-aware dry-run tests
+# =============================================================================
+
+
+class TestRegistryAwareDryRun:
+    def test_dry_run_adapter_uses_default_registry(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        caps = adapter.list_capabilities()
+        names = {c.name for c in caps}
+        assert "asset.noop" in names
+        assert "asset.package" in names
+
+    def test_dry_run_adapter_can_handle_known_capability(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="test",
+            dry_run=True,
+            requested_capability="asset.plan",
+        )
+        assert adapter.can_handle(req) is True
+
+    def test_dry_run_adapter_rejects_unknown_capability(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="test",
+            dry_run=True,
+            requested_capability="asset.does_not_exist",
+        )
+        assert adapter.can_handle(req) is False
+
+    def test_execute_known_capability_returns_registry_metadata(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="test plan capability",
+            dry_run=True,
+            requested_capability="asset.plan",
+        )
+        result = adapter.execute(req)
+        assert result.capability == "asset.plan"
+        assert result.status == "dry_run"
+
+    def test_execute_external_required_capability_warns_not_invoked(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="test package",
+            dry_run=True,
+            requested_capability="asset.package",
+        )
+        result = adapter.execute(req)
+        assert result.status == "dry_run"
+        assert any("external Agent-S runtime not invoked" in w for w in result.warnings)
+
+    def test_execute_unknown_capability_fails_safely(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="test",
+            dry_run=True,
+            requested_capability="asset.unknown_cap",
+        )
+        result = adapter.execute(req)
+        assert result.status == "failed"
+        assert "Unknown capability" in result.message
+
+    def test_execute_non_dry_run_still_refused(self):
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="real execution",
+            dry_run=False,
+        )
+        assert adapter.can_handle(req) is False
+
+    def test_operation_assets_not_read_during_execution(self, monkeypatch):
+        opened_paths: list[str] = []
+
+        def tracking_open(path, *args, **kwargs):
+            p = str(path)
+            opened_paths.append(p)
+            raise FileNotFoundError("blocked")
+
+        monkeypatch.setattr("builtins.open", tracking_open)
+        adapter = DryRunAssetRuntimeAdapter()
+        req = AssetRequest.new(
+            mode="asset",
+            reason="test",
+            dry_run=True,
+            requested_capability="asset.validate",
+        )
+        adapter.execute(req)
+
+        for p in opened_paths:
+            assert ".deerflow/operation_assets" not in p

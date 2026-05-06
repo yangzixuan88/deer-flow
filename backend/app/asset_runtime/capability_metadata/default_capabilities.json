@@ -1,0 +1,68 @@
+[
+  {
+    "name": "asset.noop",
+    "description": "No-op dry-run that validates request structure without any side effects",
+    "category": "general",
+    "supported": true,
+    "dry_run_only": true,
+    "requires_external_runtime": false,
+    "inputs": [],
+    "outputs": [],
+    "warnings": []
+  },
+  {
+    "name": "asset.plan",
+    "description": "Plan asset operations and return a proposed execution plan as dry-run output",
+    "category": "planning",
+    "supported": true,
+    "dry_run_only": true,
+    "requires_external_runtime": false,
+    "inputs": ["asset_references"],
+    "outputs": ["execution_plan"],
+    "warnings": []
+  },
+  {
+    "name": "asset.preview",
+    "description": "Preview asset content or metadata without executing transformations",
+    "category": "preview",
+    "supported": true,
+    "dry_run_only": true,
+    "requires_external_runtime": false,
+    "inputs": ["asset_references"],
+    "outputs": ["preview_data"],
+    "warnings": []
+  },
+  {
+    "name": "asset.validate",
+    "description": "Validate asset existence, accessibility, and well-formedness",
+    "category": "validation",
+    "supported": true,
+    "dry_run_only": true,
+    "requires_external_runtime": false,
+    "inputs": ["asset_references"],
+    "outputs": ["validation_report"],
+    "warnings": []
+  },
+  {
+    "name": "asset.package",
+    "description": "Package assets into a distributable artifact",
+    "category": "packaging",
+    "supported": true,
+    "dry_run_only": true,
+    "requires_external_runtime": true,
+    "inputs": ["asset_references"],
+    "outputs": ["package_artifact"],
+    "warnings": ["external Agent-S runtime not invoked in dry-run mode"]
+  },
+  {
+    "name": "asset.publish",
+    "description": "Publish packaged assets to a target registry or repository",
+    "category": "publishing",
+    "supported": true,
+    "dry_run_only": true,
+    "requires_external_runtime": true,
+    "inputs": ["package_artifact", "target_registry"],
+    "outputs": ["publish_report"],
+    "warnings": ["real publishing is not supported in dry-run mode"]
+  }
+]

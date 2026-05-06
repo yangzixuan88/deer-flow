@@ -7,6 +7,7 @@ reading operation_assets, invoking Agent-S, or making network calls.
 from __future__ import annotations
 
 from app.asset_runtime import AssetRequest, execute_asset_dry_run
+from app.asset_runtime.capabilities import get_default_registry
 
 from ..commands import OperatorCommandResult
 
@@ -19,23 +20,24 @@ def run_asset_dry_run(
     """Run an Asset dry-run.
 
     Args:
-        capability: Optional capability name override.
+        capability: Optional capability name (defaults to asset.noop).
         payload_summary: Human-readable summary for the dry-run.
 
     Returns:
         OperatorCommandResult with dry_run=True and AssetResult payload.
     """
+    registry = get_default_registry()
+
+    available = registry.list_capabilities()
+
     req = AssetRequest.new(
         mode="asset",
         reason=payload_summary,
         dry_run=True,
+        requested_capability=capability or "asset.noop",
     )
 
     result = execute_asset_dry_run(req)
-
-    payload_dict = result.to_dict()
-    if "request_id" in payload_dict:
-        del payload_dict["request_id"]
 
     return OperatorCommandResult(
         command="asset-dry-run",
@@ -48,6 +50,9 @@ def run_asset_dry_run(
             "warnings": result.warnings,
             "capability": result.capability,
             "message": result.message,
+            "selected_capability": capability or "asset.noop",
+            "available_capabilities": [c.name for c in available],
+            "external_runtime_invoked": False,
         },
         warnings=["Dry-run only — no real Agent-S invoked"],
     )
