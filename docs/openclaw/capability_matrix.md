@@ -28,7 +28,7 @@
 | 10 | Upgrade Center / m04 registry | AVAILABLE | PR #7 merged — test gap fixed, 14 tests passing |
 | 11 | Feishu / Report | AVAILABLE_WITH_LIMITS | R195 — 14 parser tests + dry-run boundary verified; real-send not production-verified |
 | 12 | Nightly Review | AVAILABLE_WITH_LIMITS | PR #9 + PR #11 merged — dry-run pipeline + manual scheduler (CLI-driven, no daemon); real-send = NotImplementedError |
-| 13 | Asset runtime | AVAILABLE_WITH_LIMITS | R221 — dry-run adapter implemented; 25 tests; no real Agent-S call |
+| 13 | Asset runtime | AVAILABLE_WITH_LIMITS | R221 + R238X — dry-run adapter + tracked capability registry; PR #13 dry-run adapter; R238X tracked capability registry; no Agent-S invocation |
 | 14 | RTCM Roundtable | AVAILABLE_WITH_LIMITS | R224 — dry-run runtime implemented; 33 tests; no .deerflow/rtcm reads |
 | 15 | Security posture | AVAILABLE_WITH_LIMITS | PR #8 merged — `.gitignore` hygiene guard; Feishu token rotation still deferred by operator |
 | 16 | OpenClaw Operator CLI | AVAILABLE_WITH_LIMITS | R237X — unified dry-run console; 37 tests; `--real` rejected; no credential access |
@@ -79,3 +79,4 @@ The following must NOT be claimed:
 | 2026-05-06 | R224X — Asset (R221) and RTCM (R224) dry-run runtimes implemented; capability matrix updated |
 | 2026-05-06 | R228X — final refresh: allowed/forbidden claims updated; Phase 8 matrix shows 11 AVAILABLE + 4 AVAILABLE_WITH_LIMITS |
 | 2026-05-06 | R237X — OpenClaw Operator CLI added as feature #16; unified dry-run console |
+| 2026-05-06 | R238X — Asset runtime capability registry added to feature #13; tracked default_capabilities.json |
