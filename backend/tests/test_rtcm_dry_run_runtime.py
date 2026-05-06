@@ -246,6 +246,45 @@ class TestReporter:
         assert j["request"]["topic"] == "t"
         assert j["status"] == "dry_run"
 
+    def test_build_markdown_index_empty(self):
+        from app.rtcm import build_markdown_index
+
+        md = build_markdown_index([])
+        assert "# RTCM Roundtable Decision Index" in md
+        assert "*No records.*" in md
+
+    def test_build_markdown_index_single_record(self):
+        from app.rtcm import build_markdown_index
+
+        req = RoundtableRequest.new(topic="Test Topic", reason="test reason")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        md = build_markdown_index([record])
+        assert "# RTCM Roundtable Decision Index" in md
+        assert "Test Topic" in md
+        assert "**Count**: 1" in md
+
+    def test_build_json_index_multiple_records(self):
+        from app.rtcm import build_json_index
+
+        records = []
+        for i in range(3):
+            req = RoundtableRequest.new(topic=f"Topic-{i}", reason=f"Reason-{i}")
+            members = build_default_council()
+            votes = cast_dry_run_votes(req, members)
+            consensus = compute_majority_consensus(req, votes)
+            record = build_decision_record(req, members, votes, consensus)
+            records.append(record)
+
+        idx = build_json_index(records)
+        assert idx["count"] == 3
+        assert len(idx["request_ids"]) == 3
+        assert all(s == "dry_run" for s in idx["statuses"])
+        assert idx["dry_run"] is True
+        assert len(idx["records"]) == 3
+
 
 # =============================================================================
 # Store
@@ -286,6 +325,180 @@ class TestStore:
         store_path = tmp_path / "nonexistent.jsonl"
         store = RTCMDecisionStore(store_path)
         assert store.list_records() == []
+
+    def test_store_get_record_by_id(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        req = RoundtableRequest.new(topic="t1", reason="r1")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        store.append(record)
+
+        found = store.get(record.request.id)
+        assert found is not None
+        assert found.request.topic == "t1"
+
+    def test_store_get_unknown_id_returns_none(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+        assert store.get("nonexistent-id") is None
+
+    def test_store_latest_record(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        for i in range(3):
+            req = RoundtableRequest.new(topic=f"topic-{i}", reason=f"reason-{i}")
+            members = build_default_council()
+            votes = cast_dry_run_votes(req, members)
+            consensus = compute_majority_consensus(req, votes)
+            record = build_decision_record(req, members, votes, consensus)
+            store.append(record)
+
+        latest = store.latest()
+        assert latest is not None
+        assert latest.request.topic == "topic-2"
+
+    def test_store_latest_when_empty(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+        assert store.latest() is None
+
+    def test_store_list_records_limit(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        for i in range(5):
+            req = RoundtableRequest.new(topic=f"topic-{i}", reason=f"reason-{i}")
+            members = build_default_council()
+            votes = cast_dry_run_votes(req, members)
+            consensus = compute_majority_consensus(req, votes)
+            record = build_decision_record(req, members, votes, consensus)
+            store.append(record)
+
+        records = store.list_records(limit=3)
+        # Most-recent-first
+        assert len(records) == 3
+        assert records[0].request.topic == "topic-4"
+
+    def test_store_list_records_limit_zero(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        req = RoundtableRequest.new(topic="t", reason="r")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        store.append(record)
+
+        records = store.list_records(limit=0)
+        assert len(records) == 1  # limit=0 means no limit
+
+    def test_store_export_json(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        req = RoundtableRequest.new(topic="t1", reason="r1")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        store.append(record)
+
+        out_path = tmp_path / "export.json"
+        result = store.export_json(out_path)
+
+        assert result == out_path.resolve()
+        import json
+
+        data = json.loads(out_path.read_text(encoding="utf-8"))
+        assert len(data) == 1
+        assert data[0]["request"]["topic"] == "t1"
+
+    def test_store_export_json_with_limit(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        for i in range(3):
+            req = RoundtableRequest.new(topic=f"topic-{i}", reason=f"reason-{i}")
+            members = build_default_council()
+            votes = cast_dry_run_votes(req, members)
+            consensus = compute_majority_consensus(req, votes)
+            record = build_decision_record(req, members, votes, consensus)
+            store.append(record)
+
+        out_path = tmp_path / "export.json"
+        store.export_json(out_path, limit=2)
+
+        import json
+
+        data = json.loads(out_path.read_text(encoding="utf-8"))
+        assert len(data) == 2
+
+    def test_store_export_markdown(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        req = RoundtableRequest.new(topic="Test Topic", reason="test reason")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        store.append(record)
+
+        out_path = tmp_path / "report.md"
+        result = store.export_markdown(out_path)
+
+        assert result == out_path.resolve()
+        text = out_path.read_text(encoding="utf-8")
+        assert "# RTCM Roundtable Decision Index" in text
+        assert "Test Topic" in text
+
+    def test_store_malformed_line_skipped(self, tmp_path):
+        import json
+
+        store_path = tmp_path / "decisions.jsonl"
+        # First line is valid, second is malformed, third is valid
+        req1 = RoundtableRequest.new(topic="valid1", reason="r1")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req1, members)
+        consensus = compute_majority_consensus(req1, votes)
+        record1 = build_decision_record(req1, members, votes, consensus)
+        req2 = RoundtableRequest.new(topic="valid2", reason="r2")
+        votes2 = cast_dry_run_votes(req2, members)
+        consensus2 = compute_majority_consensus(req2, votes2)
+        record2 = build_decision_record(req2, members, votes2, consensus2)
+        lines = [
+            json.dumps(record1.to_dict(), ensure_ascii=False),
+            "{broken json",
+            json.dumps(record2.to_dict(), ensure_ascii=False),
+        ]
+        store_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+        store = RTCMDecisionStore(store_path)
+        records = store.list_records()
+
+        assert len(records) == 2
+
+    def test_store_export_creates_parent_dirs(self, tmp_path):
+        store_path = tmp_path / "decisions.jsonl"
+        store = RTCMDecisionStore(store_path)
+
+        req = RoundtableRequest.new(topic="t", reason="r")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        store.append(record)
+
+        nested = tmp_path / "nested" / "deep" / "export.json"
+        store.export_json(nested)
+
+        assert nested.exists()
 
 
 # =============================================================================

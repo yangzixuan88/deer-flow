@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from .commands import (
     OperatorCommandResult,
@@ -36,7 +37,11 @@ from .runtimes import (
     preview_nightly_schedule,
     run_asset_dry_run,
     run_nightly_dry_run,
+    run_nightly_export,
+    run_nightly_run_once_preview,
     run_rtcm_dry_run,
+    run_rtcm_dry_run_export,
+    run_rtcm_report_index,
 )
 
 
@@ -106,6 +111,15 @@ def run_command(name: str, **kwargs: object) -> OperatorCommandResult:
         return run_nightly_dry_run(store_path=store_path, limit=limit)
     elif name == "nightly-schedule-preview":
         return preview_nightly_schedule()
+    elif name == "nightly-export":
+        store = kwargs.get("store_path")
+        output = kwargs.get("output")
+        if not output:
+            raise ValueError("--output is required for nightly-export")
+        return run_nightly_export(store=store, output=output, limit=kwargs.get("limit"))
+    elif name == "nightly-run-once-preview":
+        store = kwargs.get("store_path")
+        return run_nightly_run_once_preview(store=store, limit=kwargs.get("limit"))
     elif name == "asset-dry-run":
         return run_asset_dry_run(
             capability=kwargs.get("capability"),
@@ -113,6 +127,16 @@ def run_command(name: str, **kwargs: object) -> OperatorCommandResult:
         )
     elif name == "rtcm-dry-run":
         return run_rtcm_dry_run(topic=str(kwargs.get("topic", "OpenClaw operator dry-run roundtable")))
+    elif name == "rtcm-dry-run-export":
+        output = kwargs.get("output")
+        if not output:
+            raise ValueError("--output is required for rtcm-dry-run-export")
+        return run_rtcm_dry_run_export(output=output)
+    elif name == "rtcm-report-index":
+        store = kwargs.get("store")
+        if not store:
+            raise ValueError("--store is required for rtcm-report-index")
+        return run_rtcm_report_index(store=store, limit=kwargs.get("limit"))
     else:
         raise ValueError(f"Unknown command: {name}")
 
@@ -139,6 +163,45 @@ def _build_parser() -> argparse.ArgumentParser:
     # nightly-schedule-preview
     subparsers.add_parser("nightly-schedule-preview", help="Preview Nightly schedule capability")
 
+    # nightly-export
+    nightly_export_parser = subparsers.add_parser("nightly-export", help="Export Nightly Review as markdown report")
+    nightly_export_parser.add_argument(
+        "--store-path",
+        type=Path,
+        default=None,
+        help="Path to NightlyReviewStore JSONL (optional; uses in-memory if not set)",
+    )
+    nightly_export_parser.add_argument(
+        "--output",
+        type=Path,
+        required=True,
+        help="Output path for the markdown report",
+    )
+    nightly_export_parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of items to include",
+    )
+
+    # nightly-run-once-preview
+    nightly_runonce_parser = subparsers.add_parser(
+        "nightly-run-once-preview",
+        help="Build Nightly Review payload without sending (dry-run preview)",
+    )
+    nightly_runonce_parser.add_argument(
+        "--store-path",
+        type=Path,
+        default=None,
+        help="Path to NightlyReviewStore JSONL (optional; uses in-memory if not set)",
+    )
+    nightly_runonce_parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of items to include",
+    )
+
     # asset-dry-run
     asset_parser = subparsers.add_parser("asset-dry-run", help="Run Asset dry-run")
     asset_parser.add_argument("--capability", default=None, help="Override capability name")
@@ -154,6 +217,30 @@ def _build_parser() -> argparse.ArgumentParser:
         "--topic",
         default="OpenClaw operator dry-run roundtable",
         help="Topic for the roundtable",
+    )
+
+    # rtcm-dry-run-export
+    rtcm_export_parser = subparsers.add_parser("rtcm-dry-run-export", help="Run RTCM dry-run and export markdown report")
+    rtcm_export_parser.add_argument(
+        "--output",
+        type=Path,
+        required=True,
+        help="Output path for the markdown report",
+    )
+
+    # rtcm-report-index
+    rtcm_index_parser = subparsers.add_parser("rtcm-report-index", help="Build JSON index from RTCM store")
+    rtcm_index_parser.add_argument(
+        "--store",
+        type=Path,
+        required=True,
+        help="Path to the RTCMDecisionStore JSONL file",
+    )
+    rtcm_index_parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of records to include (most recent first)",
     )
 
     return parser
@@ -225,6 +312,23 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(result.to_dict(), indent=2))
             return 0
 
+        elif args.command == "nightly-export":
+            result = run_nightly_export(
+                store=args.store_path,
+                output=args.output,
+                limit=args.limit,
+            )
+            print(json.dumps(result.to_dict(), indent=2))
+            return 0
+
+        elif args.command == "nightly-run-once-preview":
+            result = run_nightly_run_once_preview(
+                store=args.store_path,
+                limit=args.limit,
+            )
+            print(json.dumps(result.to_dict(), indent=2))
+            return 0
+
         elif args.command == "asset-dry-run":
             result = run_asset_dry_run(
                 capability=args.capability,
@@ -235,6 +339,16 @@ def main(argv: list[str] | None = None) -> int:
 
         elif args.command == "rtcm-dry-run":
             result = run_rtcm_dry_run(topic=args.topic)
+            print(json.dumps(result.to_dict(), indent=2))
+            return 0
+
+        elif args.command == "rtcm-dry-run-export":
+            result = run_rtcm_dry_run_export(output=args.output)
+            print(json.dumps(result.to_dict(), indent=2))
+            return 0
+
+        elif args.command == "rtcm-report-index":
+            result = run_rtcm_report_index(store=args.store, limit=args.limit)
             print(json.dumps(result.to_dict(), indent=2))
             return 0
 

@@ -241,6 +241,157 @@ class TestRTCMRuntime:
         d = result.to_dict()
         json.dumps(d)
 
+    def test_rtcm_dry_run_export_requires_output(self, tmp_path):
+        from app.openclaw_cli.runtimes.rtcm import run_rtcm_dry_run_export
+
+        result = run_rtcm_dry_run_export(output=str(tmp_path / "report.md"))
+        assert result.command == "rtcm-dry-run-export"
+        assert result.status == "success"
+        assert result.dry_run is True
+        assert "output_path" in result.payload
+        assert (tmp_path / "report.md").exists()
+
+    def test_rtcm_dry_run_export_writes_markdown(self, tmp_path):
+        from app.openclaw_cli.runtimes.rtcm import run_rtcm_dry_run_export
+
+        out_path = tmp_path / "rtcm.md"
+        result = run_rtcm_dry_run_export(output=str(out_path))
+        text = out_path.read_text(encoding="utf-8")
+        assert "# RTCM Roundtable Decision Report" in text
+        assert result.payload["dry_run"] is True
+
+    def test_rtcm_report_index_requires_store(self, tmp_path):
+        from app.openclaw_cli.runtimes.rtcm import run_rtcm_report_index
+
+        store_path = tmp_path / "rtcm.jsonl"
+        result = run_rtcm_report_index(store=str(store_path))
+        assert result.command == "rtcm-report-index"
+        assert result.status == "success"
+        assert result.payload["record_count"] == 0
+
+    def test_rtcm_report_index_reads_explicit_store_only(self, tmp_path):
+        from app.openclaw_cli.runtimes.rtcm import run_rtcm_report_index
+        from app.rtcm import (
+            RoundtableRequest,
+            RTCMDecisionStore,
+            build_decision_record,
+            build_default_council,
+            cast_dry_run_votes,
+            compute_majority_consensus,
+        )
+
+        store_path = tmp_path / "rtcm.jsonl"
+        store = RTCMDecisionStore(store_path)
+        req = RoundtableRequest.new(topic="idx-test", reason="testing index")
+        members = build_default_council()
+        votes = cast_dry_run_votes(req, members)
+        consensus = compute_majority_consensus(req, votes)
+        record = build_decision_record(req, members, votes, consensus)
+        store.append(record)
+
+        result = run_rtcm_report_index(store=str(store_path))
+
+        assert result.payload["record_count"] == 1
+        idx = result.payload["index"]
+        assert idx["count"] == 1
+        assert idx["dry_run"] is True
+
+    def test_rtcm_export_does_not_read_operational_rtcm_dir(self, tmp_path, monkeypatch):
+        from app.openclaw_cli.runtimes.rtcm import run_rtcm_dry_run_export
+
+        opened_paths: list[str] = []
+
+        def tracking_open(path, *args, **kwargs):
+            opened_paths.append(str(path))
+            raise FileNotFoundError("blocked")
+
+        monkeypatch.setattr("builtins.open", tracking_open)
+        run_rtcm_dry_run_export(output=str(tmp_path / "report.md"))
+
+        for p in opened_paths:
+            assert ".deerflow/rtcm" not in p
+
+
+# =============================================================================
+# Nightly export and run-once tests
+# =============================================================================
+
+
+class TestNightlyExport:
+    def test_nightly_export_requires_output(self, tmp_path):
+        from app.openclaw_cli.runtimes.nightly import run_nightly_export
+
+        result = run_nightly_export(output=str(tmp_path / "nightly.md"))
+        assert result.command == "nightly-export"
+        assert result.status == "success"
+        assert result.dry_run is True
+        assert "output_path" in result.payload
+
+    def test_nightly_export_writes_markdown(self, tmp_path):
+        from app.openclaw_cli.runtimes.nightly import run_nightly_export
+
+        out_path = tmp_path / "nightly.md"
+        run_nightly_export(output=str(out_path))
+        assert out_path.exists()
+        text = out_path.read_text(encoding="utf-8")
+        assert "Nightly Review Report" in text
+
+    def test_nightly_run_once_preview_requires_store(self, tmp_path):
+        from app.openclaw_cli.runtimes.nightly import run_nightly_run_once_preview
+
+        result = run_nightly_run_once_preview(store=str(tmp_path / "nightly.jsonl"))
+        assert result.command == "nightly-run-once-preview"
+        assert result.status == "success"
+        assert result.dry_run is True
+        assert result.payload["dry_run"] is True
+
+    def test_nightly_run_once_preview_no_send(self, tmp_path):
+        from app.openclaw_cli.runtimes.nightly import run_nightly_run_once_preview
+
+        result = run_nightly_run_once_preview()
+        assert "no message will be sent" in result.warnings[0]
+
+    def test_nightly_export_does_not_read_operation_assets(self, tmp_path, monkeypatch):
+        from app.openclaw_cli.runtimes.nightly import run_nightly_export
+
+        opened_paths: list[str] = []
+
+        def tracking_open(path, *args, **kwargs):
+            opened_paths.append(str(path))
+            raise FileNotFoundError("blocked")
+
+        monkeypatch.setattr("builtins.open", tracking_open)
+        run_nightly_export(output=str(tmp_path / "nightly.md"))
+
+        for p in opened_paths:
+            assert ".deerflow/operation_assets" not in p
+
+    def test_operator_cli_new_commands_listed(self):
+        commands = list_commands()
+        names = [c.name for c in commands]
+        assert "nightly-export" in names
+        assert "nightly-run-once-preview" in names
+        assert "rtcm-dry-run-export" in names
+        assert "rtcm-report-index" in names
+
+    def test_no_operational_dirs_read_by_new_commands(self, tmp_path, monkeypatch):
+        from app.openclaw_cli.runtimes.nightly import run_nightly_export
+        from app.openclaw_cli.runtimes.rtcm import run_rtcm_dry_run_export
+
+        opened_paths: list[str] = []
+
+        def tracking_open(path, *args, **kwargs):
+            opened_paths.append(str(path))
+            raise FileNotFoundError("blocked")
+
+        monkeypatch.setattr("builtins.open", tracking_open)
+        run_nightly_export(output=str(tmp_path / "nightly.md"))
+        run_rtcm_dry_run_export(output=str(tmp_path / "rtcm.md"))
+
+        for p in opened_paths:
+            assert ".deerflow/rtcm" not in p
+            assert ".deerflow/operation_assets" not in p
+
 
 # =============================================================================
 # run_command dispatch tests
