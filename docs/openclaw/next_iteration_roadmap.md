@@ -141,3 +141,4 @@ This unblocks **R216** and full public security claims.
 | 2026-05-06 | Initial — R210–R217 roadmap documented |
 | 2026-05-06 | R212X batch: R214+R215 manual scheduler done; R218 daemon deferred; R219 asset decision renumbered |
 | 2026-05-06 | R216X batch: R220–R223 (Asset adapter) and R224–R227 (RTCM runtime) stages defined; parallel to R216/R218 |
+| 2026-05-06 | R220X/R224X batch: Asset dry-run adapter (R221, PR #13) and RTCM dry-run runtime (R224–R226, PR #14) implemented; Asset + RTCM now AVAILABLE_WITH_LIMITS |

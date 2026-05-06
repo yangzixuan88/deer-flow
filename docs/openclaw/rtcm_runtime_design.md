@@ -159,3 +159,4 @@ If RTCM design proceeds after Nightly Review scheduler, consider extracting a sh
 |------|--------|
 | 2026-05-06 | Initial — proposed architecture documented |
 | 2026-05-06 | R216X — dry-run first architecture confirmed; R224–R227 stages defined |
+| 2026-05-06 | R224X — dry-run runtime fully implemented: models, council, vote, consensus, reporter, store, integration (33 tests passing); next phase R227 production decision |
