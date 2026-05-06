@@ -154,3 +154,4 @@ backend/app/asset_runtime/
 |------|--------|
 | 2026-05-06 | Initial — decision options documented |
 | 2026-05-06 | R216X — Option B selected; adapter architecture and R220–R223 stages defined |
+| 2026-05-06 | R221 — `models.py`, `adapter.py`, `dry_run.py`, `integration.py` implemented; 25 tests passing; no external network calls |
