@@ -42,6 +42,12 @@ logs/
 log/
 debug.log
 
+# OpenClaw local operational data
+.deerflow/rtcm/
+.deerflow/upgrade-center/
+.deerflow/operation_assets/
+.deerflow/**/token_cache.json
+
 # Local git hooks (keep only on this machine, do not push)
 .githooks/
 
