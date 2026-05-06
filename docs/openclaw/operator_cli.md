@@ -21,6 +21,7 @@ python -m app.openclaw_cli.console nightly-schedule-preview
 # Asset Runtime dry-run
 python -m app.openclaw_cli.console asset-dry-run
 python -m app.openclaw_cli.console asset-dry-run --payload-summary "test summary"
+python -m app.openclaw_cli.console asset-dry-run --capability asset.plan
 
 # RTCM Roundtable dry-run
 python -m app.openclaw_cli.console rtcm-dry-run
@@ -76,6 +77,21 @@ Each runtime wrapper:
 3. Maps the result to `OperatorCommandResult` with structured payload
 4. Adds dry-run safety warnings
 
+## Asset Capability Registry
+
+Asset dry-run uses a tracked capability registry (`default_capabilities.json`) that enumerates 6 dry-run capabilities:
+
+| Capability | Category | External Runtime Required |
+|-----------|----------|-------------------------|
+| `asset.noop` | general | No |
+| `asset.plan` | planning | No |
+| `asset.preview` | preview | No |
+| `asset.validate` | validation | No |
+| `asset.package` | packaging | Yes (not invoked in dry-run) |
+| `asset.publish` | publishing | Yes (not invoked in dry-run) |
+
+The registry is loaded via `importlib.resources` from `app.asset_runtime.capabilities.default_capabilities.json`. The `DryRunAssetRuntimeAdapter` is wired to this registry, so `asset-dry-run --capability asset.X` routes to the appropriate registered capability.
+
 ## Relationship to Existing Code
 
 - **Does NOT modify** `app/nightly_review/mode_router.py`
@@ -85,10 +101,13 @@ Each runtime wrapper:
 
 ## Test Coverage
 
-37 tests covering:
+42 tests covering:
 - Import side-effect isolation
 - Command registry completeness
 - Each runtime wrapper output structure
+- Asset capability registry (18 tests)
+- Registry-aware dry-run adapter (8 tests)
+- Asset CLI with capability selection (5 tests)
 - JSON serializability of all outputs
 - Safety: no Feishu send, no network, no token_cache, no .deerflow/rtcm access
 - `--real` flag rejection with exit code 2
@@ -98,3 +117,4 @@ Each runtime wrapper:
 | Date | Change |
 |------|--------|
 | 2026-05-06 | R237X — Unified operator CLI implemented; 37 tests passing; ruff clean |
+| 2026-05-06 | R238X — Asset capability registry wired to CLI; 42 tests passing |

@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
 
 from .models import AssetCapability, AssetRequest, AssetResult
+
+if TYPE_CHECKING:
+    from .registry import AssetCapabilityRegistry
 
 
 class AssetRuntimeAdapter(ABC):
@@ -27,38 +31,57 @@ class AssetRuntimeAdapter(ABC):
 
 
 class DryRunAssetRuntimeAdapter(AssetRuntimeAdapter):
-    """No-op asset runtime adapter for dry-run mode.
+    """Dry-run asset runtime adapter backed by the tracked capability registry.
 
-    Does not make any external network calls. Always returns a
-    dry_run status result without invoking real agents or services.
+    Does not make any external network calls. Always returns a dry_run
+    status result without invoking real agents or services.
     """
 
+    def __init__(self, registry: AssetCapabilityRegistry | None = None) -> None:
+        from .registry import AssetCapabilityRegistry
+
+        if registry is None:
+            registry = AssetCapabilityRegistry.from_default()
+        self._registry = registry
+
     def list_capabilities(self) -> list[AssetCapability]:
-        return [
-            AssetCapability(
-                name="asset_resolution",
-                description="Resolve asset references and return metadata",
-                supported=True,
-                dry_run_only=True,
-            ),
-            AssetCapability(
-                name="asset_validation",
-                description="Validate asset existence and accessibility",
-                supported=True,
-                dry_run_only=True,
-            ),
-        ]
+        return self._registry.list_capabilities()
 
     def can_handle(self, request: AssetRequest) -> bool:
-        return request.dry_run is True
+        if not request.dry_run:
+            return False
+        if request.requested_capability is None:
+            return True
+        cap = self._registry.get(request.requested_capability)
+        return cap is not None and cap.supported
 
     def execute(self, request: AssetRequest) -> AssetResult:
+        capability_name = request.requested_capability or "asset.noop"
+        cap = self._registry.get(capability_name)
+
+        if cap is None:
+            return AssetResult(
+                request_id=request.id,
+                status="failed",
+                capability=capability_name,
+                dry_run=True,
+                message=f"Unknown capability: {capability_name}",
+                artifacts=[],
+                warnings=["Unknown capability — dry-run failed safely"],
+            )
+
+        warnings = list(cap.warnings) if cap.warnings else []
+        warnings.append("Dry-run mode — no real agent invoked")
+
+        if cap.requires_external_runtime:
+            warnings.append("external Agent-S runtime not invoked in dry-run mode")
+
         return AssetResult(
             request_id=request.id,
             status="dry_run",
-            capability=None,
+            capability=cap.name,
             dry_run=True,
-            message=f"Dry-run adapter: would handle {request.mode} mode for reason '{request.reason}'",
+            message=f"Dry-run adapter: {cap.description} for reason '{request.reason}'",
             artifacts=[],
-            warnings=["Dry-run mode — no real agent invoked"],
+            warnings=warnings,
         )
