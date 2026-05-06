@@ -72,3 +72,4 @@ The following must NOT be claimed:
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial capability matrix — post R209X batch |
+| 2026-05-06 | R216X — Asset (R220–R223) and RTCM (R224–R227) implementation paths defined |

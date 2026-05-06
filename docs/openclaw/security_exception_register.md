@@ -59,9 +59,24 @@ The token is actively used by the RTCM operational session (not by any tracked P
 
 ---
 
+## Carry-Forward Rule for Asset and RTCM Implementation
+
+Any future Asset (`backend/app/asset_runtime/`) or RTCM (`backend/app/rtcm/`) implementation must:
+
+- **Never read `.deerflow/rtcm/`** — operational data is not runtime source code
+- **Never read `token_cache.json`** — token value must never be accessed
+- **Never use Feishu token** — credentials must come from `app_config.lark`, never from operational data
+- **Never send real Feishu/Lark messages** — dry-run first, `--real` opt-in only after R212 closure
+- **Never claim "security clean"** — S-RTCM-FEISHU-TOKEN-001 remains open until rotation is acknowledged
+
+These constraints apply to all R220–R227 implementation stages and are non-negotiable.
+
+---
+
 ## Change Log
 
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial — S-RTCM-FEISHU-TOKEN-001 documented |
 | 2026-05-06 | R212X — hygiene guard verified effective via git check-ignore |
+| 2026-05-06 | R216X — carry-forward rules added for Asset and RTCM R220–R227 |
