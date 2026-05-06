@@ -42,6 +42,16 @@ python -m app.openclaw_cli.console rtcm-report-index --store /tmp/rtcm.jsonl --l
 | No network calls | No `requests`, `httpx`, or channel `send()` invoked in dry-run paths |
 | No daemon auto-start | `NightlyReviewStore` / scheduler never auto-started on import |
 
+## Safety Note
+
+All operator CLI commands are **dry-run only**. Specifically:
+- No real Feishu/Lark messages are sent
+- No token values are accessed
+- No Agent-S external runtime is invoked
+- No `.deerflow/rtcm/` or `.deerflow/operation_assets/` paths are read
+- `--real` flag is rejected with exit code 2
+- Explicit `--output` or `--store` is required for any export — no default paths
+
 ## Commands
 
 | Command | Description |
@@ -125,3 +135,4 @@ The registry is loaded via `importlib.resources` from `app.asset_runtime.capabil
 | 2026-05-06 | R237X — Unified operator CLI implemented; 37 tests passing; ruff clean |
 | 2026-05-06 | R239X — RTCM/Nightly export commands added: rtcm-dry-run-export, rtcm-report-index, nightly-export, nightly-run-once-preview; 58 tests passing |
 | 2026-05-06 | R238X — Asset capability registry wired to CLI; 42 tests passing |
+| 2026-05-06 | R243X — vNext enhancement closeout freeze; all R239X commands confirmed; scope frozen |

@@ -75,3 +75,4 @@ The following are implemented but have defined boundaries:
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial release summary — post R228X batch |
+| 2026-05-06 | R243X — vNext enhancement closeout; R237X/R238X/R239X completed; capability matrix frozen; operator CLI unified dry-run/export console delivered |

@@ -145,3 +145,4 @@ This unblocks **R216** and full public security claims.
 | 2026-05-06 | R237X — Unified OpenClaw Operator CLI (PR #16) implemented; 37 tests; ruff clean |
 | 2026-05-06 | R238X — Asset capability registry implemented; tracked default_capabilities.json; DryRunAssetRuntimeAdapter wired to registry; 42 tests passing |
 | 2026-05-06 | R239X — RTCM store/report hardening (get, latest, export_json/md, limit, malformed skip); Nightly CLI export (--output md); Operator CLI export commands; 58 tests passing |
+| 2026-05-06 | R243X — vNext enhancement closeout; R237X/R238X/R239X COMPLETE; R240X/R241X/R242X/Nightly daemon deferred; R244X next phase |
