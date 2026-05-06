@@ -81,3 +81,4 @@ The following must NOT be claimed:
 | 2026-05-06 | R237X — OpenClaw Operator CLI added as feature #16; unified dry-run console |
 | 2026-05-06 | R238X — Asset runtime capability registry added to feature #13; tracked default_capabilities.json |
 | 2026-05-06 | R239X — Nightly Review (feature #12) and RTCM (feature #14) export hardening; new CLI commands: nightly-export, nightly-run-once-preview, rtcm-dry-run-export, rtcm-report-index |
+| 2026-05-06 | R243X — vNext enhancement closeout; R237X/R238X/R239X marked COMPLETE; capability matrix frozen; next phase R244X |
