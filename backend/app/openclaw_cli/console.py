@@ -137,15 +137,11 @@ def _build_parser() -> argparse.ArgumentParser:
     nightly_parser.add_argument("--limit", type=int, default=None, help="Limit number of items")
 
     # nightly-schedule-preview
-    subparsers.add_parser(
-        "nightly-schedule-preview", help="Preview Nightly schedule capability"
-    )
+    subparsers.add_parser("nightly-schedule-preview", help="Preview Nightly schedule capability")
 
     # asset-dry-run
     asset_parser = subparsers.add_parser("asset-dry-run", help="Run Asset dry-run")
-    asset_parser.add_argument(
-        "--capability", default=None, help="Override capability name"
-    )
+    asset_parser.add_argument("--capability", default=None, help="Override capability name")
     asset_parser.add_argument(
         "--payload-summary",
         default="OpenClaw operator dry-run",
