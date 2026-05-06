@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 from .reporter import NightlyReviewReporter
+from .scheduler import NightlyReviewScheduler
 from .store import NightlyReviewStore
 
 
@@ -14,6 +15,7 @@ def main(argv: list[str] | None = None) -> int:
 
     store = NightlyReviewStore()
     reporter = NightlyReviewReporter()
+    scheduler = NightlyReviewScheduler(store, reporter)
 
     if args.command == "list":
         return _cmd_list(store)
@@ -25,6 +27,10 @@ def main(argv: list[str] | None = None) -> int:
         return _cmd_clear(store, args)
     elif args.command == "send":
         return _cmd_send(store, reporter, args)
+    elif args.command == "schedule-dry-run":
+        return _cmd_schedule_dry_run(scheduler, args)
+    elif args.command == "run-once":
+        return _cmd_run_once(scheduler, args)
     else:
         parser.print_help()
         return 0
@@ -60,7 +66,52 @@ def _build_parser() -> argparse.ArgumentParser:
     send_parser.add_argument(
         "--real",
         action="store_true",
-        help=("Perform a real send. Without this flag, always operates in dry-run mode. Real send is not implemented in R208."),
+        help="Perform a real send. Without this flag, always operates in dry-run mode.",
+    )
+
+    sched_parser = sub.add_parser(
+        "schedule-dry-run",
+        help="Build and print a review report (manual scheduler, dry-run)",
+    )
+    sched_parser.add_argument(
+        "--store",
+        type=Path,
+        default=None,
+        help="Path to the store JSONL file (optional; uses default if not set)",
+    )
+    sched_parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of items to include",
+    )
+    sched_parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Write report to this path instead of stdout",
+    )
+
+    runonce_parser = sub.add_parser(
+        "run-once",
+        help="Build review payload and optionally mark items reviewed (manual scheduler)",
+    )
+    runonce_parser.add_argument(
+        "--store",
+        type=Path,
+        default=None,
+        help="Path to the store JSONL file (optional; uses default if not set)",
+    )
+    runonce_parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of items to include",
+    )
+    runonce_parser.add_argument(
+        "--mark-reviewed",
+        action="store_true",
+        help="Mark items as reviewed after building the payload",
     )
 
     return parser
@@ -123,7 +174,53 @@ def _cmd_send(
         print(json.dumps(card, indent=2, ensure_ascii=False))
         return 0
     else:
-        raise NotImplementedError("Real Feishu/Lark send is not implemented in R208. Please update to a later phase that implements --real send.")
+        raise NotImplementedError("Real Feishu/Lark send is not implemented in R212X. Please update to a later phase that implements --real send.")
+
+
+def _cmd_schedule_dry_run(
+    scheduler: NightlyReviewScheduler,
+    args: argparse.Namespace,
+) -> int:
+    """Build review payload via scheduler and output as markdown."""
+    store = _store_from_args(args)
+    scheduler._store = store  # inject store with optional custom path
+    limit = args.limit
+    output = args.output
+
+    payload = scheduler.build_review_payload(limit=limit)
+    report = scheduler.build_markdown_report(limit=limit)
+
+    if output is not None:
+        written = scheduler.export_markdown_report(output, limit=limit)
+        print(f"Wrote {payload.total} item(s) to {written}")
+    else:
+        print(report)
+    return 0
+
+
+def _cmd_run_once(
+    scheduler: NightlyReviewScheduler,
+    args: argparse.Namespace,
+) -> int:
+    """Build review payload via scheduler and optionally mark reviewed."""
+    store = _store_from_args(args)
+    scheduler._store = store  # inject store with optional custom path
+    limit = args.limit
+    mark_reviewed = args.mark_reviewed
+
+    payload = scheduler.run_once(limit=limit, mark_reviewed=mark_reviewed)
+
+    print(f"[DRY-RUN] Built payload: {payload.total} total, {payload.pending} pending, {payload.reviewed} reviewed")
+    if mark_reviewed:
+        print("(items marked as reviewed)")
+    return 0
+
+
+def _store_from_args(args: argparse.Namespace) -> NightlyReviewStore:
+    """Create a store, optionally overriding the storage path from args."""
+    if getattr(args, "store", None) is not None:
+        return NightlyReviewStore(storage_path=args.store)
+    return NightlyReviewStore()
 
 
 if __name__ == "__main__":
