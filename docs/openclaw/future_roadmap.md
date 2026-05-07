@@ -126,8 +126,68 @@ These remain forbidden regardless of future authorization:
 
 ---
 
+---
+
+## R246 Operational Acceptance
+
+### R246B — Operational Acceptance Plan Files (THIS PHASE)
+
+**Status**: IN PROGRESS
+
+**Description**: Create formal operational acceptance plan, machine-readable cases JSON, result template, and risk boundary documents.
+
+**Delivered**:
+- `subsystem_operational_acceptance_plan.md` — full acceptance plan with 20 domains, 6 layers
+- `subsystem_operational_acceptance_cases.json` — ~195 cases covering all 20 systems
+- `subsystem_operational_acceptance_result_template.md` — per-case result recording template
+- `subsystem_operational_acceptance_risk_boundary.md` — binding safety contract
+
+**Constraints**:
+- Docs only — no runtime code changes
+- No test modifications
+- No token access
+- No real-send
+
+---
+
+### R246C–R246H — Operational Acceptance Execution Phases
+
+| Phase | Content | Constraints |
+|-------|---------|-------------|
+| R246C | L0 Foundation + L1 Main Chain + L3 MCP | dry-run only |
+| R246D | L2 Path A Local Execution + L4 RTCM/AUTO/MEM | dry-run only |
+| R246E | L4 PROMPT/EVO/TOOL | dry-run only |
+| R246F | L4 ASSET/REPORT/NIGHTLY/CLI | dry-run only |
+| R246G | L5 Security/Hygiene | no token access |
+| R246H | Final analysis + gap summary | deferred fixes only |
+
+**All phases**: No runtime code changes, no test changes, no real-send, no Agent-S.
+
+---
+
+### R247X — Targeted Fix Plan (If Gaps Found)
+
+**Status**: DEFERRED
+
+**Description**: If R246C–R246H execution reveals defects requiring code changes, create targeted fix plan.
+
+**Trigger**: Any case returns `NEEDS_TARGETED_FIX`.
+
+**Required before start**:
+- Gap analysis from R246H complete
+- Defect list documented
+- Fix scope defined
+
+**Constraints**:
+- Fix-only scope — no new features
+- Separate PR — not mixed with acceptance docs
+- Test coverage for fix validated
+
+---
+
 ## Change Log
 
 | Date | Change |
 |------|--------|
 | 2026-05-07 | R245X — future roadmap documented; R240X/R241X/R242X/Nightly daemon deferred with explicit constraints and sequence |
+| 2026-05-07 | R246B — operational acceptance plan files created; R246C–R246H execution phases defined; R247X targeted fix deferred |

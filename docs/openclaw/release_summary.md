@@ -74,9 +74,24 @@ The following are implemented but have defined boundaries:
 
 ---
 
+## Full-Stack Operational Acceptance (R246)
+
+**R244X system-level capability acceptance is complete** — 15/15 capabilities accepted.
+
+**R245X final delivery is complete** — FINAL_DELIVERY_READY; maintenance manual, operator quickstart, release claims, future roadmap delivered.
+
+**R246B operational acceptance plan is in progress** — formal acceptance planning files being created.
+
+**R246C–R246H actual execution** — pending. This will convert system-level acceptance documentation into per-subsystem, per-function, input/output executable acceptance cases.
+
+---
+
 ## Change Log
 
 | Date | Change |
 |------|--------|
 | 2026-05-06 | Initial release summary — post R228X batch |
 | 2026-05-06 | R243X — vNext enhancement closeout; R237X/R238X/R239X completed; capability matrix frozen; operator CLI unified dry-run/export console delivered |
+| 2026-05-07 | R244X — system-level capability acceptance complete; 15/15 accepted; final delivery candidate ready |
+| 2026-05-07 | R245X — final delivery complete; FINAL_DELIVERY_READY; maintenance manual, operator quickstart, release claims, future roadmap added |
+| 2026-05-07 | R246B — full-stack operational acceptance plan prepared; 20 domains, ~195 cases, risk boundary, result template created; actual execution R246C–R246H pending |
