@@ -62,6 +62,21 @@ The following items were considered during planning but deliberately excluded:
 
 ---
 
+## Operational Acceptance (R246)
+
+| Phase | Content | Status |
+|-------|---------|--------|
+| R246B | Operational acceptance plan files | IN PROGRESS |
+| R246C | L0 Foundation + L1 Main Chain + L3 MCP | PENDING |
+| R246D | L2 Path A + L4 RTCM/AUTO/MEM | PENDING |
+| R246E | L4 PROMPT/EVO/TOOL | PENDING |
+| R246F | L4 ASSET/REPORT/NIGHTLY/CLI | PENDING |
+| R246G | L5 Security/Hygiene | PENDING |
+| R246H | Final analysis + gap summary | PENDING |
+| R247X | Targeted fix plan (if gaps found) | DEFERRED |
+
+---
+
 ## Change Log
 
 | Date | Change |
@@ -70,3 +85,4 @@ The following items were considered during planning but deliberately excluded:
 | 2026-05-06 | R243X — R237X/R238X/R239X moved to completed; R240X/R241X/R242X/Nightly daemon marked deferred future work |
 | 2026-05-06 | R244X — system-level capability acceptance complete; 15/15 evaluated; final delivery candidate ready |
 | 2026-05-07 | R245X — final delivery report and maintenance manual complete; FINAL_DELIVERY_READY; future roadmap documented |
+| 2026-05-07 | R246B — operational acceptance plan files created; R246C–R246H phases defined; R247X deferred fix plan added |
