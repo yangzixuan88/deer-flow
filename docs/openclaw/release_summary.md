@@ -6,6 +6,8 @@ This release completes the tracked OpenClaw main repair and post-closeout capabi
 
 **System-level capability acceptance (R244X) is complete** — 15/15 capabilities accepted (8 AVAILABLE, 7 AVAILABLE_WITH_LIMITS). See `system_capability_acceptance_matrix.md` and `final_delivery_candidate.md`.
 
+**Final delivery (R245X) is complete** — `final_delivery_report.md`, `maintenance_manual.md`, `operator_quickstart.md`, `release_claims.md`, and `future_roadmap.md` are available. Status: FINAL_DELIVERY_READY.
+
 ---
 
 ## Major completed areas

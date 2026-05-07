@@ -2,7 +2,14 @@
 
 ## Delivery Status
 
-**FINAL_DELIVERY_CANDIDATE_READY**
+**FINAL_DELIVERY_READY**
+
+See also:
+- `final_delivery_report.md` — executive summary and final classification
+- `maintenance_manual.md` — golden rules, validation, and escalation path
+- `operator_quickstart.md` — commands and quick reference for operators
+- `release_claims.md` — allowed and forbidden public claims
+- `future_roadmap.md` — deferred items and implementation sequence
 
 This document records the final delivery candidate state after the OpenClaw vNext enhancement cycle and system-level capability acceptance.
 
