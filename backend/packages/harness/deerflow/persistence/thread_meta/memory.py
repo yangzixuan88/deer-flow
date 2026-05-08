@@ -12,7 +12,7 @@ from typing import Any
 from langgraph.store.base import BaseStore
 
 from deerflow.persistence.thread_meta.base import ThreadMetaStore
-from deerflow.runtime.user_context import AUTO, _AutoSentinel, resolve_user_id
+from deerflow.runtime.user_context import AUTO, _AutoSentinel, resolve_owner_id, resolve_user_id
 from deerflow.utils.time import coerce_iso, now_iso
 
 THREADS_NS: tuple[str, ...] = ("threads",)
@@ -43,15 +43,18 @@ class MemoryThreadMetaStore(ThreadMetaStore):
         thread_id: str,
         *,
         assistant_id: str | None = None,
+        owner_id: str | None | _AutoSentinel = AUTO,
         user_id: str | None | _AutoSentinel = AUTO,
         display_name: str | None = None,
         metadata: dict | None = None,
     ) -> dict:
+        resolved_owner_id = resolve_owner_id(owner_id, method_name="MemoryThreadMetaStore.create")
         resolved_user_id = resolve_user_id(user_id, method_name="MemoryThreadMetaStore.create")
         now = now_iso()
         record: dict[str, Any] = {
             "thread_id": thread_id,
             "assistant_id": assistant_id,
+            "owner_id": resolved_owner_id,
             "user_id": resolved_user_id,
             "display_name": display_name,
             "status": "idle",
@@ -140,6 +143,7 @@ class MemoryThreadMetaStore(ThreadMetaStore):
         return {
             "thread_id": item.key,
             "assistant_id": val.get("assistant_id"),
+            "owner_id": val.get("owner_id"),
             "user_id": val.get("user_id"),
             "display_name": val.get("display_name"),
             "status": val.get("status", "idle"),
