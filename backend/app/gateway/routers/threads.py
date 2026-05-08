@@ -240,8 +240,8 @@ async def delete_thread_data(thread_id: str, request: Request) -> ThreadDeleteRe
     return response
 
 
-@require_permission("threads", "write")
 @router.post("", response_model=ThreadResponse)
+@require_permission("threads", "write")
 async def create_thread(body: ThreadCreateRequest, request: Request) -> ThreadResponse:
     """Create a new thread.
 
