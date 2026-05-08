@@ -32,7 +32,6 @@ from __future__ import annotations
 import functools
 import inspect
 from collections.abc import Callable
-from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any, ParamSpec, TypeVar
 
 from fastapi import HTTPException, Request
@@ -119,37 +118,25 @@ _ALL_PERMISSIONS: list[str] = [
 ]
 
 
-def _make_test_request_stub() -> Any:
-    """Create a minimal request-like object for direct unit calls.
-
-    Used when decorated route handlers are invoked without FastAPI's
-    request injection. Includes fields accessed by auth helpers.
-    """
-    return SimpleNamespace(state=SimpleNamespace(), cookies={}, _deerflow_test_bypass_auth=True)
-
-
-def _get_call_argument(func: Callable[..., Any], args: tuple[Any, ...], kwargs: dict[str, Any], name: str) -> Any:
-    """Resolve an argument by name from keyword or positional call inputs.
-
-    FastAPI injects route parameters by keyword, but unit tests may call
-    decorated handlers directly with positional arguments. Decorators need to
-    preserve both modes so they do not accidentally inject request stubs or lose
-    path parameters such as ``thread_id``.
-    """
+def _get_bound_argument(
+    func: Callable[..., Any],
+    args: tuple[Any, ...],
+    kwargs: dict[str, Any],
+    name: str,
+) -> tuple[bool, Any]:
+    """Resolve an argument by name from keyword or positional call inputs."""
     if name in kwargs:
-        return kwargs[name]
+        return True, kwargs[name]
 
     try:
         bound = inspect.signature(func).bind_partial(*args, **kwargs)
     except TypeError:
-        return None
+        return False, None
 
-    return bound.arguments.get(name)
+    if name not in bound.arguments:
+        return False, None
 
-
-def _declares_parameter(func: Callable[..., Any], name: str) -> bool:
-    """Return whether the wrapped callable declares a named parameter."""
-    return name in inspect.signature(func).parameters
+    return True, bound.arguments[name]
 
 
 async def _authenticate(request: Request) -> AuthContext:
@@ -193,19 +180,9 @@ def require_auth[**P, T](func: Callable[P, T]) -> Callable[P, T]:
 
     @functools.wraps(func)
     async def wrapper(*args: Any, **kwargs: Any) -> Any:
-        request = _get_call_argument(func, args, kwargs, "request")
-        if request is None:
-            # Unit tests may call decorated handlers directly without a
-            # FastAPI Request object. Inject a minimal request stub when
-            # the wrapped function declares `request`.
-            if _declares_parameter(func, "request"):
-                kwargs["request"] = _make_test_request_stub()
-            else:
-                raise ValueError("require_auth decorator requires 'request' parameter")
-            request = kwargs["request"]
-
-        if getattr(request, "_deerflow_test_bypass_auth", False):
-            return await func(*args, **kwargs)
+        has_request, request = _get_bound_argument(func, args, kwargs, "request")
+        if not has_request or request is None:
+            raise ValueError("require_auth decorator requires 'request' parameter")
 
         # Authenticate and set context
         auth_context = await _authenticate(request)
@@ -285,15 +262,10 @@ def require_permission(
     def decorator(func: Callable[P, T]) -> Callable[P, T]:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            request = _get_call_argument(func, args, kwargs, "request")
-            if request is None:
-                if _declares_parameter(func, "request"):
-                    kwargs["request"] = _make_test_request_stub()
-                    request = kwargs["request"]
-                else:
-                    return await func(*args, **kwargs)
-
-            if getattr(request, "_deerflow_test_bypass_auth", False):
+            has_request, request = _get_bound_argument(func, args, kwargs, "request")
+            if not has_request or request is None:
+                if "request" in inspect.signature(func).parameters:
+                    raise ValueError("require_permission decorator requires 'request' parameter")
                 return await func(*args, **kwargs)
 
             auth: AuthContext = getattr(request.state, "auth", None)
@@ -333,8 +305,8 @@ def require_permission(
             # strict-deny rather than strict-allow — only an *existing*
             # row with a *different* user_id triggers 404.
             if owner_check:
-                thread_id = _get_call_argument(func, args, kwargs, "thread_id")
-                if thread_id is None:
+                has_thread_id, thread_id = _get_bound_argument(func, args, kwargs, "thread_id")
+                if not has_thread_id or thread_id is None:
                     raise ValueError("require_permission with owner_check=True requires 'thread_id' parameter")
 
                 from app.gateway.deps import get_thread_store
