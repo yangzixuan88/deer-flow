@@ -279,19 +279,24 @@ async def start_run(
 
     # Upsert thread metadata so the thread appears in /threads/search,
     # even for threads that were never explicitly created via POST /threads
-    # (e.g. stateless runs). Pass explicit_user_id to avoid contextvar
-    # ambiguity when called from multi-step request contexts.
+    # (e.g. stateless runs). Only pass a user_id when the caller actually
+    # resolved one; explicit None is a ThreadMetaStore admin/migration escape
+    # hatch that bypasses isolation instead of meaning "use AUTO".
     try:
-        existing = await run_ctx.thread_store.get(thread_id, user_id=explicit_user_id)
+        thread_store_user_kwargs: dict[str, str] = {}
+        if explicit_user_id is not None:
+            thread_store_user_kwargs["user_id"] = explicit_user_id
+
+        existing = await run_ctx.thread_store.get(thread_id, **thread_store_user_kwargs)
         if existing is None:
             await run_ctx.thread_store.create(
                 thread_id,
                 assistant_id=body.assistant_id,
-                user_id=explicit_user_id,
                 metadata=body.metadata,
+                **thread_store_user_kwargs,
             )
         else:
-            await run_ctx.thread_store.update_status(thread_id, "running", user_id=explicit_user_id)
+            await run_ctx.thread_store.update_status(thread_id, "running", **thread_store_user_kwargs)
     except Exception:
         logger.warning("Failed to upsert thread_meta for %s (non-fatal)", sanitize_log_param(thread_id))
 
