@@ -27,6 +27,43 @@ class ThreadMetaRepository(ThreadMetaStore):
                 d[key] = val.isoformat()
         return d
 
+    @staticmethod
+    def _has_explicit_owner(owner_id: str | None | _AutoSentinel) -> bool:
+        return owner_id is not None and not isinstance(owner_id, _AutoSentinel)
+
+    @classmethod
+    def _resolve_create_owner_user(
+        cls,
+        owner_id: str | None | _AutoSentinel,
+        user_id: str | None | _AutoSentinel,
+        *,
+        method_name: str,
+    ) -> tuple[str | None, str | None]:
+        """Resolve create ownership while supporting upstream owner_id-only calls."""
+        if cls._has_explicit_owner(owner_id) and isinstance(user_id, _AutoSentinel):
+            resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name)
+            return resolved_owner_id, resolved_owner_id
+
+        resolved_user_id = resolve_user_id(user_id, method_name=method_name)
+        resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name) if owner_id is not None else resolved_user_id
+        return resolved_owner_id, resolved_user_id
+
+    @classmethod
+    def _resolve_query_owner_user(
+        cls,
+        owner_id: str | None | _AutoSentinel,
+        user_id: str | None | _AutoSentinel,
+        *,
+        method_name: str,
+    ) -> tuple[str | None, str | None]:
+        """Resolve filters while supporting owner_id-only compatibility calls."""
+        if cls._has_explicit_owner(owner_id) and isinstance(user_id, _AutoSentinel):
+            return resolve_owner_id(owner_id, method_name=method_name), None
+
+        resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name) if owner_id is not None else None
+        resolved_user_id = resolve_user_id(user_id, method_name=method_name)
+        return resolved_owner_id, resolved_user_id
+
     async def create(
         self,
         thread_id: str,
@@ -37,8 +74,11 @@ class ThreadMetaRepository(ThreadMetaStore):
         display_name: str | None = None,
         metadata: dict | None = None,
     ) -> dict:
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.create")
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.create") if owner_id is not None else resolved_user_id
+        resolved_owner_id, resolved_user_id = self._resolve_create_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.create",
+        )
         now = datetime.now(UTC)
         row = ThreadMetaRow(
             thread_id=thread_id,
@@ -63,8 +103,11 @@ class ThreadMetaRepository(ThreadMetaStore):
         owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> dict | None:
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.get")
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.get")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.get",
+        )
         async with self._sf() as session:
             row = await session.get(ThreadMetaRow, thread_id)
             if row is None:
@@ -135,12 +178,15 @@ class ThreadMetaRepository(ThreadMetaStore):
     ) -> list[dict]:
         """Search threads with optional metadata and status filters.
 
-        User filter is enforced by default: caller must be in a user
-        context unless an explicit ``user_id`` is passed. Pass
-        ``user_id=None`` to bypass (migration/CLI).
+        User filter is enforced by default unless an explicit
+        ``owner_id`` is supplied for upstream compatibility. Pass
+        ``user_id=None`` to bypass user filtering (migration/CLI).
         """
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.search")
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.search")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.search",
+        )
         stmt = select(ThreadMetaRow).order_by(ThreadMetaRow.updated_at.desc())
         if resolved_owner_id is not None:
             stmt = stmt.where(ThreadMetaRow.owner_id == resolved_owner_id)
@@ -171,8 +217,11 @@ class ThreadMetaRepository(ThreadMetaStore):
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> None:
         """Update the display_name (title) for a thread."""
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.update_display_name")
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.update_display_name")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.update_display_name",
+        )
         async with self._sf() as session:
             row = await session.get(ThreadMetaRow, thread_id)
             if row is None:
@@ -193,8 +242,11 @@ class ThreadMetaRepository(ThreadMetaStore):
         owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> None:
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.update_status")
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.update_status")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.update_status",
+        )
         async with self._sf() as session:
             row = await session.get(ThreadMetaRow, thread_id)
             if row is None:
@@ -216,8 +268,11 @@ class ThreadMetaRepository(ThreadMetaStore):
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> None:
         """Merge ``metadata`` into ``metadata_json``."""
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.update_metadata")
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.update_metadata")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.update_metadata",
+        )
         async with self._sf() as session:
             row = await session.get(ThreadMetaRow, thread_id)
             if row is None:
@@ -239,8 +294,11 @@ class ThreadMetaRepository(ThreadMetaStore):
         owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> None:
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="ThreadMetaRepository.delete")
-        resolved_user_id = resolve_user_id(user_id, method_name="ThreadMetaRepository.delete")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(
+            owner_id,
+            user_id,
+            method_name="ThreadMetaRepository.delete",
+        )
         async with self._sf() as session:
             row = await session.get(ThreadMetaRow, thread_id)
             if row is None:
