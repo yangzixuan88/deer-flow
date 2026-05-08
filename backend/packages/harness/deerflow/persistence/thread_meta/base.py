@@ -10,6 +10,9 @@ three-state semantics (see :mod:`deerflow.runtime.user_context`):
 - ``AUTO`` (default): resolve from the request-scoped contextvar.
 - Explicit ``str``: use the provided value verbatim.
 - Explicit ``None``: bypass owner filtering (migration/CLI only).
+
+``owner_id`` is retained for upstream LangGraph Platform compatibility.
+When omitted, implementations should rely on ``user_id`` for isolation.
 """
 
 from __future__ import annotations
@@ -26,7 +29,7 @@ class ThreadMetaStore(abc.ABC):
         thread_id: str,
         *,
         assistant_id: str | None = None,
-        owner_id: str | None | _AutoSentinel = AUTO,
+        owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
         display_name: str | None = None,
         metadata: dict | None = None,
@@ -34,7 +37,13 @@ class ThreadMetaStore(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def get(self, thread_id: str, *, user_id: str | None | _AutoSentinel = AUTO) -> dict | None:
+    async def get(
+        self,
+        thread_id: str,
+        *,
+        owner_id: str | None | _AutoSentinel = None,
+        user_id: str | None | _AutoSentinel = AUTO,
+    ) -> dict | None:
         pass
 
     @abc.abstractmethod
@@ -45,20 +54,42 @@ class ThreadMetaStore(abc.ABC):
         status: str | None = None,
         limit: int = 100,
         offset: int = 0,
+        owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> list[dict]:
         pass
 
     @abc.abstractmethod
-    async def update_display_name(self, thread_id: str, display_name: str, *, user_id: str | None | _AutoSentinel = AUTO) -> None:
+    async def update_display_name(
+        self,
+        thread_id: str,
+        display_name: str,
+        *,
+        owner_id: str | None | _AutoSentinel = None,
+        user_id: str | None | _AutoSentinel = AUTO,
+    ) -> None:
         pass
 
     @abc.abstractmethod
-    async def update_status(self, thread_id: str, status: str, *, user_id: str | None | _AutoSentinel = AUTO) -> None:
+    async def update_status(
+        self,
+        thread_id: str,
+        status: str,
+        *,
+        owner_id: str | None | _AutoSentinel = None,
+        user_id: str | None | _AutoSentinel = AUTO,
+    ) -> None:
         pass
 
     @abc.abstractmethod
-    async def update_metadata(self, thread_id: str, metadata: dict, *, user_id: str | None | _AutoSentinel = AUTO) -> None:
+    async def update_metadata(
+        self,
+        thread_id: str,
+        metadata: dict,
+        *,
+        owner_id: str | None | _AutoSentinel = None,
+        user_id: str | None | _AutoSentinel = AUTO,
+    ) -> None:
         """Merge ``metadata`` into the thread's metadata field.
 
         Existing keys are overwritten by the new values; keys absent from
@@ -73,5 +104,11 @@ class ThreadMetaStore(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def delete(self, thread_id: str, *, user_id: str | None | _AutoSentinel = AUTO) -> None:
+    async def delete(
+        self,
+        thread_id: str,
+        *,
+        owner_id: str | None | _AutoSentinel = None,
+        user_id: str | None | _AutoSentinel = AUTO,
+    ) -> None:
         pass
