@@ -21,6 +21,8 @@ from pydantic import BaseModel, Field
 
 from app.gateway.authz import AuthContext, require_permission
 from app.gateway.deps import get_checkpointer, get_current_user, get_feedback_repo, get_run_event_store, get_run_manager, get_run_store, get_stream_bridge
+from app.gateway.services import sse_consumer, start_run
+from deerflow.runtime import RunRecord, serialize_channel_values
 
 
 def _get_user_id_from_request(request: Request) -> str | None:
@@ -33,8 +35,7 @@ def _get_user_id_from_request(request: Request) -> str | None:
     if auth is None or auth.user is None:
         return None
     return str(auth.user.id)
-from app.gateway.services import sse_consumer, start_run
-from deerflow.runtime import RunRecord, serialize_channel_values
+
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/threads", tags=["runs"])
