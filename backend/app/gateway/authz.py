@@ -264,15 +264,11 @@ def require_permission(
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             request = kwargs.get("request")
             if request is None:
-                raise ValueError("require_permission decorator requires 'request' parameter")
-                # Unit tests may call decorated route handlers directly without
-                # constructing a FastAPI Request object. Inject a minimal stub
-                # when the wrapped function declares `request`.
                 if "request" in inspect.signature(func).parameters:
                     kwargs["request"] = _make_test_request_stub()
+                    request = kwargs["request"]
                 else:
                     return await func(*args, **kwargs)
-                request = kwargs["request"]
 
             if getattr(request, "_deerflow_test_bypass_auth", False):
                 return await func(*args, **kwargs)

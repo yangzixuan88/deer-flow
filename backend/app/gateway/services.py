@@ -231,6 +231,8 @@ async def start_run(
     thread_id: str,
     request: Request,
     run_in_background: bool = True,
+    *,
+    explicit_user_id: str | None = None,
 ) -> RunRecord:
     """Create a RunRecord and launch the agent task.
 
@@ -250,6 +252,10 @@ async def start_run(
         the agent completes. Use ``run_in_background=False`` in test
         harnesses to avoid TestClient context teardown cancelling the
         background task and causing ``status=interrupted``.
+    explicit_user_id : str | None, default None
+        When provided, use this user_id for thread_meta upsert instead of
+        AUTO contextvar resolution. This avoids contextvar propagation
+        ambiguity in multi-step request flows.
     """
     bridge = get_stream_bridge(request)
     run_mgr = get_run_manager(request)
@@ -273,17 +279,19 @@ async def start_run(
 
     # Upsert thread metadata so the thread appears in /threads/search,
     # even for threads that were never explicitly created via POST /threads
-    # (e.g. stateless runs).
+    # (e.g. stateless runs). Pass explicit_user_id to avoid contextvar
+    # ambiguity when called from multi-step request contexts.
     try:
-        existing = await run_ctx.thread_store.get(thread_id)
+        existing = await run_ctx.thread_store.get(thread_id, user_id=explicit_user_id)
         if existing is None:
             await run_ctx.thread_store.create(
                 thread_id,
                 assistant_id=body.assistant_id,
+                user_id=explicit_user_id,
                 metadata=body.metadata,
             )
         else:
-            await run_ctx.thread_store.update_status(thread_id, "running")
+            await run_ctx.thread_store.update_status(thread_id, "running", user_id=explicit_user_id)
     except Exception:
         logger.warning("Failed to upsert thread_meta for %s (non-fatal)", sanitize_log_param(thread_id))
 
