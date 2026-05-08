@@ -128,6 +128,30 @@ def _make_test_request_stub() -> Any:
     return SimpleNamespace(state=SimpleNamespace(), cookies={}, _deerflow_test_bypass_auth=True)
 
 
+def _get_call_argument(func: Callable[..., Any], args: tuple[Any, ...], kwargs: dict[str, Any], name: str) -> Any:
+    """Resolve an argument by name from keyword or positional call inputs.
+
+    FastAPI injects route parameters by keyword, but unit tests may call
+    decorated handlers directly with positional arguments. Decorators need to
+    preserve both modes so they do not accidentally inject request stubs or lose
+    path parameters such as ``thread_id``.
+    """
+    if name in kwargs:
+        return kwargs[name]
+
+    try:
+        bound = inspect.signature(func).bind_partial(*args, **kwargs)
+    except TypeError:
+        return None
+
+    return bound.arguments.get(name)
+
+
+def _declares_parameter(func: Callable[..., Any], name: str) -> bool:
+    """Return whether the wrapped callable declares a named parameter."""
+    return name in inspect.signature(func).parameters
+
+
 async def _authenticate(request: Request) -> AuthContext:
     """Authenticate request and return AuthContext.
 
@@ -169,12 +193,12 @@ def require_auth[**P, T](func: Callable[P, T]) -> Callable[P, T]:
 
     @functools.wraps(func)
     async def wrapper(*args: Any, **kwargs: Any) -> Any:
-        request = kwargs.get("request")
+        request = _get_call_argument(func, args, kwargs, "request")
         if request is None:
             # Unit tests may call decorated handlers directly without a
             # FastAPI Request object. Inject a minimal request stub when
             # the wrapped function declares `request`.
-            if "request" in inspect.signature(func).parameters:
+            if _declares_parameter(func, "request"):
                 kwargs["request"] = _make_test_request_stub()
             else:
                 raise ValueError("require_auth decorator requires 'request' parameter")
@@ -261,9 +285,9 @@ def require_permission(
     def decorator(func: Callable[P, T]) -> Callable[P, T]:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            request = kwargs.get("request")
+            request = _get_call_argument(func, args, kwargs, "request")
             if request is None:
-                if "request" in inspect.signature(func).parameters:
+                if _declares_parameter(func, "request"):
                     kwargs["request"] = _make_test_request_stub()
                     request = kwargs["request"]
                 else:
@@ -309,7 +333,7 @@ def require_permission(
             # strict-deny rather than strict-allow — only an *existing*
             # row with a *different* user_id triggers 404.
             if owner_check:
-                thread_id = kwargs.get("thread_id")
+                thread_id = _get_call_argument(func, args, kwargs, "thread_id")
                 if thread_id is None:
                     raise ValueError("require_permission with owner_check=True requires 'thread_id' parameter")
 
