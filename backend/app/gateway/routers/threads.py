@@ -44,6 +44,7 @@ def _get_user_id(request: Request, *, auth_required: bool = True) -> str | None:
         return None
     return str(auth.user.id)
 
+
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/threads", tags=["threads"])
 
