@@ -22,6 +22,27 @@ class MemoryThreadMetaStore(ThreadMetaStore):
     def __init__(self, store: BaseStore) -> None:
         self._store = store
 
+    @staticmethod
+    def _has_explicit_owner(owner_id: str | None | _AutoSentinel) -> bool:
+        return owner_id is not None and not isinstance(owner_id, _AutoSentinel)
+
+    @classmethod
+    def _resolve_create_owner_user(cls, owner_id: str | None | _AutoSentinel, user_id: str | None | _AutoSentinel, *, method_name: str) -> tuple[str | None, str | None]:
+        if cls._has_explicit_owner(owner_id) and isinstance(user_id, _AutoSentinel):
+            resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name)
+            return resolved_owner_id, resolved_owner_id
+        resolved_user_id = resolve_user_id(user_id, method_name=method_name)
+        resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name) if owner_id is not None else resolved_user_id
+        return resolved_owner_id, resolved_user_id
+
+    @classmethod
+    def _resolve_query_owner_user(cls, owner_id: str | None | _AutoSentinel, user_id: str | None | _AutoSentinel, *, method_name: str) -> tuple[str | None, str | None]:
+        if cls._has_explicit_owner(owner_id) and isinstance(user_id, _AutoSentinel):
+            return resolve_owner_id(owner_id, method_name=method_name), None
+        resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name) if owner_id is not None else None
+        resolved_user_id = resolve_user_id(user_id, method_name=method_name)
+        return resolved_owner_id, resolved_user_id
+
     async def _get_owned_record(
         self,
         thread_id: str,
@@ -30,8 +51,7 @@ class MemoryThreadMetaStore(ThreadMetaStore):
         method_name: str,
     ) -> dict | None:
         """Fetch a record and verify ownership. Returns a mutable copy, or None."""
-        resolved_owner_id = resolve_owner_id(owner_id, method_name=method_name)
-        resolved_user_id = resolve_user_id(user_id, method_name=method_name)
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(owner_id, user_id, method_name=method_name)
         item = await self._store.aget(THREADS_NS, thread_id)
         if item is None:
             return None
@@ -52,8 +72,7 @@ class MemoryThreadMetaStore(ThreadMetaStore):
         display_name: str | None = None,
         metadata: dict | None = None,
     ) -> dict:
-        resolved_user_id = resolve_user_id(user_id, method_name="MemoryThreadMetaStore.create")
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="MemoryThreadMetaStore.create") if owner_id is not None else resolved_user_id
+        resolved_owner_id, resolved_user_id = self._resolve_create_owner_user(owner_id, user_id, method_name="MemoryThreadMetaStore.create")
         now = now_iso()
         record: dict[str, Any] = {
             "thread_id": thread_id,
@@ -89,8 +108,7 @@ class MemoryThreadMetaStore(ThreadMetaStore):
         owner_id: str | None | _AutoSentinel = None,
         user_id: str | None | _AutoSentinel = AUTO,
     ) -> list[dict]:
-        resolved_owner_id = resolve_owner_id(owner_id, method_name="MemoryThreadMetaStore.search")
-        resolved_user_id = resolve_user_id(user_id, method_name="MemoryThreadMetaStore.search")
+        resolved_owner_id, resolved_user_id = self._resolve_query_owner_user(owner_id, user_id, method_name="MemoryThreadMetaStore.search")
         filter_dict: dict[str, Any] = {}
         if metadata:
             filter_dict.update(metadata)
