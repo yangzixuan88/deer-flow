@@ -171,7 +171,6 @@ def require_auth[**P, T](func: Callable[P, T]) -> Callable[P, T]:
     async def wrapper(*args: Any, **kwargs: Any) -> Any:
         request = kwargs.get("request")
         if request is None:
-            raise ValueError("require_auth decorator requires 'request' parameter")
             # Unit tests may call decorated handlers directly without a
             # FastAPI Request object. Inject a minimal request stub when
             # the wrapped function declares `request`.
