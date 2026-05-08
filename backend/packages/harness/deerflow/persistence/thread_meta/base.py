@@ -26,6 +26,7 @@ class ThreadMetaStore(abc.ABC):
         thread_id: str,
         *,
         assistant_id: str | None = None,
+        owner_id: str | None | _AutoSentinel = AUTO,
         user_id: str | None | _AutoSentinel = AUTO,
         display_name: str | None = None,
         metadata: dict | None = None,
