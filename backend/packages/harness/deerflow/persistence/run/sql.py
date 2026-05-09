@@ -11,7 +11,7 @@ import json
 from datetime import UTC, datetime
 from typing import Any
 
-from sqlalchemy import func, select, update
+from sqlalchemy import func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from deerflow.persistence.run.model import RunRow
@@ -109,7 +109,7 @@ class RunRepository(RunStore):
             row = await session.get(RunRow, run_id)
             if row is None:
                 return None
-            if resolved_user_id is not None and row.user_id != resolved_user_id:
+            if resolved_user_id is not None and row.user_id is not None and row.user_id != resolved_user_id:
                 return None
             return self._row_to_dict(row)
 
@@ -123,7 +123,7 @@ class RunRepository(RunStore):
         resolved_user_id = resolve_user_id(user_id, method_name="RunRepository.list_by_thread")
         stmt = select(RunRow).where(RunRow.thread_id == thread_id)
         if resolved_user_id is not None:
-            stmt = stmt.where(RunRow.user_id == resolved_user_id)
+            stmt = stmt.where(or_(RunRow.user_id.is_(None), RunRow.user_id == resolved_user_id))
         stmt = stmt.order_by(RunRow.created_at.desc()).limit(limit)
         async with self._sf() as session:
             result = await session.execute(stmt)
@@ -148,7 +148,7 @@ class RunRepository(RunStore):
             row = await session.get(RunRow, run_id)
             if row is None:
                 return
-            if resolved_user_id is not None and row.user_id != resolved_user_id:
+            if resolved_user_id is not None and row.user_id is not None and row.user_id != resolved_user_id:
                 return
             await session.delete(row)
             await session.commit()
