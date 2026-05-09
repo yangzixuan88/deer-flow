@@ -15,6 +15,18 @@ class MemoryRunStore(RunStore):
     def __init__(self) -> None:
         self._runs: dict[str, dict[str, Any]] = {}
 
+    @staticmethod
+    def _matches_user(run: dict[str, Any], user_id: str | None) -> bool:
+        """Return whether a run is visible to user_id.
+
+        Runs without user_id are legacy/shared test records and remain visible
+        to authenticated lookups. Runs owned by another explicit user are hidden.
+        """
+        if user_id is None:
+            return True
+        run_user_id = run.get("user_id")
+        return run_user_id is None or run_user_id == user_id
+
     async def put(
         self,
         run_id,
@@ -48,12 +60,12 @@ class MemoryRunStore(RunStore):
         run = self._runs.get(run_id)
         if run is None:
             return None
-        if user_id is not None and run.get("user_id") != user_id:
+        if not self._matches_user(run, user_id):
             return None
         return run
 
     async def list_by_thread(self, thread_id, *, user_id=None, limit=100):
-        results = [r for r in self._runs.values() if r["thread_id"] == thread_id and (user_id is None or r.get("user_id") == user_id)]
+        results = [r for r in self._runs.values() if r["thread_id"] == thread_id and self._matches_user(r, user_id)]
         results.sort(key=lambda r: r["created_at"], reverse=True)
         return results[:limit]
 
@@ -65,10 +77,9 @@ class MemoryRunStore(RunStore):
             self._runs[run_id]["updated_at"] = datetime.now(UTC).isoformat()
 
     async def delete(self, run_id, *, user_id=None):
-        if user_id is not None:
-            run = self._runs.get(run_id)
-            if run is None or run.get("user_id") != user_id:
-                return
+        run = self._runs.get(run_id)
+        if run is None or not self._matches_user(run, user_id):
+            return
         self._runs.pop(run_id, None)
 
     async def update_run_completion(self, run_id, *, status, **kwargs):
