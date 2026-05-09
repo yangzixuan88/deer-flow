@@ -73,7 +73,11 @@ async def upsert_feedback(
     user_id = await get_current_user(request)
 
     run_store = get_run_store(request)
-    run = await run_store.get(run_id)
+    try:
+        run = await run_store.get(run_id, user_id=user_id)
+    except Exception as e:
+        err_detail = f"run_store.get failed: {type(e).__name__}: {e}"
+        raise HTTPException(status_code=500, detail=err_detail)
     if run is None:
         raise HTTPException(status_code=404, detail=f"Run {run_id} not found")
     if run.get("thread_id") != thread_id:
@@ -125,7 +129,11 @@ async def create_feedback(
 
     # Validate run exists and belongs to thread
     run_store = get_run_store(request)
-    run = await run_store.get(run_id)
+    try:
+        run = await run_store.get(run_id, user_id=user_id)
+    except Exception as e:
+        err_detail = f"run_store.get failed: {type(e).__name__}: {e}"
+        raise HTTPException(status_code=500, detail=err_detail)
     if run is None:
         raise HTTPException(status_code=404, detail=f"Run {run_id} not found")
     if run.get("thread_id") != thread_id:
@@ -150,8 +158,9 @@ async def list_feedback(
     request: Request,
 ) -> list[dict[str, Any]]:
     """List all feedback for a run."""
+    user_id = await get_current_user(request)
     feedback_repo = get_feedback_repo(request)
-    return await feedback_repo.list_by_run(thread_id, run_id)
+    return await feedback_repo.list_by_run(thread_id, run_id, user_id=user_id)
 
 
 @router.get("/{thread_id}/runs/{run_id}/feedback/stats", response_model=FeedbackStatsResponse)
@@ -162,6 +171,7 @@ async def feedback_stats(
     request: Request,
 ) -> dict[str, Any]:
     """Get aggregated feedback stats (positive/negative counts) for a run."""
+    await get_current_user(request)  # Auth check only — aggregate is all-users
     feedback_repo = get_feedback_repo(request)
     return await feedback_repo.aggregate_by_run(thread_id, run_id)
 
@@ -175,14 +185,15 @@ async def delete_feedback(
     request: Request,
 ) -> dict[str, bool]:
     """Delete a feedback record."""
+    user_id = await get_current_user(request)
     feedback_repo = get_feedback_repo(request)
     # Verify feedback belongs to the specified thread/run before deleting
-    existing = await feedback_repo.get(feedback_id)
+    existing = await feedback_repo.get(feedback_id, user_id=user_id)
     if existing is None:
         raise HTTPException(status_code=404, detail=f"Feedback {feedback_id} not found")
     if existing.get("thread_id") != thread_id or existing.get("run_id") != run_id:
         raise HTTPException(status_code=404, detail=f"Feedback {feedback_id} not found in run {run_id}")
-    deleted = await feedback_repo.delete(feedback_id)
+    deleted = await feedback_repo.delete(feedback_id, user_id=user_id)
     if not deleted:
         raise HTTPException(status_code=404, detail=f"Feedback {feedback_id} not found")
     return {"success": True}

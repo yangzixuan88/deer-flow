@@ -20,13 +20,30 @@ from fastapi import APIRouter, HTTPException, Request
 from langgraph.checkpoint.base import empty_checkpoint
 from pydantic import BaseModel, Field, field_validator
 
-from app.gateway.authz import require_permission
+from app.gateway.authz import AuthContext, require_permission
 from app.gateway.deps import get_checkpointer
 from app.gateway.utils import sanitize_log_param
 from deerflow.config.paths import Paths, get_paths
 from deerflow.runtime import serialize_channel_values
 from deerflow.runtime.user_context import get_effective_user_id
 from deerflow.utils.time import coerce_iso, now_iso
+
+
+def _get_user_id(request: Request, *, auth_required: bool = True) -> str | None:
+    """Extract user_id from request auth context.
+
+    Returns the string user_id from request.state.auth.user.id.
+    When auth_required=False, returns None instead of raising.
+    """
+    auth: AuthContext | None = getattr(request.state, "auth", None)
+    if auth is None or auth.user is None:
+        if auth_required:
+            from fastapi import HTTPException
+
+            raise HTTPException(status_code=401, detail="Authentication required")
+        return None
+    return str(auth.user.id)
+
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/threads", tags=["threads"])
@@ -212,9 +229,11 @@ async def delete_thread_data(thread_id: str, request: Request) -> ThreadDeleteRe
 
     # Remove thread_meta row (best-effort) — required for sqlite backend
     # so the deleted thread no longer appears in /threads/search.
+    # Explicit user_id avoids AUTO contextvar ambiguity at call site.
     try:
         thread_store = get_thread_store(request)
-        await thread_store.delete(thread_id)
+        current_user_id = _get_user_id(request)
+        await thread_store.delete(thread_id, user_id=current_user_id)
     except Exception:
         logger.debug("Could not delete thread_meta for %s (not critical)", sanitize_log_param(thread_id))
 
@@ -222,6 +241,7 @@ async def delete_thread_data(thread_id: str, request: Request) -> ThreadDeleteRe
 
 
 @router.post("", response_model=ThreadResponse)
+@require_permission("threads", "write")
 async def create_thread(body: ThreadCreateRequest, request: Request) -> ThreadResponse:
     """Create a new thread.
 
@@ -229,17 +249,29 @@ async def create_thread(body: ThreadCreateRequest, request: Request) -> ThreadRe
     and an empty checkpoint (so state endpoints work immediately).
     Idempotent: returns the existing record when ``thread_id`` already exists.
     """
+    # === Inline auth: AuthMiddleware disabled, @require_permission decorator
+    # does not reliably set request.state.auth, so we authenticate directly.
+    from app.gateway.deps import get_current_user_from_request
+
+    try:
+        current_user = await get_current_user_from_request(request)
+    except Exception:
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=401, detail="Authentication required")
+
     from app.gateway.deps import get_thread_store
 
     checkpointer = get_checkpointer(request)
     thread_store = get_thread_store(request)
     thread_id = body.thread_id or str(uuid.uuid4())
     now = now_iso()
+    current_user_id = str(current_user.id)
     # ``body.metadata`` is already stripped of server-reserved keys by
     # ``ThreadCreateRequest._strip_reserved`` — see the model definition.
 
     # Idempotency: return existing record when already present
-    existing_record = await thread_store.get(thread_id)
+    existing_record = await thread_store.get(thread_id, user_id=current_user_id)
     if existing_record is not None:
         return ThreadResponse(
             thread_id=thread_id,
@@ -250,10 +282,13 @@ async def create_thread(body: ThreadCreateRequest, request: Request) -> ThreadRe
         )
 
     # Write thread_meta so the thread appears in /threads/search immediately
+    # Explicit owner_id+user_id to avoid contextvar ambiguity (AuthMiddleware disabled).
     try:
         await thread_store.create(
             thread_id,
             assistant_id=getattr(body, "assistant_id", None),
+            owner_id=current_user_id,
+            user_id=current_user_id,
             metadata=body.metadata,
         )
     except Exception:
@@ -296,11 +331,13 @@ async def search_threads(body: ThreadSearchRequest, request: Request) -> list[Th
     from app.gateway.deps import get_thread_store
 
     repo = get_thread_store(request)
+    current_user_id = _get_user_id(request)
     rows = await repo.search(
         metadata=body.metadata or None,
         status=body.status,
         limit=body.limit,
         offset=body.offset,
+        user_id=current_user_id,
     )
     return [
         ThreadResponse(
@@ -326,19 +363,20 @@ async def patch_thread(thread_id: str, body: ThreadPatchRequest, request: Reques
     from app.gateway.deps import get_thread_store
 
     thread_store = get_thread_store(request)
-    record = await thread_store.get(thread_id)
+    current_user_id = _get_user_id(request)
+    record = await thread_store.get(thread_id, user_id=current_user_id)
     if record is None:
         raise HTTPException(status_code=404, detail=f"Thread {thread_id} not found")
 
     # ``body.metadata`` already stripped by ``ThreadPatchRequest._strip_reserved``.
     try:
-        await thread_store.update_metadata(thread_id, body.metadata)
+        await thread_store.update_metadata(thread_id, body.metadata, user_id=current_user_id)
     except Exception:
         logger.exception("Failed to patch thread %s", sanitize_log_param(thread_id))
         raise HTTPException(status_code=500, detail="Failed to update thread")
 
     # Re-read to get the merged metadata + refreshed updated_at
-    record = await thread_store.get(thread_id) or record
+    record = await thread_store.get(thread_id, user_id=current_user_id) or record
     return ThreadResponse(
         thread_id=thread_id,
         status=record.get("status", "idle"),
@@ -361,8 +399,9 @@ async def get_thread(thread_id: str, request: Request) -> ThreadResponse:
 
     thread_store = get_thread_store(request)
     checkpointer = get_checkpointer(request)
+    current_user_id = _get_user_id(request)
 
-    record: dict | None = await thread_store.get(thread_id)
+    record: dict | None = await thread_store.get(thread_id, user_id=current_user_id)
 
     # Derive accurate status from the checkpointer
     config = {"configurable": {"thread_id": thread_id, "checkpoint_ns": ""}}
@@ -472,6 +511,7 @@ async def update_thread_state(thread_id: str, body: ThreadStateUpdateRequest, re
 
     checkpointer = get_checkpointer(request)
     thread_store = get_thread_store(request)
+    current_user_id = _get_user_id(request)
 
     # checkpoint_ns must be present in the config for aput — default to ""
     # (the root graph namespace).  checkpoint_id is optional; omitting it
@@ -535,7 +575,7 @@ async def update_thread_state(thread_id: str, body: ThreadStateUpdateRequest, re
         new_title = body.values["title"]
         if new_title:  # Skip empty strings and None
             try:
-                await thread_store.update_display_name(thread_id, new_title)
+                await thread_store.update_display_name(thread_id, new_title, user_id=current_user_id)
             except Exception:
                 logger.debug("Failed to sync title to thread_meta for %s (non-fatal)", sanitize_log_param(thread_id))
 

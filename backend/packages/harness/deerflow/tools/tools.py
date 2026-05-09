@@ -35,7 +35,7 @@ def _is_host_bash_tool(tool: object) -> bool:
 
 def get_available_tools(
     groups: list[str] | None = None,
-    include_mcp: bool = True,
+    include_mcp: bool = False,
     model_name: str | None = None,
     subagent_enabled: bool = False,
     *,
@@ -48,7 +48,7 @@ def get_available_tools(
 
     Args:
         groups: Optional list of tool groups to filter by.
-        include_mcp: Whether to include tools from MCP servers (default: True).
+        include_mcp: Whether to include tools from MCP servers (default: False).
         model_name: Optional model name to determine if vision tools should be included.
         subagent_enabled: Whether to include subagent tools (task, task_status).
 
