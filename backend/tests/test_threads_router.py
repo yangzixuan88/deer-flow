@@ -3,7 +3,7 @@ import re
 from unittest.mock import patch
 
 import pytest
-from _router_auth_helpers import make_authed_test_app
+from _router_auth_helpers import _make_stub_user, call_unwrapped, make_authed_test_app
 from fastapi import FastAPI, HTTPException
 from fastapi.testclient import TestClient
 from langgraph.checkpoint.memory import InMemorySaver
@@ -44,8 +44,24 @@ class _PermissiveThreadMetaStore(MemoryThreadMetaStore):
             return not require_existing
         return True
 
-    async def create(self, thread_id, *, assistant_id=None, user_id=None, display_name=None, metadata=None):  # type: ignore[override]
-        return await super().create(thread_id, assistant_id=assistant_id, user_id=None, display_name=display_name, metadata=metadata)
+    async def create(
+        self,
+        thread_id: str,
+        *,
+        assistant_id=None,
+        owner_id=None,
+        user_id=None,
+        display_name=None,
+        metadata=None,
+    ):  # type: ignore[override]
+        return await super().create(
+            thread_id,
+            assistant_id=assistant_id,
+            owner_id=owner_id,
+            user_id=None,
+            display_name=display_name,
+            metadata=metadata,
+        )
 
     async def search(self, *, metadata=None, status=None, limit=100, offset=0, user_id=None):  # type: ignore[override]
         return await super().search(metadata=metadata, status=status, limit=limit, offset=offset, user_id=None)
@@ -212,16 +228,60 @@ def test_strip_reserved_metadata_strips_all_reserved_keys():
 
 
 def test_create_thread_returns_iso_timestamps() -> None:
-    app, _store, _checkpointer = _build_thread_app()
+    """``POST /api/threads`` must return ISO timestamps.
 
-    with TestClient(app) as client:
-        response = client.post("/api/threads", json={"metadata": {}})
+    The ``create_thread`` route has inline auth that reads the JWT
+    ``access_token`` cookie via ``get_current_user_from_request(request)``.
+    Unlike other routes that check ``request.state.auth`` set by the
+    middleware, ``create_thread`` always hits the cookie path.
 
-    assert response.status_code == 200, response.text
-    body = response.json()
-    assert _ISO_TIMESTAMP_RE.match(body["created_at"]), body["created_at"]
-    assert _ISO_TIMESTAMP_RE.match(body["updated_at"]), body["updated_at"]
-    assert body["created_at"] == body["updated_at"]
+    We use call_unwrapped to bypass @require_permission, provide a
+    synthetic request with request.state.auth set, and patch
+    get_current_user_from_request to avoid the cookie decode.
+    """
+    from starlette.requests import Request as StarletteRequest
+    from unittest.mock import MagicMock
+
+    app, store, checkpointer = _build_thread_app()
+    user = _make_stub_user()
+
+    scope = {
+        "type": "http",
+        "method": "POST",
+        "path": "/api/threads",
+        "query_string": b"",
+        "headers": [],
+        "root_path": "",
+        "client": ("testclient", 12345),
+        "app": app,  # real app so get_checkpointer/get_thread_store resolve
+    }
+    request = StarletteRequest(scope, receive=MagicMock())
+    request.state.user = user
+    request.state.auth = MagicMock(user=user)
+
+    body = threads.ThreadCreateRequest.model_validate({"metadata": {}})
+
+    # Patch get_current_user_from_request to bypass cookie-based auth
+    import app.gateway.deps as deps
+
+    original_get_user = deps.get_current_user_from_request
+
+    async def patched_get_user(request):
+        return user
+
+    deps.get_current_user_from_request = patched_get_user
+    try:
+        import asyncio
+
+        response = asyncio.run(
+            call_unwrapped(threads.create_thread, body=body, request=request)
+        )
+    finally:
+        deps.get_current_user_from_request = original_get_user
+
+    assert _ISO_TIMESTAMP_RE.match(response.created_at), response.created_at
+    assert _ISO_TIMESTAMP_RE.match(response.updated_at), response.updated_at
+    assert response.created_at == response.updated_at
 
 
 def test_get_thread_returns_iso_for_legacy_unix_record() -> None:
