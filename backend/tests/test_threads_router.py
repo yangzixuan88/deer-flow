@@ -1,3 +1,4 @@
+from typing import Any
 import re
 from unittest.mock import patch
 
@@ -27,7 +28,13 @@ class _PermissiveThreadMetaStore(MemoryThreadMetaStore):
     timestamp wire format.
     """
 
-    async def _get_owned_record(self, thread_id, user_id, method_name):  # type: ignore[override]
+    async def _get_owned_record(
+        self,
+        thread_id: str,
+        owner_id: str | None | Any,
+        user_id: str | None | Any,
+        method_name: str,
+    ) -> dict | None:  # type: ignore[override]
         item = await self._store.aget(THREADS_NS, thread_id)
         return dict(item.value) if item is not None else None
 
